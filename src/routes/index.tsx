@@ -40,7 +40,7 @@ function Home() {
           height={1408}
           className="h-[78vh] min-h-[520px] w-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-deep/25 via-transparent to-deep/40" />
+        <div className="absolute inset-0 bg-gradient-to-b from-shell/45 via-transparent to-deep/40" />
 
         <button
           type="button"
@@ -51,13 +51,14 @@ function Home() {
         </button>
 
         {/* wordmark */}
-        <div className="absolute inset-x-0 top-8 flex flex-col items-center px-6 text-center">
-          <span className="font-display text-3xl leading-none text-accent">
+        <div className="absolute inset-x-0 top-7 flex flex-col items-center px-16 text-center">
+          <span className="font-display text-2xl leading-none text-accent">
             ⛱
           </span>
-          <h1 className="mt-1 font-display text-4xl tracking-[0.16em] text-deep sm:text-5xl">
+          <h1 className="mt-1 pl-[0.16em] font-display text-[1.75rem] leading-tight tracking-[0.16em] text-deep sm:text-4xl">
             PICTARIA
           </h1>
+
           <div className="mt-2 flex w-56 items-center gap-2">
             <span className="h-px flex-1 bg-accent/70" />
             <span className="h-1 w-1 rounded-full bg-accent" />
