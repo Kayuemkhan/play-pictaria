@@ -11,6 +11,7 @@ import turtle10 from "@/assets/turtle-10.jpg";
 import coverReef from "@/assets/cover-reef.jpg";
 import coverBlooms from "@/assets/cover-blooms.jpg";
 import coverShores from "@/assets/cover-shores.jpg";
+import flowerHibiscus from "@/assets/flower-hibiscus.jpg";
 
 export interface Puzzle {
   id: string;
@@ -42,11 +43,18 @@ export const collections: Collection[] = [
     free: true,
     puzzles: [
       {
+        id: "flower-01",
+        title: "Hibiscus",
+        caption: "Dew on coral petals",
+        image: flowerHibiscus,
+      },
+      {
         id: "turtle-01",
         title: "Sunbeams",
         caption: "Gliding through morning light",
         image: turtle01,
       },
+
       {
         id: "turtle-02",
         title: "White Sand",
