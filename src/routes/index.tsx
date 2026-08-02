@@ -216,50 +216,7 @@ function Home() {
         </div>
       </section>
 
-      {/* bottom nav */}
-      <nav className="fixed inset-x-3 bottom-3 z-20 mx-auto max-w-md rounded-3xl bg-deep/95 px-2 py-3 shadow-lift backdrop-blur">
-        <ul className="grid grid-cols-4 text-center">
-          <li>
-            <Link
-              to="/"
-              className="flex flex-col items-center gap-1 text-accent"
-            >
-              <HomeIcon className="h-5 w-5" strokeWidth={1.5} />
-              <span className="text-[10px] tracking-wide">Home</span>
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/collection/$collectionId"
-              params={{ collectionId: freeCollection.id }}
-
-              className="flex flex-col items-center gap-1 text-deep-foreground/60 transition-colors hover:text-deep-foreground"
-            >
-              <LayoutGrid className="h-5 w-5" strokeWidth={1.5} />
-              <span className="text-[10px] tracking-wide">Library</span>
-            </Link>
-          </li>
-          <li>
-            <button
-              type="button"
-              className="flex w-full flex-col items-center gap-1 text-deep-foreground/40"
-            >
-              <Heart className="h-5 w-5" strokeWidth={1.5} />
-              <span className="text-[10px] tracking-wide">Favorites</span>
-            </button>
-          </li>
-          <li>
-            <button
-              type="button"
-              className="flex w-full flex-col items-center gap-1 text-deep-foreground/40"
-            >
-              <User className="h-5 w-5" strokeWidth={1.5} />
-              <span className="text-[10px] tracking-wide">Profile</span>
-            </button>
-          </li>
-
-        </ul>
-      </nav>
     </main>
+
   );
 }
