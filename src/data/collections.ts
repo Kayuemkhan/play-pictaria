@@ -349,7 +349,47 @@ export const collections: Collection[] = [
       },
     ],
   },
+  {
+    id: "four-seasons-maui",
+    title: "Four Seasons Maui",
+    tagline: "Wailea, as their photographers see it",
+    cover: fsmResortCove.url,
+    free: true,
+    puzzles: [
+      {
+        id: "fsm-01",
+        title: "Wailea",
+        caption: "Sunrise over the resort cove",
+        image: fsmResortCove.url,
+      },
+      {
+        id: "fsm-02",
+        title: "Infinity",
+        caption: "Palms and dusk at the edge pool",
+        image: fsmInfinitySunset.url,
+      },
+      {
+        id: "fsm-03",
+        title: "Poolside",
+        caption: "Umbrellas, salads, and open ocean",
+        image: fsmPoolCaviar.url,
+      },
+      {
+        id: "fsm-04",
+        title: "Outrigger",
+        caption: "Carrying the canoe to the shore break",
+        image: fsmCanoeGirls.url,
+      },
+      {
+        id: "fsm-05",
+        title: "Warrior",
+        caption: "Morning practice on the sand",
+        image: fsmBeachYoga.url,
+      },
+    ],
+  },
 ];
+
 
 export const freeCollection = collections[0]!;
 
