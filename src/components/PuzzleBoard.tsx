@@ -171,7 +171,7 @@ export function PuzzleBoard({
   /* jumble */
   useEffect(() => {
     if (!aspect) return;
-    const p = shufflePositions(total);
+    const p = shufflePositions(total, grid);
     const init = Array.from({ length: total }, (_, i) => i);
     setPos(p);
     setGroupOf(mergePass(p, init).groups);
