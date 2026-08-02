@@ -56,6 +56,12 @@ export function PuzzleBoard({
   const [seconds, setSeconds] = useState(0);
   const [solved, setSolved] = useState(false);
 
+  const [drag, setDrag] = useState<{
+    cell: number;
+    x: number;
+    y: number;
+  } | null>(null);
+
   const viewRef = useRef<View>(view);
   viewRef.current = view;
   const panRef = useRef<{
@@ -64,8 +70,28 @@ export function PuzzleBoard({
     moved: boolean;
     cell: number | null;
   } | null>(null);
+  const dragRef = useRef<{ cell: number } | null>(null);
   const pinchRef = useRef<{ dist: number; s: number } | null>(null);
   const pointersRef = useRef<Map<number, { x: number; y: number }>>(new Map());
+
+  /** cell index under a client point, or null */
+  const cellAtPoint = useCallback(
+    (clientX: number, clientY: number) => {
+      const el = viewportRef.current;
+      if (!el) return null;
+      const rect = el.getBoundingClientRect();
+      const v = viewRef.current;
+      const wx = (clientX - rect.left - v.tx) / v.s;
+      const wy = (clientY - rect.top - v.ty) / v.s;
+      if (wx < 0 || wy < 0 || wx >= WORLD_W) return null;
+      const col = Math.floor(wx / (WORLD_W / grid));
+      const row = Math.floor(wy / (worldHRef.current / grid));
+      if (col < 0 || col >= grid || row < 0 || row >= grid) return null;
+      return row * grid + col;
+    },
+    [grid],
+  );
+
 
   const worldH = aspect ? WORLD_W / aspect : WORLD_W;
   const total = grid * grid;
