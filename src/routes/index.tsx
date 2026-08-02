@@ -206,8 +206,9 @@ function Home() {
           </li>
           <li>
             <Link
-              to="/puzzle/$puzzleId"
-              params={{ puzzleId: firstPuzzle.id }}
+              to="/collection/$collectionId"
+              params={{ collectionId: freeCollection.id }}
+
               className="flex flex-col items-center gap-1 text-deep-foreground/60 transition-colors hover:text-deep-foreground"
             >
               <LayoutGrid className="h-5 w-5" strokeWidth={1.5} />
