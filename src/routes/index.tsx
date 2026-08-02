@@ -74,8 +74,9 @@ function Home() {
             <span className="h-px flex-1 bg-accent/70" />
           </div>
           <p className="mt-2.5 text-[11px] tracking-[0.38em] text-accent uppercase [text-shadow:0_1px_10px_oklch(0.2_0.05_230/0.8)]">
-            Turn your pictures into play
+            Turn pictures into play
           </p>
+
         </div>
 
 
