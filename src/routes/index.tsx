@@ -31,7 +31,7 @@ function Home() {
   const firstPuzzle = freeCollection.puzzles[0]!;
 
   return (
-    <main className="min-h-screen bg-deep pb-32">
+    <main className="min-h-screen bg-deep pb-8">
       {/* hero */}
       <section className="relative overflow-hidden">
         <img
