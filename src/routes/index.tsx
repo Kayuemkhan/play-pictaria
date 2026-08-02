@@ -8,13 +8,13 @@ import palmLogo from "@/assets/logo-palms.png";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Pictaria — Turn Pictures Into Play" },
+      { title: "Pictaria — Turn Your Pictures Into Play" },
       {
         name: "description",
         content:
           "Pictaria turns beautiful photography into calming jigsaw puzzles. Ten free sea turtle puzzles, four difficulty levels, no clutter.",
       },
-      { property: "og:title", content: "Pictaria — Turn Pictures Into Play" },
+      { property: "og:title", content: "Pictaria — Turn Your Pictures Into Play" },
       {
         property: "og:description",
         content:
