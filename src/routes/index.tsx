@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Heart, Home as HomeIcon, LayoutGrid, Menu, User } from "lucide-react";
+import { Menu, Search } from "lucide-react";
 import { collections, freeCollection } from "@/data/collections";
 import { HeroPuzzle } from "@/components/HeroPuzzle";
 import heroImage from "@/assets/hero-sunset.jpg";
@@ -31,7 +31,7 @@ function Home() {
   const firstPuzzle = freeCollection.puzzles[0]!;
 
   return (
-    <main className="min-h-screen bg-deep pb-32">
+    <main className="min-h-screen bg-deep pb-8">
       {/* hero */}
       <section className="relative overflow-hidden">
         <img
@@ -43,13 +43,23 @@ function Home() {
         />
         <div className="absolute inset-0 bg-gradient-to-b from-deep/75 via-transparent to-deep/40" />
 
-        <button
-          type="button"
-          aria-label="Menu"
-          className="absolute top-5 left-5 grid h-11 w-11 place-items-center rounded-full bg-deep/80 text-accent backdrop-blur-sm transition-transform hover:scale-105"
-        >
-          <Menu className="h-5 w-5" strokeWidth={1.5} />
-        </button>
+        <div className="absolute top-5 right-5 left-5 z-[5] flex items-center justify-between">
+          <button
+            type="button"
+            aria-label="Menu"
+            className="grid h-11 w-11 place-items-center rounded-full bg-deep/80 text-accent backdrop-blur-sm transition-transform hover:scale-105"
+          >
+            <Menu className="h-5 w-5" strokeWidth={1.5} />
+          </button>
+          <button
+            type="button"
+            aria-label="Search puzzles"
+            className="grid h-11 w-11 place-items-center rounded-full bg-deep/80 text-accent backdrop-blur-sm transition-transform hover:scale-105"
+          >
+            <Search className="h-5 w-5" strokeWidth={1.5} />
+          </button>
+        </div>
+
 
         {/* wordmark */}
         <div className="absolute inset-x-0 top-4 flex flex-col items-center px-8 text-center">
@@ -109,7 +119,7 @@ function Home() {
       </section>
 
       {/* panel */}
-      <section className="relative rounded-t-[28px] bg-shell px-4 pt-6 pb-8 sm:px-8">
+      <section className="relative rounded-t-lg bg-shell px-4 pt-6 pb-8 sm:px-8">
         <div className="mx-auto w-full max-w-5xl">
           <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4">
             <h2 className="min-w-0 truncate font-display text-base tracking-[0.2em] text-foreground uppercase">
@@ -216,50 +226,7 @@ function Home() {
         </div>
       </section>
 
-      {/* bottom nav */}
-      <nav className="fixed inset-x-3 bottom-3 z-20 mx-auto max-w-md rounded-3xl bg-deep/95 px-2 py-3 shadow-lift backdrop-blur">
-        <ul className="grid grid-cols-4 text-center">
-          <li>
-            <Link
-              to="/"
-              className="flex flex-col items-center gap-1 text-accent"
-            >
-              <HomeIcon className="h-5 w-5" strokeWidth={1.5} />
-              <span className="text-[10px] tracking-wide">Home</span>
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/collection/$collectionId"
-              params={{ collectionId: freeCollection.id }}
-
-              className="flex flex-col items-center gap-1 text-deep-foreground/60 transition-colors hover:text-deep-foreground"
-            >
-              <LayoutGrid className="h-5 w-5" strokeWidth={1.5} />
-              <span className="text-[10px] tracking-wide">Library</span>
-            </Link>
-          </li>
-          <li>
-            <button
-              type="button"
-              className="flex w-full flex-col items-center gap-1 text-deep-foreground/40"
-            >
-              <Heart className="h-5 w-5" strokeWidth={1.5} />
-              <span className="text-[10px] tracking-wide">Favorites</span>
-            </button>
-          </li>
-          <li>
-            <button
-              type="button"
-              className="flex w-full flex-col items-center gap-1 text-deep-foreground/40"
-            >
-              <User className="h-5 w-5" strokeWidth={1.5} />
-              <span className="text-[10px] tracking-wide">Profile</span>
-            </button>
-          </li>
-
-        </ul>
-      </nav>
     </main>
+
   );
 }
