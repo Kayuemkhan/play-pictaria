@@ -279,7 +279,9 @@ export function PuzzleBoard({
           cell: dragRef.current.cell,
           x: e.clientX - rect.left,
           y: e.clientY - rect.top,
+          hover: cellAtPoint(e.clientX, e.clientY),
         });
+
         return;
       }
       setView((v) => ({ ...v, tx: v.tx + dx, ty: v.ty + dy }));
