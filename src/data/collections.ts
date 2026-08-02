@@ -208,6 +208,6 @@ export interface Difficulty {
 export const difficulties: Difficulty[] = [
   { grid: 3, label: "Relaxing", note: "9 pieces" },
   { grid: 4, label: "Engaging", note: "16 pieces" },
-  { grid: 5, label: "Challenging", note: "25 pieces" },
-  { grid: 6, label: "Intriguing", note: "36 pieces" },
+  { grid: 5, label: "Intriguing", note: "25 pieces" },
+  { grid: 6, label: "Challenging", note: "36 pieces" },
 ];
