@@ -66,6 +66,7 @@ function CollectionPage() {
               key={puzzle.id}
               to="/puzzle/$puzzleId"
               params={{ puzzleId: puzzle.id }}
+              search={{ grid: undefined }}
               className="group relative block overflow-hidden rounded-2xl shadow-soft transition-shadow duration-500 hover:shadow-lift"
             >
               <img

@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { ArrowLeft, ImagePlus, Sparkles } from "lucide-react";
+import { ArrowLeft, ImagePlus, Sparkles, X } from "lucide-react";
 import { HeroPuzzle, type HeroCorner } from "@/components/HeroPuzzle";
 import { PuzzleBoard } from "@/components/PuzzleBoard";
 import { difficulties } from "@/data/collections";
@@ -12,7 +12,7 @@ export const Route = createFileRoute("/create")({
       {
         name: "description",
         content:
-          "Upload your own photograph and Pictaria turns it into an elegant hero puzzle — a third of the picture left beautifully unsolved, ready for social, email and play.",
+          "Upload your own photography and Pictaria composes an elegant hero puzzle plus a branded storybook — ready for social, email and play.",
       },
       {
         property: "og:title",
@@ -21,7 +21,7 @@ export const Route = createFileRoute("/create")({
       {
         property: "og:description",
         content:
-          "Bring your own photograph. Pictaria composes it into a hero puzzle you can play and share.",
+          "Bring your own photographs. Pictaria composes them into a branded storybook of playable puzzles.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -37,41 +37,61 @@ const corners: { value: HeroCorner; label: string }[] = [
   { value: "top-right", label: "Upper right" },
 ];
 
+interface Photo {
+  id: string;
+  url: string;
+}
+
 function CreatePage() {
-  const [src, setSrc] = useState<string | null>(null);
-  const [brand, setBrand] = useState("");
-  const [headline, setHeadline] = useState("Can you solve today's picture?");
+  const [photos, setPhotos] = useState<Photo[]>([]);
+  const [heroIndex, setHeroIndex] = useState(0);
+  const [brand, setBrand] = useState("Four Seasons Maui");
+  const [headline, setHeadline] = useState("Can you solve today's Wailea?");
   const [corner, setCorner] = useState<HeroCorner>("bottom-left");
   const [wedge, setWedge] = useState(5);
   const [animated, setAnimated] = useState(true);
-  const [grid, setGrid] = useState<number | null>(null);
+  const [playing, setPlaying] = useState<{ url: string; grid: number } | null>(
+    null,
+  );
   const fileInput = useRef<HTMLInputElement>(null);
-  const urlRef = useRef<string | null>(null);
+  const urls = useRef<string[]>([]);
 
   useEffect(
     () => () => {
-      if (urlRef.current) URL.revokeObjectURL(urlRef.current);
+      urls.current.forEach((u) => URL.revokeObjectURL(u));
     },
     [],
   );
 
-  const pick = (file: File | undefined) => {
-    if (!file) return;
-    if (urlRef.current) URL.revokeObjectURL(urlRef.current);
-    const url = URL.createObjectURL(file);
-    urlRef.current = url;
-    setSrc(url);
+  const add = (files: FileList | null) => {
+    if (!files || !files.length) return;
+    const next = Array.from(files).map((file, i) => {
+      const url = URL.createObjectURL(file);
+      urls.current.push(url);
+      return { id: `${Date.now()}-${i}-${file.name}`, url };
+    });
+    setPhotos((prev) => [...prev, ...next]);
   };
 
-  if (src && grid) {
+  const remove = (id: string) => {
+    setPhotos((prev) => {
+      const kept = prev.filter((p) => p.id !== id);
+      setHeroIndex((h) => Math.min(h, Math.max(kept.length - 1, 0)));
+      return kept;
+    });
+  };
+
+  const hero = photos[heroIndex] ?? photos[0];
+
+  if (playing) {
     return (
       <PuzzleBoard
-        key={`custom-${grid}`}
-        src={src}
+        key={`${playing.url}-${playing.grid}`}
+        src={playing.url}
         title={brand.trim() || "Your picture"}
-        grid={grid}
-        onExit={() => setGrid(null)}
-        onChangeDifficulty={() => setGrid(null)}
+        grid={playing.grid}
+        onExit={() => setPlaying(null)}
+        onChangeDifficulty={() => setPlaying(null)}
       />
     );
   }
@@ -91,7 +111,7 @@ function CreatePage() {
             Create Your Story
           </h1>
           <p className="text-[10px] tracking-[0.22em] text-muted-foreground uppercase">
-            Bring your own photograph
+            Bring your own photography
           </p>
         </div>
       </header>
@@ -101,22 +121,23 @@ function CreatePage() {
         <section>
           <div className="relative overflow-hidden rounded-[26px] bg-deep shadow-lift">
             <div className="relative aspect-[3/4] w-full">
-              {src ? (
+              {hero ? (
                 <>
                   <img
-                    src={src}
-                    alt="Your uploaded photograph, composed as a Pictaria hero puzzle"
+                    src={hero.url}
+                    alt={`${brand.trim() || "Your"} hero photograph composed as a Pictaria puzzle`}
                     className="h-full w-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-b from-deep/70 via-transparent to-deep/35" />
                   <HeroPuzzle
-                    src={src}
+                    key={hero.id}
+                    src={hero.url}
                     corner={corner}
                     wedge={wedge}
                     animated={animated}
                   />
                   <div className="absolute inset-x-0 top-5 z-[4] px-6 text-center">
-                    <p className="font-display text-[1.35rem] leading-tight tracking-[0.18em] text-shell uppercase">
+                    <p className="font-display text-[1.3rem] leading-tight tracking-[0.16em] text-shell uppercase">
                       {brand.trim() || "Your brand"}
                     </p>
                     <div className="mx-auto mt-2 flex w-40 items-center gap-2">
@@ -144,30 +165,23 @@ function CreatePage() {
                 >
                   <ImagePlus className="h-8 w-8" strokeWidth={1.25} />
                   <span className="text-[10px] tracking-[0.24em] uppercase">
-                    Choose a photograph
+                    Add photographs
                   </span>
                   <span className="max-w-[16rem] text-center text-[10px] leading-relaxed tracking-[0.12em] text-deep-foreground/45 uppercase">
-                    Portrait pictures look best
+                    Portrait pictures look best — choose several at once
                   </span>
                 </button>
               )}
             </div>
           </div>
 
-          {src && (
+          {hero && (
             <div className="mt-3 flex flex-wrap gap-2">
-              <button
-                type="button"
-                onClick={() => fileInput.current?.click()}
-                className="rounded-full border border-border px-3.5 py-1.5 text-[0.6rem] tracking-[0.18em] text-muted-foreground uppercase transition-colors hover:text-foreground"
-              >
-                Replace photo
-              </button>
               {difficulties.map((d) => (
                 <button
                   key={d.grid}
                   type="button"
-                  onClick={() => setGrid(d.grid)}
+                  onClick={() => setPlaying({ url: hero.url, grid: d.grid })}
                   className="rounded-full bg-deep px-3.5 py-1.5 text-[0.6rem] tracking-[0.18em] text-accent uppercase shadow-soft transition-transform hover:scale-[1.03]"
                 >
                   Play {d.grid}×{d.grid}
@@ -183,8 +197,12 @@ function CreatePage() {
             ref={fileInput}
             type="file"
             accept="image/*"
+            multiple
             className="sr-only"
-            onChange={(e) => pick(e.target.files?.[0])}
+            onChange={(e) => {
+              add(e.target.files);
+              e.target.value = "";
+            }}
           />
 
           <h2 className="font-display text-base tracking-[0.2em] uppercase">
@@ -198,7 +216,7 @@ function CreatePage() {
               <input
                 value={brand}
                 onChange={(e) => setBrand(e.target.value)}
-                placeholder="Kailua Bicycle Co."
+                placeholder="Four Seasons Maui"
                 className="rounded-xl border border-border bg-background px-3 py-2 text-sm outline-none focus:border-accent"
               />
             </label>
@@ -265,16 +283,77 @@ function CreatePage() {
             </label>
           </div>
 
+          {/* storybook */}
+          <div className="mt-7">
+            <div className="flex items-center justify-between gap-3">
+              <h3 className="font-display text-base tracking-[0.2em] uppercase">
+                {brand.trim() || "Your"} storybook
+              </h3>
+              <button
+                type="button"
+                onClick={() => fileInput.current?.click()}
+                className="shrink-0 rounded-full border border-border px-3.5 py-1.5 text-[0.6rem] tracking-[0.18em] text-muted-foreground uppercase transition-colors hover:text-foreground"
+              >
+                Add photos
+              </button>
+            </div>
+            <p className="mt-2 text-[10px] tracking-[0.18em] text-muted-foreground uppercase">
+              {photos.length
+                ? `${photos.length} ${photos.length === 1 ? "picture" : "pictures"} — tap one to make it the hero`
+                : "Add their own photographs here"}
+            </p>
+
+            {photos.length > 0 && (
+              <div className="mt-3 grid grid-cols-3 gap-2 sm:grid-cols-4">
+                {photos.map((photo, i) => (
+                  <div key={photo.id} className="relative">
+                    <button
+                      type="button"
+                      onClick={() => setHeroIndex(i)}
+                      className={`block w-full overflow-hidden rounded-xl transition-shadow ${
+                        i === heroIndex
+                          ? "ring-2 ring-accent"
+                          : "shadow-soft hover:shadow-lift"
+                      }`}
+                    >
+                      <img
+                        src={photo.url}
+                        alt=""
+                        className="aspect-[3/4] w-full object-cover"
+                      />
+                    </button>
+                    <button
+                      type="button"
+                      aria-label="Remove picture"
+                      onClick={() => remove(photo.id)}
+                      className="absolute top-1 right-1 grid h-6 w-6 place-items-center rounded-full bg-deep/85 text-shell transition-transform hover:scale-105"
+                    >
+                      <X className="h-3 w-3" strokeWidth={2} />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setPlaying({ url: photo.url, grid: 4 })}
+                      className="mt-1 w-full text-[0.55rem] tracking-[0.18em] text-muted-foreground uppercase transition-colors hover:text-foreground"
+                    >
+                      Play
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
           <div className="mt-6 rounded-2xl bg-deep/5 p-4">
             <p className="flex items-center gap-2 text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
               <Sparkles className="h-3.5 w-3.5 text-accent" strokeWidth={1.5} />
               For your clientele
             </p>
             <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-              Turn the animation off for email — mail apps show a still image, so
-              the jumbled corner does the work. Keep it on for your website and
-              social posts. Shareable links and QR codes come next, so a
-              customer can scan or tap and play your picture themselves.
+              Drop in a resort&rsquo;s own photography and the whole storybook
+              becomes theirs. Turn the animation off for email — mail apps show a
+              still image, so the jumbled corner does the work. Keep it on for
+              the website and social posts. Shareable links and QR codes come
+              next, so a guest can scan or tap and play the picture themselves.
             </p>
           </div>
         </section>
