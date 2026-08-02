@@ -3,6 +3,7 @@ import { Heart, Home as HomeIcon, LayoutGrid, Menu, User } from "lucide-react";
 import { collections, freeCollection } from "@/data/collections";
 import { TileMosaic } from "@/components/TileMosaic";
 import heroImage from "@/assets/hero-sunset.jpg";
+import palmLogo from "@/assets/logo-palms.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -51,27 +52,32 @@ function Home() {
         </button>
 
         {/* wordmark */}
-        <div className="absolute inset-x-0 top-7 flex flex-col items-center px-10 text-center">
+        <div className="absolute inset-x-0 top-6 flex flex-col items-center px-10 text-center">
           <div
             aria-hidden
-            className="pointer-events-none absolute -top-20 left-1/2 h-64 w-[140%] -translate-x-1/2 rounded-[50%] bg-deep/45 blur-2xl"
+            className="pointer-events-none absolute -top-24 left-1/2 h-72 w-[150%] -translate-x-1/2 rounded-[50%] bg-deep/50 blur-2xl"
           />
-          <span className="font-display text-2xl leading-none text-accent">
-            ⛱
-          </span>
-          <h1 className="mt-1 pl-[0.16em] font-display text-[1.75rem] leading-tight tracking-[0.16em] text-shell sm:text-4xl">
+          <img
+            src={palmLogo}
+            alt="Pictaria — two gold palm trees"
+            width={1024}
+            height={768}
+            className="h-16 w-auto drop-shadow-[0_2px_10px_oklch(0.2_0.05_230/0.55)] sm:h-20"
+          />
+          <h1 className="-mt-2 pl-[0.18em] font-display text-[1.9rem] leading-tight tracking-[0.22em] text-shell sm:text-[2.6rem]">
             PICTARIA
           </h1>
 
-          <div className="mt-2 flex w-56 items-center gap-2">
+          <div className="mt-2 flex w-60 items-center gap-2">
             <span className="h-px flex-1 bg-accent/70" />
-            <span className="h-1 w-1 rounded-full bg-accent" />
+            <span className="h-1 w-1 rotate-45 bg-accent" />
             <span className="h-px flex-1 bg-accent/70" />
           </div>
-          <p className="mt-2 text-[10px] tracking-[0.32em] text-accent uppercase">
+          <p className="mt-2 text-[10px] tracking-[0.36em] text-accent uppercase">
             Turn pictures into play
           </p>
         </div>
+
 
         {/* headline + CTA */}
         <div className="absolute top-[30%] left-5 max-w-[62%] sm:left-10">
