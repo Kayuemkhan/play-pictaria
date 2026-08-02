@@ -60,7 +60,9 @@ export function PuzzleBoard({
     cell: number;
     x: number;
     y: number;
+    hover: number | null;
   } | null>(null);
+
 
   const viewRef = useRef<View>(view);
   viewRef.current = view;
