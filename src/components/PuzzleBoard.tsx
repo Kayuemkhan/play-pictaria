@@ -200,7 +200,13 @@ export function PuzzleBoard({
       };
       return;
     }
-    panRef.current = { x: e.clientX, y: e.clientY, moved: false };
+    const cellEl = (e.target as Element).closest("[data-cell]");
+    panRef.current = {
+      x: e.clientX,
+      y: e.clientY,
+      moved: false,
+      cell: cellEl ? Number(cellEl.getAttribute("data-cell")) : null,
+    };
   };
 
   const onPointerMove = (e: React.PointerEvent) => {
