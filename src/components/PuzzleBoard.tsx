@@ -431,7 +431,6 @@ export function PuzzleBoard({
             return (
               <svg
                 key={def.id}
-                data-piece={i}
                 width={w}
                 height={h}
                 viewBox={`0 0 ${w} ${h}`}
@@ -441,7 +440,7 @@ export function PuzzleBoard({
                   top: st.y - def.padY,
                   zIndex: st.locked ? 1 : st.z + 1,
                   overflow: "visible",
-                  cursor: st.locked ? "default" : "grab",
+                  pointerEvents: "none",
                   filter: st.locked
                     ? "none"
                     : `drop-shadow(${isDragging ? "0 10px 18px" : "0 4px 8px"} rgba(15,45,70,0.35))`,
@@ -475,7 +474,19 @@ export function PuzzleBoard({
                   stroke="rgba(255,255,255,0.45)"
                   strokeWidth={1.2}
                 />
+                {/* shape-accurate hit area, so overlapping pieces don't steal taps */}
+                <path
+                  data-piece={i}
+                  d={def.path}
+                  transform={`translate(${def.padX},${def.padY})`}
+                  fill="transparent"
+                  style={{
+                    pointerEvents: st.locked ? "none" : "all",
+                    cursor: "grab",
+                  }}
+                />
               </svg>
+
             );
           })}
         </div>
