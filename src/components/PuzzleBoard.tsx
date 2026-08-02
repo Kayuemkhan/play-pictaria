@@ -230,8 +230,9 @@ export function PuzzleBoard({
     if (panRef.current) {
       const dx = e.clientX - panRef.current.x;
       const dy = e.clientY - panRef.current.y;
+      panRef.current.x = e.clientX;
+      panRef.current.y = e.clientY;
       if (Math.abs(dx) + Math.abs(dy) > 2) panRef.current.moved = true;
-      panRef.current = { x: e.clientX, y: e.clientY, moved: panRef.current.moved };
       setView((v) => ({ ...v, tx: v.tx + dx, ty: v.ty + dy }));
     }
   };
@@ -242,8 +243,7 @@ export function PuzzleBoard({
     const pan = panRef.current;
     panRef.current = null;
     if (!pan || pan.moved) return;
-    const cellEl = (e.target as Element).closest("[data-cell]");
-    if (cellEl) tapCell(Number(cellEl.getAttribute("data-cell")));
+    if (pan.cell !== null) tapCell(pan.cell);
   };
 
   const remaining = locked.filter((v) => !v).length;
