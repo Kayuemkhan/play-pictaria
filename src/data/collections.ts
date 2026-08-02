@@ -8,9 +8,6 @@ import turtle07 from "@/assets/turtle-07.jpg";
 import turtle08 from "@/assets/turtle-08.jpg";
 import turtle09 from "@/assets/turtle-09.jpg";
 import turtle10 from "@/assets/turtle-10.jpg";
-import coverReef from "@/assets/cover-reef.jpg";
-import coverBlooms from "@/assets/cover-blooms.jpg";
-import coverShores from "@/assets/cover-shores.jpg";
 import flowerHibiscus from "@/assets/flower-hibiscus.jpg";
 import flowerHibiscusPink from "@/assets/flower-hibiscus-pink.jpg";
 import flowerPlumeria from "@/assets/flower-plumeria.jpg";
@@ -189,30 +186,6 @@ export const collections: Collection[] = [
         image: turtle10,
       },
     ],
-  },
-  {
-    id: "coral-reef",
-    title: "Coral Reef",
-    tagline: "Twelve reef gardens in bloom",
-    cover: coverReef,
-    free: false,
-    puzzles: [],
-  },
-  {
-    id: "island-blooms",
-    title: "Island Blooms",
-    tagline: "Plumeria, hibiscus, and quiet green",
-    cover: coverBlooms,
-    free: false,
-    puzzles: [],
-  },
-  {
-    id: "still-shores",
-    title: "Still Shores",
-    tagline: "Long horizons and soft light",
-    cover: coverShores,
-    free: false,
-    puzzles: [],
   },
 ];
 

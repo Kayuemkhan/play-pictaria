@@ -112,26 +112,24 @@ function Home() {
               Featured Pictarias
             </h2>
             <Link
-              to="/unlock"
+              to="/collection/$collectionId"
+              params={{ collectionId: freeCollection.id }}
               className="flex shrink-0 items-center gap-1 text-[11px] tracking-[0.18em] text-muted-foreground uppercase transition-colors hover:text-foreground"
             >
               View all <span aria-hidden>›</span>
             </Link>
           </div>
 
-          <div className="-mx-4 mt-4 flex snap-x gap-3 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-4 sm:overflow-visible sm:px-0">
+          <div className="-mx-4 mt-4 flex snap-x gap-3 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-3 sm:overflow-visible sm:px-0">
+
             {featured.map((collection) => {
-              const target = collection.puzzles.length
-                ? {
-                    to: "/collection/$collectionId",
-                    params: { collectionId: collection.id },
-                  }
-                : { to: "/unlock" };
               return (
                 <Link
                   key={collection.id}
-                  {...(target as { to: string })}
+                  to="/collection/$collectionId"
+                  params={{ collectionId: collection.id }}
                   className="tile-sheen group relative block w-[46%] shrink-0 snap-start overflow-hidden rounded-2xl shadow-soft transition-shadow duration-500 hover:shadow-lift sm:w-auto"
+
                 >
 
                   <img
@@ -182,11 +180,13 @@ function Home() {
                 </p>
               </div>
               <Link
-                to="/unlock"
+                to="/collection/$collectionId"
+                params={{ collectionId: freeCollection.id }}
                 className="justify-self-start rounded-full bg-deep px-6 py-3 text-[11px] tracking-[0.2em] text-accent uppercase shadow-lift transition-transform hover:scale-[1.03] sm:justify-self-end"
               >
                 Get started
               </Link>
+
             </div>
           </div>
         </div>
@@ -216,23 +216,24 @@ function Home() {
             </Link>
           </li>
           <li>
-            <Link
-              to="/unlock"
-              className="flex flex-col items-center gap-1 text-deep-foreground/60 transition-colors hover:text-deep-foreground"
+            <button
+              type="button"
+              className="flex w-full flex-col items-center gap-1 text-deep-foreground/40"
             >
               <Heart className="h-5 w-5" strokeWidth={1.5} />
               <span className="text-[10px] tracking-wide">Favorites</span>
-            </Link>
+            </button>
           </li>
           <li>
-            <Link
-              to="/unlock"
-              className="flex flex-col items-center gap-1 text-deep-foreground/60 transition-colors hover:text-deep-foreground"
+            <button
+              type="button"
+              className="flex w-full flex-col items-center gap-1 text-deep-foreground/40"
             >
               <User className="h-5 w-5" strokeWidth={1.5} />
               <span className="text-[10px] tracking-wide">Profile</span>
-            </Link>
+            </button>
           </li>
+
         </ul>
       </nav>
     </main>
