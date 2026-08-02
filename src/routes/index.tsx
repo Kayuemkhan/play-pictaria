@@ -121,8 +121,11 @@ function Home() {
 
           <div className="-mx-4 mt-4 flex snap-x gap-3 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-4 sm:overflow-visible sm:px-0">
             {featured.map((collection) => {
-              const target = collection.free
-                ? { to: "/puzzle/$puzzleId", params: { puzzleId: firstPuzzle.id } }
+              const target = collection.puzzles.length
+                ? {
+                    to: "/collection/$collectionId",
+                    params: { collectionId: collection.id },
+                  }
                 : { to: "/unlock" };
               return (
                 <Link
@@ -130,6 +133,7 @@ function Home() {
                   {...(target as { to: string })}
                   className="tile-sheen group relative block w-[46%] shrink-0 snap-start overflow-hidden rounded-2xl shadow-soft transition-shadow duration-500 hover:shadow-lift sm:w-auto"
                 >
+
                   <img
                     src={collection.cover}
                     alt={collection.title}
