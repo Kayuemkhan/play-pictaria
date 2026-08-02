@@ -19,6 +19,26 @@ import flowerOrchid from "@/assets/flower-orchid.jpg";
 import flowerBougainvillea from "@/assets/flower-bougainvillea.jpg";
 import flowerPassionflower from "@/assets/flower-passionflower.jpg";
 import flowerOhiaLehua from "@/assets/flower-ohia-lehua.jpg";
+import waterfall01 from "@/assets/waterfall-01.jpg";
+import waterfall02 from "@/assets/waterfall-02.jpg";
+import waterfall03 from "@/assets/waterfall-03.jpg";
+import waterfall04 from "@/assets/waterfall-04.jpg";
+import waterfall05 from "@/assets/waterfall-05.jpg";
+import waterfall06 from "@/assets/waterfall-06.jpg";
+import waterfall07 from "@/assets/waterfall-07.jpg";
+import waterfall08 from "@/assets/waterfall-08.jpg";
+import waterfall09 from "@/assets/waterfall-09.jpg";
+import waterfall10 from "@/assets/waterfall-10.jpg";
+import sunset01 from "@/assets/sunset-01.jpg";
+import sunset02 from "@/assets/sunset-02.jpg";
+import sunset03 from "@/assets/sunset-03.jpg";
+import sunset04 from "@/assets/sunset-04.jpg";
+import sunset05 from "@/assets/sunset-05.jpg";
+import sunset06 from "@/assets/sunset-06.jpg";
+import sunset07 from "@/assets/sunset-07.jpg";
+import sunset08 from "@/assets/sunset-08.jpg";
+import sunset09 from "@/assets/sunset-09.jpg";
+import sunset10 from "@/assets/sunset-10.jpg";
 import coverWaterfalls from "@/assets/cover-waterfalls.jpg";
 import coverSunsets from "@/assets/cover-sunsets.jpg";
 
@@ -194,20 +214,140 @@ export const collections: Collection[] = [
   {
     id: "waterfalls",
     title: "Waterfalls",
-    tagline: "Hidden cascades and jade pools",
+    tagline: "Ten hidden cascades and jade pools",
     cover: coverWaterfalls,
     free: true,
-    comingSoon: true,
-    puzzles: [],
+    puzzles: [
+      {
+        id: "waterfall-01",
+        title: "Emerald Veil",
+        caption: "A single fall into a jade pool",
+        image: waterfall01,
+      },
+      {
+        id: "waterfall-02",
+        title: "Twin Falls",
+        caption: "Two ribbons in a mossy canyon",
+        image: waterfall02,
+      },
+      {
+        id: "waterfall-03",
+        title: "Silk Curtain",
+        caption: "Smooth water over black basalt",
+        image: waterfall03,
+      },
+      {
+        id: "waterfall-04",
+        title: "Rainbow Grotto",
+        caption: "Light bending in the mist",
+        image: waterfall04,
+      },
+      {
+        id: "waterfall-05",
+        title: "Fern Steps",
+        caption: "A staircase of quiet water",
+        image: waterfall05,
+      },
+      {
+        id: "waterfall-06",
+        title: "Cathedral",
+        caption: "Looking up through the spray",
+        image: waterfall06,
+      },
+      {
+        id: "waterfall-07",
+        title: "Violet Hour",
+        caption: "Dusk over a still pool",
+        image: waterfall07,
+      },
+      {
+        id: "waterfall-08",
+        title: "Close Water",
+        caption: "Foam and moss in detail",
+        image: waterfall08,
+      },
+      {
+        id: "waterfall-09",
+        title: "Where Rivers Meet",
+        caption: "A fall onto black sand",
+        image: waterfall09,
+      },
+      {
+        id: "waterfall-10",
+        title: "Green Valley",
+        caption: "Clouds drifting past the ridge",
+        image: waterfall10,
+      },
+    ],
   },
   {
     id: "sunsets",
     title: "Sunsets",
-    tagline: "Gold hour over the islands",
+    tagline: "Ten gold hours over the islands",
     cover: coverSunsets,
     free: true,
-    comingSoon: true,
-    puzzles: [],
+    puzzles: [
+      {
+        id: "sunset-01",
+        title: "Palm Glow",
+        caption: "Gold through the fronds",
+        image: sunset01,
+      },
+      {
+        id: "sunset-02",
+        title: "Mirror Sand",
+        caption: "The sky on a wet shore",
+        image: sunset02,
+      },
+      {
+        id: "sunset-03",
+        title: "Cliff Fire",
+        caption: "Surf lit orange",
+        image: sunset03,
+      },
+      {
+        id: "sunset-04",
+        title: "Canoe Bay",
+        caption: "Pastel evening at anchor",
+        image: sunset04,
+      },
+      {
+        id: "sunset-05",
+        title: "Long Light",
+        caption: "One canoe on glass",
+        image: sunset05,
+      },
+      {
+        id: "sunset-06",
+        title: "Cloud Furnace",
+        caption: "Thunderheads lit from within",
+        image: sunset06,
+      },
+      {
+        id: "sunset-07",
+        title: "Garden Dusk",
+        caption: "Backlit petals at the shore",
+        image: sunset07,
+      },
+      {
+        id: "sunset-08",
+        title: "Surfacing",
+        caption: "A turtle in copper water",
+        image: sunset08,
+      },
+      {
+        id: "sunset-09",
+        title: "Ridge Line",
+        caption: "Layered blue silhouettes",
+        image: sunset09,
+      },
+      {
+        id: "sunset-10",
+        title: "Last Sliver",
+        caption: "Twilight over tide pools",
+        image: sunset10,
+      },
+    ],
   },
 ];
 
