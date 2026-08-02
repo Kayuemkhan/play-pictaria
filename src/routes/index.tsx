@@ -40,7 +40,7 @@ function Home() {
           height={1408}
           className="h-[78vh] min-h-[520px] w-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-shell/45 via-transparent to-deep/40" />
+        <div className="absolute inset-0 bg-gradient-to-b from-deep/75 via-transparent to-deep/40" />
 
         <button
           type="button"
@@ -54,12 +54,12 @@ function Home() {
         <div className="absolute inset-x-0 top-7 flex flex-col items-center px-10 text-center">
           <div
             aria-hidden
-            className="pointer-events-none absolute -top-16 left-1/2 h-64 w-[130%] -translate-x-1/2 rounded-[50%] bg-shell/45 blur-2xl"
+            className="pointer-events-none absolute -top-20 left-1/2 h-64 w-[140%] -translate-x-1/2 rounded-[50%] bg-deep/45 blur-2xl"
           />
           <span className="font-display text-2xl leading-none text-accent">
             ⛱
           </span>
-          <h1 className="mt-1 pl-[0.16em] font-display text-[1.75rem] leading-tight tracking-[0.16em] text-deep sm:text-4xl">
+          <h1 className="mt-1 pl-[0.16em] font-display text-[1.75rem] leading-tight tracking-[0.16em] text-shell sm:text-4xl">
             PICTARIA
           </h1>
 
