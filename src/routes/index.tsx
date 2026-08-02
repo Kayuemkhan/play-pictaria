@@ -30,7 +30,7 @@ function Home() {
   const firstPuzzle = freeCollection.puzzles[0]!;
 
   return (
-    <main className="min-h-screen bg-deep pb-24">
+    <main className="min-h-screen bg-deep pb-32">
       {/* hero */}
       <section className="relative overflow-hidden">
         <img
@@ -51,7 +51,11 @@ function Home() {
         </button>
 
         {/* wordmark */}
-        <div className="absolute inset-x-0 top-7 flex flex-col items-center px-16 text-center">
+        <div className="absolute inset-x-0 top-7 flex flex-col items-center px-10 text-center">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -top-16 left-1/2 h-64 w-[130%] -translate-x-1/2 rounded-[50%] bg-shell/45 blur-2xl"
+          />
           <span className="font-display text-2xl leading-none text-accent">
             ⛱
           </span>
