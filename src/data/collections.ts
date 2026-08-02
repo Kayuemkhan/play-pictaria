@@ -41,6 +41,11 @@ import sunset09 from "@/assets/sunset-09.jpg";
 import sunset10 from "@/assets/sunset-10.jpg";
 import coverWaterfalls from "@/assets/cover-waterfalls.jpg";
 import coverSunsets from "@/assets/cover-sunsets.jpg";
+import fsmResortCove from "@/assets/fsm-resort-cove.jpg.asset.json";
+import fsmInfinitySunset from "@/assets/fsm-infinity-sunset.jpg.asset.json";
+import fsmPoolCaviar from "@/assets/fsm-pool-caviar.jpg.asset.json";
+import fsmCanoeGirls from "@/assets/fsm-canoe-girls.jpg.asset.json";
+import fsmBeachYoga from "@/assets/fsm-beach-yoga.jpg.asset.json";
 
 export interface Puzzle {
   id: string;
