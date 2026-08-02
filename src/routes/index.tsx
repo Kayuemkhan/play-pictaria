@@ -84,17 +84,19 @@ function Home() {
           <p className="font-display text-3xl leading-tight text-deep sm:text-4xl">
             Can you solve
             <br />
-            tonight&rsquo;s sunset?
+            tonight&rsquo;s hibiscus?
           </p>
           <Link
             to="/puzzle/$puzzleId"
             params={{ puzzleId: firstPuzzle.id }}
+            search={{ grid: 3 }}
             className="mt-5 inline-flex items-center gap-2 rounded-full bg-deep px-6 py-3 text-sm tracking-[0.14em] text-accent uppercase shadow-lift transition-transform hover:scale-[1.03]"
           >
             Play now
             <span aria-hidden>›</span>
           </Link>
         </div>
+
 
         {/* unfinished tile puzzle */}
         <div className="absolute right-4 bottom-8 w-[46%] max-w-[260px] sm:right-8 sm:bottom-12">
