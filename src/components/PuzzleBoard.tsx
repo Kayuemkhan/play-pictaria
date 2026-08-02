@@ -56,6 +56,14 @@ export function PuzzleBoard({
   const [seconds, setSeconds] = useState(0);
   const [solved, setSolved] = useState(false);
 
+  const [drag, setDrag] = useState<{
+    cell: number;
+    x: number;
+    y: number;
+    hover: number | null;
+  } | null>(null);
+
+
   const viewRef = useRef<View>(view);
   viewRef.current = view;
   const panRef = useRef<{
@@ -64,6 +72,7 @@ export function PuzzleBoard({
     moved: boolean;
     cell: number | null;
   } | null>(null);
+  const dragRef = useRef<{ cell: number } | null>(null);
   const pinchRef = useRef<{ dist: number; s: number } | null>(null);
   const pointersRef = useRef<Map<number, { x: number; y: number }>>(new Map());
 
@@ -71,6 +80,25 @@ export function PuzzleBoard({
   const total = grid * grid;
   const cellW = WORLD_W / grid;
   const cellH = worldH / grid;
+
+  /** cell index under a client point, or null */
+  const cellAtPoint = useCallback(
+    (clientX: number, clientY: number) => {
+      const el = viewportRef.current;
+      if (!el) return null;
+      const rect = el.getBoundingClientRect();
+      const v = viewRef.current;
+      const wx = (clientX - rect.left - v.tx) / v.s;
+      const wy = (clientY - rect.top - v.ty) / v.s;
+      if (wx < 0 || wy < 0 || wx >= WORLD_W || wy >= worldH) return null;
+      const col = Math.floor(wx / cellW);
+      const row = Math.floor(wy / cellH);
+      if (col < 0 || col >= grid || row < 0 || row >= grid) return null;
+      return row * grid + col;
+    },
+    [grid, cellW, cellH, worldH],
+  );
+
 
   const locked = useMemo(
     () => slots.map((piece, cell) => piece === cell),
@@ -155,20 +183,8 @@ export function PuzzleBoard({
     return () => el.removeEventListener("wheel", onWheel);
   }, [zoomAt]);
 
-  const tapCell = (cell: number) => {
-    if (solved || locked[cell]) return;
-    if (selected === null) {
-      setSelected(cell);
-      playPick();
-      return;
-    }
-    if (selected === cell) {
-      setSelected(null);
-      return;
-    }
-    const a = selected;
-    const b = cell;
-    setSelected(null);
+  const swapCells = (a: number, b: number) => {
+    if (a === b || locked[a] || locked[b] || solved) return;
     setMoves((m) => m + 1);
     setSlots((prev) => {
       const next = [...prev];
@@ -190,6 +206,23 @@ export function PuzzleBoard({
     });
   };
 
+  const tapCell = (cell: number) => {
+    if (solved || locked[cell]) return;
+    if (selected === null) {
+      setSelected(cell);
+      playPick();
+      return;
+    }
+    if (selected === cell) {
+      setSelected(null);
+      return;
+    }
+    const a = selected;
+    setSelected(null);
+    swapCells(a, cell);
+  };
+
+
   const onPointerDown = (e: React.PointerEvent) => {
     const el = viewportRef.current;
     if (!el) return;
@@ -199,6 +232,8 @@ export function PuzzleBoard({
     if (pointersRef.current.size === 2) {
       const [a, b] = [...pointersRef.current.values()];
       panRef.current = null;
+      dragRef.current = null;
+      setDrag(null);
       pinchRef.current = {
         dist: Math.hypot(a!.x - b!.x, a!.y - b!.y),
         s: viewRef.current.s,
@@ -206,12 +241,11 @@ export function PuzzleBoard({
       return;
     }
     const cellEl = (e.target as Element).closest("[data-cell]");
-    panRef.current = {
-      x: e.clientX,
-      y: e.clientY,
-      moved: false,
-      cell: cellEl ? Number(cellEl.getAttribute("data-cell")) : null,
-    };
+    const cell = cellEl ? Number(cellEl.getAttribute("data-cell")) : null;
+    panRef.current = { x: e.clientX, y: e.clientY, moved: false, cell };
+    // grabbing an unlocked piece starts a drag instead of a pan
+    dragRef.current =
+      cell !== null && !locked[cell] && !solved ? { cell } : null;
   };
 
   const onPointerMove = (e: React.PointerEvent) => {
@@ -238,6 +272,18 @@ export function PuzzleBoard({
       panRef.current.x = e.clientX;
       panRef.current.y = e.clientY;
       if (Math.abs(dx) + Math.abs(dy) > 2) panRef.current.moved = true;
+
+      if (dragRef.current) {
+        const rect = el.getBoundingClientRect();
+        setDrag({
+          cell: dragRef.current.cell,
+          x: e.clientX - rect.left,
+          y: e.clientY - rect.top,
+          hover: cellAtPoint(e.clientX, e.clientY),
+        });
+
+        return;
+      }
       setView((v) => ({ ...v, tx: v.tx + dx, ty: v.ty + dy }));
     }
   };
@@ -246,10 +292,24 @@ export function PuzzleBoard({
     pointersRef.current.delete(e.pointerId);
     if (pointersRef.current.size < 2) pinchRef.current = null;
     const pan = panRef.current;
+    const dragging = dragRef.current;
     panRef.current = null;
-    if (!pan || pan.moved) return;
+    dragRef.current = null;
+    setDrag(null);
+    if (!pan) return;
+
+    if (pan.moved && dragging) {
+      const target = cellAtPoint(e.clientX, e.clientY);
+      if (target !== null && target !== dragging.cell && !locked[target]) {
+        setSelected(null);
+        swapCells(dragging.cell, target);
+      }
+      return;
+    }
+    if (pan.moved) return;
     if (pan.cell !== null) tapCell(pan.cell);
   };
+
 
   const remaining = locked.filter((v) => !v).length;
 
@@ -307,6 +367,9 @@ export function PuzzleBoard({
             const isLocked = locked[cell];
             const isSelected = selected === cell;
             const justLocked = swapping.includes(cell);
+            const isDragged = drag?.cell === cell;
+            const isDropTarget =
+              !!drag && !isLocked && !isDragged && drag.hover === cell;
             return (
               <div
                 key={cell}
@@ -321,25 +384,48 @@ export function PuzzleBoard({
                   backgroundSize: `${WORLD_W}px ${worldH}px`,
                   backgroundPosition: `${-pc * cellW}px ${-pr * cellH}px`,
                   borderRadius: isLocked ? 2 : 6,
-                  boxShadow: isSelected
-                    ? "0 0 0 3px var(--accent), 0 12px 22px rgba(15,45,70,0.4)"
-                    : isLocked
-                      ? "none"
-                      : "inset 0 0 0 1.5px rgba(255,255,255,0.55)",
+                  opacity: isDragged ? 0.25 : 1,
+                  boxShadow:
+                    isSelected || isDropTarget
+                      ? "0 0 0 3px var(--accent), 0 12px 22px rgba(15,45,70,0.4)"
+                      : isLocked
+                        ? "none"
+                        : "inset 0 0 0 1.5px rgba(255,255,255,0.55)",
                   transform: isSelected
                     ? "scale(0.94)"
                     : justLocked
                       ? "scale(1.02)"
                       : "scale(1)",
                   zIndex: isSelected ? 3 : justLocked ? 2 : 1,
-                  cursor: isLocked ? "default" : "pointer",
+                  cursor: isLocked ? "default" : "grab",
                   transition:
-                    "transform 0.28s var(--ease-calm), box-shadow 0.25s ease, border-radius 0.3s ease",
+                    "transform 0.28s var(--ease-calm), box-shadow 0.25s ease, border-radius 0.3s ease, opacity 0.15s ease",
                 }}
               />
             );
           })}
         </div>
+
+        {/* piece following the finger while dragging */}
+        {drag && (
+          <div
+            aria-hidden
+            className="pointer-events-none absolute z-10"
+            style={{
+              left: drag.x,
+              top: drag.y,
+              width: cellW * view.s,
+              height: cellH * view.s,
+              transform: "translate(-50%, -50%) scale(1.06)",
+              backgroundImage: `url(${src})`,
+              backgroundSize: `${WORLD_W * view.s}px ${worldH * view.s}px`,
+              backgroundPosition: `${-(slots[drag.cell]! % grid) * cellW * view.s}px ${-Math.floor(slots[drag.cell]! / grid) * cellH * view.s}px`,
+              borderRadius: 8,
+              boxShadow: "0 18px 34px rgba(15,45,70,0.45)",
+            }}
+          />
+        )}
+
 
         {/* zoom controls */}
         <div className="glass-panel absolute right-3 bottom-3 z-20 flex flex-col overflow-hidden rounded-2xl">
@@ -369,7 +455,7 @@ export function PuzzleBoard({
         {!solved && (
           <p className="pointer-events-none absolute bottom-4 left-1/2 z-10 -translate-x-1/2 rounded-full bg-card/70 px-3 py-1 text-center text-[11px] tracking-wide text-muted-foreground">
             {selected === null
-              ? `Tap two pieces to swap — ${remaining} left`
+              ? `Drag a piece onto another to swap — ${remaining} left`
               : "Tap where this piece belongs"}
           </p>
         )}
