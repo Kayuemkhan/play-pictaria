@@ -12,6 +12,16 @@ import coverReef from "@/assets/cover-reef.jpg";
 import coverBlooms from "@/assets/cover-blooms.jpg";
 import coverShores from "@/assets/cover-shores.jpg";
 import flowerHibiscus from "@/assets/flower-hibiscus.jpg";
+import flowerHibiscusPink from "@/assets/flower-hibiscus-pink.jpg";
+import flowerPlumeria from "@/assets/flower-plumeria.jpg";
+import flowerBirdOfParadise from "@/assets/flower-bird-of-paradise.jpg";
+import flowerAnthurium from "@/assets/flower-anthurium.jpg";
+import flowerHeliconia from "@/assets/flower-heliconia.jpg";
+import flowerTorchGinger from "@/assets/flower-torch-ginger.jpg";
+import flowerOrchid from "@/assets/flower-orchid.jpg";
+import flowerBougainvillea from "@/assets/flower-bougainvillea.jpg";
+import flowerPassionflower from "@/assets/flower-passionflower.jpg";
+import flowerOhiaLehua from "@/assets/flower-ohia-lehua.jpg";
 
 export interface Puzzle {
   id: string;
