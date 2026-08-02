@@ -181,20 +181,8 @@ export function PuzzleBoard({
     return () => el.removeEventListener("wheel", onWheel);
   }, [zoomAt]);
 
-  const tapCell = (cell: number) => {
-    if (solved || locked[cell]) return;
-    if (selected === null) {
-      setSelected(cell);
-      playPick();
-      return;
-    }
-    if (selected === cell) {
-      setSelected(null);
-      return;
-    }
-    const a = selected;
-    const b = cell;
-    setSelected(null);
+  const swapCells = (a: number, b: number) => {
+    if (a === b || locked[a] || locked[b] || solved) return;
     setMoves((m) => m + 1);
     setSlots((prev) => {
       const next = [...prev];
@@ -215,6 +203,23 @@ export function PuzzleBoard({
       return next;
     });
   };
+
+  const tapCell = (cell: number) => {
+    if (solved || locked[cell]) return;
+    if (selected === null) {
+      setSelected(cell);
+      playPick();
+      return;
+    }
+    if (selected === cell) {
+      setSelected(null);
+      return;
+    }
+    const a = selected;
+    setSelected(null);
+    swapCells(a, cell);
+  };
+
 
   const onPointerDown = (e: React.PointerEvent) => {
     const el = viewportRef.current;
