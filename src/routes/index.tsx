@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Heart, Home as HomeIcon, LayoutGrid, Menu, User } from "lucide-react";
 import { collections, freeCollection } from "@/data/collections";
-import { TileMosaic } from "@/components/TileMosaic";
+import { HeroPuzzle } from "@/components/HeroPuzzle";
 import heroImage from "@/assets/hero-sunset.jpg";
 import palmLogo from "@/assets/logo-palms.png";
 
@@ -79,29 +79,27 @@ function Home() {
         </div>
 
 
-        {/* headline + CTA */}
-        <div className="absolute top-[30%] left-5 max-w-[62%] sm:left-10">
-          <p className="font-display text-[0.95rem] leading-tight text-deep sm:text-xl">
+        {/* hero image puzzle — solved except the lower-left wedge */}
+        <HeroPuzzle src={heroImage} />
+
+        {/* headline + CTA, set on the sunset with a soft backdrop */}
+        <div className="absolute top-[34%] right-4 z-[4] max-w-[58%] rounded-2xl bg-deep/55 px-4 py-3 backdrop-blur-[3px] sm:right-10 sm:max-w-[42%] sm:px-5 sm:py-4">
+          <p className="font-display text-[1.15rem] leading-tight text-shell sm:text-2xl">
             Can you solve
             <br />
-            tonight&rsquo;s hibiscus?
+            today&rsquo;s {firstPuzzle.title.toLowerCase()}?
           </p>
           <Link
             to="/puzzle/$puzzleId"
             params={{ puzzleId: firstPuzzle.id }}
             search={{ grid: 3 }}
-            className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-deep px-3.5 py-1.5 text-[0.65rem] tracking-[0.14em] text-accent uppercase shadow-lift transition-transform hover:scale-[1.03]"
+            className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-accent px-3.5 py-1.5 text-[0.65rem] tracking-[0.14em] text-deep uppercase shadow-lift transition-transform hover:scale-[1.03]"
           >
             Play now
             <span aria-hidden>›</span>
           </Link>
         </div>
 
-
-        {/* unfinished tile puzzle */}
-        <div className="absolute right-4 bottom-8 w-[38%] max-w-[210px] sm:right-8 sm:bottom-12">
-          <TileMosaic src={firstPuzzle.image} />
-        </div>
       </section>
 
       {/* panel */}
