@@ -112,14 +112,16 @@ function Home() {
               Featured Pictarias
             </h2>
             <Link
-              to="/unlock"
+              to="/collection/$collectionId"
+              params={{ collectionId: freeCollection.id }}
               className="flex shrink-0 items-center gap-1 text-[11px] tracking-[0.18em] text-muted-foreground uppercase transition-colors hover:text-foreground"
             >
               View all <span aria-hidden>›</span>
             </Link>
           </div>
 
-          <div className="-mx-4 mt-4 flex snap-x gap-3 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-4 sm:overflow-visible sm:px-0">
+          <div className="-mx-4 mt-4 flex snap-x gap-3 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-3 sm:overflow-visible sm:px-0">
+
             {featured.map((collection) => {
               const target = collection.puzzles.length
                 ? {
