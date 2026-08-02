@@ -58,7 +58,12 @@ export function PuzzleBoard({
 
   const viewRef = useRef<View>(view);
   viewRef.current = view;
-  const panRef = useRef<{ x: number; y: number; moved: boolean } | null>(null);
+  const panRef = useRef<{
+    x: number;
+    y: number;
+    moved: boolean;
+    cell: number | null;
+  } | null>(null);
   const pinchRef = useRef<{ dist: number; s: number } | null>(null);
   const pointersRef = useRef<Map<number, { x: number; y: number }>>(new Map());
 
