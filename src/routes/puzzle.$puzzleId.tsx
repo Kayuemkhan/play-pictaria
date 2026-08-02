@@ -4,6 +4,9 @@ import { PuzzleBoard } from "@/components/PuzzleBoard";
 import { difficulties, findPuzzle } from "@/data/collections";
 
 export const Route = createFileRoute("/puzzle/$puzzleId")({
+  validateSearch: (search: Record<string, unknown>) => ({
+    grid: search["grid"] ? Number(search["grid"]) : undefined,
+  }),
   head: () => ({
     meta: [
       { title: "Play a puzzle — Pictaria" },
@@ -25,9 +28,11 @@ export const Route = createFileRoute("/puzzle/$puzzleId")({
 
 function PuzzlePage() {
   const { puzzleId } = Route.useParams();
+  const { grid: initialGrid } = Route.useSearch();
   const navigate = useNavigate();
-  const [grid, setGrid] = useState<number | null>(null);
+  const [grid, setGrid] = useState<number | null>(initialGrid ?? null);
   const found = findPuzzle(puzzleId);
+
 
   if (!found) {
     return (
