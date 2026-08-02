@@ -56,6 +56,7 @@ import amy07 from "@/assets/amy-art-07.jpg.asset.json";
 import amy08 from "@/assets/amy-art-08.jpg.asset.json";
 import amy09 from "@/assets/amy-art-09.jpg.asset.json";
 import amy10 from "@/assets/amy-art-10.jpg.asset.json";
+import amy11 from "@/assets/amy-art-11.jpg.asset.json";
 
 export interface Puzzle {
   id: string;
@@ -420,6 +421,7 @@ export const collections: Collection[] = [
       { id: "amy-08", title: "Coral Branch", caption: "Blue swirl resting on white coral", image: amy08.url },
       { id: "amy-09", title: "Amber Dusk", caption: "Firelight caught in glass", image: amy09.url },
       { id: "amy-10", title: "Aurora", caption: "Violet and flame in one bead", image: amy10.url },
+      { id: "amy-11", title: "At the Torch", caption: "The artist at work in her studio", image: amy11.url },
     ],
   },
 ];
