@@ -134,7 +134,7 @@ export function HeroPuzzle({
         timers.current.push(t, t2);
         return next;
       });
-    }, 2400);
+    }, 3200);
 
 
     return () => {
