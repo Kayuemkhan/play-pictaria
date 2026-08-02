@@ -81,7 +81,7 @@ function Home() {
 
         {/* headline + CTA */}
         <div className="absolute top-[30%] left-5 max-w-[62%] sm:left-10">
-          <p className="font-display text-3xl leading-tight text-deep sm:text-4xl">
+          <p className="font-display text-[0.95rem] leading-tight text-deep sm:text-xl">
             Can you solve
             <br />
             tonight&rsquo;s hibiscus?
@@ -90,7 +90,7 @@ function Home() {
             to="/puzzle/$puzzleId"
             params={{ puzzleId: firstPuzzle.id }}
             search={{ grid: 3 }}
-            className="mt-5 inline-flex items-center gap-2 rounded-full bg-deep px-6 py-3 text-sm tracking-[0.14em] text-accent uppercase shadow-lift transition-transform hover:scale-[1.03]"
+            className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-deep px-3.5 py-1.5 text-[0.65rem] tracking-[0.14em] text-accent uppercase shadow-lift transition-transform hover:scale-[1.03]"
           >
             Play now
             <span aria-hidden>›</span>
@@ -203,7 +203,7 @@ function Home() {
               <Link
                 to="/collection/$collectionId"
                 params={{ collectionId: freeCollection.id }}
-                className="justify-self-start rounded-full bg-deep px-6 py-3 text-[11px] tracking-[0.2em] text-accent uppercase shadow-lift transition-transform hover:scale-[1.03] sm:justify-self-end"
+                className="justify-self-start rounded-full bg-deep px-3.5 py-1.5 text-[0.6rem] tracking-[0.2em] text-accent uppercase shadow-lift transition-transform hover:scale-[1.03] sm:justify-self-end"
               >
                 Get started
               </Link>
