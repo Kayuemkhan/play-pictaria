@@ -76,10 +76,21 @@ export function PuzzleBoard({
   const pinchRef = useRef<{ dist: number; s: number } | null>(null);
   const pointersRef = useRef<Map<number, { x: number; y: number }>>(new Map());
 
-  const worldH = aspect ? WORLD_W / aspect : WORLD_W;
+  // The board is always portrait (3:4), so every piece is a vertical rectangle.
+  const worldH = (WORLD_W * 4) / 3;
   const total = grid * grid;
   const cellW = WORLD_W / grid;
   const cellH = worldH / grid;
+
+  /** cover-crop the photo into the portrait board */
+  const bg = useMemo(() => {
+    const a = aspect ?? 3 / 4;
+    const boardAspect = WORLD_W / worldH;
+    const w = a > boardAspect ? worldH * a : WORLD_W;
+    const h = a > boardAspect ? worldH : WORLD_W / a;
+    return { w, h, x: (WORLD_W - w) / 2, y: (worldH - h) / 2 };
+  }, [aspect, worldH]);
+
 
   /** cell index under a client point, or null */
   const cellAtPoint = useCallback(
@@ -381,8 +392,8 @@ export function PuzzleBoard({
                   width: cellW,
                   height: cellH,
                   backgroundImage: `url(${src})`,
-                  backgroundSize: `${WORLD_W}px ${worldH}px`,
-                  backgroundPosition: `${-pc * cellW}px ${-pr * cellH}px`,
+                  backgroundSize: `${bg.w}px ${bg.h}px`,
+                  backgroundPosition: `${bg.x - pc * cellW}px ${bg.y - pr * cellH}px`,
                   borderRadius: isLocked ? 2 : 6,
                   opacity: isDragged ? 0.25 : 1,
                   boxShadow:
@@ -418,8 +429,8 @@ export function PuzzleBoard({
               height: cellH * view.s,
               transform: "translate(-50%, -50%) scale(1.06)",
               backgroundImage: `url(${src})`,
-              backgroundSize: `${WORLD_W * view.s}px ${worldH * view.s}px`,
-              backgroundPosition: `${-(slots[drag.cell]! % grid) * cellW * view.s}px ${-Math.floor(slots[drag.cell]! / grid) * cellH * view.s}px`,
+              backgroundSize: `${bg.w * view.s}px ${bg.h * view.s}px`,
+              backgroundPosition: `${(bg.x - (slots[drag.cell]! % grid) * cellW) * view.s}px ${(bg.y - Math.floor(slots[drag.cell]! / grid) * cellH) * view.s}px`,
               borderRadius: 8,
               boxShadow: "0 18px 34px rgba(15,45,70,0.45)",
             }}
