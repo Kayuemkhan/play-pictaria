@@ -1,36 +1,94 @@
+import { useEffect, useState } from "react";
+
 /**
- * Decorative "puzzle in progress" mosaic — equal-sized rectangular tiles
- * sliced out of a single image, some placed, some still missing.
+ * Decorative "puzzle solving itself" mosaic — equal-sized rectangular tiles
+ * sliced from one image that keep sliding between grid cells, then settle.
  */
 const COLS = 5;
 const ROWS = 4;
+const TOTAL = COLS * ROWS;
+const GAP = 3; // px
 
-// which cells are "placed" — the rest stay empty, like an unfinished puzzle
-const PLACED = new Set([
-  2, 3, 4, 6, 7, 8, 9, 11, 13, 14, 15, 16, 17, 18, 19,
-]);
+// which cells hold a piece — the rest stay empty, like an unfinished puzzle
+const PLACED = [2, 3, 4, 6, 7, 8, 9, 11, 13, 14, 15, 16, 17, 18, 19];
+
+function shuffled<T>(arr: T[]): T[] {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j]!, a[i]!];
+  }
+  return a;
+}
 
 export function TileMosaic({ src }: { src: string }) {
+  // cellFor[piece] = which grid cell that piece currently sits in
+  const [cellFor, setCellFor] = useState<number[]>(PLACED);
+
+  useEffect(() => {
+    let solved = false;
+    const jumble = window.setTimeout(
+      () => setCellFor(shuffled(PLACED)),
+      600,
+    );
+    const id = window.setInterval(() => {
+      setCellFor((prev) => {
+        if (solved) return shuffled(PLACED);
+        // slide two pieces at a time toward home
+        const next = [...prev];
+        const wrong = next
+          .map((cell, piece) => ({ cell, piece }))
+          .filter(({ cell, piece }) => cell !== PLACED[piece]);
+        if (!wrong.length) {
+          solved = true;
+          return next;
+        }
+        const pick = wrong[Math.floor(Math.random() * wrong.length)]!;
+        const home = PLACED[pick.piece]!;
+        const other = next.indexOf(home);
+        next[pick.piece] = home;
+        if (other !== -1) next[other] = pick.cell;
+        solved = next.every((cell, piece) => cell === PLACED[piece]);
+        return next;
+      });
+    }, 900);
+    return () => {
+      window.clearTimeout(jumble);
+      window.clearInterval(id);
+    };
+  }, []);
+
+  const cellPct = 100 / COLS;
+
   return (
     <div
       aria-hidden
-      className="grid w-full gap-[3px]"
-      style={{ gridTemplateColumns: `repeat(${COLS}, minmax(0, 1fr))` }}
+      className="relative w-full"
+      style={{ aspectRatio: `${COLS} / ${ROWS}` }}
     >
-      {Array.from({ length: COLS * ROWS }, (_, i) => {
-        const col = i % COLS;
-        const row = Math.floor(i / COLS);
-        if (!PLACED.has(i)) return <div key={i} className="aspect-square" />;
+      {PLACED.map((homeCell, piece) => {
+        const hc = homeCell % COLS;
+        const hr = Math.floor(homeCell / COLS);
+        const cur = cellFor[piece] ?? homeCell;
+        const col = cur % COLS;
+        const row = Math.floor(cur / COLS);
+        const atHome = cur === homeCell;
         return (
           <div
-            key={i}
-            className="aspect-square rounded-[2px] ring-1 ring-deep-foreground/70"
+            key={piece}
+            className="absolute rounded-[2px] ring-1 ring-deep-foreground/70"
             style={{
+              width: `calc(${cellPct}% - ${GAP}px)`,
+              height: `calc(${(100 / ROWS).toFixed(4)}% - ${GAP}px)`,
+              left: `${col * cellPct}%`,
+              top: `${row * (100 / ROWS)}%`,
               backgroundImage: `url(${src})`,
               backgroundSize: `${COLS * 100}% ${ROWS * 100}%`,
-              backgroundPosition: `${(col / (COLS - 1)) * 100}% ${(row / (ROWS - 1)) * 100}%`,
-              boxShadow: "var(--shadow-soft)",
-              animation: `soft-in 0.7s var(--ease-calm) ${0.25 + i * 0.045}s both`,
+              backgroundPosition: `${(hc / (COLS - 1)) * 100}% ${(hr / (ROWS - 1)) * 100}%`,
+              boxShadow: atHome ? "var(--shadow-soft)" : "var(--shadow-lift)",
+              zIndex: atHome ? 1 : 2,
+              transition:
+                "left 0.65s var(--ease-calm), top 0.65s var(--ease-calm), box-shadow 0.5s ease",
             }}
           />
         );
