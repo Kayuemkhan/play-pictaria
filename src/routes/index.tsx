@@ -220,23 +220,24 @@ function Home() {
             </Link>
           </li>
           <li>
-            <Link
-              to="/unlock"
-              className="flex flex-col items-center gap-1 text-deep-foreground/60 transition-colors hover:text-deep-foreground"
+            <button
+              type="button"
+              className="flex w-full flex-col items-center gap-1 text-deep-foreground/40"
             >
               <Heart className="h-5 w-5" strokeWidth={1.5} />
               <span className="text-[10px] tracking-wide">Favorites</span>
-            </Link>
+            </button>
           </li>
           <li>
-            <Link
-              to="/unlock"
-              className="flex flex-col items-center gap-1 text-deep-foreground/60 transition-colors hover:text-deep-foreground"
+            <button
+              type="button"
+              className="flex w-full flex-col items-center gap-1 text-deep-foreground/40"
             >
               <User className="h-5 w-5" strokeWidth={1.5} />
               <span className="text-[10px] tracking-wide">Profile</span>
-            </Link>
+            </button>
           </li>
+
         </ul>
       </nav>
     </main>
