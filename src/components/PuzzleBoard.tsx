@@ -269,30 +269,45 @@ export function PuzzleBoard({
     [grid],
   );
 
-  /** the closest legal interpretation of a drag: full, then single-axis */
+  /** the closest legal interpretation of a drag: full, single-axis, then shorter */
   const resolveMove = useCallback(
     (dCol: number, dRow: number): { dCol: number; dRow: number } | null => {
-      const candidates: [number, number][] =
-        Math.abs(dCol) >= Math.abs(dRow)
-          ? [
-              [dCol, dRow],
-              [dCol, 0],
-              [0, dRow],
-            ]
-          : [
-              [dCol, dRow],
-              [0, dRow],
-              [dCol, 0],
-            ];
+      const step = (n: number) => (n > 0 ? 1 : n < 0 ? -1 : 0);
+      const candidates: [number, number][] = [];
+      const push = (c: number, r: number) => {
+        if (c === 0 && r === 0) return;
+        if (!candidates.some(([a, b]) => a === c && b === r))
+          candidates.push([c, r]);
+      };
+
+      // full drag first, then progressively shorter versions of it, then axes
+      const maxLen = Math.max(Math.abs(dCol), Math.abs(dRow));
+      for (let k = maxLen; k >= 1; k--) {
+        const c = Math.max(-k, Math.min(k, dCol));
+        const r = Math.max(-k, Math.min(k, dRow));
+        if (Math.abs(dCol) >= Math.abs(dRow)) {
+          push(c, r);
+          push(c, 0);
+          push(0, r);
+        } else {
+          push(c, r);
+          push(0, r);
+          push(c, 0);
+        }
+      }
+      push(step(dCol), step(dRow));
+      push(step(dCol), 0);
+      push(0, step(dRow));
+
+      const group = dragStart.current?.group ?? -1;
       for (const [c, r] of candidates) {
-        if (c === 0 && r === 0) continue;
-        if (tryMove(pos, groupOf, dragStart.current?.group ?? -1, c, r))
-          return { dCol: c, dRow: r };
+        if (tryMove(pos, groupOf, group, c, r)) return { dCol: c, dRow: r };
       }
       return null;
     },
     [pos, groupOf, tryMove],
   );
+
 
 
 
