@@ -96,7 +96,7 @@ function Home() {
           wedge={4}
           depth={3}
           corner="bottom-right"
-          inset={2}
+          inset={0}
         />
 
 
