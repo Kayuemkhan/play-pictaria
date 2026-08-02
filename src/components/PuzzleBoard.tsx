@@ -429,8 +429,8 @@ export function PuzzleBoard({
               height: cellH * view.s,
               transform: "translate(-50%, -50%) scale(1.06)",
               backgroundImage: `url(${src})`,
-              backgroundSize: `${WORLD_W * view.s}px ${worldH * view.s}px`,
-              backgroundPosition: `${-(slots[drag.cell]! % grid) * cellW * view.s}px ${-Math.floor(slots[drag.cell]! / grid) * cellH * view.s}px`,
+              backgroundSize: `${bg.w * view.s}px ${bg.h * view.s}px`,
+              backgroundPosition: `${(bg.x - (slots[drag.cell]! % grid) * cellW) * view.s}px ${(bg.y - Math.floor(slots[drag.cell]! / grid) * cellH) * view.s}px`,
               borderRadius: 8,
               boxShadow: "0 18px 34px rgba(15,45,70,0.45)",
             }}
