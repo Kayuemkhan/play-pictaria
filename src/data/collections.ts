@@ -19,6 +19,8 @@ import flowerOrchid from "@/assets/flower-orchid.jpg";
 import flowerBougainvillea from "@/assets/flower-bougainvillea.jpg";
 import flowerPassionflower from "@/assets/flower-passionflower.jpg";
 import flowerOhiaLehua from "@/assets/flower-ohia-lehua.jpg";
+import coverWaterfalls from "@/assets/cover-waterfalls.jpg";
+import coverSunsets from "@/assets/cover-sunsets.jpg";
 
 export interface Puzzle {
   id: string;
@@ -34,6 +36,8 @@ export interface Collection {
   cover: string;
   /** Free collections are playable in guest mode. */
   free: boolean;
+  /** Storybook announced on the home screen but not yet filled with puzzles. */
+  comingSoon?: boolean;
   puzzles: Puzzle[];
 }
 
@@ -186,6 +190,24 @@ export const collections: Collection[] = [
         image: turtle10,
       },
     ],
+  },
+  {
+    id: "waterfalls",
+    title: "Waterfalls",
+    tagline: "Hidden cascades and jade pools",
+    cover: coverWaterfalls,
+    free: true,
+    comingSoon: true,
+    puzzles: [],
+  },
+  {
+    id: "sunsets",
+    title: "Sunsets",
+    tagline: "Gold hour over the islands",
+    cover: coverSunsets,
+    free: true,
+    comingSoon: true,
+    puzzles: [],
   },
 ];
 
