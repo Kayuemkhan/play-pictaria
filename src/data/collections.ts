@@ -46,6 +46,16 @@ import fsmInfinitySunset from "@/assets/fsm-infinity-sunset.jpg.asset.json";
 import fsmPoolCaviar from "@/assets/fsm-pool-caviar.jpg.asset.json";
 import fsmCanoeGirls from "@/assets/fsm-canoe-girls.jpg.asset.json";
 import fsmBeachYoga from "@/assets/fsm-beach-yoga.jpg.asset.json";
+import amy01 from "@/assets/amy-art-01.jpg.asset.json";
+import amy02 from "@/assets/amy-art-02.jpg.asset.json";
+import amy03 from "@/assets/amy-art-03.jpg.asset.json";
+import amy04 from "@/assets/amy-art-04.jpg.asset.json";
+import amy05 from "@/assets/amy-art-05.jpg.asset.json";
+import amy06 from "@/assets/amy-art-06.jpg.asset.json";
+import amy07 from "@/assets/amy-art-07.jpg.asset.json";
+import amy08 from "@/assets/amy-art-08.jpg.asset.json";
+import amy09 from "@/assets/amy-art-09.jpg.asset.json";
+import amy10 from "@/assets/amy-art-10.jpg.asset.json";
 
 export interface Puzzle {
   id: string;
