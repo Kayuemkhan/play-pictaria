@@ -230,6 +230,8 @@ export function PuzzleBoard({
     if (pointersRef.current.size === 2) {
       const [a, b] = [...pointersRef.current.values()];
       panRef.current = null;
+      dragRef.current = null;
+      setDrag(null);
       pinchRef.current = {
         dist: Math.hypot(a!.x - b!.x, a!.y - b!.y),
         s: viewRef.current.s,
@@ -237,12 +239,11 @@ export function PuzzleBoard({
       return;
     }
     const cellEl = (e.target as Element).closest("[data-cell]");
-    panRef.current = {
-      x: e.clientX,
-      y: e.clientY,
-      moved: false,
-      cell: cellEl ? Number(cellEl.getAttribute("data-cell")) : null,
-    };
+    const cell = cellEl ? Number(cellEl.getAttribute("data-cell")) : null;
+    panRef.current = { x: e.clientX, y: e.clientY, moved: false, cell };
+    // grabbing an unlocked piece starts a drag instead of a pan
+    dragRef.current =
+      cell !== null && !locked[cell] && !solved ? { cell } : null;
   };
 
   const onPointerMove = (e: React.PointerEvent) => {
@@ -269,6 +270,16 @@ export function PuzzleBoard({
       panRef.current.x = e.clientX;
       panRef.current.y = e.clientY;
       if (Math.abs(dx) + Math.abs(dy) > 2) panRef.current.moved = true;
+
+      if (dragRef.current) {
+        const rect = el.getBoundingClientRect();
+        setDrag({
+          cell: dragRef.current.cell,
+          x: e.clientX - rect.left,
+          y: e.clientY - rect.top,
+        });
+        return;
+      }
       setView((v) => ({ ...v, tx: v.tx + dx, ty: v.ty + dy }));
     }
   };
@@ -277,10 +288,24 @@ export function PuzzleBoard({
     pointersRef.current.delete(e.pointerId);
     if (pointersRef.current.size < 2) pinchRef.current = null;
     const pan = panRef.current;
+    const dragging = dragRef.current;
     panRef.current = null;
-    if (!pan || pan.moved) return;
+    dragRef.current = null;
+    setDrag(null);
+    if (!pan) return;
+
+    if (pan.moved && dragging) {
+      const target = cellAtPoint(e.clientX, e.clientY);
+      if (target !== null && target !== dragging.cell && !locked[target]) {
+        setSelected(null);
+        swapCells(dragging.cell, target);
+      }
+      return;
+    }
+    if (pan.moved) return;
     if (pan.cell !== null) tapCell(pan.cell);
   };
+
 
   const remaining = locked.filter((v) => !v).length;
 
