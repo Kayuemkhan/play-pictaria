@@ -392,8 +392,8 @@ export function PuzzleBoard({
                   width: cellW,
                   height: cellH,
                   backgroundImage: `url(${src})`,
-                  backgroundSize: `${WORLD_W}px ${worldH}px`,
-                  backgroundPosition: `${-pc * cellW}px ${-pr * cellH}px`,
+                  backgroundSize: `${bg.w}px ${bg.h}px`,
+                  backgroundPosition: `${bg.x - pc * cellW}px ${bg.y - pr * cellH}px`,
                   borderRadius: isLocked ? 2 : 6,
                   opacity: isDragged ? 0.25 : 1,
                   boxShadow:
