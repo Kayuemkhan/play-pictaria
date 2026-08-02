@@ -24,6 +24,8 @@ export interface HeroPuzzleProps {
   /** diagonal depth of the unsolved wedge, in cells */
   wedge?: number;
   corner?: HeroCorner;
+  /** rows/cols nearest the corner edge left untouched (keeps pieces clear of overlapping UI) */
+  inset?: number;
   /** when false the wedge stays jumbled (email / print safe) */
   animated?: boolean;
 }
@@ -35,6 +37,7 @@ function wedgeCells(
   rows: number,
   wedge: number,
   corner: HeroCorner,
+  inset: number,
 ) {
   const fromBottom = corner.startsWith("bottom");
   const fromLeft = corner.endsWith("left");
@@ -43,7 +46,8 @@ function wedgeCells(
     for (let col = 0; col < cols; col++) {
       const dr = fromBottom ? rows - 1 - row : row;
       const dc = fromLeft ? col : cols - 1 - col;
-      if (dr + dc < wedge) cells.push(row * cols + col);
+      if (dr < inset) continue;
+      if (dr - inset + dc < wedge) cells.push(row * cols + col);
     }
   }
   return cells;
@@ -61,15 +65,17 @@ function shuffled<T>(arr: T[]): T[] {
 export function HeroPuzzle({
   src,
   cols = 6,
-  rows = 8,
-  wedge = 5,
+  rows = 5,
+  wedge = 3,
   corner = "bottom-left",
+  inset = 1,
   animated = true,
 }: HeroPuzzleProps) {
   const loose = useMemo(
-    () => wedgeCells(cols, rows, wedge, corner),
-    [cols, rows, wedge, corner],
+    () => wedgeCells(cols, rows, wedge, corner, inset),
+    [cols, rows, wedge, corner, inset],
   );
+
 
   const [cellFor, setCellFor] = useState<number[]>(loose);
   const [blink, setBlink] = useState<number | null>(null);
