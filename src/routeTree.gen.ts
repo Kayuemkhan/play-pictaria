@@ -10,33 +10,53 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as UnlockRouteImport } from './routes/unlock'
+import { Route as PuzzlePuzzleIdRouteImport } from './routes/puzzle.$puzzleId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const UnlockRoute = UnlockRouteImport.update({
+  id: '/unlock',
+  path: '/unlock',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PuzzlePuzzleIdRoute = PuzzlePuzzleIdRouteImport.update({
+  id: '/puzzle/$puzzleId',
+  path: '/puzzle/$puzzleId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/unlock': typeof UnlockRoute
+  '/puzzle/$puzzleId': typeof PuzzlePuzzleIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/unlock': typeof UnlockRoute
+  '/puzzle/$puzzleId': typeof PuzzlePuzzleIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/unlock': typeof UnlockRoute
+  '/puzzle/$puzzleId': typeof PuzzlePuzzleIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/unlock' | '/puzzle/$puzzleId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/unlock' | '/puzzle/$puzzleId'
+  id: '__root__' | '/' | '/unlock' | '/puzzle/$puzzleId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  UnlockRoute: typeof UnlockRoute
+  PuzzlePuzzleIdRoute: typeof PuzzlePuzzleIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +68,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/unlock': {
+      id: '/unlock'
+      path: '/unlock'
+      fullPath: '/unlock'
+      preLoaderRoute: typeof UnlockRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/puzzle/$puzzleId': {
+      id: '/puzzle/$puzzleId'
+      path: '/puzzle/$puzzleId'
+      fullPath: '/puzzle/$puzzleId'
+      preLoaderRoute: typeof PuzzlePuzzleIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  UnlockRoute: UnlockRoute,
+  PuzzlePuzzleIdRoute: PuzzlePuzzleIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
