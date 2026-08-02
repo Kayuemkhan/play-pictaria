@@ -30,12 +30,9 @@ export const Route = createFileRoute("/create")({
   component: CreatePage,
 });
 
-const corners: { value: HeroCorner; label: string }[] = [
-  { value: "bottom-left", label: "Lower left" },
-  { value: "bottom-right", label: "Lower right" },
-  { value: "top-left", label: "Upper left" },
-  { value: "top-right", label: "Upper right" },
-];
+/** Fixed Pictaria signature framing — the same one used on the home hero. */
+const HERO_CORNER: HeroCorner = "bottom-right";
+const HERO_WEDGE = 4;
 
 interface Photo {
   id: string;
@@ -46,9 +43,7 @@ function CreatePage() {
   const [photos, setPhotos] = useState<Photo[]>([]);
   const [heroIndex, setHeroIndex] = useState(0);
   const [brand, setBrand] = useState("Four Seasons Maui");
-  const [headline, setHeadline] = useState("Can you solve today's Wailea?");
-  const [corner, setCorner] = useState<HeroCorner>("bottom-left");
-  const [wedge, setWedge] = useState(5);
+  const [headline, setHeadline] = useState("Can you solve today's pineapple?");
   const [animated, setAnimated] = useState(true);
   const [playing, setPlaying] = useState<{ url: string; grid: number } | null>(
     null,
