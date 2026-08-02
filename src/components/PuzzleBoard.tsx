@@ -295,7 +295,7 @@ export function PuzzleBoard({
 
         return;
       }
-      setView((v) => ({ ...v, tx: v.tx + dx, ty: v.ty + dy }));
+      // board itself stays fixed — only pieces move
     }
   };
 
