@@ -379,12 +379,6 @@ export function PuzzleBoard({
           })}
         </div>
 
-        {!solved && (
-          <p className="pointer-events-none absolute bottom-4 left-1/2 z-10 -translate-x-1/2 rounded-full bg-card/70 px-3 py-1 text-center text-[11px] tracking-wide text-muted-foreground">
-            Drag pieces together — matching pieces lock and move as one ·{" "}
-            {clusters} groups left
-          </p>
-        )}
       </div>
 
       {/* celebration */}
