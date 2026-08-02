@@ -54,6 +54,12 @@ function edge(
   return `L ${p4x} ${p4y} C ${c1x} ${c1y} ${c2x} ${c2y} ${p6x} ${p6y} L ${bx} ${by}`;
 }
 
+/**
+ * Pieces are equal-sized rectangles (no interlocking tabs), so `edge` is only
+ * kept for reference/future styles.
+ */
+void edge;
+
 export function buildPuzzle(
   n: number,
   boardW: number,
@@ -61,46 +67,17 @@ export function buildPuzzle(
 ): PuzzleGeometry {
   const cellW = boardW / n;
   const cellH = boardH / n;
-  const padX = cellH * 0.2;
-  const padY = cellW * 0.2;
-
-  // hTab(r, c) -> tab on the bottom edge of piece (r, c), for r in 0..n-2
-  const hTabs: number[] = [];
-  for (let i = 0; i < (n - 1) * n; i++) hTabs.push(Math.random() < 0.5 ? 1 : -1);
-  // vTab(r, c) -> tab on the right edge of piece (r, c), for c in 0..n-2
-  const vTabs: number[] = [];
-  for (let i = 0; i < n * (n - 1); i++) vTabs.push(Math.random() < 0.5 ? 1 : -1);
-  const hTab = (r: number, c: number) => hTabs[r * n + c] ?? 0;
-  const vTab = (r: number, c: number) => vTabs[r * (n - 1) + c] ?? 0;
+  const padX = 0;
+  const padY = 0;
 
   const pieces: PieceDef[] = [];
   for (let row = 0; row < n; row++) {
     for (let col = 0; col < n; col++) {
-      const top = row === 0 ? 0 : -hTab(row - 1, col);
-      const right = col === n - 1 ? 0 : vTab(row, col);
-      const bottom = row === n - 1 ? 0 : hTab(row, col);
-      const left = col === 0 ? 0 : -vTab(row, col - 1);
-
-
-      const d = [
-        `M 0 0`,
-        edge(0, 0, cellW, 0, top),
-        edge(cellW, 0, cellW, cellH, right),
-        edge(cellW, cellH, 0, cellH, bottom),
-        edge(0, cellH, 0, 0, left),
-        "Z",
-      ].join(" ");
-
-      pieces.push({
-        id: row * n + col,
-        row,
-        col,
-        path: d,
-        padX,
-        padY,
-      });
+      const d = `M 0 0 L ${cellW} 0 L ${cellW} ${cellH} L 0 ${cellH} Z`;
+      pieces.push({ id: row * n + col, row, col, path: d, padX, padY });
     }
   }
 
   return { pieces, cellW, cellH, padX, padY };
 }
+
