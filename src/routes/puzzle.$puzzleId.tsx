@@ -79,7 +79,7 @@ function PuzzlePage() {
             alt={puzzle.title}
             width={1024}
             height={768}
-            className="aspect-[4/3] w-full object-cover"
+            className="aspect-[3/4] w-full object-cover"
           />
         </div>
 
