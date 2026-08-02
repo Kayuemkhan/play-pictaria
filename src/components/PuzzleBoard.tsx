@@ -455,7 +455,7 @@ export function PuzzleBoard({
         {!solved && (
           <p className="pointer-events-none absolute bottom-4 left-1/2 z-10 -translate-x-1/2 rounded-full bg-card/70 px-3 py-1 text-center text-[11px] tracking-wide text-muted-foreground">
             {selected === null
-              ? `Tap two pieces to swap — ${remaining} left`
+              ? `Drag a piece onto another to swap — ${remaining} left`
               : "Tap where this piece belongs"}
           </p>
         )}
