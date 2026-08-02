@@ -244,21 +244,27 @@ export function PuzzleBoard({
         cur = pushed;
       }
 
-      const vacated = [...sources].filter((c) => !targets.has(c));
+      const vacated = [...sources].filter(
+        (c) => !targets.has(c) && cur.indexOf(c) < 0,
+      );
       const displaced: number[] = [];
       for (const [cell] of targets) {
         if (sources.has(cell)) continue;
         const occupant = cur.indexOf(cell);
         if (occupant < 0) continue;
         if (groups[occupant] === group) continue;
+        // a pushed cluster should have cleared out; if not, the move fails
+        if (blockers.has(groups[occupant]!)) return null;
         displaced.push(occupant);
       }
       if (displaced.length !== vacated.length) return null;
       const next = [...cur];
       for (const [cell, piece] of targets) next[piece] = cell;
       displaced.forEach((piece, i) => (next[piece] = vacated[i]!));
+      if (new Set(next).size !== next.length) return null;
       return next;
     },
+
     [grid],
   );
 
