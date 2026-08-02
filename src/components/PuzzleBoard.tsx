@@ -1,16 +1,7 @@
-import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
-import { buildPuzzle } from "@/lib/jigsaw";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { playLock, playPick, playSolved } from "@/lib/feedback";
 
 const WORLD_W = 1000;
-
-interface PieceState {
-  x: number;
-  y: number;
-  group: number;
-  locked: boolean;
-  z: number;
-}
 
 interface View {
   s: number;
@@ -32,6 +23,19 @@ function formatTime(total: number) {
   return `${m}:${s.toString().padStart(2, "0")}`;
 }
 
+/** Shuffled placement: slots[cellIndex] = pieceId, no piece starts home. */
+function shuffleSlots(count: number): number[] {
+  for (let attempt = 0; attempt < 50; attempt++) {
+    const a = Array.from({ length: count }, (_, i) => i);
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j]!, a[i]!];
+    }
+    if (a.every((piece, cell) => piece !== cell)) return a;
+  }
+  return Array.from({ length: count }, (_, i) => (i + 1) % count);
+}
+
 export function PuzzleBoard({
   src,
   title,
@@ -39,36 +43,38 @@ export function PuzzleBoard({
   onExit,
   onChangeDifficulty,
 }: PuzzleBoardProps) {
-  const uid = useId().replace(/[^a-zA-Z0-9]/g, "");
   const viewportRef = useRef<HTMLDivElement>(null);
 
   const [aspect, setAspect] = useState<number | null>(null);
   const [round, setRound] = useState(0);
   const [size, setSize] = useState({ w: 0, h: 0 });
-  const [pieces, setPieces] = useState<PieceState[]>([]);
+  const [slots, setSlots] = useState<number[]>([]);
+  const [selected, setSelected] = useState<number | null>(null);
+  const [swapping, setSwapping] = useState<number[]>([]);
   const [view, setView] = useState<View>({ s: 1, tx: 0, ty: 0 });
   const [moves, setMoves] = useState(0);
   const [seconds, setSeconds] = useState(0);
   const [solved, setSolved] = useState(false);
 
-  const piecesRef = useRef<PieceState[]>([]);
-  piecesRef.current = pieces;
   const viewRef = useRef<View>(view);
   viewRef.current = view;
-  const zRef = useRef(1);
-  const [draggingGroup, setDraggingGroup] = useState<number | null>(null);
-
-  const dragRef = useRef<{ group: number; x: number; y: number } | null>(null);
-  const panRef = useRef<{ x: number; y: number } | null>(null);
+  const panRef = useRef<{
+    x: number;
+    y: number;
+    moved: boolean;
+    cell: number | null;
+  } | null>(null);
   const pinchRef = useRef<{ dist: number; s: number } | null>(null);
   const pointersRef = useRef<Map<number, { x: number; y: number }>>(new Map());
 
   const worldH = aspect ? WORLD_W / aspect : WORLD_W;
+  const total = grid * grid;
+  const cellW = WORLD_W / grid;
+  const cellH = worldH / grid;
 
-  const geo = useMemo(
-    () => (aspect ? buildPuzzle(grid, WORLD_W, worldH) : null),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [grid, aspect, round],
+  const locked = useMemo(
+    () => slots.map((piece, cell) => piece === cell),
+    [slots],
   );
 
   /* image aspect ratio */
@@ -82,9 +88,9 @@ export function PuzzleBoard({
   useEffect(() => {
     const el = viewportRef.current;
     if (!el) return;
-    const ro = new ResizeObserver(() => {
-      setSize({ w: el.clientWidth, h: el.clientHeight });
-    });
+    const ro = new ResizeObserver(() =>
+      setSize({ w: el.clientWidth, h: el.clientHeight }),
+    );
     ro.observe(el);
     setSize({ w: el.clientWidth, h: el.clientHeight });
     return () => ro.disconnect();
@@ -92,191 +98,97 @@ export function PuzzleBoard({
 
   const fitView = useCallback(() => {
     if (!size.w || !size.h) return;
-    const s = Math.min(size.w / WORLD_W, size.h / worldH) * 0.9;
-    setView({ s, tx: (size.w - WORLD_W * s) / 2, ty: (size.h - worldH * s) / 2 });
+    const s = Math.min(size.w / WORLD_W, size.h / worldH) * 0.92;
+    setView({
+      s,
+      tx: (size.w - WORLD_W * s) / 2,
+      ty: (size.h - worldH * s) / 2,
+    });
   }, [size.w, size.h, worldH]);
 
   useEffect(() => {
     fitView();
   }, [fitView]);
 
-  /* scatter pieces */
+  /* jumble */
   useEffect(() => {
-    if (!geo) return;
-    const { cellW, cellH } = geo;
-    const gap = Math.min(cellW, cellH) * 0.6;
-    const next: PieceState[] = geo.pieces.map((p, i) => {
-      let x = 0;
-      let y = 0;
-      for (let attempt = 0; attempt < 20; attempt++) {
-        x = Math.random() * (WORLD_W - cellW);
-        y = Math.random() * (worldH - cellH);
-        const tx = p.col * cellW;
-        const ty = p.row * cellH;
-        if (Math.hypot(x - tx, y - ty) > gap) break;
-      }
-      return { x, y, group: i + 1, locked: false, z: 1 };
-    });
-    zRef.current = next.length + 1;
-    setPieces(next);
+    if (!aspect) return;
+    setSlots(shuffleSlots(total));
+    setSelected(null);
+    setSwapping([]);
     setMoves(0);
     setSeconds(0);
     setSolved(false);
-  }, [geo, worldH]);
+  }, [aspect, total, round]);
 
   /* timer */
   useEffect(() => {
-    if (solved || !pieces.length) return;
+    if (solved || !slots.length) return;
     const t = window.setInterval(() => setSeconds((v) => v + 1), 1000);
     return () => window.clearInterval(t);
-  }, [solved, pieces.length]);
+  }, [solved, slots.length]);
 
-  const zoomAt = useCallback(
-    (nextS: number, px: number, py: number) => {
-      setView((v) => {
-        const clamped = Math.min(4, Math.max(0.25, nextS));
-        const k = clamped / v.s;
-        return {
-          s: clamped,
-          tx: px - (px - v.tx) * k,
-          ty: py - (py - v.ty) * k,
-        };
-      });
-    },
-    [],
-  );
+  const zoomAt = useCallback((nextS: number, px: number, py: number) => {
+    setView((v) => {
+      const clamped = Math.min(4, Math.max(0.4, nextS));
+      const k = clamped / v.s;
+      return { s: clamped, tx: px - (px - v.tx) * k, ty: py - (py - v.ty) * k };
+    });
+  }, []);
 
-  /* wheel + pinch zoom (non-passive) */
+  /* wheel zoom (non-passive) */
   useEffect(() => {
     const el = viewportRef.current;
     if (!el) return;
     const onWheel = (e: WheelEvent) => {
       e.preventDefault();
       const rect = el.getBoundingClientRect();
-      const dy = e.deltaY * (e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? 100 : 1);
-      const next = viewRef.current.s * Math.exp(-dy * 0.0018);
-      zoomAt(next, e.clientX - rect.left, e.clientY - rect.top);
+      const dy =
+        e.deltaY * (e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? 100 : 1);
+      zoomAt(
+        viewRef.current.s * Math.exp(-dy * 0.0018),
+        e.clientX - rect.left,
+        e.clientY - rect.top,
+      );
     };
     el.addEventListener("wheel", onWheel, { passive: false });
     return () => el.removeEventListener("wheel", onWheel);
   }, [zoomAt]);
 
-  const bringToFront = (group: number) => {
-    const z = ++zRef.current;
-    setPieces((prev) => prev.map((p) => (p.group === group ? { ...p, z } : p)));
-  };
-
-  const settle = useCallback(
-    (group: number) => {
-      if (!geo) return;
-      const { cellW, cellH } = geo;
-      const defs = geo.pieces;
-      const threshold = Math.min(cellW, cellH) * 0.26;
-      const cur = piecesRef.current.map((p) => ({ ...p }));
-      const members = cur
-        .map((p, i) => ({ p, i }))
-        .filter((e) => e.p.group === group);
-      if (!members.length) return;
-
-      let dx = 0;
-      let dy = 0;
-      let anchor = false;
-      let mergeInto: number | null = null;
-
-      for (const { p, i } of members) {
-        const def = defs[i]!;
-        const tx = def.col * cellW;
-        const ty = def.row * cellH;
-        if (Math.abs(p.x - tx) < threshold && Math.abs(p.y - ty) < threshold) {
-          dx = tx - p.x;
-          dy = ty - p.y;
-          anchor = true;
-          break;
-        }
+  const tapCell = (cell: number) => {
+    if (solved || locked[cell]) return;
+    if (selected === null) {
+      setSelected(cell);
+      playPick();
+      return;
+    }
+    if (selected === cell) {
+      setSelected(null);
+      return;
+    }
+    const a = selected;
+    const b = cell;
+    setSelected(null);
+    setMoves((m) => m + 1);
+    setSlots((prev) => {
+      const next = [...prev];
+      next[a] = prev[b]!;
+      next[b] = prev[a]!;
+      const settled = [a, b].filter((c) => next[c] === c);
+      if (settled.length) {
+        playLock();
+        setSwapping(settled);
+        window.setTimeout(() => setSwapping([]), 360);
+      } else {
+        playPick();
       }
-
-      if (!anchor) {
-        outer: for (const { p, i } of members) {
-          const def = defs[i]!;
-          for (const [dr, dc] of [
-            [-1, 0],
-            [1, 0],
-            [0, -1],
-            [0, 1],
-          ] as const) {
-            const nr = def.row + dr;
-            const nc = def.col + dc;
-            if (nr < 0 || nc < 0 || nr >= grid || nc >= grid) continue;
-            const j = nr * grid + nc;
-            const q = cur[j]!;
-            if (q.group === group) continue;
-            const wantX = q.x - dc * cellW;
-            const wantY = q.y - dr * cellH;
-            if (
-              Math.abs(p.x - wantX) < threshold &&
-              Math.abs(p.y - wantY) < threshold
-            ) {
-              dx = wantX - p.x;
-              dy = wantY - p.y;
-              mergeInto = q.group;
-              break outer;
-            }
-          }
-        }
-      }
-
-      if (!anchor && mergeInto === null) return;
-
-      const targetLocked =
-        anchor ||
-        (mergeInto !== null &&
-          cur.some((p) => p.group === mergeInto && p.locked));
-
-      let merged = cur.map((p) => {
-        if (p.group !== group) return p;
-        return {
-          ...p,
-          x: p.x + dx,
-          y: p.y + dy,
-          group: anchor ? 0 : mergeInto!,
-          locked: targetLocked,
-        };
-      });
-
-      if (targetLocked) {
-        const gid = anchor ? 0 : mergeInto!;
-        merged = merged.map((p) =>
-          p.group === gid ? { ...p, group: 0, locked: true, z: 0 } : p,
-        );
-      }
-
-      // whole picture assembled as one floating group -> settle it home
-      const gidNow = targetLocked ? 0 : mergeInto!;
-      const groupCount = merged.filter((p) => p.group === gidNow).length;
-      if (!targetLocked && groupCount === merged.length) {
-        merged = merged.map((p, i) => {
-          const def = defs[i]!;
-          return {
-            ...p,
-            x: def.col * cellW,
-            y: def.row * cellH,
-            group: 0,
-            locked: true,
-            z: 0,
-          };
-        });
-      }
-
-      setPieces(merged);
-      playLock();
-
-      if (merged.every((p) => p.locked)) {
+      if (next.every((piece, i) => piece === i)) {
         setSolved(true);
         window.setTimeout(() => playSolved(), 260);
       }
-    },
-    [geo, grid],
-  );
+      return next;
+    });
+  };
 
   const onPointerDown = (e: React.PointerEvent) => {
     const el = viewportRef.current;
@@ -286,8 +198,6 @@ export function PuzzleBoard({
 
     if (pointersRef.current.size === 2) {
       const [a, b] = [...pointersRef.current.values()];
-      dragRef.current = null;
-      setDraggingGroup(null);
       panRef.current = null;
       pinchRef.current = {
         dist: Math.hypot(a!.x - b!.x, a!.y - b!.y),
@@ -295,20 +205,13 @@ export function PuzzleBoard({
       };
       return;
     }
-
-    const pieceEl = (e.target as Element).closest("[data-piece]");
-    if (pieceEl && !solved) {
-      const i = Number(pieceEl.getAttribute("data-piece"));
-      const piece = piecesRef.current[i];
-      if (piece && !piece.locked) {
-        dragRef.current = { group: piece.group, x: e.clientX, y: e.clientY };
-        setDraggingGroup(piece.group);
-        bringToFront(piece.group);
-        playPick();
-        return;
-      }
-    }
-    panRef.current = { x: e.clientX, y: e.clientY };
+    const cellEl = (e.target as Element).closest("[data-cell]");
+    panRef.current = {
+      x: e.clientX,
+      y: e.clientY,
+      moved: false,
+      cell: cellEl ? Number(cellEl.getAttribute("data-cell")) : null,
+    };
   };
 
   const onPointerMove = (e: React.PointerEvent) => {
@@ -321,22 +224,10 @@ export function PuzzleBoard({
       const [a, b] = [...pointersRef.current.values()];
       const dist = Math.hypot(a!.x - b!.x, a!.y - b!.y);
       const rect = el.getBoundingClientRect();
-      const cx = (a!.x + b!.x) / 2 - rect.left;
-      const cy = (a!.y + b!.y) / 2 - rect.top;
-      zoomAt((pinchRef.current.s * dist) / pinchRef.current.dist, cx, cy);
-      return;
-    }
-
-    if (dragRef.current) {
-      const { group, x, y } = dragRef.current;
-      const s = viewRef.current.s;
-      const dx = (e.clientX - x) / s;
-      const dy = (e.clientY - y) / s;
-      dragRef.current = { group, x: e.clientX, y: e.clientY };
-      setPieces((prev) =>
-        prev.map((p) =>
-          p.group === group ? { ...p, x: p.x + dx, y: p.y + dy } : p,
-        ),
+      zoomAt(
+        (pinchRef.current.s * dist) / pinchRef.current.dist,
+        (a!.x + b!.x) / 2 - rect.left,
+        (a!.y + b!.y) / 2 - rect.top,
       );
       return;
     }
@@ -344,7 +235,9 @@ export function PuzzleBoard({
     if (panRef.current) {
       const dx = e.clientX - panRef.current.x;
       const dy = e.clientY - panRef.current.y;
-      panRef.current = { x: e.clientX, y: e.clientY };
+      panRef.current.x = e.clientX;
+      panRef.current.y = e.clientY;
+      if (Math.abs(dx) + Math.abs(dy) > 2) panRef.current.moved = true;
       setView((v) => ({ ...v, tx: v.tx + dx, ty: v.ty + dy }));
     }
   };
@@ -352,17 +245,13 @@ export function PuzzleBoard({
   const endPointer = (e: React.PointerEvent) => {
     pointersRef.current.delete(e.pointerId);
     if (pointersRef.current.size < 2) pinchRef.current = null;
-    if (dragRef.current) {
-      const group = dragRef.current.group;
-      dragRef.current = null;
-      setDraggingGroup(null);
-      setMoves((m) => m + 1);
-      settle(group);
-    }
+    const pan = panRef.current;
     panRef.current = null;
+    if (!pan || pan.moved) return;
+    if (pan.cell !== null) tapCell(pan.cell);
   };
 
-  const remaining = pieces.filter((p) => !p.locked).length;
+  const remaining = locked.filter((v) => !v).length;
 
   return (
     <div className="relative flex h-[100dvh] w-full flex-col overflow-hidden bg-mist-gradient">
@@ -402,91 +291,52 @@ export function PuzzleBoard({
         className="relative flex-1 touch-none overflow-hidden select-none"
       >
         <div
-          className="absolute top-0 left-0 origin-top-left"
+          className="absolute top-0 left-0 origin-top-left rounded-[18px]"
           style={{
             width: WORLD_W,
             height: worldH,
             transform: `translate(${view.tx}px, ${view.ty}px) scale(${view.s})`,
+            boxShadow: "var(--shadow-soft)",
           }}
         >
-          {/* board ghost */}
-          <div
-            className="absolute inset-0 overflow-hidden rounded-[18px] ring-1 ring-border"
-            style={{ boxShadow: "var(--shadow-soft)" }}
-          >
-            <img
-              src={src}
-              alt=""
-              aria-hidden="true"
-              className="h-full w-full object-cover opacity-15"
-            />
-          </div>
-
-          {geo?.pieces.map((def, i) => {
-            const st = pieces[i];
-            if (!st) return null;
-            const w = geo.cellW + def.padX * 2;
-            const h = geo.cellH + def.padY * 2;
-            const isDragging = draggingGroup === st.group;
+          {slots.map((piece, cell) => {
+            const row = Math.floor(cell / grid);
+            const col = cell % grid;
+            const pr = Math.floor(piece / grid);
+            const pc = piece % grid;
+            const isLocked = locked[cell];
+            const isSelected = selected === cell;
+            const justLocked = swapping.includes(cell);
             return (
-              <svg
-                key={def.id}
-                width={w}
-                height={h}
-                viewBox={`0 0 ${w} ${h}`}
+              <div
+                key={cell}
+                data-cell={cell}
                 style={{
                   position: "absolute",
-                  left: st.x - def.padX,
-                  top: st.y - def.padY,
-                  zIndex: st.locked ? 1 : st.z + 1,
-                  overflow: "visible",
-                  pointerEvents: "none",
-                  filter: st.locked
-                    ? "none"
-                    : `drop-shadow(${isDragging ? "0 10px 18px" : "0 4px 8px"} rgba(15,45,70,0.35))`,
-                  transition: isDragging
-                    ? "none"
-                    : "left 0.22s var(--ease-calm), top 0.22s var(--ease-calm), filter 0.2s ease",
+                  left: col * cellW,
+                  top: row * cellH,
+                  width: cellW,
+                  height: cellH,
+                  backgroundImage: `url(${src})`,
+                  backgroundSize: `${WORLD_W}px ${worldH}px`,
+                  backgroundPosition: `${-pc * cellW}px ${-pr * cellH}px`,
+                  borderRadius: isLocked ? 2 : 6,
+                  boxShadow: isSelected
+                    ? "0 0 0 3px var(--accent), 0 12px 22px rgba(15,45,70,0.4)"
+                    : isLocked
+                      ? "none"
+                      : "inset 0 0 0 1.5px rgba(255,255,255,0.55)",
+                  transform: isSelected
+                    ? "scale(0.94)"
+                    : justLocked
+                      ? "scale(1.02)"
+                      : "scale(1)",
+                  zIndex: isSelected ? 3 : justLocked ? 2 : 1,
+                  cursor: isLocked ? "default" : "pointer",
+                  transition:
+                    "transform 0.28s var(--ease-calm), box-shadow 0.25s ease, border-radius 0.3s ease",
                 }}
-              >
-                <defs>
-                  <clipPath id={`clip-${uid}-${i}`} clipPathUnits="userSpaceOnUse">
-                    <path
-                      d={def.path}
-                      transform={`translate(${def.padX},${def.padY})`}
-                    />
-                  </clipPath>
-                </defs>
-                <g clipPath={`url(#clip-${uid}-${i})`}>
-                  <image
-                    href={src}
-                    x={def.padX - def.col * geo.cellW}
-                    y={def.padY - def.row * geo.cellH}
-                    width={WORLD_W}
-                    height={worldH}
-                    preserveAspectRatio="none"
-                  />
-                </g>
-                <path
-                  d={def.path}
-                  transform={`translate(${def.padX},${def.padY})`}
-                  fill="none"
-                  stroke="rgba(255,255,255,0.45)"
-                  strokeWidth={1.2}
-                />
-                {/* shape-accurate hit area, so overlapping pieces don't steal taps */}
-                <path
-                  data-piece={i}
-                  d={def.path}
-                  transform={`translate(${def.padX},${def.padY})`}
-                  fill="transparent"
-                  style={{
-                    pointerEvents: st.locked ? "none" : "all",
-                    cursor: "grab",
-                  }}
-                />
-              </svg>
-
+              />
             );
           })}
         </div>
@@ -494,8 +344,16 @@ export function PuzzleBoard({
         {/* zoom controls */}
         <div className="glass-panel absolute right-3 bottom-3 z-20 flex flex-col overflow-hidden rounded-2xl">
           {[
-            { label: "+", action: () => zoomAt(viewRef.current.s * 1.25, size.w / 2, size.h / 2) },
-            { label: "−", action: () => zoomAt(viewRef.current.s / 1.25, size.w / 2, size.h / 2) },
+            {
+              label: "+",
+              action: () =>
+                zoomAt(viewRef.current.s * 1.25, size.w / 2, size.h / 2),
+            },
+            {
+              label: "−",
+              action: () =>
+                zoomAt(viewRef.current.s / 1.25, size.w / 2, size.h / 2),
+            },
             { label: "⤢", action: fitView },
           ].map((b) => (
             <button
@@ -509,8 +367,10 @@ export function PuzzleBoard({
         </div>
 
         {!solved && (
-          <p className="pointer-events-none absolute bottom-4 left-1/2 z-10 -translate-x-1/2 rounded-full bg-card/70 px-3 py-1 text-[11px] tracking-wide text-muted-foreground">
-            {remaining} pieces left
+          <p className="pointer-events-none absolute bottom-4 left-1/2 z-10 -translate-x-1/2 rounded-full bg-card/70 px-3 py-1 text-center text-[11px] tracking-wide text-muted-foreground">
+            {selected === null
+              ? `Tap two pieces to swap — ${remaining} left`
+              : "Tap where this piece belongs"}
           </p>
         )}
       </div>
