@@ -64,26 +64,23 @@ export function buildPuzzle(
   const padX = cellH * 0.2;
   const padY = cellW * 0.2;
 
-  // hTab[r][c] -> tab on the bottom edge of piece (r, c), for r in 0..n-2
-  const hTab: number[][] = [];
-  for (let r = 0; r < n - 1; r++) {
-    hTab[r] = [];
-    for (let c = 0; c < n; c++) hTab[r][c] = Math.random() < 0.5 ? 1 : -1;
-  }
-  // vTab[r][c] -> tab on the right edge of piece (r, c), for c in 0..n-2
-  const vTab: number[][] = [];
-  for (let r = 0; r < n; r++) {
-    vTab[r] = [];
-    for (let c = 0; c < n - 1; c++) vTab[r][c] = Math.random() < 0.5 ? 1 : -1;
-  }
+  // hTab(r, c) -> tab on the bottom edge of piece (r, c), for r in 0..n-2
+  const hTabs: number[] = [];
+  for (let i = 0; i < (n - 1) * n; i++) hTabs.push(Math.random() < 0.5 ? 1 : -1);
+  // vTab(r, c) -> tab on the right edge of piece (r, c), for c in 0..n-2
+  const vTabs: number[] = [];
+  for (let i = 0; i < n * (n - 1); i++) vTabs.push(Math.random() < 0.5 ? 1 : -1);
+  const hTab = (r: number, c: number) => hTabs[r * n + c] ?? 0;
+  const vTab = (r: number, c: number) => vTabs[r * (n - 1) + c] ?? 0;
 
   const pieces: PieceDef[] = [];
   for (let row = 0; row < n; row++) {
     for (let col = 0; col < n; col++) {
-      const top = row === 0 ? 0 : -hTab[row - 1][col];
-      const right = col === n - 1 ? 0 : vTab[row][col];
-      const bottom = row === n - 1 ? 0 : hTab[row][col];
-      const left = col === 0 ? 0 : -vTab[row][col - 1];
+      const top = row === 0 ? 0 : -hTab(row - 1, col);
+      const right = col === n - 1 ? 0 : vTab(row, col);
+      const bottom = row === n - 1 ? 0 : hTab(row, col);
+      const left = col === 0 ? 0 : -vTab(row, col - 1);
+
 
       const d = [
         `M 0 0`,
