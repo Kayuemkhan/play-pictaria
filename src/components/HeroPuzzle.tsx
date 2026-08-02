@@ -70,7 +70,7 @@ function shuffled<T>(arr: T[]): T[] {
 export function HeroPuzzle({
   src,
   cols = 6,
-  rows = 6,
+  rows = 7,
   wedge = 4,
   depth = 3,
   corner = "bottom-left",
