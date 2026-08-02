@@ -46,10 +46,10 @@ export interface Collection {
  */
 export const collections: Collection[] = [
   {
-    id: "sea-turtles",
-    title: "Sea Turtles",
-    tagline: "Ten quiet moments beneath the surface",
-    cover: turtle01,
+    id: "hawaiian-flowers",
+    title: "Hawaiian Flowers",
+    tagline: "Eleven island blooms in full color",
+    cover: flowerPlumeria,
     free: true,
     puzzles: [
       {
@@ -58,6 +58,75 @@ export const collections: Collection[] = [
         caption: "Dew on coral petals",
         image: flowerHibiscus,
       },
+      {
+        id: "flower-02",
+        title: "Pink Hibiscus",
+        caption: "Morning light on open petals",
+        image: flowerHibiscusPink,
+      },
+      {
+        id: "flower-03",
+        title: "Plumeria",
+        caption: "Sunset fragrance",
+        image: flowerPlumeria,
+      },
+      {
+        id: "flower-04",
+        title: "Bird of Paradise",
+        caption: "A crane in orange and blue",
+        image: flowerBirdOfParadise,
+      },
+      {
+        id: "flower-05",
+        title: "Anthurium",
+        caption: "A heart of glossy red",
+        image: flowerAnthurium,
+      },
+      {
+        id: "flower-06",
+        title: "Heliconia",
+        caption: "Scarlet bracts reaching up",
+        image: flowerHeliconia,
+      },
+      {
+        id: "flower-07",
+        title: "Torch Ginger",
+        caption: "A pink flame in the jungle",
+        image: flowerTorchGinger,
+      },
+      {
+        id: "flower-08",
+        title: "Orchid",
+        caption: "Purple petals in dappled light",
+        image: flowerOrchid,
+      },
+      {
+        id: "flower-09",
+        title: "Bougainvillea",
+        caption: "Magenta paper petals",
+        image: flowerBougainvillea,
+      },
+      {
+        id: "flower-10",
+        title: "Passion Flower",
+        caption: "A blue crown of filaments",
+        image: flowerPassionflower,
+      },
+      {
+        id: "flower-11",
+        title: "Ōhia Lehua",
+        caption: "Scarlet blooms on mountain slopes",
+        image: flowerOhiaLehua,
+      },
+    ],
+  },
+  {
+    id: "sea-turtles",
+    title: "Sea Turtles",
+    tagline: "Ten quiet moments beneath the surface",
+    cover: turtle01,
+    free: true,
+    puzzles: [
       {
         id: "turtle-01",
         title: "Sunbeams",
