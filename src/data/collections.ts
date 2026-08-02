@@ -190,30 +190,6 @@ export const collections: Collection[] = [
       },
     ],
   },
-  {
-    id: "coral-reef",
-    title: "Coral Reef",
-    tagline: "Twelve reef gardens in bloom",
-    cover: coverReef,
-    free: false,
-    puzzles: [],
-  },
-  {
-    id: "island-blooms",
-    title: "Island Blooms",
-    tagline: "Plumeria, hibiscus, and quiet green",
-    cover: coverBlooms,
-    free: false,
-    puzzles: [],
-  },
-  {
-    id: "still-shores",
-    title: "Still Shores",
-    tagline: "Long horizons and soft light",
-    cover: coverShores,
-    free: false,
-    puzzles: [],
-  },
 ];
 
 export const freeCollection = collections[0]!;
