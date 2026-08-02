@@ -48,8 +48,31 @@ function CreatePage() {
   const [playing, setPlaying] = useState<{ url: string; grid: number } | null>(
     null,
   );
+  const [cardPos, setCardPos] = useState({ x: 66, y: 38 });
   const fileInput = useRef<HTMLInputElement>(null);
   const urls = useRef<string[]>([]);
+
+  const startDrag = (e: React.PointerEvent<HTMLDivElement>) => {
+    const frame = e.currentTarget.parentElement;
+    if (!frame) return;
+    e.currentTarget.setPointerCapture(e.pointerId);
+    const move = (ev: PointerEvent) => {
+      const r = frame.getBoundingClientRect();
+      const x = ((ev.clientX - r.left) / r.width) * 100;
+      const y = ((ev.clientY - r.top) / r.height) * 100;
+      setCardPos({
+        x: Math.min(90, Math.max(10, x)),
+        y: Math.min(92, Math.max(8, y)),
+      });
+    };
+    const up = () => {
+      window.removeEventListener("pointermove", move);
+      window.removeEventListener("pointerup", up);
+    };
+    window.addEventListener("pointermove", move);
+    window.addEventListener("pointerup", up);
+  };
+
 
   useEffect(
     () => () => {
@@ -144,15 +167,26 @@ function CreatePage() {
                     </div>
                   </div>
                   {headline.trim() && (
-                    <div className="absolute top-[34%] right-4 z-[4] max-w-[62%] rounded-2xl bg-deep/55 px-4 py-3 backdrop-blur-[3px]">
-                      <p className="font-display text-[1.05rem] leading-tight text-shell">
+                    <div
+                      role="group"
+                      aria-label="Drag to position the headline"
+                      onPointerDown={startDrag}
+                      style={{
+                        left: `${cardPos.x}%`,
+                        top: `${cardPos.y}%`,
+                        transform: "translate(-50%, -50%)",
+                      }}
+                      className="absolute z-[4] w-[52%] cursor-grab touch-none rounded-xl bg-deep/55 px-3 py-2 backdrop-blur-[3px] active:cursor-grabbing"
+                    >
+                      <p className="font-display text-[0.85rem] leading-tight text-shell">
                         {headline}
                       </p>
-                      <span className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-accent px-3.5 py-1.5 text-[0.6rem] tracking-[0.14em] text-deep uppercase">
+                      <span className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-accent px-2.5 py-1 text-[0.5rem] tracking-[0.14em] text-deep uppercase">
                         Play now <span aria-hidden>›</span>
                       </span>
                     </div>
                   )}
+
                 </>
               ) : (
                 <button
