@@ -97,7 +97,7 @@ function Home() {
         </div>
 
         {/* unfinished tile puzzle */}
-        <div className="absolute right-3 bottom-4 w-[52%] max-w-[280px] sm:right-8 sm:bottom-8">
+        <div className="absolute right-4 bottom-8 w-[46%] max-w-[260px] sm:right-8 sm:bottom-12">
           <TileMosaic src={heroImage} />
         </div>
       </section>
