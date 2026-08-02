@@ -56,6 +56,7 @@ import amy07 from "@/assets/amy-art-07.jpg.asset.json";
 import amy08 from "@/assets/amy-art-08.jpg.asset.json";
 import amy09 from "@/assets/amy-art-09.jpg.asset.json";
 import amy10 from "@/assets/amy-art-10.jpg.asset.json";
+import amy11 from "@/assets/amy-art-11.jpg.asset.json";
 
 export interface Puzzle {
   id: string;
