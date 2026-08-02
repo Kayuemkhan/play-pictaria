@@ -245,7 +245,7 @@ export function PuzzleBoard({
       }
 
       const vacated = [...sources].filter(
-        (c) => !targets.has(c) && cur.indexOf(c) < 0,
+        (c) => !targets.has(c) && groups[cur.indexOf(c)] === group,
       );
       const displaced: number[] = [];
       for (const [cell] of targets) {
