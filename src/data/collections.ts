@@ -46,6 +46,16 @@ import fsmInfinitySunset from "@/assets/fsm-infinity-sunset.jpg.asset.json";
 import fsmPoolCaviar from "@/assets/fsm-pool-caviar.jpg.asset.json";
 import fsmCanoeGirls from "@/assets/fsm-canoe-girls.jpg.asset.json";
 import fsmBeachYoga from "@/assets/fsm-beach-yoga.jpg.asset.json";
+import amy01 from "@/assets/amy-art-01.jpg.asset.json";
+import amy02 from "@/assets/amy-art-02.jpg.asset.json";
+import amy03 from "@/assets/amy-art-03.jpg.asset.json";
+import amy04 from "@/assets/amy-art-04.jpg.asset.json";
+import amy05 from "@/assets/amy-art-05.jpg.asset.json";
+import amy06 from "@/assets/amy-art-06.jpg.asset.json";
+import amy07 from "@/assets/amy-art-07.jpg.asset.json";
+import amy08 from "@/assets/amy-art-08.jpg.asset.json";
+import amy09 from "@/assets/amy-art-09.jpg.asset.json";
+import amy10 from "@/assets/amy-art-10.jpg.asset.json";
 
 export interface Puzzle {
   id: string;
@@ -393,7 +403,27 @@ export const collections: Collection[] = [
       },
     ],
   },
+  {
+    id: "amys-art",
+    title: "Amy's Art",
+    tagline: "Hand-blown glass sea turtles in gold and silver",
+    cover: amy10.url,
+    free: true,
+    puzzles: [
+      { id: "amy-01", title: "Worn Well", caption: "Turquoise glass at the throat", image: amy01.url },
+      { id: "amy-02", title: "Golden Hour", caption: "Opal turtle on the wrist", image: amy02.url },
+      { id: "amy-03", title: "Pair", caption: "Cobalt drops on gold hooks", image: amy03.url },
+      { id: "amy-04", title: "Deep Blue", caption: "Sea glass and starfish", image: amy04.url },
+      { id: "amy-05", title: "Sea Grass", caption: "Green glass on silver", image: amy05.url },
+      { id: "amy-06", title: "Lagoon", caption: "Teal beads and gold fins", image: amy06.url },
+      { id: "amy-07", title: "Sapphire", caption: "Indigo shell, gold flippers", image: amy07.url },
+      { id: "amy-08", title: "Coral Branch", caption: "Blue swirl resting on white coral", image: amy08.url },
+      { id: "amy-09", title: "Amber Dusk", caption: "Firelight caught in glass", image: amy09.url },
+      { id: "amy-10", title: "Aurora", caption: "Violet and flame in one bead", image: amy10.url },
+    ],
+  },
 ];
+
 
 
 export const freeCollection = collections[0]!;
