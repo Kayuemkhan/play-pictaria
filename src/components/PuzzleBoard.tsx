@@ -17,18 +17,47 @@ function formatTime(total: number) {
   return `${m}:${s.toString().padStart(2, "0")}`;
 }
 
-/** pos[pieceId] = cellIndex. Nothing starts home. */
-function shufflePositions(count: number): number[] {
-  for (let attempt = 0; attempt < 60; attempt++) {
+/** true if any two picture-neighbour pieces already sit adjacent correctly */
+function hasPreLockedPair(positions: number[], grid: number) {
+  for (let p = 0; p < positions.length; p++) {
+    const pc = positions[p]!;
+    const pr = Math.floor(pc / grid);
+    const pcol = pc % grid;
+    for (const [dr, dc] of [
+      [0, 1],
+      [1, 0],
+    ] as const) {
+      const nr = pr + dr;
+      const nc = pcol + dc;
+      if (nr >= grid || nc >= grid) continue;
+      const q = positions.indexOf(nr * grid + nc);
+      if (q < 0) continue;
+      if (
+        Math.floor(q / grid) === Math.floor(p / grid) + dr &&
+        q % grid === (p % grid) + dc
+      )
+        return true;
+    }
+  }
+  return false;
+}
+
+/** pos[pieceId] = cellIndex. Nothing starts home, nothing starts locked. */
+function shufflePositions(count: number, grid: number): number[] {
+  let fallback: number[] | null = null;
+  for (let attempt = 0; attempt < 400; attempt++) {
     const a = Array.from({ length: count }, (_, i) => i);
     for (let i = a.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [a[i], a[j]] = [a[j]!, a[i]!];
     }
-    if (a.every((cell, piece) => cell !== piece)) return a;
+    if (!a.every((cell, piece) => cell !== piece)) continue;
+    if (!fallback) fallback = a;
+    if (!hasPreLockedPair(a, grid)) return a;
   }
-  return Array.from({ length: count }, (_, i) => (i + 1) % count);
+  return fallback ?? Array.from({ length: count }, (_, i) => (i + 1) % count);
 }
+
 
 export function PuzzleBoard({
   src,
