@@ -184,11 +184,13 @@ function Home() {
                 </p>
               </div>
               <Link
-                to="/unlock"
+                to="/collection/$collectionId"
+                params={{ collectionId: freeCollection.id }}
                 className="justify-self-start rounded-full bg-deep px-6 py-3 text-[11px] tracking-[0.2em] text-accent uppercase shadow-lift transition-transform hover:scale-[1.03] sm:justify-self-end"
               >
                 Get started
               </Link>
+
             </div>
           </div>
         </div>
