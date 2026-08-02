@@ -187,7 +187,8 @@ export function HeroPuzzle({
                   filter: locking ? "brightness(1.18)" : "none",
                   zIndex: locking ? 3 : atHome ? 1 : 2,
                   transition:
-                    "left 0.6s var(--ease-calm), top 0.6s var(--ease-calm), box-shadow 0.35s ease, filter 0.35s ease",
+                    "left 1s var(--ease-calm), top 1s var(--ease-calm), box-shadow 0.6s ease, filter 0.6s ease",
+
                 }}
               >
                 <img
