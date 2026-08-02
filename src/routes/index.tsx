@@ -43,13 +43,23 @@ function Home() {
         />
         <div className="absolute inset-0 bg-gradient-to-b from-deep/75 via-transparent to-deep/40" />
 
-        <button
-          type="button"
-          aria-label="Menu"
-          className="absolute top-5 left-5 grid h-11 w-11 place-items-center rounded-full bg-deep/80 text-accent backdrop-blur-sm transition-transform hover:scale-105"
-        >
-          <Menu className="h-5 w-5" strokeWidth={1.5} />
-        </button>
+        <div className="absolute top-5 right-5 left-5 z-[5] flex items-center justify-between">
+          <button
+            type="button"
+            aria-label="Menu"
+            className="grid h-11 w-11 place-items-center rounded-full bg-deep/80 text-accent backdrop-blur-sm transition-transform hover:scale-105"
+          >
+            <Menu className="h-5 w-5" strokeWidth={1.5} />
+          </button>
+          <button
+            type="button"
+            aria-label="Search puzzles"
+            className="grid h-11 w-11 place-items-center rounded-full bg-deep/80 text-accent backdrop-blur-sm transition-transform hover:scale-105"
+          >
+            <Search className="h-5 w-5" strokeWidth={1.5} />
+          </button>
+        </div>
+
 
         {/* wordmark */}
         <div className="absolute inset-x-0 top-4 flex flex-col items-center px-8 text-center">
