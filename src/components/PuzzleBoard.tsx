@@ -74,6 +74,11 @@ export function PuzzleBoard({
   const pinchRef = useRef<{ dist: number; s: number } | null>(null);
   const pointersRef = useRef<Map<number, { x: number; y: number }>>(new Map());
 
+  const worldH = aspect ? WORLD_W / aspect : WORLD_W;
+  const total = grid * grid;
+  const cellW = WORLD_W / grid;
+  const cellH = worldH / grid;
+
   /** cell index under a client point, or null */
   const cellAtPoint = useCallback(
     (clientX: number, clientY: number) => {
@@ -83,20 +88,15 @@ export function PuzzleBoard({
       const v = viewRef.current;
       const wx = (clientX - rect.left - v.tx) / v.s;
       const wy = (clientY - rect.top - v.ty) / v.s;
-      if (wx < 0 || wy < 0 || wx >= WORLD_W) return null;
-      const col = Math.floor(wx / (WORLD_W / grid));
-      const row = Math.floor(wy / (worldHRef.current / grid));
+      if (wx < 0 || wy < 0 || wx >= WORLD_W || wy >= worldH) return null;
+      const col = Math.floor(wx / cellW);
+      const row = Math.floor(wy / cellH);
       if (col < 0 || col >= grid || row < 0 || row >= grid) return null;
       return row * grid + col;
     },
-    [grid],
+    [grid, cellW, cellH, worldH],
   );
 
-
-  const worldH = aspect ? WORLD_W / aspect : WORLD_W;
-  const total = grid * grid;
-  const cellW = WORLD_W / grid;
-  const cellH = worldH / grid;
 
   const locked = useMemo(
     () => slots.map((piece, cell) => piece === cell),
