@@ -92,11 +92,13 @@ function Home() {
         <HeroPuzzle
           src={heroImage}
           cols={6}
-          rows={5}
+          rows={8}
           wedge={4}
-          depth={2}
+          depth={3}
+          corner="bottom-right"
           inset={2}
         />
+
 
         {/* headline + CTA, set on the sunset with a soft backdrop */}
         <div className="absolute top-[34%] right-4 z-[4] max-w-[58%] rounded-2xl bg-deep/55 px-4 py-3 backdrop-blur-[3px] sm:right-10 sm:max-w-[42%] sm:px-5 sm:py-4">
