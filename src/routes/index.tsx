@@ -99,8 +99,8 @@ function Home() {
 
 
         {/* unfinished tile puzzle */}
-        <div className="absolute right-4 bottom-8 w-[46%] max-w-[260px] sm:right-8 sm:bottom-12">
-          <TileMosaic src={heroImage} />
+        <div className="absolute right-4 bottom-8 w-[38%] max-w-[210px] sm:right-8 sm:bottom-12">
+          <TileMosaic src={firstPuzzle.image} />
         </div>
       </section>
 
@@ -109,7 +109,7 @@ function Home() {
         <div className="mx-auto w-full max-w-5xl">
           <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4">
             <h2 className="min-w-0 truncate font-display text-base tracking-[0.2em] text-foreground uppercase">
-              Featured Pictarias
+              Featured
             </h2>
             <Link
               to="/collection/$collectionId"
@@ -120,24 +120,18 @@ function Home() {
             </Link>
           </div>
 
-          <div className="-mx-4 mt-4 flex snap-x gap-3 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-3 sm:overflow-visible sm:px-0">
+          <div className="-mx-4 mt-4 flex snap-x gap-3 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-4 sm:overflow-visible sm:px-0">
 
             {featured.map((collection) => {
-              return (
-                <Link
-                  key={collection.id}
-                  to="/collection/$collectionId"
-                  params={{ collectionId: collection.id }}
-                  className="tile-sheen group relative block w-[46%] shrink-0 snap-start overflow-hidden rounded-2xl shadow-soft transition-shadow duration-500 hover:shadow-lift sm:w-auto"
-
-                >
-
+              const soon = collection.comingSoon === true;
+              const inner = (
+                <>
                   <img
                     src={collection.cover}
                     alt={collection.title}
                     loading="lazy"
-                    width={1024}
-                    height={768}
+                    width={768}
+                    height={1024}
                     className="aspect-[3/4] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
                   />
                   <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-deep via-deep/70 to-transparent px-3 pt-8 pb-3">
@@ -145,9 +139,36 @@ function Home() {
                       {collection.title}
                     </p>
                     <p className="mt-1 text-[10px] tracking-[0.14em] text-accent uppercase">
-                      {collection.puzzles.length || 10} puzzles
+                      {soon
+                        ? "Coming soon"
+                        : `${collection.puzzles.length} puzzles`}
                     </p>
                   </div>
+                </>
+              );
+
+              const shell =
+                "tile-sheen group relative block w-[46%] shrink-0 snap-start overflow-hidden rounded-2xl shadow-soft transition-shadow duration-500 hover:shadow-lift sm:w-auto";
+
+              if (soon) {
+                return (
+                  <div
+                    key={collection.id}
+                    className={`${shell} cursor-default opacity-80`}
+                  >
+                    {inner}
+                  </div>
+                );
+              }
+
+              return (
+                <Link
+                  key={collection.id}
+                  to="/collection/$collectionId"
+                  params={{ collectionId: collection.id }}
+                  className={shell}
+                >
+                  {inner}
                 </Link>
               );
             })}

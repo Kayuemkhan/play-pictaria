@@ -1,16 +1,22 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 /**
- * Decorative "puzzle solving itself" mosaic — equal-sized rectangular tiles
- * sliced from one image that keep sliding between grid cells, then settle.
+ * Decorative "puzzle solving itself" mosaic — equal-sized vertical rectangles
+ * sliced from one photo, laid out in a staircase. The lower stair is already
+ * solved and locked; the upper pieces keep sliding between cells and blink
+ * gold as each one clicks into its home cell.
  */
-const COLS = 5;
+const COLS = 3;
 const ROWS = 4;
-const TOTAL = COLS * ROWS;
+const PIECE_ASPECT = 3 / 4; // vertical rectangles
 const GAP = 3; // px
 
-// which cells hold a piece — the rest stay empty, like an unfinished puzzle
-const PLACED = [2, 3, 4, 6, 7, 8, 9, 11, 13, 14, 15, 16, 17, 18, 19];
+/** Grid cells that hold a piece, in staircase formation. */
+const HOME = [0, 3, 4, 6, 7, 8, 9, 10, 11];
+/** Cells whose pieces are permanently solved (the finished part of the stair). */
+const LOCKED = new Set([6, 7, 8, 9, 10, 11]);
+
+const LOOSE = HOME.filter((cell) => !LOCKED.has(cell));
 
 function shuffled<T>(arr: T[]): T[] {
   const a = [...arr];
@@ -22,73 +28,95 @@ function shuffled<T>(arr: T[]): T[] {
 }
 
 export function TileMosaic({ src }: { src: string }) {
-  // cellFor[piece] = which grid cell that piece currently sits in
-  const [cellFor, setCellFor] = useState<number[]>(PLACED);
+  // cellFor[pieceIndex] = grid cell that piece currently sits in
+  const [cellFor, setCellFor] = useState<number[]>(HOME);
+  const [blink, setBlink] = useState<number | null>(null);
+  const timers = useRef<number[]>([]);
 
   useEffect(() => {
-    let solved = false;
-    const jumble = window.setTimeout(
-      () => setCellFor(shuffled(PLACED)),
-      600,
-    );
-    const id = window.setInterval(() => {
+    const jumbleLoose = () => {
+      const mix = shuffled(LOOSE);
+      setCellFor(
+        HOME.map((home) =>
+          LOCKED.has(home) ? home : mix[LOOSE.indexOf(home)]!,
+        ),
+      );
+    };
+
+    const start = window.setTimeout(jumbleLoose, 700);
+
+    const tick = window.setInterval(() => {
       setCellFor((prev) => {
-        if (solved) return shuffled(PLACED);
-        // slide two pieces at a time toward home
-        const next = [...prev];
-        const wrong = next
+        const wrong = prev
           .map((cell, piece) => ({ cell, piece }))
-          .filter(({ cell, piece }) => cell !== PLACED[piece]);
+          .filter(({ cell, piece }) => cell !== HOME[piece]);
+
         if (!wrong.length) {
-          solved = true;
-          return next;
+          const t = window.setTimeout(jumbleLoose, 1600);
+          timers.current.push(t);
+          return prev;
         }
+
+        const next = [...prev];
         const pick = wrong[Math.floor(Math.random() * wrong.length)]!;
-        const home = PLACED[pick.piece]!;
+        const home = HOME[pick.piece]!;
         const other = next.indexOf(home);
         next[pick.piece] = home;
         if (other !== -1) next[other] = pick.cell;
-        solved = next.every((cell, piece) => cell === PLACED[piece]);
+
+        const t = window.setTimeout(() => setBlink(pick.piece), 620);
+        const t2 = window.setTimeout(() => setBlink(null), 1180);
+        timers.current.push(t, t2);
         return next;
       });
-    }, 900);
+    }, 1150);
+
     return () => {
-      window.clearTimeout(jumble);
-      window.clearInterval(id);
+      window.clearTimeout(start);
+      window.clearInterval(tick);
+      timers.current.forEach(window.clearTimeout);
+      timers.current = [];
     };
   }, []);
 
-  const cellPct = 100 / COLS;
+  const colPct = 100 / COLS;
+  const rowPct = 100 / ROWS;
 
   return (
     <div
       aria-hidden
       className="relative w-full"
-      style={{ aspectRatio: `${COLS} / ${ROWS}` }}
+      style={{ aspectRatio: `${COLS * PIECE_ASPECT} / ${ROWS}` }}
     >
-      {PLACED.map((homeCell, piece) => {
+      {HOME.map((homeCell, piece) => {
         const hc = homeCell % COLS;
         const hr = Math.floor(homeCell / COLS);
         const cur = cellFor[piece] ?? homeCell;
         const col = cur % COLS;
         const row = Math.floor(cur / COLS);
         const atHome = cur === homeCell;
+        const locking = blink === piece;
         return (
           <div
             key={piece}
-            className="absolute rounded-[2px] ring-1 ring-deep-foreground/70"
+            className="absolute rounded-[3px]"
             style={{
-              width: `calc(${cellPct}% - ${GAP}px)`,
-              height: `calc(${(100 / ROWS).toFixed(4)}% - ${GAP}px)`,
-              left: `${col * cellPct}%`,
-              top: `${row * (100 / ROWS)}%`,
+              width: `calc(${colPct}% - ${GAP}px)`,
+              height: `calc(${rowPct}% - ${GAP}px)`,
+              left: `${col * colPct}%`,
+              top: `${row * rowPct}%`,
               backgroundImage: `url(${src})`,
               backgroundSize: `${COLS * 100}% ${ROWS * 100}%`,
               backgroundPosition: `${(hc / (COLS - 1)) * 100}% ${(hr / (ROWS - 1)) * 100}%`,
-              boxShadow: atHome ? "var(--shadow-soft)" : "var(--shadow-lift)",
-              zIndex: atHome ? 1 : 2,
+              boxShadow: locking
+                ? "0 0 0 2px oklch(0.82 0.12 85), var(--shadow-lift)"
+                : atHome
+                  ? "var(--shadow-soft)"
+                  : "var(--shadow-lift)",
+              filter: locking ? "brightness(1.18)" : "none",
+              zIndex: locking ? 3 : atHome ? 1 : 2,
               transition:
-                "left 0.65s var(--ease-calm), top 0.65s var(--ease-calm), box-shadow 0.5s ease",
+                "left 0.6s var(--ease-calm), top 0.6s var(--ease-calm), box-shadow 0.35s ease, filter 0.35s ease",
             }}
           />
         );
