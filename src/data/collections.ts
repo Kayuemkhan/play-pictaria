@@ -421,6 +421,7 @@ export const collections: Collection[] = [
       { id: "amy-08", title: "Coral Branch", caption: "Blue swirl resting on white coral", image: amy08.url },
       { id: "amy-09", title: "Amber Dusk", caption: "Firelight caught in glass", image: amy09.url },
       { id: "amy-10", title: "Aurora", caption: "Violet and flame in one bead", image: amy10.url },
+      { id: "amy-11", title: "At the Torch", caption: "The artist at work in her studio", image: amy11.url },
     ],
   },
 ];
