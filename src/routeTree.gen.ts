@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as UnlockRouteImport } from './routes/unlock'
+import { Route as CollectionCollectionIdRouteImport } from './routes/collection.$collectionId'
 import { Route as PuzzlePuzzleIdRouteImport } from './routes/puzzle.$puzzleId'
 
 const IndexRoute = IndexRouteImport.update({
@@ -23,6 +24,11 @@ const UnlockRoute = UnlockRouteImport.update({
   path: '/unlock',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CollectionCollectionIdRoute = CollectionCollectionIdRouteImport.update({
+  id: '/collection/$collectionId',
+  path: '/collection/$collectionId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PuzzlePuzzleIdRoute = PuzzlePuzzleIdRouteImport.update({
   id: '/puzzle/$puzzleId',
   path: '/puzzle/$puzzleId',
@@ -32,30 +38,39 @@ const PuzzlePuzzleIdRoute = PuzzlePuzzleIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/unlock': typeof UnlockRoute
+  '/collection/$collectionId': typeof CollectionCollectionIdRoute
   '/puzzle/$puzzleId': typeof PuzzlePuzzleIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/unlock': typeof UnlockRoute
+  '/collection/$collectionId': typeof CollectionCollectionIdRoute
   '/puzzle/$puzzleId': typeof PuzzlePuzzleIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/unlock': typeof UnlockRoute
+  '/collection/$collectionId': typeof CollectionCollectionIdRoute
   '/puzzle/$puzzleId': typeof PuzzlePuzzleIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/unlock' | '/puzzle/$puzzleId'
+  fullPaths: '/' | '/unlock' | '/collection/$collectionId' | '/puzzle/$puzzleId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/unlock' | '/puzzle/$puzzleId'
-  id: '__root__' | '/' | '/unlock' | '/puzzle/$puzzleId'
+  to: '/' | '/unlock' | '/collection/$collectionId' | '/puzzle/$puzzleId'
+  id:
+    | '__root__'
+    | '/'
+    | '/unlock'
+    | '/collection/$collectionId'
+    | '/puzzle/$puzzleId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   UnlockRoute: typeof UnlockRoute
+  CollectionCollectionIdRoute: typeof CollectionCollectionIdRoute
   PuzzlePuzzleIdRoute: typeof PuzzlePuzzleIdRoute
 }
 
@@ -75,6 +90,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UnlockRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/collection/$collectionId': {
+      id: '/collection/$collectionId'
+      path: '/collection/$collectionId'
+      fullPath: '/collection/$collectionId'
+      preLoaderRoute: typeof CollectionCollectionIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/puzzle/$puzzleId': {
       id: '/puzzle/$puzzleId'
       path: '/puzzle/$puzzleId'
@@ -88,6 +110,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   UnlockRoute: UnlockRoute,
+  CollectionCollectionIdRoute: CollectionCollectionIdRoute,
   PuzzlePuzzleIdRoute: PuzzlePuzzleIdRoute,
 }
 export const routeTree = rootRouteImport
