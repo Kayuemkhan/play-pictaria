@@ -101,7 +101,7 @@ export function HeroPuzzle({
 
     setCellFor(loose);
     const jumble = () => setCellFor(shuffled(loose));
-    const start = window.setTimeout(jumble, 800);
+    const start = window.setTimeout(jumble, 1400);
 
     const tick = window.setInterval(() => {
       setCellFor((prev) => {
@@ -110,7 +110,7 @@ export function HeroPuzzle({
           .filter(({ cell, piece }) => cell !== loose[piece]);
 
         if (!wrong.length) {
-          const t = window.setTimeout(jumble, 1800);
+          const t = window.setTimeout(jumble, 3600);
           timers.current.push(t);
           return prev;
         }
@@ -122,12 +122,13 @@ export function HeroPuzzle({
         next[pick.piece] = home;
         if (other !== -1) next[other] = pick.cell;
 
-        const t = window.setTimeout(() => setBlink(pick.piece), 620);
-        const t2 = window.setTimeout(() => setBlink(null), 1200);
+        const t = window.setTimeout(() => setBlink(pick.piece), 1000);
+        const t2 = window.setTimeout(() => setBlink(null), 1900);
         timers.current.push(t, t2);
         return next;
       });
-    }, 1100);
+    }, 2400);
+
 
     return () => {
       window.clearTimeout(start);
