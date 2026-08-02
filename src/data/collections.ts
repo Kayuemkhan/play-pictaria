@@ -379,12 +379,6 @@ export const collections: Collection[] = [
         image: fsmResortCove.url,
       },
       {
-        id: "fsm-04",
-        title: "Outrigger",
-        caption: "Carrying the canoe to the shore break",
-        image: fsmCanoeGirls.url,
-      },
-      {
         id: "fsm-02",
         title: "Infinity",
         caption: "Palms and dusk at the edge pool",
@@ -402,7 +396,14 @@ export const collections: Collection[] = [
         caption: "Umbrellas, salads, and open ocean",
         image: fsmPoolCaviar.url,
       },
+      {
+        id: "fsm-04",
+        title: "Outrigger",
+        caption: "Carrying the canoe to the shore break",
+        image: fsmCanoeGirls.url,
+      },
     ],
+
   },
   {
     id: "amys-art",

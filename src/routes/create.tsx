@@ -48,8 +48,31 @@ function CreatePage() {
   const [playing, setPlaying] = useState<{ url: string; grid: number } | null>(
     null,
   );
+  const [cardPos, setCardPos] = useState({ x: 66, y: 38 });
   const fileInput = useRef<HTMLInputElement>(null);
   const urls = useRef<string[]>([]);
+
+  const startDrag = (e: React.PointerEvent<HTMLDivElement>) => {
+    const frame = e.currentTarget.parentElement;
+    if (!frame) return;
+    e.currentTarget.setPointerCapture(e.pointerId);
+    const move = (ev: PointerEvent) => {
+      const r = frame.getBoundingClientRect();
+      const x = ((ev.clientX - r.left) / r.width) * 100;
+      const y = ((ev.clientY - r.top) / r.height) * 100;
+      setCardPos({
+        x: Math.min(90, Math.max(10, x)),
+        y: Math.min(92, Math.max(8, y)),
+      });
+    };
+    const up = () => {
+      window.removeEventListener("pointermove", move);
+      window.removeEventListener("pointerup", up);
+    };
+    window.addEventListener("pointermove", move);
+    window.addEventListener("pointerup", up);
+  };
+
 
   useEffect(
     () => () => {
