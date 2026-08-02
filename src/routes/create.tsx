@@ -228,42 +228,6 @@ function CreatePage() {
               />
             </label>
 
-            <div className="grid gap-1.5">
-              <span className="text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
-                Unsolved corner
-              </span>
-              <div className="flex flex-wrap gap-2">
-                {corners.map((c) => (
-                  <button
-                    key={c.value}
-                    type="button"
-                    onClick={() => setCorner(c.value)}
-                    className={`rounded-full px-3.5 py-1.5 text-[0.6rem] tracking-[0.16em] uppercase transition-colors ${
-                      corner === c.value
-                        ? "bg-deep text-accent"
-                        : "border border-border text-muted-foreground hover:text-foreground"
-                    }`}
-                  >
-                    {c.label}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <label className="grid gap-1.5">
-              <span className="text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
-                How much stays unsolved
-              </span>
-              <input
-                type="range"
-                min={3}
-                max={8}
-                step={1}
-                value={wedge}
-                onChange={(e) => setWedge(Number(e.target.value))}
-                className="accent-accent"
-              />
-            </label>
 
             <label className="flex items-center gap-3">
               <input
