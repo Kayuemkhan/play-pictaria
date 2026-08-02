@@ -3,12 +3,6 @@ import { playLock, playPick, playSolved } from "@/lib/feedback";
 
 const WORLD_W = 1000;
 
-interface View {
-  s: number;
-  tx: number;
-  ty: number;
-}
-
 export interface PuzzleBoardProps {
   src: string;
   title: string;
@@ -23,15 +17,15 @@ function formatTime(total: number) {
   return `${m}:${s.toString().padStart(2, "0")}`;
 }
 
-/** Shuffled placement: slots[cellIndex] = pieceId, no piece starts home. */
-function shuffleSlots(count: number): number[] {
-  for (let attempt = 0; attempt < 50; attempt++) {
+/** pos[pieceId] = cellIndex. Nothing starts home. */
+function shufflePositions(count: number): number[] {
+  for (let attempt = 0; attempt < 60; attempt++) {
     const a = Array.from({ length: count }, (_, i) => i);
     for (let i = a.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [a[i], a[j]] = [a[j]!, a[i]!];
     }
-    if (a.every((piece, cell) => piece !== cell)) return a;
+    if (a.every((cell, piece) => cell !== piece)) return a;
   }
   return Array.from({ length: count }, (_, i) => (i + 1) % count);
 }
@@ -48,39 +42,33 @@ export function PuzzleBoard({
   const [aspect, setAspect] = useState<number | null>(null);
   const [round, setRound] = useState(0);
   const [size, setSize] = useState({ w: 0, h: 0 });
-  const [slots, setSlots] = useState<number[]>([]);
-  const [selected, setSelected] = useState<number | null>(null);
-  const [swapping, setSwapping] = useState<number[]>([]);
-  const [view, setView] = useState<View>({ s: 1, tx: 0, ty: 0 });
+  /** pos[piece] = cell */
+  const [pos, setPos] = useState<number[]>([]);
+  /** groupOf[piece] = group id */
+  const [groupOf, setGroupOf] = useState<number[]>([]);
+  const [flash, setFlash] = useState<number[]>([]);
   const [moves, setMoves] = useState(0);
   const [seconds, setSeconds] = useState(0);
   const [solved, setSolved] = useState(false);
-
   const [drag, setDrag] = useState<{
-    cell: number;
-    x: number;
-    y: number;
-    hover: number | null;
+    group: number;
+    dx: number;
+    dy: number;
+    valid: boolean;
   } | null>(null);
 
-
-  const viewRef = useRef<View>(view);
-  viewRef.current = view;
-  const panRef = useRef<{
-    x: number;
-    y: number;
-    moved: boolean;
-    cell: number | null;
-  } | null>(null);
-  const dragRef = useRef<{ cell: number } | null>(null);
-  const pinchRef = useRef<{ dist: number; s: number } | null>(null);
-  const pointersRef = useRef<Map<number, { x: number; y: number }>>(new Map());
-
-  // The board is always portrait (3:4), so every piece is a vertical rectangle.
-  const worldH = (WORLD_W * 4) / 3;
   const total = grid * grid;
+  const worldH = (WORLD_W * 4) / 3;
   const cellW = WORLD_W / grid;
   const cellH = worldH / grid;
+
+  const scale = useMemo(() => {
+    if (!size.w || !size.h) return 0;
+    return Math.min(size.w / WORLD_W, size.h / worldH);
+  }, [size.w, size.h, worldH]);
+
+  const offX = (size.w - WORLD_W * scale) / 2;
+  const offY = (size.h - worldH * scale) / 2;
 
   /** cover-crop the photo into the portrait board */
   const bg = useMemo(() => {
@@ -90,31 +78,6 @@ export function PuzzleBoard({
     const h = a > boardAspect ? worldH : WORLD_W / a;
     return { w, h, x: (WORLD_W - w) / 2, y: (worldH - h) / 2 };
   }, [aspect, worldH]);
-
-
-  /** cell index under a client point, or null */
-  const cellAtPoint = useCallback(
-    (clientX: number, clientY: number) => {
-      const el = viewportRef.current;
-      if (!el) return null;
-      const rect = el.getBoundingClientRect();
-      const v = viewRef.current;
-      const wx = (clientX - rect.left - v.tx) / v.s;
-      const wy = (clientY - rect.top - v.ty) / v.s;
-      if (wx < 0 || wy < 0 || wx >= WORLD_W || wy >= worldH) return null;
-      const col = Math.floor(wx / cellW);
-      const row = Math.floor(wy / cellH);
-      if (col < 0 || col >= grid || row < 0 || row >= grid) return null;
-      return row * grid + col;
-    },
-    [grid, cellW, cellH, worldH],
-  );
-
-
-  const locked = useMemo(
-    () => slots.map((piece, cell) => piece === cell),
-    [slots],
-  );
 
   /* image aspect ratio */
   useEffect(() => {
@@ -135,194 +98,192 @@ export function PuzzleBoard({
     return () => ro.disconnect();
   }, []);
 
-  const fitView = useCallback(() => {
-    if (!size.w || !size.h) return;
-    const s = Math.min(size.w / WORLD_W, size.h / worldH) * 0.92;
-    setView({
-      s,
-      tx: (size.w - WORLD_W * s) / 2,
-      ty: (size.h - worldH * s) / 2,
-    });
-  }, [size.w, size.h, worldH]);
-
-  useEffect(() => {
-    fitView();
-  }, [fitView]);
+  /** merge every pair of pieces that sit correctly side by side */
+  const mergePass = useCallback(
+    (positions: number[], groups: number[]) => {
+      const g = [...groups];
+      let merged = false;
+      const relink = (from: number, to: number) => {
+        for (let i = 0; i < g.length; i++) if (g[i] === from) g[i] = to;
+      };
+      let changed = true;
+      while (changed) {
+        changed = false;
+        for (let p = 0; p < positions.length; p++) {
+          const pc = positions[p]!;
+          const pr = Math.floor(pc / grid);
+          const pcol = pc % grid;
+          for (const [dr, dc] of [
+            [0, 1],
+            [1, 0],
+          ] as const) {
+            const nr = pr + dr;
+            const nc = pcol + dc;
+            if (nr >= grid || nc >= grid) continue;
+            const nCell = nr * grid + nc;
+            const q = positions.indexOf(nCell);
+            if (q < 0 || g[q] === g[p]) continue;
+            // are p and q neighbours in the picture, in the same direction?
+            const homeOkRow = Math.floor(q / grid) === Math.floor(p / grid) + dr;
+            const homeOkCol = q % grid === (p % grid) + dc;
+            if (homeOkRow && homeOkCol) {
+              relink(g[q]!, g[p]!);
+              merged = true;
+              changed = true;
+            }
+          }
+        }
+      }
+      return { groups: g, merged };
+    },
+    [grid],
+  );
 
   /* jumble */
   useEffect(() => {
     if (!aspect) return;
-    setSlots(shuffleSlots(total));
-    setSelected(null);
-    setSwapping([]);
+    const p = shufflePositions(total);
+    const init = Array.from({ length: total }, (_, i) => i);
+    setPos(p);
+    setGroupOf(mergePass(p, init).groups);
     setMoves(0);
     setSeconds(0);
     setSolved(false);
-  }, [aspect, total, round]);
+    setFlash([]);
+    setDrag(null);
+  }, [aspect, total, round, mergePass]);
 
   /* timer */
   useEffect(() => {
-    if (solved || !slots.length) return;
+    if (solved || !pos.length) return;
     const t = window.setInterval(() => setSeconds((v) => v + 1), 1000);
     return () => window.clearInterval(t);
-  }, [solved, slots.length]);
+  }, [solved, pos.length]);
 
-  const zoomAt = useCallback((nextS: number, px: number, py: number) => {
-    setView((v) => {
-      const clamped = Math.min(4, Math.max(0.4, nextS));
-      const k = clamped / v.s;
-      return { s: clamped, tx: px - (px - v.tx) * k, ty: py - (py - v.ty) * k };
-    });
-  }, []);
+  const dragStart = useRef<{
+    group: number;
+    x: number;
+    y: number;
+    moved: boolean;
+  } | null>(null);
 
-  /* wheel zoom (non-passive) */
-  useEffect(() => {
-    const el = viewportRef.current;
-    if (!el) return;
-    const onWheel = (e: WheelEvent) => {
-      e.preventDefault();
-      const rect = el.getBoundingClientRect();
-      const dy =
-        e.deltaY * (e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? 100 : 1);
-      zoomAt(
-        viewRef.current.s * Math.exp(-dy * 0.0018),
-        e.clientX - rect.left,
-        e.clientY - rect.top,
-      );
-    };
-    el.addEventListener("wheel", onWheel, { passive: false });
-    return () => el.removeEventListener("wheel", onWheel);
-  }, [zoomAt]);
+  /** try to translate a group by (dCol, dRow); returns new positions or null */
+  const tryMove = useCallback(
+    (
+      positions: number[],
+      groups: number[],
+      group: number,
+      dCol: number,
+      dRow: number,
+    ) => {
+      const members = groups
+        .map((g, piece) => (g === group ? piece : -1))
+        .filter((p) => p >= 0);
+      const targets = new Map<number, number>(); // cell -> piece
+      for (const piece of members) {
+        const c = positions[piece]!;
+        const r = Math.floor(c / grid) + dRow;
+        const col = (c % grid) + dCol;
+        if (r < 0 || r >= grid || col < 0 || col >= grid) return null;
+        targets.set(r * grid + col, piece);
+      }
+      const sources = new Set(members.map((p) => positions[p]!));
+      const vacated = [...sources].filter((c) => !targets.has(c));
+      const displaced: number[] = [];
+      for (const [cell] of targets) {
+        if (sources.has(cell)) continue;
+        const occupant = positions.indexOf(cell);
+        if (occupant < 0) continue;
+        // never shove another locked cluster around
+        if (groups.filter((g) => g === groups[occupant]).length > 1) return null;
+        displaced.push(occupant);
+      }
+      if (displaced.length !== vacated.length) return null;
+      const next = [...positions];
+      for (const [cell, piece] of targets) next[piece] = cell;
+      displaced.forEach((piece, i) => (next[piece] = vacated[i]!));
+      return next;
+    },
+    [grid],
+  );
 
-  const swapCells = (a: number, b: number) => {
-    if (a === b || locked[a] || locked[b] || solved) return;
-    setMoves((m) => m + 1);
-    setSlots((prev) => {
-      const next = [...prev];
-      next[a] = prev[b]!;
-      next[b] = prev[a]!;
-      const settled = [a, b].filter((c) => next[c] === c);
-      if (settled.length) {
+  const commitMove = useCallback(
+    (group: number, dCol: number, dRow: number) => {
+      if (solved || (dCol === 0 && dRow === 0)) return;
+      const next = tryMove(pos, groupOf, group, dCol, dRow);
+      if (!next) return;
+      const { groups, merged } = mergePass(next, groupOf);
+      setPos(next);
+      setGroupOf(groups);
+      setMoves((m) => m + 1);
+      if (merged) {
         playLock();
-        setSwapping(settled);
-        window.setTimeout(() => setSwapping([]), 360);
+        const flashed = groups
+          .map((g, piece) => (g === groups.find((_, i) => i === group) ? piece : -1))
+          .filter((p) => p >= 0);
+        setFlash(flashed);
+        window.setTimeout(() => setFlash([]), 380);
       } else {
         playPick();
       }
-      if (next.every((piece, i) => piece === i)) {
+      if (next.every((cell, piece) => cell === piece)) {
         setSolved(true);
         window.setTimeout(() => playSolved(), 260);
       }
-      return next;
-    });
-  };
-
-  const tapCell = (cell: number) => {
-    if (solved || locked[cell]) return;
-    if (selected === null) {
-      setSelected(cell);
-      playPick();
-      return;
-    }
-    if (selected === cell) {
-      setSelected(null);
-      return;
-    }
-    const a = selected;
-    setSelected(null);
-    swapCells(a, cell);
-  };
-
+    },
+    [pos, groupOf, mergePass, tryMove, solved],
+  );
 
   const onPointerDown = (e: React.PointerEvent) => {
-    const el = viewportRef.current;
-    if (!el) return;
-    el.setPointerCapture(e.pointerId);
-    pointersRef.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
-
-    if (pointersRef.current.size === 2) {
-      const [a, b] = [...pointersRef.current.values()];
-      panRef.current = null;
-      dragRef.current = null;
-      setDrag(null);
-      pinchRef.current = {
-        dist: Math.hypot(a!.x - b!.x, a!.y - b!.y),
-        s: viewRef.current.s,
-      };
-      return;
-    }
+    if (solved) return;
     const cellEl = (e.target as Element).closest("[data-cell]");
-    const cell = cellEl ? Number(cellEl.getAttribute("data-cell")) : null;
-    panRef.current = { x: e.clientX, y: e.clientY, moved: false, cell };
-    // grabbing an unlocked piece starts a drag instead of a pan
-    dragRef.current =
-      cell !== null && !locked[cell] && !solved ? { cell } : null;
+    if (!cellEl) return;
+    const cell = Number(cellEl.getAttribute("data-cell"));
+    const piece = pos.indexOf(cell);
+    if (piece < 0) return;
+    viewportRef.current?.setPointerCapture(e.pointerId);
+    dragStart.current = {
+      group: groupOf[piece]!,
+      x: e.clientX,
+      y: e.clientY,
+      moved: false,
+    };
   };
 
   const onPointerMove = (e: React.PointerEvent) => {
-    if (!pointersRef.current.has(e.pointerId)) return;
-    pointersRef.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
-    const el = viewportRef.current;
-    if (!el) return;
-
-    if (pointersRef.current.size >= 2 && pinchRef.current) {
-      const [a, b] = [...pointersRef.current.values()];
-      const dist = Math.hypot(a!.x - b!.x, a!.y - b!.y);
-      const rect = el.getBoundingClientRect();
-      zoomAt(
-        (pinchRef.current.s * dist) / pinchRef.current.dist,
-        (a!.x + b!.x) / 2 - rect.left,
-        (a!.y + b!.y) / 2 - rect.top,
-      );
-      return;
-    }
-
-    if (panRef.current) {
-      const dx = e.clientX - panRef.current.x;
-      const dy = e.clientY - panRef.current.y;
-      panRef.current.x = e.clientX;
-      panRef.current.y = e.clientY;
-      if (Math.abs(dx) + Math.abs(dy) > 2) panRef.current.moved = true;
-
-      if (dragRef.current) {
-        const rect = el.getBoundingClientRect();
-        setDrag({
-          cell: dragRef.current.cell,
-          x: e.clientX - rect.left,
-          y: e.clientY - rect.top,
-          hover: cellAtPoint(e.clientX, e.clientY),
-        });
-
-        return;
-      }
-      // board itself stays fixed — only pieces move
-    }
+    const s = dragStart.current;
+    if (!s) return;
+    const dx = e.clientX - s.x;
+    const dy = e.clientY - s.y;
+    if (!s.moved && Math.abs(dx) + Math.abs(dy) < 3) return;
+    s.moved = true;
+    const dCol = Math.round(dx / (cellW * scale));
+    const dRow = Math.round(dy / (cellH * scale));
+    setDrag({
+      group: s.group,
+      dx,
+      dy,
+      valid: !!tryMove(pos, groupOf, s.group, dCol, dRow),
+    });
   };
 
   const endPointer = (e: React.PointerEvent) => {
-    pointersRef.current.delete(e.pointerId);
-    if (pointersRef.current.size < 2) pinchRef.current = null;
-    const pan = panRef.current;
-    const dragging = dragRef.current;
-    panRef.current = null;
-    dragRef.current = null;
+    const s = dragStart.current;
+    dragStart.current = null;
     setDrag(null);
-    if (!pan) return;
-
-    if (pan.moved && dragging) {
-      const target = cellAtPoint(e.clientX, e.clientY);
-      if (target !== null && target !== dragging.cell && !locked[target]) {
-        setSelected(null);
-        swapCells(dragging.cell, target);
-      }
-      return;
-    }
-    if (pan.moved) return;
-    if (pan.cell !== null) tapCell(pan.cell);
+    if (!s || !s.moved) return;
+    const dCol = Math.round((e.clientX - s.x) / (cellW * scale));
+    const dRow = Math.round((e.clientY - s.y) / (cellH * scale));
+    commitMove(s.group, dCol, dRow);
   };
 
+  const groupSizes = useMemo(() => {
+    const m = new Map<number, number>();
+    groupOf.forEach((g) => m.set(g, (m.get(g) ?? 0) + 1));
+    return m;
+  }, [groupOf]);
 
-  const remaining = locked.filter((v) => !v).length;
+  const clusters = groupSizes.size;
 
   return (
     <div className="relative flex h-[100dvh] w-full flex-col overflow-hidden bg-mist-gradient">
@@ -366,24 +327,22 @@ export function PuzzleBoard({
           style={{
             width: WORLD_W,
             height: worldH,
-            transform: `translate(${view.tx}px, ${view.ty}px) scale(${view.s})`,
+            transform: `translate(${offX}px, ${offY}px) scale(${scale})`,
             boxShadow: "var(--shadow-soft)",
           }}
         >
-          {slots.map((piece, cell) => {
+          {pos.map((cell, piece) => {
             const row = Math.floor(cell / grid);
             const col = cell % grid;
             const pr = Math.floor(piece / grid);
             const pc = piece % grid;
-            const isLocked = locked[cell];
-            const isSelected = selected === cell;
-            const justLocked = swapping.includes(cell);
-            const isDragged = drag?.cell === cell;
-            const isDropTarget =
-              !!drag && !isLocked && !isDragged && drag.hover === cell;
+            const group = groupOf[piece]!;
+            const inCluster = (groupSizes.get(group) ?? 1) > 1;
+            const isDragged = drag?.group === group;
+            const justLocked = flash.includes(piece);
             return (
               <div
-                key={cell}
+                key={piece}
                 data-cell={cell}
                 style={{
                   position: "absolute",
@@ -394,80 +353,34 @@ export function PuzzleBoard({
                   backgroundImage: `url(${src})`,
                   backgroundSize: `${bg.w}px ${bg.h}px`,
                   backgroundPosition: `${bg.x - pc * cellW}px ${bg.y - pr * cellH}px`,
-                  borderRadius: isLocked ? 2 : 6,
-                  opacity: isDragged ? 0.25 : 1,
-                  boxShadow:
-                    isSelected || isDropTarget
-                      ? "0 0 0 3px var(--accent), 0 12px 22px rgba(15,45,70,0.4)"
-                      : isLocked
-                        ? "none"
-                        : "inset 0 0 0 1.5px rgba(255,255,255,0.55)",
-                  transform: isSelected
-                    ? "scale(0.94)"
+                  borderRadius: inCluster ? 2 : 6,
+                  boxShadow: isDragged
+                    ? drag!.valid
+                      ? "0 0 0 3px var(--accent), 0 16px 28px rgba(15,45,70,0.45)"
+                      : "0 0 0 3px rgba(220,90,90,0.8)"
+                    : inCluster
+                      ? "none"
+                      : "inset 0 0 0 1.5px rgba(255,255,255,0.55)",
+                  transform: isDragged
+                    ? `translate(${drag!.dx / scale}px, ${drag!.dy / scale}px) scale(1.02)`
                     : justLocked
                       ? "scale(1.02)"
                       : "scale(1)",
-                  zIndex: isSelected ? 3 : justLocked ? 2 : 1,
-                  cursor: isLocked ? "default" : "grab",
-                  transition:
-                    "transform 0.28s var(--ease-calm), box-shadow 0.25s ease, border-radius 0.3s ease, opacity 0.15s ease",
+                  zIndex: isDragged ? 4 : justLocked ? 2 : 1,
+                  cursor: "grab",
+                  transition: isDragged
+                    ? "none"
+                    : "transform 0.26s var(--ease-calm), box-shadow 0.25s ease, border-radius 0.3s ease, left 0.26s var(--ease-calm), top 0.26s var(--ease-calm)",
                 }}
               />
             );
           })}
         </div>
 
-        {/* piece following the finger while dragging */}
-        {drag && (
-          <div
-            aria-hidden
-            className="pointer-events-none absolute z-10"
-            style={{
-              left: drag.x,
-              top: drag.y,
-              width: cellW * view.s,
-              height: cellH * view.s,
-              transform: "translate(-50%, -50%) scale(1.06)",
-              backgroundImage: `url(${src})`,
-              backgroundSize: `${bg.w * view.s}px ${bg.h * view.s}px`,
-              backgroundPosition: `${(bg.x - (slots[drag.cell]! % grid) * cellW) * view.s}px ${(bg.y - Math.floor(slots[drag.cell]! / grid) * cellH) * view.s}px`,
-              borderRadius: 8,
-              boxShadow: "0 18px 34px rgba(15,45,70,0.45)",
-            }}
-          />
-        )}
-
-
-        {/* zoom controls */}
-        <div className="glass-panel absolute right-3 bottom-3 z-20 flex flex-col overflow-hidden rounded-2xl">
-          {[
-            {
-              label: "+",
-              action: () =>
-                zoomAt(viewRef.current.s * 1.25, size.w / 2, size.h / 2),
-            },
-            {
-              label: "−",
-              action: () =>
-                zoomAt(viewRef.current.s / 1.25, size.w / 2, size.h / 2),
-            },
-            { label: "⤢", action: fitView },
-          ].map((b) => (
-            <button
-              key={b.label}
-              onClick={b.action}
-              className="h-10 w-10 text-base text-foreground/70 transition-colors hover:bg-secondary"
-            >
-              {b.label}
-            </button>
-          ))}
-        </div>
-
         {!solved && (
           <p className="pointer-events-none absolute bottom-4 left-1/2 z-10 -translate-x-1/2 rounded-full bg-card/70 px-3 py-1 text-center text-[11px] tracking-wide text-muted-foreground">
-            {selected === null
-              ? `Drag a piece onto another to swap — ${remaining} left`
-              : "Tap where this piece belongs"}
+            Drag pieces together — matching pieces lock and move as one ·{" "}
+            {clusters} groups left
           </p>
         )}
       </div>
