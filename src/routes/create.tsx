@@ -127,8 +127,10 @@ function CreatePage() {
                   <HeroPuzzle
                     key={hero.id}
                     src={hero.url}
-                    corner={corner}
-                    wedge={wedge}
+                    corner={HERO_CORNER}
+                    wedge={HERO_WEDGE}
+                    depth={3}
+                    inset={0}
                     animated={animated}
                   />
                   <div className="absolute inset-x-0 top-5 z-[4] px-6 text-center">
