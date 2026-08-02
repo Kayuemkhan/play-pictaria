@@ -363,6 +363,9 @@ export function PuzzleBoard({
             const isLocked = locked[cell];
             const isSelected = selected === cell;
             const justLocked = swapping.includes(cell);
+            const isDragged = drag?.cell === cell;
+            const isDropTarget =
+              !!drag && !isLocked && !isDragged && drag.hover === cell;
             return (
               <div
                 key={cell}
@@ -377,25 +380,48 @@ export function PuzzleBoard({
                   backgroundSize: `${WORLD_W}px ${worldH}px`,
                   backgroundPosition: `${-pc * cellW}px ${-pr * cellH}px`,
                   borderRadius: isLocked ? 2 : 6,
-                  boxShadow: isSelected
-                    ? "0 0 0 3px var(--accent), 0 12px 22px rgba(15,45,70,0.4)"
-                    : isLocked
-                      ? "none"
-                      : "inset 0 0 0 1.5px rgba(255,255,255,0.55)",
+                  opacity: isDragged ? 0.25 : 1,
+                  boxShadow:
+                    isSelected || isDropTarget
+                      ? "0 0 0 3px var(--accent), 0 12px 22px rgba(15,45,70,0.4)"
+                      : isLocked
+                        ? "none"
+                        : "inset 0 0 0 1.5px rgba(255,255,255,0.55)",
                   transform: isSelected
                     ? "scale(0.94)"
                     : justLocked
                       ? "scale(1.02)"
                       : "scale(1)",
                   zIndex: isSelected ? 3 : justLocked ? 2 : 1,
-                  cursor: isLocked ? "default" : "pointer",
+                  cursor: isLocked ? "default" : "grab",
                   transition:
-                    "transform 0.28s var(--ease-calm), box-shadow 0.25s ease, border-radius 0.3s ease",
+                    "transform 0.28s var(--ease-calm), box-shadow 0.25s ease, border-radius 0.3s ease, opacity 0.15s ease",
                 }}
               />
             );
           })}
         </div>
+
+        {/* piece following the finger while dragging */}
+        {drag && (
+          <div
+            aria-hidden
+            className="pointer-events-none absolute z-10"
+            style={{
+              left: drag.x,
+              top: drag.y,
+              width: cellW * view.s,
+              height: cellH * view.s,
+              transform: "translate(-50%, -50%) scale(1.06)",
+              backgroundImage: `url(${src})`,
+              backgroundSize: `${WORLD_W * view.s}px ${worldH * view.s}px`,
+              backgroundPosition: `${-(slots[drag.cell]! % grid) * cellW * view.s}px ${-Math.floor(slots[drag.cell]! / grid) * cellH * view.s}px`,
+              borderRadius: 8,
+              boxShadow: "0 18px 34px rgba(15,45,70,0.45)",
+            }}
+          />
+        )}
+
 
         {/* zoom controls */}
         <div className="glass-panel absolute right-3 bottom-3 z-20 flex flex-col overflow-hidden rounded-2xl">
