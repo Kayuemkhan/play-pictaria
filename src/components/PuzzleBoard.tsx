@@ -218,8 +218,10 @@ export function PuzzleBoard({
       setMoves((m) => m + 1);
       if (merged) {
         playLock();
+        const rep = groupOf.findIndex((g) => g === group);
+        const newGroup = groups[rep];
         const flashed = groups
-          .map((g, piece) => (g === groups.find((_, i) => i === group) ? piece : -1))
+          .map((g, piece) => (g === newGroup ? piece : -1))
           .filter((p) => p >= 0);
         setFlash(flashed);
         window.setTimeout(() => setFlash([]), 380);
