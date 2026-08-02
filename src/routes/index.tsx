@@ -119,7 +119,7 @@ function Home() {
       </section>
 
       {/* panel */}
-      <section className="relative rounded-t-[28px] bg-shell px-4 pt-6 pb-8 sm:px-8">
+      <section className="relative rounded-t-lg bg-shell px-4 pt-6 pb-8 sm:px-8">
         <div className="mx-auto w-full max-w-5xl">
           <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4">
             <h2 className="min-w-0 truncate font-display text-base tracking-[0.2em] text-foreground uppercase">
