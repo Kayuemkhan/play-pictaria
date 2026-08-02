@@ -1,24 +1,52 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 
 /**
- * Overlay for the hero photograph: the picture reads as fully solved except for
- * a soft diagonal wedge in the lower-left corner, where equal-sized vertical
- * rectangles slide between cells and blink gold as each clicks into its home.
+ * Overlay for a hero photograph: the picture reads as fully solved except for
+ * a soft diagonal wedge in one corner, where equal-sized vertical rectangles
+ * sit jumbled — and, when animated, slide between cells and blink gold as each
+ * clicks into its home.
  *
- * Pieces are cut from the very same rendered (cover-cropped) hero image, so
- * outside the wedge the overlay is invisible.
+ * Pieces are cut from the very same rendered (cover-cropped) image, so outside
+ * the wedge the overlay is invisible.
  */
-const COLS = 6;
-const ROWS = 8;
-const GAP = 2; // px between pieces
-/** Wedge depth from the bottom-left corner. */
-const WEDGE = 5;
+export type HeroCorner =
+  | "bottom-left"
+  | "bottom-right"
+  | "top-left"
+  | "top-right";
 
-const LOOSE: number[] = [];
-for (let row = 0; row < ROWS; row++) {
-  for (let col = 0; col < COLS; col++) {
-    if (ROWS - 1 - row + col < WEDGE) LOOSE.push(row * COLS + col);
+export interface HeroPuzzleProps {
+  src: string;
+  /** columns across the photo */
+  cols?: number;
+  /** rows down the photo */
+  rows?: number;
+  /** diagonal depth of the unsolved wedge, in cells */
+  wedge?: number;
+  corner?: HeroCorner;
+  /** when false the wedge stays jumbled (email / print safe) */
+  animated?: boolean;
+}
+
+const GAP = 2; // px between pieces
+
+function wedgeCells(
+  cols: number,
+  rows: number,
+  wedge: number,
+  corner: HeroCorner,
+) {
+  const fromBottom = corner.startsWith("bottom");
+  const fromLeft = corner.endsWith("left");
+  const cells: number[] = [];
+  for (let row = 0; row < rows; row++) {
+    for (let col = 0; col < cols; col++) {
+      const dr = fromBottom ? rows - 1 - row : row;
+      const dc = fromLeft ? col : cols - 1 - col;
+      if (dr + dc < wedge) cells.push(row * cols + col);
+    }
   }
+  return cells;
 }
 
 function shuffled<T>(arr: T[]): T[] {
@@ -30,8 +58,20 @@ function shuffled<T>(arr: T[]): T[] {
   return a;
 }
 
-export function HeroPuzzle({ src }: { src: string }) {
-  const [cellFor, setCellFor] = useState<number[]>(LOOSE);
+export function HeroPuzzle({
+  src,
+  cols = 6,
+  rows = 8,
+  wedge = 5,
+  corner = "bottom-left",
+  animated = true,
+}: HeroPuzzleProps) {
+  const loose = useMemo(
+    () => wedgeCells(cols, rows, wedge, corner),
+    [cols, rows, wedge, corner],
+  );
+
+  const [cellFor, setCellFor] = useState<number[]>(loose);
   const [blink, setBlink] = useState<number | null>(null);
   const [box, setBox] = useState({ w: 0, h: 0 });
   const wrap = useRef<HTMLDivElement>(null);
@@ -40,8 +80,7 @@ export function HeroPuzzle({ src }: { src: string }) {
   useLayoutEffect(() => {
     const el = wrap.current;
     if (!el) return;
-    const measure = () =>
-      setBox({ w: el.clientWidth, h: el.clientHeight });
+    const measure = () => setBox({ w: el.clientWidth, h: el.clientHeight });
     measure();
     const ro = new ResizeObserver(measure);
     ro.observe(el);
@@ -49,14 +88,20 @@ export function HeroPuzzle({ src }: { src: string }) {
   }, []);
 
   useEffect(() => {
-    const jumble = () => setCellFor(shuffled(LOOSE));
+    if (!animated) {
+      setCellFor(shuffled(loose));
+      return;
+    }
+
+    setCellFor(loose);
+    const jumble = () => setCellFor(shuffled(loose));
     const start = window.setTimeout(jumble, 800);
 
     const tick = window.setInterval(() => {
       setCellFor((prev) => {
         const wrong = prev
           .map((cell, piece) => ({ cell, piece }))
-          .filter(({ cell, piece }) => cell !== LOOSE[piece]);
+          .filter(({ cell, piece }) => cell !== loose[piece]);
 
         if (!wrong.length) {
           const t = window.setTimeout(jumble, 1800);
@@ -66,7 +111,7 @@ export function HeroPuzzle({ src }: { src: string }) {
 
         const next = [...prev];
         const pick = wrong[Math.floor(Math.random() * wrong.length)]!;
-        const home = LOOSE[pick.piece]!;
+        const home = loose[pick.piece]!;
         const other = next.indexOf(home);
         next[pick.piece] = home;
         if (other !== -1) next[other] = pick.cell;
@@ -84,10 +129,10 @@ export function HeroPuzzle({ src }: { src: string }) {
       timers.current.forEach(window.clearTimeout);
       timers.current = [];
     };
-  }, []);
+  }, [animated, loose]);
 
-  const cw = box.w / COLS;
-  const ch = box.h / ROWS;
+  const cw = box.w / cols;
+  const ch = box.h / rows;
 
   return (
     <div
@@ -98,23 +143,23 @@ export function HeroPuzzle({ src }: { src: string }) {
       {box.w > 0 && (
         <>
           {/* shadowed bed the loose pieces lift off of */}
-          {LOOSE.map((cell) => (
+          {loose.map((cell) => (
             <div
               key={`bed-${cell}`}
               className="absolute rounded-[3px] bg-deep/55"
               style={{
                 width: cw - GAP,
                 height: ch - GAP,
-                left: (cell % COLS) * cw,
-                top: Math.floor(cell / COLS) * ch,
+                left: (cell % cols) * cw,
+                top: Math.floor(cell / cols) * ch,
                 boxShadow: "inset 0 0 14px oklch(0.2 0.05 230 / 0.65)",
               }}
             />
           ))}
 
-          {LOOSE.map((homeCell, piece) => {
-            const hc = homeCell % COLS;
-            const hr = Math.floor(homeCell / COLS);
+          {loose.map((homeCell, piece) => {
+            const hc = homeCell % cols;
+            const hr = Math.floor(homeCell / cols);
             const cur = cellFor[piece] ?? homeCell;
             const atHome = cur === homeCell;
             const locking = blink === piece;
@@ -125,8 +170,8 @@ export function HeroPuzzle({ src }: { src: string }) {
                 style={{
                   width: cw - GAP,
                   height: ch - GAP,
-                  left: (cur % COLS) * cw,
-                  top: Math.floor(cur / COLS) * ch,
+                  left: (cur % cols) * cw,
+                  top: Math.floor(cur / cols) * ch,
                   boxShadow: locking
                     ? "0 0 0 2px oklch(0.82 0.12 85), var(--shadow-lift)"
                     : atHome
