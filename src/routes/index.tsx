@@ -193,14 +193,13 @@ function Home() {
                   <span className="h-px flex-1 bg-accent/60" />
                 </div>
                 <p className="mt-3 text-[10px] leading-relaxed tracking-[0.18em] text-muted-foreground uppercase">
-                  Send and share
+                  Bring your own picture
                   <br />
-                  to your friends!
+                  send and share!
                 </p>
               </div>
               <Link
-                to="/collection/$collectionId"
-                params={{ collectionId: freeCollection.id }}
+                to="/create"
                 className="justify-self-start rounded-full bg-deep px-3.5 py-1.5 text-[0.6rem] tracking-[0.2em] text-accent uppercase shadow-lift transition-transform hover:scale-[1.03] sm:justify-self-end"
               >
                 Get started
