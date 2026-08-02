@@ -63,10 +63,6 @@ function Home() {
 
         {/* wordmark */}
         <div className="absolute inset-x-0 top-10 flex flex-col items-center px-8 text-center sm:top-12">
-          <div
-            aria-hidden
-            className="pointer-events-none absolute -top-28 left-1/2 h-80 w-[160%] -translate-x-1/2 rounded-[50%] bg-deep/65 blur-2xl"
-          />
           <img
             src={palmLogo}
             alt="Pictaria — two gold palm trees"
