@@ -354,19 +354,24 @@ export function PuzzleBoard({
       group: s.group,
       dx,
       dy,
-      valid: !!tryMove(pos, groupOf, s.group, dCol, dRow),
+      valid: !!resolveMove(dCol, dRow),
     });
   };
 
   const endPointer = (e: React.PointerEvent) => {
     const s = dragStart.current;
-    dragStart.current = null;
     setDrag(null);
-    if (!s || !s.moved) return;
+    if (!s || !s.moved) {
+      dragStart.current = null;
+      return;
+    }
     const dCol = Math.round((e.clientX - s.x) / (cellW * scale));
     const dRow = Math.round((e.clientY - s.y) / (cellH * scale));
-    commitMove(s.group, dCol, dRow);
+    const move = resolveMove(dCol, dRow);
+    dragStart.current = null;
+    if (move) commitMove(s.group, move.dCol, move.dRow);
   };
+
 
   const groupSizes = useMemo(() => {
     const m = new Map<number, number>();
