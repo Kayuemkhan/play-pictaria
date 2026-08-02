@@ -39,7 +39,7 @@ function Home() {
           alt="Golden Hawaiian sunset over the ocean with plumeria blossoms"
           width={1024}
           height={1408}
-          className="h-[78vh] min-h-[520px] w-full object-cover"
+          className="h-screen min-h-[520px] w-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-deep/75 via-transparent to-deep/40" />
 
@@ -52,7 +52,7 @@ function Home() {
         </button>
 
         {/* wordmark */}
-        <div className="absolute inset-x-0 top-6 flex flex-col items-center px-8 text-center">
+        <div className="absolute inset-x-0 top-4 flex flex-col items-center px-8 text-center">
           <div
             aria-hidden
             className="pointer-events-none absolute -top-28 left-1/2 h-80 w-[160%] -translate-x-1/2 rounded-[50%] bg-deep/65 blur-2xl"
@@ -62,28 +62,31 @@ function Home() {
             alt="Pictaria — two gold palm trees"
             width={1024}
             height={1024}
-            className="h-20 w-auto drop-shadow-[0_3px_14px_oklch(0.2_0.05_230/0.6)] sm:h-24"
+            className="h-16 w-auto drop-shadow-[0_3px_14px_oklch(0.2_0.05_230/0.6)] sm:h-20"
           />
-          <h1 className="relative -mt-1 pl-[0.3em] font-display text-[2.5rem] leading-none font-medium tracking-[0.3em] text-shell [text-shadow:0_2px_18px_oklch(0.2_0.05_230/0.85),0_0_2px_oklch(0.2_0.05_230/0.9)] sm:text-[3.6rem]">
+          <h1 className="relative -mt-1 pl-[0.3em] font-display text-[2rem] leading-none font-medium tracking-[0.3em] text-shell [text-shadow:0_2px_18px_oklch(0.2_0.05_230/0.85),0_0_2px_oklch(0.2_0.05_230/0.9)] sm:text-[3rem]">
             PICTARIA
           </h1>
 
-          <div className="mt-3 flex w-64 items-center gap-2">
+          <div className="mt-1.5 flex w-56 items-center gap-2">
             <span className="h-px flex-1 bg-accent/70" />
-            <span className="h-1.5 w-1.5 rotate-45 bg-accent" />
+            <span className="h-1 w-1 rotate-45 bg-accent" />
             <span className="h-px flex-1 bg-accent/70" />
           </div>
-          <p className="mt-2.5 rounded-full bg-deep/45 px-4 py-1 text-[11px] tracking-[0.38em] text-accent uppercase backdrop-blur-[2px] [text-shadow:0_1px_10px_oklch(0.2_0.05_230/0.9)]">
+          <p className="mt-1.5 rounded-full bg-deep/45 px-3 py-0.5 text-[10px] tracking-[0.3em] text-accent uppercase backdrop-blur-[2px] [text-shadow:0_1px_10px_oklch(0.2_0.05_230/0.9)]">
             Turn pictures into play
           </p>
-
-
         </div>
 
-
-
         {/* hero image puzzle — solved except the lower-left wedge */}
-        <HeroPuzzle src={heroImage} />
+        <HeroPuzzle
+          src={heroImage}
+          cols={6}
+          rows={5}
+          wedge={4}
+          depth={2}
+          inset={2}
+        />
 
         {/* headline + CTA, set on the sunset with a soft backdrop */}
         <div className="absolute top-[34%] right-4 z-[4] max-w-[58%] rounded-2xl bg-deep/55 px-4 py-3 backdrop-blur-[3px] sm:right-10 sm:max-w-[42%] sm:px-5 sm:py-4">
@@ -106,7 +109,7 @@ function Home() {
       </section>
 
       {/* panel */}
-      <section className="relative -mt-6 rounded-t-[28px] bg-shell px-4 pt-6 pb-8 sm:px-8">
+      <section className="relative rounded-t-[28px] bg-shell px-4 pt-6 pb-8 sm:px-8">
         <div className="mx-auto w-full max-w-5xl">
           <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4">
             <h2 className="min-w-0 truncate font-display text-base tracking-[0.2em] text-foreground uppercase">
