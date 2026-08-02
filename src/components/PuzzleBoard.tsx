@@ -76,10 +76,21 @@ export function PuzzleBoard({
   const pinchRef = useRef<{ dist: number; s: number } | null>(null);
   const pointersRef = useRef<Map<number, { x: number; y: number }>>(new Map());
 
-  const worldH = aspect ? WORLD_W / aspect : WORLD_W;
+  // The board is always portrait (3:4), so every piece is a vertical rectangle.
+  const worldH = (WORLD_W * 4) / 3;
   const total = grid * grid;
   const cellW = WORLD_W / grid;
   const cellH = worldH / grid;
+
+  /** cover-crop the photo into the portrait board */
+  const bg = useMemo(() => {
+    const a = aspect ?? 3 / 4;
+    const boardAspect = WORLD_W / worldH;
+    const w = a > boardAspect ? worldH * a : WORLD_W;
+    const h = a > boardAspect ? worldH : WORLD_W / a;
+    return { w, h, x: (WORLD_W - w) / 2, y: (worldH - h) / 2 };
+  }, [aspect, worldH]);
+
 
   /** cell index under a client point, or null */
   const cellAtPoint = useCallback(
