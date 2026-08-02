@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Heart, Home as HomeIcon, LayoutGrid, Menu, User } from "lucide-react";
+import { Menu, Search } from "lucide-react";
 import { collections, freeCollection } from "@/data/collections";
 import { HeroPuzzle } from "@/components/HeroPuzzle";
 import heroImage from "@/assets/hero-sunset.jpg";
