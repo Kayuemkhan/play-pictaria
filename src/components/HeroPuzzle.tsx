@@ -21,9 +21,13 @@ export interface HeroPuzzleProps {
   cols?: number;
   /** rows down the photo */
   rows?: number;
-  /** diagonal depth of the unsolved wedge, in cells */
+  /** diagonal reach of the unsolved wedge, in cells */
   wedge?: number;
+  /** how many rows tall the wedge may grow */
+  depth?: number;
   corner?: HeroCorner;
+  /** rows nearest the corner edge left untouched (keeps pieces clear of overlapping UI) */
+  inset?: number;
   /** when false the wedge stays jumbled (email / print safe) */
   animated?: boolean;
 }
@@ -34,7 +38,9 @@ function wedgeCells(
   cols: number,
   rows: number,
   wedge: number,
+  depth: number,
   corner: HeroCorner,
+  inset: number,
 ) {
   const fromBottom = corner.startsWith("bottom");
   const fromLeft = corner.endsWith("left");
@@ -43,7 +49,10 @@ function wedgeCells(
     for (let col = 0; col < cols; col++) {
       const dr = fromBottom ? rows - 1 - row : row;
       const dc = fromLeft ? col : cols - 1 - col;
-      if (dr + dc < wedge) cells.push(row * cols + col);
+      if (dr < inset) continue;
+      const r = dr - inset;
+      if (r >= depth) continue;
+      if (r + dc < wedge) cells.push(row * cols + col);
     }
   }
   return cells;
@@ -61,15 +70,19 @@ function shuffled<T>(arr: T[]): T[] {
 export function HeroPuzzle({
   src,
   cols = 6,
-  rows = 8,
-  wedge = 5,
+  rows = 7,
+  wedge = 4,
+  depth = 3,
   corner = "bottom-left",
+  inset = 1,
   animated = true,
 }: HeroPuzzleProps) {
   const loose = useMemo(
-    () => wedgeCells(cols, rows, wedge, corner),
-    [cols, rows, wedge, corner],
+    () => wedgeCells(cols, rows, wedge, depth, corner, inset),
+    [cols, rows, wedge, depth, corner, inset],
+
   );
+
 
   const [cellFor, setCellFor] = useState<number[]>(loose);
   const [blink, setBlink] = useState<number | null>(null);
@@ -95,7 +108,7 @@ export function HeroPuzzle({
 
     setCellFor(loose);
     const jumble = () => setCellFor(shuffled(loose));
-    const start = window.setTimeout(jumble, 800);
+    const start = window.setTimeout(jumble, 1400);
 
     const tick = window.setInterval(() => {
       setCellFor((prev) => {
@@ -104,7 +117,7 @@ export function HeroPuzzle({
           .filter(({ cell, piece }) => cell !== loose[piece]);
 
         if (!wrong.length) {
-          const t = window.setTimeout(jumble, 1800);
+          const t = window.setTimeout(jumble, 3600);
           timers.current.push(t);
           return prev;
         }
@@ -116,12 +129,13 @@ export function HeroPuzzle({
         next[pick.piece] = home;
         if (other !== -1) next[other] = pick.cell;
 
-        const t = window.setTimeout(() => setBlink(pick.piece), 620);
-        const t2 = window.setTimeout(() => setBlink(null), 1200);
+        const t = window.setTimeout(() => setBlink(pick.piece), 1000);
+        const t2 = window.setTimeout(() => setBlink(null), 1900);
         timers.current.push(t, t2);
         return next;
       });
-    }, 1100);
+    }, 2400);
+
 
     return () => {
       window.clearTimeout(start);
@@ -180,7 +194,8 @@ export function HeroPuzzle({
                   filter: locking ? "brightness(1.18)" : "none",
                   zIndex: locking ? 3 : atHome ? 1 : 2,
                   transition:
-                    "left 0.6s var(--ease-calm), top 0.6s var(--ease-calm), box-shadow 0.35s ease, filter 0.35s ease",
+                    "left 1s var(--ease-calm), top 1s var(--ease-calm), box-shadow 0.6s ease, filter 0.6s ease",
+
                 }}
               >
                 <img
