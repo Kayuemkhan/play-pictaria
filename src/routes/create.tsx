@@ -30,12 +30,9 @@ export const Route = createFileRoute("/create")({
   component: CreatePage,
 });
 
-const corners: { value: HeroCorner; label: string }[] = [
-  { value: "bottom-left", label: "Lower left" },
-  { value: "bottom-right", label: "Lower right" },
-  { value: "top-left", label: "Upper left" },
-  { value: "top-right", label: "Upper right" },
-];
+/** Fixed Pictaria signature framing — the same one used on the home hero. */
+const HERO_CORNER: HeroCorner = "bottom-right";
+const HERO_WEDGE = 4;
 
 interface Photo {
   id: string;
@@ -46,9 +43,7 @@ function CreatePage() {
   const [photos, setPhotos] = useState<Photo[]>([]);
   const [heroIndex, setHeroIndex] = useState(0);
   const [brand, setBrand] = useState("Four Seasons Maui");
-  const [headline, setHeadline] = useState("Can you solve today's Wailea?");
-  const [corner, setCorner] = useState<HeroCorner>("bottom-left");
-  const [wedge, setWedge] = useState(5);
+  const [headline, setHeadline] = useState("Can you solve today's pineapple?");
   const [animated, setAnimated] = useState(true);
   const [playing, setPlaying] = useState<{ url: string; grid: number } | null>(
     null,
@@ -132,8 +127,10 @@ function CreatePage() {
                   <HeroPuzzle
                     key={hero.id}
                     src={hero.url}
-                    corner={corner}
-                    wedge={wedge}
+                    corner={HERO_CORNER}
+                    wedge={HERO_WEDGE}
+                    depth={3}
+                    inset={0}
                     animated={animated}
                   />
                   <div className="absolute inset-x-0 top-5 z-[4] px-6 text-center">
@@ -233,42 +230,6 @@ function CreatePage() {
               />
             </label>
 
-            <div className="grid gap-1.5">
-              <span className="text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
-                Unsolved corner
-              </span>
-              <div className="flex flex-wrap gap-2">
-                {corners.map((c) => (
-                  <button
-                    key={c.value}
-                    type="button"
-                    onClick={() => setCorner(c.value)}
-                    className={`rounded-full px-3.5 py-1.5 text-[0.6rem] tracking-[0.16em] uppercase transition-colors ${
-                      corner === c.value
-                        ? "bg-deep text-accent"
-                        : "border border-border text-muted-foreground hover:text-foreground"
-                    }`}
-                  >
-                    {c.label}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <label className="grid gap-1.5">
-              <span className="text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
-                How much stays unsolved
-              </span>
-              <input
-                type="range"
-                min={3}
-                max={8}
-                step={1}
-                value={wedge}
-                onChange={(e) => setWedge(Number(e.target.value))}
-                className="accent-accent"
-              />
-            </label>
 
             <label className="flex items-center gap-3">
               <input

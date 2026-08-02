@@ -62,7 +62,7 @@ function Home() {
 
 
         {/* wordmark */}
-        <div className="absolute inset-x-0 top-4 flex flex-col items-center px-8 text-center">
+        <div className="absolute inset-x-0 top-10 flex flex-col items-center px-8 text-center sm:top-12">
           <div
             aria-hidden
             className="pointer-events-none absolute -top-28 left-1/2 h-80 w-[160%] -translate-x-1/2 rounded-[50%] bg-deep/65 blur-2xl"
@@ -72,7 +72,7 @@ function Home() {
             alt="Pictaria — two gold palm trees"
             width={1024}
             height={1024}
-            className="h-16 w-auto drop-shadow-[0_3px_14px_oklch(0.2_0.05_230/0.6)] sm:h-20"
+            className="h-11 w-auto drop-shadow-[0_3px_14px_oklch(0.2_0.05_230/0.6)] sm:h-14"
           />
           <h1 className="relative -mt-1 pl-[0.3em] font-display text-[2rem] leading-none font-medium tracking-[0.3em] text-shell [text-shadow:0_2px_18px_oklch(0.2_0.05_230/0.85),0_0_2px_oklch(0.2_0.05_230/0.9)] sm:text-[3rem]">
             PICTARIA

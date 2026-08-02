@@ -202,7 +202,7 @@ export function HeroPuzzle({
                 <img
                   src={src}
                   alt=""
-                  className="absolute object-cover"
+                  className="absolute max-w-none object-cover"
                   style={{
                     width: box.w,
                     height: box.h,
