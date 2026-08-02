@@ -144,15 +144,26 @@ function CreatePage() {
                     </div>
                   </div>
                   {headline.trim() && (
-                    <div className="absolute top-[34%] right-4 z-[4] max-w-[62%] rounded-2xl bg-deep/55 px-4 py-3 backdrop-blur-[3px]">
-                      <p className="font-display text-[1.05rem] leading-tight text-shell">
+                    <div
+                      role="group"
+                      aria-label="Drag to position the headline"
+                      onPointerDown={startDrag}
+                      style={{
+                        left: `${cardPos.x}%`,
+                        top: `${cardPos.y}%`,
+                        transform: "translate(-50%, -50%)",
+                      }}
+                      className="absolute z-[4] w-[52%] cursor-grab touch-none rounded-xl bg-deep/55 px-3 py-2 backdrop-blur-[3px] active:cursor-grabbing"
+                    >
+                      <p className="font-display text-[0.85rem] leading-tight text-shell">
                         {headline}
                       </p>
-                      <span className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-accent px-3.5 py-1.5 text-[0.6rem] tracking-[0.14em] text-deep uppercase">
+                      <span className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-accent px-2.5 py-1 text-[0.5rem] tracking-[0.14em] text-deep uppercase">
                         Play now <span aria-hidden>›</span>
                       </span>
                     </div>
                   )}
+
                 </>
               ) : (
                 <button
