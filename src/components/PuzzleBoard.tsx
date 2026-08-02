@@ -198,8 +198,10 @@ export function PuzzleBoard({
 
   /**
    * Try to translate a group by (dCol, dRow); returns new positions or null.
-   * Blocking clusters get pushed in the same direction (chain push), so a
-   * locked row of pieces can still slide down/across past other clusters.
+   * Every moving cluster (the dragged one plus any locked clusters it pushes)
+   * is relocated simultaneously, so a pushed cluster can legally take a cell
+   * the dragged cluster is leaving behind. Loose single pieces are shuffled
+   * into whatever cells the movers vacate.
    */
   const tryMove = useCallback(
     (
@@ -208,65 +210,90 @@ export function PuzzleBoard({
       group: number,
       dCol: number,
       dRow: number,
-      pushing: number[] = [],
     ): number[] | null => {
-      const members = groups
-        .map((g, piece) => (g === group ? piece : -1))
-        .filter((p) => p >= 0);
-      const targets = new Map<number, number>(); // cell -> piece
-      for (const piece of members) {
-        const c = positions[piece]!;
-        const r = Math.floor(c / grid) + dRow;
-        const col = (c % grid) + dCol;
-        if (r < 0 || r >= grid || col < 0 || col >= grid) return null;
-        targets.set(r * grid + col, piece);
-      }
-      const sources = new Set(members.map((p) => positions[p]!));
+      const shift = (cell: number) => {
+        const r = Math.floor(cell / grid) + dRow;
+        const c = (cell % grid) + dCol;
+        if (r < 0 || r >= grid || c < 0 || c >= grid) return -1;
+        return r * grid + c;
+      };
 
-      // push any other locked cluster sitting in the way
-      let cur = positions;
-      const blockers = new Set<number>();
-      for (const [cell] of targets) {
-        if (sources.has(cell)) continue;
-        const occupant = cur.indexOf(cell);
-        if (occupant < 0) continue;
-        const og = groups[occupant]!;
-        if (og === group) continue;
-        if (groups.filter((g) => g === og).length > 1) blockers.add(og);
-      }
-      for (const bg of blockers) {
-        if (pushing.includes(bg)) return null;
-        const pushed = tryMove(cur, groups, bg, dCol, dRow, [
-          ...pushing,
-          group,
-        ]);
-        if (!pushed) return null;
-        cur = pushed;
+      const moving = new Map<number, number>(); // piece -> new cell
+      const queue: number[] = [group];
+      const seen = new Set<number>();
+
+      while (queue.length) {
+        const gid = queue.shift()!;
+        if (seen.has(gid)) continue;
+        seen.add(gid);
+        const members = groups
+          .map((g, piece) => (g === gid ? piece : -1))
+          .filter((p) => p >= 0);
+        for (const piece of members) {
+          const dest = shift(positions[piece]!);
+          if (dest < 0) return null; // would leave the board
+          moving.set(piece, dest);
+        }
+        // any locked cluster standing in the way gets pushed the same way
+        for (const piece of members) {
+          const dest = shift(positions[piece]!);
+          const occupant = positions.indexOf(dest);
+          if (occupant < 0 || moving.has(occupant)) continue;
+          const og = groups[occupant]!;
+          if (groups.filter((g) => g === og).length > 1 && !seen.has(og))
+            queue.push(og);
+        }
       }
 
-      const vacated = [...sources].filter(
-        (c) => !targets.has(c) && groups[cur.indexOf(c)] === group,
+      const newCells = new Set(moving.values());
+      if (newCells.size !== moving.size) return null;
+
+      const oldCells = new Set(
+        [...moving.keys()].map((piece) => positions[piece]!),
       );
-      const displaced: number[] = [];
-      for (const [cell] of targets) {
-        if (sources.has(cell)) continue;
-        const occupant = cur.indexOf(cell);
-        if (occupant < 0) continue;
-        if (groups[occupant] === group) continue;
-        // a pushed cluster should have cleared out; if not, the move fails
-        if (blockers.has(groups[occupant]!)) return null;
-        displaced.push(occupant);
-      }
+      const vacated = [...oldCells].filter((c) => !newCells.has(c)).sort((a, b) => a - b);
+      const displaced = positions
+        .map((cell, piece) => ({ cell, piece }))
+        .filter(({ cell, piece }) => !moving.has(piece) && newCells.has(cell))
+        .sort((a, b) => a.cell - b.cell)
+        .map(({ piece }) => piece);
+
       if (displaced.length !== vacated.length) return null;
-      const next = [...cur];
-      for (const [cell, piece] of targets) next[piece] = cell;
+
+      const next = [...positions];
+      for (const [piece, cell] of moving) next[piece] = cell;
       displaced.forEach((piece, i) => (next[piece] = vacated[i]!));
       if (new Set(next).size !== next.length) return null;
       return next;
     },
-
     [grid],
   );
+
+  /** the closest legal interpretation of a drag: full, then single-axis */
+  const resolveMove = useCallback(
+    (dCol: number, dRow: number): { dCol: number; dRow: number } | null => {
+      const candidates: [number, number][] =
+        Math.abs(dCol) >= Math.abs(dRow)
+          ? [
+              [dCol, dRow],
+              [dCol, 0],
+              [0, dRow],
+            ]
+          : [
+              [dCol, dRow],
+              [0, dRow],
+              [dCol, 0],
+            ];
+      for (const [c, r] of candidates) {
+        if (c === 0 && r === 0) continue;
+        if (tryMove(pos, groupOf, dragStart.current?.group ?? -1, c, r))
+          return { dCol: c, dRow: r };
+      }
+      return null;
+    },
+    [pos, groupOf, tryMove],
+  );
+
 
 
   const commitMove = useCallback(
