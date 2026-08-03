@@ -229,7 +229,7 @@ function Home() {
             >
               ❦
             </span>
-            <div className="relative grid gap-5 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
+            <div className="relative grid gap-6 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
               <div className="min-w-0">
                 <p className="font-display text-[0.95rem] leading-snug text-foreground">
                   pictures say a thousand words
@@ -249,22 +249,32 @@ function Home() {
                   Everyday I need just a little paradise and I need just a little play so please send me a free Pictaria every single day
                 </p>
               </div>
-              <div className="flex flex-wrap gap-2 sm:flex-col sm:items-end">
-                <Link
-                  to="/create"
-                  className="inline-flex items-center gap-1.5 rounded-full bg-primary px-2.5 py-1 text-[0.55rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
-                >
-                  Start here
-                  <span aria-hidden>›</span>
-                </Link>
-                <Link
-                  to="/create"
-                  search={{ tab: "daily" }}
-                  className="inline-flex items-center gap-1.5 rounded-full bg-primary px-2.5 py-1 text-[0.55rem] tracking-[0.18em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
-                >
-                  Start here
-                  <span aria-hidden>›</span>
-                </Link>
+              <div className="flex flex-col gap-4 sm:items-end">
+                <div className="flex flex-col gap-1 sm:items-end">
+                  <span className="text-[0.55rem] tracking-[0.18em] text-muted-foreground uppercase">
+                    Build your storybook
+                  </span>
+                  <Link
+                    to="/create"
+                    className="inline-flex items-center gap-1.5 rounded-full bg-primary px-2.5 py-1 text-[0.55rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
+                  >
+                    Start here
+                    <span aria-hidden>›</span>
+                  </Link>
+                </div>
+                <div className="flex flex-col gap-1 sm:items-end">
+                  <span className="text-[0.55rem] tracking-[0.18em] text-muted-foreground uppercase">
+                    Get a free Pictaria daily
+                  </span>
+                  <Link
+                    to="/create"
+                    search={{ tab: "daily" }}
+                    className="inline-flex items-center gap-1.5 rounded-full bg-primary px-2.5 py-1 text-[0.55rem] tracking-[0.18em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
+                  >
+                    Start here
+                    <span aria-hidden>›</span>
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
