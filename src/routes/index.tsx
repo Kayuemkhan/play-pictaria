@@ -232,9 +232,9 @@ function Home() {
             <div className="relative grid gap-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center">
               <div className="min-w-0">
                 <h3 className="font-display text-2xl leading-tight">
-                  Create Your
+                  Pictures say a
                   <br />
-                  Pictaria Storybook
+                  thousand words
                 </h3>
                 <div className="mt-3 flex w-40 items-center gap-2">
                   <span className="h-px flex-1 bg-accent/60" />
@@ -242,26 +242,33 @@ function Home() {
                   <span className="h-px flex-1 bg-accent/60" />
                 </div>
                 <p className="mt-3 text-[10px] leading-relaxed tracking-[0.18em] text-muted-foreground uppercase">
-                  Bring your own picture
+                  Puzzles make them fun.
                   <br />
-                  send and share!
+                  Build a storybook for everyone you love.
                 </p>
               </div>
               <Link
                 to="/create"
                 className="justify-self-start rounded-full bg-deep px-3.5 py-1.5 text-[0.6rem] tracking-[0.2em] text-accent uppercase shadow-lift transition-transform hover:scale-[1.03] sm:justify-self-end"
               >
-                Get started
+                Start here
               </Link>
             </div>
-            <Link
-              to="/puzzle/$puzzleId"
-              params={{ puzzleId: firstPuzzle.id }}
-              search={{ grid: 3 }}
-              className="relative mt-4 block border-t border-accent/40 pt-3 text-[0.65rem] leading-relaxed tracking-[0.16em] text-primary uppercase transition-colors hover:text-foreground"
-            >
-              I need a little paradise and I need a little play so send me a free pictoria every single day <span aria-hidden>›</span>
-            </Link>
+
+            {/* daily sign-up */}
+            <div className="relative mt-4 border-t border-accent/40 pt-4">
+              <p className="text-[0.65rem] leading-relaxed tracking-[0.16em] text-primary uppercase">
+                Everyday I need just a little paradise and I need just a little play so please send me a free pictoria every single day
+              </p>
+              <Link
+                to="/create"
+                search={{ tab: "daily" }}
+                className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-accent px-2.5 py-1 text-[0.55rem] tracking-[0.18em] text-deep uppercase shadow-lift transition-transform hover:scale-[1.03]"
+              >
+                Start here
+                <span aria-hidden>›</span>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
