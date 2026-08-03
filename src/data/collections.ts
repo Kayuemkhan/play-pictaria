@@ -408,6 +408,7 @@ export const collections: Collection[] = [
     tagline: "Wailea, as their photographers see it",
     cover: fsmResortCove.url,
     free: true,
+    storybook: { owner: "Four Seasons Maui", plan: "white-label" },
     puzzles: [
       {
         id: "fsm-01",
