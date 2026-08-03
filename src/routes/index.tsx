@@ -223,7 +223,7 @@ function Home() {
             </span>
             <div className="relative grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4">
               <p className="min-w-0 font-display text-[0.85rem] leading-snug [color:color-mix(in_oklch,var(--foreground)_92%,black)]">
-                Pictures say a thousand words and puzzles make them fun — I want to build a Pictaria storybook for everyone I love
+                Pictures say a thousand words and puzzles make them fun — I want to send my own story book to everyone I love
               </p>
               <div className="flex shrink-0 flex-col items-end gap-1">
                 <span className="text-[0.55rem] tracking-[0.18em] text-muted-foreground uppercase">
