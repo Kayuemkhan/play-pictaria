@@ -199,10 +199,11 @@ export function PuzzleBoard({
   } | null>(null);
 
   /**
-   * Translate the dragged cluster and move whatever it displaces into the cells
-   * it vacated. Existing clusters stay rigid. This makes the important 3×3
-   * endgame possible: a six-piece block can exchange places with the remaining
-   * three-piece strip instead of trying to push that strip off the board.
+   * Translate the dragged cluster and relocate whatever it displaces into the
+   * cells that are freed up. Displaced clusters keep their shape (they are
+   * translated rigidly, as close to home as possible), so a locked block never
+   * breaks apart — and a big block can always exchange places with the pieces
+   * standing in its way, which is what the 3×3 endgame needs.
    */
   const tryMove = useCallback(
     (
@@ -212,6 +213,7 @@ export function PuzzleBoard({
       dCol: number,
       dRow: number,
     ): number[] | null => {
+      const cells = grid * grid;
       const shift = (cell: number) => {
         const r = Math.floor(cell / grid) + dRow;
         const c = (cell % grid) + dCol;
@@ -219,90 +221,104 @@ export function PuzzleBoard({
         return r * grid + c;
       };
 
-      const members = groups
-        .map((g, piece) => (g === group ? piece : -1))
-        .filter((piece) => piece >= 0);
       const moving = new Map<number, number>();
-      for (const piece of members) {
+      for (let piece = 0; piece < positions.length; piece++) {
+        if (groups[piece] !== group) continue;
         const destination = shift(positions[piece]!);
         if (destination < 0) return null;
         moving.set(piece, destination);
       }
+      if (!moving.size) return null;
 
       const newCells = new Set(moving.values());
       if (newCells.size !== moving.size) return null;
 
-      const oldCells = new Set(
-        [...moving.keys()].map((piece) => positions[piece]!),
-      );
-      const vacated = [...oldCells].filter((c) => !newCells.has(c)).sort((a, b) => a - b);
-      const displaced = positions
-        .map((cell, piece) => ({ cell, piece }))
-        .filter(({ cell, piece }) => !moving.has(piece) && newCells.has(cell))
-        .sort((a, b) => a.cell - b.cell)
-        .map(({ piece }) => piece);
+      // group pieces into clusters
+      const clusters = new Map<number, number[]>();
+      groups.forEach((g, piece) => {
+        if (g === group) return;
+        const list = clusters.get(g);
+        if (list) list.push(piece);
+        else clusters.set(g, [piece]);
+      });
 
-      if (displaced.length !== vacated.length) return null;
+      const conflicting: number[][] = [];
+      const free = new Set<number>();
+      for (let c = 0; c < cells; c++) if (!newCells.has(c)) free.add(c);
+
+      for (const cluster of clusters.values()) {
+        if (cluster.some((piece) => newCells.has(positions[piece]!))) {
+          conflicting.push(cluster);
+        } else {
+          for (const piece of cluster) free.delete(positions[piece]!);
+        }
+      }
 
       const next = [...positions];
       for (const [piece, cell] of moving) next[piece] = cell;
 
-      const remainingVacated = new Set(vacated);
-      const displacedGroups = [...new Set(displaced.map((piece) => groups[piece]!))];
-      const placed = new Set<number>();
+      // biggest shapes are hardest to fit — place them first
+      conflicting.sort((a, b) => b.length - a.length);
 
-      // Preserve every displaced multi-piece cluster by finding a translation
-      // that fits its complete shape into the vacated cells.
-      for (const displacedGroup of displacedGroups) {
-        const cluster = groups
-          .map((g, piece) => (g === displacedGroup ? piece : -1))
-          .filter((piece) => piece >= 0);
-        if (cluster.length < 2) continue;
-        if (!cluster.every((piece) => displaced.includes(piece))) return null;
-
+      const place = (index: number): boolean => {
+        if (index >= conflicting.length) return true;
+        const cluster = conflicting[index]!;
         const anchor = positions[cluster[0]!]!;
-        let placement: Map<number, number> | null = null;
-        for (const target of remainingVacated) {
-          const deltaRow = Math.floor(target / grid) - Math.floor(anchor / grid);
-          const deltaCol = (target % grid) - (anchor % grid);
-          const candidate = new Map<number, number>();
+        const anchorRow = Math.floor(anchor / grid);
+        const anchorCol = anchor % grid;
+
+        const targets = [...free].sort((a, b) => {
+          const da =
+            Math.abs(Math.floor(a / grid) - anchorRow) +
+            Math.abs((a % grid) - anchorCol);
+          const db =
+            Math.abs(Math.floor(b / grid) - anchorRow) +
+            Math.abs((b % grid) - anchorCol);
+          return da - db;
+        });
+
+        for (const target of targets) {
+          const deltaRow = Math.floor(target / grid) - anchorRow;
+          const deltaCol = (target % grid) - anchorCol;
+          const destinations: number[] = [];
           let fits = true;
           for (const piece of cluster) {
             const cell = positions[piece]!;
             const row = Math.floor(cell / grid) + deltaRow;
             const col = (cell % grid) + deltaCol;
-            const destination = row * grid + col;
-            if (
-              row < 0 || row >= grid || col < 0 || col >= grid ||
-              !remainingVacated.has(destination)
-            ) {
+            if (row < 0 || row >= grid || col < 0 || col >= grid) {
               fits = false;
               break;
             }
-            candidate.set(piece, destination);
+            const destination = row * grid + col;
+            if (!free.has(destination)) {
+              fits = false;
+              break;
+            }
+            destinations.push(destination);
           }
-          if (fits) {
-            placement = candidate;
-            break;
-          }
-        }
-        if (!placement) return null;
-        for (const [piece, cell] of placement) {
-          next[piece] = cell;
-          placed.add(piece);
-          remainingVacated.delete(cell);
-        }
-      }
+          if (!fits) continue;
 
-      const loose = displaced.filter((piece) => !placed.has(piece));
-      const looseCells = [...remainingVacated].sort((a, b) => a - b);
-      if (loose.length !== looseCells.length) return null;
-      loose.forEach((piece, index) => (next[piece] = looseCells[index]!));
+          cluster.forEach((piece, i) => {
+            next[piece] = destinations[i]!;
+            free.delete(destinations[i]!);
+          });
+          if (place(index + 1)) return true;
+          cluster.forEach((piece, i) => {
+            next[piece] = positions[piece]!;
+            free.add(destinations[i]!);
+          });
+        }
+        return false;
+      };
+
+      if (!place(0)) return null;
       if (new Set(next).size !== next.length) return null;
       return next;
     },
     [grid],
   );
+
 
   /** the closest legal interpretation of a drag: full, single-axis, then shorter */
   const resolveMove = useCallback(
