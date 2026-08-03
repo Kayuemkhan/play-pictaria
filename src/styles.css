@@ -193,6 +193,52 @@
   }
 }
 
+@keyframes sparkle {
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: scale(0.6) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.15) rotate(180deg);
+  }
+}
+
+@keyframes star-swirl {
+  0% {
+    transform: rotate(0deg) translateY(0) scale(0.85);
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(360deg) translateY(-18px) scale(1.05);
+    opacity: 0.6;
+  }
+}
+
+@keyframes star-float {
+  0%,
+  100% {
+    transform: translateY(0) translateX(0);
+    opacity: 0.35;
+  }
+  25% {
+    transform: translateY(-12px) translateX(4px);
+    opacity: 0.9;
+  }
+  50% {
+    transform: translateY(-6px) translateX(-4px);
+    opacity: 0.6;
+  }
+  75% {
+    transform: translateY(-16px) translateX(2px);
+    opacity: 1;
+  }
+}
+
 @utility animate-bubble {
   animation: bubble-rise 4.5s linear infinite;
 }
@@ -203,6 +249,18 @@
 
 @utility animate-glow {
   animation: glow-pulse 3.5s ease-in-out infinite;
+}
+
+@utility animate-sparkle {
+  animation: sparkle 2.2s ease-in-out infinite;
+}
+
+@utility animate-star-swirl {
+  animation: star-swirl 8s linear infinite;
+}
+
+@utility animate-star-float {
+  animation: star-float 5s ease-in-out infinite;
 }
 
 @layer base {
