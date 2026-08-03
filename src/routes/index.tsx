@@ -29,9 +29,20 @@ export const Route = createFileRoute("/")({
 
 const featured = collections;
 
+const menuLinks = [
+  { to: "/collections", label: "Gallery" },
+  { to: "/create", label: "Build a storybook" },
+  { to: "/daily", label: "Daily Pictaria" },
+] as const;
+
 function Home() {
   const firstPuzzle = freeCollection.puzzles[0]!;
   const [cardPos, setCardPos] = useState({ x: 68, y: 38 });
+  const [openPanel, setOpenPanel] = useState<"menu" | "search" | null>(null);
+  const [query, setQuery] = useState("");
+  const results = collections.filter((c) =>
+    c.title.toLowerCase().includes(query.trim().toLowerCase()),
+  );
 
   const startDrag = (e: React.PointerEvent<HTMLDivElement>) => {
     const frame = e.currentTarget.parentElement;
@@ -69,22 +80,78 @@ function Home() {
         />
         <div className="absolute inset-0 bg-gradient-to-b from-deep/75 via-transparent to-deep/40" />
 
-        <div className="absolute top-5 right-5 left-5 z-[5] flex items-center justify-between">
-          <button
-            type="button"
-            aria-label="Menu"
-            className="grid h-11 w-11 place-items-center rounded-full bg-deep/80 text-accent backdrop-blur-sm transition-transform hover:scale-105"
-          >
-            <Menu className="h-5 w-5" strokeWidth={1.5} />
-          </button>
-          <button
-            type="button"
-            aria-label="Search puzzles"
-            className="grid h-11 w-11 place-items-center rounded-full bg-deep/80 text-accent backdrop-blur-sm transition-transform hover:scale-105"
-          >
-            <Search className="h-5 w-5" strokeWidth={1.5} />
-          </button>
+        <div className="absolute top-5 right-5 left-5 z-[6] flex items-start justify-between">
+          <div className="relative">
+            <button
+              type="button"
+              aria-label="Menu"
+              aria-expanded={openPanel === "menu"}
+              onClick={() =>
+                setOpenPanel(openPanel === "menu" ? null : "menu")
+              }
+              className="grid h-11 w-11 place-items-center rounded-full bg-deep/80 text-accent backdrop-blur-sm transition-transform hover:scale-105"
+            >
+              <Menu className="h-5 w-5" strokeWidth={1.5} />
+            </button>
+            {openPanel === "menu" && (
+              <div className="absolute top-13 left-0 w-52 overflow-hidden rounded-[6px] border border-accent/40 bg-deep/95 py-1 shadow-lift backdrop-blur-sm">
+                {menuLinks.map((item) => (
+                  <Link
+                    key={item.to}
+                    to={item.to}
+                    onClick={() => setOpenPanel(null)}
+                    className="block px-4 py-2.5 text-[0.6rem] tracking-[0.2em] text-shell uppercase transition-colors hover:bg-accent/15 hover:text-accent"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+          <div className="relative">
+            <button
+              type="button"
+              aria-label="Search puzzles"
+              aria-expanded={openPanel === "search"}
+              onClick={() =>
+                setOpenPanel(openPanel === "search" ? null : "search")
+              }
+              className="grid h-11 w-11 place-items-center rounded-full bg-deep/80 text-accent backdrop-blur-sm transition-transform hover:scale-105"
+            >
+              <Search className="h-5 w-5" strokeWidth={1.5} />
+            </button>
+            {openPanel === "search" && (
+              <div className="absolute top-13 right-0 w-60 overflow-hidden rounded-[6px] border border-accent/40 bg-deep/95 p-3 shadow-lift backdrop-blur-sm">
+                <input
+                  autoFocus
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder="Search collections"
+                  className="w-full rounded-full border border-accent/40 bg-deep/60 px-3 py-1.5 text-[0.7rem] text-shell placeholder:text-shell/50 focus:outline-none"
+                />
+                <div className="mt-2 max-h-56 overflow-y-auto">
+                  {results.map((c) => (
+                    <Link
+                      key={c.id}
+                      to="/collection/$collectionId"
+                      params={{ collectionId: c.id }}
+                      onClick={() => setOpenPanel(null)}
+                      className="block rounded px-2 py-2 text-[0.6rem] tracking-[0.18em] text-shell uppercase transition-colors hover:bg-accent/15 hover:text-accent"
+                    >
+                      {c.title}
+                    </Link>
+                  ))}
+                  {results.length === 0 && (
+                    <p className="px-2 py-2 text-[0.6rem] tracking-[0.18em] text-shell/60 uppercase">
+                      Nothing found
+                    </p>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
         </div>
+
 
 
         {/* wordmark */}
@@ -167,6 +234,11 @@ function Home() {
                     loading="lazy"
                     width={768}
                     height={1024}
+                    style={
+                      collection.coverZoom
+                        ? { transform: `scale(${collection.coverZoom})` }
+                        : undefined
+                    }
                     className="aspect-[3/4] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
                   />
                   <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-deep via-deep/70 to-transparent px-3 pt-8 pb-3">

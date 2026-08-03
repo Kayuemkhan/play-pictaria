@@ -38,7 +38,8 @@ function CollectionPage() {
     );
   }
 
-  const storybook = collection.storybook;
+
+
 
   return (
     <main className="min-h-screen bg-mist-gradient px-4 pb-20 sm:px-6">
@@ -93,21 +94,6 @@ function CollectionPage() {
           })}
         </div>
 
-        {storybook && (
-          <div className="mt-10 rounded-[4px] border border-accent/60 bg-card/80 px-5 py-6 text-center shadow-soft">
-            <p className="font-display text-xl leading-snug">
-              More beautiful booklets are waiting in Pictaria.
-            </p>
-            <Link
-              to="/storybook/$collectionId"
-              params={{ collectionId: collection.id }}
-              className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-1.5 text-[0.6rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
-            >
-              Do you want to go?
-              <span aria-hidden>›</span>
-            </Link>
-          </div>
-        )}
       </div>
     </main>
   );

@@ -74,6 +74,8 @@ export interface Collection {
   title: string;
   tagline: string;
   cover: string;
+  /** Optional zoom applied to the cover image on the home screen. */
+  coverZoom?: number;
   /** Free collections are playable in guest mode. */
   free: boolean;
   /** Storybook announced on the home screen but not yet filled with puzzles. */
@@ -451,19 +453,17 @@ export const collections: Collection[] = [
     id: "amys-art",
     title: "Amy's Art",
     tagline: "Hand-blown glass sea turtles in gold and silver",
-    cover: amy10.url,
+    cover: amy08.url,
+    coverZoom: 1.35,
     free: true,
     storybook: { owner: "Amy", plan: "personal" },
     puzzles: [
-      { id: "amy-01", title: "Mahalo: Gratitude", caption: "Apatite and tourmaline half moon necklace", image: amy01.url },
-      { id: "amy-02", title: "Mahalo Music", caption: "Turquoise accented with green and gold crystal", image: amy06Enhanced },
+      { id: "amy-06", title: "Kuipo", caption: "An affectionate term for a loved one", image: amy02.url },
+      { id: "amy-02", title: "Mahalo Moon", caption: "Turquoise accented with green and gold crystal", image: amy06Enhanced },
       { id: "amy-03", title: "Pear Play", caption: "Akoni drop earrings", image: amy03Enhanced },
-      { id: "amy-04", title: "Deep Blue", caption: "Sea glass and starfish", image: amy04.url },
       { id: "amy-05", title: "Sea Grass", caption: "Green glass on silver", image: amy05.url },
-      { id: "amy-06", title: "Lagoon", caption: "Teal beads and gold fins", image: amy02.url },
-      { id: "amy-07", title: "Sapphire", caption: "Indigo shell, gold flippers", image: amy07.url },
+      { id: "amy-01", title: "Mahalo: Gratitude", caption: "Apatite and tourmaline half moon necklace", image: amy01.url },
       { id: "amy-08", title: "Coral Branch", caption: "Blue swirl resting on white coral", image: amy08.url },
-      { id: "amy-09", title: "Amber Dusk", caption: "Firelight caught in glass", image: amy09.url },
       { id: "amy-10", title: "Aurora", caption: "Violet and flame in one bead", image: amy10.url },
       { id: "amy-11", title: "At the Torch", caption: "The artist at work in her studio", image: amy11.url },
       { id: "amy-12", title: "Ember Shell", caption: "Gold-plated glass turtle with a ruby and violet shell", image: amy12.url },
