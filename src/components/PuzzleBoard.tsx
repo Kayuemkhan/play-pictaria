@@ -417,6 +417,14 @@ export function PuzzleBoard({
           </p>
         </div>
         <div className="flex items-center gap-2 text-xs tabular-nums sm:gap-3 sm:text-sm">
+          <button
+            aria-label="Peek at the puzzle box"
+            aria-pressed={showReference}
+            onClick={() => setShowReference((v) => !v)}
+            className="flex h-8 w-8 items-center justify-center rounded-full bg-secondary text-secondary-foreground transition-colors hover:bg-primary hover:text-primary-foreground"
+          >
+            <Search size={16} />
+          </button>
           <span className="rounded-full bg-secondary px-2.5 py-1 text-secondary-foreground">
             {formatTime(seconds)}
           </span>
