@@ -259,8 +259,7 @@ function Home() {
                   Get a free Pictaria daily
                 </span>
                 <Link
-                  to="/create"
-                  search={{ tab: "daily" }}
+                  to="/daily"
                   className="inline-flex items-center gap-1.5 rounded-full bg-primary px-2.5 py-1 text-[0.55rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
                 >
                   Start here
