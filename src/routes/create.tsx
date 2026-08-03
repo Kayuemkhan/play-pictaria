@@ -44,10 +44,12 @@ function CreatePage() {
   const [heroIndex, setHeroIndex] = useState(0);
   const [brand, setBrand] = useState("Four Seasons Maui");
   const [headline, setHeadline] = useState("Can you solve today's pineapple?");
+  const [caption, setCaption] = useState("");
   const [animated, setAnimated] = useState(true);
   const [playing, setPlaying] = useState<{ url: string; grid: number } | null>(
     null,
   );
+
   const [cardPos, setCardPos] = useState({ x: 66, y: 38 });
   const fileInput = useRef<HTMLInputElement>(null);
   const urls = useRef<string[]>([]);
@@ -204,7 +206,18 @@ function CreatePage() {
                 </button>
               )}
             </div>
+            {hero && caption.trim() && (
+              <div className="border-t border-shell/10 px-5 py-4">
+                <p className="text-[9px] tracking-[0.24em] text-accent uppercase">
+                  {brand.trim() || "The story"}
+                </p>
+                <p className="mt-2 text-xs leading-relaxed whitespace-pre-line text-shell/85">
+                  {caption}
+                </p>
+              </div>
+            )}
           </div>
+
 
           {hero && (
             <div className="mt-3 flex flex-wrap gap-2">
@@ -262,6 +275,22 @@ function CreatePage() {
                 placeholder="Can you solve today's picture?"
                 className="rounded-xl border border-border bg-background px-3 py-2 text-sm outline-none focus:border-accent"
               />
+            </label>
+
+            <label className="grid gap-1.5">
+              <span className="text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
+                Story note (optional)
+              </span>
+              <textarea
+                value={caption}
+                onChange={(e) => setCaption(e.target.value)}
+                rows={4}
+                placeholder="A recipe, the location, a memory — anything you'd like to share beneath the picture."
+                className="resize-y rounded-xl border border-border bg-background px-3 py-2 text-sm leading-relaxed outline-none focus:border-accent"
+              />
+              <span className="text-[9px] tracking-[0.16em] text-muted-foreground uppercase">
+                Appears beneath the photograph — leave blank to hide
+              </span>
             </label>
 
 
