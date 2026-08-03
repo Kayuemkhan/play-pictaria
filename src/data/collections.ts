@@ -61,6 +61,8 @@ import amy12 from "@/assets/amy-art-12.jpg.asset.json";
 import amy13 from "@/assets/amy-art-13.jpg.asset.json";
 import amy06Enhanced from "@/assets/amy-art-06-enhanced.jpg";
 import amy03Enhanced from "@/assets/amy-art-03-enhanced.jpg";
+import amy05Enhanced from "@/assets/amy-art-05-enhanced.jpg";
+import amy08Enhanced from "@/assets/amy-art-08-enhanced.jpg";
 
 export interface Puzzle {
   id: string;
@@ -452,21 +454,21 @@ export const collections: Collection[] = [
   {
     id: "amys-art",
     title: "Amy's Art",
-    tagline: "Hand-blown glass sea turtles in gold and silver",
-    cover: amy08.url,
-    coverZoom: 1.35,
+    tagline: "Hand-blown glass sea turtles made in Maui",
+    cover: amy08Enhanced,
+    coverZoom: 1.15,
     free: true,
     storybook: { owner: "Amy", plan: "personal" },
     puzzles: [
       { id: "amy-06", title: "Kuipo", caption: "An affectionate term for a loved one", image: amy02.url },
-      { id: "amy-02", title: "Mahalo Moon", caption: "Turquoise accented with green and gold crystal", image: amy06Enhanced },
-      { id: "amy-03", title: "Pear Play", caption: "Akoni drop earrings", image: amy03Enhanced },
-      { id: "amy-05", title: "Sea Grass", caption: "Green glass on silver", image: amy05.url },
+      { id: "amy-12", title: "Sweetheart Magic", caption: "Pink embers dance in the light — this piece celebrates love", image: amy12.url },
+      { id: "amy-03", title: "Pear Play", caption: "Akoni friends", image: amy03Enhanced },
+      { id: "amy-05", title: "Kalele", caption: "Trust your dreams, they know the way", image: amy05Enhanced },
       { id: "amy-01", title: "Mahalo: Gratitude", caption: "Apatite and tourmaline half moon necklace", image: amy01.url },
-      { id: "amy-08", title: "Coral Branch", caption: "Blue swirl resting on white coral", image: amy08.url },
-      { id: "amy-10", title: "Aurora", caption: "Violet and flame in one bead", image: amy10.url },
+      { id: "amy-08", title: "Akoni in Coral", caption: "Akoni means worthy and reminds you of your worth", image: amy08Enhanced },
+      { id: "amy-10", title: "Malama", caption: "Malama means protect what you love — your people, your planet and your peace", image: amy10.url },
       { id: "amy-11", title: "At the Torch", caption: "The artist at work in her studio", image: amy11.url },
-      { id: "amy-12", title: "Ember Shell", caption: "Gold-plated glass turtle with a ruby and violet shell", image: amy12.url },
+      { id: "amy-02", title: "Mahalo Moon", caption: "Turquoise accented with green and gold crystal", image: amy06Enhanced },
       { id: "amy-13", title: "Midnight Tide", caption: "Gold-plated glass turtle with a deep blue shell", image: amy13.url },
     ],
   },
