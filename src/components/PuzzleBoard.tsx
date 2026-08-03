@@ -320,10 +320,12 @@ export function PuzzleBoard({
   );
 
 
-  /** the closest legal interpretation of a drag: full, single-axis, then shorter */
+  /**
+   * Interpret every gesture on one grid axis. Small vertical finger drift must
+   * never turn a side-to-side move into a diagonal move (or vice versa).
+   */
   const resolveMove = useCallback(
     (dCol: number, dRow: number): { dCol: number; dRow: number } | null => {
-      const step = (n: number) => (n > 0 ? 1 : n < 0 ? -1 : 0);
       const candidates: [number, number][] = [];
       const push = (c: number, r: number) => {
         if (c === 0 && r === 0) return;
@@ -331,24 +333,21 @@ export function PuzzleBoard({
           candidates.push([c, r]);
       };
 
-      // full drag first, then progressively shorter versions of it, then axes
-      const maxLen = Math.max(Math.abs(dCol), Math.abs(dRow));
-      for (let k = maxLen; k >= 1; k--) {
-        const c = Math.max(-k, Math.min(k, dCol));
-        const r = Math.max(-k, Math.min(k, dRow));
-        if (Math.abs(dCol) >= Math.abs(dRow)) {
-          push(c, r);
-          push(c, 0);
-          push(0, r);
-        } else {
-          push(c, r);
-          push(0, r);
-          push(c, 0);
-        }
+      const horizontal = Math.abs(dCol) >= Math.abs(dRow);
+      const primary = horizontal ? dCol : dRow;
+      const secondary = horizontal ? dRow : dCol;
+
+      // Try the requested distance, then each shorter distance on that axis.
+      for (let distance = Math.abs(primary); distance >= 1; distance--) {
+        const signed = Math.sign(primary) * distance;
+        push(horizontal ? signed : 0, horizontal ? 0 : signed);
       }
-      push(step(dCol), step(dRow));
-      push(step(dCol), 0);
-      push(0, step(dRow));
+
+      // If the dominant axis is blocked, honor a clear secondary-axis drag.
+      for (let distance = Math.abs(secondary); distance >= 1; distance--) {
+        const signed = Math.sign(secondary) * distance;
+        push(horizontal ? 0 : signed, horizontal ? signed : 0);
+      }
 
       const group = dragStart.current?.group ?? -1;
       for (const [c, r] of candidates) {
@@ -416,10 +415,11 @@ export function PuzzleBoard({
     s.moved = true;
     const dCol = Math.round(dx / (cellW * scale));
     const dRow = Math.round(dy / (cellH * scale));
+    const horizontal = Math.abs(dx) >= Math.abs(dy);
     setDrag({
       group: s.group,
-      dx,
-      dy,
+      dx: horizontal ? dx : 0,
+      dy: horizontal ? 0 : dy,
       valid: !!resolveMove(dCol, dRow),
     });
   };
