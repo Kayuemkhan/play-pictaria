@@ -80,6 +80,7 @@ export function PuzzleBoard({
   const [moves, setMoves] = useState(0);
   const [seconds, setSeconds] = useState(0);
   const [solved, setSolved] = useState(false);
+  const [showReference, setShowReference] = useState(false);
   const [drag, setDrag] = useState<{
     group: number;
     dx: number;
