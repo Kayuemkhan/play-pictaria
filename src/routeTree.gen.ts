@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as SplatRouteImport } from './routes/$'
 import { Route as CollectionsRouteImport } from './routes/collections'
 import { Route as CreateRouteImport } from './routes/create'
+import { Route as DailyRouteImport } from './routes/daily'
 import { Route as CollectionCollectionIdRouteImport } from './routes/collection.$collectionId'
 import { Route as PuzzlePuzzleIdRouteImport } from './routes/puzzle.$puzzleId'
 
@@ -36,6 +37,11 @@ const CreateRoute = CreateRouteImport.update({
   path: '/create',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DailyRoute = DailyRouteImport.update({
+  id: '/daily',
+  path: '/daily',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CollectionCollectionIdRoute = CollectionCollectionIdRouteImport.update({
   id: '/collection/$collectionId',
   path: '/collection/$collectionId',
@@ -52,6 +58,7 @@ export interface FileRoutesByFullPath {
   '/$': typeof SplatRoute
   '/collections': typeof CollectionsRoute
   '/create': typeof CreateRoute
+  '/daily': typeof DailyRoute
   '/collection/$collectionId': typeof CollectionCollectionIdRoute
   '/puzzle/$puzzleId': typeof PuzzlePuzzleIdRoute
 }
@@ -60,6 +67,7 @@ export interface FileRoutesByTo {
   '/$': typeof SplatRoute
   '/collections': typeof CollectionsRoute
   '/create': typeof CreateRoute
+  '/daily': typeof DailyRoute
   '/collection/$collectionId': typeof CollectionCollectionIdRoute
   '/puzzle/$puzzleId': typeof PuzzlePuzzleIdRoute
 }
@@ -69,6 +77,7 @@ export interface FileRoutesById {
   '/$': typeof SplatRoute
   '/collections': typeof CollectionsRoute
   '/create': typeof CreateRoute
+  '/daily': typeof DailyRoute
   '/collection/$collectionId': typeof CollectionCollectionIdRoute
   '/puzzle/$puzzleId': typeof PuzzlePuzzleIdRoute
 }
@@ -79,6 +88,7 @@ export interface FileRouteTypes {
     | '/$'
     | '/collections'
     | '/create'
+    | '/daily'
     | '/collection/$collectionId'
     | '/puzzle/$puzzleId'
   fileRoutesByTo: FileRoutesByTo
@@ -87,6 +97,7 @@ export interface FileRouteTypes {
     | '/$'
     | '/collections'
     | '/create'
+    | '/daily'
     | '/collection/$collectionId'
     | '/puzzle/$puzzleId'
   id:
@@ -95,6 +106,7 @@ export interface FileRouteTypes {
     | '/$'
     | '/collections'
     | '/create'
+    | '/daily'
     | '/collection/$collectionId'
     | '/puzzle/$puzzleId'
   fileRoutesById: FileRoutesById
@@ -104,6 +116,7 @@ export interface RootRouteChildren {
   SplatRoute: typeof SplatRoute
   CollectionsRoute: typeof CollectionsRoute
   CreateRoute: typeof CreateRoute
+  DailyRoute: typeof DailyRoute
   CollectionCollectionIdRoute: typeof CollectionCollectionIdRoute
   PuzzlePuzzleIdRoute: typeof PuzzlePuzzleIdRoute
 }
@@ -138,6 +151,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CreateRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/daily': {
+      id: '/daily'
+      path: '/daily'
+      fullPath: '/daily'
+      preLoaderRoute: typeof DailyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/collection/$collectionId': {
       id: '/collection/$collectionId'
       path: '/collection/$collectionId'
@@ -160,6 +180,7 @@ const rootRouteChildren: RootRouteChildren = {
   SplatRoute: SplatRoute,
   CollectionsRoute: CollectionsRoute,
   CreateRoute: CreateRoute,
+  DailyRoute: DailyRoute,
   CollectionCollectionIdRoute: CollectionCollectionIdRoute,
   PuzzlePuzzleIdRoute: PuzzlePuzzleIdRoute,
 }
