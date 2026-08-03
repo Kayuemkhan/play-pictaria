@@ -57,6 +57,8 @@ import amy08 from "@/assets/amy-art-08.jpg.asset.json";
 import amy09 from "@/assets/amy-art-09.jpg.asset.json";
 import amy10 from "@/assets/amy-art-10.jpg.asset.json";
 import amy11 from "@/assets/amy-art-11.jpg.asset.json";
+import amy12 from "@/assets/amy-art-12.jpg.asset.json";
+import amy13 from "@/assets/amy-art-13.jpg.asset.json";
 import amy06Enhanced from "@/assets/amy-art-06-enhanced.jpg";
 import amy03Enhanced from "@/assets/amy-art-03-enhanced.jpg";
 
