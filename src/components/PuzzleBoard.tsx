@@ -508,6 +508,45 @@ export function PuzzleBoard({
   };
 
 
+  /**
+   * Magnetic snap. On release we look at every landing spot within roughly
+   * three quarters of a cell of where the finger actually stopped, and prefer
+   * one that locks the cluster onto a piece it truly belongs to. That gives the
+   * "you don't have to line it up exactly, but it only clicks when it's right"
+   * feel: near misses get pulled in, wrong matches never lock.
+   */
+  const snapMove = useCallback(
+    (dx: number, dy: number, group: number) => {
+      const unitsX = dx / (cellW * scale);
+      const unitsY = dy / (cellH * scale);
+      const TOL = 0.75;
+      const range = (u: number) => {
+        const out: number[] = [];
+        for (let v = Math.floor(u - TOL); v <= Math.ceil(u + TOL); v++) {
+          if (Math.abs(v - u) <= TOL) out.push(v);
+        }
+        return out.sort((a, b) => Math.abs(a - u) - Math.abs(b - u));
+      };
+
+      let best: { dCol: number; dRow: number; dist: number } | null = null;
+      for (const c of range(unitsX)) {
+        for (const r of range(unitsY)) {
+          if (c === 0 && r === 0) continue;
+          // keep gestures on one axis unless the other axis genuinely moved
+          if (c !== 0 && r !== 0) continue;
+          const next = tryMove(pos, groupOf, group, c, r);
+          if (!next) continue;
+          if (!mergePass(next, groupOf).merged) continue;
+          const dist =
+            Math.abs(c - unitsX) + Math.abs(r - unitsY);
+          if (!best || dist < best.dist) best = { dCol: c, dRow: r, dist };
+        }
+      }
+      return best;
+    },
+    [pos, groupOf, tryMove, mergePass, cellW, cellH, scale],
+  );
+
   const endPointer = (e: React.PointerEvent) => {
     const s = dragStart.current;
     setDrag(null);
@@ -517,15 +556,19 @@ export function PuzzleBoard({
     }
     const dx = e.clientX - s.x;
     const dy = e.clientY - s.y;
-    const move = resolveMove(
-      cellsTravelled(dx, cellW),
-      cellsTravelled(dy, cellH),
-      dx,
-      dy,
-    );
+    const snap = snapMove(dx, dy, s.group);
+    const move =
+      snap ??
+      resolveMove(
+        cellsTravelled(dx, cellW),
+        cellsTravelled(dy, cellH),
+        dx,
+        dy,
+      );
     dragStart.current = null;
     if (move) commitMove(s.group, move.dCol, move.dRow);
   };
+
 
 
 
