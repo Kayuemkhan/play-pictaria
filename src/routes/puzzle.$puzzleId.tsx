@@ -73,7 +73,12 @@ function PuzzlePage() {
         src={puzzle.image}
         title={puzzle.title}
         grid={grid}
-        onExit={() => navigate({ to: "/" })}
+        onExit={() =>
+          navigate({
+            to: "/collection/$collectionId",
+            params: { collectionId: collection.id },
+          })
+        }
         onChangeDifficulty={() => setGrid(null)}
       />
     );
@@ -83,7 +88,8 @@ function PuzzlePage() {
     <main className="min-h-screen bg-mist-gradient px-4 pb-16 sm:px-6">
       <div className="mx-auto w-full max-w-3xl">
         <Link
-          to="/"
+          to="/collection/$collectionId"
+          params={{ collectionId: collection.id }}
           className="inline-block py-5 text-sm text-muted-foreground transition-colors hover:text-foreground"
         >
           ← Gallery

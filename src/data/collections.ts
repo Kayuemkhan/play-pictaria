@@ -57,6 +57,8 @@ import amy08 from "@/assets/amy-art-08.jpg.asset.json";
 import amy09 from "@/assets/amy-art-09.jpg.asset.json";
 import amy10 from "@/assets/amy-art-10.jpg.asset.json";
 import amy11 from "@/assets/amy-art-11.jpg.asset.json";
+import amy06Enhanced from "@/assets/amy-art-06-enhanced.jpg";
+import amy03Enhanced from "@/assets/amy-art-03-enhanced.jpg";
 
 export interface Puzzle {
   id: string;
@@ -451,9 +453,9 @@ export const collections: Collection[] = [
     free: true,
     storybook: { owner: "Amy", plan: "personal" },
     puzzles: [
-      { id: "amy-01", title: "Worn Well", caption: "Turquoise glass at the throat", image: amy01.url },
-      { id: "amy-02", title: "Golden Hour", caption: "Opal turtle on the wrist", image: amy06.url },
-      { id: "amy-03", title: "Pair", caption: "Cobalt drops on gold hooks", image: amy03.url },
+      { id: "amy-01", title: "Mahalo: Gratitude", caption: "Apatite and tourmaline half moon necklace", image: amy01.url },
+      { id: "amy-02", title: "Mahalo Music", caption: "Turquoise accented with green and gold crystal", image: amy06Enhanced },
+      { id: "amy-03", title: "Pear Play", caption: "Akoni drop earrings", image: amy03Enhanced },
       { id: "amy-04", title: "Deep Blue", caption: "Sea glass and starfish", image: amy04.url },
       { id: "amy-05", title: "Sea Grass", caption: "Green glass on silver", image: amy05.url },
       { id: "amy-06", title: "Lagoon", caption: "Teal beads and gold fins", image: amy02.url },
