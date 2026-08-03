@@ -209,8 +209,12 @@ function Home() {
             })}
           </div>
 
+          <h2 className="mt-5 font-display text-sm tracking-[0.2em] text-foreground uppercase">
+            Explore
+          </h2>
+
           {/* poem CTA — storybook */}
-          <div className="relative mt-5 overflow-hidden rounded-[4px] border border-accent/60 bg-card/70 p-4">
+          <div className="relative mt-2 overflow-hidden rounded-[4px] border border-accent/60 bg-card/70 p-4">
             <span
               aria-hidden
               className="pointer-events-none absolute -top-4 -left-5 font-display text-[6rem] leading-none text-accent/10 select-none"
