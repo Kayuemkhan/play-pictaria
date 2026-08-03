@@ -99,23 +99,32 @@ function Home() {
         />
 
 
-        {/* headline + CTA, set on the sunset with a soft backdrop */}
-        <div className="absolute top-[34%] right-4 z-[4] max-w-[58%] rounded-2xl bg-deep/55 px-4 py-3 backdrop-blur-[3px] sm:right-10 sm:max-w-[42%] sm:px-5 sm:py-4">
-          <p className="font-display text-[1.15rem] leading-tight text-shell sm:text-2xl">
-            Can you solve
-            <br />
-            today&rsquo;s {firstPuzzle.title.toLowerCase()}?
+        {/* headline + CTA — draggable, so it can be placed anywhere on the sunset */}
+        <div
+          role="group"
+          aria-label="Drag to position the headline"
+          onPointerDown={startDrag}
+          style={{
+            left: `${cardPos.x}%`,
+            top: `${cardPos.y}%`,
+            transform: "translate(-50%, -50%)",
+          }}
+          className="absolute z-[4] w-[52%] cursor-grab touch-none rounded-xl bg-deep/55 px-3 py-2 backdrop-blur-[3px] active:cursor-grabbing sm:w-[34%]"
+        >
+          <p className="font-display text-[0.85rem] leading-tight text-shell">
+            Can you solve today&rsquo;s {firstPuzzle.title.toLowerCase()}?
           </p>
           <Link
             to="/puzzle/$puzzleId"
             params={{ puzzleId: firstPuzzle.id }}
             search={{ grid: 3 }}
-            className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-accent px-3.5 py-1.5 text-[0.65rem] tracking-[0.14em] text-deep uppercase shadow-lift transition-transform hover:scale-[1.03]"
+            className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-accent px-2.5 py-1 text-[0.5rem] tracking-[0.14em] text-deep uppercase shadow-lift transition-transform hover:scale-[1.03]"
           >
             Play now
             <span aria-hidden>›</span>
           </Link>
         </div>
+
 
       </section>
 
