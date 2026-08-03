@@ -157,7 +157,7 @@ function Home() {
         <div className="mx-auto w-full max-w-5xl">
           <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4">
             <h2 className="min-w-0 truncate font-display text-base tracking-[0.2em] text-foreground uppercase">
-              Featured
+              Start exploring
             </h2>
             <Link
               to="/collections"
