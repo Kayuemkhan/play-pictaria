@@ -1,5 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { collections } from "@/data/collections";
+import {
+  collections,
+  visitorAllowance,
+  waitingCount,
+} from "@/data/collections";
 
 export const Route = createFileRoute("/collection/$collectionId")({
   head: () => ({
