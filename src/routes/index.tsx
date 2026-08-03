@@ -160,8 +160,7 @@ function Home() {
               Featured
             </h2>
             <Link
-              to="/collection/$collectionId"
-              params={{ collectionId: freeCollection.id }}
+              to="/collections"
               className="flex shrink-0 items-center gap-1 text-[11px] tracking-[0.18em] text-muted-foreground uppercase transition-colors hover:text-foreground"
             >
               View all <span aria-hidden>›</span>
@@ -196,7 +195,7 @@ function Home() {
               );
 
               const shell =
-                "tile-sheen group relative block w-[46%] shrink-0 snap-start overflow-hidden rounded-2xl shadow-soft transition-shadow duration-500 hover:shadow-lift sm:w-auto";
+                "tile-sheen group relative block w-[46%] shrink-0 snap-start overflow-hidden rounded-[4px] border border-accent/60 shadow-soft transition-shadow duration-500 hover:shadow-lift sm:w-auto";
 
               if (soon) {
                 return (
@@ -223,7 +222,7 @@ function Home() {
           </div>
 
           {/* storybook CTA */}
-          <div className="relative mt-5 overflow-hidden rounded-2xl border border-border bg-card/70 p-5">
+          <div className="relative mt-5 overflow-hidden rounded-[4px] border border-accent/60 bg-card/70 p-5">
             <span
               aria-hidden
               className="pointer-events-none absolute -top-6 -left-8 font-display text-[9rem] leading-none text-accent/10 select-none"
@@ -254,8 +253,15 @@ function Home() {
               >
                 Get started
               </Link>
-
             </div>
+            <Link
+              to="/puzzle/$puzzleId"
+              params={{ puzzleId: firstPuzzle.id }}
+              search={{ grid: 3 }}
+              className="relative mt-4 inline-flex items-center gap-1.5 border-t border-accent/40 pt-3 text-[0.62rem] tracking-[0.18em] text-primary uppercase transition-colors hover:text-foreground"
+            >
+              I want to play Pictaria Daily <span aria-hidden>›</span>
+            </Link>
           </div>
         </div>
       </section>

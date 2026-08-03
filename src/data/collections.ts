@@ -96,12 +96,6 @@ export const collections: Collection[] = [
         image: flowerHibiscus,
       },
       {
-        id: "flower-02",
-        title: "Pink Hibiscus",
-        caption: "Morning light on open petals",
-        image: flowerHibiscusPink,
-      },
-      {
         id: "flower-03",
         title: "Plumeria",
         caption: "Sunset fragrance",
@@ -124,6 +118,12 @@ export const collections: Collection[] = [
         title: "Heliconia",
         caption: "Scarlet bracts reaching up",
         image: flowerHeliconia,
+      },
+      {
+        id: "flower-02",
+        title: "Pink Hibiscus",
+        caption: "Morning light on open petals",
+        image: flowerHibiscusPink,
       },
       {
         id: "flower-07",
