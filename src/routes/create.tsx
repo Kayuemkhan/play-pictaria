@@ -65,6 +65,7 @@ function CreatePage() {
   const [unlocked, setUnlocked] = useState(false);
   const [gateChecked, setGateChecked] = useState(false);
   const [email, setEmail] = useState("");
+  const [wantsDaily, setWantsDaily] = useState(true);
   const [gateStatus, setGateStatus] = useState<"idle" | "saving" | "error">(
     "idle",
   );
@@ -91,7 +92,9 @@ function CreatePage() {
     setGateStatus("saving");
     setGateError("");
     try {
-      await saveSubscriber({ data: { email, source: "storybook_create" } });
+      await saveSubscriber({
+        data: { email, source: "storybook_create", daily: wantsDaily },
+      });
       localStorage.setItem("pictaria_creator_email", email.trim().toLowerCase());
       setUnlocked(true);
       setGateStatus("idle");
@@ -183,8 +186,8 @@ function CreatePage() {
             Build your storybook
           </h1>
           <p className="mt-2 text-[13px] leading-relaxed text-muted-foreground">
-            Tell us where to send it — we'll keep your storybook safe and slip a
-            free Pictaria into your inbox every single day.
+            Sign up for a free storybook. If you want to subscribe, it's $5.95 a
+            month.
           </p>
 
           <form onSubmit={submitGate} className="mt-6 text-left">
@@ -204,6 +207,19 @@ function CreatePage() {
               maxLength={255}
               className="mt-1.5"
             />
+
+            <label className="mt-4 flex cursor-pointer items-start gap-3">
+              <input
+                type="checkbox"
+                checked={wantsDaily}
+                onChange={(e) => setWantsDaily(e.target.checked)}
+                className="mt-0.5 h-4 w-4 accent-primary"
+              />
+              <span className="text-[12px] leading-snug text-foreground">
+                Would you like a free Pictaria everyday?
+              </span>
+            </label>
+
             {gateStatus === "error" && (
               <p className="mt-2 text-[11px] text-destructive">{gateError}</p>
             )}
