@@ -498,6 +498,24 @@ export function PuzzleBoard({
           })}
         </div>
 
+        {/* puzzle box peek */}
+        {showReference && (
+          <button
+            onClick={() => setShowReference(false)}
+            className="absolute inset-0 z-20 flex items-center justify-center bg-deep/70 p-6 backdrop-blur-sm"
+          >
+            <div className="glass-panel relative max-h-full max-w-sm overflow-hidden rounded-3xl shadow-lift">
+              <img
+                src={src}
+                alt="Puzzle box reference"
+                className="max-h-[70vh] w-auto object-contain"
+              />
+              <p className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent px-5 pb-4 pt-8 text-center text-sm text-white">
+                Tap anywhere to hide
+              </p>
+            </div>
+          </button>
+        )}
       </div>
 
       {/* celebration */}
