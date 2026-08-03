@@ -260,7 +260,7 @@ function Home() {
               search={{ grid: 3 }}
               className="relative mt-4 block border-t border-accent/40 pt-3 text-[0.65rem] leading-relaxed tracking-[0.16em] text-primary uppercase transition-colors hover:text-foreground"
             >
-              Everyday I need a little paradise and I need a little play so please send me a pictoria for free every single day <span aria-hidden>›</span>
+              I need a little paradise and I need a little play so send me a free pictoria every single day <span aria-hidden>›</span>
             </Link>
           </div>
         </div>
