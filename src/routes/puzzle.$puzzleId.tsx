@@ -73,7 +73,7 @@ function PuzzlePage() {
           ← Gallery
         </Link>
 
-        <div className="overflow-hidden rounded-3xl shadow-lift">
+        <div className="overflow-hidden rounded-[4px] border border-accent/60 shadow-lift">
           <img
             src={puzzle.image}
             alt={puzzle.title}
@@ -102,7 +102,7 @@ function PuzzlePage() {
             <button
               key={d.grid}
               onClick={() => setGrid(d.grid)}
-              className="group rounded-3xl border border-border bg-card px-4 py-6 text-center shadow-soft transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-lift"
+              className="group rounded-[4px] border border-accent/60 bg-card px-4 py-6 text-center shadow-soft transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-lift"
             >
               <p className="font-display text-3xl text-primary">
                 {d.grid}×{d.grid}
