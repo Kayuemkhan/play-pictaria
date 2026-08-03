@@ -74,7 +74,44 @@ export interface Collection {
   free: boolean;
   /** Storybook announced on the home screen but not yet filled with puzzles. */
   comingSoon?: boolean;
+  /**
+   * Set when the collection is a member's or brand's own storybook. Visitors
+   * opening a shared storybook play a set number of puzzles for free, then get
+   * invited into Pictaria for the rest.
+   */
+  storybook?: {
+    /** Whose storybook this is, as the visitor should read it. */
+    owner: string;
+    /** personal = 3 free puzzles, white-label = 10 free puzzles. */
+    plan: "personal" | "white-label";
+  };
   puzzles: Puzzle[];
+}
+
+/** How many puzzles a visitor may open in a shared storybook. */
+export const STORYBOOK_ALLOWANCE = { personal: 3, "white-label": 10 } as const;
+
+/**
+ * Number of puzzles a visitor can open in this collection.
+ * Pictaria's own collections are fully open (Infinity).
+ */
+export function visitorAllowance(collection: Collection): number {
+  if (!collection.storybook) return Number.POSITIVE_INFINITY;
+  return STORYBOOK_ALLOWANCE[collection.storybook.plan];
+}
+
+/** Puzzles in this storybook the visitor has not been given access to. */
+export function waitingCount(collection: Collection): number {
+  return Math.max(0, collection.puzzles.length - visitorAllowance(collection));
+}
+
+/** True when the visitor may open this puzzle for free. */
+export function isPuzzleOpenToVisitor(
+  collection: Collection,
+  puzzleId: string,
+): boolean {
+  const index = collection.puzzles.findIndex((p) => p.id === puzzleId);
+  return index >= 0 && index < visitorAllowance(collection);
 }
 
 /**
