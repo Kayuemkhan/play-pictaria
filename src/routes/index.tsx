@@ -167,6 +167,11 @@ function Home() {
                     loading="lazy"
                     width={768}
                     height={1024}
+                    style={
+                      collection.coverZoom
+                        ? { transform: `scale(${collection.coverZoom})` }
+                        : undefined
+                    }
                     className="aspect-[3/4] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
                   />
                   <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-deep via-deep/70 to-transparent px-3 pt-8 pb-3">
