@@ -460,7 +460,7 @@ export const collections: Collection[] = [
     storybook: { owner: "Amy", plan: "personal" },
     puzzles: [
       { id: "amy-06", title: "Kuipo", caption: "An affectionate term for a loved one", image: amy02.url },
-      { id: "amy-12", title: "Sweetheart Magic", caption: "Pink embers dance in the light — this piece celebrates love", image: amy12.url },
+      { id: "amy-12", title: "Sweetheart", caption: "Pink embers dance in the light — this piece celebrates love", image: amy12.url },
       { id: "amy-03", title: "Pear Play", caption: "Akoni friends", image: amy03Enhanced },
       { id: "amy-05", title: "Kalele", caption: "Trust your dreams, they know the way", image: amy05Enhanced },
       { id: "amy-01", title: "Mahalo: Gratitude", caption: "Apatite and tourmaline half moon necklace", image: amy01.url },
