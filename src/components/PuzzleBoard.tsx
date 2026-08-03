@@ -493,20 +493,65 @@ export function PuzzleBoard({
       {/* celebration */}
       {solved && (
         <div className="absolute inset-0 z-30 flex items-center justify-center bg-deep/55 backdrop-blur-md">
-          {Array.from({ length: 14 }).map((_, i) => (
-            <span
-              key={i}
-              className="animate-bubble pointer-events-none absolute bottom-0 rounded-full bg-seafoam/70"
+          {/* magical star swirl */}
+          <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+            <div
+              className="animate-star-swirl absolute"
+              style={{ width: 420, height: 420 }}
+            >
+              {Array.from({ length: 24 }).map((_, i) => {
+                const angle = (i / 24) * Math.PI * 2;
+                const radius = 90 + (i % 5) * 28;
+                return (
+                  <svg
+                    key={`swirl-${i}`}
+                    viewBox="0 0 24 24"
+                    className="animate-sparkle absolute"
+                    style={{
+                      left: `calc(50% + ${Math.cos(angle) * radius}px)`,
+                      top: `calc(50% + ${Math.sin(angle) * radius}px)`,
+                      width: 10 + (i % 4) * 4,
+                      height: 10 + (i % 4) * 4,
+                      transform: "translate(-50%, -50%)",
+                      animationDelay: `${i * 0.18}s`,
+                      fill: i % 3 === 0 ? "var(--accent)" : "oklch(0.92 0.04 80)",
+                      filter: "drop-shadow(0 0 6px oklch(0.85 0.06 70 / 0.8))",
+                    }}
+                  >
+                    <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
+                  </svg>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* floating twinkling stars */}
+          {Array.from({ length: 36 }).map((_, i) => (
+            <svg
+              key={`float-${i}`}
+              viewBox="0 0 24 24"
+              className="animate-star-float pointer-events-none absolute"
               style={{
-                left: `${(i * 7 + 5) % 96}%`,
-                width: 6 + (i % 4) * 5,
-                height: 6 + (i % 4) * 5,
-                animationDelay: `${i * 0.32}s`,
-                animationDuration: `${4 + (i % 3)}s`,
+                left: `${(i * 37 + Math.sin(i) * 20) % 100}%`,
+                top: `${(i * 19 + Math.cos(i) * 15) % 100}%`,
+                width: 6 + (i % 5) * 4,
+                height: 6 + (i % 5) * 4,
+                animationDelay: `${i * 0.14}s`,
+                animationDuration: `${4 + (i % 4)}s`,
+                fill:
+                  i % 4 === 0
+                    ? "var(--accent)"
+                    : i % 4 === 1
+                      ? "oklch(0.95 0.03 85)"
+                      : "oklch(0.88 0.05 190)",
+                filter: "drop-shadow(0 0 4px oklch(0.9 0.05 80 / 0.7))",
               }}
-            />
+            >
+              <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
+            </svg>
           ))}
-          <div className="animate-soft-in glass-panel mx-4 w-full max-w-sm rounded-3xl p-7 text-center shadow-lift">
+
+          <div className="animate-soft-in glass-panel relative mx-4 w-full max-w-sm rounded-3xl p-7 text-center shadow-lift">
             <p className="text-[11px] tracking-[0.3em] text-muted-foreground uppercase">
               Complete
             </p>
