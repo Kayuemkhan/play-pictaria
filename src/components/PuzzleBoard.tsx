@@ -257,6 +257,44 @@ export function PuzzleBoard({
       const next = [...positions];
       for (const [piece, cell] of moving) next[piece] = cell;
 
+      /**
+       * Displaced clusters should SWAP into the cells the dragged cluster just
+       * vacated (rigid translation by the opposite delta). Anything else makes
+       * pieces appear to teleport around the board.
+       */
+      const swapRest: number[][] = [];
+      for (const cluster of conflicting) {
+        const destinations: number[] = [];
+        let fits = true;
+        for (const piece of cluster) {
+          const cell = positions[piece]!;
+          const row = Math.floor(cell / grid) - dRow;
+          const col = (cell % grid) - dCol;
+          if (row < 0 || row >= grid || col < 0 || col >= grid) {
+            fits = false;
+            break;
+          }
+          const destination = row * grid + col;
+          if (!free.has(destination)) {
+            fits = false;
+            break;
+          }
+          destinations.push(destination);
+        }
+        if (fits) {
+          cluster.forEach((piece, i) => {
+            next[piece] = destinations[i]!;
+            free.delete(destinations[i]!);
+          });
+        } else {
+          swapRest.push(cluster);
+        }
+      }
+      conflicting.length = 0;
+      conflicting.push(...swapRest);
+
+
+
       // biggest shapes are hardest to fit — place them first
       conflicting.sort((a, b) => b.length - a.length);
 
