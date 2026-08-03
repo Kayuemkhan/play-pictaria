@@ -1,9 +1,16 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { ArrowLeft, ImagePlus, Sparkles, X } from "lucide-react";
+import { useServerFn } from "@tanstack/react-start";
 import { HeroPuzzle, type HeroCorner } from "@/components/HeroPuzzle";
 import { PuzzleBoard } from "@/components/PuzzleBoard";
 import { difficulties } from "@/data/collections";
+import { saveDailySubscriber } from "@/lib/daily.functions";
+import { supabase } from "@/integrations/supabase/client";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import palmLogo from "@/assets/logo-palms.png";
 
 export const Route = createFileRoute("/create")({
   head: () => ({
