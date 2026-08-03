@@ -140,36 +140,47 @@ function RootComponent() {
   const router = useRouter();
   const backToastShownRef = useRef(false);
 
-  // Keep the hardware back button from exiting the installed PWA immediately.
-  // In the Lovable preview (iframe) this does nothing, which is correct.
+  // Keep the hardware back button from exiting the app on the first press.
+  // A guard history entry is kept underneath the home screen, so back from
+  // home pops the guard (toast) instead of leaving the site.
   useEffect(() => {
     if (typeof window === "undefined") return;
-    if (window.self !== window.top) return;
 
-    const sentinel = { __pictaria: "sentinel" };
-    window.history.pushState(sentinel, "", window.location.href);
+    const ensureGuard = () => {
+      if (window.location.pathname !== "/") return;
+      const state = window.history.state as { pictariaGuard?: boolean } | null;
+      if (state?.pictariaGuard) return;
+      window.history.pushState(
+        { ...(state ?? {}), pictariaGuard: true },
+        "",
+        window.location.href,
+      );
+    };
 
-    const handlePopState = (event: PopStateEvent) => {
-      if (event.state?.__pictaria !== "sentinel") return;
+    ensureGuard();
+    const unsubscribe = router.subscribe("onResolved", ensureGuard);
 
-      // Sentinel popped → user is at the root entry. Ask before exiting.
+    const handlePopState = () => {
+      if (window.location.pathname !== "/") return;
+
       if (!backToastShownRef.current) {
-        toast.message("Press back again to exit Pictaria", {
-          duration: 2000,
-        });
+        toast.message("Press back again to exit Pictaria", { duration: 2000 });
         backToastShownRef.current = true;
         window.setTimeout(() => {
           backToastShownRef.current = false;
         }, 2000);
+        // Re-arm the guard so this press doesn't leave the app.
+        window.history.pushState({ pictariaGuard: true }, "", "/");
       }
-
-      // Push the sentinel back so the next back exits, not this one.
-      window.history.pushState(sentinel, "", window.location.href);
     };
 
     window.addEventListener("popstate", handlePopState);
-    return () => window.removeEventListener("popstate", handlePopState);
+    return () => {
+      unsubscribe();
+      window.removeEventListener("popstate", handlePopState);
+    };
   }, [router]);
+
 
   return (
     <QueryClientProvider client={queryClient}>
