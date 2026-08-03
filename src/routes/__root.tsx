@@ -7,9 +7,11 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
+import { toast } from "sonner";
 
 import appCss from "../styles.css?url";
+import { Toaster } from "@/components/ui/sonner";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
 function NotFoundComponent() {
@@ -126,6 +128,7 @@ function RootShell({ children }: { children: ReactNode }) {
       </head>
       <body>
         {children}
+        <Toaster position="bottom-center" />
         <Scripts />
       </body>
     </html>
@@ -134,6 +137,39 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const router = useRouter();
+  const backToastShownRef = useRef(false);
+
+  // Keep the hardware back button from exiting the installed PWA immediately.
+  // In the Lovable preview (iframe) this does nothing, which is correct.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (window.self !== window.top) return;
+
+    const sentinel = { __pictaria: "sentinel" };
+    window.history.pushState(sentinel, "", window.location.href);
+
+    const handlePopState = (event: PopStateEvent) => {
+      if (event.state?.__pictaria !== "sentinel") return;
+
+      // Sentinel popped → user is at the root entry. Ask before exiting.
+      if (!backToastShownRef.current) {
+        toast.message("Press back again to exit Pictaria", {
+          duration: 2000,
+        });
+        backToastShownRef.current = true;
+        window.setTimeout(() => {
+          backToastShownRef.current = false;
+        }, 2000);
+      }
+
+      // Push the sentinel back so the next back exits, not this one.
+      window.history.pushState(sentinel, "", window.location.href);
+    };
+
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, [router]);
 
   return (
     <QueryClientProvider client={queryClient}>
