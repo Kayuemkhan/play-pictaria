@@ -416,13 +416,34 @@ export function PuzzleBoard({
     const dCol = Math.round(dx / (cellW * scale));
     const dRow = Math.round(dy / (cellH * scale));
     const horizontal = Math.abs(dx) >= Math.abs(dy);
+    const move = resolveMove(dCol, dRow);
+
+    /**
+     * Never let a cluster follow the finger further than it can legally travel.
+     * Without this clamp an illegal drag looks like the block "bounced out"
+     * when it snaps back on release; now it simply resists.
+     */
+    const limit = (raw: number, cells: number, cellSize: number) =>
+      Math.sign(raw) *
+      Math.min(Math.abs(raw), (Math.abs(cells) + 0.4) * cellSize * scale);
+
+    let ox = 0;
+    let oy = 0;
+    if (move) {
+      if (horizontal && move.dCol !== 0) ox = limit(dx, move.dCol, cellW);
+      else if (!horizontal && move.dRow !== 0) oy = limit(dy, move.dRow, cellH);
+      else if (move.dCol !== 0) ox = limit(dx, move.dCol, cellW);
+      else oy = limit(dy, move.dRow, cellH);
+    }
+
     setDrag({
       group: s.group,
-      dx: horizontal ? dx : 0,
-      dy: horizontal ? 0 : dy,
-      valid: !!resolveMove(dCol, dRow),
+      dx: ox,
+      dy: oy,
+      valid: !!move,
     });
   };
+
 
   const endPointer = (e: React.PointerEvent) => {
     const s = dragStart.current;
