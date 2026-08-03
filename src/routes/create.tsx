@@ -206,7 +206,18 @@ function CreatePage() {
                 </button>
               )}
             </div>
+            {hero && caption.trim() && (
+              <div className="border-t border-shell/10 px-5 py-4">
+                <p className="text-[9px] tracking-[0.24em] text-accent uppercase">
+                  {brand.trim() || "The story"}
+                </p>
+                <p className="mt-2 text-xs leading-relaxed whitespace-pre-line text-shell/85">
+                  {caption}
+                </p>
+              </div>
+            )}
           </div>
+
 
           {hero && (
             <div className="mt-3 flex flex-wrap gap-2">
