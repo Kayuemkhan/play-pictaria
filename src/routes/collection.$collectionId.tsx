@@ -44,10 +44,10 @@ function CollectionPage() {
     <main className="min-h-screen bg-mist-gradient px-4 pb-20 sm:px-6">
       <div className="mx-auto w-full max-w-4xl">
         <Link
-          to="/"
+          to="/collections"
           className="inline-block py-5 text-sm text-muted-foreground transition-colors hover:text-foreground"
         >
-          ← Home
+          ← Gallery
         </Link>
 
         <div className="text-center">
