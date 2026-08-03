@@ -4,6 +4,7 @@ import { z } from "zod";
 const emailSchema = z.object({
   email: z.string().trim().email().max(255),
   source: z.enum(["daily_card", "storybook_create"]).optional(),
+  daily: z.boolean().optional(),
 });
 
 export const saveDailySubscriber = createServerFn({ method: "POST" })
@@ -13,7 +14,11 @@ export const saveDailySubscriber = createServerFn({ method: "POST" })
 
     const { error } = await supabaseAdmin
       .from("daily_subscribers")
-      .insert({ email: data.email.toLowerCase(), source: data.source ?? "daily_card" });
+      .insert({
+        email: data.email.toLowerCase(),
+        source: data.source ?? "daily_card",
+        daily: data.daily ?? true,
+      });
 
     // 23505 = unique violation; the email is already on the list, which is fine.
     if (error && error.code !== "23505") {
