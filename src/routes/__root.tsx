@@ -139,39 +139,86 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const router = useRouter();
   const backToastShownRef = useRef(false);
+  const previousPathRef = useRef<string | null>(null);
 
-  // Keep the hardware back button from exiting the app on the first press.
-  // A guard history entry is kept underneath the home screen, so back from
-  // home pops the guard (toast) instead of leaving the site.
+  // Android closes a standalone web app when the current page is its first
+  // history entry. Keep a same-page guard above every Pictaria route so the
+  // hardware Back button reaches us before the browser can close the app.
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    const ensureGuard = () => {
-      if (window.location.pathname !== "/") return;
-      const state = window.history.state as { pictariaGuard?: boolean } | null;
-      if (state?.pictariaGuard) return;
+    type PictariaHistoryState = {
+      pictariaBase?: boolean;
+      pictariaGuard?: boolean;
+      pictariaPath?: string;
+      pictariaHasPriorPage?: boolean;
+    };
+
+    const protectCurrentPage = () => {
+      const path = `${window.location.pathname}${window.location.search}`;
+      const state = (window.history.state ?? {}) as PictariaHistoryState;
+
+      if (state.pictariaGuard && state.pictariaPath === path) {
+        previousPathRef.current = path;
+        return;
+      }
+
+      const hasPriorPage = previousPathRef.current !== null;
+      const baseState = {
+        ...state,
+        pictariaBase: true,
+        pictariaGuard: false,
+        pictariaPath: path,
+        pictariaHasPriorPage: hasPriorPage,
+      };
+
+      window.history.replaceState(baseState, "", window.location.href);
       window.history.pushState(
-        { ...(state ?? {}), pictariaGuard: true },
+        { ...baseState, pictariaBase: false, pictariaGuard: true },
         "",
         window.location.href,
       );
+      previousPathRef.current = path;
     };
 
-    ensureGuard();
-    const unsubscribe = router.subscribe("onResolved", ensureGuard);
+    protectCurrentPage();
+    const unsubscribe = router.subscribe("onResolved", protectCurrentPage);
 
     const handlePopState = () => {
-      if (window.location.pathname !== "/") return;
+      const state = (window.history.state ?? {}) as PictariaHistoryState;
+      if (!state.pictariaBase) return;
+
+      const path = `${window.location.pathname}${window.location.search}`;
+
+      if (state.pictariaHasPriorPage) {
+        // The entry below is the guard belonging to the actual prior page.
+        // Pop to it, allowing TanStack Router to restore that page normally.
+        window.setTimeout(() => window.history.back(), 0);
+        return;
+      }
+
+      if (window.location.pathname !== "/") {
+        // A gallery or puzzle may be the first screen after launching from a
+        // saved link. In that case there is no browser history, so return Home
+        // without ever handing control back to Android's app closer.
+        router.navigate({ to: "/", replace: true });
+        return;
+      }
 
       if (!backToastShownRef.current) {
-        toast.message("Press back again to exit Pictaria", { duration: 2000 });
+        toast.message("You’re at the Pictaria home page", { duration: 2000 });
         backToastShownRef.current = true;
         window.setTimeout(() => {
           backToastShownRef.current = false;
         }, 2000);
-        // Re-arm the guard so this press doesn't leave the app.
-        window.history.pushState({ pictariaGuard: true }, "", "/");
       }
+
+      // Home is the bottom of Pictaria's navigation, so keep it open.
+      window.history.pushState(
+        { ...state, pictariaBase: false, pictariaGuard: true, pictariaPath: path },
+        "",
+        window.location.href,
+      );
     };
 
     window.addEventListener("popstate", handlePopState);
