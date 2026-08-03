@@ -1,9 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import {
-  collections,
-  visitorAllowance,
-  waitingCount,
-} from "@/data/collections";
+import { collections } from "@/data/collections";
 
 export const Route = createFileRoute("/collection/$collectionId")({
   head: () => ({
@@ -42,8 +38,6 @@ function CollectionPage() {
     );
   }
 
-  const allowance = visitorAllowance(collection);
-  const waiting = waitingCount(collection);
   const storybook = collection.storybook;
 
   return (
@@ -58,9 +52,7 @@ function CollectionPage() {
 
         <div className="text-center">
           <p className="text-[11px] tracking-[0.3em] text-muted-foreground uppercase">
-            {storybook
-              ? `${Math.min(allowance, collection.puzzles.length)} puzzles to open`
-              : `${collection.puzzles.length} puzzles`}
+            {`${collection.puzzles.length} puzzles`}
           </p>
           <h1 className="mt-2 font-display text-4xl sm:text-5xl">
             {collection.title}
@@ -71,37 +63,7 @@ function CollectionPage() {
         </div>
 
         <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3">
-          {collection.puzzles.map((puzzle, index) => {
-            const open = index < allowance;
-
-            if (!open) {
-              return (
-                <Link
-                  key={puzzle.id}
-                  to="/storybook/$collectionId"
-                  params={{ collectionId: collection.id }}
-                  className="group relative block overflow-hidden rounded-[4px] border border-accent/60 shadow-soft transition-shadow duration-500 hover:shadow-lift"
-                >
-                  <img
-                    src={puzzle.image}
-                    alt={puzzle.title}
-                    loading="lazy"
-                    width={1024}
-                    height={768}
-                    className="aspect-[3/4] w-full scale-[1.02] object-cover blur-[6px]"
-                  />
-                  <div className="absolute inset-0 flex flex-col items-center justify-center bg-deep/45 px-3 text-center">
-                    <p className="font-display text-2xl text-deep-foreground">
-                      {waiting}
-                    </p>
-                    <p className="mt-1 text-[10px] leading-snug tracking-[0.14em] text-accent uppercase">
-                      Waiting in Pictaria
-                    </p>
-                  </div>
-                </Link>
-              );
-            }
-
+          {collection.puzzles.map((puzzle) => {
             return (
               <Link
                 key={puzzle.id}
@@ -134,9 +96,7 @@ function CollectionPage() {
         {storybook && (
           <div className="mt-10 rounded-[4px] border border-accent/60 bg-card/80 px-5 py-6 text-center shadow-soft">
             <p className="font-display text-xl leading-snug">
-              {waiting > 0
-                ? `There are ${waiting} puzzles from ${storybook.owner} still waiting in Pictaria.`
-                : `More beautiful booklets are waiting in Pictaria.`}
+              More beautiful booklets are waiting in Pictaria.
             </p>
             <Link
               to="/storybook/$collectionId"

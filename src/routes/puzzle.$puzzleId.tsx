@@ -1,11 +1,7 @@
-import { createFileRoute, Link, Navigate, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { PuzzleBoard } from "@/components/PuzzleBoard";
-import {
-  difficulties,
-  findPuzzle,
-  isPuzzleOpenToVisitor,
-} from "@/data/collections";
+import { difficulties, findPuzzle } from "@/data/collections";
 
 export const Route = createFileRoute("/puzzle/$puzzleId")({
   validateSearch: (search: Record<string, unknown>) => ({
@@ -54,15 +50,6 @@ function PuzzlePage() {
 
   const { puzzle, collection } = found;
 
-  if (!isPuzzleOpenToVisitor(collection, puzzle.id)) {
-    return (
-      <Navigate
-        to="/storybook/$collectionId"
-        params={{ collectionId: collection.id }}
-        replace
-      />
-    );
-  }
 
 
 
@@ -73,7 +60,12 @@ function PuzzlePage() {
         src={puzzle.image}
         title={puzzle.title}
         grid={grid}
-        onExit={() => navigate({ to: "/" })}
+        onExit={() =>
+          navigate({
+            to: "/collection/$collectionId",
+            params: { collectionId: collection.id },
+          })
+        }
         onChangeDifficulty={() => setGrid(null)}
       />
     );
@@ -83,7 +75,8 @@ function PuzzlePage() {
     <main className="min-h-screen bg-mist-gradient px-4 pb-16 sm:px-6">
       <div className="mx-auto w-full max-w-3xl">
         <Link
-          to="/"
+          to="/collection/$collectionId"
+          params={{ collectionId: collection.id }}
           className="inline-block py-5 text-sm text-muted-foreground transition-colors hover:text-foreground"
         >
           ← Gallery
