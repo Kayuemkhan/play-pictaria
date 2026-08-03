@@ -257,6 +257,44 @@ export function PuzzleBoard({
       const next = [...positions];
       for (const [piece, cell] of moving) next[piece] = cell;
 
+      /**
+       * Displaced clusters should SWAP into the cells the dragged cluster just
+       * vacated (rigid translation by the opposite delta). Anything else makes
+       * pieces appear to teleport around the board.
+       */
+      const swapRest: number[][] = [];
+      for (const cluster of conflicting) {
+        const destinations: number[] = [];
+        let fits = true;
+        for (const piece of cluster) {
+          const cell = positions[piece]!;
+          const row = Math.floor(cell / grid) - dRow;
+          const col = (cell % grid) - dCol;
+          if (row < 0 || row >= grid || col < 0 || col >= grid) {
+            fits = false;
+            break;
+          }
+          const destination = row * grid + col;
+          if (!free.has(destination)) {
+            fits = false;
+            break;
+          }
+          destinations.push(destination);
+        }
+        if (fits) {
+          cluster.forEach((piece, i) => {
+            next[piece] = destinations[i]!;
+            free.delete(destinations[i]!);
+          });
+        } else {
+          swapRest.push(cluster);
+        }
+      }
+      conflicting.length = 0;
+      conflicting.push(...swapRest);
+
+
+
       // biggest shapes are hardest to fit — place them first
       conflicting.sort((a, b) => b.length - a.length);
 
@@ -321,11 +359,18 @@ export function PuzzleBoard({
 
 
   /**
-   * Interpret every gesture on one grid axis. Small vertical finger drift must
-   * never turn a side-to-side move into a diagonal move (or vice versa).
+   * Interpret every gesture on one grid axis. The axis is decided by the actual
+   * finger travel in pixels — cells are taller than they are wide, so deciding
+   * it from rounded cell counts used to turn a drag downwards into a sideways
+   * move whenever the thumb drifted half a (narrow) column.
    */
   const resolveMove = useCallback(
-    (dCol: number, dRow: number): { dCol: number; dRow: number } | null => {
+    (
+      dCol: number,
+      dRow: number,
+      dx: number,
+      dy: number,
+    ): { dCol: number; dRow: number } | null => {
       const candidates: [number, number][] = [];
       const push = (c: number, r: number) => {
         if (c === 0 && r === 0) return;
@@ -333,7 +378,7 @@ export function PuzzleBoard({
           candidates.push([c, r]);
       };
 
-      const horizontal = Math.abs(dCol) >= Math.abs(dRow);
+      const horizontal = Math.abs(dx) > Math.abs(dy);
       const primary = horizontal ? dCol : dRow;
       const secondary = horizontal ? dRow : dCol;
 
@@ -355,6 +400,7 @@ export function PuzzleBoard({
       }
       return null;
     },
+
     [pos, groupOf, tryMove],
   );
 
@@ -406,6 +452,17 @@ export function PuzzleBoard({
     };
   };
 
+  /**
+   * How many cells a finger travel represents. A drag only needs to cover 40%
+   * of a cell to count as one step, so a short deliberate nudge downwards is
+   * never rounded away to "no move".
+   */
+  const cellsTravelled = (raw: number, cellSize: number) => {
+    const units = raw / (cellSize * scale);
+    const steps = Math.sign(units) * Math.floor(Math.abs(units) + 0.6);
+    return steps;
+  };
+
   const onPointerMove = (e: React.PointerEvent) => {
     const s = dragStart.current;
     if (!s) return;
@@ -413,10 +470,10 @@ export function PuzzleBoard({
     const dy = e.clientY - s.y;
     if (!s.moved && Math.abs(dx) + Math.abs(dy) < 3) return;
     s.moved = true;
-    const dCol = Math.round(dx / (cellW * scale));
-    const dRow = Math.round(dy / (cellH * scale));
-    const horizontal = Math.abs(dx) >= Math.abs(dy);
-    const move = resolveMove(dCol, dRow);
+    const dCol = cellsTravelled(dx, cellW);
+    const dRow = cellsTravelled(dy, cellH);
+    const horizontal = Math.abs(dx) > Math.abs(dy);
+    const move = resolveMove(dCol, dRow, dx, dy);
 
     /**
      * Never let a cluster follow the finger further than it can legally travel.
@@ -430,10 +487,16 @@ export function PuzzleBoard({
     let ox = 0;
     let oy = 0;
     if (move) {
-      if (horizontal && move.dCol !== 0) ox = limit(dx, move.dCol, cellW);
-      else if (!horizontal && move.dRow !== 0) oy = limit(dy, move.dRow, cellH);
-      else if (move.dCol !== 0) ox = limit(dx, move.dCol, cellW);
+      const useHorizontal =
+        move.dCol !== 0 && (horizontal || move.dRow === 0);
+      if (useHorizontal) ox = limit(dx, move.dCol, cellW);
       else oy = limit(dy, move.dRow, cellH);
+    } else {
+      // no legal move: let the tile lean a little so the drag feels alive
+      const resist = (raw: number, cellSize: number) =>
+        Math.sign(raw) * Math.min(Math.abs(raw) * 0.25, 0.18 * cellSize * scale);
+      if (horizontal) ox = resist(dx, cellW);
+      else oy = resist(dy, cellH);
     }
 
     setDrag({
@@ -452,12 +515,18 @@ export function PuzzleBoard({
       dragStart.current = null;
       return;
     }
-    const dCol = Math.round((e.clientX - s.x) / (cellW * scale));
-    const dRow = Math.round((e.clientY - s.y) / (cellH * scale));
-    const move = resolveMove(dCol, dRow);
+    const dx = e.clientX - s.x;
+    const dy = e.clientY - s.y;
+    const move = resolveMove(
+      cellsTravelled(dx, cellW),
+      cellsTravelled(dy, cellH),
+      dx,
+      dy,
+    );
     dragStart.current = null;
     if (move) commitMove(s.group, move.dCol, move.dRow);
   };
+
 
 
   const groupSizes = useMemo(() => {
