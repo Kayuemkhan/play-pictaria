@@ -359,11 +359,18 @@ export function PuzzleBoard({
 
 
   /**
-   * Interpret every gesture on one grid axis. Small vertical finger drift must
-   * never turn a side-to-side move into a diagonal move (or vice versa).
+   * Interpret every gesture on one grid axis. The axis is decided by the actual
+   * finger travel in pixels — cells are taller than they are wide, so deciding
+   * it from rounded cell counts used to turn a drag downwards into a sideways
+   * move whenever the thumb drifted half a (narrow) column.
    */
   const resolveMove = useCallback(
-    (dCol: number, dRow: number): { dCol: number; dRow: number } | null => {
+    (
+      dCol: number,
+      dRow: number,
+      dx: number,
+      dy: number,
+    ): { dCol: number; dRow: number } | null => {
       const candidates: [number, number][] = [];
       const push = (c: number, r: number) => {
         if (c === 0 && r === 0) return;
@@ -371,7 +378,7 @@ export function PuzzleBoard({
           candidates.push([c, r]);
       };
 
-      const horizontal = Math.abs(dCol) >= Math.abs(dRow);
+      const horizontal = Math.abs(dx) > Math.abs(dy);
       const primary = horizontal ? dCol : dRow;
       const secondary = horizontal ? dRow : dCol;
 
@@ -393,6 +400,7 @@ export function PuzzleBoard({
       }
       return null;
     },
+
     [pos, groupOf, tryMove],
   );
 
