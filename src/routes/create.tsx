@@ -92,7 +92,9 @@ function CreatePage() {
     setGateStatus("saving");
     setGateError("");
     try {
-      await saveSubscriber({ data: { email, source: "storybook_create" } });
+      await saveSubscriber({
+        data: { email, source: "storybook_create", daily: wantsDaily },
+      });
       localStorage.setItem("pictaria_creator_email", email.trim().toLowerCase());
       setUnlocked(true);
       setGateStatus("idle");
