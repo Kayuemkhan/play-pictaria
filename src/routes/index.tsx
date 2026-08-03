@@ -29,9 +29,20 @@ export const Route = createFileRoute("/")({
 
 const featured = collections;
 
+const menuLinks = [
+  { to: "/collections", label: "Gallery" },
+  { to: "/create", label: "Build a storybook" },
+  { to: "/daily", label: "Daily Pictaria" },
+] as const;
+
 function Home() {
   const firstPuzzle = freeCollection.puzzles[0]!;
   const [cardPos, setCardPos] = useState({ x: 68, y: 38 });
+  const [openPanel, setOpenPanel] = useState<"menu" | "search" | null>(null);
+  const [query, setQuery] = useState("");
+  const results = collections.filter((c) =>
+    c.title.toLowerCase().includes(query.trim().toLowerCase()),
+  );
 
   const startDrag = (e: React.PointerEvent<HTMLDivElement>) => {
     const frame = e.currentTarget.parentElement;
