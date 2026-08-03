@@ -61,6 +61,51 @@ function CreatePage() {
   const fileInput = useRef<HTMLInputElement>(null);
   const urls = useRef<string[]>([]);
 
+  // Email capture: a storybook builder gives us their address before they start.
+  const [unlocked, setUnlocked] = useState(false);
+  const [gateChecked, setGateChecked] = useState(false);
+  const [email, setEmail] = useState("");
+  const [gateStatus, setGateStatus] = useState<"idle" | "saving" | "error">(
+    "idle",
+  );
+  const [gateError, setGateError] = useState("");
+  const saveSubscriber = useServerFn(saveDailySubscriber);
+
+  useEffect(() => {
+    const check = async () => {
+      const { data } = await supabase.auth.getSession();
+      if (
+        data.session?.user?.email ||
+        localStorage.getItem("pictaria_creator_email") ||
+        localStorage.getItem("pictaria_daily_signed_up") === "1"
+      ) {
+        setUnlocked(true);
+      }
+      setGateChecked(true);
+    };
+    check();
+  }, []);
+
+  const submitGate = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setGateStatus("saving");
+    setGateError("");
+    try {
+      await saveSubscriber({ data: { email, source: "storybook_create" } });
+      localStorage.setItem("pictaria_creator_email", email.trim().toLowerCase());
+      setUnlocked(true);
+      setGateStatus("idle");
+    } catch (err) {
+      setGateStatus("error");
+      setGateError(
+        err instanceof Error
+          ? err.message
+          : "Something went wrong. Please try again.",
+      );
+    }
+  };
+
+
   const startDrag = (e: React.PointerEvent<HTMLDivElement>) => {
     const frame = e.currentTarget.parentElement;
     if (!frame) return;
