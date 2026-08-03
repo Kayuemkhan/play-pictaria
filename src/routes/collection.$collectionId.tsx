@@ -38,7 +38,8 @@ function CollectionPage() {
     );
   }
 
-  const storybook = collection.storybook;
+
+
 
   return (
     <main className="min-h-screen bg-mist-gradient px-4 pb-20 sm:px-6">
