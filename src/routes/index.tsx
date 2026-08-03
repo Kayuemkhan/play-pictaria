@@ -238,7 +238,6 @@ function Home() {
                   <span className="h-px flex-1 bg-accent/60" />
                   <span className="h-1 w-1 rounded-full bg-accent" />
                   <span className="h-px flex-1 bg-accent/60" />
-                </tool_calls
                 </div>
                 <p className="mt-3 text-[10px] leading-relaxed tracking-[0.18em] text-muted-foreground uppercase">
                   and puzzles make them fun.
