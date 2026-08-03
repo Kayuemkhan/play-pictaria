@@ -413,11 +413,11 @@ export const collections: Collection[] = [
     free: true,
     puzzles: [
       { id: "amy-01", title: "Worn Well", caption: "Turquoise glass at the throat", image: amy01.url },
-      { id: "amy-06", title: "Lagoon", caption: "Teal beads and gold fins", image: amy06.url },
+      { id: "amy-02", title: "Golden Hour", caption: "Opal turtle on the wrist", image: amy06.url },
       { id: "amy-03", title: "Pair", caption: "Cobalt drops on gold hooks", image: amy03.url },
       { id: "amy-04", title: "Deep Blue", caption: "Sea glass and starfish", image: amy04.url },
       { id: "amy-05", title: "Sea Grass", caption: "Green glass on silver", image: amy05.url },
-      { id: "amy-02", title: "Golden Hour", caption: "Opal turtle on the wrist", image: amy02.url },
+      { id: "amy-06", title: "Lagoon", caption: "Teal beads and gold fins", image: amy02.url },
       { id: "amy-07", title: "Sapphire", caption: "Indigo shell, gold flippers", image: amy07.url },
       { id: "amy-08", title: "Coral Branch", caption: "Blue swirl resting on white coral", image: amy08.url },
       { id: "amy-09", title: "Amber Dusk", caption: "Firelight caught in glass", image: amy09.url },
