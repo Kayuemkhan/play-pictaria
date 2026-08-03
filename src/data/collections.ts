@@ -74,6 +74,8 @@ export interface Collection {
   title: string;
   tagline: string;
   cover: string;
+  /** Optional zoom applied to the cover image on the home screen. */
+  coverZoom?: number;
   /** Free collections are playable in guest mode. */
   free: boolean;
   /** Storybook announced on the home screen but not yet filled with puzzles. */
