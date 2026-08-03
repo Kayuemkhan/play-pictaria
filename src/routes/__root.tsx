@@ -193,7 +193,7 @@ function RootComponent() {
       if (state.pictariaHasPriorPage) {
         // The entry below is the guard belonging to the actual prior page.
         // Pop to it, allowing TanStack Router to restore that page normally.
-        window.history.back();
+        window.setTimeout(() => window.history.back(), 0);
         return;
       }
 
