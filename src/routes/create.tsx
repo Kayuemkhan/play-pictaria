@@ -277,6 +277,22 @@ function CreatePage() {
               />
             </label>
 
+            <label className="grid gap-1.5">
+              <span className="text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
+                Story note (optional)
+              </span>
+              <textarea
+                value={caption}
+                onChange={(e) => setCaption(e.target.value)}
+                rows={4}
+                placeholder="A recipe, the location, a memory — anything you'd like to share beneath the picture."
+                className="resize-y rounded-xl border border-border bg-background px-3 py-2 text-sm leading-relaxed outline-none focus:border-accent"
+              />
+              <span className="text-[9px] tracking-[0.16em] text-muted-foreground uppercase">
+                Appears beneath the photograph — leave blank to hide
+              </span>
+            </label>
+
 
             <label className="flex items-center gap-3">
               <input
