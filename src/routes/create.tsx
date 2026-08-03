@@ -1,9 +1,16 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { ArrowLeft, ImagePlus, Sparkles, X } from "lucide-react";
+import { useServerFn } from "@tanstack/react-start";
 import { HeroPuzzle, type HeroCorner } from "@/components/HeroPuzzle";
 import { PuzzleBoard } from "@/components/PuzzleBoard";
 import { difficulties } from "@/data/collections";
+import { saveDailySubscriber } from "@/lib/daily.functions";
+import { supabase } from "@/integrations/supabase/client";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import palmLogo from "@/assets/logo-palms.png";
 
 export const Route = createFileRoute("/create")({
   head: () => ({
@@ -53,6 +60,51 @@ function CreatePage() {
   const [cardPos, setCardPos] = useState({ x: 66, y: 38 });
   const fileInput = useRef<HTMLInputElement>(null);
   const urls = useRef<string[]>([]);
+
+  // Email capture: a storybook builder gives us their address before they start.
+  const [unlocked, setUnlocked] = useState(false);
+  const [gateChecked, setGateChecked] = useState(false);
+  const [email, setEmail] = useState("");
+  const [gateStatus, setGateStatus] = useState<"idle" | "saving" | "error">(
+    "idle",
+  );
+  const [gateError, setGateError] = useState("");
+  const saveSubscriber = useServerFn(saveDailySubscriber);
+
+  useEffect(() => {
+    const check = async () => {
+      const { data } = await supabase.auth.getSession();
+      if (
+        data.session?.user?.email ||
+        localStorage.getItem("pictaria_creator_email") ||
+        localStorage.getItem("pictaria_daily_signed_up") === "1"
+      ) {
+        setUnlocked(true);
+      }
+      setGateChecked(true);
+    };
+    check();
+  }, []);
+
+  const submitGate = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setGateStatus("saving");
+    setGateError("");
+    try {
+      await saveSubscriber({ data: { email, source: "storybook_create" } });
+      localStorage.setItem("pictaria_creator_email", email.trim().toLowerCase());
+      setUnlocked(true);
+      setGateStatus("idle");
+    } catch (err) {
+      setGateStatus("error");
+      setGateError(
+        err instanceof Error
+          ? err.message
+          : "Something went wrong. Please try again.",
+      );
+    }
+  };
+
 
   const startDrag = (e: React.PointerEvent<HTMLDivElement>) => {
     const frame = e.currentTarget.parentElement;
@@ -115,6 +167,67 @@ function CreatePage() {
       />
     );
   }
+
+  if (!unlocked) {
+    return (
+      <main className="flex min-h-screen flex-col items-center justify-center bg-deep px-6 py-12">
+        <div className="w-full max-w-sm rounded-lg border border-accent/60 bg-shell p-6 text-center shadow-soft">
+          <img
+            src={palmLogo}
+            alt="Pictaria"
+            width={1024}
+            height={1024}
+            className="mx-auto h-12 w-auto"
+          />
+          <h1 className="mt-3 font-display text-[1.35rem] text-foreground">
+            Build your storybook
+          </h1>
+          <p className="mt-2 text-[13px] leading-relaxed text-muted-foreground">
+            Tell us where to send it — we'll keep your storybook safe and slip a
+            free Pictaria into your inbox every single day.
+          </p>
+
+          <form onSubmit={submitGate} className="mt-6 text-left">
+            <Label
+              htmlFor="creator-email"
+              className="text-[0.55rem] tracking-[0.18em] text-muted-foreground uppercase"
+            >
+              Email address
+            </Label>
+            <Input
+              id="creator-email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="you@example.com"
+              required
+              maxLength={255}
+              className="mt-1.5"
+            />
+            {gateStatus === "error" && (
+              <p className="mt-2 text-[11px] text-destructive">{gateError}</p>
+            )}
+            <Button
+              type="submit"
+              disabled={gateStatus === "saving" || !gateChecked}
+              className="mt-4 w-full rounded-full bg-primary text-[0.55rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03] disabled:opacity-60"
+            >
+              {gateStatus === "saving" ? "Saving..." : "Start here"}
+            </Button>
+          </form>
+
+          <Link
+            to="/"
+            className="mt-4 inline-block text-[10px] tracking-[0.18em] text-muted-foreground uppercase"
+          >
+            Back home
+          </Link>
+        </div>
+      </main>
+    );
+  }
+
+
 
   return (
     <main className="min-h-screen bg-shell pb-16">
