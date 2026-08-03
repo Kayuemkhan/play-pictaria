@@ -79,9 +79,10 @@ function Home() {
             <span className="h-1 w-1 rotate-45 bg-accent" />
             <span className="h-px flex-1 bg-accent/70" />
           </div>
-          <p className="mt-1.5 rounded-full bg-deep/45 px-3 py-0.5 text-[10px] tracking-[0.3em] text-accent uppercase backdrop-blur-[2px] [text-shadow:0_1px_10px_oklch(0.2_0.05_230/0.9)]">
+          <p className="mt-1 text-[11px] font-medium tracking-[0.32em] text-accent uppercase [text-shadow:0_1px_12px_oklch(0.2_0.05_230/0.95),0_0_3px_oklch(0.2_0.05_230/0.9)]">
             Turn pictures into play
           </p>
+
         </div>
 
         {/* hero image puzzle — solved except the lower-left wedge */}

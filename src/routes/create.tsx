@@ -44,10 +44,12 @@ function CreatePage() {
   const [heroIndex, setHeroIndex] = useState(0);
   const [brand, setBrand] = useState("Four Seasons Maui");
   const [headline, setHeadline] = useState("Can you solve today's pineapple?");
+  const [caption, setCaption] = useState("");
   const [animated, setAnimated] = useState(true);
   const [playing, setPlaying] = useState<{ url: string; grid: number } | null>(
     null,
   );
+
   const [cardPos, setCardPos] = useState({ x: 66, y: 38 });
   const fileInput = useRef<HTMLInputElement>(null);
   const urls = useRef<string[]>([]);
