@@ -449,6 +449,7 @@ export const collections: Collection[] = [
     tagline: "Hand-blown glass sea turtles in gold and silver",
     cover: amy10.url,
     free: true,
+    storybook: { owner: "Amy", plan: "personal" },
     puzzles: [
       { id: "amy-01", title: "Worn Well", caption: "Turquoise glass at the throat", image: amy01.url },
       { id: "amy-02", title: "Golden Hour", caption: "Opal turtle on the wrist", image: amy06.url },
