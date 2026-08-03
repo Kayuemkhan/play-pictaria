@@ -258,9 +258,9 @@ function Home() {
               to="/puzzle/$puzzleId"
               params={{ puzzleId: firstPuzzle.id }}
               search={{ grid: 3 }}
-              className="relative mt-4 inline-flex items-center gap-1.5 border-t border-accent/40 pt-3 text-[0.62rem] tracking-[0.18em] text-primary uppercase transition-colors hover:text-foreground"
+              className="relative mt-4 block border-t border-accent/40 pt-3 text-[0.65rem] leading-relaxed tracking-[0.16em] text-primary uppercase transition-colors hover:text-foreground"
             >
-              I want to play Pictaria Daily <span aria-hidden>›</span>
+              Everyday I need a little paradise and I need a little play so please send me a pictoria for free every single day <span aria-hidden>›</span>
             </Link>
           </div>
         </div>
