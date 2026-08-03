@@ -157,7 +157,7 @@ function Home() {
         <div className="mx-auto w-full max-w-5xl">
           <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4">
             <h2 className="min-w-0 truncate font-display text-base tracking-[0.2em] text-foreground uppercase">
-              Featured
+              Start exploring
             </h2>
             <Link
               to="/collections"
@@ -221,7 +221,7 @@ function Home() {
             })}
           </div>
 
-          {/* storybook CTA */}
+          {/* poem CTA */}
           <div className="relative mt-5 overflow-hidden rounded-[4px] border border-accent/60 bg-card/70 p-5">
             <span
               aria-hidden
@@ -229,43 +229,43 @@ function Home() {
             >
               ❦
             </span>
-            <div className="relative grid gap-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center">
+            <div className="relative grid gap-5 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
               <div className="min-w-0">
-                <h3 className="font-display text-2xl leading-tight">
-                  Pictures say a thousand words
-                </h3>
-                <div className="mt-3 flex w-40 items-center gap-2">
+                <p className="font-display text-[0.95rem] leading-snug text-foreground">
+                  pictures say a thousand words
+                  <br />
+                  and puzzles make them fun
+                  <br />
+                  I want to build a Pictaria storybook
+                  <br />
+                  for everyone I love
+                </p>
+                <div className="my-3 flex w-32 items-center gap-2">
                   <span className="h-px flex-1 bg-accent/60" />
                   <span className="h-1 w-1 rounded-full bg-accent" />
                   <span className="h-px flex-1 bg-accent/60" />
                 </div>
-                <p className="mt-3 text-[10px] leading-relaxed tracking-[0.18em] text-muted-foreground uppercase">
-                  and puzzles make them fun.
-                  <br />
-                  I want to build a pictoria storybook for everyone I love.
+                <p className="text-[0.65rem] leading-relaxed tracking-[0.16em] text-primary uppercase">
+                  Everyday I need just a little paradise and I need just a little play so please send me a free Pictaria every single day
                 </p>
               </div>
-              <Link
-                to="/create"
-                className="justify-self-start rounded-full bg-primary px-2.5 py-1 text-[0.55rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03] sm:justify-self-end"
-              >
-                Start here
-              </Link>
-            </div>
-
-            {/* daily sign-up */}
-            <div className="relative mt-4 border-t border-accent/40 pt-4">
-              <p className="text-[0.65rem] leading-relaxed tracking-[0.16em] text-primary uppercase">
-                Everyday I need just a little paradise and I need just a little play so please send me a free pictoria every single day
-              </p>
-              <Link
-                to="/create"
-                search={{ tab: "daily" }}
-                className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-primary px-2.5 py-1 text-[0.55rem] tracking-[0.18em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
-              >
-                Start here
-                <span aria-hidden>›</span>
-              </Link>
+              <div className="flex flex-wrap gap-2 sm:flex-col sm:items-end">
+                <Link
+                  to="/create"
+                  className="inline-flex items-center gap-1.5 rounded-full bg-primary px-2.5 py-1 text-[0.55rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
+                >
+                  Start here
+                  <span aria-hidden>›</span>
+                </Link>
+                <Link
+                  to="/create"
+                  search={{ tab: "daily" }}
+                  className="inline-flex items-center gap-1.5 rounded-full bg-primary px-2.5 py-1 text-[0.55rem] tracking-[0.18em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
+                >
+                  Start here
+                  <span aria-hidden>›</span>
+                </Link>
+              </div>
             </div>
           </div>
         </div>
