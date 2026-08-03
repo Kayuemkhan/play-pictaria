@@ -54,6 +54,18 @@ function PuzzlePage() {
 
   const { puzzle, collection } = found;
 
+  if (!isPuzzleOpenToVisitor(collection, puzzle.id)) {
+    return (
+      <Navigate
+        to="/storybook/$collectionId"
+        params={{ collectionId: collection.id }}
+        replace
+      />
+    );
+  }
+
+
+
   if (grid) {
     return (
       <PuzzleBoard
