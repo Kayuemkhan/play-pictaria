@@ -452,6 +452,17 @@ export function PuzzleBoard({
     };
   };
 
+  /**
+   * How many cells a finger travel represents. A drag only needs to cover 40%
+   * of a cell to count as one step, so a short deliberate nudge downwards is
+   * never rounded away to "no move".
+   */
+  const cellsTravelled = (raw: number, cellSize: number) => {
+    const units = raw / (cellSize * scale);
+    const steps = Math.sign(units) * Math.floor(Math.abs(units) + 0.6);
+    return steps;
+  };
+
   const onPointerMove = (e: React.PointerEvent) => {
     const s = dragStart.current;
     if (!s) return;
@@ -459,10 +470,10 @@ export function PuzzleBoard({
     const dy = e.clientY - s.y;
     if (!s.moved && Math.abs(dx) + Math.abs(dy) < 3) return;
     s.moved = true;
-    const dCol = Math.round(dx / (cellW * scale));
-    const dRow = Math.round(dy / (cellH * scale));
-    const horizontal = Math.abs(dx) >= Math.abs(dy);
-    const move = resolveMove(dCol, dRow);
+    const dCol = cellsTravelled(dx, cellW);
+    const dRow = cellsTravelled(dy, cellH);
+    const horizontal = Math.abs(dx) > Math.abs(dy);
+    const move = resolveMove(dCol, dRow, dx, dy);
 
     /**
      * Never let a cluster follow the finger further than it can legally travel.
@@ -476,10 +487,16 @@ export function PuzzleBoard({
     let ox = 0;
     let oy = 0;
     if (move) {
-      if (horizontal && move.dCol !== 0) ox = limit(dx, move.dCol, cellW);
-      else if (!horizontal && move.dRow !== 0) oy = limit(dy, move.dRow, cellH);
-      else if (move.dCol !== 0) ox = limit(dx, move.dCol, cellW);
+      const useHorizontal =
+        move.dCol !== 0 && (horizontal || move.dRow === 0);
+      if (useHorizontal) ox = limit(dx, move.dCol, cellW);
       else oy = limit(dy, move.dRow, cellH);
+    } else {
+      // no legal move: let the tile lean a little so the drag feels alive
+      const resist = (raw: number, cellSize: number) =>
+        Math.sign(raw) * Math.min(Math.abs(raw) * 0.25, 0.18 * cellSize * scale);
+      if (horizontal) ox = resist(dx, cellW);
+      else oy = resist(dy, cellH);
     }
 
     setDrag({
@@ -498,12 +515,18 @@ export function PuzzleBoard({
       dragStart.current = null;
       return;
     }
-    const dCol = Math.round((e.clientX - s.x) / (cellW * scale));
-    const dRow = Math.round((e.clientY - s.y) / (cellH * scale));
-    const move = resolveMove(dCol, dRow);
+    const dx = e.clientX - s.x;
+    const dy = e.clientY - s.y;
+    const move = resolveMove(
+      cellsTravelled(dx, cellW),
+      cellsTravelled(dy, cellH),
+      dx,
+      dy,
+    );
     dragStart.current = null;
     if (move) commitMove(s.group, move.dCol, move.dRow);
   };
+
 
 
   const groupSizes = useMemo(() => {
