@@ -1,11 +1,7 @@
-import { createFileRoute, Link, Navigate, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { PuzzleBoard } from "@/components/PuzzleBoard";
-import {
-  difficulties,
-  findPuzzle,
-  isPuzzleOpenToVisitor,
-} from "@/data/collections";
+import { difficulties, findPuzzle } from "@/data/collections";
 
 export const Route = createFileRoute("/puzzle/$puzzleId")({
   validateSearch: (search: Record<string, unknown>) => ({
@@ -54,15 +50,6 @@ function PuzzlePage() {
 
   const { puzzle, collection } = found;
 
-  if (!isPuzzleOpenToVisitor(collection, puzzle.id)) {
-    return (
-      <Navigate
-        to="/storybook/$collectionId"
-        params={{ collectionId: collection.id }}
-        replace
-      />
-    );
-  }
 
 
 
