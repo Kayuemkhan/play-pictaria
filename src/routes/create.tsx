@@ -65,6 +65,7 @@ function CreatePage() {
   const [unlocked, setUnlocked] = useState(false);
   const [gateChecked, setGateChecked] = useState(false);
   const [email, setEmail] = useState("");
+  const [wantsDaily, setWantsDaily] = useState(true);
   const [gateStatus, setGateStatus] = useState<"idle" | "saving" | "error">(
     "idle",
   );
