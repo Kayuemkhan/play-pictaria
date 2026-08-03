@@ -222,26 +222,18 @@ function Home() {
           </div>
 
           {/* poem CTA — storybook */}
-          <div className="relative mt-5 overflow-hidden rounded-[4px] border border-accent/60 bg-card/70 p-5">
+          <div className="relative mt-5 overflow-hidden rounded-[4px] border border-accent/60 bg-card/70 p-4">
             <span
               aria-hidden
-              className="pointer-events-none absolute -top-6 -left-8 font-display text-[9rem] leading-none text-accent/10 select-none"
+              className="pointer-events-none absolute -top-4 -left-5 font-display text-[6rem] leading-none text-accent/10 select-none"
             >
               ❦
             </span>
-            <div className="relative grid gap-5 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
-              <div className="min-w-0">
-                <p className="font-display text-[0.95rem] leading-snug text-foreground">
-                  pictures say a thousand words
-                  <br />
-                  and puzzles make them fun
-                  <br />
-                  I want to build a Pictaria storybook
-                  <br />
-                  for everyone I love
-                </p>
-              </div>
-              <div className="flex flex-col gap-1 sm:items-end">
+            <div className="relative grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4">
+              <p className="min-w-0 font-display text-[0.85rem] leading-snug [color:color-mix(in_oklch,var(--foreground)_92%,black)]">
+                Pictures say a thousand words and puzzles make them fun — I want to build a Pictaria storybook for everyone I love
+              </p>
+              <div className="flex shrink-0 flex-col items-end gap-1">
                 <span className="text-[0.55rem] tracking-[0.18em] text-muted-foreground uppercase">
                   Build your storybook
                 </span>
@@ -257,20 +249,12 @@ function Home() {
           </div>
 
           {/* poem CTA — daily */}
-          <div className="relative mt-4 overflow-hidden rounded-[4px] border border-accent/60 bg-card/70 p-5">
-            <div className="relative grid gap-5 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
-              <div className="min-w-0">
-                <p className="font-display text-[0.95rem] leading-snug text-foreground">
-                  Everyday I need just a little paradise
-                  <br />
-                  and I need just a little play
-                  <br />
-                  so please send me a free Pictaria
-                  <br />
-                  every single day
-                </p>
-              </div>
-              <div className="flex flex-col gap-1 sm:items-end">
+          <div className="relative mt-3 overflow-hidden rounded-[4px] border border-accent/60 bg-card/70 p-4">
+            <div className="relative grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4">
+              <p className="min-w-0 font-display text-[0.85rem] leading-snug [color:color-mix(in_oklch,var(--foreground)_92%,black)]">
+                Everyday I need just a little paradise and I need just a little play — please send me a free Pictaria every single day
+              </p>
+              <div className="flex shrink-0 flex-col items-end gap-1">
                 <span className="text-[0.55rem] tracking-[0.18em] text-muted-foreground uppercase">
                   Get a free Pictaria daily
                 </span>
