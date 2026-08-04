@@ -48,7 +48,7 @@ const gallery = [
   { src: mindfulnessWaves, alt: "Gentle turquoise waves rolling onto a black sand beach" },
   { src: mindfulnessZenGarden, alt: "A Hawaiian zen garden with raked black sand and smooth stones" },
   { src: mindfulnessWaterfall, alt: "A tranquil tropical waterfall in a lush Hawaiian rainforest" },
-  { src: mindfulnessSunset, alt: "A single palm tree silhouetted against a vibrant Hawaiian sunset" },
+  { src: mindfulnessLavatube, alt: "A serene Hawaiian lava tube cave with soft light and mist" },
 ];
 
 function MindfulnessPage() {
