@@ -7,6 +7,8 @@ import {
   MousePointerClick,
   Sparkles,
   QrCode,
+  Sun,
+
 } from "lucide-react";
 import palmLogo from "@/assets/logo-palms.png";
 
@@ -60,10 +62,16 @@ const personal = [
 
 const business = [
   {
+    icon: Sun,
+    title: "Your own Daily Pictaria",
+    copy: "One of your pictures every day, from your platform under your name — the habit your guests come back for.",
+  },
+  {
     icon: BarChart3,
     title: "Full analytics",
     copy: "Opens, plays, completions and clicks — picture by picture, so you keep the images that win.",
   },
+
   {
     icon: MousePointerClick,
     title: "Action buttons",
@@ -179,10 +187,12 @@ function PricingPage() {
             White Label Studio
           </h2>
           <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-            A picture stops the scroll — a puzzle keeps them there. Drop in your
-            own photography and the whole storybook becomes yours, then watch
-            exactly what it does.
+            Starts with your own Daily Pictaria — one of your pictures every day,
+            sent from your platform, so your customers get the same little joy we
+            send ours. Then everything else: drop in your own photography and the
+            whole storybook becomes yours, and watch exactly what it does.
           </p>
+
           <div className="mt-4 flex items-baseline gap-2">
             <span className="font-display text-3xl tracking-[0.08em] text-foreground">
               $199

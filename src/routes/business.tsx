@@ -3,10 +3,13 @@ import {
   ArrowLeft,
   BarChart3,
   CalendarCheck,
+  CalendarDays,
   CreditCard,
   MapPin,
+  Mail,
   QrCode,
   Sparkles,
+  Sun,
   BedDouble,
   MousePointerClick,
 } from "lucide-react";
@@ -60,7 +63,26 @@ const actions = [
   },
 ];
 
+const daily = [
+  {
+    icon: CalendarDays,
+    title: "One picture a day",
+    copy: "Queue a season of photography once; Pictaria releases the next picture every morning on your schedule and timezone.",
+  },
+  {
+    icon: Mail,
+    title: "Your list, your name",
+    copy: "Guests subscribe from any puzzle you send or a QR code on property. The daily arrives branded as yours.",
+  },
+  {
+    icon: BarChart3,
+    title: "Measured like everything else",
+    copy: "Daily opens, plays, finishes and button taps roll into the same dashboard, so you see the habit forming.",
+  },
+];
+
 const metrics = [
+
   { label: "Opens", copy: "Who received it and who actually opened it." },
   { label: "Plays", copy: "Every puzzle started, by picture and difficulty." },
   { label: "Completions", copy: "Finish rate and time to solve, per picture." },
@@ -114,6 +136,60 @@ function BusinessPage() {
             className="relative mt-4 inline-flex items-center gap-1.5 rounded-full bg-primary px-3.5 py-1.5 text-[0.6rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
           >
             Build a branded storybook
+            <span aria-hidden>›</span>
+          </Link>
+        </section>
+
+        {/* daily pictaria — lead offering */}
+        <section className="mt-8 rounded-[4px] border border-accent bg-card/80 p-5">
+          <p className="text-[0.6rem] tracking-[0.24em] text-primary uppercase">
+            Included first with White Label Studio
+          </p>
+          <h2 className="mt-2 flex items-center gap-2 font-display text-base tracking-[0.2em] uppercase">
+            <Sun className="h-4 w-4 text-accent" strokeWidth={1.5} />
+            Your own Daily Pictaria
+          </h2>
+          <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+            The thing your guests come back for. One of your pictures, every
+            single day, from your platform — your logo on the screen, your name
+            in the subject line, your action button at the celebration. The habit
+            belongs to you, and so does the joy.
+          </p>
+          <div className="mt-4 grid gap-3 sm:grid-cols-3">
+            {daily.map((d) => (
+              <div
+                key={d.title}
+                className="flex gap-3 rounded-[4px] border border-accent/50 bg-card/70 p-4"
+              >
+                <d.icon
+                  className="mt-0.5 h-5 w-5 shrink-0 text-primary"
+                  strokeWidth={1.5}
+                />
+                <div className="min-w-0">
+                  <p className="font-display text-sm tracking-[0.14em] uppercase">
+                    {d.title}
+                  </p>
+                  <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                    {d.copy}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
+            How it runs: you drop a season of photography into your studio and
+            set the order. Each morning Pictaria publishes the next picture to
+            your own daily page and sends it to everyone on your list. Guests
+            join with an email at the bottom of any puzzle you send, or by
+            scanning a QR code on a key card, menu or room table. Plays, finishes
+            and clicks land in the same analytics as the rest of your
+            storybooks — day by day, picture by picture.
+          </p>
+          <Link
+            to="/create"
+            className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-[0.6rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
+          >
+            Start your Daily Pictaria
             <span aria-hidden>›</span>
           </Link>
         </section>
