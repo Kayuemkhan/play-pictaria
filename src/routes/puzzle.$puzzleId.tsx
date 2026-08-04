@@ -106,7 +106,7 @@ function PuzzlePage() {
                 Recipe
               </p>
               <ol className="mt-2 list-decimal space-y-1.5 pl-4 text-sm leading-relaxed text-foreground">
-                {puzzle.recipe.split("\\n").map((step, i) => (
+                {puzzle.recipe.split("\n").map((step, i) => (
                   <li key={i}>{step}</li>
                 ))}
               </ol>
