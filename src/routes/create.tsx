@@ -394,6 +394,7 @@ function CreatePage() {
             ref={fileInput}
             type="file"
             accept="image/*"
+            multiple
             className="sr-only"
             onChange={(e) => {
               add(e.target.files);
