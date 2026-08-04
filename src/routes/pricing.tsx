@@ -7,6 +7,8 @@ import {
   MousePointerClick,
   Sparkles,
   QrCode,
+  Sun,
+
 } from "lucide-react";
 import palmLogo from "@/assets/logo-palms.png";
 
