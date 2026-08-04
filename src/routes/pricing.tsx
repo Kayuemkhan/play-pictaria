@@ -15,20 +15,20 @@ import palmLogo from "@/assets/logo-palms.png";
 export const Route = createFileRoute("/pricing")({
   head: () => ({
     meta: [
-      { title: "Pictaria Pricing — Personal Studio & White Label" },
+      { title: "Pictaria Pricing — Personal Studio & Brand Studio" },
       {
         name: "description",
         content:
-          "A free Pictaria every day, Personal Studio at $5.99 a month for three storybooks of ten pictures each, and White Label Studio at $199 a month for branded, tracked storybooks.",
+          "A free Pictaria every day, Personal Studio at $5.99 a month for three storybooks of ten pictures each, and Brand Studio at $199 a month for branded, tracked storybooks.",
       },
       {
         property: "og:title",
-        content: "Pictaria Pricing — Personal Studio & White Label",
+        content: "Pictaria Pricing — Personal Studio & Brand Studio",
       },
       {
         property: "og:description",
         content:
-          "Free daily puzzle, Personal Studio $5.99/month, White Label Studio $199/month with analytics and action buttons.",
+          "Free daily puzzle, Personal Studio $5.99/month, Brand Studio $199/month with analytics and action buttons.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -79,8 +79,8 @@ const business = [
   },
   {
     icon: Sparkles,
-    title: "Fully white labeled",
-    copy: "Your logo, your colors, your domain, with an optional small Pictaria badge.",
+    title: "Fully branded",
+    copy: "Your logo, your colors, your domain, with the Pictaria badge very small at the very bottom of the scroll.",
   },
   {
     icon: QrCode,
@@ -184,7 +184,7 @@ function PricingPage() {
         {/* business */}
         <section className="mt-10">
           <h2 className="font-display text-base tracking-[0.2em] uppercase">
-            White Label Studio
+            Brand Studio
           </h2>
           <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
             Starts with your own Daily Pictaria — one of your pictures every day,
