@@ -47,8 +47,6 @@ import whale06 from "@/assets/whale-06.jpg";
 import whale08 from "@/assets/whale-08.jpg";
 import whale09 from "@/assets/whale-09.jpg";
 import whale10 from "@/assets/whale-10.jpg";
-import whale11 from "@/assets/whale-11.jpg";
-import whale12 from "@/assets/whale-12.jpg";
 import whale13 from "@/assets/whale-13.jpg";
 import whale14 from "@/assets/whale-14.jpg";
 import coverWaterfalls from "@/assets/cover-waterfalls.jpg";
