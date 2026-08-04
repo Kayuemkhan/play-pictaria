@@ -1036,7 +1036,27 @@ export const collections: Collection[] = [
       { id: "pinup-10", title: "Three Boards at Sunset", caption: "Redwood boards standing in a row on Waikiki", image: pinup10 },
     ],
   },
+  {
+    id: "waves-of-hawaii",
+    title: "Waves of Hawaii",
+    tagline: "Ten powerful, beautiful moments from the ever-changing ocean",
+    cover: wave01,
+    free: true,
+    puzzles: [
+      { id: "wave-01", title: "Pipeline Barrel", caption: "A perfect turquoise cylinder peeling beneath the sky", image: wave01 },
+      { id: "wave-02", title: "Golden Hour Curl", caption: "Sunset light pouring through a liquid tunnel", image: wave02 },
+      { id: "wave-03", title: "Emerald Power", caption: "A massive emerald wave rearing beneath storm clouds", image: wave03 },
+      { id: "wave-04", title: "Lava Rock Explosion", caption: "Turquoise water shattering against black volcanic shore", image: wave04 },
+      { id: "wave-05", title: "Aerial Swirl", caption: "Concentric ripples meeting white sand from above", image: wave05 },
+      { id: "wave-06", title: "Moonlit Barrel", caption: "Silver moonlight threading a night wave", image: wave06 },
+      { id: "wave-07", title: "Rainbow Spray", caption: "A bright arc born in the mist of a curling wave", image: wave07 },
+      { id: "wave-08", title: "Inside the Tube", caption: "A surfer silhouetted inside glowing blue glass", image: wave08 },
+      { id: "wave-09", title: "Sea Lace", caption: "Delicate foam patterns on warm golden sand", image: wave09 },
+      { id: "wave-10", title: "Storm Surge", caption: "Wild swells and lightning over the deep blue", image: wave10 },
+    ],
+  },
 ];
+
 
 
 
