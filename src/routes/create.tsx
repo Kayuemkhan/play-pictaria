@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { ArrowLeft, ImagePlus, Sparkles, X } from "lucide-react";
+import { ArrowLeft, ImagePlus, X } from "lucide-react";
 import { useServerFn } from "@tanstack/react-start";
 import { HeroPuzzle, type HeroCorner } from "@/components/HeroPuzzle";
 import { PuzzleBoard } from "@/components/PuzzleBoard";
@@ -49,8 +49,8 @@ interface Photo {
 function CreatePage() {
   const [photos, setPhotos] = useState<Photo[]>([]);
   const [heroIndex, setHeroIndex] = useState(0);
-  const [brand, setBrand] = useState("Road to Hana");
-  const [headline, setHeadline] = useState("Can you solve today's pineapple?");
+  const [brand, setBrand] = useState("");
+  const [headline, setHeadline] = useState("");
   const [caption, setCaption] = useState("");
   const [animated, setAnimated] = useState(true);
   const [playing, setPlaying] = useState<{ url: string; grid: number } | null>(
@@ -186,7 +186,7 @@ function CreatePage() {
             Build your storybook
           </h1>
           <p className="mt-2 text-[13px] leading-relaxed text-muted-foreground">
-            Send a free storybook with one photo. If you want more, a
+            Send a free Pictaria with one photo. If you want more, a
             subscription is $5.95 a month.
           </p>
 
@@ -260,7 +260,7 @@ function CreatePage() {
             Create Your Story
           </h1>
           <p className="text-[10px] tracking-[0.22em] text-muted-foreground uppercase">
-            Send a free storybook
+            Send a free Pictaria
           </p>
         </div>
       </header>
@@ -330,8 +330,8 @@ function CreatePage() {
                     Add your photograph
                   </span>
                   <span className="max-w-[16rem] text-center text-[10px] leading-relaxed tracking-[0.12em] text-deep-foreground/45 uppercase">
-                    Portrait pictures look best — your free storybook includes
-                    one photo
+                    Perfect for weddings, vacations, birthdays, anniversaries,
+                    adventures, pets and so much more — add your photograph here
                   </span>
                 </button>
               )}
@@ -390,19 +390,19 @@ function CreatePage() {
                 value={brand}
                 onChange={(e) => setBrand(e.target.value)}
                 placeholder="Road to Hana"
-                className="rounded-xl border border-border bg-background px-3 py-2 text-sm outline-none focus:border-accent"
+                className="rounded-xl border border-border bg-background px-3 py-2 text-sm outline-none placeholder:text-muted-foreground/40 focus:border-accent"
               />
             </label>
 
             <label className="grid gap-1.5">
               <span className="text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
-                Headline
+                Pictaria
               </span>
               <input
                 value={headline}
                 onChange={(e) => setHeadline(e.target.value)}
-                placeholder="Can you solve today's picture?"
-                className="rounded-xl border border-border bg-background px-3 py-2 text-sm outline-none focus:border-accent"
+                placeholder="Can you solve today's pineapple?"
+                className="rounded-xl border border-border bg-background px-3 py-2 text-sm outline-none placeholder:text-muted-foreground/40 focus:border-accent"
               />
             </label>
 
@@ -415,27 +415,21 @@ function CreatePage() {
                 onChange={(e) => setCaption(e.target.value)}
                 rows={4}
                 placeholder="A recipe, the location, a memory — anything you'd like to share beneath the picture."
-                className="resize-y rounded-xl border border-border bg-background px-3 py-2 text-sm leading-relaxed outline-none focus:border-accent"
+                className="resize-y rounded-xl border border-border bg-background px-3 py-2 text-sm leading-relaxed outline-none placeholder:text-muted-foreground/40 focus:border-accent"
               />
             </label>
-
-
           </div>
 
           {/* storybook */}
           <div className="mt-7">
-            <h3 className="font-display text-[0.95rem] leading-snug tracking-[0.06em]">
-              Perfect for weddings, vacations, birthdays, anniversaries,
-              adventures, pets and so much more.
-            </h3>
-            <p className="mt-2 text-[10px] tracking-[0.18em] text-muted-foreground uppercase">
-              {photos.length
-                ? `${photos.length} ${photos.length === 1 ? "picture" : "pictures"} — tap one to make it the hero`
-                : "Add your photograph here"}
-            </p>
+            {photos.length > 0 && (
+              <p className="mb-3 text-[10px] tracking-[0.18em] text-muted-foreground uppercase">
+                {photos.length} {photos.length === 1 ? "picture" : "pictures"} — tap one to make it the hero
+              </p>
+            )}
 
             {photos.length > 0 && (
-              <div className="mt-3 grid grid-cols-3 gap-2 sm:grid-cols-4">
+              <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
                 {photos.map((photo, i) => (
                   <div key={photo.id} className="relative">
                     <button
@@ -495,16 +489,6 @@ function CreatePage() {
             </div>
           </div>
 
-          <div className="mt-6 rounded-2xl bg-deep/5 p-4">
-            <p className="flex items-center gap-2 text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
-              <Sparkles className="h-3.5 w-3.5 text-accent" strokeWidth={1.5} />
-              Perfect for
-            </p>
-            <p className="mt-2 font-display text-[0.9rem] leading-snug [color:color-mix(in_oklch,var(--foreground)_92%,black)]">
-              Weddings, vacations, birthdays, anniversaries, adventures, pets
-              and so much more — fun for friends and family.
-            </p>
-          </div>
         </section>
       </div>
     </main>
