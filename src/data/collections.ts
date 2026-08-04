@@ -49,6 +49,16 @@ import whale09 from "@/assets/whale-09.jpg";
 import whale10 from "@/assets/whale-10.jpg";
 import whale13 from "@/assets/whale-13.jpg";
 import whale14 from "@/assets/whale-14.jpg";
+import cat01 from "@/assets/cat-01.jpg";
+import cat02 from "@/assets/cat-02.jpg";
+import cat03 from "@/assets/cat-03.jpg";
+import cat04 from "@/assets/cat-04.jpg";
+import cat05 from "@/assets/cat-05.jpg";
+import cat06 from "@/assets/cat-06.jpg";
+import cat07 from "@/assets/cat-07.jpg";
+import cat08 from "@/assets/cat-08.jpg";
+import cat09 from "@/assets/cat-09.jpg";
+import cat10 from "@/assets/cat-10.jpg";
 import coverWaterfalls from "@/assets/cover-waterfalls.jpg";
 import coverSunsets from "@/assets/cover-sunsets.jpg";
 import fsmResortCove from "@/assets/fsm-resort-cove.jpg.asset.json";
@@ -486,6 +496,75 @@ export const collections: Collection[] = [
         title: "Sunset Farewell",
         caption: "A fluke against the last light",
         image: whale14,
+      },
+    ],
+  },
+  {
+    id: "hawaii-cats",
+    title: "Cats of Hawaii",
+    tagline: "Ten island cats among blooms, tikis, and turquoise water",
+    cover: cat01,
+    free: true,
+    puzzles: [
+      {
+        id: "cat-01",
+        title: "Hibiscus Kitten",
+        caption: "A tiny face among coral blooms",
+        image: cat01,
+      },
+      {
+        id: "cat-03",
+        title: "Plumeria Behind the Ear",
+        caption: "Dressed for the evening",
+        image: cat03,
+      },
+      {
+        id: "cat-02",
+        title: "Sunset Sand",
+        caption: "Golden hour on the shoreline",
+        image: cat02,
+      },
+      {
+        id: "cat-06",
+        title: "Little Surfer",
+        caption: "Waiting for a gentle set",
+        image: cat06,
+      },
+      {
+        id: "cat-05",
+        title: "Tiki Watch",
+        caption: "Peeking around a carved guardian",
+        image: cat05,
+      },
+      {
+        id: "cat-07",
+        title: "Two in a Basket",
+        caption: "Cuddled up on the lanai",
+        image: cat07,
+      },
+      {
+        id: "cat-04",
+        title: "Rattan Nap",
+        caption: "Asleep among the monstera",
+        image: cat04,
+      },
+      {
+        id: "cat-08",
+        title: "E Komo Mai",
+        caption: "Orchids and an ocean view",
+        image: cat08,
+      },
+      {
+        id: "cat-09",
+        title: "Bougainvillea",
+        caption: "Magenta petals and green ferns",
+        image: cat09,
+      },
+      {
+        id: "cat-10",
+        title: "Tide Pool",
+        caption: "Curious on the lava rock",
+        image: cat10,
       },
     ],
   },
