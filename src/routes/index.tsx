@@ -163,24 +163,11 @@ function Home() {
         <div className="absolute inset-x-0 top-20 flex flex-col items-center px-8 text-center sm:top-12">
           <img
             src={palmLogo}
-            alt="Pictaria — two gold palm trees"
+            alt="Pictaria — Turn pictures into play"
             width={1024}
-            height={560}
-            className="h-14 w-auto [filter:brightness(1.35)_saturate(1.2)_drop-shadow(0_3px_14px_oklch(0.2_0.05_230/0.6))] sm:h-[4.5rem]"
+            height={1024}
+            className="h-28 w-auto [filter:brightness(1.35)_saturate(1.2)_drop-shadow(0_3px_14px_oklch(0.2_0.05_230/0.6))] sm:h-36"
           />
-          <h1 className="relative mt-2 pl-[0.3em] font-display text-[2rem] leading-none font-medium tracking-[0.3em] text-shell [text-shadow:0_2px_18px_oklch(0.2_0.05_230/0.85),0_0_2px_oklch(0.2_0.05_230/0.9)] sm:mt-3 sm:text-[3rem]">
-            PICTARIA
-          </h1>
-
-          <div className="mt-1.5 flex w-56 items-center gap-2">
-            <span className="h-px flex-1 bg-accent/70" />
-            <span className="h-1 w-1 rotate-45 bg-accent" />
-            <span className="h-px flex-1 bg-accent/70" />
-          </div>
-          <p className="mt-1 text-[12px] font-semibold tracking-[0.32em] text-shell uppercase [text-shadow:0_1px_12px_oklch(0.2_0.05_230/0.95),0_0_4px_oklch(0.2_0.05_230/0.95)]">
-            Turn pictures into play
-          </p>
-
         </div>
 
         {/* hero image puzzle — solved except the lower-left wedge */}
