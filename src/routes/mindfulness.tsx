@@ -10,7 +10,7 @@ import mindfulnessLotus from "@/assets/mindfulness-lotus.jpg";
 import mindfulnessWaves from "@/assets/mindfulness-waves.jpg";
 import mindfulnessZenGarden from "@/assets/mindfulness-zengarden.jpg";
 import mindfulnessWaterfall from "@/assets/mindfulness-waterfall.jpg";
-import mindfulnessSunset from "@/assets/mindfulness-sunset.jpg";
+import mindfulnessLavatube from "@/assets/mindfulness-lavatube.jpg";
 
 export const Route = createFileRoute("/mindfulness")({
   head: () => ({
