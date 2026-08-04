@@ -21,20 +21,20 @@ import palmLogo from "@/assets/logo-palms.png";
 export const Route = createFileRoute("/pricing")({
   head: () => ({
     meta: [
-      { title: "Pictaria Pricing — Personal, Bougie & Brand Studio" },
+      { title: "Pictaria Pricing — Personal, Artist & Brand Studio" },
       {
         name: "description",
         content:
-          "A free Pictaria every day, Personal Studio at $5.99 a month, Bougie Studio at $9.95 a month with full photo editing, and Brand Studio at $199 a month for branded, tracked storybooks.",
+          "A free Pictaria every day, Personal Studio at $5.95 a month, Artist Studio at $9.95 a month with full photo editing, and Brand Studio at $199 a month for branded, tracked storybooks.",
       },
       {
         property: "og:title",
-        content: "Pictaria Pricing — Personal, Bougie & Brand Studio",
+        content: "Pictaria Pricing — Personal, Artist & Brand Studio",
       },
       {
         property: "og:description",
         content:
-          "Free daily puzzle, Personal Studio $5.99/month, Bougie Studio $9.95/month with cropping, saturation, contrast and vignettes, Brand Studio $199/month.",
+          "Free daily puzzle, Personal Studio $5.95/month, Artist Studio $9.95/month with cropping, saturation, contrast and vignettes, Brand Studio $199/month.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -150,8 +150,8 @@ const business = [
   },
   {
     icon: Wand2,
-    title: "The full Bougie photo studio",
-    copy: "Everything in Bougie Studio included: crop and straighten, exposure, contrast and clarity, saturation and vibrance, warmth and tint, vignettes and glow, filters and saved brand presets, sharpen, blur and retouch.",
+    title: "The full Artist photo studio",
+    copy: "Everything in Artist Studio included: crop and straighten, exposure, contrast and clarity, saturation and vibrance, warmth and tint, vignettes and glow, filters and saved brand presets, sharpen, blur and retouch.",
   },
   {
     icon: QrCode,
@@ -191,21 +191,6 @@ function PricingPage() {
       </header>
 
       <div className="mx-auto mt-6 w-full max-w-5xl px-4 sm:px-8">
-        <section className="relative overflow-hidden rounded-[4px] border border-accent/60 bg-card/70 p-5">
-          <span
-            aria-hidden
-            className="pointer-events-none absolute -top-4 -left-5 font-display text-[6rem] leading-none text-accent/10 select-none"
-          >
-            ❦
-          </span>
-          <p className="relative font-display text-[0.95rem] leading-snug [color:color-mix(in_oklch,var(--foreground)_92%,black)]">
-            One free Pictaria in your inbox every single day — always. When you
-            are ready to send your own pictures, there are three studios: one for
-            the people you love, one for the people who want every photo perfect,
-            and one for the people you serve.
-          </p>
-
-        </section>
 
         {/* personal */}
         <section className="mt-8">
@@ -219,7 +204,7 @@ function PricingPage() {
           </p>
           <div className="mt-4 flex items-baseline gap-2">
             <span className="font-display text-3xl tracking-[0.08em] text-foreground">
-              $5.99
+              $5.95
             </span>
             <span className="text-[0.7rem] tracking-[0.18em] text-muted-foreground uppercase">
               / month
@@ -255,11 +240,11 @@ function PricingPage() {
           </Link>
         </section>
 
-        {/* bougie */}
+        {/* artist */}
         <section className="mt-10">
           <div className="flex flex-wrap items-center gap-2">
             <h2 className="font-display text-base tracking-[0.2em] uppercase">
-              Bougie Studio
+              Artist Studio
             </h2>
             <span className="rounded-full border border-accent/60 bg-accent/10 px-2.5 py-0.5 text-[0.55rem] tracking-[0.2em] text-accent uppercase">
               Most loved
@@ -303,7 +288,7 @@ function PricingPage() {
             to="/create"
             className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-[0.6rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
           >
-            Go bougie
+            Go artistic
             <span aria-hidden>›</span>
           </Link>
         </section>

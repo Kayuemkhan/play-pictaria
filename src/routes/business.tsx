@@ -331,7 +331,7 @@ function BusinessPage() {
             The full photo studio, included
           </p>
           <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-            Every tool from Bougie Studio comes with Brand Studio: crop and
+            Every tool from Artist Studio comes with Brand Studio: crop and
             straighten, exposure, brightness and shadows, contrast and clarity,
             saturation and vibrance, warmth and tint, vignettes and glow, filters
             and saved brand presets, sharpen, blur and retouch — so every picture
