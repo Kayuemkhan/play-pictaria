@@ -700,17 +700,19 @@ export function StudioComposer({
           </div>
 
           {/* what this studio celebrates — kept at the bottom */}
-          <ul className="mt-6 grid gap-1.5">
-            {highlights.map((h) => (
-              <li
-                key={h}
-                className="flex gap-2 text-[11px] leading-relaxed text-muted-foreground"
-              >
-                <span className="mt-1.5 h-1 w-1 shrink-0 rotate-45 bg-accent" />
-                {h}
-              </li>
-            ))}
-          </ul>
+          {highlights.length > 0 && (
+            <ul className="mt-6 grid gap-1.5">
+              {highlights.map((h) => (
+                <li
+                  key={h}
+                  className="flex gap-2 text-[11px] leading-relaxed text-muted-foreground"
+                >
+                  <span className="mt-1.5 h-1 w-1 shrink-0 rotate-45 bg-accent" />
+                  {h}
+                </li>
+              ))}
+            </ul>
+          )}
         </section>
       </div>
     </main>
