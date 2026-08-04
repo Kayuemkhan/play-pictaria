@@ -18,5 +18,7 @@ export default defineMcp({
     searchPuzzlesTool,
     getPuzzleTool,
     listDifficultiesTool,
+  // Cast: the SDK's tool array type rejects tools without an outputSchema
+  // under exactOptionalPropertyTypes.
   ] as never,
 });
