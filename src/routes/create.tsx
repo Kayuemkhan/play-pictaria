@@ -330,8 +330,8 @@ function CreatePage() {
                     Add your photograph
                   </span>
                   <span className="max-w-[16rem] text-center text-[10px] leading-relaxed tracking-[0.12em] text-deep-foreground/45 uppercase">
-                    Portrait pictures look best — your free storybook includes
-                    one photo
+                    Perfect for weddings, vacations, birthdays, anniversaries,
+                    adventures, pets and so much more — add your photograph here
                   </span>
                 </button>
               )}
