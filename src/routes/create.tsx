@@ -479,10 +479,10 @@ function CreatePage() {
                   Analytics &amp; action buttons
                 </span>
                 <Link
-                  to="/business"
+                  to="/pricing"
                   className="inline-flex items-center gap-1.5 rounded-full bg-primary px-2.5 py-1 text-[0.55rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
                 >
-                  See business
+                  See pricing
                   <span aria-hidden>›</span>
                 </Link>
               </div>
