@@ -746,7 +746,7 @@ export function PuzzleBoard({
                   backgroundImage: `url(${src})`,
                   backgroundSize: `${bg.w}px ${bg.h}px`,
                   backgroundPosition: `${bg.x - pc * cellW}px ${bg.y - pr * cellH}px`,
-                  borderRadius: inCluster ? 1 : 3,
+                  borderRadius: inCluster ? 2 : 6,
                   boxShadow: isDragged
                     ? drag!.valid
                       ? "0 0 0 3px var(--accent), 0 16px 28px rgba(15,45,70,0.45)"
