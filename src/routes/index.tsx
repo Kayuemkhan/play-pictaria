@@ -31,9 +31,10 @@ const featured = collections;
 
 const menuLinks = [
   { to: "/collections", label: "Gallery" },
-  { to: "/pricing", label: "Personal Studio" },
-  { to: "/pricing", label: "Artist Studio" },
-  { to: "/pricing", label: "Branding Studio" },
+  { to: "/create", label: "Send a free Pictaria" },
+  { to: "/studio/personal", label: "Personal Studio" },
+  { to: "/studio/artist", label: "Artist Studio" },
+  { to: "/studio/brand", label: "Branding Studio" },
   { to: "/pricing", label: "Pricing" },
   { to: "/daily", label: "Daily Pictaria" },
 ] as const;
