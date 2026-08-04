@@ -180,7 +180,7 @@ function CreatePage() {
             alt="Pictaria"
             width={1024}
             height={1024}
-            className="mx-auto h-12 w-auto [filter:brightness(1.2)_saturate(1.15)]"
+            className="mx-auto h-16 w-auto [filter:brightness(1.4)_saturate(1.25)_drop-shadow(0_2px_8px_oklch(0.15_0.04_230/0.5))]"
           />
           <h1 className="mt-3 font-display text-[1.35rem] text-foreground">
             Build your storybook

@@ -184,9 +184,9 @@ function PricingPage() {
           src={palmLogo}
           alt=""
           aria-hidden
-          width={40}
-          height={40}
-          className="ml-auto h-9 w-9 shrink-0 object-contain [filter:brightness(1.2)_saturate(1.15)]"
+          width={1024}
+          height={1024}
+          className="ml-auto h-12 w-12 shrink-0 object-contain [filter:brightness(1.4)_saturate(1.25)_drop-shadow(0_2px_8px_oklch(0.15_0.04_230/0.5))]"
         />
       </header>
 

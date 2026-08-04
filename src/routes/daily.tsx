@@ -82,7 +82,7 @@ function DailyPage() {
           alt="Pictaria"
           width={1024}
           height={1024}
-          className="h-16 w-auto [filter:brightness(1.35)_saturate(1.2)]"
+          className="h-20 w-auto [filter:brightness(1.45)_saturate(1.25)_drop-shadow(0_3px_12px_oklch(0.15_0.04_230/0.55))]"
         />
         <h1 className="mt-5 max-w-xs font-display text-[1.75rem] leading-tight text-shell">
           Welcome to the magical land of Pictaria
@@ -118,7 +118,7 @@ function DailyPage() {
           alt="Pictaria"
           width={1024}
           height={1024}
-          className="mx-auto h-12 w-auto [filter:brightness(1.2)_saturate(1.15)]"
+          className="mx-auto h-16 w-auto [filter:brightness(1.4)_saturate(1.25)_drop-shadow(0_2px_8px_oklch(0.15_0.04_230/0.5))]"
         />
         <h1 className="mt-3 font-display text-[1.35rem] text-foreground">
           Pictaria Daily
