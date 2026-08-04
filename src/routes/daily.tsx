@@ -90,7 +90,7 @@ function DailyPage() {
         <p className="mt-3 text-sm text-accent">
           {sessionEmail
             ? `You're all set at ${sessionEmail}.`
-            : "You're on the list for a free puzzle every single day."}
+            : "You're on the list for a free puzzle of Paradise every single day."}
         </p>
         <Link
           to="/"
