@@ -13,6 +13,14 @@ const HERO_WEDGE = 4;
 
 export type StudioTier = "free" | "personal" | "artist" | "brand";
 
+/** Hard cap on how many recipients one send can carry, per studio. */
+const MAX_RECIPIENTS: Record<StudioTier, number> = {
+  free: 10,
+  personal: 25,
+  artist: 50,
+  brand: 1000,
+};
+
 export interface StudioComposerProps {
   tier: StudioTier;
   /** Page heading, e.g. "Send a free Pictaria". */
