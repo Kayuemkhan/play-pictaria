@@ -269,6 +269,10 @@
   animation: sparkle 2.2s ease-in-out infinite;
 }
 
+@utility animate-sparkle-burst {
+  animation: sparkle-burst 0.7s ease-out forwards;
+}
+
 @utility animate-star-swirl {
   animation: star-swirl 8s linear infinite;
 }
