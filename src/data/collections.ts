@@ -92,7 +92,7 @@ import amy07 from "@/assets/amy-art-07.jpg.asset.json";
 import amy09 from "@/assets/amy-art-09.jpg.asset.json";
 import amy10 from "@/assets/amy-art-10.jpg.asset.json";
 
-import amy11Retouched from "@/assets/amy-art-11-retouched.jpg";
+import amy11Retouched from "@/assets/amy-art-11-retouched-v2.jpg";
 import amy12 from "@/assets/amy-art-12.jpg.asset.json";
 
 import amy06Enhanced from "@/assets/amy-art-06-enhanced.jpg";
@@ -759,6 +759,7 @@ export const collections: Collection[] = [
         caption: "The artist at work in her studio",
         image: amy11Retouched,
         story: [
+          "Amy is a glass artist, ocean activist and jewelry designer who loves sea turtles, and loves beauty and art.",
           "Amy WakingWolf is a Maui-based glass artisan, jewelry designer, ocean advocate, and storyteller whose work blends fine craftsmanship with a deep love for the natural world. Best known as the creator of The Honu Collection, she handcrafts collectible wearable signed and numbered sculptures inspired by Hawaii's sea turtles.",
           "Each piece is a reflection of her decades of artistic dedication and conservation work. Drawn to beauty, innovation, and meaningful connection, Amy is equally passionate about creating experiences that bring people together, whether through her art or imaginative projects like Pictaria, where memories become interactive stories.",
           "Her work is guided by a sense of wonder, a playful spirit, and the belief that the most meaningful creations don't just decorate our lives, they tell our stories.",
