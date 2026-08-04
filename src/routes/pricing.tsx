@@ -192,6 +192,9 @@ function PricingPage() {
             so much more — your own photos, turned into fun for friends and
             family.
           </p>
+          <p className="mt-2 text-[10px] tracking-[0.18em] text-accent uppercase">
+            The Pictaria badge sits at the top of every Pictaria you send
+          </p>
           <div className="mt-4 flex items-baseline gap-2">
             <span className="font-display text-3xl tracking-[0.08em] text-foreground">
               $5.95
@@ -244,6 +247,9 @@ function PricingPage() {
             Everything in Personal Studio, plus the whole photo studio. Crop it,
             light it, warm it, glow it — make an ordinary phone snapshot look
             like something framed on a wall before it ever becomes a puzzle.
+          </p>
+          <p className="mt-2 text-[10px] tracking-[0.18em] text-accent uppercase">
+            The Pictaria badge sits at the top of every Pictaria you send
           </p>
           <div className="mt-4 flex items-baseline gap-2">
             <span className="font-display text-3xl tracking-[0.08em] text-foreground">
