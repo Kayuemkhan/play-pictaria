@@ -71,6 +71,8 @@ import pineapple09 from "@/assets/pineapple-09.jpg";
 import pineapple10 from "@/assets/pineapple-10.jpg";
 import pineapple11 from "@/assets/pineapple-11.jpg";
 import pineapple12 from "@/assets/pineapple-12.jpg";
+import pineapple13 from "@/assets/pineapple-13.jpg";
+
 
 
 import coverWaterfalls from "@/assets/cover-waterfalls.jpg";
@@ -588,7 +590,7 @@ export const collections: Collection[] = [
   {
     id: "pineapples-of-hawaii",
     title: "Pineapples of Hawaii",
-    tagline: "Twelve golden island moments, from plantation house to palm-framed sunset",
+    tagline: "Thirteen golden island moments, from plantation house to palm-framed sunset",
     cover: pineapple05,
     free: true,
     puzzles: [
@@ -668,8 +670,15 @@ export const collections: Collection[] = [
         recipe:
           "Melt ¼ cup butter in a 9-inch round cake pan, sprinkle with ½ cup brown sugar, and arrange pineapple rings with cherries in the centers. Whisk 1½ cups flour, 1½ tsp baking powder, and ¼ tsp salt. Cream ½ cup butter and ¾ cup sugar, then beat in 2 eggs, 1 tsp vanilla, and ½ cup milk. Spread over pineapple and bake at 350°F for 40–45 minutes. Cool 10 minutes, then invert onto a plate.",
       },
+      {
+        id: "pineapple-13",
+        title: "Bamboo Forest",
+        caption: "Sunlight through tall stalks and a golden visitor",
+        image: pineapple13,
+      },
     ],
   },
+
 
   {
     id: "four-seasons-maui",
