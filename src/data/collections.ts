@@ -72,6 +72,16 @@ import pineapple10 from "@/assets/pineapple-10.jpg";
 import pineapple11 from "@/assets/pineapple-11.jpg";
 import pineapple12 from "@/assets/pineapple-12.jpg";
 import pineapple13 from "@/assets/pineapple-13.jpg";
+import fruit01 from "@/assets/fruit-01.jpg";
+import fruit02 from "@/assets/fruit-02.jpg";
+import fruit03 from "@/assets/fruit-03.jpg";
+import fruit04 from "@/assets/fruit-04.jpg";
+import fruit05 from "@/assets/fruit-05.jpg";
+import fruit06 from "@/assets/fruit-06.jpg";
+import fruit07 from "@/assets/fruit-07.jpg";
+import fruit08 from "@/assets/fruit-08.jpg";
+import fruit09 from "@/assets/fruit-09.jpg";
+import fruit10 from "@/assets/fruit-10.jpg";
 
 
 
@@ -690,6 +700,115 @@ export const collections: Collection[] = [
         title: "Bamboo Forest",
         caption: "Sunlight through tall stalks and a golden visitor",
         image: pineapple13,
+      },
+    ],
+  },
+  {
+    id: "local-fruit",
+    title: "Local Fruit",
+    tagline: "Ten island fruits, and a little history behind each one",
+    cover: fruit01,
+    free: true,
+    puzzles: [
+      {
+        id: "fruit-01",
+        title: "Roadside Farm Stand",
+        caption: "Crates of island fruit under a blue sky",
+        image: fruit01,
+        story: [
+          "Honor-system fruit stands have lined Hawaii's country roads since the plantation era, when families sold what their small kuleana plots grew beyond what the camps could eat.",
+          "Many still run on a coffee can for change and a hand-painted sign — one of the last everyday traditions of trust left on the islands.",
+        ],
+      },
+      {
+        id: "fruit-02",
+        title: "Papaya",
+        caption: "Sunrise flesh and a squeeze of lime",
+        image: fruit02,
+        story: [
+          "Papaya arrived in Hawaii around 1800 by way of the Marquesas and Mexico. The famous Solo strain was refined on Oahu in the early 1900s and became the small, sweet 'Hawaiian papaya' the world knows.",
+          "Breakfast custom is simple and old: half a papaya, seeds scooped, lime squeezed over the top.",
+        ],
+      },
+      {
+        id: "fruit-03",
+        title: "Mango",
+        caption: "Gold on the branch against blue sky",
+        image: fruit03,
+        story: [
+          "The first mango trees came ashore in 1824 aboard a ship from Manila, planted in Honolulu's Nuuanu Valley.",
+          "The Haden mangoes that shade so many yards today trace back to those early trees, and neighborhoods still trade fruit by the bagful every summer.",
+        ],
+      },
+      {
+        id: "fruit-04",
+        title: "Lilikoi",
+        caption: "Purple shells and golden pulp",
+        image: fruit04,
+        story: [
+          "Passionfruit was introduced in the 1880s and took its Hawaiian name from Lilikoi Gulch on Maui, where an early planting escaped into the hills.",
+          "Lilikoi butter, chiffon pie, and shave-ice syrup all grew out of that one wandering vine.",
+        ],
+      },
+      {
+        id: "fruit-05",
+        title: "Apple Banana",
+        caption: "Short, firm, and honey-sweet",
+        image: fruit05,
+        story: [
+          "Voyaging Polynesians carried maia — banana — to Hawaii in their canoes, and old kapu once reserved most varieties for men alone.",
+          "The tangy apple banana came later with Latin American plantings and now outsells the common Cavendish at nearly every island market.",
+        ],
+      },
+      {
+        id: "fruit-06",
+        title: "Niu — Coconut",
+        caption: "Cracked open in the palm shade",
+        image: fruit06,
+        story: [
+          "Niu was a canoe plant, one of two dozen species the first settlers brought with them, and it gave food, water, rope, thatch, bowls, and oil.",
+          "Coconut groves were often planted to mark the birth of a chief, so the tree grew alongside the child.",
+        ],
+      },
+      {
+        id: "fruit-07",
+        title: "Strawberry Guava",
+        caption: "Waiawi, pink inside",
+        image: fruit07,
+        story: [
+          "Guava came from Brazil in the early 1800s and thrived so well it turned invasive, crowding native forest across every main island.",
+          "Islanders made peace with it the practical way — as jelly, juice, and the fruit children pick on the trail home.",
+        ],
+      },
+      {
+        id: "fruit-08",
+        title: "Mountain Apple",
+        caption: "'Ohia 'ai, crimson in the rain forest",
+        image: fruit08,
+        story: [
+          "Another canoe plant, 'ohia 'ai was planted near house sites and heiau, and its dark wood was carved into tools and images.",
+          "The fruit keeps only a day or two, which is why it almost never leaves the islands — it has to be eaten where it falls.",
+        ],
+      },
+      {
+        id: "fruit-09",
+        title: "Ulu — Breadfruit",
+        caption: "Green skin, creamy heart",
+        image: fruit09,
+        story: [
+          "In tradition, the god Ku turned himself into an ulu tree to feed his starving family, and the tree became a symbol of provision.",
+          "It was ulu that Captain Bligh's Bounty was sent to collect for the Caribbean, and today Hawaii is replanting it as a staple crop again.",
+        ],
+      },
+      {
+        id: "fruit-10",
+        title: "Lychee",
+        caption: "Rough red skin, translucent fruit",
+        image: fruit10,
+        story: [
+          "Chinese merchant Ching Chock planted Hawaii's first lychee tree in Honolulu around 1873, and that 'Kwai Mi' tree became the parent of island orchards.",
+          "Lychee season lasts only a few weeks in early summer, and the fruit is still mostly sold tree-to-neighbor.",
+        ],
       },
     ],
   },
