@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import palmLogo from "@/assets/logo-palms.png";
+import hibiscus from "@/assets/flower-hibiscus.jpg";
 
 export const Route = createFileRoute("/daily")({
   head: () => ({
