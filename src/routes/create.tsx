@@ -160,12 +160,7 @@ function CreatePage() {
       heading="Send a free Pictaria"
       kicker="One photograph, one instant link"
       maxPhotos={1}
-      highlights={[
-        "One photograph, free — no subscription needed.",
-        "An instant playable link the moment you finish composing.",
-        "Send it to one person or a whole group by email.",
-        "Four difficulties on every picture, from Relaxing to Challenging.",
-      ]}
+      highlights={[]}
     />
   );
 }
