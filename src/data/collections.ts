@@ -91,7 +91,8 @@ import amy06 from "@/assets/amy-art-06.jpg.asset.json";
 import amy07 from "@/assets/amy-art-07.jpg.asset.json";
 import amy09 from "@/assets/amy-art-09.jpg.asset.json";
 import amy10 from "@/assets/amy-art-10.jpg.asset.json";
-import amy11 from "@/assets/amy-art-11.jpg.asset.json";
+
+import amy11Retouched from "@/assets/amy-art-11-retouched.jpg";
 import amy12 from "@/assets/amy-art-12.jpg.asset.json";
 
 import amy06Enhanced from "@/assets/amy-art-06-enhanced.jpg";
@@ -107,6 +108,8 @@ export interface Puzzle {
   image: string;
   /** Optional recipe to show beneath the puzzle image. */
   recipe?: string;
+  /** Optional story/bio paragraphs to show beneath the puzzle image. */
+  story?: string[];
 }
 
 
@@ -738,7 +741,17 @@ export const collections: Collection[] = [
       { id: "amy-03", title: "Akoni Friends", caption: "Reminding you of your worthiness — but if you can't see it, don't forget your friends can", image: amy03Enhanced },
       { id: "amy-10", title: "Malama", caption: "Malama means protect what you love — your people, your planet and your peace", image: amy10.url },
       { id: "amy-02", title: "Mahalo Moon", caption: "Turquoise accented with green and gold crystal", image: amy06Enhanced },
-      { id: "amy-11", title: "At the Torch", caption: "The artist at work in her studio", image: amy11.url },
+      {
+        id: "amy-11",
+        title: "At the Torch",
+        caption: "The artist at work in her studio",
+        image: amy11Retouched,
+        story: [
+          "Amy WakingWolf is a Maui-based glass artisan, jewelry designer, ocean advocate, and storyteller whose work blends fine craftsmanship with a deep love for the natural world. Best known as the creator of The Honu Collection, she handcrafts collectible wearable signed and numbered sculptures inspired by Hawaii's sea turtles.",
+          "Each piece is a reflection of her decades of artistic dedication and conservation work. Drawn to beauty, innovation, and meaningful connection, Amy is equally passionate about creating experiences that bring people together, whether through her art or imaginative projects like Pictaria, where memories become interactive stories.",
+          "Her work is guided by a sense of wonder, a playful spirit, and the belief that the most meaningful creations don't just decorate our lives, they tell our stories.",
+        ],
+      },
       { id: "amy-01", title: "Mahalo: Gratitude", caption: "Apatite and tourmaline half moon necklace", image: amy01.url },
 
     ],
