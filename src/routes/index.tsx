@@ -168,7 +168,7 @@ function Home() {
             height={560}
             className="h-14 w-auto [filter:brightness(1.35)_saturate(1.2)_drop-shadow(0_3px_14px_oklch(0.2_0.05_230/0.6))] sm:h-[4.5rem]"
           />
-          <h1 className="relative -mt-1 pl-[0.3em] font-display text-[2rem] leading-none font-medium tracking-[0.3em] text-shell [text-shadow:0_2px_18px_oklch(0.2_0.05_230/0.85),0_0_2px_oklch(0.2_0.05_230/0.9)] sm:text-[3rem]">
+          <h1 className="relative mt-2 pl-[0.3em] font-display text-[2rem] leading-none font-medium tracking-[0.3em] text-shell [text-shadow:0_2px_18px_oklch(0.2_0.05_230/0.85),0_0_2px_oklch(0.2_0.05_230/0.9)] sm:mt-3 sm:text-[3rem]">
             PICTARIA
           </h1>
 
