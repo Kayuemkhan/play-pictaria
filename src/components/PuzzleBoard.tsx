@@ -583,7 +583,7 @@ export function PuzzleBoard({
     const largest = Math.max(0, ...sizes.values());
     if (sizes.size <= 3 && largest >= total - 2) {
       const solvedPositions = Array.from({ length: total }, (_, piece) => piece);
-      const solvedGroup = groupOf[s.group] ?? s.group;
+      const solvedGroup = s.group;
       setPos(solvedPositions);
       setGroupOf(Array.from({ length: total }, () => solvedGroup));
       setMoves((count) => count + 1);
