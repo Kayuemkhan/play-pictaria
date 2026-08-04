@@ -183,7 +183,7 @@ function CreatePage() {
             className="mx-auto h-16 w-auto [filter:brightness(1.4)_saturate(1.25)_drop-shadow(0_2px_8px_oklch(0.15_0.04_230/0.5))]"
           />
           <h1 className="mt-3 font-display text-[1.35rem] text-foreground">
-            Build your storybook
+            Create your own Pictarias
           </h1>
           <p className="mt-2 text-[13px] leading-relaxed text-muted-foreground">
             Send a free Pictaria with one photo. If you want more, a
@@ -330,8 +330,9 @@ function CreatePage() {
                     Add your photograph
                   </span>
                   <span className="max-w-[16rem] text-center text-[10px] leading-relaxed tracking-[0.12em] text-deep-foreground/45 uppercase">
-                    Perfect for weddings, vacations, birthdays, anniversaries,
-                    adventures, pets and so much more — add your photograph here
+                    Celebrate your weddings, vacations, birthdays,
+                    anniversaries, adventures, pets and so much more — add your
+                    photograph here
                   </span>
                 </button>
               )}

@@ -173,7 +173,7 @@ function Home() {
         <HeroPuzzle
           src={heroImage}
           cols={6}
-          rows={8}
+          rows={6}
           wedge={4}
           depth={3}
           corner="bottom-right"
@@ -304,7 +304,7 @@ function Home() {
               </p>
               <div className="flex shrink-0 flex-col items-end gap-1">
                 <span className="text-[0.55rem] tracking-[0.18em] text-muted-foreground uppercase">
-                  Build your storybook
+                  Create your own Pictarias
                 </span>
                 <Link
                   to="/create"
