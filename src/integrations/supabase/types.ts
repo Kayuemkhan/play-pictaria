@@ -38,6 +38,42 @@ export type Database = {
         }
         Relationships: []
       }
+      pictarias: {
+        Row: {
+          created_at: string
+          grid: number
+          id: string
+          photo_paths: string[]
+          share_code: string
+          story: string
+          tagline: string
+          tier: string
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          grid?: number
+          id?: string
+          photo_paths?: string[]
+          share_code: string
+          story?: string
+          tagline?: string
+          tier?: string
+          title?: string
+        }
+        Update: {
+          created_at?: string
+          grid?: number
+          id?: string
+          photo_paths?: string[]
+          share_code?: string
+          story?: string
+          tagline?: string
+          tier?: string
+          title?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
