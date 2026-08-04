@@ -1,16 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
 import mindfulnessHero from "@/assets/mindfulness-hero.jpg";
-import mindfulnessRocks from "@/assets/mindfulness-rocks.jpg";
-import mindfulnessBamboo from "@/assets/mindfulness-bamboo.jpg";
-import mindfulnessBuddha from "@/assets/mindfulness-buddha.jpg";
-import mindfulnessStarfish from "@/assets/mindfulness-starfish.jpg";
-import mindfulnessMeditation from "@/assets/mindfulness-meditation.jpg";
-import mindfulnessLotus from "@/assets/mindfulness-lotus.jpg";
-import mindfulnessWaves from "@/assets/mindfulness-waves.jpg";
-import mindfulnessZenGarden from "@/assets/mindfulness-zengarden.jpg";
-import mindfulnessWaterfall from "@/assets/mindfulness-waterfall.jpg";
-import mindfulnessRockWall from "@/assets/mindfulness-rockwall.jpg";
 
 export const Route = createFileRoute("/mindfulness")({
   head: () => ({
@@ -37,19 +27,6 @@ export const Route = createFileRoute("/mindfulness")({
   component: MindfulnessPage,
 });
 
-const gallery = [
-  { src: mindfulnessHero, alt: "A calm Hawaiian tide pool with a floating plumeria flower at sunset" },
-  { src: mindfulnessRocks, alt: "A zen stack of smooth black lava stones on a Hawaiian beach at sunrise" },
-  { src: mindfulnessBamboo, alt: "A peaceful bamboo forest path with golden rays of sunlight" },
-  { src: mindfulnessBuddha, alt: "A serene Buddha statue in a tropical garden at golden hour" },
-  { src: mindfulnessStarfish, alt: "A delicate starfish resting on wet golden sand at the water's edge" },
-  { src: mindfulnessMeditation, alt: "A person meditating on a cliff overlooking the ocean at sunrise" },
-  { src: mindfulnessLotus, alt: "A pink lotus flower floating on still water at dawn" },
-  { src: mindfulnessWaves, alt: "Gentle turquoise waves rolling onto a black sand beach" },
-  { src: mindfulnessZenGarden, alt: "A Hawaiian zen garden with raked black sand and smooth stones" },
-  { src: mindfulnessWaterfall, alt: "A tranquil tropical waterfall in a lush Hawaiian rainforest" },
-  { src: mindfulnessRockWall, alt: "An old Hawaiian lava rock wall covered in ferns and lush tropical greenery" },
-];
 
 function MindfulnessPage() {
   return (
@@ -91,23 +68,13 @@ function MindfulnessPage() {
             </p>
           </div>
 
-          <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">
-            {gallery.map((image, i) => (
-              <div
-                key={i}
-                className="group aspect-[3/2] overflow-hidden rounded-[6px] border border-accent/20 bg-deep-foreground/5 shadow-soft"
-              >
-                <img
-                  src={image.src}
-                  alt={image.alt}
-                  loading="lazy"
-                  width={1344}
-                  height={896}
-                  className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                />
-              </div>
-            ))}
-          </div>
+          <Link
+            to="/collection/$collectionId"
+            params={{ collectionId: "mindfulness" }}
+            className="mt-6 inline-flex items-center justify-center rounded-[4px] bg-primary px-6 py-3 font-body text-[0.7rem] tracking-[0.18em] text-primary-foreground uppercase shadow-soft transition-opacity hover:opacity-90"
+          >
+            Play the mindfulness collection
+          </Link>
         </div>
       </div>
     </main>

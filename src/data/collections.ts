@@ -113,6 +113,17 @@ import shirt08 from "@/assets/shirt-08.jpg";
 import shirt09 from "@/assets/shirt-09.jpg";
 import shirt10 from "@/assets/shirt-10.jpg";
 import fsmPoolPalms from "@/assets/fsm-pool-palms.jpg";
+import mindfulnessHero from "@/assets/mindfulness-hero.jpg";
+import mindfulnessRocks from "@/assets/mindfulness-rocks.jpg";
+import mindfulnessBamboo from "@/assets/mindfulness-bamboo.jpg";
+import mindfulnessBuddha from "@/assets/mindfulness-buddha.jpg";
+import mindfulnessStarfish from "@/assets/mindfulness-starfish.jpg";
+import mindfulnessMeditation from "@/assets/mindfulness-meditation.jpg";
+import mindfulnessLotus from "@/assets/mindfulness-lotus.jpg";
+import mindfulnessWaves from "@/assets/mindfulness-waves.jpg";
+import mindfulnessZenGarden from "@/assets/mindfulness-zengarden.jpg";
+import mindfulnessWaterfall from "@/assets/mindfulness-waterfall.jpg";
+import mindfulnessRockWall from "@/assets/mindfulness-rockwall.jpg";
 
 
 
@@ -1089,6 +1100,125 @@ export const collections: Collection[] = [
       { id: "shirt-08", title: "Pineapple Tapa", caption: "Soft sage with ti leaves and tapa geometry", image: shirt08 },
       { id: "shirt-09", title: "The Shop", caption: "A whole rack of aloha waiting for a summer", image: shirt09 },
       { id: "shirt-10", title: "Island Hopper", caption: "Gold island maps and flying boats on burgundy", image: shirt10 },
+    ],
+  },
+  {
+    id: "mindfulness",
+    title: "Mindfulness",
+    tagline: "Ten quiet places to slow down and settle in",
+    cover: mindfulnessHero,
+    free: true,
+    puzzles: [
+      {
+        id: "mind-01",
+        title: "Tide Pool",
+        caption: "A plumeria drifting on still water at sunset",
+        image: mindfulnessHero,
+        story: [
+          "Researchers who study puzzles notice that they ask several parts of the brain to work together at once — the eye searching, the hand placing, memory holding a shape until it finds its home.",
+          "That combination tends to quiet the mental chatter. A tide pool is a good place to begin: nothing here is in a hurry.",
+        ],
+      },
+      {
+        id: "mind-02",
+        title: "Stacked Stones",
+        caption: "Smooth lava stones balanced at sunrise",
+        image: mindfulnessRocks,
+        story: [
+          "Balancing stones takes the same attention a puzzle does — one small decision at a time, with no way to rush the next one.",
+          "Many people describe that state as mindfulness: awareness of what is right in front of you, without judgment about what comes after.",
+        ],
+      },
+      {
+        id: "mind-03",
+        title: "Bamboo Light",
+        caption: "Golden rays through a quiet bamboo path",
+        image: mindfulnessBamboo,
+        story: [
+          "Slow, absorbing activity is often paired with slower breathing, and slower breathing tends to soften how tension feels in the body.",
+          "Walk this path the way you would place a tile — gently, and without keeping score.",
+        ],
+      },
+      {
+        id: "mind-04",
+        title: "Stillness",
+        caption: "A serene Buddha in a tropical garden at golden hour",
+        image: mindfulnessBuddha,
+        story: [
+          "Contemplative traditions have taught for centuries what attention studies keep circling back to: the mind rests when it is given one simple thing to hold.",
+          "A puzzle offers exactly that — one shape, then the next.",
+        ],
+      },
+      {
+        id: "mind-05",
+        title: "Starfish",
+        caption: "A single starfish at the water's edge",
+        image: mindfulnessStarfish,
+        story: [
+          "Small details reward slow looking. Notice the texture, the wet sand, the light — the same noticing that helps a tile find its place.",
+          "Nothing to solve quickly here. That is rather the point.",
+        ],
+      },
+      {
+        id: "mind-06",
+        title: "Morning Practice",
+        caption: "Meditating on a cliff above the ocean at sunrise",
+        image: mindfulnessMeditation,
+        story: [
+          "Researchers interested in healthy aging often point to two ordinary habits: staying mentally engaged, and finding regular moments of calm.",
+          "Puzzles happen to offer both in the same sitting — engagement and ease, side by side.",
+        ],
+      },
+      {
+        id: "mind-07",
+        title: "Lotus at Dawn",
+        caption: "A pink lotus floating on still water",
+        image: mindfulnessLotus,
+        story: [
+          "Visual-spatial thinking — turning a shape in your mind before your hand moves — is the kind of gentle practice people like to keep in their week.",
+          "Think of it as tending something, rather than testing yourself.",
+        ],
+      },
+      {
+        id: "mind-08",
+        title: "Black Sand",
+        caption: "Turquoise water rolling onto black sand",
+        image: mindfulnessWaves,
+        story: [
+          "Repeating rhythms — waves, breath, the click of one tile meeting another — draw attention out of yesterday and tomorrow and into now.",
+          "That is where a great deal of peace tends to live.",
+        ],
+      },
+      {
+        id: "mind-09",
+        title: "Zen Garden",
+        caption: "Raked black sand and smooth stones",
+        image: mindfulnessZenGarden,
+        story: [
+          "A raked garden is made to be unmade and made again. So is a puzzle.",
+          "Some people find that comforting: nothing here is permanent, and nothing here is urgent.",
+        ],
+      },
+      {
+        id: "mind-10",
+        title: "Rainforest Falls",
+        caption: "A tranquil waterfall deep in the rainforest",
+        image: mindfulnessWaterfall,
+        story: [
+          "Time in nature and time in absorbed play are both linked with feeling more restored afterward — lighter, clearer, a little more yourself.",
+          "Stay as long as you like. The water is not going anywhere.",
+        ],
+      },
+      {
+        id: "mind-11",
+        title: "Rock Wall",
+        caption: "An old lava rock wall wrapped in ferns",
+        image: mindfulnessRockWall,
+        story: [
+          "Hand-stacked walls were built stone by stone, with patience as the only tool that mattered.",
+          "Solving a picture is the same craft in miniature — steady attention, and a quiet mind at the end of it.",
+        ],
+      },
     ],
   },
 ];
