@@ -427,7 +427,7 @@ export const collections: Collection[] = [
   {
     id: "whales",
     title: "Whales",
-    tagline: "Fourteen encounters with the ocean's gentle giants",
+    tagline: "Twelve encounters with the ocean's gentle giants",
     cover: whale02,
     free: true,
     puzzles: [
@@ -456,22 +456,10 @@ export const collections: Collection[] = [
         image: whale04,
       },
       {
-        id: "whale-05",
-        title: "Gentle Eye",
-        caption: "A quiet look, up close",
-        image: whale05,
-      },
-      {
         id: "whale-06",
         title: "Evening Spout",
         caption: "Breath against a gold sky",
         image: whale06,
-      },
-      {
-        id: "whale-07",
-        title: "White Wing",
-        caption: "A long fin in the current",
-        image: whale07,
       },
       {
         id: "whale-08",
