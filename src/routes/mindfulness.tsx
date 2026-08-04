@@ -91,23 +91,13 @@ function MindfulnessPage() {
             </p>
           </div>
 
-          <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">
-            {gallery.map((image, i) => (
-              <div
-                key={i}
-                className="group aspect-[3/2] overflow-hidden rounded-[6px] border border-accent/20 bg-deep-foreground/5 shadow-soft"
-              >
-                <img
-                  src={image.src}
-                  alt={image.alt}
-                  loading="lazy"
-                  width={1344}
-                  height={896}
-                  className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                />
-              </div>
-            ))}
-          </div>
+          <Link
+            to="/collection/$collectionId"
+            params={{ collectionId: "mindfulness" }}
+            className="mt-6 inline-flex items-center justify-center rounded-[4px] bg-primary px-6 py-3 font-body text-[0.7rem] tracking-[0.18em] text-primary-foreground uppercase shadow-soft transition-opacity hover:opacity-90"
+          >
+            Play the mindfulness collection
+          </Link>
         </div>
       </div>
     </main>
