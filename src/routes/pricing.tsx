@@ -88,6 +88,12 @@ const business = [
     copy: "Your logo, your colors, your domain, with the Pictaria badge very small at the very bottom of the scroll.",
   },
   {
+    icon: Sparkles,
+    title: "Logo placement on your photos",
+    copy: "Upload your logo and place it anywhere on the picture — any corner, centered, any size — and it stays through play and in the shared image.",
+  },
+
+  {
     icon: QrCode,
     title: "Unlimited storybooks & QR codes",
     copy: "Unlimited branded storybooks and tracked links, plus printed QR codes for key cards, menus and room tables.",
