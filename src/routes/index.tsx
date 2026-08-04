@@ -31,9 +31,12 @@ const featured = collections;
 
 const menuLinks = [
   { to: "/collections", label: "Gallery" },
-  { to: "/create", label: "Build a storybook" },
+  { to: "/create", label: "Personal storybooks" },
+  { to: "/business", label: "For business" },
+  { to: "/pricing", label: "Pricing" },
   { to: "/daily", label: "Daily Pictaria" },
 ] as const;
+
 
 function Home() {
   const firstPuzzle = freeCollection.puzzles[0]!;
