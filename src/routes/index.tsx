@@ -192,16 +192,16 @@ function Home() {
             top: `${cardPos.y}%`,
             transform: "translate(-50%, -50%)",
           }}
-          className="absolute z-[4] w-[52%] cursor-grab touch-none rounded-xl bg-deep/55 px-3 py-2 backdrop-blur-[3px] active:cursor-grabbing sm:w-[34%]"
+          className="absolute z-[4] w-[35%] cursor-grab touch-none rounded-lg bg-deep/55 px-2 py-1.5 backdrop-blur-[3px] active:cursor-grabbing sm:w-[23%]"
         >
-          <p className="font-display text-[0.85rem] leading-tight text-shell">
+          <p className="font-display text-[0.57rem] leading-tight text-shell">
             Can you solve today&rsquo;s {firstPuzzle.title.toLowerCase()}?
           </p>
           <Link
             to="/puzzle/$puzzleId"
             params={{ puzzleId: firstPuzzle.id }}
             search={{ grid: 3 }}
-            className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-accent px-2.5 py-1 text-[0.5rem] tracking-[0.14em] text-deep uppercase shadow-lift transition-transform hover:scale-[1.03]"
+            className="mt-1.5 inline-flex items-center gap-1 rounded-full bg-accent px-1.5 py-0.5 text-[0.34rem] tracking-[0.14em] text-deep uppercase shadow-lift transition-transform hover:scale-[1.03]"
           >
             Play now
             <span aria-hidden>›</span>
