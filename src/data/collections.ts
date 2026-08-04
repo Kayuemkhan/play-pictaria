@@ -101,6 +101,18 @@ import amy05Enhanced from "@/assets/amy-art-05-enhanced.jpg";
 import amy08Enhanced from "@/assets/amy-art-08-enhanced.jpg";
 import amy13Enhanced from "@/assets/amy-art-13-enhanced.jpg";
 
+import healNoni from "@/assets/heal-01-noni.jpg";
+import healOlena from "@/assets/heal-02-olena.jpg";
+import healAwapuhi from "@/assets/heal-03-awapuhi.jpg";
+import healAloe from "@/assets/heal-04-aloe.jpg";
+import healKukui from "@/assets/heal-05-kukui.jpg";
+import healKi from "@/assets/heal-06-ki.jpg";
+import healKalo from "@/assets/heal-07-kalo.jpg";
+import healNiu from "@/assets/heal-08-niu.jpg";
+import healMamaki from "@/assets/heal-09-mamaki.jpg";
+import healIlima from "@/assets/heal-10-ilima.jpg";
+import healHau from "@/assets/heal-11-hau.jpg";
+
 export interface Puzzle {
   id: string;
   title: string;
@@ -754,6 +766,115 @@ export const collections: Collection[] = [
       },
       { id: "amy-01", title: "Mahalo: Gratitude", caption: "Apatite and tourmaline half moon necklace", image: amy01.url },
 
+    ],
+  },
+  {
+    id: "healing-plants-of-hawaii",
+    title: "Healing Plants of Hawaii",
+    tagline: "Ten island plants of la'au lapa'au, and the old ways they were used",
+    cover: healHau,
+    free: true,
+    puzzles: [
+      {
+        id: "heal-01",
+        title: "Noni",
+        caption: "Indian mulberry, ripening in the sun",
+        image: healNoni,
+        story: [
+          "Used for: sore joints, tired muscles, skin trouble, and general strengthening after illness. One of the most respected la'au lapa'au plants in Hawaii.",
+          "How to use: ripe fruit is left in a covered glass jar in the sun until it softens into juice, then strained and taken a spoonful at a time. Warmed leaves are wrapped over an aching knee, back, or bruise and held in place with cloth.",
+        ],
+      },
+      {
+        id: "heal-02",
+        title: "'Olena",
+        caption: "Turmeric root, gold beneath the soil",
+        image: healOlena,
+        story: [
+          "Used for: sinus congestion, earaches, sore throats, swelling, and cleansing and blessing.",
+          "How to use: grate the fresh root and steep in hot water with a squeeze of lime for tea, or simmer it in coconut milk. The strained juice thinned with water was used as a nose and ear rinse. A paste of grated root can be laid on a swollen joint.",
+        ],
+      },
+      {
+        id: "heal-03",
+        title: "'Awapuhi",
+        caption: "Shampoo ginger in the forest shade",
+        image: healAwapuhi,
+        story: [
+          "Used for: hair and scalp care, headaches, bruises, upset stomach, and sore skin.",
+          "How to use: squeeze the fragrant liquid from a mature flower cone into the hair as a rinse and conditioner. The crushed rhizome is warmed and pressed on a bruise or a headache-tight forehead, or steeped as a mild tea for the stomach.",
+        ],
+      },
+      {
+        id: "heal-04",
+        title: "Aloe",
+        caption: "Clear gel behind lava rock",
+        image: healAloe,
+        story: [
+          "Used for: sunburn, reef scrapes, kitchen burns, rashes, dry skin, and digestion.",
+          "How to use: cut a lower leaf, split it lengthwise, and slide the clear gel straight onto the skin as often as it feels good. For digestion, a small spoon of the inner gel is blended into juice — always the clear gel only, never the bitter yellow layer at the rind.",
+        ],
+      },
+      {
+        id: "heal-05",
+        title: "Kukui",
+        caption: "Candlenut leaves, silver in the valley light",
+        image: healKukui,
+        story: [
+          "Used for: dry skin and hair, mouth sores, cuts, and gentle cleansing. The state tree of Hawaii, and a symbol of light and protection.",
+          "How to use: the pressed nut oil is warmed between the palms and smoothed over sunburn, chapped skin, or hair ends. Roasted, mashed nut meat mixed with a little salt was a traditional relish and a mouth-sore remedy. Sap from the bark was dabbed on small cuts.",
+        ],
+      },
+      {
+        id: "heal-06",
+        title: "Ki",
+        caption: "Ti leaves along a stone wall",
+        image: healKi,
+        story: [
+          "Used for: fevers, headaches, sore muscles, and protection and blessing of a home.",
+          "How to use: fresh leaves are chilled or dipped in cool water and laid across the forehead, chest, or the back of the neck to bring a fever down. Leaves are also used to wrap warmed la'au poultices against the body, and planted at the corners of a house for protection.",
+        ],
+      },
+      {
+        id: "heal-07",
+        title: "Kalo",
+        caption: "Taro leaves in a flooded lo'i",
+        image: healKalo,
+        story: [
+          "Used for: nourishment for babies, elders, and anyone recovering — famously easy on the stomach — plus insect bites and small wounds.",
+          "How to use: the corm is always cooked, never raw, then pounded into poi; a thin poi is one of the gentlest first foods there is. Cooked leaves (luau) are eaten as greens, and the sap from a cut stalk was dabbed on a bite or scratch to stop the sting and bleeding.",
+        ],
+      },
+      {
+        id: "heal-08",
+        title: "Niu",
+        caption: "Green coconuts under the fronds",
+        image: healNiu,
+        story: [
+          "Used for: rehydration and heat exhaustion, mild constipation, dry skin and scalp, and strength for nursing mothers.",
+          "How to use: drink the water of a young green coconut straight from the shell. Mature flesh is grated and squeezed for coconut milk and oil — the oil is warmed and used on skin, hair, and as a carrier for other la'au poultices.",
+        ],
+      },
+      {
+        id: "heal-09",
+        title: "Mamaki",
+        caption: "Red-veined leaves in the rainforest mist",
+        image: healMamaki,
+        story: [
+          "Used for: general wellbeing, low energy, stomach upset, and sluggish digestion. Hawaii's own caffeine-free tea, found nowhere else on earth.",
+          "How to use: dry the leaves in the shade, then steep a few in hot water for five to ten minutes. Drink it plain or with honey, morning or evening. The small white fruit is edible and mildly laxative.",
+        ],
+      },
+      {
+        id: "heal-10",
+        title: "'Ilima",
+        caption: "Papery gold blossoms near the shore",
+        image: healIlima,
+        story: [
+          "Used for: gentle relief of constipation — including for babies — mouth sores, and asthma-tight breathing. The flower of O'ahu, and the lei of ali'i.",
+          "How to use: the fresh flowers are chewed, or a handful is steeped into a mild yellow tea. Traditionally a few blossoms were given to a fussy infant as the gentlest possible remedy. The sap of the buds was used on sore gums.",
+        ],
+      },
     ],
   },
 ];
