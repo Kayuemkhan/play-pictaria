@@ -134,10 +134,54 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
+/**
+ * Keeps the hardware/browser back button inside the app: when the user is on
+ * the home screen we keep a sentinel history entry behind them so "back"
+ * lands back on home instead of leaving Pictaria.
+ */
+function BackGuard() {
+  const router = useRouter();
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const isHome = () => {
+      const p = router.state.location.pathname.replace(/\/+$/, "");
+      return p === "" || p === "/";
+    };
+
+    const arm = () => {
+      if (!isHome()) return;
+      if (window.history.state?.__pictariaGuard) return;
+      window.history.pushState(
+        { ...(window.history.state ?? {}), __pictariaGuard: true },
+        "",
+        window.location.href,
+      );
+    };
+
+    const onPop = () => {
+      // Re-arm after a back press so home never exits the app.
+      window.setTimeout(arm, 0);
+    };
+
+    arm();
+    const unsub = router.subscribe("onResolved", arm);
+    window.addEventListener("popstate", onPop);
+    return () => {
+      unsub();
+      window.removeEventListener("popstate", onPop);
+    };
+  }, [router]);
+
+  return null;
+}
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   return (
     <QueryClientProvider client={queryClient}>
+      <BackGuard />
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
     </QueryClientProvider>
