@@ -4,30 +4,57 @@ The native app is a thin webview shell around the published Pictaria site
 (`https://memory-tile-maker.lovable.app`). Content updates the moment you press
 Update in Lovable — no new store build needed unless the shell itself changes.
 
-## One-time setup (on your own machine)
+The Android project is already generated in this repo under `android/`. You can
+open it directly in Android Studio and build.
 
-Requires a Mac + Xcode for iOS, and Android Studio for Android.
+## Android quick start (on your PC)
+
+Requirements:
+
+- [Android Studio](https://developer.android.com/studio) (latest stable)
+- Git
+- Node.js + npm (or Bun)
 
 ```bash
+# 1. Clone the repo
 git clone <your-repo>
 cd <repo>
+
+# 2. Install dependencies
 npm install
 
-# create the native projects
-npm install @capacitor/ios @capacitor/android
-npx cap add ios
-npx cap add android
+# 3. Make sure the Android platform is present
+npm install @capacitor/android
+npx cap sync android
 
-# keep native projects in sync with capacitor.config.ts
-npx cap sync
+# 4. Open in Android Studio
+npx cap open android
 ```
 
-## Run it
+In Android Studio:
+
+1. Wait for Gradle sync to finish.
+2. Choose a device or emulator.
+3. Click **Run** (the green play button).
+
+## Build a release APK / AAB
+
+In Android Studio:
+
+1. Go to **Build > Generate App Bundle / APK...**
+2. Choose **Android App Bundle (.aab)** for Play Store, or **APK** for sideloading.
+3. Create or select a signing keystore.
+4. The output goes to `android/app/release/`.
+
+To build from the command line:
 
 ```bash
-npx cap open ios      # then press Run in Xcode
-npx cap open android  # then press Run in Android Studio
+cd android
+./gradlew assembleRelease        # APK
+./gradlew bundleRelease          # AAB for Play Store
 ```
+
+The signed AAB/APK path will be printed when the build finishes.
 
 ## App icon & splash
 
@@ -35,12 +62,14 @@ npx cap open android  # then press Run in Android Studio
 npm install -D @capacitor/assets
 # put a 1024x1024 icon.png and 2732x2732 splash.png in ./assets
 npx cap assets generate
+npx cap sync android
 ```
 
-## Submitting to the stores
+## Submitting to Google Play
 
-- iOS: Xcode > Product > Archive > Distribute App (needs an Apple Developer account, $99/yr).
-- Android: Android Studio > Build > Generate Signed Bundle (needs a Play Console account, $25 one-time).
+1. Create a Google Play Developer account ($25 one-time).
+2. In Play Console, create an app with the package name `app.lovable.pictaria`.
+3. Upload the signed `app-release.aab` from `android/app/build/outputs/bundle/release/`.
 
 Note: stores can reject apps that are only a website wrapper. Pictaria's puzzle
 play, haptics and offline-friendly interactions help, and adding native haptics
@@ -48,4 +77,19 @@ play, haptics and offline-friendly interactions help, and adding native haptics
 
 ## Changing the URL the app loads
 
-Edit `server.url` in `capacitor.config.ts`, then run `npx cap sync`.
+Edit `server.url` in `capacitor.config.ts`, then run:
+
+```bash
+npx cap sync android
+```
+
+## iOS (optional)
+
+Requires a Mac + Xcode.
+
+```bash
+npm install @capacitor/ios
+npx cap add ios
+npx cap open ios
+```
+

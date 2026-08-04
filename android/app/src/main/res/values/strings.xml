@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Pictaria</string>
+    <string name="title_activity_main">Pictaria</string>
+    <string name="package_name">app.lovable.pictaria</string>
+    <string name="custom_url_scheme">app.lovable.pictaria</string>
+</resources>
