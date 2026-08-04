@@ -216,13 +216,17 @@ export function StudioComposer({
     window.setTimeout(() => setCopied(false), 1600);
   };
 
+  const maxRecipients = MAX_RECIPIENTS[tier];
+  const recipientList = recipients
+    .split(/[,;\s]+/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+  const overLimit = recipientList.length > maxRecipients;
+
   /** Opens the visitor's own mail app with the Pictaria invitation prefilled. */
   const sendPictaria = () => {
-    const to = recipients
-      .split(/[,;\s]+/)
-      .map((s) => s.trim())
-      .filter(Boolean)
-      .join(",");
+    if (overLimit) return;
+    const to = recipientList.join(",");
     if (!to) return;
     const name = brand.trim() || "a Pictaria";
     const subject = `${name} — a puzzle for you`;
