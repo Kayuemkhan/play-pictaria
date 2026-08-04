@@ -3,10 +3,13 @@ import {
   ArrowLeft,
   BarChart3,
   CalendarCheck,
+  CalendarDays,
   CreditCard,
   MapPin,
+  Mail,
   QrCode,
   Sparkles,
+  Sun,
   BedDouble,
   MousePointerClick,
 } from "lucide-react";
