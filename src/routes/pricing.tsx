@@ -60,10 +60,16 @@ const personal = [
 
 const business = [
   {
+    icon: Sun,
+    title: "Your own Daily Pictaria",
+    copy: "One of your pictures every day, from your platform under your name — the habit your guests come back for.",
+  },
+  {
     icon: BarChart3,
     title: "Full analytics",
     copy: "Opens, plays, completions and clicks — picture by picture, so you keep the images that win.",
   },
+
   {
     icon: MousePointerClick,
     title: "Action buttons",
