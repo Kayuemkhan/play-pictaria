@@ -808,13 +808,13 @@ export const collections: Collection[] = [
       {
         id: "heal-04",
         title: "Aloe",
-        caption: "Clear gel behind lava rock",
+        caption: "Fresh-cut branch, gel oozing on weathered wood",
         image: healAloe,
         story: [
           "Used for: sunburn, reef scrapes, kitchen burns, rashes, dry skin, and digestion.",
           "How to use: cut a lower leaf, split it lengthwise, and slide the clear gel straight onto the skin as often as it feels good. For digestion, a small spoon of the inner gel is blended into juice — always the clear gel only, never the bitter yellow layer at the rind.",
         ],
-      },
+      }
       {
         id: "heal-05",
         title: "Kukui",
