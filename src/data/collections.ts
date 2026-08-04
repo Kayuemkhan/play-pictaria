@@ -1006,6 +1006,25 @@ export const collections: Collection[] = [
       },
     ],
   },
+  {
+    id: "vintage-pinup",
+    title: "Vintage Wahine",
+    tagline: "Old-style 1950s Hawaii — surf posters and sun-faded aloha",
+    cover: pinup01,
+    free: true,
+    puzzles: [
+      { id: "pinup-01", title: "Vacation in Paradise", caption: "Waikiki poster, board and Diamond Head", image: pinup01 },
+      { id: "pinup-02", title: "Waxing the Board", caption: "Under the palms with the woody parked behind", image: pinup02 },
+      { id: "pinup-03", title: "Land of Sunshine and Surf", caption: "Riding a turquoise wall in a grass skirt", image: pinup03 },
+      { id: "pinup-04", title: "Surf Paradise", caption: "Two wahine carrying one long board at golden hour", image: pinup04 },
+      { id: "pinup-05", title: "The Outrigger", caption: "Resting on the canoe, boards stacked in the shade", image: pinup05 },
+      { id: "pinup-06", title: "Waiting on the Set", caption: "Sitting the board, watching the break", image: pinup06 },
+      { id: "pinup-07", title: "Woody Wagon", caption: "Red woody loaded with redwood longboards", image: pinup07 },
+      { id: "pinup-08", title: "Torchlight Tide", caption: "Full moon, tiki torches, board in the sand", image: pinup08 },
+      { id: "pinup-09", title: "Ukulele Girl", caption: "A few chords in the hibiscus shade", image: pinup09 },
+      { id: "pinup-10", title: "Three Boards at Sunset", caption: "Redwood boards standing in a row on Waikiki", image: pinup10 },
+    ],
+  },
 ];
 
 
@@ -1031,23 +1050,4 @@ export const difficulties: Difficulty[] = [
   { grid: 4, label: "Engaging", note: "16 pieces" },
   { grid: 5, label: "Intriguing", note: "25 pieces" },
   { grid: 6, label: "Challenging", note: "36 pieces" },
-  {
-    id: "vintage-pinup",
-    title: "Vintage Wahine",
-    tagline: "Old-style 1950s Hawaii — surf posters and sun-faded aloha",
-    cover: pinup01,
-    free: true,
-    puzzles: [
-      { id: "pinup-01", title: "Vacation in Paradise", caption: "Waikiki poster, board and Diamond Head", image: pinup01 },
-      { id: "pinup-02", title: "Waxing the Board", caption: "Under the palms with the woody parked behind", image: pinup02 },
-      { id: "pinup-03", title: "Land of Sunshine and Surf", caption: "Riding a turquoise wall in a grass skirt", image: pinup03 },
-      { id: "pinup-04", title: "Surf Paradise", caption: "Two wahine carrying one long board at golden hour", image: pinup04 },
-      { id: "pinup-05", title: "The Outrigger", caption: "Resting on the canoe, boards stacked in the shade", image: pinup05 },
-      { id: "pinup-06", title: "Waiting on the Set", caption: "Sitting the board, watching the break", image: pinup06 },
-      { id: "pinup-07", title: "Woody Wagon", caption: "Red woody loaded with redwood longboards", image: pinup07 },
-      { id: "pinup-08", title: "Torchlight Tide", caption: "Full moon, tiki torches, board in the sand", image: pinup08 },
-      { id: "pinup-09", title: "Ukulele Girl", caption: "A few chords in the hibiscus shade", image: pinup09 },
-      { id: "pinup-10", title: "Three Boards at Sunset", caption: "Redwood boards standing in a row on Waikiki", image: pinup10 },
-    ],
-  },
 ];
