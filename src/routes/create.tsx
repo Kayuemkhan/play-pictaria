@@ -446,11 +446,23 @@ function CreatePage() {
 
           {/* storybook */}
           <div className="mt-7">
-            {photos.length > 0 && (
-              <p className="mb-3 text-[10px] tracking-[0.18em] text-muted-foreground uppercase">
-                {photos.length} {photos.length === 1 ? "picture" : "pictures"} — tap one to make it the hero
+            <div className="mb-3 flex items-center justify-between gap-3">
+              <p className="text-[10px] tracking-[0.18em] text-muted-foreground uppercase">
+                {photos.length > 0
+                  ? `${photos.length} of ${MAX_PHOTOS} ${photos.length === 1 ? "picture" : "pictures"} — tap one to make it the hero`
+                  : `Add up to ${MAX_PHOTOS} pictures`}
               </p>
-            )}
+              <button
+                type="button"
+                onClick={() => fileInput.current?.click()}
+                disabled={photos.length >= MAX_PHOTOS}
+                className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-deep px-3 py-1.5 text-[0.55rem] tracking-[0.18em] text-accent uppercase shadow-soft transition-transform hover:scale-[1.03] disabled:opacity-50"
+              >
+                <ImagePlus className="h-3 w-3" strokeWidth={1.5} />
+                {photos.length ? "Add more" : "Choose photos"}
+              </button>
+            </div>
+
 
             {photos.length > 0 && (
               <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
