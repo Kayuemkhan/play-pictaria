@@ -746,9 +746,8 @@ export function StudioComposer({
               {highlights.map((h) => (
                 <li
                   key={h}
-                  className="flex gap-2 text-[11px] leading-relaxed text-muted-foreground"
+                  className="text-[11px] leading-relaxed text-muted-foreground"
                 >
-                  <span className="mt-1.5 h-1 w-1 shrink-0 rotate-45 bg-accent" />
                   {h}
                 </li>
               ))}
