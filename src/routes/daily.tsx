@@ -111,7 +111,7 @@ function DailyPage() {
           alt=""
           width={200}
           height={200}
-          className="pointer-events-none absolute -right-6 -top-6 h-24 w-auto rotate-12 opacity-80 mix-blend-multiply"
+          className="pointer-events-none absolute -right-4 -top-4 h-20 w-auto opacity-90"
         />
         <img
           src={palmLogo}
