@@ -1066,6 +1066,25 @@ export const collections: Collection[] = [
       { id: "wave-10", title: "Storm Surge", caption: "Wild swells and lightning over the deep blue", image: wave10 },
     ],
   },
+  {
+    id: "aloha-shirts",
+    title: "Aloha Shirts",
+    tagline: "Old-style island prints from the golden era",
+    cover: shirt09,
+    free: true,
+    puzzles: [
+      { id: "shirt-01", title: "Coral Hibiscus", caption: "1950s rayon in coral red and cream", image: shirt01 },
+      { id: "shirt-02", title: "Outrigger", caption: "Canoes and Diamond Head on deep teal silk", image: shirt02 },
+      { id: "shirt-03", title: "Tiki Bar", caption: "Tikis, ukuleles and tapa borders in mustard gold", image: shirt03 },
+      { id: "shirt-04", title: "Reverse Print", caption: "Navy with plumeria and monstera, the classic cut", image: shirt04 },
+      { id: "shirt-05", title: "Marlin Run", caption: "Bamboo, lures and marlin for a day on the water", image: shirt05 },
+      { id: "shirt-06", title: "Longboard Holiday", caption: "Turquoise surfers on redwood boards", image: shirt06 },
+      { id: "shirt-07", title: "Birds of Paradise", caption: "Vivid orange blooms on midnight black", image: shirt07 },
+      { id: "shirt-08", title: "Pineapple Tapa", caption: "Soft sage with ti leaves and tapa geometry", image: shirt08 },
+      { id: "shirt-09", title: "The Shop", caption: "A whole rack of aloha waiting for a summer", image: shirt09 },
+      { id: "shirt-10", title: "Island Hopper", caption: "Gold island maps and flying boats on burgundy", image: shirt10 },
+    ],
+  },
 ];
 
 
