@@ -440,7 +440,7 @@ function CreatePage() {
           <div className="mt-7">
             <div className="flex items-center justify-between gap-3">
               <h3 className="font-display text-base tracking-[0.2em] uppercase">
-                {brand.trim() || "Your"} storybook
+                Put hero picture to send to friends and family here
               </h3>
               <button
                 type="button"
