@@ -58,8 +58,32 @@ function CreatePage() {
   );
 
   const [cardPos, setCardPos] = useState({ x: 66, y: 38 });
+  const [recipients, setRecipients] = useState("");
   const fileInput = useRef<HTMLInputElement>(null);
   const urls = useRef<string[]>([]);
+
+  /** Opens the visitor's own mail app with the Pictaria invitation prefilled. */
+  const sendPictaria = () => {
+    const to = recipients
+      .split(/[,;\s]+/)
+      .map((s) => s.trim())
+      .filter(Boolean)
+      .join(",");
+    if (!to) return;
+    const name = brand.trim() || "a Pictaria";
+    const subject = `${name} — a puzzle for you`;
+    const body = [
+      headline.trim() || "Can you solve this one?",
+      caption.trim(),
+      "",
+      "Play it here: https://memory-tile-maker.lovable.app",
+      "",
+      "Made with Pictaria — turn your pictures into play.",
+    ]
+      .filter(Boolean)
+      .join("\n");
+    window.location.href = `mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  };
 
   // Email capture: a storybook builder gives us their address before they start.
   const [unlocked, setUnlocked] = useState(false);
@@ -467,6 +491,37 @@ function CreatePage() {
                 ))}
               </div>
             )}
+          </div>
+
+          {/* send */}
+          <div className="mt-7 rounded-[4px] border border-accent/60 bg-card/70 p-4">
+            <h2 className="font-display text-base tracking-[0.2em] uppercase">
+              Send it
+            </h2>
+            <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground">
+              Add one email or a whole group, separated by commas — we open your
+              mail with the Pictaria invitation ready to go.
+            </p>
+            <label className="mt-3 grid gap-1.5">
+              <span className="text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
+                Send to
+              </span>
+              <input
+                value={recipients}
+                onChange={(e) => setRecipients(e.target.value)}
+                placeholder="mom@example.com, ohana@example.com"
+                className="rounded-xl border border-border bg-background px-3 py-2 text-sm outline-none placeholder:text-muted-foreground/40 focus:border-accent"
+              />
+            </label>
+            <button
+              type="button"
+              onClick={sendPictaria}
+              disabled={!recipients.trim()}
+              className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-[0.6rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03] disabled:opacity-50"
+            >
+              Send Pictaria
+              <span aria-hidden>›</span>
+            </button>
           </div>
 
           {/* business CTA */}
