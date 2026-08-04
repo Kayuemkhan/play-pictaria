@@ -728,7 +728,7 @@ export const collections: Collection[] = [
     id: "local-fruit",
     title: "Local Fruit",
     tagline: "Ten island fruits, and a little history behind each one",
-    cover: fruit01,
+    cover: fruit03,
     free: true,
     puzzles: [
       {
