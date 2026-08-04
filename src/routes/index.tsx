@@ -222,7 +222,20 @@ function Home() {
       {/* panel */}
       <section className="relative rounded-t-lg bg-shell px-4 pt-6 pb-8 sm:px-8">
         <div className="mx-auto w-full max-w-5xl">
+          <div className="mb-3 flex items-center justify-between">
+            <h2 className="font-display text-sm tracking-[0.2em] text-foreground uppercase">
+              Collections
+            </h2>
+            <Link
+              to="/collections"
+              className="text-[0.6rem] tracking-[0.18em] text-primary uppercase transition-colors hover:text-primary/80"
+            >
+              View all ›
+            </Link>
+          </div>
+
           <div className="-mx-4 flex snap-x gap-3 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-4 sm:overflow-visible sm:px-0">
+
 
             {featured.map((collection) => {
               const soon = collection.comingSoon === true;
