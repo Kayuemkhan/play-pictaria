@@ -1,0 +1,130 @@
+{
+  "version": 1,
+  "sdk_version": "0.26.1",
+  "path": "/mcp",
+  "auth": {
+    "type": "none"
+  },
+  "mcp": {
+    "server": {
+      "name": "pictaria",
+      "version": "0.1.0",
+      "title": "Pictaria"
+    },
+    "tools": [
+      {
+        "name": "list_collections",
+        "title": "List collections",
+        "description": "List every Pictaria puzzle collection (gallery) with its tagline, puzzle count and play URL.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_puzzles",
+        "title": "List puzzles in a collection",
+        "description": "List the puzzles in one Pictaria collection, with each puzzle's title, caption and play URL.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "collectionId": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Collection id from list_collections, e.g. \"whales\"."
+            }
+          },
+          "required": [
+            "collectionId"
+          ]
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "search_puzzles",
+        "title": "Search puzzles",
+        "description": "Search Pictaria puzzles by words in their title, caption or collection name, e.g. \"sunset\" or \"whale\".",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Words to search for."
+            },
+            "limit": {
+              "description": "Max results, default 10.",
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50
+            }
+          },
+          "required": [
+            "query"
+          ]
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "get_puzzle",
+        "title": "Get a puzzle",
+        "description": "Get one Pictaria puzzle by id: its title, caption, collection, play URL and the difficulty grids it can be played at.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "puzzleId": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Puzzle id, e.g. \"whale-01\"."
+            }
+          },
+          "required": [
+            "puzzleId"
+          ]
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_difficulties",
+        "title": "List difficulty levels",
+        "description": "List Pictaria's difficulty levels: grid size, name and piece count.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}
