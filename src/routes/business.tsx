@@ -243,8 +243,8 @@ function BusinessPage() {
             QR code on a key card, menu or room table. Turn the animation off for
             email — mail apps show a still image, so the jumbled corner does the
             work. Keep it on for the website and social posts. White label puts
-            your name, colors and logo on every screen, with no Pictaria badge in
-            sight.
+            your name, colors and logo on every screen, with an optional small
+            Pictaria badge.
           </p>
         </section>
 
