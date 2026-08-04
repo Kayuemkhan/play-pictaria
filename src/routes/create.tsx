@@ -489,16 +489,6 @@ function CreatePage() {
             </div>
           </div>
 
-          <div className="mt-6 rounded-2xl bg-deep/5 p-4">
-            <p className="flex items-center gap-2 text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
-              <Sparkles className="h-3.5 w-3.5 text-accent" strokeWidth={1.5} />
-              Perfect for
-            </p>
-            <p className="mt-2 font-display text-[0.9rem] leading-snug [color:color-mix(in_oklch,var(--foreground)_92%,black)]">
-              Weddings, vacations, birthdays, anniversaries, adventures, pets
-              and so much more — fun for friends and family.
-            </p>
-          </div>
         </section>
       </div>
     </main>
