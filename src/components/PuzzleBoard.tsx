@@ -566,7 +566,65 @@ export function PuzzleBoard({
         dy,
       );
     dragStart.current = null;
-    if (move) commitMove(s.group, move.dCol, move.dRow);
+    if (move) {
+      commitMove(s.group, move.dCol, move.dRow);
+      return;
+    }
+
+    /**
+     * A full board has no empty cell. Once one rigid cluster owns every cell
+     * except the final one or two pieces, moving either remainder can require
+     * displacing that almost-complete cluster into a shape that cannot fit.
+     * Preserve all earlier locks, but treat a deliberate blocked endgame drag
+     * as the final magnetic snap so a valid run can never deadlock at 7+2.
+     */
+    const sizes = new Map<number, number>();
+    groupOf.forEach((group) => sizes.set(group, (sizes.get(group) ?? 0) + 1));
+    const largest = Math.max(0, ...sizes.values());
+    const draggedPieces = groupOf
+      .map((group, piece) => (group === s.group ? piece : -1))
+      .filter((piece) => piece >= 0);
+    const draggedSize = draggedPieces.length;
+    const deliberateDrag =
+      Math.abs(dx) >= cellW * scale * 0.4 ||
+      Math.abs(dy) >= cellH * scale * 0.4;
+    const largestGroup = [...sizes.entries()].sort((a, b) => b[1] - a[1])[0]?.[0];
+    const solvedMass =
+      largestGroup !== undefined &&
+      groupOf.every(
+        (group, piece) => group !== largestGroup || pos[piece] === piece,
+      );
+    const pointsTowardHome = draggedPieces.some((piece) => {
+      const cell = pos[piece];
+      if (cell === undefined || cell === piece) return false;
+      const homeRow = Math.floor(piece / grid);
+      const homeCol = piece % grid;
+      const row = Math.floor(cell / grid);
+      const col = cell % grid;
+      const horizontal = Math.abs(dx) > Math.abs(dy);
+      return horizontal
+        ? Math.sign(dx) === Math.sign(homeCol - col)
+        : Math.sign(dy) === Math.sign(homeRow - row);
+    });
+    if (
+      deliberateDrag &&
+      pointsTowardHome &&
+      solvedMass &&
+      draggedSize <= 2 &&
+      sizes.size <= 3 &&
+      largest >= total - 2
+    ) {
+      const solvedPositions = Array.from({ length: total }, (_, piece) => piece);
+      const solvedGroup = s.group;
+      setPos(solvedPositions);
+      setGroupOf(Array.from({ length: total }, () => solvedGroup));
+      setMoves((count) => count + 1);
+      setFlash(solvedPositions);
+      playLock();
+      setSolved(true);
+      window.setTimeout(() => playSolved(), 260);
+      window.setTimeout(() => setFlash([]), 380);
+    }
   };
 
 
