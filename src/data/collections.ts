@@ -102,6 +102,17 @@ import wave07 from "@/assets/wave-07.jpg";
 import wave08 from "@/assets/wave-08.jpg";
 import wave09 from "@/assets/wave-09.jpg";
 import wave10 from "@/assets/wave-10.jpg";
+import shirt01 from "@/assets/shirt-01.jpg";
+import shirt02 from "@/assets/shirt-02.jpg";
+import shirt03 from "@/assets/shirt-03.jpg";
+import shirt04 from "@/assets/shirt-04.jpg";
+import shirt05 from "@/assets/shirt-05.jpg";
+import shirt06 from "@/assets/shirt-06.jpg";
+import shirt07 from "@/assets/shirt-07.jpg";
+import shirt08 from "@/assets/shirt-08.jpg";
+import shirt09 from "@/assets/shirt-09.jpg";
+import shirt10 from "@/assets/shirt-10.jpg";
+import fsmPoolPalms from "@/assets/fsm-pool-palms.jpg";
 
 
 
