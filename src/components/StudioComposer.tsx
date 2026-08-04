@@ -13,6 +13,14 @@ const HERO_WEDGE = 4;
 
 export type StudioTier = "free" | "personal" | "artist" | "brand";
 
+/** Hard cap on how many recipients one send can carry, per studio. */
+const MAX_RECIPIENTS: Record<StudioTier, number> = {
+  free: 10,
+  personal: 25,
+  artist: 50,
+  brand: 1000,
+};
+
 export interface StudioComposerProps {
   tier: StudioTier;
   /** Page heading, e.g. "Send a free Pictaria". */
@@ -208,13 +216,17 @@ export function StudioComposer({
     window.setTimeout(() => setCopied(false), 1600);
   };
 
+  const maxRecipients = MAX_RECIPIENTS[tier];
+  const recipientList = recipients
+    .split(/[,;\s]+/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+  const overLimit = recipientList.length > maxRecipients;
+
   /** Opens the visitor's own mail app with the Pictaria invitation prefilled. */
   const sendPictaria = () => {
-    const to = recipients
-      .split(/[,;\s]+/)
-      .map((s) => s.trim())
-      .filter(Boolean)
-      .join(",");
+    if (overLimit) return;
+    const to = recipientList.join(",");
     if (!to) return;
     const name = brand.trim() || "a Pictaria";
     const subject = `${name} — a puzzle for you`;
@@ -697,7 +709,9 @@ export function StudioComposer({
             </h2>
             <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground">
               Add one email or a whole group, separated by commas — we open your
-              mail with the Pictaria invitation ready to go.
+              mail with the Pictaria invitation ready to go. Up to{" "}
+              {maxRecipients.toLocaleString()} addresses per send; beyond that,
+              copy the play link above into your own email list.
             </p>
             <label className="mt-3 grid gap-1.5">
               <span className="text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
@@ -709,13 +723,22 @@ export function StudioComposer({
                 placeholder="mom@example.com, ohana@example.com"
                 className="rounded-xl border border-border bg-background px-3 py-2 text-sm outline-none placeholder:text-muted-foreground/40 focus:border-accent"
               />
+              <span
+                className={`text-[10px] tracking-[0.12em] uppercase ${overLimit ? "text-destructive" : "text-muted-foreground"}`}
+              >
+                {recipientList.length} of {maxRecipients.toLocaleString()}
+                {overLimit
+                  ? " — too many for one send; paste the link into your email list instead"
+                  : ""}
+              </span>
             </label>
             <button
               type="button"
               onClick={sendPictaria}
-              disabled={!recipients.trim()}
+              disabled={!recipients.trim() || overLimit}
               className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-[0.6rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03] disabled:opacity-50"
             >
+
               Send Pictaria
               <span aria-hidden>›</span>
             </button>
