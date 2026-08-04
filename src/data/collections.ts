@@ -50,6 +50,9 @@ import whale08 from "@/assets/whale-08.jpg";
 import whale09 from "@/assets/whale-09.jpg";
 import whale10 from "@/assets/whale-10.jpg";
 import whale11 from "@/assets/whale-11.jpg";
+import whale12 from "@/assets/whale-12.jpg";
+import whale13 from "@/assets/whale-13.jpg";
+import whale14 from "@/assets/whale-14.jpg";
 import coverWaterfalls from "@/assets/cover-waterfalls.jpg";
 import coverSunsets from "@/assets/cover-sunsets.jpg";
 import fsmResortCove from "@/assets/fsm-resort-cove.jpg.asset.json";
@@ -424,7 +427,7 @@ export const collections: Collection[] = [
   {
     id: "whales",
     title: "Whales",
-    tagline: "Eleven encounters with the ocean's gentle giants",
+    tagline: "Fourteen encounters with the ocean's gentle giants",
     cover: whale02,
     free: true,
     puzzles: [
@@ -493,6 +496,24 @@ export const collections: Collection[] = [
         title: "Curious",
         caption: "A calf comes to say hello",
         image: whale11,
+      },
+      {
+        id: "whale-12",
+        title: "Sunrise Spyhop",
+        caption: "A whale rises to greet the dawn",
+        image: whale12,
+      },
+      {
+        id: "whale-13",
+        title: "Sunlit Pair",
+        caption: "Two giants in a turquoise cathedral",
+        image: whale13,
+      },
+      {
+        id: "whale-14",
+        title: "Sunset Farewell",
+        caption: "A fluke against the last light",
+        image: whale14,
       },
     ],
   },
