@@ -228,9 +228,10 @@ function Home() {
             </h2>
             <Link
               to="/collections"
-              className="text-[0.6rem] tracking-[0.18em] text-primary uppercase transition-colors hover:text-primary/80"
+              className="inline-flex items-center gap-1 rounded-full border border-primary/40 bg-primary/10 px-3 py-1.5 text-[0.7rem] font-medium tracking-[0.16em] text-primary uppercase transition-colors hover:bg-primary hover:text-primary-foreground"
             >
-              View all ›
+              View all
+              <span aria-hidden>›</span>
             </Link>
           </div>
 
