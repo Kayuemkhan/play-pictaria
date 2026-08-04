@@ -2,37 +2,44 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ArrowLeft,
   BarChart3,
+  Circle,
+  Contrast,
+  Crop,
+  Droplets,
   Heart,
   Images,
   MousePointerClick,
+  Palette,
   Sparkles,
   QrCode,
   Sun,
-
+  Wand2,
 } from "lucide-react";
+
 import palmLogo from "@/assets/logo-palms.png";
 
 export const Route = createFileRoute("/pricing")({
   head: () => ({
     meta: [
-      { title: "Pictaria Pricing — Personal Studio & Brand Studio" },
+      { title: "Pictaria Pricing — Personal, Bougie & Brand Studio" },
       {
         name: "description",
         content:
-          "A free Pictaria every day, Personal Studio at $5.99 a month for three storybooks of ten pictures each, and Brand Studio at $199 a month for branded, tracked storybooks.",
+          "A free Pictaria every day, Personal Studio at $5.99 a month, Bougie Studio at $9.95 a month with full photo editing, and Brand Studio at $199 a month for branded, tracked storybooks.",
       },
       {
         property: "og:title",
-        content: "Pictaria Pricing — Personal Studio & Brand Studio",
+        content: "Pictaria Pricing — Personal, Bougie & Brand Studio",
       },
       {
         property: "og:description",
         content:
-          "Free daily puzzle, Personal Studio $5.99/month, Brand Studio $199/month with analytics and action buttons.",
+          "Free daily puzzle, Personal Studio $5.99/month, Bougie Studio $9.95/month with cropping, saturation, contrast and vignettes, Brand Studio $199/month.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
+
   }),
   component: PricingPage,
 });
@@ -65,7 +72,56 @@ const personal = [
   },
 ];
 
+const bougie = [
+  {
+    icon: Crop,
+    title: "Crop & straighten",
+    copy: "Reframe any photo, straighten a crooked horizon, and choose the puzzle shape — square, vertical or wide.",
+  },
+  {
+    icon: Sun,
+    title: "Exposure, brightness & shadows",
+    copy: "Lift a dark face, pull back a blown-out sky, and open up the shadows without losing the mood.",
+  },
+  {
+    icon: Contrast,
+    title: "Contrast & clarity",
+    copy: "Add punch and definition so the tiles read beautifully, even at 6×6.",
+  },
+  {
+    icon: Droplets,
+    title: "Saturation & vibrance",
+    copy: "Make the ocean that impossible blue — or take the color all the way down to a soft, elegant fade.",
+  },
+  {
+    icon: Palette,
+    title: "Warmth & tint",
+    copy: "Push golden-hour warm or cool it down, and fix a photo shot under the wrong light.",
+  },
+  {
+    icon: Circle,
+    title: "Vignettes & glow",
+    copy: "Soft edge vignettes, a gentle bloom, and a haze that makes a snapshot feel like a print.",
+  },
+  {
+    icon: Wand2,
+    title: "Filters & one-tap looks",
+    copy: "Saved Hawaiian looks — Lagoon, Sunset, Vintage Postcard, Black & White — plus your own presets to reuse.",
+  },
+  {
+    icon: Sparkles,
+    title: "Sharpen, blur & retouch",
+    copy: "Sharpen the details, soften a background, smooth skin gently, and remove the little distractions.",
+  },
+  {
+    icon: Images,
+    title: "Ten storybooks a month",
+    copy: "More room to play, with every edited version saved so you can send it again.",
+  },
+];
+
 const business = [
+
   {
     icon: Sun,
     title: "Your own Daily Pictaria",
@@ -92,12 +148,17 @@ const business = [
     title: "Logo placement on your photos",
     copy: "Upload your logo and place it anywhere on the picture — any corner, centered, any size — and it stays through play and in the shared image.",
   },
-
+  {
+    icon: Wand2,
+    title: "The full Bougie photo studio",
+    copy: "Everything in Bougie Studio included: crop and straighten, exposure, contrast and clarity, saturation and vibrance, warmth and tint, vignettes and glow, filters and saved brand presets, sharpen, blur and retouch.",
+  },
   {
     icon: QrCode,
     title: "Unlimited storybooks & QR codes",
     copy: "Unlimited branded storybooks and tracked links, plus printed QR codes for key cards, menus and room tables.",
   },
+
 ];
 
 function PricingPage() {
@@ -139,9 +200,11 @@ function PricingPage() {
           </span>
           <p className="relative font-display text-[0.95rem] leading-snug [color:color-mix(in_oklch,var(--foreground)_92%,black)]">
             One free Pictaria in your inbox every single day — always. When you
-            are ready to send your own pictures, there are two studios: one for
-            the people you love, one for the people you serve.
+            are ready to send your own pictures, there are three studios: one for
+            the people you love, one for the people who want every photo perfect,
+            and one for the people you serve.
           </p>
+
         </section>
 
         {/* personal */}
@@ -192,7 +255,61 @@ function PricingPage() {
           </Link>
         </section>
 
+        {/* bougie */}
+        <section className="mt-10">
+          <div className="flex flex-wrap items-center gap-2">
+            <h2 className="font-display text-base tracking-[0.2em] uppercase">
+              Bougie Studio
+            </h2>
+            <span className="rounded-full border border-accent/60 bg-accent/10 px-2.5 py-0.5 text-[0.55rem] tracking-[0.2em] text-accent uppercase">
+              Most loved
+            </span>
+          </div>
+          <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+            Everything in Personal Studio, plus the whole photo studio. Crop it,
+            light it, warm it, glow it — make an ordinary phone snapshot look
+            like something framed on a wall before it ever becomes a puzzle.
+          </p>
+          <div className="mt-4 flex items-baseline gap-2">
+            <span className="font-display text-3xl tracking-[0.08em] text-foreground">
+              $9.95
+            </span>
+            <span className="text-[0.7rem] tracking-[0.18em] text-muted-foreground uppercase">
+              / month
+            </span>
+          </div>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2">
+            {bougie.map((f) => (
+              <div
+                key={f.title}
+                className="flex gap-3 rounded-[4px] border border-accent/50 bg-card/70 p-4"
+              >
+                <f.icon
+                  className="mt-0.5 h-5 w-5 shrink-0 text-primary"
+                  strokeWidth={1.5}
+                />
+                <div className="min-w-0">
+                  <p className="font-display text-sm tracking-[0.14em] uppercase">
+                    {f.title}
+                  </p>
+                  <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                    {f.copy}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <Link
+            to="/create"
+            className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-[0.6rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
+          >
+            Go bougie
+            <span aria-hidden>›</span>
+          </Link>
+        </section>
+
         {/* business */}
+
         <section className="mt-10">
           <h2 className="font-display text-base tracking-[0.2em] uppercase">
             Brand Studio
