@@ -556,6 +556,27 @@ function CreatePage() {
             </div>
           </div>
 
+          {/* puzzle-lover CTA */}
+          <div className="relative mt-4 overflow-hidden rounded-[4px] border border-accent/60 bg-card/70 p-4">
+            <div className="relative grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4">
+              <p className="min-w-0 font-display text-[0.85rem] leading-snug [color:color-mix(in_oklch,var(--foreground)_92%,black)]">
+                I love puzzles — I would love to send Pictaria&rsquo;s!
+              </p>
+              <div className="flex shrink-0 flex-col items-end gap-1">
+                <span className="text-[0.55rem] tracking-[0.18em] text-muted-foreground uppercase">
+                  Personal &amp; Artist Studio
+                </span>
+                <Link
+                  to="/pricing"
+                  className="inline-flex items-center gap-1.5 rounded-full bg-primary px-2.5 py-1 text-[0.55rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
+                >
+                  See pricing
+                  <span aria-hidden>›</span>
+                </Link>
+              </div>
+            </div>
+          </div>
+
         </section>
       </div>
     </main>
