@@ -39,6 +39,17 @@ import sunset07 from "@/assets/sunset-07.jpg";
 import sunset08 from "@/assets/sunset-08.jpg";
 import sunset09 from "@/assets/sunset-09.jpg";
 import sunset10 from "@/assets/sunset-10.jpg";
+import whale01 from "@/assets/whale-01.jpg";
+import whale02 from "@/assets/whale-02.jpg";
+import whale03 from "@/assets/whale-03.jpg";
+import whale04 from "@/assets/whale-04.jpg";
+import whale05 from "@/assets/whale-05.jpg";
+import whale06 from "@/assets/whale-06.jpg";
+import whale07 from "@/assets/whale-07.jpg";
+import whale08 from "@/assets/whale-08.jpg";
+import whale09 from "@/assets/whale-09.jpg";
+import whale10 from "@/assets/whale-10.jpg";
+import whale11 from "@/assets/whale-11.jpg";
 import coverWaterfalls from "@/assets/cover-waterfalls.jpg";
 import coverSunsets from "@/assets/cover-sunsets.jpg";
 import fsmResortCove from "@/assets/fsm-resort-cove.jpg.asset.json";
@@ -407,6 +418,81 @@ export const collections: Collection[] = [
         title: "Last Sliver",
         caption: "Twilight over tide pools",
         image: sunset10,
+      },
+    ],
+  },
+  {
+    id: "whales",
+    title: "Whales",
+    tagline: "Eleven encounters with the ocean's gentle giants",
+    cover: whale02,
+    free: true,
+    puzzles: [
+      {
+        id: "whale-01",
+        title: "Mother and Calf",
+        caption: "Side by side in the light",
+        image: whale01,
+      },
+      {
+        id: "whale-02",
+        title: "Breach",
+        caption: "Rising whole from the water",
+        image: whale02,
+      },
+      {
+        id: "whale-03",
+        title: "Fluke Slap",
+        caption: "A clap across still blue",
+        image: whale03,
+      },
+      {
+        id: "whale-04",
+        title: "Deep Blue",
+        caption: "Immense and unhurried",
+        image: whale04,
+      },
+      {
+        id: "whale-05",
+        title: "Gentle Eye",
+        caption: "A quiet look, up close",
+        image: whale05,
+      },
+      {
+        id: "whale-06",
+        title: "Evening Spout",
+        caption: "Breath against a gold sky",
+        image: whale06,
+      },
+      {
+        id: "whale-07",
+        title: "White Wing",
+        caption: "A long fin in the current",
+        image: whale07,
+      },
+      {
+        id: "whale-08",
+        title: "The Pod",
+        caption: "Traveling together at dawn",
+        image: whale08,
+      },
+      {
+        id: "whale-09",
+        title: "Standing Still",
+        caption: "Resting in a column of sun",
+        image: whale09,
+      },
+      {
+        id: "whale-10",
+        title: "Going Down",
+        caption: "The last of the tail at dusk",
+        image: whale10,
+      },
+      {
+        id: "whale-11",
+        title: "Curious",
+        caption: "A calf comes to say hello",
+        image: whale11,
       },
     ],
   },
