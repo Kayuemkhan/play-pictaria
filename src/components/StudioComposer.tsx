@@ -659,46 +659,86 @@ export function StudioComposer({
             </button>
           </div>
 
-          {/* CTAs */}
-          <div className="relative mt-6 overflow-hidden rounded-[4px] border border-accent/60 bg-card/70 p-4">
-            <div className="relative grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4">
-              <p className="min-w-0 font-display text-[0.85rem] leading-snug [color:color-mix(in_oklch,var(--foreground)_92%,black)]">
-                I&rsquo;m a business — I would love to send Pictaria&rsquo;s!
-              </p>
-              <div className="flex shrink-0 flex-col items-end gap-1">
-                <span className="text-[0.55rem] tracking-[0.18em] text-muted-foreground uppercase">
-                  Analytics &amp; action buttons
-                </span>
-                <Link
-                  to="/studio/brand"
-                  className="inline-flex items-center gap-1.5 rounded-full bg-primary px-2.5 py-1 text-[0.55rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
-                >
-                  Brand Studio
-                  <span aria-hidden>›</span>
-                </Link>
+          {/* CTAs — never link a studio back to itself */}
+          {tier !== "brand" && (
+            <div className="relative mt-6 overflow-hidden rounded-[4px] border border-accent/60 bg-card/70 p-4">
+              <div className="relative grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4">
+                <p className="min-w-0 font-display text-[0.85rem] leading-snug [color:color-mix(in_oklch,var(--foreground)_92%,black)]">
+                  I&rsquo;m a business — I would love to send Pictaria&rsquo;s!
+                </p>
+                <div className="flex shrink-0 flex-col items-end gap-1">
+                  <span className="text-[0.55rem] tracking-[0.18em] text-muted-foreground uppercase">
+                    Analytics &amp; action buttons
+                  </span>
+                  <Link
+                    to="/studio/brand"
+                    className="inline-flex items-center gap-1.5 rounded-full bg-primary px-2.5 py-1 text-[0.55rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
+                  >
+                    Brand Studio
+                    <span aria-hidden>›</span>
+                  </Link>
+                </div>
               </div>
             </div>
+          )}
+
+          {tier !== "artist" && (
+            <div className="relative mt-4 overflow-hidden rounded-[4px] border border-accent/60 bg-card/70 p-4">
+              <div className="relative grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4">
+                <p className="min-w-0 font-display text-[0.85rem] leading-snug [color:color-mix(in_oklch,var(--foreground)_92%,black)]">
+                  I love photographs — I would love to retouch them first!
+                </p>
+                <div className="flex shrink-0 flex-col items-end gap-1">
+                  <span className="text-[0.55rem] tracking-[0.18em] text-muted-foreground uppercase">
+                    Full photo editing
+                  </span>
+                  <Link
+                    to="/studio/artist"
+                    className="inline-flex items-center gap-1.5 rounded-full bg-primary px-2.5 py-1 text-[0.55rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
+                  >
+                    Artist Studio
+                    <span aria-hidden>›</span>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {tier !== "personal" && (
+            <div className="relative mt-4 overflow-hidden rounded-[4px] border border-accent/60 bg-card/70 p-4">
+              <div className="relative grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4">
+                <p className="min-w-0 font-display text-[0.85rem] leading-snug [color:color-mix(in_oklch,var(--foreground)_92%,black)]">
+                  I love puzzles — I would love to send Pictaria&rsquo;s!
+                </p>
+                <div className="flex shrink-0 flex-col items-end gap-1">
+                  <span className="text-[0.55rem] tracking-[0.18em] text-muted-foreground uppercase">
+                    Storybooks for your ohana
+                  </span>
+                  <Link
+                    to="/studio/personal"
+                    className="inline-flex items-center gap-1.5 rounded-full bg-primary px-2.5 py-1 text-[0.55rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
+                  >
+                    Personal Studio
+                    <span aria-hidden>›</span>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          )}
+
+          <div className="relative mt-4 flex items-center justify-between gap-4 overflow-hidden rounded-[4px] border border-border bg-card/40 p-4">
+            <p className="min-w-0 text-[11px] leading-relaxed text-muted-foreground">
+              Compare every studio side by side.
+            </p>
+            <Link
+              to="/pricing"
+              className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-primary/40 bg-primary/10 px-2.5 py-1 text-[0.55rem] tracking-[0.2em] text-primary uppercase transition-colors hover:bg-primary hover:text-primary-foreground"
+            >
+              See pricing
+              <span aria-hidden>›</span>
+            </Link>
           </div>
 
-          <div className="relative mt-4 overflow-hidden rounded-[4px] border border-accent/60 bg-card/70 p-4">
-            <div className="relative grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4">
-              <p className="min-w-0 font-display text-[0.85rem] leading-snug [color:color-mix(in_oklch,var(--foreground)_92%,black)]">
-                I love puzzles — I would love to send Pictaria&rsquo;s!
-              </p>
-              <div className="flex shrink-0 flex-col items-end gap-1">
-                <span className="text-[0.55rem] tracking-[0.18em] text-muted-foreground uppercase">
-                  Personal &amp; Artist Studio
-                </span>
-                <Link
-                  to="/pricing"
-                  className="inline-flex items-center gap-1.5 rounded-full bg-primary px-2.5 py-1 text-[0.55rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
-                >
-                  See pricing
-                  <span aria-hidden>›</span>
-                </Link>
-              </div>
-            </div>
-          </div>
 
           {/* what this studio celebrates — kept at the bottom */}
           {highlights.length > 0 && (
