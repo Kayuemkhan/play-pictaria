@@ -160,13 +160,13 @@ function Home() {
 
 
         {/* wordmark */}
-        <div className="absolute inset-x-0 top-20 flex flex-col items-center px-8 text-center sm:top-12">
+        <div className="absolute inset-x-0 top-16 flex flex-col items-center px-6 text-center sm:top-10">
           <img
             src={palmLogo}
             alt="Pictaria — Turn pictures into play"
             width={1024}
             height={1024}
-            className="h-28 w-auto [filter:brightness(1.35)_saturate(1.2)_drop-shadow(0_3px_14px_oklch(0.2_0.05_230/0.6))] sm:h-36"
+            className="h-32 w-auto [filter:brightness(1.45)_saturate(1.25)_drop-shadow(0_4px_18px_oklch(0.15_0.04_230/0.65))] sm:h-44"
           />
         </div>
 
