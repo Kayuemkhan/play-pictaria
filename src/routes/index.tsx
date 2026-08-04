@@ -44,36 +44,11 @@ const menuLinks = [
 
 
 function Home() {
-  const firstPuzzle = freeCollection.puzzles[0]!;
-  const [cardPos, setCardPos] = useState({ x: 66, y: 46 });
   const [openPanel, setOpenPanel] = useState<"menu" | "search" | null>(null);
   const [query, setQuery] = useState("");
   const results = collections.filter((c) =>
     c.title.toLowerCase().includes(query.trim().toLowerCase()),
   );
-
-  const startDrag = (e: React.PointerEvent<HTMLDivElement>) => {
-    const frame = e.currentTarget.parentElement;
-    if (!frame) return;
-    e.currentTarget.setPointerCapture(e.pointerId);
-    const move = (ev: PointerEvent) => {
-      const r = frame.getBoundingClientRect();
-      const x = ((ev.clientX - r.left) / r.width) * 100;
-      const y = ((ev.clientY - r.top) / r.height) * 100;
-      setCardPos({
-        x: Math.min(90, Math.max(10, x)),
-        y: Math.min(92, Math.max(8, y)),
-      });
-    };
-    const up = () => {
-      window.removeEventListener("pointermove", move);
-      window.removeEventListener("pointerup", up);
-    };
-    window.addEventListener("pointermove", move);
-    window.addEventListener("pointerup", up);
-  };
-
-
 
   return (
     <main className="min-h-screen bg-deep pb-8">
