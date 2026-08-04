@@ -194,9 +194,11 @@ function PricingPage() {
           </span>
           <p className="relative font-display text-[0.95rem] leading-snug [color:color-mix(in_oklch,var(--foreground)_92%,black)]">
             One free Pictaria in your inbox every single day — always. When you
-            are ready to send your own pictures, there are two studios: one for
-            the people you love, one for the people you serve.
+            are ready to send your own pictures, there are three studios: one for
+            the people you love, one for the people who want every photo perfect,
+            and one for the people you serve.
           </p>
+
         </section>
 
         {/* personal */}
