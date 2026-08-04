@@ -47,8 +47,6 @@ import whale06 from "@/assets/whale-06.jpg";
 import whale08 from "@/assets/whale-08.jpg";
 import whale09 from "@/assets/whale-09.jpg";
 import whale10 from "@/assets/whale-10.jpg";
-import whale11 from "@/assets/whale-11.jpg";
-import whale12 from "@/assets/whale-12.jpg";
 import whale13 from "@/assets/whale-13.jpg";
 import whale14 from "@/assets/whale-14.jpg";
 import coverWaterfalls from "@/assets/cover-waterfalls.jpg";
@@ -425,7 +423,7 @@ export const collections: Collection[] = [
   {
     id: "whales",
     title: "Whales",
-    tagline: "Twelve encounters with the ocean's gentle giants",
+    tagline: "Ten encounters with the ocean's gentle giants",
     cover: whale02,
     free: true,
     puzzles: [
@@ -476,18 +474,6 @@ export const collections: Collection[] = [
         title: "Going Down",
         caption: "The last of the tail at dusk",
         image: whale10,
-      },
-      {
-        id: "whale-11",
-        title: "Curious",
-        caption: "A calf comes to say hello",
-        image: whale11,
-      },
-      {
-        id: "whale-12",
-        title: "Sunrise Spyhop",
-        caption: "A whale rises to greet the dawn",
-        image: whale12,
       },
       {
         id: "whale-13",
