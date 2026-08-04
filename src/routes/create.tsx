@@ -518,17 +518,13 @@ function CreatePage() {
           </div>
 
           <div className="mt-6 rounded-2xl bg-deep/5 p-4">
-
             <p className="flex items-center gap-2 text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
               <Sparkles className="h-3.5 w-3.5 text-accent" strokeWidth={1.5} />
-              For your clientele
+              Perfect for
             </p>
-            <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-              Drop in a resort&rsquo;s own photography and the whole storybook
-              becomes theirs. Turn the animation off for email — mail apps show a
-              still image, so the jumbled corner does the work. Keep it on for
-              the website and social posts. Shareable links and QR codes come
-              next, so a guest can scan or tap and play the picture themselves.
+            <p className="mt-2 font-display text-[0.9rem] leading-snug [color:color-mix(in_oklch,var(--foreground)_92%,black)]">
+              Weddings, vacations, keiki, first birthday, adventures, pets, and
+              so much more.
             </p>
           </div>
         </section>

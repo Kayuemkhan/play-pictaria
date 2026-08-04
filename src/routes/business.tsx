@@ -189,6 +189,48 @@ function BusinessPage() {
           </div>
         </section>
 
+        {/* clientele */}
+        <section className="mt-8 rounded-2xl bg-deep/5 p-4">
+          <p className="flex items-center gap-2 text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
+            <Sparkles className="h-3.5 w-3.5 text-accent" strokeWidth={1.5} />
+            For your clientele
+          </p>
+          <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+            Drop in a resort&rsquo;s own photography and the whole storybook
+            becomes theirs. Turn the animation off for email — mail apps show a
+            still image, so the jumbled corner does the work. Keep it on for the
+            website and social posts. Shareable links and QR codes come next, so
+            a guest can scan or tap and play the picture themselves.
+          </p>
+        </section>
+
+        {/* pricing */}
+        <section className="mt-8">
+          <h2 className="font-display text-base tracking-[0.2em] uppercase">
+            White Label Studio
+          </h2>
+          <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+            Your logo, your colors, your domain. One flat monthly rate for
+            unlimited branded storybooks, tracked links, QR codes, and action
+            buttons.
+          </p>
+          <div className="mt-4 flex items-baseline gap-2">
+            <span className="font-display text-3xl tracking-[0.08em] text-foreground">
+              $199
+            </span>
+            <span className="text-[0.7rem] tracking-[0.18em] text-muted-foreground uppercase">
+              / month
+            </span>
+          </div>
+          <Link
+            to="/create"
+            className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-[0.6rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
+          >
+            Start your white label studio
+            <span aria-hidden>›</span>
+          </Link>
+        </section>
+
         {/* delivery */}
         <section className="mt-8 rounded-2xl bg-deep/5 p-4">
           <p className="flex items-center gap-2 text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
