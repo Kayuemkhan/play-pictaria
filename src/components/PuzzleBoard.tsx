@@ -768,6 +768,25 @@ export function PuzzleBoard({
               />
             );
           })}
+
+          {/* gold sparkles on snap */}
+          {sparkles.map((s) => (
+            <span
+              key={s.id}
+              className="pointer-events-none absolute animate-sparkle-burst rounded-full bg-accent shadow-[0_0_6px_var(--accent)]"
+              style={{
+                left: s.x,
+                top: s.y,
+                width: s.size,
+                height: s.size,
+                marginLeft: -s.size / 2,
+                marginTop: -s.size / 2,
+                animationDelay: `${s.delay}s`,
+                ["--tw-translate-x" as string]: `${s.tx}px`,
+                ["--tw-translate-y" as string]: `${s.ty}px`,
+              }}
+            />
+          ))}
         </div>
 
         {/* puzzle box flash */}
