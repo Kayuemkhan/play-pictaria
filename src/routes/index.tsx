@@ -37,7 +37,7 @@ const menuLinks = [
 
 function Home() {
   const firstPuzzle = freeCollection.puzzles[0]!;
-  const [cardPos, setCardPos] = useState({ x: 68, y: 38 });
+  const [cardPos, setCardPos] = useState({ x: 66, y: 46 });
   const [openPanel, setOpenPanel] = useState<"menu" | "search" | null>(null);
   const [query, setQuery] = useState("");
   const results = collections.filter((c) =>
@@ -76,7 +76,7 @@ function Home() {
           alt="Golden Hawaiian sunset over the ocean with plumeria blossoms"
           width={1024}
           height={1408}
-          className="h-screen min-h-[520px] w-full object-cover"
+          className="h-[68svh] max-h-[760px] min-h-[420px] w-full object-cover sm:h-screen sm:min-h-[520px]"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-deep/75 via-transparent to-deep/40" />
 
@@ -155,7 +155,7 @@ function Home() {
 
 
         {/* wordmark */}
-        <div className="absolute inset-x-0 top-10 flex flex-col items-center px-8 text-center sm:top-12">
+        <div className="absolute inset-x-0 top-20 flex flex-col items-center px-8 text-center sm:top-12">
           <img
             src={palmLogo}
             alt="Pictaria — two gold palm trees"
