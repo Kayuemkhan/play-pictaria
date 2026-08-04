@@ -286,7 +286,7 @@ function PricingPage() {
         {/* business */}
 
         <section className="mt-10">
-          <h2 className="font-display text-base tracking-[0.2em] uppercase">
+          <h2 className="font-display text-2xl font-semibold tracking-[0.18em] uppercase">
             Brand Studio
           </h2>
           <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
