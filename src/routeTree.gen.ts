@@ -19,8 +19,12 @@ import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as CollectionCollectionIdRouteImport } from './routes/collection.$collectionId'
+import { Route as PCodeRouteImport } from './routes/p.$code'
 import { Route as PuzzlePuzzleIdRouteImport } from './routes/puzzle.$puzzleId'
 import { Route as StorybookCollectionIdRouteImport } from './routes/storybook.$collectionId'
+import { Route as StudioArtistRouteImport } from './routes/studio.artist'
+import { Route as StudioBrandRouteImport } from './routes/studio.brand'
+import { Route as StudioPersonalRouteImport } from './routes/studio.personal'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
 
 const IndexRoute = IndexRouteImport.update({
@@ -75,6 +79,11 @@ const CollectionCollectionIdRoute = CollectionCollectionIdRouteImport.update({
   path: '/collection/$collectionId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PCodeRoute = PCodeRouteImport.update({
+  id: '/p/$code',
+  path: '/p/$code',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PuzzlePuzzleIdRoute = PuzzlePuzzleIdRouteImport.update({
   id: '/puzzle/$puzzleId',
   path: '/puzzle/$puzzleId',
@@ -83,6 +92,21 @@ const PuzzlePuzzleIdRoute = PuzzlePuzzleIdRouteImport.update({
 const StorybookCollectionIdRoute = StorybookCollectionIdRouteImport.update({
   id: '/storybook/$collectionId',
   path: '/storybook/$collectionId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudioArtistRoute = StudioArtistRouteImport.update({
+  id: '/studio/artist',
+  path: '/studio/artist',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudioBrandRoute = StudioBrandRouteImport.update({
+  id: '/studio/brand',
+  path: '/studio/brand',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudioPersonalRoute = StudioPersonalRouteImport.update({
+  id: '/studio/personal',
+  path: '/studio/personal',
   getParentRoute: () => rootRouteImport,
 } as any)
 const Char91DotmcpChar93InvokeToolToolRoute =
@@ -103,8 +127,12 @@ export interface FileRoutesByFullPath {
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/collection/$collectionId': typeof CollectionCollectionIdRoute
+  '/p/$code': typeof PCodeRoute
   '/puzzle/$puzzleId': typeof PuzzlePuzzleIdRoute
   '/storybook/$collectionId': typeof StorybookCollectionIdRoute
+  '/studio/artist': typeof StudioArtistRoute
+  '/studio/brand': typeof StudioBrandRoute
+  '/studio/personal': typeof StudioPersonalRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 export interface FileRoutesByTo {
@@ -118,8 +146,12 @@ export interface FileRoutesByTo {
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/collection/$collectionId': typeof CollectionCollectionIdRoute
+  '/p/$code': typeof PCodeRoute
   '/puzzle/$puzzleId': typeof PuzzlePuzzleIdRoute
   '/storybook/$collectionId': typeof StorybookCollectionIdRoute
+  '/studio/artist': typeof StudioArtistRoute
+  '/studio/brand': typeof StudioBrandRoute
+  '/studio/personal': typeof StudioPersonalRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 export interface FileRoutesById {
@@ -134,8 +166,12 @@ export interface FileRoutesById {
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/collection/$collectionId': typeof CollectionCollectionIdRoute
+  '/p/$code': typeof PCodeRoute
   '/puzzle/$puzzleId': typeof PuzzlePuzzleIdRoute
   '/storybook/$collectionId': typeof StorybookCollectionIdRoute
+  '/studio/artist': typeof StudioArtistRoute
+  '/studio/brand': typeof StudioBrandRoute
+  '/studio/personal': typeof StudioPersonalRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 export interface FileRouteTypes {
@@ -151,8 +187,12 @@ export interface FileRouteTypes {
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/collection/$collectionId'
+    | '/p/$code'
     | '/puzzle/$puzzleId'
     | '/storybook/$collectionId'
+    | '/studio/artist'
+    | '/studio/brand'
+    | '/studio/personal'
     | '/.mcp/invoke-tool/$tool'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -166,8 +206,12 @@ export interface FileRouteTypes {
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/collection/$collectionId'
+    | '/p/$code'
     | '/puzzle/$puzzleId'
     | '/storybook/$collectionId'
+    | '/studio/artist'
+    | '/studio/brand'
+    | '/studio/personal'
     | '/.mcp/invoke-tool/$tool'
   id:
     | '__root__'
@@ -181,8 +225,12 @@ export interface FileRouteTypes {
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/collection/$collectionId'
+    | '/p/$code'
     | '/puzzle/$puzzleId'
     | '/storybook/$collectionId'
+    | '/studio/artist'
+    | '/studio/brand'
+    | '/studio/personal'
     | '/.mcp/invoke-tool/$tool'
   fileRoutesById: FileRoutesById
 }
@@ -197,8 +245,12 @@ export interface RootRouteChildren {
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   CollectionCollectionIdRoute: typeof CollectionCollectionIdRoute
+  PCodeRoute: typeof PCodeRoute
   PuzzlePuzzleIdRoute: typeof PuzzlePuzzleIdRoute
   StorybookCollectionIdRoute: typeof StorybookCollectionIdRoute
+  StudioArtistRoute: typeof StudioArtistRoute
+  StudioBrandRoute: typeof StudioBrandRoute
+  StudioPersonalRoute: typeof StudioPersonalRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 
@@ -274,6 +326,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CollectionCollectionIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/p/$code': {
+      id: '/p/$code'
+      path: '/p/$code'
+      fullPath: '/p/$code'
+      preLoaderRoute: typeof PCodeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/puzzle/$puzzleId': {
       id: '/puzzle/$puzzleId'
       path: '/puzzle/$puzzleId'
@@ -286,6 +345,27 @@ declare module '@tanstack/react-router' {
       path: '/storybook/$collectionId'
       fullPath: '/storybook/$collectionId'
       preLoaderRoute: typeof StorybookCollectionIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/studio/artist': {
+      id: '/studio/artist'
+      path: '/studio/artist'
+      fullPath: '/studio/artist'
+      preLoaderRoute: typeof StudioArtistRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/studio/brand': {
+      id: '/studio/brand'
+      path: '/studio/brand'
+      fullPath: '/studio/brand'
+      preLoaderRoute: typeof StudioBrandRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/studio/personal': {
+      id: '/studio/personal'
+      path: '/studio/personal'
+      fullPath: '/studio/personal'
+      preLoaderRoute: typeof StudioPersonalRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/.mcp/invoke-tool/$tool': {
@@ -310,8 +390,12 @@ const rootRouteChildren: RootRouteChildren = {
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
   CollectionCollectionIdRoute: CollectionCollectionIdRoute,
+  PCodeRoute: PCodeRoute,
   PuzzlePuzzleIdRoute: PuzzlePuzzleIdRoute,
   StorybookCollectionIdRoute: StorybookCollectionIdRoute,
+  StudioArtistRoute: StudioArtistRoute,
+  StudioBrandRoute: StudioBrandRoute,
+  StudioPersonalRoute: StudioPersonalRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
 }
 export const routeTree = rootRouteImport

@@ -1,10 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useRef, useState } from "react";
-import { ArrowLeft, ImagePlus, X } from "lucide-react";
+import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
-import { HeroPuzzle, type HeroCorner } from "@/components/HeroPuzzle";
-import { PuzzleBoard } from "@/components/PuzzleBoard";
-import { difficulties } from "@/data/collections";
+import { StudioComposer } from "@/components/StudioComposer";
 import { saveDailySubscriber } from "@/lib/daily.functions";
 import { supabase } from "@/integrations/supabase/client";
 import { Input } from "@/components/ui/input";
@@ -15,20 +12,20 @@ import palmLogo from "@/assets/logo-palms.png";
 export const Route = createFileRoute("/create")({
   head: () => ({
     meta: [
-      { title: "Create Your Story — Pictaria Brand Studio" },
+      { title: "Send a Free Pictaria — Turn One Photo Into Play" },
       {
         name: "description",
         content:
-          "Upload your own photography and Pictaria composes an elegant hero puzzle plus a branded storybook — ready for social, email and play.",
+          "Upload one photograph, add a tagline and get an instant playable link you can send to anyone you love.",
       },
       {
         property: "og:title",
-        content: "Create Your Story — Pictaria Brand Studio",
+        content: "Send a Free Pictaria",
       },
       {
         property: "og:description",
         content:
-          "Bring your own photographs. Pictaria composes them into a branded storybook of playable puzzles.",
+          "One photograph, one tagline, one instant link — a puzzle for someone you love.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -37,58 +34,8 @@ export const Route = createFileRoute("/create")({
   component: CreatePage,
 });
 
-/** Fixed Pictaria signature framing — the same one used on the home hero. */
-const HERO_CORNER: HeroCorner = "bottom-right";
-const HERO_WEDGE = 4;
-
-/** A visitor can compose up to ten pictures in one Pictaria storybook. */
-const MAX_PHOTOS = 10;
-
-interface Photo {
-  id: string;
-  url: string;
-}
-
 function CreatePage() {
-  const [photos, setPhotos] = useState<Photo[]>([]);
-  const [heroIndex, setHeroIndex] = useState(0);
-  const [brand, setBrand] = useState("");
-  const [headline, setHeadline] = useState("");
-  const [caption, setCaption] = useState("");
-  const [animated, setAnimated] = useState(true);
-  const [playing, setPlaying] = useState<{ url: string; grid: number } | null>(
-    null,
-  );
-
-  const [cardPos, setCardPos] = useState({ x: 66, y: 38 });
-  const [recipients, setRecipients] = useState("");
-  const fileInput = useRef<HTMLInputElement>(null);
-  const urls = useRef<string[]>([]);
-
-  /** Opens the visitor's own mail app with the Pictaria invitation prefilled. */
-  const sendPictaria = () => {
-    const to = recipients
-      .split(/[,;\s]+/)
-      .map((s) => s.trim())
-      .filter(Boolean)
-      .join(",");
-    if (!to) return;
-    const name = brand.trim() || "a Pictaria";
-    const subject = `${name} — a puzzle for you`;
-    const body = [
-      headline.trim() || "Can you solve this one?",
-      caption.trim(),
-      "",
-      "Play it here: https://memory-tile-maker.lovable.app",
-      "",
-      "Made with Pictaria — turn your pictures into play.",
-    ]
-      .filter(Boolean)
-      .join("\n");
-    window.location.href = `mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  };
-
-  // Email capture: a storybook builder gives us their address before they start.
+  // Email capture: a creator gives us their address before they start.
   const [unlocked, setUnlocked] = useState(false);
   const [gateChecked, setGateChecked] = useState(false);
   const [email, setEmail] = useState("");
@@ -135,74 +82,6 @@ function CreatePage() {
     }
   };
 
-
-  const startDrag = (e: React.PointerEvent<HTMLDivElement>) => {
-    const frame = e.currentTarget.parentElement;
-    if (!frame) return;
-    e.currentTarget.setPointerCapture(e.pointerId);
-    const move = (ev: PointerEvent) => {
-      const r = frame.getBoundingClientRect();
-      const x = ((ev.clientX - r.left) / r.width) * 100;
-      const y = ((ev.clientY - r.top) / r.height) * 100;
-      setCardPos({
-        x: Math.min(90, Math.max(10, x)),
-        y: Math.min(92, Math.max(8, y)),
-      });
-    };
-    const up = () => {
-      window.removeEventListener("pointermove", move);
-      window.removeEventListener("pointerup", up);
-    };
-    window.addEventListener("pointermove", move);
-    window.addEventListener("pointerup", up);
-  };
-
-
-  useEffect(
-    () => () => {
-      urls.current.forEach((u) => URL.revokeObjectURL(u));
-    },
-    [],
-  );
-
-  const add = (files: FileList | null) => {
-    if (!files || !files.length) return;
-    setPhotos((prev) => {
-      const room = Math.max(0, MAX_PHOTOS - prev.length);
-      const next = Array.from(files)
-        .slice(0, room)
-        .map((file, i) => {
-          const url = URL.createObjectURL(file);
-          urls.current.push(url);
-          return { id: `${Date.now()}-${i}-${file.name}`, url };
-        });
-      return [...prev, ...next];
-    });
-  };
-
-  const remove = (id: string) => {
-    setPhotos((prev) => {
-      const kept = prev.filter((p) => p.id !== id);
-      setHeroIndex((h) => Math.min(h, Math.max(kept.length - 1, 0)));
-      return kept;
-    });
-  };
-
-  const hero = photos[heroIndex] ?? photos[0];
-
-  if (playing) {
-    return (
-      <PuzzleBoard
-        key={`${playing.url}-${playing.grid}`}
-        src={playing.url}
-        title={brand.trim() || "Your picture"}
-        grid={playing.grid}
-        onExit={() => setPlaying(null)}
-        onChangeDifficulty={() => setPlaying(null)}
-      />
-    );
-  }
-
   if (!unlocked) {
     return (
       <main className="flex min-h-screen flex-col items-center justify-center bg-deep px-6 py-12">
@@ -215,7 +94,7 @@ function CreatePage() {
             className="mx-auto h-16 w-auto [filter:brightness(1.4)_saturate(1.25)_drop-shadow(0_2px_8px_oklch(0.15_0.04_230/0.5))]"
           />
           <h1 className="mt-3 font-display text-[1.35rem] text-foreground">
-            Create your own Pictarias
+            Send a free Pictaria
           </h1>
           <p className="mt-2 text-[13px] leading-relaxed text-muted-foreground">
             Send a free Pictaria with one photo. If you want more, a
@@ -275,310 +154,18 @@ function CreatePage() {
     );
   }
 
-
-
   return (
-    <main className="min-h-screen bg-shell pb-16">
-      <header className="flex items-center gap-3 px-4 pt-5 sm:px-8">
-        <Link
-          to="/"
-          aria-label="Back to home"
-          className="grid h-10 w-10 place-items-center rounded-full bg-deep text-accent transition-transform hover:scale-105"
-        >
-          <ArrowLeft className="h-4 w-4" strokeWidth={1.5} />
-        </Link>
-        <div className="min-w-0">
-          <h1 className="font-display text-lg tracking-[0.2em] uppercase">
-            Create Your Story
-          </h1>
-          <p className="text-[10px] tracking-[0.22em] text-muted-foreground uppercase">
-            Send a free Pictaria
-          </p>
-        </div>
-      </header>
-
-      <div className="mx-auto mt-6 grid w-full max-w-5xl gap-6 px-4 sm:px-8 lg:grid-cols-[minmax(0,360px)_minmax(0,1fr)]">
-        {/* preview */}
-        <section>
-          <div className="relative overflow-hidden rounded-[26px] bg-deep shadow-lift">
-            <div className="relative aspect-[3/4] w-full">
-              {hero ? (
-                <>
-                  <img
-                    src={hero.url}
-                    alt={`${brand.trim() || "Your"} hero photograph composed as a Pictaria puzzle`}
-                    className="h-full w-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-b from-deep/70 via-transparent to-deep/35" />
-                  <HeroPuzzle
-                    key={hero.id}
-                    src={hero.url}
-                    corner={HERO_CORNER}
-                    wedge={HERO_WEDGE}
-                    depth={3}
-                    inset={0}
-                    animated={animated}
-                  />
-                  {headline.trim() && (
-                    <div
-                      role="group"
-                      aria-label="Drag to position the headline"
-                      onPointerDown={startDrag}
-                      style={{
-                        left: `${cardPos.x}%`,
-                        top: `${cardPos.y}%`,
-                        transform: "translate(-50%, -50%)",
-                      }}
-                      className="absolute z-[4] w-[52%] cursor-grab touch-none rounded-xl bg-deep/55 px-3 py-2 backdrop-blur-[3px] active:cursor-grabbing"
-                    >
-                      <p className="font-display text-[0.85rem] leading-tight text-shell">
-                        {headline}
-                      </p>
-                      <span className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-accent px-2.5 py-1 text-[0.5rem] tracking-[0.14em] text-deep uppercase">
-                        Play now <span aria-hidden>›</span>
-                      </span>
-                    </div>
-                  )}
-
-                </>
-              ) : (
-                <button
-                  type="button"
-                  onClick={() => fileInput.current?.click()}
-                  className="flex h-full w-full flex-col items-center justify-center gap-3 text-deep-foreground/70 transition-colors hover:text-accent"
-                >
-                  <ImagePlus className="h-8 w-8" strokeWidth={1.25} />
-                  <span className="text-[10px] tracking-[0.24em] uppercase">
-                    Add your photograph
-                  </span>
-                  <span className="max-w-[16rem] text-center text-[10px] leading-relaxed tracking-[0.12em] text-deep-foreground/45 uppercase">
-                    Celebrate your weddings, vacations, birthdays,
-                    anniversaries, adventures, pets and so much more — add your
-                    photograph here
-                  </span>
-                </button>
-              )}
-            </div>
-            {hero && caption.trim() && (
-              <div className="border-t border-shell/10 px-5 py-4">
-                <p className="text-[9px] tracking-[0.24em] text-accent uppercase">
-                  {brand.trim() || "The story"}
-                </p>
-                <p className="mt-2 text-xs leading-relaxed whitespace-pre-line text-shell/85">
-                  {caption}
-                </p>
-              </div>
-            )}
-          </div>
-
-
-          {hero && (
-            <div className="mt-3 flex flex-wrap gap-2">
-              {difficulties.map((d) => (
-                <button
-                  key={d.grid}
-                  type="button"
-                  onClick={() => setPlaying({ url: hero.url, grid: d.grid })}
-                  className="rounded-full bg-deep px-3.5 py-1.5 text-[0.6rem] tracking-[0.18em] text-accent uppercase shadow-soft transition-transform hover:scale-[1.03]"
-                >
-                  Play {d.grid}×{d.grid}
-                </button>
-              ))}
-            </div>
-          )}
-        </section>
-
-        {/* controls */}
-        <section className="rounded-[26px] border border-border bg-card/70 p-5">
-          <input
-            ref={fileInput}
-            type="file"
-            accept="image/*"
-            multiple
-            className="sr-only"
-            onChange={(e) => {
-              add(e.target.files);
-              e.target.value = "";
-            }}
-          />
-
-          <h2 className="font-display text-base tracking-[0.2em] uppercase">
-            Compose
-          </h2>
-          <div className="mt-4 grid gap-4">
-            <label className="grid gap-1.5">
-              <span className="text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
-                Pictaria
-              </span>
-              <input
-                value={brand}
-                onChange={(e) => setBrand(e.target.value)}
-                placeholder="Road to Hana"
-                className="rounded-xl border border-border bg-background px-3 py-2 text-sm outline-none placeholder:text-muted-foreground/40 focus:border-accent"
-              />
-            </label>
-
-            <label className="grid gap-1.5">
-              <span className="text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
-                Tagline
-              </span>
-              <input
-                value={headline}
-                onChange={(e) => setHeadline(e.target.value)}
-                placeholder="Can you solve today's pineapple?"
-                className="rounded-xl border border-border bg-background px-3 py-2 text-sm outline-none placeholder:text-muted-foreground/40 focus:border-accent"
-              />
-            </label>
-
-            <label className="grid gap-1.5">
-              <span className="text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
-                Story note (optional)
-              </span>
-              <textarea
-                value={caption}
-                onChange={(e) => setCaption(e.target.value)}
-                rows={4}
-                placeholder="A recipe, the location, a memory — anything you'd like to share beneath the picture."
-                className="resize-y rounded-xl border border-border bg-background px-3 py-2 text-sm leading-relaxed outline-none placeholder:text-muted-foreground/40 focus:border-accent"
-              />
-            </label>
-          </div>
-
-          {/* storybook */}
-          <div className="mt-7">
-            <div className="mb-3 flex items-center justify-between gap-3">
-              <p className="text-[10px] tracking-[0.18em] text-muted-foreground uppercase">
-                {photos.length > 0
-                  ? `${photos.length} of ${MAX_PHOTOS} ${photos.length === 1 ? "picture" : "pictures"} — tap one to make it the hero`
-                  : `Add up to ${MAX_PHOTOS} pictures`}
-              </p>
-              <button
-                type="button"
-                onClick={() => fileInput.current?.click()}
-                disabled={photos.length >= MAX_PHOTOS}
-                className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-deep px-3 py-1.5 text-[0.55rem] tracking-[0.18em] text-accent uppercase shadow-soft transition-transform hover:scale-[1.03] disabled:opacity-50"
-              >
-                <ImagePlus className="h-3 w-3" strokeWidth={1.5} />
-                {photos.length ? "Add more" : "Choose photos"}
-              </button>
-            </div>
-
-
-            {photos.length > 0 && (
-              <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
-                {photos.map((photo, i) => (
-                  <div key={photo.id} className="relative">
-                    <button
-                      type="button"
-                      onClick={() => setHeroIndex(i)}
-                      className={`block w-full overflow-hidden rounded-xl transition-shadow ${
-                        i === heroIndex
-                          ? "ring-2 ring-accent"
-                          : "shadow-soft hover:shadow-lift"
-                      }`}
-                    >
-                      <img
-                        src={photo.url}
-                        alt=""
-                        className="aspect-[3/4] w-full object-cover"
-                      />
-                    </button>
-                    <button
-                      type="button"
-                      aria-label="Remove picture"
-                      onClick={() => remove(photo.id)}
-                      className="absolute top-1 right-1 grid h-6 w-6 place-items-center rounded-full bg-deep/85 text-shell transition-transform hover:scale-105"
-                    >
-                      <X className="h-3 w-3" strokeWidth={2} />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setPlaying({ url: photo.url, grid: 4 })}
-                      className="mt-1 w-full text-[0.55rem] tracking-[0.18em] text-muted-foreground uppercase transition-colors hover:text-foreground"
-                    >
-                      Play
-                    </button>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* send */}
-          <div className="mt-7 rounded-[4px] border border-accent/60 bg-card/70 p-4">
-            <h2 className="font-display text-base tracking-[0.2em] uppercase">
-              Send it
-            </h2>
-            <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground">
-              Add one email or a whole group, separated by commas — we open your
-              mail with the Pictaria invitation ready to go.
-            </p>
-            <label className="mt-3 grid gap-1.5">
-              <span className="text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
-                Send to
-              </span>
-              <input
-                value={recipients}
-                onChange={(e) => setRecipients(e.target.value)}
-                placeholder="mom@example.com, ohana@example.com"
-                className="rounded-xl border border-border bg-background px-3 py-2 text-sm outline-none placeholder:text-muted-foreground/40 focus:border-accent"
-              />
-            </label>
-            <button
-              type="button"
-              onClick={sendPictaria}
-              disabled={!recipients.trim()}
-              className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-[0.6rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03] disabled:opacity-50"
-            >
-              Send Pictaria
-              <span aria-hidden>›</span>
-            </button>
-          </div>
-
-          {/* business CTA */}
-          <div className="relative mt-6 overflow-hidden rounded-[4px] border border-accent/60 bg-card/70 p-4">
-            <div className="relative grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4">
-              <p className="min-w-0 font-display text-[0.85rem] leading-snug [color:color-mix(in_oklch,var(--foreground)_92%,black)]">
-                I&rsquo;m a business — I would love to send Pictaria&rsquo;s!
-              </p>
-              <div className="flex shrink-0 flex-col items-end gap-1">
-                <span className="text-[0.55rem] tracking-[0.18em] text-muted-foreground uppercase">
-                  Analytics &amp; action buttons
-                </span>
-                <Link
-                  to="/pricing"
-                  className="inline-flex items-center gap-1.5 rounded-full bg-primary px-2.5 py-1 text-[0.55rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
-                >
-                  See pricing
-                  <span aria-hidden>›</span>
-                </Link>
-              </div>
-            </div>
-          </div>
-
-          {/* puzzle-lover CTA */}
-          <div className="relative mt-4 overflow-hidden rounded-[4px] border border-accent/60 bg-card/70 p-4">
-            <div className="relative grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4">
-              <p className="min-w-0 font-display text-[0.85rem] leading-snug [color:color-mix(in_oklch,var(--foreground)_92%,black)]">
-                I love puzzles — I would love to send Pictaria&rsquo;s!
-              </p>
-              <div className="flex shrink-0 flex-col items-end gap-1">
-                <span className="text-[0.55rem] tracking-[0.18em] text-muted-foreground uppercase">
-                  Personal &amp; Artist Studio
-                </span>
-                <Link
-                  to="/pricing"
-                  className="inline-flex items-center gap-1.5 rounded-full bg-primary px-2.5 py-1 text-[0.55rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
-                >
-                  See pricing
-                  <span aria-hidden>›</span>
-                </Link>
-              </div>
-            </div>
-          </div>
-
-        </section>
-      </div>
-    </main>
+    <StudioComposer
+      tier="free"
+      heading="Send a free Pictaria"
+      kicker="One photograph, one instant link"
+      maxPhotos={1}
+      highlights={[
+        "One photograph, free — no subscription needed.",
+        "An instant playable link the moment you finish composing.",
+        "Send it to one person or a whole group by email.",
+        "Four difficulties on every picture, from Relaxing to Challenging.",
+      ]}
+    />
   );
 }
