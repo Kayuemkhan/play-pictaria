@@ -12,20 +12,20 @@ import hibiscus from "@/assets/flower-hibiscus.jpg";
 export const Route = createFileRoute("/daily")({
   head: () => ({
     meta: [
-      { title: "Pictaria Daily — A Free Puzzle Every Day" },
+      { title: "Pictaria Daily — A Free Puzzle of Paradise Every Day" },
       {
         name: "description",
         content:
-          "Sign up for a free Pictaria puzzle delivered every single day.",
+          "Sign up for a free puzzle of Paradise delivered every single day.",
       },
       {
         property: "og:title",
-        content: "Pictaria Daily — A Free Puzzle Every Day",
+        content: "Pictaria Daily — A Free Puzzle of Paradise Every Day",
       },
       {
         property: "og:description",
         content:
-          "Sign up for a free Pictaria puzzle delivered every single day.",
+          "Sign up for a free puzzle of Paradise delivered every single day.",
       },
     ],
   }),
