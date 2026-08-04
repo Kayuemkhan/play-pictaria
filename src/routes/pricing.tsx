@@ -58,6 +58,11 @@ const personal = [
     title: "Send it anywhere",
     copy: "A link for text, email or social. Your storybooks stay saved so you can send them again next year.",
   },
+  {
+    icon: Sparkles,
+    title: "The Pictaria badge",
+    copy: "Personal storybooks carry the Pictaria badge, larger and proud, so everyone you send to knows where the play came from.",
+  },
 ];
 
 const business = [
