@@ -566,7 +566,33 @@ export function PuzzleBoard({
         dy,
       );
     dragStart.current = null;
-    if (move) commitMove(s.group, move.dCol, move.dRow);
+    if (move) {
+      commitMove(s.group, move.dCol, move.dRow);
+      return;
+    }
+
+    /**
+     * A full board has no empty cell. Once one rigid cluster owns every cell
+     * except the final one or two pieces, moving either remainder can require
+     * displacing that almost-complete cluster into a shape that cannot fit.
+     * Preserve all earlier locks, but treat a deliberate blocked endgame drag
+     * as the final magnetic snap so a valid run can never deadlock at 7+2.
+     */
+    const sizes = new Map<number, number>();
+    groupOf.forEach((group) => sizes.set(group, (sizes.get(group) ?? 0) + 1));
+    const largest = Math.max(0, ...sizes.values());
+    if (sizes.size <= 3 && largest >= total - 2) {
+      const solvedPositions = Array.from({ length: total }, (_, piece) => piece);
+      const solvedGroup = groupOf[s.group] ?? s.group;
+      setPos(solvedPositions);
+      setGroupOf(Array.from({ length: total }, () => solvedGroup));
+      setMoves((count) => count + 1);
+      setFlash(solvedPositions);
+      playLock();
+      setSolved(true);
+      window.setTimeout(() => playSolved(), 260);
+      window.setTimeout(() => setFlash([]), 380);
+    }
   };
 
 
