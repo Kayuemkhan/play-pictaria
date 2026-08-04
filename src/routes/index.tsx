@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Menu, Search } from "lucide-react";
-import { collections, freeCollection } from "@/data/collections";
+import { collections } from "@/data/collections";
 import { HeroPuzzle } from "@/components/HeroPuzzle";
 import { BottomBackButton } from "@/components/BottomBackButton";
 import heroImage from "@/assets/hero-sunset.jpg";
