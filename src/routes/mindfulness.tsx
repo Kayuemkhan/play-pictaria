@@ -10,7 +10,7 @@ import mindfulnessLotus from "@/assets/mindfulness-lotus.jpg";
 import mindfulnessWaves from "@/assets/mindfulness-waves.jpg";
 import mindfulnessZenGarden from "@/assets/mindfulness-zengarden.jpg";
 import mindfulnessWaterfall from "@/assets/mindfulness-waterfall.jpg";
-import mindfulnessLavatube from "@/assets/mindfulness-lavatube.jpg";
+import mindfulnessRockWall from "@/assets/mindfulness-rockwall.jpg";
 
 export const Route = createFileRoute("/mindfulness")({
   head: () => ({
@@ -48,7 +48,7 @@ const gallery = [
   { src: mindfulnessWaves, alt: "Gentle turquoise waves rolling onto a black sand beach" },
   { src: mindfulnessZenGarden, alt: "A Hawaiian zen garden with raked black sand and smooth stones" },
   { src: mindfulnessWaterfall, alt: "A tranquil tropical waterfall in a lush Hawaiian rainforest" },
-  { src: mindfulnessLavatube, alt: "A serene Hawaiian lava tube cave with soft light and mist" },
+  { src: mindfulnessRockWall, alt: "An old Hawaiian lava rock wall covered in ferns and lush tropical greenery" },
 ];
 
 function MindfulnessPage() {

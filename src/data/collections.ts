@@ -102,6 +102,17 @@ import wave07 from "@/assets/wave-07.jpg";
 import wave08 from "@/assets/wave-08.jpg";
 import wave09 from "@/assets/wave-09.jpg";
 import wave10 from "@/assets/wave-10.jpg";
+import shirt01 from "@/assets/shirt-01.jpg";
+import shirt02 from "@/assets/shirt-02.jpg";
+import shirt03 from "@/assets/shirt-03.jpg";
+import shirt04 from "@/assets/shirt-04.jpg";
+import shirt05 from "@/assets/shirt-05.jpg";
+import shirt06 from "@/assets/shirt-06.jpg";
+import shirt07 from "@/assets/shirt-07.jpg";
+import shirt08 from "@/assets/shirt-08.jpg";
+import shirt09 from "@/assets/shirt-09.jpg";
+import shirt10 from "@/assets/shirt-10.jpg";
+import fsmPoolPalms from "@/assets/fsm-pool-palms.jpg";
 
 
 
@@ -856,6 +867,12 @@ export const collections: Collection[] = [
         image: fsmInfinitySunset.url,
       },
       {
+        id: "fsm-06",
+        title: "Edge of the Blue",
+        caption: "Palms, Lanai and the still water at golden hour",
+        image: fsmPoolPalms,
+      },
+      {
         id: "fsm-05",
         title: "Warrior",
         caption: "Morning practice on the sand",
@@ -1053,6 +1070,25 @@ export const collections: Collection[] = [
       { id: "wave-08", title: "Inside the Tube", caption: "A surfer silhouetted inside glowing blue glass", image: wave08 },
       { id: "wave-09", title: "Sea Lace", caption: "Delicate foam patterns on warm golden sand", image: wave09 },
       { id: "wave-10", title: "Storm Surge", caption: "Wild swells and lightning over the deep blue", image: wave10 },
+    ],
+  },
+  {
+    id: "aloha-shirts",
+    title: "Aloha Shirts",
+    tagline: "Old-style island prints from the golden era",
+    cover: shirt09,
+    free: true,
+    puzzles: [
+      { id: "shirt-01", title: "Coral Hibiscus", caption: "1950s rayon in coral red and cream", image: shirt01 },
+      { id: "shirt-02", title: "Outrigger", caption: "Canoes and Diamond Head on deep teal silk", image: shirt02 },
+      { id: "shirt-03", title: "Tiki Bar", caption: "Tikis, ukuleles and tapa borders in mustard gold", image: shirt03 },
+      { id: "shirt-04", title: "Reverse Print", caption: "Navy with plumeria and monstera, the classic cut", image: shirt04 },
+      { id: "shirt-05", title: "Marlin Run", caption: "Bamboo, lures and marlin for a day on the water", image: shirt05 },
+      { id: "shirt-06", title: "Longboard Holiday", caption: "Turquoise surfers on redwood boards", image: shirt06 },
+      { id: "shirt-07", title: "Birds of Paradise", caption: "Vivid orange blooms on midnight black", image: shirt07 },
+      { id: "shirt-08", title: "Pineapple Tapa", caption: "Soft sage with ti leaves and tapa geometry", image: shirt08 },
+      { id: "shirt-09", title: "The Shop", caption: "A whole rack of aloha waiting for a summer", image: shirt09 },
+      { id: "shirt-10", title: "Island Hopper", caption: "Gold island maps and flying boats on burgundy", image: shirt10 },
     ],
   },
 ];
