@@ -49,7 +49,7 @@ interface Photo {
 function CreatePage() {
   const [photos, setPhotos] = useState<Photo[]>([]);
   const [heroIndex, setHeroIndex] = useState(0);
-  const [brand, setBrand] = useState("Four Seasons Maui");
+  const [brand, setBrand] = useState("Road to Hana");
   const [headline, setHeadline] = useState("Can you solve today's pineapple?");
   const [caption, setCaption] = useState("");
   const [animated, setAnimated] = useState(true);
@@ -389,7 +389,7 @@ function CreatePage() {
               <input
                 value={brand}
                 onChange={(e) => setBrand(e.target.value)}
-                placeholder="Four Seasons Maui"
+                placeholder="Road to Hana"
                 className="rounded-xl border border-border bg-background px-3 py-2 text-sm outline-none focus:border-accent"
               />
             </label>
