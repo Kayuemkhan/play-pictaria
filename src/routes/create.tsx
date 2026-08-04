@@ -140,12 +140,12 @@ function CreatePage() {
 
   const add = (files: FileList | null) => {
     if (!files || !files.length) return;
-    const next = Array.from(files).map((file, i) => {
+    const next = Array.from(files).slice(0, 1).map((file, i) => {
       const url = URL.createObjectURL(file);
       urls.current.push(url);
       return { id: `${Date.now()}-${i}-${file.name}`, url };
     });
-    setPhotos((prev) => [...prev, ...next]);
+    setPhotos(next);
   };
 
   const remove = (id: string) => {
@@ -186,8 +186,8 @@ function CreatePage() {
             Build your storybook
           </h1>
           <p className="mt-2 text-[13px] leading-relaxed text-muted-foreground">
-            Sign up for a free storybook. If you want to subscribe, it's $5.95 a
-            month.
+            Send a free storybook with one photo. If you want more, a
+            subscription is $5.95 a month.
           </p>
 
           <form onSubmit={submitGate} className="mt-6 text-left">
@@ -260,7 +260,7 @@ function CreatePage() {
             Create Your Story
           </h1>
           <p className="text-[10px] tracking-[0.22em] text-muted-foreground uppercase">
-            Bring your own photography
+            Send a free storybook
           </p>
         </div>
       </header>
@@ -327,10 +327,11 @@ function CreatePage() {
                 >
                   <ImagePlus className="h-8 w-8" strokeWidth={1.25} />
                   <span className="text-[10px] tracking-[0.24em] uppercase">
-                    Add photographs
+                    Add your photograph
                   </span>
                   <span className="max-w-[16rem] text-center text-[10px] leading-relaxed tracking-[0.12em] text-deep-foreground/45 uppercase">
-                    Portrait pictures look best — choose several at once
+                    Portrait pictures look best — your free storybook includes
+                    one photo
                   </span>
                 </button>
               )}
@@ -370,7 +371,6 @@ function CreatePage() {
             ref={fileInput}
             type="file"
             accept="image/*"
-            multiple
             className="sr-only"
             onChange={(e) => {
               add(e.target.files);
@@ -417,43 +417,21 @@ function CreatePage() {
                 placeholder="A recipe, the location, a memory — anything you'd like to share beneath the picture."
                 className="resize-y rounded-xl border border-border bg-background px-3 py-2 text-sm leading-relaxed outline-none focus:border-accent"
               />
-              <span className="text-[9px] tracking-[0.16em] text-muted-foreground uppercase">
-                Appears beneath the photograph — leave blank to hide
-              </span>
             </label>
 
 
-            <label className="flex items-center gap-3">
-              <input
-                type="checkbox"
-                checked={animated}
-                onChange={(e) => setAnimated(e.target.checked)}
-                className="h-4 w-4 accent-accent"
-              />
-              <span className="text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
-                Animate the pieces
-              </span>
-            </label>
           </div>
 
           {/* storybook */}
           <div className="mt-7">
-            <div className="flex items-center justify-between gap-3">
-              <h3 className="font-display text-base tracking-[0.2em] uppercase">
-                Put hero picture to send to friends and family here
-              </h3>
-              <button
-                type="button"
-                onClick={() => fileInput.current?.click()}
-                className="shrink-0 rounded-full border border-border px-3.5 py-1.5 text-[0.6rem] tracking-[0.18em] text-muted-foreground uppercase transition-colors hover:text-foreground"
-              >
-                Add photos
-              </button>
-            </div>
+            <h3 className="font-display text-[0.95rem] leading-snug tracking-[0.06em]">
+              Perfect for weddings, vacations, birthdays, anniversaries,
+              adventures, pets and so much more.
+            </h3>
             <p className="mt-2 text-[10px] tracking-[0.18em] text-muted-foreground uppercase">
               {photos.length
                 ? `${photos.length} ${photos.length === 1 ? "picture" : "pictures"} — tap one to make it the hero`
-                : "Add their own photographs here"}
+                : "Add your photograph here"}
             </p>
 
             {photos.length > 0 && (
@@ -523,8 +501,8 @@ function CreatePage() {
               Perfect for
             </p>
             <p className="mt-2 font-display text-[0.9rem] leading-snug [color:color-mix(in_oklch,var(--foreground)_92%,black)]">
-              Weddings, vacations, keiki, first birthday, adventures, pets, and
-              so much more.
+              Weddings, vacations, birthdays, anniversaries, adventures, pets
+              and so much more — fun for friends and family.
             </p>
           </div>
         </section>

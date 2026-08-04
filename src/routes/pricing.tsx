@@ -25,7 +25,7 @@ export const Route = createFileRoute("/pricing")({
       {
         name: "description",
         content:
-          "A free Pictaria every day, Personal Studio at $5.95 a month, Artist Studio at $9.95 a month with full photo editing, and Brand Studio at $199 a month for branded, tracked storybooks.",
+          "A free Pictaria every day, Personal Studio at $5.95 a month, Artist Studio at $9.95 a month with full photo editing, and Brand Studio at $195 a month for branded, tracked storybooks.",
       },
       {
         property: "og:title",
@@ -34,7 +34,7 @@ export const Route = createFileRoute("/pricing")({
       {
         property: "og:description",
         content:
-          "Free daily puzzle, Personal Studio $5.95/month, Artist Studio $9.95/month with cropping, saturation, contrast and vignettes, Brand Studio $199/month.",
+          "Free daily puzzle, Personal Studio $5.95/month, Artist Studio $9.95/month with cropping, saturation, contrast and vignettes, Brand Studio $195/month.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -53,7 +53,7 @@ const personal = [
   {
     icon: Sparkles,
     title: "Every difficulty, every picture",
-    copy: "Relaxing 3×3 through Challenging 6×6, so the same photo plays differently for a keiki and for grandma.",
+    copy: "Relaxing 3×3 through Challenging 6×6, so the same photo plays differently for a little one and for grandma.",
   },
   {
     icon: Heart,
@@ -65,14 +65,14 @@ const personal = [
     title: "Send it anywhere",
     copy: "A link for text, email or social. Your storybooks stay saved so you can send them again next year.",
   },
-  {
-    icon: Sparkles,
-    title: "The Pictaria badge",
-    copy: "Personal storybooks carry the Pictaria badge, larger and proud, so everyone you send to knows where the play came from.",
-  },
 ];
 
 const bougie = [
+  {
+    icon: Images,
+    title: "Five storybooks a month",
+    copy: "More room to play, with every edited version saved so you can send it again.",
+  },
   {
     icon: Crop,
     title: "Crop & straighten",
@@ -113,11 +113,6 @@ const bougie = [
     title: "Sharpen, blur & retouch",
     copy: "Sharpen the details, soften a background, smooth skin gently, and remove the little distractions.",
   },
-  {
-    icon: Images,
-    title: "Ten storybooks a month",
-    copy: "More room to play, with every edited version saved so you can send it again.",
-  },
 ];
 
 const business = [
@@ -125,7 +120,7 @@ const business = [
   {
     icon: Sun,
     title: "Your own Daily Pictaria",
-    copy: "One of your pictures every day, from your platform under your name — the habit your guests come back for.",
+    copy: "Your customers can request you reaching out to them daily. You have the option for them to sign up for a daily, a weekly or a monthly Pictaria from your business.",
   },
   {
     icon: BarChart3,
@@ -137,11 +132,6 @@ const business = [
     icon: MousePointerClick,
     title: "Action buttons",
     copy: "Book a tour, book a room, set an appointment, take a payment — the button arrives at the celebration.",
-  },
-  {
-    icon: Sparkles,
-    title: "Fully branded",
-    copy: "Your logo, your colors, your domain, with the Pictaria badge very small at the very bottom of the scroll.",
   },
   {
     icon: Sparkles,
@@ -198,9 +188,12 @@ function PricingPage() {
             Personal Studio
           </h2>
           <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-            Weddings, vacations, keiki, first birthdays, adventures, pets and so
-            much more — your own photos, turned into puzzles your family will
-            actually sit down and play.
+            Weddings, vacations, birthdays, anniversaries, adventures, pets and
+            so much more — your own photos, turned into fun for friends and
+            family.
+          </p>
+          <p className="mt-2 text-[10px] tracking-[0.18em] text-accent uppercase">
+            The Pictaria badge sits at the top of every Pictaria you send
           </p>
           <div className="mt-4 flex items-baseline gap-2">
             <span className="font-display text-3xl tracking-[0.08em] text-foreground">
@@ -255,6 +248,9 @@ function PricingPage() {
             light it, warm it, glow it — make an ordinary phone snapshot look
             like something framed on a wall before it ever becomes a puzzle.
           </p>
+          <p className="mt-2 text-[10px] tracking-[0.18em] text-accent uppercase">
+            The Pictaria badge sits at the top of every Pictaria you send
+          </p>
           <div className="mt-4 flex items-baseline gap-2">
             <span className="font-display text-3xl tracking-[0.08em] text-foreground">
               $9.95
@@ -308,7 +304,7 @@ function PricingPage() {
 
           <div className="mt-4 flex items-baseline gap-2">
             <span className="font-display text-3xl tracking-[0.08em] text-foreground">
-              $199
+              $195
             </span>
             <span className="text-[0.7rem] tracking-[0.18em] text-muted-foreground uppercase">
               / month
