@@ -268,7 +268,7 @@ function Home() {
               );
 
               const shell =
-                "tile-sheen group relative block w-[46%] shrink-0 snap-start overflow-hidden rounded-[4px] border border-accent/60 shadow-soft transition-shadow duration-500 hover:shadow-lift sm:w-auto";
+                "tile-sheen group relative block w-[27%] shrink-0 snap-start overflow-hidden rounded-[4px] border border-accent/60 shadow-soft transition-shadow duration-500 hover:shadow-lift sm:w-auto";
 
               if (soon) {
                 return (
