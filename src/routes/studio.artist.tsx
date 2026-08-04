@@ -31,7 +31,6 @@ export const Route = createFileRoute("/studio/artist")({
         "Photo editing: light, depth, colour and a touch of golden warmth.",
         "Your retouching is baked into every picture you publish.",
         "Ten pictures per collection, with unlimited collections.",
-        "An instant playable link, ready for your gallery or newsletter.",
         "A story note beneath each picture for titles, media and pricing.",
       ]}
     />

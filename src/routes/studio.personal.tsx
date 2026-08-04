@@ -28,9 +28,6 @@ export const Route = createFileRoute("/studio/personal")({
       maxPhotos={10}
       highlights={[
         "Up to ten pictures in every storybook — three new storybooks a month.",
-        "An instant playable link the moment you finish composing.",
-        "Send to one person or a whole group in a single note.",
-        "Four difficulties, from Relaxing to Challenging, on every picture.",
         "Your Pictaria badge sits large and proud on everything you share.",
       ]}
     />
