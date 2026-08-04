@@ -1,14 +1,17 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import {
+  Aperture,
   ArrowLeft,
   Check,
   Contrast,
   Copy,
   ImagePlus,
+  Maximize,
   Palette,
   Sparkles,
   Sun,
+  Wand2,
   X,
 } from "lucide-react";
 import { BottomBackButton } from "@/components/BottomBackButton";
@@ -51,12 +54,23 @@ interface Edits {
   contrast: number;
   saturate: number;
   warmth: number;
+  scale: number;
+  clarity: number;
+  vignette: number;
 }
 
-const NO_EDITS: Edits = { brightness: 100, contrast: 100, saturate: 100, warmth: 0 };
+const NO_EDITS: Edits = {
+  brightness: 100,
+  contrast: 100,
+  saturate: 100,
+  warmth: 0,
+  scale: 100,
+  clarity: 0,
+  vignette: 0,
+};
 
 const filterCss = (e: Edits) =>
-  `brightness(${e.brightness}%) contrast(${e.contrast}%) saturate(${e.saturate}%) sepia(${e.warmth}%)`;
+  `brightness(${e.brightness}%) contrast(${e.contrast + e.clarity * 0.35}%) saturate(${e.saturate}%) sepia(${e.warmth}%)`;
 
 /** Bakes the retouching (and an optional logo) into a JPEG data URL. */
 async function renderPhoto(
@@ -74,9 +88,43 @@ async function renderPhoto(
     canvas.height = Math.round(img.height * scale);
     const ctx = canvas.getContext("2d");
     if (!ctx) throw new Error("Your browser could not prepare this picture.");
+
+    const zoom = Math.max(1, edits.scale / 100);
+    const srcW = img.width / zoom;
+    const srcH = img.height / zoom;
+    const srcX = (img.width - srcW) / 2;
+    const srcY = (img.height - srcH) / 2;
+
     ctx.filter = filterCss(edits);
-    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    ctx.drawImage(
+      img,
+      srcX,
+      srcY,
+      srcW,
+      srcH,
+      0,
+      0,
+      canvas.width,
+      canvas.height,
+    );
     ctx.filter = "none";
+
+    if (edits.vignette > 0) {
+      const grad = ctx.createRadialGradient(
+        canvas.width / 2,
+        canvas.height / 2,
+        canvas.width * 0.28,
+        canvas.width / 2,
+        canvas.height / 2,
+        canvas.width * 0.78,
+      );
+      const opacity = (edits.vignette / 100) * 0.65;
+      grad.addColorStop(0, "rgba(0,0,0,0)");
+      grad.addColorStop(1, `rgba(0,0,0,${opacity})`);
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
+
     if (logo) {
       const mark = await loadImage(logo.url);
       const w = canvas.width * logo.scale;
@@ -139,6 +187,9 @@ export function StudioComposer({
     { key: "contrast" as const, label: "Contrast", icon: Contrast, min: 60, max: 160 },
     { key: "saturate" as const, label: "Colour", icon: Palette, min: 0, max: 200 },
     { key: "warmth" as const, label: "Warmth", icon: Sparkles, min: 0, max: 60 },
+    { key: "scale" as const, label: "Resize", icon: Maximize, min: 100, max: 200 },
+    { key: "clarity" as const, label: "Clean", icon: Wand2, min: 0, max: 100 },
+    { key: "vignette" as const, label: "Vignette", icon: Aperture, min: 0, max: 100 },
   ];
 
   const fileInput = useRef<HTMLInputElement>(null);
@@ -317,9 +368,24 @@ export function StudioComposer({
                   <img
                     src={active.url}
                     alt={`${brand.trim() || "Your"} photograph in the studio`}
-                    style={editing ? { filter: filterCss(edits) } : undefined}
-                    className="h-full w-full object-cover"
+                    style={
+                      editing
+                        ? {
+                            filter: filterCss(edits),
+                            transform: `scale(${edits.scale}%)`,
+                          }
+                        : undefined
+                    }
+                    className="h-full w-full object-cover transition-transform duration-200"
                   />
+                  {editing && edits.vignette > 0 && (
+                    <div
+                      className="pointer-events-none absolute inset-0"
+                      style={{
+                        background: `radial-gradient(circle at center, transparent 30%, rgba(0,0,0,${(edits.vignette / 100) * 0.7}) 100%)`,
+                      }}
+                    />
+                  )}
                   {logoPlacement && logoUrl && (
                     <div
                       role="group"
@@ -409,32 +475,22 @@ export function StudioComposer({
 
           {/* artist retouching — right beneath the picture */}
           {editing && (
-            <div className="mt-4 rounded-[4px] border border-accent/60 bg-card/70 p-4">
-              <h2 className="font-display text-base tracking-[0.2em] uppercase">
-                Retouch
-              </h2>
-              <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground">
-                Light, contrast, colour and a touch of golden warmth — baked into
-                every picture you share.
-              </p>
-
-              <div className="mt-4 flex items-center justify-center gap-3">
+            <div className="mt-4">
+              <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
                 {retouchTools.map(({ key, label, icon: Icon }) => {
-                  const active = activeRetouch === key;
+                  const isActive = activeRetouch === key;
                   return (
                     <button
                       key={key}
                       type="button"
-                      onClick={() =>
-                        setActiveRetouch(active ? null : key)
-                      }
+                      onClick={() => setActiveRetouch(isActive ? null : key)}
                       title={label}
                       aria-label={label}
-                      aria-pressed={active}
-                      className={`grid h-10 w-10 place-items-center rounded-full border transition-all ${
-                        active
-                          ? "border-primary bg-primary text-primary-foreground shadow-lift"
-                          : "border-accent/50 bg-card text-muted-foreground hover:border-accent hover:text-foreground"
+                      aria-pressed={isActive}
+                      className={`grid h-10 w-10 place-items-center rounded-full transition-all ${
+                        isActive
+                          ? "bg-primary text-primary-foreground shadow-lift"
+                          : "bg-muted/80 text-foreground shadow-soft hover:bg-muted hover:shadow-lift"
                       }`}
                     >
                       <Icon className="h-4 w-4" strokeWidth={1.5} />
