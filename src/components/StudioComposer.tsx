@@ -660,21 +660,21 @@ export function StudioComposer({
           </div>
 
           {/* CTAs — never link a studio back to itself */}
-          {tier !== "brand" && (
+          {tier !== "personal" && (
             <div className="relative mt-6 overflow-hidden rounded-[4px] border border-accent/60 bg-card/70 p-4">
               <div className="relative grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4">
                 <p className="min-w-0 font-display text-[0.85rem] leading-snug [color:color-mix(in_oklch,var(--foreground)_92%,black)]">
-                  I&rsquo;m a business — I would love to send Pictaria&rsquo;s!
+                  I love puzzles — I would love to send Pictaria&rsquo;s!
                 </p>
                 <div className="flex shrink-0 flex-col items-end gap-1">
                   <span className="text-[0.55rem] tracking-[0.18em] text-muted-foreground uppercase">
-                    Analytics &amp; action buttons
+                    Storybooks for your ohana
                   </span>
                   <Link
-                    to="/studio/brand"
+                    to="/studio/personal"
                     className="inline-flex items-center gap-1.5 rounded-full bg-primary px-2.5 py-1 text-[0.55rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
                   >
-                    Brand Studio
+                    Personal Studio
                     <span aria-hidden>›</span>
                   </Link>
                 </div>
@@ -704,21 +704,21 @@ export function StudioComposer({
             </div>
           )}
 
-          {tier !== "personal" && (
+          {tier !== "brand" && (
             <div className="relative mt-4 overflow-hidden rounded-[4px] border border-accent/60 bg-card/70 p-4">
               <div className="relative grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4">
                 <p className="min-w-0 font-display text-[0.85rem] leading-snug [color:color-mix(in_oklch,var(--foreground)_92%,black)]">
-                  I love puzzles — I would love to send Pictaria&rsquo;s!
+                  I&rsquo;m a business — I would love to send Pictaria&rsquo;s!
                 </p>
                 <div className="flex shrink-0 flex-col items-end gap-1">
                   <span className="text-[0.55rem] tracking-[0.18em] text-muted-foreground uppercase">
-                    Storybooks for your ohana
+                    Analytics &amp; action buttons
                   </span>
                   <Link
-                    to="/studio/personal"
+                    to="/studio/brand"
                     className="inline-flex items-center gap-1.5 rounded-full bg-primary px-2.5 py-1 text-[0.55rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
                   >
-                    Personal Studio
+                    Brand Studio
                     <span aria-hidden>›</span>
                   </Link>
                 </div>
