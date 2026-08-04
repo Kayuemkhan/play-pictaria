@@ -69,6 +69,9 @@ import pineapple07 from "@/assets/pineapple-07.jpg";
 import pineapple08 from "@/assets/pineapple-08.jpg";
 import pineapple09 from "@/assets/pineapple-09.jpg";
 import pineapple10 from "@/assets/pineapple-10.jpg";
+import pineapple11 from "@/assets/pineapple-11.jpg";
+import pineapple12 from "@/assets/pineapple-12.jpg";
+
 
 import coverWaterfalls from "@/assets/cover-waterfalls.jpg";
 import coverSunsets from "@/assets/cover-sunsets.jpg";
