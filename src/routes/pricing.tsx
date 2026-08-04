@@ -65,7 +65,56 @@ const personal = [
   },
 ];
 
+const bougie = [
+  {
+    icon: Crop,
+    title: "Crop & straighten",
+    copy: "Reframe any photo, straighten a crooked horizon, and choose the puzzle shape — square, vertical or wide.",
+  },
+  {
+    icon: Sun,
+    title: "Exposure, brightness & shadows",
+    copy: "Lift a dark face, pull back a blown-out sky, and open up the shadows without losing the mood.",
+  },
+  {
+    icon: Contrast,
+    title: "Contrast & clarity",
+    copy: "Add punch and definition so the tiles read beautifully, even at 6×6.",
+  },
+  {
+    icon: Droplets,
+    title: "Saturation & vibrance",
+    copy: "Make the ocean that impossible blue — or take the color all the way down to a soft, elegant fade.",
+  },
+  {
+    icon: Palette,
+    title: "Warmth & tint",
+    copy: "Push golden-hour warm or cool it down, and fix a photo shot under the wrong light.",
+  },
+  {
+    icon: Circle,
+    title: "Vignettes & glow",
+    copy: "Soft edge vignettes, a gentle bloom, and a haze that makes a snapshot feel like a print.",
+  },
+  {
+    icon: Wand2,
+    title: "Filters & one-tap looks",
+    copy: "Saved Hawaiian looks — Lagoon, Sunset, Vintage Postcard, Black & White — plus your own presets to reuse.",
+  },
+  {
+    icon: Sparkles,
+    title: "Sharpen, blur & retouch",
+    copy: "Sharpen the details, soften a background, smooth skin gently, and remove the little distractions.",
+  },
+  {
+    icon: Images,
+    title: "Ten storybooks a month",
+    copy: "More room to play, with every edited version saved so you can send it again.",
+  },
+];
+
 const business = [
+
   {
     icon: Sun,
     title: "Your own Daily Pictaria",
