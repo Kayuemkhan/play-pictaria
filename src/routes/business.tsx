@@ -63,7 +63,26 @@ const actions = [
   },
 ];
 
+const daily = [
+  {
+    icon: CalendarDays,
+    title: "One picture a day",
+    copy: "Queue a season of photography once; Pictaria releases the next picture every morning on your schedule and timezone.",
+  },
+  {
+    icon: Mail,
+    title: "Your list, your name",
+    copy: "Guests subscribe from any puzzle you send or a QR code on property. The daily arrives branded as yours.",
+  },
+  {
+    icon: BarChart3,
+    title: "Measured like everything else",
+    copy: "Daily opens, plays, finishes and button taps roll into the same dashboard, so you see the habit forming.",
+  },
+];
+
 const metrics = [
+
   { label: "Opens", copy: "Who received it and who actually opened it." },
   { label: "Plays", copy: "Every puzzle started, by picture and difficulty." },
   { label: "Completions", copy: "Finish rate and time to solve, per picture." },
