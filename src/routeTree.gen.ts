@@ -19,6 +19,7 @@ import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as CollectionCollectionIdRouteImport } from './routes/collection.$collectionId'
+import { Route as PCodeRouteImport } from './routes/p.$code'
 import { Route as PuzzlePuzzleIdRouteImport } from './routes/puzzle.$puzzleId'
 import { Route as StorybookCollectionIdRouteImport } from './routes/storybook.$collectionId'
 import { Route as StudioArtistRouteImport } from './routes/studio.artist'
@@ -78,6 +79,11 @@ const CollectionCollectionIdRoute = CollectionCollectionIdRouteImport.update({
   path: '/collection/$collectionId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PCodeRoute = PCodeRouteImport.update({
+  id: '/p/$code',
+  path: '/p/$code',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PuzzlePuzzleIdRoute = PuzzlePuzzleIdRouteImport.update({
   id: '/puzzle/$puzzleId',
   path: '/puzzle/$puzzleId',
@@ -121,6 +127,7 @@ export interface FileRoutesByFullPath {
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/collection/$collectionId': typeof CollectionCollectionIdRoute
+  '/p/$code': typeof PCodeRoute
   '/puzzle/$puzzleId': typeof PuzzlePuzzleIdRoute
   '/storybook/$collectionId': typeof StorybookCollectionIdRoute
   '/studio/artist': typeof StudioArtistRoute
@@ -139,6 +146,7 @@ export interface FileRoutesByTo {
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/collection/$collectionId': typeof CollectionCollectionIdRoute
+  '/p/$code': typeof PCodeRoute
   '/puzzle/$puzzleId': typeof PuzzlePuzzleIdRoute
   '/storybook/$collectionId': typeof StorybookCollectionIdRoute
   '/studio/artist': typeof StudioArtistRoute
@@ -158,6 +166,7 @@ export interface FileRoutesById {
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/collection/$collectionId': typeof CollectionCollectionIdRoute
+  '/p/$code': typeof PCodeRoute
   '/puzzle/$puzzleId': typeof PuzzlePuzzleIdRoute
   '/storybook/$collectionId': typeof StorybookCollectionIdRoute
   '/studio/artist': typeof StudioArtistRoute
@@ -178,6 +187,7 @@ export interface FileRouteTypes {
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/collection/$collectionId'
+    | '/p/$code'
     | '/puzzle/$puzzleId'
     | '/storybook/$collectionId'
     | '/studio/artist'
@@ -196,6 +206,7 @@ export interface FileRouteTypes {
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/collection/$collectionId'
+    | '/p/$code'
     | '/puzzle/$puzzleId'
     | '/storybook/$collectionId'
     | '/studio/artist'
@@ -214,6 +225,7 @@ export interface FileRouteTypes {
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/collection/$collectionId'
+    | '/p/$code'
     | '/puzzle/$puzzleId'
     | '/storybook/$collectionId'
     | '/studio/artist'
@@ -233,6 +245,7 @@ export interface RootRouteChildren {
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   CollectionCollectionIdRoute: typeof CollectionCollectionIdRoute
+  PCodeRoute: typeof PCodeRoute
   PuzzlePuzzleIdRoute: typeof PuzzlePuzzleIdRoute
   StorybookCollectionIdRoute: typeof StorybookCollectionIdRoute
   StudioArtistRoute: typeof StudioArtistRoute
@@ -313,6 +326,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CollectionCollectionIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/p/$code': {
+      id: '/p/$code'
+      path: '/p/$code'
+      fullPath: '/p/$code'
+      preLoaderRoute: typeof PCodeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/puzzle/$puzzleId': {
       id: '/puzzle/$puzzleId'
       path: '/puzzle/$puzzleId'
@@ -370,6 +390,7 @@ const rootRouteChildren: RootRouteChildren = {
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
   CollectionCollectionIdRoute: CollectionCollectionIdRoute,
+  PCodeRoute: PCodeRoute,
   PuzzlePuzzleIdRoute: PuzzlePuzzleIdRoute,
   StorybookCollectionIdRoute: StorybookCollectionIdRoute,
   StudioArtistRoute: StudioArtistRoute,
