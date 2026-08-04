@@ -59,6 +59,17 @@ import cat07 from "@/assets/cat-07.jpg";
 import cat08 from "@/assets/cat-08.jpg";
 import cat09 from "@/assets/cat-09.jpg";
 import cat10 from "@/assets/cat-10.jpg";
+import pineapple01 from "@/assets/pineapple-01.jpg";
+import pineapple02 from "@/assets/pineapple-02.jpg";
+import pineapple03 from "@/assets/pineapple-03.jpg";
+import pineapple04 from "@/assets/pineapple-04.jpg";
+import pineapple05 from "@/assets/pineapple-05.jpg";
+import pineapple06 from "@/assets/pineapple-06.jpg";
+import pineapple07 from "@/assets/pineapple-07.jpg";
+import pineapple08 from "@/assets/pineapple-08.jpg";
+import pineapple09 from "@/assets/pineapple-09.jpg";
+import pineapple10 from "@/assets/pineapple-10.jpg";
+
 import coverWaterfalls from "@/assets/cover-waterfalls.jpg";
 import coverSunsets from "@/assets/cover-sunsets.jpg";
 import fsmResortCove from "@/assets/fsm-resort-cove.jpg.asset.json";
@@ -565,6 +576,75 @@ export const collections: Collection[] = [
         title: "Tide Pool",
         caption: "Curious on the lava rock",
         image: cat10,
+      },
+    ],
+  },
+  {
+    id: "pineapples-of-hawaii",
+    title: "Pineapples of Hawaii",
+    tagline: "Ten golden island moments, from plantation house to palm-framed sunset",
+    cover: pineapple05,
+    free: true,
+    puzzles: [
+      {
+        id: "pineapple-01",
+        title: "Plantation House",
+        caption: "Morning light through old glass",
+        image: pineapple01,
+      },
+      {
+        id: "pineapple-02",
+        title: "Island Feast",
+        caption: "Pineapple beside a Hawaiian plate",
+        image: pineapple02,
+      },
+      {
+        id: "pineapple-03",
+        title: "Beach Cool",
+        caption: "Sunglasses and white sand",
+        image: pineapple03,
+      },
+      {
+        id: "pineapple-04",
+        title: "Waterfall Rest",
+        caption: "Mist above black lava rock",
+        image: pineapple04,
+      },
+      {
+        id: "pineapple-05",
+        title: "Palm Sunset",
+        caption: "Glowing gold through the fronds",
+        image: pineapple05,
+      },
+      {
+        id: "pineapple-06",
+        title: "Lanai Bloom",
+        caption: "Hibiscus tucked in the crown",
+        image: pineapple06,
+      },
+      {
+        id: "pineapple-07",
+        title: "Shore Break",
+        caption: "Coconut drink and ukulele",
+        image: pineapple07,
+      },
+      {
+        id: "pineapple-08",
+        title: "Tide Pool",
+        caption: "Floating among coral and fish",
+        image: pineapple08,
+      },
+      {
+        id: "pineapple-09",
+        title: "Market Day",
+        caption: "Bananas, papayas, and orchids",
+        image: pineapple09,
+      },
+      {
+        id: "pineapple-10",
+        title: "Rainforest Floor",
+        caption: "Moss and bamboo",
+        image: pineapple10,
       },
     ],
   },
