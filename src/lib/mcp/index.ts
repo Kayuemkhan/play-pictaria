@@ -1,4 +1,4 @@
-import { defineMcp, type AnyToolDefinition } from "@lovable.dev/mcp-js";
+import { defineMcp } from "@lovable.dev/mcp-js";
 
 import getPuzzleTool from "./tools/get-puzzle";
 import listCollectionsTool from "./tools/list-collections";
@@ -18,5 +18,5 @@ export default defineMcp({
     searchPuzzlesTool,
     getPuzzleTool,
     listDifficultiesTool,
-  ] as AnyToolDefinition[],
+  ] as never,
 });
