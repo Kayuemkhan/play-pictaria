@@ -228,7 +228,7 @@ function PricingPage() {
             ))}
           </div>
           <Link
-            to="/create"
+            to="/studio/artist"
             className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-[0.6rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
           >
             Go artistic
@@ -276,7 +276,7 @@ function PricingPage() {
             ))}
           </div>
           <Link
-            to="/create"
+            to="/studio/personal"
             className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-[0.6rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
           >
             Start a personal storybook
@@ -327,7 +327,7 @@ function PricingPage() {
           </div>
           <div className="mt-4 flex flex-wrap items-center gap-3">
             <Link
-              to="/create"
+              to="/studio/brand"
               className="inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-[0.6rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
             >
               Start your Brand Studio
