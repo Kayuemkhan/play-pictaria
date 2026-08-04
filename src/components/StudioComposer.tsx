@@ -132,6 +132,14 @@ export function StudioComposer({
   );
   const [publishError, setPublishError] = useState("");
   const [copied, setCopied] = useState(false);
+  const [activeRetouch, setActiveRetouch] = useState<string | null>(null);
+
+  const retouchTools = [
+    { key: "brightness" as const, label: "Light", icon: Sun, min: 60, max: 150 },
+    { key: "contrast" as const, label: "Contrast", icon: Contrast, min: 60, max: 160 },
+    { key: "saturate" as const, label: "Colour", icon: Palette, min: 0, max: 200 },
+    { key: "warmth" as const, label: "Warmth", icon: Sparkles, min: 0, max: 60 },
+  ];
 
   const fileInput = useRef<HTMLInputElement>(null);
   const logoInput = useRef<HTMLInputElement>(null);
