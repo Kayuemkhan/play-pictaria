@@ -26,10 +26,7 @@ export const Route = createFileRoute("/studio/personal")({
       heading="Personal Studio"
       kicker="Ten pictures, one storybook"
       maxPhotos={10}
-      highlights={[
-        "Up to ten pictures in every storybook — three new storybooks a month.",
-        "Your Pictaria badge sits large and proud on everything you share.",
-      ]}
+      highlights={[]}
     />
   ),
 });

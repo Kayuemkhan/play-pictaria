@@ -827,18 +827,6 @@ export function StudioComposer({
             </div>
           )}
 
-          <div className="relative mt-4 flex items-center justify-between gap-4 overflow-hidden rounded-[4px] border border-border bg-card/40 p-4">
-            <p className="min-w-0 text-[11px] leading-relaxed text-muted-foreground">
-              Compare every studio side by side.
-            </p>
-            <Link
-              to="/pricing"
-              className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-primary/40 bg-primary/10 px-2.5 py-1 text-[0.55rem] tracking-[0.2em] text-primary uppercase transition-colors hover:bg-primary hover:text-primary-foreground"
-            >
-              See pricing
-              <span aria-hidden>›</span>
-            </Link>
-          </div>
 
 
           {/* what this studio celebrates — kept at the bottom */}
