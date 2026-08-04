@@ -113,6 +113,17 @@ import shirt08 from "@/assets/shirt-08.jpg";
 import shirt09 from "@/assets/shirt-09.jpg";
 import shirt10 from "@/assets/shirt-10.jpg";
 import fsmPoolPalms from "@/assets/fsm-pool-palms.jpg";
+import mindfulnessHero from "@/assets/mindfulness-hero.jpg";
+import mindfulnessRocks from "@/assets/mindfulness-rocks.jpg";
+import mindfulnessBamboo from "@/assets/mindfulness-bamboo.jpg";
+import mindfulnessBuddha from "@/assets/mindfulness-buddha.jpg";
+import mindfulnessStarfish from "@/assets/mindfulness-starfish.jpg";
+import mindfulnessMeditation from "@/assets/mindfulness-meditation.jpg";
+import mindfulnessLotus from "@/assets/mindfulness-lotus.jpg";
+import mindfulnessWaves from "@/assets/mindfulness-waves.jpg";
+import mindfulnessZenGarden from "@/assets/mindfulness-zengarden.jpg";
+import mindfulnessWaterfall from "@/assets/mindfulness-waterfall.jpg";
+import mindfulnessRockWall from "@/assets/mindfulness-rockwall.jpg";
 
 
 
