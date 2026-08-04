@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { ArrowLeft, ImagePlus, Sparkles, X } from "lucide-react";
+import { ArrowLeft, ImagePlus, X } from "lucide-react";
 import { useServerFn } from "@tanstack/react-start";
 import { HeroPuzzle, type HeroCorner } from "@/components/HeroPuzzle";
 import { PuzzleBoard } from "@/components/PuzzleBoard";
