@@ -146,6 +146,14 @@ function DailyPage() {
             {status === "submitting" ? "Saving..." : "Start here"}
           </Button>
         </form>
+
+        <Link
+          to="/"
+          className="mt-5 inline-flex items-center gap-1 text-[11px] tracking-[0.12em] text-muted-foreground uppercase transition-colors hover:text-foreground"
+        >
+          <span aria-hidden>‹</span>
+          Back home
+        </Link>
       </div>
     </main>
   );
