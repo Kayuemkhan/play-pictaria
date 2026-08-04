@@ -32,10 +32,12 @@ const featured = collections;
 const menuLinks = [
   { to: "/collections", label: "Gallery" },
   { to: "/create", label: "Personal storybooks" },
+  { to: "/pricing", label: "Bougie Studio" },
   { to: "/business", label: "For business" },
   { to: "/pricing", label: "Pricing" },
   { to: "/daily", label: "Daily Pictaria" },
 ] as const;
+
 
 
 function Home() {
