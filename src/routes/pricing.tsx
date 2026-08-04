@@ -72,7 +72,7 @@ const business = [
   {
     icon: Sparkles,
     title: "Fully white labeled",
-    copy: "Your logo, your colors, your domain, no Pictaria badge in sight.",
+    copy: "Your logo, your colors, your domain, with an optional small Pictaria badge.",
   },
   {
     icon: QrCode,
