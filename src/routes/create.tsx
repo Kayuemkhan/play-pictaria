@@ -49,8 +49,8 @@ interface Photo {
 function CreatePage() {
   const [photos, setPhotos] = useState<Photo[]>([]);
   const [heroIndex, setHeroIndex] = useState(0);
-  const [brand, setBrand] = useState("Road to Hana");
-  const [headline, setHeadline] = useState("Can you solve today's pineapple?");
+  const [brand, setBrand] = useState("");
+  const [headline, setHeadline] = useState("");
   const [caption, setCaption] = useState("");
   const [animated, setAnimated] = useState(true);
   const [playing, setPlaying] = useState<{ url: string; grid: number } | null>(
