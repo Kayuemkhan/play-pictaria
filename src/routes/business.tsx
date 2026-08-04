@@ -310,7 +310,22 @@ function BusinessPage() {
           </Link>
         </section>
 
+        {/* logo accessory */}
+        <section className="mt-8 rounded-2xl border border-accent/25 bg-card/70 p-4">
+          <p className="flex items-center gap-2 text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
+            <Sparkles className="h-3.5 w-3.5 text-accent" strokeWidth={1.5} />
+            Logo placement
+          </p>
+          <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+            Upload your logo once and drop it anywhere on a photo — any corner,
+            centered, or tucked into the sky — with size and softness you choose.
+            It rides along with the picture, so it&rsquo;s there while they play
+            and still there in the finished, shareable image.
+          </p>
+        </section>
+
         {/* delivery */}
+
         <section className="mt-8 rounded-2xl bg-deep/5 p-4">
           <p className="flex items-center gap-2 text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
             <Sparkles className="h-3.5 w-3.5 text-accent" strokeWidth={1.5} />
