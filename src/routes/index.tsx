@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Menu, Search } from "lucide-react";
 import { collections, freeCollection } from "@/data/collections";
 import { HeroPuzzle } from "@/components/HeroPuzzle";
+import { BottomBackButton } from "@/components/BottomBackButton";
 import heroImage from "@/assets/hero-sunset.jpg";
 import palmLogo from "@/assets/logo-palms.png";
 
@@ -343,6 +344,7 @@ function Home() {
         </div>
       </section>
 
+      <BottomBackButton />
     </main>
 
   );
