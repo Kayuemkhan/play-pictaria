@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Menu, Search } from "lucide-react";
-import { collections, freeCollection } from "@/data/collections";
+import { collections } from "@/data/collections";
 import { HeroPuzzle } from "@/components/HeroPuzzle";
 import { BottomBackButton } from "@/components/BottomBackButton";
 import heroImage from "@/assets/hero-sunset.jpg";
@@ -44,36 +44,11 @@ const menuLinks = [
 
 
 function Home() {
-  const firstPuzzle = freeCollection.puzzles[0]!;
-  const [cardPos, setCardPos] = useState({ x: 66, y: 46 });
   const [openPanel, setOpenPanel] = useState<"menu" | "search" | null>(null);
   const [query, setQuery] = useState("");
   const results = collections.filter((c) =>
     c.title.toLowerCase().includes(query.trim().toLowerCase()),
   );
-
-  const startDrag = (e: React.PointerEvent<HTMLDivElement>) => {
-    const frame = e.currentTarget.parentElement;
-    if (!frame) return;
-    e.currentTarget.setPointerCapture(e.pointerId);
-    const move = (ev: PointerEvent) => {
-      const r = frame.getBoundingClientRect();
-      const x = ((ev.clientX - r.left) / r.width) * 100;
-      const y = ((ev.clientY - r.top) / r.height) * 100;
-      setCardPos({
-        x: Math.min(90, Math.max(10, x)),
-        y: Math.min(92, Math.max(8, y)),
-      });
-    };
-    const up = () => {
-      window.removeEventListener("pointermove", move);
-      window.removeEventListener("pointerup", up);
-    };
-    window.addEventListener("pointermove", move);
-    window.addEventListener("pointerup", up);
-  };
-
-
 
   return (
     <main className="min-h-screen bg-deep pb-8">
@@ -183,34 +158,6 @@ function Home() {
           corner="bottom-right"
           inset={0}
         />
-
-
-        {/* headline + CTA — draggable, so it can be placed anywhere on the sunset */}
-        <div
-          role="group"
-          aria-label="Drag to position the headline"
-          onPointerDown={startDrag}
-          style={{
-            left: `${cardPos.x}%`,
-            top: `${cardPos.y}%`,
-            transform: "translate(-50%, -50%)",
-          }}
-          className="absolute z-[4] w-[35%] cursor-grab touch-none rounded-lg bg-deep/55 px-2 py-1.5 backdrop-blur-[3px] active:cursor-grabbing sm:w-[23%]"
-        >
-          <p className="font-display text-[0.57rem] leading-tight text-shell">
-            Can you solve today&rsquo;s {firstPuzzle.title.toLowerCase()}?
-          </p>
-          <Link
-            to="/puzzle/$puzzleId"
-            params={{ puzzleId: firstPuzzle.id }}
-            search={{ grid: 3 }}
-            className="mt-1.5 inline-flex items-center gap-1 rounded-full bg-accent px-1.5 py-0.5 text-[0.34rem] tracking-[0.14em] text-deep uppercase shadow-lift transition-transform hover:scale-[1.03]"
-          >
-            Play now
-            <span aria-hidden>›</span>
-          </Link>
-        </div>
-
 
       </section>
 
