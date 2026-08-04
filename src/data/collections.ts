@@ -808,7 +808,7 @@ export const collections: Collection[] = [
       {
         id: "heal-04",
         title: "Aloe",
-        caption: "Clear gel behind lava rock",
+        caption: "Fresh-cut branch, gel oozing on weathered wood",
         image: healAloe,
         story: [
           "Used for: sunburn, reef scrapes, kitchen burns, rashes, dry skin, and digestion.",
