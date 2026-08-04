@@ -581,7 +581,16 @@ export function PuzzleBoard({
     const sizes = new Map<number, number>();
     groupOf.forEach((group) => sizes.set(group, (sizes.get(group) ?? 0) + 1));
     const largest = Math.max(0, ...sizes.values());
-    if (sizes.size <= 3 && largest >= total - 2) {
+    const draggedSize = sizes.get(s.group) ?? 0;
+    const deliberateDrag =
+      Math.abs(dx) >= cellW * scale * 0.4 ||
+      Math.abs(dy) >= cellH * scale * 0.4;
+    if (
+      deliberateDrag &&
+      draggedSize <= 2 &&
+      sizes.size <= 3 &&
+      largest >= total - 2
+    ) {
       const solvedPositions = Array.from({ length: total }, (_, piece) => piece);
       const solvedGroup = s.group;
       setPos(solvedPositions);
