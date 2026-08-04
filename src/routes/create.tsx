@@ -164,12 +164,17 @@ function CreatePage() {
 
   const add = (files: FileList | null) => {
     if (!files || !files.length) return;
-    const next = Array.from(files).slice(0, 1).map((file, i) => {
-      const url = URL.createObjectURL(file);
-      urls.current.push(url);
-      return { id: `${Date.now()}-${i}-${file.name}`, url };
+    setPhotos((prev) => {
+      const room = Math.max(0, MAX_PHOTOS - prev.length);
+      const next = Array.from(files)
+        .slice(0, room)
+        .map((file, i) => {
+          const url = URL.createObjectURL(file);
+          urls.current.push(url);
+          return { id: `${Date.now()}-${i}-${file.name}`, url };
+        });
+      return [...prev, ...next];
     });
-    setPhotos(next);
   };
 
   const remove = (id: string) => {
