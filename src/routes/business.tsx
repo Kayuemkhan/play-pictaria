@@ -324,6 +324,22 @@ function BusinessPage() {
           </p>
         </section>
 
+        {/* photo studio */}
+        <section className="mt-8 rounded-2xl border border-accent/25 bg-card/70 p-4">
+          <p className="flex items-center gap-2 text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
+            <Sparkles className="h-3.5 w-3.5 text-accent" strokeWidth={1.5} />
+            The full photo studio, included
+          </p>
+          <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+            Every tool from Bougie Studio comes with Brand Studio: crop and
+            straighten, exposure, brightness and shadows, contrast and clarity,
+            saturation and vibrance, warmth and tint, vignettes and glow, filters
+            and saved brand presets, sharpen, blur and retouch — so every picture
+            you send looks like your brand before it ever becomes a puzzle.
+          </p>
+        </section>
+
+
         {/* delivery */}
 
         <section className="mt-8 rounded-2xl bg-deep/5 p-4">
