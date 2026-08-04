@@ -2,14 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { ArrowLeft, Check, Copy, ImagePlus, X } from "lucide-react";
 import { useServerFn } from "@tanstack/react-start";
-import { HeroPuzzle, type HeroCorner } from "@/components/HeroPuzzle";
-import { PuzzleBoard } from "@/components/PuzzleBoard";
-import { difficulties } from "@/data/collections";
 import { publishPictaria } from "@/lib/pictarias.functions";
-
-/** Fixed Pictaria signature framing — the same one used on the home hero. */
-const HERO_CORNER: HeroCorner = "bottom-right";
-const HERO_WEDGE = 4;
 
 export type StudioTier = "free" | "personal" | "artist" | "brand";
 
@@ -111,6 +104,9 @@ export function StudioComposer({
   highlights,
 }: StudioComposerProps) {
   const [photos, setPhotos] = useState<Photo[]>([]);
+  /** Which picture is open on the lab table. */
+  const [activeIndex, setActiveIndex] = useState(0);
+  /** Chosen at the very end — the picture friends see first. */
   const [heroIndex, setHeroIndex] = useState(0);
   const [brand, setBrand] = useState("");
   const [headline, setHeadline] = useState("");
@@ -118,10 +114,6 @@ export function StudioComposer({
   const [edits, setEdits] = useState<Edits>(NO_EDITS);
   const [logoUrl, setLogoUrl] = useState<string | null>(null);
   const [logoPos, setLogoPos] = useState({ x: 22, y: 88, scale: 0.28 });
-  const [playing, setPlaying] = useState<{ url: string; grid: number } | null>(
-    null,
-  );
-  const [cardPos, setCardPos] = useState({ x: 66, y: 38 });
   const [recipients, setRecipients] = useState("");
   const [shareUrl, setShareUrl] = useState("");
   const [publishState, setPublishState] = useState<"idle" | "working" | "error">(
@@ -161,11 +153,14 @@ export function StudioComposer({
     setShareUrl("");
     setPhotos((prev) => {
       const kept = prev.filter((p) => p.id !== id);
-      setHeroIndex((h) => Math.min(h, Math.max(kept.length - 1, 0)));
+      const last = Math.max(kept.length - 1, 0);
+      setActiveIndex((i) => Math.min(i, last));
+      setHeroIndex((i) => Math.min(i, last));
       return kept;
     });
   };
 
+  const active = photos[activeIndex] ?? photos[0];
   const hero = photos[heroIndex] ?? photos[0];
   const publish = useServerFn(publishPictaria);
 
@@ -183,9 +178,7 @@ export function StudioComposer({
           await renderPhoto(
             photo.file,
             editing ? edits : NO_EDITS,
-            logoPlacement && logoUrl
-              ? { url: logoUrl, ...logoPos }
-              : null,
+            logoPlacement && logoUrl ? { url: logoUrl, ...logoPos } : null,
           ),
         );
       }
@@ -243,27 +236,6 @@ export function StudioComposer({
     window.location.href = `mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
 
-  const startDrag = (e: React.PointerEvent<HTMLDivElement>) => {
-    const frame = e.currentTarget.parentElement;
-    if (!frame) return;
-    e.currentTarget.setPointerCapture(e.pointerId);
-    const move = (ev: PointerEvent) => {
-      const r = frame.getBoundingClientRect();
-      const x = ((ev.clientX - r.left) / r.width) * 100;
-      const y = ((ev.clientY - r.top) / r.height) * 100;
-      setCardPos({
-        x: Math.min(90, Math.max(10, x)),
-        y: Math.min(92, Math.max(8, y)),
-      });
-    };
-    const up = () => {
-      window.removeEventListener("pointermove", move);
-      window.removeEventListener("pointerup", up);
-    };
-    window.addEventListener("pointermove", move);
-    window.addEventListener("pointerup", up);
-  };
-
   const startLogoDrag = (e: React.PointerEvent<HTMLDivElement>) => {
     const frame = e.currentTarget.parentElement;
     if (!frame) return;
@@ -283,19 +255,6 @@ export function StudioComposer({
     window.addEventListener("pointermove", move);
     window.addEventListener("pointerup", up);
   };
-
-  if (playing) {
-    return (
-      <PuzzleBoard
-        key={`${playing.url}-${playing.grid}`}
-        src={playing.url}
-        title={brand.trim() || "Your picture"}
-        grid={playing.grid}
-        onExit={() => setPlaying(null)}
-        onChangeDifficulty={() => setPlaying(null)}
-      />
-    );
-  }
 
   return (
     <main className="min-h-screen bg-shell pb-16">
@@ -317,49 +276,31 @@ export function StudioComposer({
         </div>
       </header>
 
+      <input
+        ref={fileInput}
+        type="file"
+        accept="image/*"
+        multiple={maxPhotos > 1}
+        className="sr-only"
+        onChange={(e) => {
+          add(e.target.files);
+          e.target.value = "";
+        }}
+      />
+
       <div className="mx-auto mt-6 grid w-full max-w-5xl gap-6 px-4 sm:px-8 lg:grid-cols-[minmax(0,360px)_minmax(0,1fr)]">
-        {/* preview */}
+        {/* the lab: the picture, then the studio controls right beneath it */}
         <section>
           <div className="relative overflow-hidden rounded-[26px] bg-deep shadow-lift">
             <div className="relative aspect-[3/4] w-full">
-              {hero ? (
+              {active ? (
                 <>
                   <img
-                    src={hero.url}
-                    alt={`${brand.trim() || "Your"} hero photograph composed as a Pictaria puzzle`}
+                    src={active.url}
+                    alt={`${brand.trim() || "Your"} photograph in the studio`}
                     style={editing ? { filter: filterCss(edits) } : undefined}
                     className="h-full w-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-b from-deep/70 via-transparent to-deep/35" />
-                  <HeroPuzzle
-                    key={hero.id}
-                    src={hero.url}
-                    corner={HERO_CORNER}
-                    wedge={HERO_WEDGE}
-                    depth={3}
-                    inset={0}
-                    animated
-                  />
-                  {headline.trim() && (
-                    <div
-                      role="group"
-                      aria-label="Drag to position the tagline"
-                      onPointerDown={startDrag}
-                      style={{
-                        left: `${cardPos.x}%`,
-                        top: `${cardPos.y}%`,
-                        transform: "translate(-50%, -50%)",
-                      }}
-                      className="absolute z-[4] w-[52%] cursor-grab touch-none rounded-xl bg-deep/55 px-3 py-2 backdrop-blur-[3px] active:cursor-grabbing"
-                    >
-                      <p className="font-display text-[0.85rem] leading-tight text-shell">
-                        {headline}
-                      </p>
-                      <span className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-accent px-2.5 py-1 text-[0.5rem] tracking-[0.14em] text-deep uppercase">
-                        Play now <span aria-hidden>›</span>
-                      </span>
-                    </div>
-                  )}
                   {logoPlacement && logoUrl && (
                     <div
                       role="group"
@@ -387,116 +328,17 @@ export function StudioComposer({
                   <span className="text-[10px] tracking-[0.24em] uppercase">
                     Add your photograph
                   </span>
-                  <span className="max-w-[16rem] text-center text-[10px] leading-relaxed tracking-[0.12em] text-deep-foreground/45 uppercase">
-                    Celebrate your weddings, vacations, birthdays,
-                    anniversaries, adventures, pets and so much more — add your
-                    {maxPhotos > 1 ? ` up to ${maxPhotos} photographs` : " photograph"} here
-                  </span>
                 </button>
               )}
             </div>
-            {hero && caption.trim() && (
-              <div className="border-t border-shell/10 px-5 py-4">
-                <p className="text-[9px] tracking-[0.24em] text-accent uppercase">
-                  {brand.trim() || "The story"}
-                </p>
-                <p className="mt-2 text-xs leading-relaxed whitespace-pre-line text-shell/85">
-                  {caption}
-                </p>
-              </div>
-            )}
-          </div>
-
-          {hero && (
-            <div className="mt-3 flex flex-wrap gap-2">
-              {difficulties.map((d) => (
-                <button
-                  key={d.grid}
-                  type="button"
-                  onClick={() => setPlaying({ url: hero.url, grid: d.grid })}
-                  className="rounded-full bg-deep px-3.5 py-1.5 text-[0.6rem] tracking-[0.18em] text-accent uppercase shadow-soft transition-transform hover:scale-[1.03]"
-                >
-                  Play {d.grid}×{d.grid}
-                </button>
-              ))}
-            </div>
-          )}
-
-          <ul className="mt-4 grid gap-1.5">
-            {highlights.map((h) => (
-              <li
-                key={h}
-                className="flex gap-2 text-[11px] leading-relaxed text-muted-foreground"
-              >
-                <span className="mt-1.5 h-1 w-1 shrink-0 rotate-45 bg-accent" />
-                {h}
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        {/* controls */}
-        <section className="rounded-[26px] border border-border bg-card/70 p-5">
-          <input
-            ref={fileInput}
-            type="file"
-            accept="image/*"
-            multiple={maxPhotos > 1}
-            className="sr-only"
-            onChange={(e) => {
-              add(e.target.files);
-              e.target.value = "";
-            }}
-          />
-
-          <h2 className="font-display text-base tracking-[0.2em] uppercase">
-            Compose
-          </h2>
-          <div className="mt-4 grid gap-4">
-            <label className="grid gap-1.5">
-              <span className="text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
-                Pictaria
-              </span>
-              <input
-                value={brand}
-                onChange={(e) => setBrand(e.target.value)}
-                placeholder="Road to Hana"
-                className="rounded-xl border border-border bg-background px-3 py-2 text-sm outline-none placeholder:text-muted-foreground/40 focus:border-accent"
-              />
-            </label>
-
-            <label className="grid gap-1.5">
-              <span className="text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
-                Tagline
-              </span>
-              <input
-                value={headline}
-                onChange={(e) => setHeadline(e.target.value)}
-                placeholder="Can you solve today's pineapple?"
-                className="rounded-xl border border-border bg-background px-3 py-2 text-sm outline-none placeholder:text-muted-foreground/40 focus:border-accent"
-              />
-            </label>
-
-            <label className="grid gap-1.5">
-              <span className="text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
-                Story note (optional)
-              </span>
-              <textarea
-                value={caption}
-                onChange={(e) => setCaption(e.target.value)}
-                rows={4}
-                placeholder="A recipe, the location, a memory — anything you'd like to share beneath the picture."
-                className="resize-y rounded-xl border border-border bg-background px-3 py-2 text-sm leading-relaxed outline-none placeholder:text-muted-foreground/40 focus:border-accent"
-              />
-            </label>
           </div>
 
           {/* pictures */}
-          <div className="mt-7">
+          <div className="mt-4">
             <div className="mb-3 flex items-center justify-between gap-3">
               <p className="text-[10px] tracking-[0.18em] text-muted-foreground uppercase">
                 {photos.length > 0
-                  ? `${photos.length} of ${maxPhotos} — tap one to make it the hero`
+                  ? `${photos.length} of ${maxPhotos} — tap one to work on it`
                   : maxPhotos > 1
                     ? `Add up to ${maxPhotos} pictures`
                     : "Add one picture"}
@@ -518,9 +360,9 @@ export function StudioComposer({
                   <div key={photo.id} className="relative">
                     <button
                       type="button"
-                      onClick={() => setHeroIndex(i)}
+                      onClick={() => setActiveIndex(i)}
                       className={`block w-full overflow-hidden rounded-xl transition-shadow ${
-                        i === heroIndex
+                        i === activeIndex
                           ? "ring-2 ring-accent"
                           : "shadow-soft hover:shadow-lift"
                       }`}
@@ -540,22 +382,15 @@ export function StudioComposer({
                     >
                       <X className="h-3 w-3" strokeWidth={2} />
                     </button>
-                    <button
-                      type="button"
-                      onClick={() => setPlaying({ url: photo.url, grid: 4 })}
-                      className="mt-1 w-full text-[0.55rem] tracking-[0.18em] text-muted-foreground uppercase transition-colors hover:text-foreground"
-                    >
-                      Play
-                    </button>
                   </div>
                 ))}
               </div>
             )}
           </div>
 
-          {/* artist retouching */}
+          {/* artist retouching — right beneath the picture */}
           {editing && (
-            <div className="mt-7 rounded-[4px] border border-accent/60 bg-card/70 p-4">
+            <div className="mt-4 rounded-[4px] border border-accent/60 bg-card/70 p-4">
               <h2 className="font-display text-base tracking-[0.2em] uppercase">
                 Retouch
               </h2>
@@ -605,7 +440,7 @@ export function StudioComposer({
 
           {/* brand logo */}
           {logoPlacement && (
-            <div className="mt-7 rounded-[4px] border border-accent/60 bg-card/70 p-4">
+            <div className="mt-4 rounded-[4px] border border-accent/60 bg-card/70 p-4">
               <h2 className="font-display text-base tracking-[0.2em] uppercase">
                 Your logo
               </h2>
@@ -656,6 +491,86 @@ export function StudioComposer({
                     />
                   </label>
                 )}
+              </div>
+            </div>
+          )}
+        </section>
+
+        {/* controls */}
+        <section className="rounded-[26px] border border-border bg-card/70 p-5">
+          <h2 className="font-display text-base tracking-[0.2em] uppercase">
+            Compose
+          </h2>
+          <div className="mt-4 grid gap-4">
+            <label className="grid gap-1.5">
+              <span className="text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
+                Pictaria
+              </span>
+              <input
+                value={brand}
+                onChange={(e) => setBrand(e.target.value)}
+                placeholder="Road to Hana"
+                className="rounded-xl border border-border bg-background px-3 py-2 text-sm outline-none placeholder:text-muted-foreground/40 focus:border-accent"
+              />
+            </label>
+
+            <label className="grid gap-1.5">
+              <span className="text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
+                Tagline
+              </span>
+              <input
+                value={headline}
+                onChange={(e) => setHeadline(e.target.value)}
+                placeholder="Can you solve today's pineapple?"
+                className="rounded-xl border border-border bg-background px-3 py-2 text-sm outline-none placeholder:text-muted-foreground/40 focus:border-accent"
+              />
+            </label>
+
+            <label className="grid gap-1.5">
+              <span className="text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
+                Story note (optional)
+              </span>
+              <textarea
+                value={caption}
+                onChange={(e) => setCaption(e.target.value)}
+                rows={4}
+                placeholder="A recipe, the location, a memory — anything you'd like to share beneath the picture."
+                className="resize-y rounded-xl border border-border bg-background px-3 py-2 text-sm leading-relaxed outline-none placeholder:text-muted-foreground/40 focus:border-accent"
+              />
+            </label>
+          </div>
+
+          {/* hero picture — decided last */}
+          {photos.length > 1 && (
+            <div className="mt-7 rounded-[4px] border border-accent/60 bg-card/70 p-4">
+              <h2 className="font-display text-base tracking-[0.2em] uppercase">
+                Your hero picture
+              </h2>
+              <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground">
+                Finished in the lab? Choose the one picture that opens your
+                Pictaria.
+              </p>
+              <div className="mt-3 grid grid-cols-4 gap-2 sm:grid-cols-5">
+                {photos.map((photo, i) => (
+                  <button
+                    key={photo.id}
+                    type="button"
+                    onClick={() => setHeroIndex(i)}
+                    aria-label={`Make picture ${i + 1} the hero`}
+                    className={`block w-full overflow-hidden rounded-xl transition-shadow ${
+                      i === heroIndex
+                        ? "ring-2 ring-accent"
+                        : "shadow-soft hover:shadow-lift"
+                    }`}
+                  >
+                    <img
+                      src={photo.url}
+                      alt=""
+                      style={editing ? { filter: filterCss(edits) } : undefined}
+                      className="aspect-[3/4] w-full object-cover"
+                    />
+                  </button>
+                ))}
               </div>
             </div>
           )}
@@ -738,7 +653,6 @@ export function StudioComposer({
               disabled={!recipients.trim() || overLimit}
               className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-[0.6rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03] disabled:opacity-50"
             >
-
               Send Pictaria
               <span aria-hidden>›</span>
             </button>
@@ -784,6 +698,19 @@ export function StudioComposer({
               </div>
             </div>
           </div>
+
+          {/* what this studio celebrates — kept at the bottom */}
+          <ul className="mt-6 grid gap-1.5">
+            {highlights.map((h) => (
+              <li
+                key={h}
+                className="flex gap-2 text-[11px] leading-relaxed text-muted-foreground"
+              >
+                <span className="mt-1.5 h-1 w-1 shrink-0 rotate-45 bg-accent" />
+                {h}
+              </li>
+            ))}
+          </ul>
         </section>
       </div>
     </main>
