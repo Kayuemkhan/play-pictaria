@@ -656,14 +656,14 @@ export function PuzzleBoard({
                   backgroundImage: `url(${src})`,
                   backgroundSize: `${bg.w}px ${bg.h}px`,
                   backgroundPosition: `${bg.x - pc * cellW}px ${bg.y - pr * cellH}px`,
-                  borderRadius: inCluster ? 2 : 6,
+                  borderRadius: inCluster ? 1 : 3,
                   boxShadow: isDragged
                     ? drag!.valid
                       ? "0 0 0 3px var(--accent), 0 16px 28px rgba(15,45,70,0.45)"
                       : "0 0 0 3px rgba(220,90,90,0.8)"
                     : inCluster
                       ? "none"
-                      : "inset 0 0 0 1.5px rgba(255,255,255,0.55)",
+                      : "inset 0 0 0 1px rgba(255,255,255,0.65)",
                   transform: isDragged
                     ? `translate(${drag!.dx / scale}px, ${drag!.dy / scale}px) scale(1.02)`
                     : justLocked
