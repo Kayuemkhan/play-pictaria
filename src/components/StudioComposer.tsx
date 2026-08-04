@@ -1,6 +1,16 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { ArrowLeft, Check, Copy, ImagePlus, X } from "lucide-react";
+import {
+  ArrowLeft,
+  Check,
+  Contrast,
+  Copy,
+  ImagePlus,
+  Palette,
+  Sparkles,
+  Sun,
+  X,
+} from "lucide-react";
 import { BottomBackButton } from "@/components/BottomBackButton";
 import { useServerFn } from "@tanstack/react-start";
 import { publishPictaria } from "@/lib/pictarias.functions";
@@ -122,6 +132,14 @@ export function StudioComposer({
   );
   const [publishError, setPublishError] = useState("");
   const [copied, setCopied] = useState(false);
+  const [activeRetouch, setActiveRetouch] = useState<string | null>(null);
+
+  const retouchTools = [
+    { key: "brightness" as const, label: "Light", icon: Sun, min: 60, max: 150 },
+    { key: "contrast" as const, label: "Contrast", icon: Contrast, min: 60, max: 160 },
+    { key: "saturate" as const, label: "Colour", icon: Palette, min: 0, max: 200 },
+    { key: "warmth" as const, label: "Warmth", icon: Sparkles, min: 0, max: 60 },
+  ];
 
   const fileInput = useRef<HTMLInputElement>(null);
   const logoInput = useRef<HTMLInputElement>(null);
@@ -396,42 +414,69 @@ export function StudioComposer({
                 Retouch
               </h2>
               <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground">
-                Light, depth, colour and a touch of golden warmth — baked into
+                Light, contrast, colour and a touch of golden warmth — baked into
                 every picture you share.
               </p>
-              <div className="mt-4 grid gap-3">
-                {(
-                  [
-                    ["brightness", "Light", 60, 150],
-                    ["contrast", "Depth", 60, 160],
-                    ["saturate", "Colour", 0, 200],
-                    ["warmth", "Golden warmth", 0, 60],
-                  ] as const
-                ).map(([key, label, min, max]) => (
-                  <label key={key} className="grid gap-1">
-                    <span className="flex justify-between text-[10px] tracking-[0.18em] text-muted-foreground uppercase">
-                      {label}
-                      <span>{edits[key]}</span>
-                    </span>
-                    <input
-                      type="range"
-                      min={min}
-                      max={max}
-                      value={edits[key]}
-                      onChange={(e) =>
-                        setEdits((prev) => ({
-                          ...prev,
-                          [key]: Number(e.target.value),
-                        }))
+
+              <div className="mt-4 flex items-center justify-center gap-3">
+                {retouchTools.map(({ key, label, icon: Icon }) => {
+                  const active = activeRetouch === key;
+                  return (
+                    <button
+                      key={key}
+                      type="button"
+                      onClick={() =>
+                        setActiveRetouch(active ? null : key)
                       }
-                      className="accent-primary"
-                    />
-                  </label>
-                ))}
+                      title={label}
+                      aria-label={label}
+                      aria-pressed={active}
+                      className={`grid h-10 w-10 place-items-center rounded-full border transition-all ${
+                        active
+                          ? "border-primary bg-primary text-primary-foreground shadow-lift"
+                          : "border-accent/50 bg-card text-muted-foreground hover:border-accent hover:text-foreground"
+                      }`}
+                    >
+                      <Icon className="h-4 w-4" strokeWidth={1.5} />
+                    </button>
+                  );
+                })}
               </div>
+
+              {activeRetouch && (
+                <div className="mt-4">
+                  {retouchTools
+                    .filter((t) => t.key === activeRetouch)
+                    .map(({ key, label, min, max }) => (
+                      <label key={key} className="grid gap-2">
+                        <span className="flex justify-between text-[10px] tracking-[0.18em] text-muted-foreground uppercase">
+                          {label}
+                          <span>{edits[key]}</span>
+                        </span>
+                        <input
+                          type="range"
+                          min={min}
+                          max={max}
+                          value={edits[key]}
+                          onChange={(e) =>
+                            setEdits((prev) => ({
+                              ...prev,
+                              [key]: Number(e.target.value),
+                            }))
+                          }
+                          className="accent-primary"
+                        />
+                      </label>
+                    ))}
+                </div>
+              )}
+
               <button
                 type="button"
-                onClick={() => setEdits(NO_EDITS)}
+                onClick={() => {
+                  setEdits(NO_EDITS);
+                  setActiveRetouch(null);
+                }}
                 className="mt-3 text-[0.55rem] tracking-[0.18em] text-muted-foreground uppercase hover:text-foreground"
               >
                 Reset retouching
