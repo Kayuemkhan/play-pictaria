@@ -333,10 +333,10 @@ function PricingPage() {
           </div>
           <div className="mt-4 flex flex-wrap items-center gap-3">
             <Link
-              to="/business"
+              to="/create"
               className="inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-[0.6rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
             >
-              See the business page
+              Start your Brand Studio
               <span aria-hidden>›</span>
             </Link>
             <Link
