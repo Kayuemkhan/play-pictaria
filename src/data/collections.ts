@@ -107,6 +107,8 @@ export interface Puzzle {
   image: string;
   /** Optional recipe to show beneath the puzzle image. */
   recipe?: string;
+  /** Optional story/bio paragraphs to show beneath the puzzle image. */
+  story?: string[];
 }
 
 
