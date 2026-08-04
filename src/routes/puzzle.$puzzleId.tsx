@@ -112,6 +112,15 @@ function PuzzlePage() {
               </ol>
             </div>
           )}
+          {puzzle.story && (
+            <div className="mx-auto mt-5 max-w-prose space-y-3 text-left">
+              {puzzle.story.map((para, i) => (
+                <p key={i} className="text-sm leading-relaxed text-foreground">
+                  {para}
+                </p>
+              ))}
+            </div>
+          )}
         </div>
 
 
