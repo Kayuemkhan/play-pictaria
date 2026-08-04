@@ -143,7 +143,7 @@ function BusinessPage() {
         {/* daily pictaria — lead offering */}
         <section className="mt-8 rounded-[4px] border border-accent bg-card/80 p-5">
           <p className="text-[0.6rem] tracking-[0.24em] text-primary uppercase">
-            Included first with White Label Studio
+            Included first with Brand Studio
           </p>
           <h2 className="mt-2 flex items-center gap-2 font-display text-base tracking-[0.2em] uppercase">
             <Sun className="h-4 w-4 text-accent" strokeWidth={1.5} />
@@ -283,7 +283,7 @@ function BusinessPage() {
         {/* pricing */}
         <section className="mt-8">
           <h2 className="font-display text-base tracking-[0.2em] uppercase">
-            White Label Studio
+            Brand Studio
           </h2>
           <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
             Your logo, your colors, your domain. One flat monthly rate for
@@ -302,7 +302,7 @@ function BusinessPage() {
             to="/create"
             className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-[0.6rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
           >
-            Start your white label studio
+            Start your Brand Studio
             <span aria-hidden>›</span>
           </Link>
         </section>
@@ -318,9 +318,9 @@ function BusinessPage() {
             <QrCode className="inline h-3.5 w-3.5 -translate-y-px text-accent" />{" "}
             QR code on a key card, menu or room table. Turn the animation off for
             email — mail apps show a still image, so the jumbled corner does the
-            work. Keep it on for the website and social posts. White label puts
-            your name, colors and logo on every screen, with an optional small
-            Pictaria badge.
+            work. Keep it on for the website and social posts. Brand Studio puts
+            your name, colors and logo on every screen, with the Pictaria badge
+            very small at the very bottom of the scroll.
           </p>
         </section>
 
