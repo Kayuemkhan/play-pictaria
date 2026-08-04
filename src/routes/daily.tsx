@@ -7,24 +7,25 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import palmLogo from "@/assets/logo-palms.png";
+import hibiscus from "@/assets/flower-hibiscus.jpg";
 
 export const Route = createFileRoute("/daily")({
   head: () => ({
     meta: [
-      { title: "Pictaria Daily — A Free Puzzle Every Day" },
+      { title: "Pictaria Daily — A Free Puzzle of Paradise Every Day" },
       {
         name: "description",
         content:
-          "Sign up for a free Pictaria puzzle delivered every single day.",
+          "Sign up for a free puzzle of Paradise delivered every single day.",
       },
       {
         property: "og:title",
-        content: "Pictaria Daily — A Free Puzzle Every Day",
+        content: "Pictaria Daily — A Free Puzzle of Paradise Every Day",
       },
       {
         property: "og:description",
         content:
-          "Sign up for a free Pictaria puzzle delivered every single day.",
+          "Sign up for a free puzzle of Paradise delivered every single day.",
       },
     ],
   }),
@@ -89,7 +90,7 @@ function DailyPage() {
         <p className="mt-3 text-sm text-accent">
           {sessionEmail
             ? `You're all set at ${sessionEmail}.`
-            : "You're on the list for a free puzzle every single day."}
+            : "You're on the list for a free puzzle of Paradise every single day."}
         </p>
         <Link
           to="/"
@@ -104,7 +105,14 @@ function DailyPage() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-deep px-6 py-12">
-      <div className="w-full max-w-sm overflow-hidden rounded-lg border border-accent/60 bg-shell p-6 text-center shadow-soft">
+      <div className="relative w-full max-w-sm overflow-hidden rounded-lg border border-accent/60 bg-shell p-6 text-center shadow-soft">
+        <img
+          src={hibiscus}
+          alt=""
+          width={200}
+          height={200}
+          className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rotate-12 rounded-full object-cover opacity-90 shadow-soft"
+        />
         <img
           src={palmLogo}
           alt="Pictaria"
@@ -116,7 +124,7 @@ function DailyPage() {
           Pictaria Daily
         </h1>
         <p className="mt-1 text-[11px] tracking-[0.12em] text-muted-foreground uppercase">
-          A free puzzle, every single day
+          A free puzzle of Paradise, every single day
         </p>
 
         <form onSubmit={submit} className="mt-6 text-left">
