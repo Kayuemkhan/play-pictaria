@@ -92,7 +92,7 @@ function BusinessPage() {
           aria-hidden
           width={40}
           height={40}
-          className="ml-auto h-9 w-9 shrink-0 object-contain opacity-90"
+          className="ml-auto h-9 w-9 shrink-0 object-contain [filter:brightness(1.2)_saturate(1.15)]"
         />
       </header>
 
