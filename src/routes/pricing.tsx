@@ -147,12 +147,17 @@ const business = [
     title: "Logo placement on your photos",
     copy: "Upload your logo and place it anywhere on the picture — any corner, centered, any size — and it stays through play and in the shared image.",
   },
-
+  {
+    icon: Wand2,
+    title: "The full Bougie photo studio",
+    copy: "Everything in Bougie Studio included: crop and straighten, exposure, contrast and clarity, saturation and vibrance, warmth and tint, vignettes and glow, filters and saved brand presets, sharpen, blur and retouch.",
+  },
   {
     icon: QrCode,
     title: "Unlimited storybooks & QR codes",
     copy: "Unlimited branded storybooks and tracked links, plus printed QR codes for key cards, menus and room tables.",
   },
+
 ];
 
 function PricingPage() {
