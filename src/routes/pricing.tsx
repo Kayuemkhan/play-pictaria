@@ -184,16 +184,13 @@ function PricingPage() {
 
         {/* personal */}
         <section className="mt-8">
-          <h2 className="font-display text-base tracking-[0.2em] uppercase">
+          <h2 className="font-display text-2xl font-semibold tracking-[0.18em] uppercase">
             Personal Studio
           </h2>
           <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-            Weddings, vacations, birthdays, anniversaries, adventures, pets and
-            so much more — your own photos, turned into fun for friends and
-            family.
-          </p>
-          <p className="mt-2 text-[10px] tracking-[0.18em] text-accent uppercase">
-            The Pictaria badge sits at the top of every Pictaria you send
+            Celebrate your weddings, vacations, birthdays, anniversaries,
+            adventures, pets and so much more — your own photos, turned into fun
+            for friends and family.
           </p>
           <div className="mt-4 flex items-baseline gap-2">
             <span className="font-display text-3xl tracking-[0.08em] text-foreground">
