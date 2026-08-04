@@ -260,7 +260,7 @@ function CreatePage() {
             Create Your Story
           </h1>
           <p className="text-[10px] tracking-[0.22em] text-muted-foreground uppercase">
-            Send a free storybook
+            Send a free Pictaria
           </p>
         </div>
       </header>
