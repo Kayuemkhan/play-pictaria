@@ -422,18 +422,14 @@ function CreatePage() {
 
           {/* storybook */}
           <div className="mt-7">
-            <h3 className="font-display text-[0.95rem] leading-snug tracking-[0.06em]">
-              Perfect for weddings, vacations, birthdays, anniversaries,
-              adventures, pets and so much more.
-            </h3>
-            <p className="mt-2 text-[10px] tracking-[0.18em] text-muted-foreground uppercase">
-              {photos.length
-                ? `${photos.length} ${photos.length === 1 ? "picture" : "pictures"} — tap one to make it the hero`
-                : "Add your photograph here"}
-            </p>
+            {photos.length > 0 && (
+              <p className="mb-3 text-[10px] tracking-[0.18em] text-muted-foreground uppercase">
+                {photos.length} {photos.length === 1 ? "picture" : "pictures"} — tap one to make it the hero
+              </p>
+            )}
 
             {photos.length > 0 && (
-              <div className="mt-3 grid grid-cols-3 gap-2 sm:grid-cols-4">
+              <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
                 {photos.map((photo, i) => (
                   <div key={photo.id} className="relative">
                     <button
