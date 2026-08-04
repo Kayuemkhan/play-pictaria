@@ -77,6 +77,9 @@ export function PuzzleBoard({
   /** groupOf[piece] = group id */
   const [groupOf, setGroupOf] = useState<number[]>([]);
   const [flash, setFlash] = useState<number[]>([]);
+  const [sparkles, setSparkles] = useState<
+    { id: number; x: number; y: number; size: number; delay: number; tx: number; ty: number }[]
+  >([]);
   const [moves, setMoves] = useState(0);
   const [seconds, setSeconds] = useState(0);
   const [solved, setSolved] = useState(false);
@@ -425,6 +428,32 @@ export function PuzzleBoard({
           .filter((p) => p >= 0);
         setFlash(flashed);
         window.setTimeout(() => setFlash([]), 380);
+
+        // little gold sparkles where pieces just clicked together
+        const burst = flashed.map((piece) => {
+          const cell = next[piece]!;
+          const cRow = Math.floor(cell / grid);
+          const cCol = cell % grid;
+          const cx = cCol * cellW + cellW / 2;
+          const cy = cRow * cellH + cellH / 2;
+          return Array.from({ length: 5 }).map((_, i) => {
+            const angle = (i / 5) * Math.PI * 2 + Math.random() * 0.4;
+            const dist = 18 + Math.random() * 22;
+            return {
+              id: Date.now() + Math.random(),
+              x: cx,
+              y: cy,
+              size: 3 + Math.random() * 4,
+              delay: Math.random() * 0.12,
+              tx: Math.cos(angle) * dist,
+              ty: Math.sin(angle) * dist,
+            };
+          });
+        }).flat();
+        setSparkles((prev) => [...prev, ...burst].slice(-120));
+        window.setTimeout(() => {
+          setSparkles((prev) => prev.filter((s) => !burst.find((b) => b.id === s.id)));
+        }, 800);
       } else {
         playPick();
       }
@@ -717,7 +746,7 @@ export function PuzzleBoard({
                   backgroundImage: `url(${src})`,
                   backgroundSize: `${bg.w}px ${bg.h}px`,
                   backgroundPosition: `${bg.x - pc * cellW}px ${bg.y - pr * cellH}px`,
-                  borderRadius: inCluster ? 1 : 3,
+                  borderRadius: inCluster ? 2 : 6,
                   boxShadow: isDragged
                     ? drag!.valid
                       ? "0 0 0 3px var(--accent), 0 16px 28px rgba(15,45,70,0.45)"
@@ -739,6 +768,25 @@ export function PuzzleBoard({
               />
             );
           })}
+
+          {/* gold sparkles on snap */}
+          {sparkles.map((s) => (
+            <span
+              key={s.id}
+              className="pointer-events-none absolute animate-sparkle-burst rounded-full bg-accent shadow-[0_0_6px_var(--accent)]"
+              style={{
+                left: s.x,
+                top: s.y,
+                width: s.size,
+                height: s.size,
+                marginLeft: -s.size / 2,
+                marginTop: -s.size / 2,
+                animationDelay: `${s.delay}s`,
+                ["--tw-translate-x" as string]: `${s.tx}px`,
+                ["--tw-translate-y" as string]: `${s.ty}px`,
+              }}
+            />
+          ))}
         </div>
 
         {/* puzzle box flash */}
