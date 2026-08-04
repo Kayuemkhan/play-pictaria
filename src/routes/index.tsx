@@ -161,7 +161,7 @@ function Home() {
             alt="Pictaria — two gold palm trees"
             width={1024}
             height={1024}
-            className="h-11 w-auto drop-shadow-[0_3px_14px_oklch(0.2_0.05_230/0.6)] sm:h-14"
+            className="h-11 w-auto [filter:brightness(1.35)_saturate(1.2)_drop-shadow(0_3px_14px_oklch(0.2_0.05_230/0.6))] sm:h-14"
           />
           <h1 className="relative -mt-1 pl-[0.3em] font-display text-[2rem] leading-none font-medium tracking-[0.3em] text-shell [text-shadow:0_2px_18px_oklch(0.2_0.05_230/0.85),0_0_2px_oklch(0.2_0.05_230/0.9)] sm:text-[3rem]">
             PICTARIA
@@ -172,7 +172,7 @@ function Home() {
             <span className="h-1 w-1 rotate-45 bg-accent" />
             <span className="h-px flex-1 bg-accent/70" />
           </div>
-          <p className="mt-1 text-[11px] font-medium tracking-[0.32em] text-accent uppercase [text-shadow:0_1px_12px_oklch(0.2_0.05_230/0.95),0_0_3px_oklch(0.2_0.05_230/0.9)]">
+          <p className="mt-1 text-[12px] font-semibold tracking-[0.32em] text-shell uppercase [text-shadow:0_1px_12px_oklch(0.2_0.05_230/0.95),0_0_4px_oklch(0.2_0.05_230/0.95)]">
             Turn pictures into play
           </p>
 
@@ -228,7 +228,7 @@ function Home() {
             </h2>
             <Link
               to="/collections"
-              className="inline-flex items-center gap-1 rounded-full border border-primary/40 bg-primary/10 px-3 py-1.5 text-[0.7rem] font-medium tracking-[0.16em] text-primary uppercase transition-colors hover:bg-primary hover:text-primary-foreground"
+              className="inline-flex items-center gap-1 text-[0.7rem] tracking-[0.16em] text-primary uppercase transition-opacity hover:opacity-70"
             >
               View all
               <span aria-hidden>›</span>

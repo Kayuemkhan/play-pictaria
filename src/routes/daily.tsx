@@ -81,7 +81,7 @@ function DailyPage() {
           alt="Pictaria"
           width={1024}
           height={1024}
-          className="h-16 w-auto"
+          className="h-16 w-auto [filter:brightness(1.35)_saturate(1.2)]"
         />
         <h1 className="mt-5 max-w-xs font-display text-[1.75rem] leading-tight text-shell">
           Welcome to the magical land of Pictaria
@@ -110,7 +110,7 @@ function DailyPage() {
           alt="Pictaria"
           width={1024}
           height={1024}
-          className="mx-auto h-12 w-auto"
+          className="mx-auto h-12 w-auto [filter:brightness(1.2)_saturate(1.15)]"
         />
         <h1 className="mt-3 font-display text-[1.35rem] text-foreground">
           Pictaria Daily
