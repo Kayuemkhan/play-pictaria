@@ -59,6 +59,17 @@ import cat07 from "@/assets/cat-07.jpg";
 import cat08 from "@/assets/cat-08.jpg";
 import cat09 from "@/assets/cat-09.jpg";
 import cat10 from "@/assets/cat-10.jpg";
+import pineapple01 from "@/assets/pineapple-01.jpg";
+import pineapple02 from "@/assets/pineapple-02.jpg";
+import pineapple03 from "@/assets/pineapple-03.jpg";
+import pineapple04 from "@/assets/pineapple-04.jpg";
+import pineapple05 from "@/assets/pineapple-05.jpg";
+import pineapple06 from "@/assets/pineapple-06.jpg";
+import pineapple07 from "@/assets/pineapple-07.jpg";
+import pineapple08 from "@/assets/pineapple-08.jpg";
+import pineapple09 from "@/assets/pineapple-09.jpg";
+import pineapple10 from "@/assets/pineapple-10.jpg";
+
 import coverWaterfalls from "@/assets/cover-waterfalls.jpg";
 import coverSunsets from "@/assets/cover-sunsets.jpg";
 import fsmResortCove from "@/assets/fsm-resort-cove.jpg.asset.json";
