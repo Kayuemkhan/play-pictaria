@@ -69,6 +69,9 @@ import pineapple07 from "@/assets/pineapple-07.jpg";
 import pineapple08 from "@/assets/pineapple-08.jpg";
 import pineapple09 from "@/assets/pineapple-09.jpg";
 import pineapple10 from "@/assets/pineapple-10.jpg";
+import pineapple11 from "@/assets/pineapple-11.jpg";
+import pineapple12 from "@/assets/pineapple-12.jpg";
+
 
 import coverWaterfalls from "@/assets/cover-waterfalls.jpg";
 import coverSunsets from "@/assets/cover-sunsets.jpg";
@@ -100,7 +103,10 @@ export interface Puzzle {
   title: string;
   caption: string;
   image: string;
+  /** Optional recipe to show beneath the puzzle image. */
+  recipe?: string;
 }
+
 
 export interface Collection {
   id: string;
@@ -582,7 +588,7 @@ export const collections: Collection[] = [
   {
     id: "pineapples-of-hawaii",
     title: "Pineapples of Hawaii",
-    tagline: "Ten golden island moments, from plantation house to palm-framed sunset",
+    tagline: "Twelve golden island moments, from plantation house to palm-framed sunset",
     cover: pineapple05,
     free: true,
     puzzles: [
@@ -646,8 +652,25 @@ export const collections: Collection[] = [
         caption: "Moss and bamboo",
         image: pineapple10,
       },
+      {
+        id: "pineapple-11",
+        title: "Pineapple Sunset Cocktail",
+        caption: "A golden island sipper for golden hour",
+        image: pineapple11,
+        recipe:
+          "In a shaker, muddle 4 fresh pineapple chunks with 6 mint leaves and ½ oz lime juice. Add 2 oz white rum, 1 oz pineapple juice, and ½ oz simple syrup. Fill with ice and shake until cold. Strain into a glass filled with ice, top with a splash of soda, and garnish with pineapple and mint.",
+      },
+      {
+        id: "pineapple-12",
+        title: "Pineapple Upside-Down Cake",
+        caption: "Caramelized rings over a soft golden crumb",
+        image: pineapple12,
+        recipe:
+          "Melt ¼ cup butter in a 9-inch round cake pan, sprinkle with ½ cup brown sugar, and arrange pineapple rings with cherries in the centers. Whisk 1½ cups flour, 1½ tsp baking powder, and ¼ tsp salt. Cream ½ cup butter and ¾ cup sugar, then beat in 2 eggs, 1 tsp vanilla, and ½ cup milk. Spread over pineapple and bake at 350°F for 40–45 minutes. Cool 10 minutes, then invert onto a plate.",
+      },
     ],
   },
+
   {
     id: "four-seasons-maui",
     title: "Four Seasons Maui",

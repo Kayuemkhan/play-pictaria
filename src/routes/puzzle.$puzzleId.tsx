@@ -100,7 +100,18 @@ function PuzzlePage() {
             {puzzle.title}
           </h1>
           <p className="mt-2 text-sm text-muted-foreground">{puzzle.caption}</p>
+          {puzzle.recipe && (
+            <div className="mt-4 rounded-[4px] border border-accent/40 bg-card/60 p-4 text-left">
+              <p className="text-[10px] tracking-[0.2em] text-primary uppercase">
+                Recipe
+              </p>
+              <p className="mt-2 text-sm leading-relaxed text-foreground">
+                {puzzle.recipe}
+              </p>
+            </div>
+          )}
         </div>
+
 
         <p className="mt-10 text-center text-[11px] tracking-[0.3em] text-muted-foreground uppercase">
           Choose your pace
