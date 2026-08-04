@@ -2,14 +2,20 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ArrowLeft,
   BarChart3,
+  Circle,
+  Contrast,
+  Crop,
+  Droplets,
   Heart,
   Images,
   MousePointerClick,
+  Palette,
   Sparkles,
   QrCode,
   Sun,
-
+  Wand2,
 } from "lucide-react";
+
 import palmLogo from "@/assets/logo-palms.png";
 
 export const Route = createFileRoute("/pricing")({
