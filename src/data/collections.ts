@@ -867,6 +867,12 @@ export const collections: Collection[] = [
         image: fsmInfinitySunset.url,
       },
       {
+        id: "fsm-06",
+        title: "Edge of the Blue",
+        caption: "Palms, Lanai and the still water at golden hour",
+        image: fsmPoolPalms,
+      },
+      {
         id: "fsm-05",
         title: "Warrior",
         caption: "Morning practice on the sand",
