@@ -295,7 +295,7 @@ function BusinessPage() {
 
           <div className="mt-4 flex items-baseline gap-2">
             <span className="font-display text-3xl tracking-[0.08em] text-foreground">
-              $199
+              $195
             </span>
             <span className="text-[0.7rem] tracking-[0.18em] text-muted-foreground uppercase">
               / month
