@@ -92,6 +92,17 @@ import fruit07 from "@/assets/fruit-07.jpg";
 import fruit08 from "@/assets/fruit-08.jpg";
 import fruit09 from "@/assets/fruit-09.jpg";
 import fruit10 from "@/assets/fruit-10.jpg";
+import wave01 from "@/assets/wave-01.jpg";
+import wave02 from "@/assets/wave-02.jpg";
+import wave03 from "@/assets/wave-03.jpg";
+import wave04 from "@/assets/wave-04.jpg";
+import wave05 from "@/assets/wave-05.jpg";
+import wave06 from "@/assets/wave-06.jpg";
+import wave07 from "@/assets/wave-07.jpg";
+import wave08 from "@/assets/wave-08.jpg";
+import wave09 from "@/assets/wave-09.jpg";
+import wave10 from "@/assets/wave-10.jpg";
+
 
 
 
