@@ -186,7 +186,7 @@ function CreatePage() {
             Build your storybook
           </h1>
           <p className="mt-2 text-[13px] leading-relaxed text-muted-foreground">
-            Send a free storybook with one photo. If you want more, a
+            Send a free Pictaria with one photo. If you want more, a
             subscription is $5.95 a month.
           </p>
 
