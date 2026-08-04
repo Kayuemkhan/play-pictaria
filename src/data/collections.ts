@@ -101,6 +101,18 @@ import amy05Enhanced from "@/assets/amy-art-05-enhanced.jpg";
 import amy08Enhanced from "@/assets/amy-art-08-enhanced.jpg";
 import amy13Enhanced from "@/assets/amy-art-13-enhanced.jpg";
 
+import healNoni from "@/assets/heal-01-noni.jpg";
+import healOlena from "@/assets/heal-02-olena.jpg";
+import healAwapuhi from "@/assets/heal-03-awapuhi.jpg";
+import healAloe from "@/assets/heal-04-aloe.jpg";
+import healKukui from "@/assets/heal-05-kukui.jpg";
+import healKi from "@/assets/heal-06-ki.jpg";
+import healKalo from "@/assets/heal-07-kalo.jpg";
+import healNiu from "@/assets/heal-08-niu.jpg";
+import healMamaki from "@/assets/heal-09-mamaki.jpg";
+import healIlima from "@/assets/heal-10-ilima.jpg";
+import healHau from "@/assets/heal-11-hau.jpg";
+
 export interface Puzzle {
   id: string;
   title: string;
