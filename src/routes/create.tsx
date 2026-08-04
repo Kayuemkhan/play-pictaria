@@ -311,16 +311,6 @@ function CreatePage() {
                     inset={0}
                     animated={animated}
                   />
-                  <div className="absolute inset-x-0 top-5 z-[4] px-6 text-center">
-                    <p className="font-display text-[1.3rem] leading-tight tracking-[0.16em] text-shell uppercase">
-                      {brand.trim() || "Your brand"}
-                    </p>
-                    <div className="mx-auto mt-2 flex w-40 items-center gap-2">
-                      <span className="h-px flex-1 bg-accent/70" />
-                      <span className="h-1 w-1 rotate-45 bg-accent" />
-                      <span className="h-px flex-1 bg-accent/70" />
-                    </div>
-                  </div>
                   {headline.trim() && (
                     <div
                       role="group"
