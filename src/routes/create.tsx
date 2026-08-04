@@ -41,6 +41,9 @@ export const Route = createFileRoute("/create")({
 const HERO_CORNER: HeroCorner = "bottom-right";
 const HERO_WEDGE = 4;
 
+/** A visitor can compose up to ten pictures in one Pictaria storybook. */
+const MAX_PHOTOS = 10;
+
 interface Photo {
   id: string;
   url: string;
@@ -164,12 +167,17 @@ function CreatePage() {
 
   const add = (files: FileList | null) => {
     if (!files || !files.length) return;
-    const next = Array.from(files).slice(0, 1).map((file, i) => {
-      const url = URL.createObjectURL(file);
-      urls.current.push(url);
-      return { id: `${Date.now()}-${i}-${file.name}`, url };
+    setPhotos((prev) => {
+      const room = Math.max(0, MAX_PHOTOS - prev.length);
+      const next = Array.from(files)
+        .slice(0, room)
+        .map((file, i) => {
+          const url = URL.createObjectURL(file);
+          urls.current.push(url);
+          return { id: `${Date.now()}-${i}-${file.name}`, url };
+        });
+      return [...prev, ...next];
     });
-    setPhotos(next);
   };
 
   const remove = (id: string) => {
@@ -311,16 +319,6 @@ function CreatePage() {
                     inset={0}
                     animated={animated}
                   />
-                  <div className="absolute inset-x-0 top-5 z-[4] px-6 text-center">
-                    <p className="font-display text-[1.3rem] leading-tight tracking-[0.16em] text-shell uppercase">
-                      {brand.trim() || "Your brand"}
-                    </p>
-                    <div className="mx-auto mt-2 flex w-40 items-center gap-2">
-                      <span className="h-px flex-1 bg-accent/70" />
-                      <span className="h-1 w-1 rotate-45 bg-accent" />
-                      <span className="h-px flex-1 bg-accent/70" />
-                    </div>
-                  </div>
                   {headline.trim() && (
                     <div
                       role="group"
@@ -396,6 +394,7 @@ function CreatePage() {
             ref={fileInput}
             type="file"
             accept="image/*"
+            multiple
             className="sr-only"
             onChange={(e) => {
               add(e.target.files);
@@ -409,7 +408,7 @@ function CreatePage() {
           <div className="mt-4 grid gap-4">
             <label className="grid gap-1.5">
               <span className="text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
-                Storybook name
+                Pictaria
               </span>
               <input
                 value={brand}
@@ -421,7 +420,7 @@ function CreatePage() {
 
             <label className="grid gap-1.5">
               <span className="text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
-                Pictaria
+                Tagline
               </span>
               <input
                 value={headline}
@@ -447,11 +446,23 @@ function CreatePage() {
 
           {/* storybook */}
           <div className="mt-7">
-            {photos.length > 0 && (
-              <p className="mb-3 text-[10px] tracking-[0.18em] text-muted-foreground uppercase">
-                {photos.length} {photos.length === 1 ? "picture" : "pictures"} — tap one to make it the hero
+            <div className="mb-3 flex items-center justify-between gap-3">
+              <p className="text-[10px] tracking-[0.18em] text-muted-foreground uppercase">
+                {photos.length > 0
+                  ? `${photos.length} of ${MAX_PHOTOS} ${photos.length === 1 ? "picture" : "pictures"} — tap one to make it the hero`
+                  : `Add up to ${MAX_PHOTOS} pictures`}
               </p>
-            )}
+              <button
+                type="button"
+                onClick={() => fileInput.current?.click()}
+                disabled={photos.length >= MAX_PHOTOS}
+                className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-deep px-3 py-1.5 text-[0.55rem] tracking-[0.18em] text-accent uppercase shadow-soft transition-transform hover:scale-[1.03] disabled:opacity-50"
+              >
+                <ImagePlus className="h-3 w-3" strokeWidth={1.5} />
+                {photos.length ? "Add more" : "Choose photos"}
+              </button>
+            </div>
+
 
             {photos.length > 0 && (
               <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
@@ -533,6 +544,27 @@ function CreatePage() {
               <div className="flex shrink-0 flex-col items-end gap-1">
                 <span className="text-[0.55rem] tracking-[0.18em] text-muted-foreground uppercase">
                   Analytics &amp; action buttons
+                </span>
+                <Link
+                  to="/pricing"
+                  className="inline-flex items-center gap-1.5 rounded-full bg-primary px-2.5 py-1 text-[0.55rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
+                >
+                  See pricing
+                  <span aria-hidden>›</span>
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          {/* puzzle-lover CTA */}
+          <div className="relative mt-4 overflow-hidden rounded-[4px] border border-accent/60 bg-card/70 p-4">
+            <div className="relative grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4">
+              <p className="min-w-0 font-display text-[0.85rem] leading-snug [color:color-mix(in_oklch,var(--foreground)_92%,black)]">
+                I love puzzles — I would love to send Pictaria&rsquo;s!
+              </p>
+              <div className="flex shrink-0 flex-col items-end gap-1">
+                <span className="text-[0.55rem] tracking-[0.18em] text-muted-foreground uppercase">
+                  Personal &amp; Artist Studio
                 </span>
                 <Link
                   to="/pricing"
