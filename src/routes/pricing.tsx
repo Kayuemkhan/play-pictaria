@@ -247,7 +247,61 @@ function PricingPage() {
           </Link>
         </section>
 
+        {/* bougie */}
+        <section className="mt-10">
+          <div className="flex flex-wrap items-center gap-2">
+            <h2 className="font-display text-base tracking-[0.2em] uppercase">
+              Bougie Studio
+            </h2>
+            <span className="rounded-full border border-accent/60 bg-accent/10 px-2.5 py-0.5 text-[0.55rem] tracking-[0.2em] text-accent uppercase">
+              Most loved
+            </span>
+          </div>
+          <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+            Everything in Personal Studio, plus the whole photo studio. Crop it,
+            light it, warm it, glow it — make an ordinary phone snapshot look
+            like something framed on a wall before it ever becomes a puzzle.
+          </p>
+          <div className="mt-4 flex items-baseline gap-2">
+            <span className="font-display text-3xl tracking-[0.08em] text-foreground">
+              $9.95
+            </span>
+            <span className="text-[0.7rem] tracking-[0.18em] text-muted-foreground uppercase">
+              / month
+            </span>
+          </div>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2">
+            {bougie.map((f) => (
+              <div
+                key={f.title}
+                className="flex gap-3 rounded-[4px] border border-accent/50 bg-card/70 p-4"
+              >
+                <f.icon
+                  className="mt-0.5 h-5 w-5 shrink-0 text-primary"
+                  strokeWidth={1.5}
+                />
+                <div className="min-w-0">
+                  <p className="font-display text-sm tracking-[0.14em] uppercase">
+                    {f.title}
+                  </p>
+                  <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                    {f.copy}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <Link
+            to="/create"
+            className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-[0.6rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
+          >
+            Go bougie
+            <span aria-hidden>›</span>
+          </Link>
+        </section>
+
         {/* business */}
+
         <section className="mt-10">
           <h2 className="font-display text-base tracking-[0.2em] uppercase">
             Brand Studio
