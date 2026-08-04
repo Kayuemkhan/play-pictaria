@@ -77,27 +77,37 @@ function DailyPage() {
   if (signedUp || status === "done") {
     return (
       <main className="flex min-h-screen flex-col items-center justify-center bg-deep px-6 py-12 text-center">
-        <img
-          src={palmLogo}
-          alt="Pictaria"
-          width={1024}
-          height={1024}
-          className="h-20 w-auto [filter:brightness(1.45)_saturate(1.25)_drop-shadow(0_3px_12px_oklch(0.15_0.04_230/0.55))]"
+        <div
+          role="img"
+          aria-label="Pictaria"
+          className="h-44 w-44 sm:h-56 sm:w-56"
+          style={{
+            maskImage: `url(${palmLogo})`,
+            WebkitMaskImage: `url(${palmLogo})`,
+            maskSize: "contain",
+            WebkitMaskSize: "contain",
+            maskRepeat: "no-repeat",
+            WebkitMaskRepeat: "no-repeat",
+            maskPosition: "center",
+            WebkitMaskPosition: "center",
+            backgroundImage:
+              "linear-gradient(158deg, oklch(0.95 0.07 92) 0%, oklch(0.86 0.12 85) 32%, oklch(0.72 0.13 74) 62%, oklch(0.55 0.11 62) 100%)",
+            filter: "drop-shadow(0 6px 20px oklch(0.15 0.04 230 / 0.6))",
+          }}
         />
-        <h1 className="mt-5 max-w-xs font-display text-[1.75rem] leading-tight text-shell">
-          Welcome to the magical land of Pictaria
-        </h1>
-        <p className="mt-3 text-sm text-accent">
+        <p className="mt-6 max-w-sm font-display text-[1.6rem] leading-snug text-accent">
+          Welcome to Pictaria
+        </p>
+        <p className="mt-3 max-w-sm font-display text-[1.15rem] leading-snug text-accent">
           {sessionEmail
-            ? `You're all set at ${sessionEmail}.`
-            : "You're on the list for a free puzzle of Paradise every single day."}
+            ? `You're on the list at ${sessionEmail} for a free puzzle every single day.`
+            : "You're on the list for a free puzzle every single day."}
         </p>
         <Link
           to="/"
-          className="mt-8 inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-[0.55rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
+          className="mt-9 font-display text-[0.95rem] tracking-[0.2em] text-accent uppercase transition-opacity hover:opacity-75"
         >
-          Back home
-          <span aria-hidden>›</span>
+          Back home <span aria-hidden>›</span>
         </Link>
       </main>
     );
