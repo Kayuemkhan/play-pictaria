@@ -399,7 +399,7 @@ function CreatePage() {
           <div className="mt-4 grid gap-4">
             <label className="grid gap-1.5">
               <span className="text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
-                Storybook name
+                Pictaria
               </span>
               <input
                 value={brand}
