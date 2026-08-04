@@ -286,10 +286,13 @@ function BusinessPage() {
             Brand Studio
           </h2>
           <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-            Your logo, your colors, your domain. One flat monthly rate for
-            unlimited branded storybooks, tracked links, QR codes, and action
+            A picture stops the scroll — a puzzle makes them stay. Your customers
+            linger on the photo, really enjoy it, and start branding your brand
+            with joy. Your logo, your colors, your domain. One flat monthly rate
+            for unlimited branded storybooks, tracked links, QR codes, and action
             buttons.
           </p>
+
           <div className="mt-4 flex items-baseline gap-2">
             <span className="font-display text-3xl tracking-[0.08em] text-foreground">
               $199
