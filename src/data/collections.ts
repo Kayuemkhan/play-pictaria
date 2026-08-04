@@ -660,7 +660,7 @@ export const collections: Collection[] = [
         caption: "A golden island sipper for golden hour",
         image: pineapple11,
         recipe:
-          "In a shaker, muddle 4 fresh pineapple chunks with 6 mint leaves and ½ oz lime juice. Add 2 oz white rum, 1 oz pineapple juice, and ½ oz simple syrup. Fill with ice and shake until cold. Strain into a glass filled with ice, top with a splash of soda, and garnish with pineapple and mint.",
+          "Muddle 4 pineapple chunks with 6 mint leaves and ½ oz lime juice.\nAdd 2 oz white rum, 1 oz pineapple juice, and ½ oz simple syrup.\nFill with ice and shake until cold.\nStrain into an ice-filled glass.\nTop with soda and garnish with pineapple and mint.",
       },
       {
         id: "pineapple-12",
@@ -668,7 +668,7 @@ export const collections: Collection[] = [
         caption: "Caramelized rings over a soft golden crumb",
         image: pineapple12,
         recipe:
-          "Melt ¼ cup butter in a 9-inch round cake pan, sprinkle with ½ cup brown sugar, and arrange pineapple rings with cherries in the centers. Whisk 1½ cups flour, 1½ tsp baking powder, and ¼ tsp salt. Cream ½ cup butter and ¾ cup sugar, then beat in 2 eggs, 1 tsp vanilla, and ½ cup milk. Spread over pineapple and bake at 350°F for 40–45 minutes. Cool 10 minutes, then invert onto a plate.",
+          "Melt ¼ cup butter in a 9-inch round cake pan.\nSprinkle with ½ cup brown sugar.\nArrange pineapple rings with cherries in the centers.\nWhisk 1½ cups flour, 1½ tsp baking powder, and ¼ tsp salt.\nCream ½ cup butter and ¾ cup sugar.\nBeat in 2 eggs, 1 tsp vanilla, and ½ cup milk.\nSpread batter over the pineapple.\nBake at 350°F for 40–45 minutes.\nCool 10 minutes, then invert onto a plate.",
       },
       {
         id: "pineapple-13",
