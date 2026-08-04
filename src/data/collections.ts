@@ -103,7 +103,10 @@ export interface Puzzle {
   title: string;
   caption: string;
   image: string;
+  /** Optional recipe to show beneath the puzzle image. */
+  recipe?: string;
 }
+
 
 export interface Collection {
   id: string;
