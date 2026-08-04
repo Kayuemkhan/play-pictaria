@@ -21,24 +21,25 @@ import palmLogo from "@/assets/logo-palms.png";
 export const Route = createFileRoute("/pricing")({
   head: () => ({
     meta: [
-      { title: "Pictaria Pricing — Personal Studio & Brand Studio" },
+      { title: "Pictaria Pricing — Personal, Bougie & Brand Studio" },
       {
         name: "description",
         content:
-          "A free Pictaria every day, Personal Studio at $5.99 a month for three storybooks of ten pictures each, and Brand Studio at $199 a month for branded, tracked storybooks.",
+          "A free Pictaria every day, Personal Studio at $5.99 a month, Bougie Studio at $9.95 a month with full photo editing, and Brand Studio at $199 a month for branded, tracked storybooks.",
       },
       {
         property: "og:title",
-        content: "Pictaria Pricing — Personal Studio & Brand Studio",
+        content: "Pictaria Pricing — Personal, Bougie & Brand Studio",
       },
       {
         property: "og:description",
         content:
-          "Free daily puzzle, Personal Studio $5.99/month, Brand Studio $199/month with analytics and action buttons.",
+          "Free daily puzzle, Personal Studio $5.99/month, Bougie Studio $9.95/month with cropping, saturation, contrast and vignettes, Brand Studio $199/month.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
+
   }),
   component: PricingPage,
 });
