@@ -390,19 +390,19 @@ function CreatePage() {
                 value={brand}
                 onChange={(e) => setBrand(e.target.value)}
                 placeholder="Road to Hana"
-                className="rounded-xl border border-border bg-background px-3 py-2 text-sm outline-none focus:border-accent"
+                className="rounded-xl border border-border bg-background px-3 py-2 text-sm outline-none placeholder:text-muted-foreground/40 focus:border-accent"
               />
             </label>
 
             <label className="grid gap-1.5">
               <span className="text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
-                Headline
+                Pictaria
               </span>
               <input
                 value={headline}
                 onChange={(e) => setHeadline(e.target.value)}
-                placeholder="Can you solve today's picture?"
-                className="rounded-xl border border-border bg-background px-3 py-2 text-sm outline-none focus:border-accent"
+                placeholder="Can you solve today's pineapple?"
+                className="rounded-xl border border-border bg-background px-3 py-2 text-sm outline-none placeholder:text-muted-foreground/40 focus:border-accent"
               />
             </label>
 
@@ -415,11 +415,9 @@ function CreatePage() {
                 onChange={(e) => setCaption(e.target.value)}
                 rows={4}
                 placeholder="A recipe, the location, a memory — anything you'd like to share beneath the picture."
-                className="resize-y rounded-xl border border-border bg-background px-3 py-2 text-sm leading-relaxed outline-none focus:border-accent"
+                className="resize-y rounded-xl border border-border bg-background px-3 py-2 text-sm leading-relaxed outline-none placeholder:text-muted-foreground/40 focus:border-accent"
               />
             </label>
-
-
           </div>
 
           {/* storybook */}
