@@ -41,6 +41,9 @@ export const Route = createFileRoute("/create")({
 const HERO_CORNER: HeroCorner = "bottom-right";
 const HERO_WEDGE = 4;
 
+/** A visitor can compose up to ten pictures in one Pictaria storybook. */
+const MAX_PHOTOS = 10;
+
 interface Photo {
   id: string;
   url: string;
