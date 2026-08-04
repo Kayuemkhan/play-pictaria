@@ -184,7 +184,7 @@ function PricingPage() {
 
         {/* personal */}
         <section className="mt-8">
-          <h2 className="font-display text-2xl font-semibold tracking-[0.18em] uppercase">
+          <h2 className="font-display text-lg font-semibold tracking-[0.18em] uppercase">
             Personal Studio
           </h2>
           <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
@@ -233,7 +233,7 @@ function PricingPage() {
         {/* artist */}
         <section className="mt-10">
           <div className="flex flex-wrap items-center gap-2">
-            <h2 className="font-display text-2xl font-semibold tracking-[0.18em] uppercase">
+            <h2 className="font-display text-lg font-semibold tracking-[0.18em] uppercase">
               Artist Studio
             </h2>
             <span className="rounded-full border border-accent/60 bg-accent/10 px-2.5 py-0.5 text-[0.55rem] tracking-[0.2em] text-accent uppercase">
@@ -286,7 +286,7 @@ function PricingPage() {
         {/* business */}
 
         <section className="mt-10">
-          <h2 className="font-display text-2xl font-semibold tracking-[0.18em] uppercase">
+          <h2 className="font-display text-lg font-semibold tracking-[0.18em] uppercase">
             Brand Studio
           </h2>
           <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
