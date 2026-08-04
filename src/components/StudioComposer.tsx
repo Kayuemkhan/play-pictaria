@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { ArrowLeft, Check, Copy, ImagePlus, X } from "lucide-react";
+import { BottomBackButton } from "@/components/BottomBackButton";
 import { useServerFn } from "@tanstack/react-start";
 import { publishPictaria } from "@/lib/pictarias.functions";
 
@@ -715,6 +716,7 @@ export function StudioComposer({
           )}
         </section>
       </div>
+      <BottomBackButton />
     </main>
   );
 }

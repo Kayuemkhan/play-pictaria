@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { collections } from "@/data/collections";
+import { BottomBackButton } from "@/components/BottomBackButton";
 
 export const Route = createFileRoute("/collections")({
   head: () => ({
@@ -67,6 +68,7 @@ function CollectionsPage() {
           ))}
         </div>
       </div>
+      <BottomBackButton />
     </main>
   );
 }

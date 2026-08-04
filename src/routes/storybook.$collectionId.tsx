@@ -4,6 +4,7 @@ import {
   visitorAllowance,
   waitingCount,
 } from "@/data/collections";
+import { BottomBackButton } from "@/components/BottomBackButton";
 
 export const Route = createFileRoute("/storybook/$collectionId")({
   head: () => ({
@@ -143,6 +144,7 @@ function StorybookGatePage() {
           </Link>
         </div>
       </div>
+      <BottomBackButton />
     </main>
   );
 }

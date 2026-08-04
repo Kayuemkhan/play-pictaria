@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
+import { BottomBackButton } from "@/components/BottomBackButton";
 import mindfulnessHero from "@/assets/mindfulness-hero.jpg";
 
 export const Route = createFileRoute("/mindfulness")({
@@ -77,6 +78,7 @@ function MindfulnessPage() {
           </Link>
         </div>
       </div>
+      <BottomBackButton />
     </main>
   );
 }

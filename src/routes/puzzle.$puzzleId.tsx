@@ -1,6 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { PuzzleBoard } from "@/components/PuzzleBoard";
+import { BottomBackButton } from "@/components/BottomBackButton";
 import { difficulties, findPuzzle } from "@/data/collections";
 
 export const Route = createFileRoute("/puzzle/$puzzleId")({
@@ -146,6 +147,7 @@ function PuzzlePage() {
           ))}
         </div>
       </div>
+      <BottomBackButton />
     </main>
   );
 }
