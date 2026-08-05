@@ -1,29 +1,5 @@
-import { useRouter } from "@tanstack/react-router";
-import { ChevronLeft } from "lucide-react";
+import { BackChevron } from "@/components/BackNav";
 
-/**
- * A small, consistent sideways-V back button that lives at the top-left of
- * every page. Tries the browser back stack first, then falls back to home.
- */
 export function TopBackButton() {
-  const router = useRouter();
-
-  const goBack = () => {
-    if (typeof window !== "undefined" && window.history.length > 1) {
-      window.history.back();
-    } else {
-      router.navigate({ to: "/" });
-    }
-  };
-
-  return (
-    <button
-      type="button"
-      onClick={goBack}
-      aria-label="Back"
-      className="pointer-events-auto fixed top-4 left-4 z-50 grid h-10 w-10 place-items-center text-accent/80 transition-transform hover:scale-105 active:scale-95"
-    >
-      <ChevronLeft className="h-5 w-5" strokeWidth={1.5} />
-    </button>
-  );
+  return <BackChevron position="top" />;
 }

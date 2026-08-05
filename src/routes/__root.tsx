@@ -189,7 +189,7 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <BackGuard />
       {!isHome && <TopBackButton />}
-      <BottomBackButton />
+      {!isHome && <BottomBackButton />}
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
     </QueryClientProvider>
