@@ -797,15 +797,6 @@ export function PuzzleBoard({
         )}
       </div>
 
-      {/* subtle bottom back chevron */}
-      <button
-        aria-label="Back to choose difficulty"
-        onClick={onChangeDifficulty}
-        className="pointer-events-auto absolute bottom-4 left-4 z-40 p-2 text-muted-foreground/60 transition-transform hover:scale-105 active:scale-95"
-      >
-        <ChevronLeft className="h-5 w-5" strokeWidth={1.5} />
-      </button>
-
       {/* celebration */}
       {solved && (
         <div className="absolute inset-0 z-30 flex items-center justify-center bg-deep/55 backdrop-blur-md">
