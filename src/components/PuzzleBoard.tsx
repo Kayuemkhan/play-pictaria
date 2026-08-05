@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { ChevronLeft, Search } from "lucide-react";
+import { Search } from "lucide-react";
 import { playLock, playPick, playSolved } from "@/lib/feedback";
 
 const WORLD_W = 1000;
