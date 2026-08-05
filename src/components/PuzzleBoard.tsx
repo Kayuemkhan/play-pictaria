@@ -196,6 +196,18 @@ export function PuzzleBoard({
     return () => window.clearInterval(t);
   }, [solved, pos.length]);
 
+  /* celebration: sparkle over the finished picture first, summary after */
+  useEffect(() => {
+    if (!solved) {
+      setShowSummary(false);
+      return;
+    }
+    const t = window.setTimeout(() => setShowSummary(true), 6200);
+    return () => window.clearTimeout(t);
+  }, [solved]);
+
+
+
   const dragStart = useRef<{
     group: number;
     x: number;
