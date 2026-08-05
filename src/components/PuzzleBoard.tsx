@@ -77,6 +77,7 @@ export function PuzzleBoard({
   /** groupOf[piece] = group id */
   const [groupOf, setGroupOf] = useState<number[]>([]);
   const [flash, setFlash] = useState<number[]>([]);
+  const [floating, setFloating] = useState<number[]>([]);
   const [sparkles, setSparkles] = useState<
     { id: number; x: number; y: number; size: number; delay: number; tx: number; ty: number }[]
   >([]);
