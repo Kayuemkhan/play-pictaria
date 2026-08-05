@@ -670,14 +670,7 @@ export function PuzzleBoard({
   return (
     <div className="relative flex h-[100dvh] w-full flex-col overflow-hidden bg-mist-gradient">
       {/* top bar */}
-      <header className="glass-panel z-20 grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 px-3 py-2.5 sm:px-5">
-        <button
-          aria-label="Back to choose difficulty"
-          onClick={onChangeDifficulty}
-          className="flex h-9 w-9 items-center justify-center rounded-full bg-secondary text-secondary-foreground transition-colors hover:bg-primary hover:text-primary-foreground"
-        >
-          <ChevronLeft size={20} strokeWidth={1.5} />
-        </button>
+      <header className="glass-panel z-20 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-3 py-2.5 sm:px-5">
         <div className="min-w-0 text-center">
           <p className="truncate font-display text-lg leading-tight sm:text-xl">
             {title}
