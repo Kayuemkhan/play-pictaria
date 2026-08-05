@@ -154,6 +154,7 @@ import amy05Enhanced from "@/assets/amy-art-05-enhanced.jpg";
 import amy08Enhanced from "@/assets/amy-art-08-enhanced.jpg";
 import amy13Enhanced from "@/assets/amy-art-13-enhanced.jpg";
 import hanaTurtlePendant from "@/assets/hana-turtle-pendant.jpg.asset.json";
+import earringBeachModel from "@/assets/earring-beach-model.jpg.asset.json";
 
 import healNoni from "@/assets/heal-01-noni.jpg";
 import healOlena from "@/assets/heal-02-olena.jpg";
@@ -914,6 +915,7 @@ export const collections: Collection[] = [
     free: true,
     storybook: { owner: "Amy", plan: "personal" },
     puzzles: [
+      { id: "amy-14", title: "Nani Kai", caption: "A golden turtle earring against sunlit waves", image: earringBeachModel.url },
       { id: "amy-06", title: "Kuipo", caption: "An affectionate term for a loved one", image: amy02.url },
       { id: "amy-12", title: "Sweetheart", caption: "Pink embers dance in the light — this piece celebrates love", image: amy12.url },
       { id: "amy-08", title: "Akoni in Coral", caption: "Akoni means worthy and reminds you of your worth", image: amy08Enhanced },
