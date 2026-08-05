@@ -153,6 +153,7 @@ import amy03Enhanced from "@/assets/amy-art-03-enhanced.jpg";
 import amy05Enhanced from "@/assets/amy-art-05-enhanced.jpg";
 import amy08Enhanced from "@/assets/amy-art-08-enhanced.jpg";
 import amy13Enhanced from "@/assets/amy-art-13-enhanced.jpg";
+import hanaTurtlePendant from "@/assets/hana-turtle-pendant.jpg.asset.json";
 
 import healNoni from "@/assets/heal-01-noni.jpg";
 import healOlena from "@/assets/heal-02-olena.jpg";
@@ -917,7 +918,7 @@ export const collections: Collection[] = [
       { id: "amy-12", title: "Sweetheart", caption: "Pink embers dance in the light — this piece celebrates love", image: amy12.url },
       { id: "amy-08", title: "Akoni in Coral", caption: "Akoni means worthy and reminds you of your worth", image: amy08Enhanced },
       { id: "amy-05", title: "Kalele", caption: "Trust your dreams, they know the way", image: amy05Enhanced },
-      { id: "amy-13", title: "Hana", caption: "Gold-plated glass turtle with a luminous blue shell", image: amy13Enhanced },
+      { id: "amy-13", title: "Hana", caption: "Gold-plated glass turtle with a luminous blue shell", image: hanaTurtlePendant.url },
       { id: "amy-03", title: "Akoni Friends", caption: "Reminding you of your worthiness — but if you can't see it, don't forget your friends can", image: amy03Enhanced },
       { id: "amy-10", title: "Malama", caption: "Malama means protect what you love — your people, your planet and your peace", image: amy10.url },
       { id: "amy-02", title: "Mahalo Moon", caption: "Turquoise accented with green and gold crystal", image: amy06Enhanced },
