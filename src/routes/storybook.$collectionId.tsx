@@ -4,7 +4,7 @@ import {
   visitorAllowance,
   waitingCount,
 } from "@/data/collections";
-import { BottomBackButton } from "@/components/BottomBackButton";
+
 
 export const Route = createFileRoute("/storybook/$collectionId")({
   head: () => ({
@@ -53,15 +53,7 @@ function StorybookGatePage() {
 
   return (
     <main className="min-h-screen bg-mist-gradient px-4 pb-20 sm:px-6">
-      <div className="mx-auto w-full max-w-3xl">
-        <Link
-          to="/collection/$collectionId"
-          params={{ collectionId: collection.id }}
-          className="inline-block py-5 text-sm text-muted-foreground transition-colors hover:text-foreground"
-        >
-          ← {collection.title}
-        </Link>
-
+      <div className="mx-auto w-full max-w-3xl pt-8">
         <div className="rounded-[4px] border border-accent/60 bg-card/80 px-6 py-10 text-center shadow-lift backdrop-blur-sm">
           <p className="text-[11px] tracking-[0.3em] text-muted-foreground uppercase">
             {owner}&rsquo;s storybook
@@ -144,7 +136,6 @@ function StorybookGatePage() {
           </Link>
         </div>
       </div>
-      <BottomBackButton />
     </main>
   );
 }
