@@ -781,7 +781,7 @@ export function PuzzleBoard({
                   backgroundImage: `url(${src})`,
                   backgroundSize: `${bg.w}px ${bg.h}px`,
                   backgroundPosition: `${bg.x - pc * cellW}px ${bg.y - pr * cellH}px`,
-                  borderRadius: inCluster ? 10 : 16,
+                  borderRadius: inCluster ? 6 : 16,
                   boxShadow: isDragged
                     ? drag!.valid
                       ? "0 0 0 3px var(--accent), 0 18px 32px rgba(15,45,70,0.5)"
@@ -790,7 +790,9 @@ export function PuzzleBoard({
                       ? "0 0 0 2px var(--accent)"
                       : isFloating
                         ? "0 14px 26px rgba(15,45,70,0.38), inset 0 0 0 1px rgba(255,255,255,0.55)"
-                        : "inset 0 0 0 1px rgba(255,255,255,0.65)",
+                        : inCluster
+                          ? "none"
+                          : "inset 0 0 0 1px rgba(255,255,255,0.65)",
                   transform: isDragged
                     ? `translate(${drag!.dx / scale}px, ${drag!.dy / scale}px) scale(1.03)`
                     : isFloating
