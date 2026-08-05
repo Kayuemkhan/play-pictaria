@@ -163,6 +163,7 @@ export function StudioComposer({
   editing = false,
   logoPlacement = false,
   highlights,
+  description,
 }: StudioComposerProps) {
   const [photos, setPhotos] = useState<Photo[]>([]);
   /** Which picture is open on the lab table. */
