@@ -183,7 +183,6 @@ function SharedPictaria() {
           </button>
         )}
       </div>
-      <BottomBackButton />
     </main>
   );
 }
