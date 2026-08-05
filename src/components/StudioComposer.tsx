@@ -733,7 +733,53 @@ export function StudioComposer({
             )}
           </div>
 
+          {/* preview — what the sender and the recipient will see */}
+          {hero && (
+            <div className="mt-4 rounded-[4px] border border-accent/60 bg-card/70 p-4">
+              <h2 className="font-display text-base tracking-[0.2em] uppercase">
+                Preview
+              </h2>
+              <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground">
+                On the left, the picture they open with. On the right, the same
+                picture as puzzle tiles once they start to play.
+              </p>
+              <div className="mt-3 grid grid-cols-2 gap-3">
+                <div>
+                  <img
+                    src={hero.url}
+                    alt="The finished picture your friends see first"
+                    style={editing ? { filter: filterCss(edits) } : undefined}
+                    className="aspect-[3/4] w-full rounded-[4px] object-cover"
+                  />
+                  <p className="mt-1 text-center text-[9px] tracking-[0.18em] text-muted-foreground uppercase">
+                    Finished
+                  </p>
+                </div>
+                <div>
+                  <div className="grid aspect-[3/4] w-full grid-cols-4 grid-rows-4 gap-[2px] overflow-hidden rounded-[4px]">
+                    {Array.from({ length: 16 }, (_, i) => (
+                      <div
+                        key={i}
+                        className="rounded-[2px] ring-[0.5px] ring-white/70 ring-inset"
+                        style={{
+                          backgroundImage: `url(${hero.url})`,
+                          backgroundSize: "400% 400%",
+                          backgroundPosition: `${((i % 4) / 3) * 100}% ${(Math.floor(i / 4) / 3) * 100}%`,
+                          filter: editing ? filterCss(edits) : undefined,
+                        }}
+                      />
+                    ))}
+                  </div>
+                  <p className="mt-1 text-center text-[9px] tracking-[0.18em] text-muted-foreground uppercase">
+                    As a puzzle
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* send */}
+
           <div className="mt-4 rounded-[4px] border border-accent/60 bg-card/70 p-4">
             <h2 className="font-display text-base tracking-[0.2em] uppercase">
               Send it
