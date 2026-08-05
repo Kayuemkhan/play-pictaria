@@ -68,7 +68,6 @@ function MindfulnessPage() {
           </Link>
         </div>
       </div>
-      <BottomBackButton />
     </main>
   );
 }
