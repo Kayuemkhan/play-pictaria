@@ -880,27 +880,50 @@ export function PuzzleBoard({
             ))}
           </div>
 
-          {/* starbursts popping across the picture */}
-          {Array.from({ length: 26 }).map((_, i) => (
-            <svg
-              key={`burst-${i}`}
-              viewBox="0 0 24 24"
-              className="animate-starburst-pop absolute"
+          {/* a little golden mermaid swims across and waves */}
+          <div className="absolute inset-0 flex items-center">
+            <div
+              className="animate-mermaid-swim absolute"
               style={{
-                left: `${(i * 41 + Math.sin(i * 2.1) * 22) % 96}%`,
-                top: `${(i * 23 + Math.cos(i * 1.7) * 18) % 94}%`,
-                width: 14 + (i % 5) * 10,
-                height: 14 + (i % 5) * 10,
-                animationDelay: `${(i % 9) * 0.42}s`,
-                animationIterationCount: 2,
-                fill:
-                  i % 3 === 0 ? "var(--accent)" : "oklch(0.95 0.06 88)",
-                filter: "drop-shadow(0 0 8px oklch(0.88 0.1 82 / 0.9))",
+                left: "-18%",
+                top: "42%",
+                width: "clamp(74px, 26%, 190px)",
+                filter:
+                  "drop-shadow(0 0 12px oklch(0.88 0.11 84 / 0.75)) drop-shadow(0 4px 10px oklch(0.2 0.05 240 / 0.4))",
               }}
             >
-              <path d="M12 0L14.1 8.2L20.5 3.5L15.8 9.9L24 12L15.8 14.1L20.5 20.5L14.1 15.8L12 24L9.9 15.8L3.5 20.5L8.2 14.1L0 12L8.2 9.9L3.5 3.5L9.9 8.2L12 0Z" />
-            </svg>
-          ))}
+              <svg viewBox="0 0 120 90" className="w-full">
+                <defs>
+                  <linearGradient id="mermaid-gold" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stopColor="oklch(0.98 0.03 92)" />
+                    <stop offset="45%" stopColor="oklch(0.86 0.14 85)" />
+                    <stop offset="100%" stopColor="oklch(0.74 0.12 78)" />
+                  </linearGradient>
+                </defs>
+                <g fill="url(#mermaid-gold)">
+                  {/* flowing hair */}
+                  <path d="M64 16c-8-6-18-3-20 5-2 7 2 12 6 14-6 1-12-2-14-8-3 8 2 16 10 19-5 3-11 2-15-2 3 9 13 13 21 10z" />
+                  {/* head */}
+                  <circle cx="72" cy="22" r="8" />
+                  {/* torso */}
+                  <path d="M70 30c6 0 10 4 10 10 0 6-3 11-7 16-4-4-8-9-8-15 0-6 2-11 5-11z" />
+                  {/* waving arm */}
+                  <g className="animate-mermaid-wave">
+                    <path d="M78 34c6-5 12-11 15-19 1-2 4-2 5 0 1 2 0 4-1 6-4 9-10 16-17 21z" />
+                  </g>
+                  {/* resting arm */}
+                  <path d="M67 34c-6 2-11 6-14 12-1 2 1 4 3 3 5-3 9-7 13-9z" />
+                  {/* tail */}
+                  <g className="animate-mermaid-tail">
+                    <path d="M73 54c5 6 8 13 7 20-1 6-5 10-10 12 4-8 4-16 0-23-3-5-4-7-4-9z" />
+                    <path d="M70 84c-8 4-16 3-22-2 7 0 12-2 16-6 4 3 6 6 6 8z" />
+                    <path d="M74 84c8 4 16 3 22-2-7 0-12-2-16-6-4 3-6 6-6 8z" />
+                  </g>
+                </g>
+              </svg>
+            </div>
+          </div>
+
 
           {/* fine drifting sparkles */}
           {Array.from({ length: 40 }).map((_, i) => (
