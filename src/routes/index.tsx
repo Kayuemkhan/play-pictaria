@@ -150,8 +150,8 @@ function Home() {
         </div>
 
         {/* headline + CTA */}
-        <div className="absolute top-[42%] left-5 z-[5] max-w-[55%] sm:left-10 sm:max-w-md">
-          <h1 className="font-display text-[1.65rem] leading-[1.1] text-shell drop-shadow-lg sm:text-4xl">
+        <div className="absolute top-[30%] left-5 z-[5] max-w-[58%] sm:left-10 sm:max-w-md">
+          <h1 className="font-display text-[1.65rem] leading-[1.1] text-shell [text-shadow:0_2px_14px_oklch(0.15_0.04_230/0.75)] sm:text-4xl">
             Can you solve tonight’s pineapple?
           </h1>
           <Link
