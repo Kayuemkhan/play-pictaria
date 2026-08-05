@@ -382,11 +382,6 @@ export function StudioComposer({
         }}
       />
 
-      <p className="mx-auto mt-4 max-w-5xl px-4 text-center text-[0.55rem] leading-relaxed tracking-[0.12em] text-muted-foreground/70 uppercase sm:px-8">
-        Keep Pictaria beautiful — please only share pictures you'd happily show
-        your family.
-      </p>
-
       <div className="mx-auto mt-6 grid w-full max-w-5xl gap-6 px-4 sm:px-8 lg:grid-cols-[minmax(0,360px)_minmax(0,1fr)]">
         {/* the lab: the picture, then the studio controls right beneath it */}
         <section>
@@ -445,6 +440,10 @@ export function StudioComposer({
                 </button>
               )}
             </div>
+            <p className="border-t border-white/10 bg-deep px-4 py-2.5 text-center text-[0.55rem] leading-relaxed tracking-[0.12em] text-deep-foreground/60 uppercase">
+              Keep Pictaria beautiful — please only share pictures you'd happily show
+              your family.
+            </p>
           </div>
 
           {/* pictures */}
