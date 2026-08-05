@@ -550,7 +550,7 @@ export function PuzzleBoard({
     (dx: number, dy: number, group: number) => {
       const unitsX = dx / (cellW * scale);
       const unitsY = dy / (cellH * scale);
-      const TOL = 0.75;
+      const TOL = 0.62;
       const range = (u: number) => {
         const out: number[] = [];
         for (let v = Math.floor(u - TOL); v <= Math.ceil(u + TOL); v++) {
