@@ -571,6 +571,85 @@ export function PuzzleBoard({
       };
 
       let best: { dCol: number; dRow: number; dist: number } | null = null;
+
+      /**
+       * First derive exact lock positions from the picture relationship itself.
+       * This is more reliable than only rounding the finger position: if another
+       * tile occupies the intended cell, tryMove can swap that tile away while
+       * this candidate still preserves the matching edge we are aiming for.
+       */
+      const draggedPieces = groupOf
+        .map((pieceGroup, piece) => (pieceGroup === group ? piece : -1))
+        .filter((piece) => piece >= 0);
+      const draggedSize = draggedPieces.length;
+      const magneticCandidates = new Map<
+        string,
+        { dCol: number; dRow: number; dist: number }
+      >();
+
+      for (const piece of draggedPieces) {
+        const pieceCell = pos[piece];
+        if (pieceCell === undefined) continue;
+        const pieceHomeRow = Math.floor(piece / grid);
+        const pieceHomeCol = piece % grid;
+        const pieceRow = Math.floor(pieceCell / grid);
+        const pieceCol = pieceCell % grid;
+
+        for (let neighbour = 0; neighbour < total; neighbour++) {
+          if (groupOf[neighbour] === group) continue;
+          const neighbourHomeRow = Math.floor(neighbour / grid);
+          const neighbourHomeCol = neighbour % grid;
+          const homeRowDelta = neighbourHomeRow - pieceHomeRow;
+          const homeColDelta = neighbourHomeCol - pieceHomeCol;
+          if (Math.abs(homeRowDelta) + Math.abs(homeColDelta) !== 1) continue;
+
+          const neighbourCell = pos[neighbour];
+          if (neighbourCell === undefined) continue;
+          const desiredRow = Math.floor(neighbourCell / grid) - homeRowDelta;
+          const desiredCol = (neighbourCell % grid) - homeColDelta;
+          if (
+            desiredRow < 0 ||
+            desiredRow >= grid ||
+            desiredCol < 0 ||
+            desiredCol >= grid
+          )
+            continue;
+
+          const dCol = desiredCol - pieceCol;
+          const dRow = desiredRow - pieceRow;
+          if (dCol === 0 && dRow === 0) continue;
+          const distance = Math.hypot(dCol - unitsX, dRow - unitsY);
+          // A forgiving magnetic radius, while still requiring a deliberate
+          // approach toward the correct neighbour.
+          if (distance > 0.9) continue;
+          const key = `${dCol},${dRow}`;
+          const current = magneticCandidates.get(key);
+          if (!current || distance < current.dist)
+            magneticCandidates.set(key, { dCol, dRow, dist: distance });
+        }
+      }
+
+      for (const candidate of [...magneticCandidates.values()].sort(
+        (a, b) => a.dist - b.dist,
+      )) {
+        const next = tryMove(
+          pos,
+          groupOf,
+          group,
+          candidate.dCol,
+          candidate.dRow,
+        );
+        if (!next) continue;
+        const mergedGroups = mergePass(next, groupOf).groups;
+        const representative = draggedPieces[0];
+        if (representative === undefined) continue;
+        const mergedGroup = mergedGroups[representative];
+        const mergedSize = mergedGroups.filter(
+          (pieceGroup) => pieceGroup === mergedGroup,
+        ).length;
+        if (mergedSize > draggedSize) return candidate;
+      }
+
       // first choice: a landing spot that clicks the cluster onto its neighbours
       for (const protectLocked of [false]) {
         for (const c of range(unitsX)) {
