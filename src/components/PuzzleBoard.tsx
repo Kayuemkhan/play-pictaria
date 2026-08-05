@@ -407,7 +407,7 @@ export function PuzzleBoard({
       }
 
       const group = dragStart.current?.group ?? -1;
-      for (const protectLocked of [true, false]) {
+      for (const protectLocked of [false]) {
         for (const [c, r] of candidates) {
           if (tryMove(pos, groupOf, group, c, r, protectLocked))
             return { dCol: c, dRow: r };
@@ -426,9 +426,7 @@ export function PuzzleBoard({
   const commitMove = useCallback(
     (group: number, dCol: number, dRow: number) => {
       if (solved || (dCol === 0 && dRow === 0)) return;
-      const next =
-        tryMove(pos, groupOf, group, dCol, dRow, true) ??
-        tryMove(pos, groupOf, group, dCol, dRow);
+      const next = tryMove(pos, groupOf, group, dCol, dRow);
 
       if (!next) return;
       const { groups, merged } = mergePass(next, groupOf);
@@ -532,12 +530,7 @@ export function PuzzleBoard({
     const c = Math.round(dx / (cellW * scale));
     const r = Math.round(dy / (cellH * scale));
     const valid =
-      c === 0 && r === 0
-        ? true
-        : !!(
-            tryMove(pos, groupOf, s.group, c, r, true) ??
-            tryMove(pos, groupOf, s.group, c, r)
-          );
+      c === 0 && r === 0 ? true : !!tryMove(pos, groupOf, s.group, c, r);
 
     setDrag({ group: s.group, dx, dy, valid });
   };
@@ -565,7 +558,7 @@ export function PuzzleBoard({
 
       let best: { dCol: number; dRow: number; dist: number } | null = null;
       // first choice: a landing spot that clicks the cluster onto its neighbours
-      for (const protectLocked of [true, false]) {
+      for (const protectLocked of [false]) {
         for (const c of range(unitsX)) {
           for (const r of range(unitsY)) {
             if (c === 0 && r === 0) continue;
@@ -581,7 +574,7 @@ export function PuzzleBoard({
       if (best) return best;
 
       // otherwise the piece simply settles wherever the finger left it
-      for (const protectLocked of [true, false]) {
+      for (const protectLocked of [false]) {
         for (const c of range(unitsX)) {
           for (const r of range(unitsY)) {
             if (c === 0 && r === 0) continue;
