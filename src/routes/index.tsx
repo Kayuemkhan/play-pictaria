@@ -15,17 +15,19 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Pictaria turns beautiful photography into calming jigsaw puzzles. Ten free sea turtle puzzles, four difficulty levels, no clutter.",
+          "Play beautiful photography puzzles for free. Ten sea turtle puzzles, four difficulty levels, and a calm Hawaiian vibe.",
       },
       { property: "og:title", content: "Pictaria — Turn Your Pictures Into Play" },
       {
         property: "og:description",
         content:
-          "A peaceful jigsaw experience built on beautiful photography. Play ten sea turtle puzzles free.",
+          "Play beautiful photography puzzles for free. Ten sea turtle puzzles, four difficulty levels, and a calm Hawaiian vibe.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://play-pictaria.lovable.app/" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
+    links: [{ rel: "canonical", href: "https://play-pictaria.lovable.app/" }],
   }),
   component: Home,
 });
