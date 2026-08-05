@@ -1,10 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { Menu, Search, ChevronRight } from "lucide-react";
+import { Menu, Search } from "lucide-react";
 import { collections } from "@/data/collections";
 import { HeroPuzzle } from "@/components/HeroPuzzle";
 import { BottomBackButton } from "@/components/BottomBackButton";
-import heroImage from "@/assets/hero-pineapple.jpg";
+import heroImage from "@/assets/hero-sunset.jpg";
 import palmLogo from "@/assets/logo-palms.png";
 
 
@@ -23,6 +23,8 @@ export const Route = createFileRoute("/")({
         content:
           "A peaceful jigsaw experience built on beautiful photography. Play ten sea turtle puzzles free.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Home,
@@ -57,7 +59,7 @@ function Home() {
       <section className="relative overflow-hidden">
         <img
           src={heroImage}
-          alt="A golden pineapple on a weathered railing at Hawaiian sunset with hibiscus and plumeria blossoms"
+          alt="Hibiscus and plumeria blossoms beside the ocean at a Hawaiian sunset"
           width={1024}
           height={1408}
           className="h-[68svh] max-h-[760px] min-h-[420px] w-full object-cover sm:h-screen sm:min-h-[520px]"
@@ -149,22 +151,7 @@ function Home() {
           />
         </div>
 
-        {/* headline + CTA */}
-        <div className="absolute top-[34%] left-5 z-[5] max-w-[60%] sm:left-10 sm:max-w-md">
-          <h1 className="font-display text-[1.65rem] leading-[1.1] text-shell [text-shadow:0_2px_18px_oklch(0.15_0.04_230/0.85)] sm:text-4xl">
-            Can you solve tonight’s pineapple?
-          </h1>
-          <Link
-            to="/collection/$collectionId"
-            params={{ collectionId: "pineapples-of-hawaii" }}
-            className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-[0.65rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03] sm:mt-5 sm:px-5 sm:py-2.5 sm:text-[0.7rem]"
-          >
-            Play now
-            <ChevronRight className="h-3.5 w-3.5" strokeWidth={2} />
-          </Link>
-        </div>
-
-        {/* hero image puzzle — solved except the lower-right wedge */}
+        {/* Static puzzle tiles in the lower-right corner */}
         <HeroPuzzle
           src={heroImage}
           cols={6}
@@ -173,6 +160,7 @@ function Home() {
           depth={3}
           corner="bottom-right"
           inset={0}
+          animated={false}
         />
 
       </section>
