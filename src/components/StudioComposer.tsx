@@ -811,11 +811,17 @@ export function StudioComposer({
             </label>
             <button
               type="button"
-              onClick={sendPictaria}
-              disabled={!recipients.trim() || overLimit}
+              onClick={() => void sendPictaria()}
+              disabled={
+                !recipients.trim() ||
+                overLimit ||
+                !photos.length ||
+                publishState === "working"
+              }
               className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-[0.6rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03] disabled:opacity-50"
             >
-              Send Pictaria
+              {publishState === "working" ? "Publishing…" : "Send Pictaria"}
+
               <span aria-hidden>›</span>
             </button>
           </div>
