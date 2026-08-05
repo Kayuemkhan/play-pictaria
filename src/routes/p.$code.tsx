@@ -6,7 +6,7 @@ import { BottomBackButton } from "@/components/BottomBackButton";
 import { difficulties } from "@/data/collections";
 import { getSharedPictaria } from "@/lib/pictarias.functions";
 import { reportPictaria } from "@/lib/reports.functions";
-import palmLogo from "@/assets/logo-palms.png";
+import palmLogo from "@/assets/logo-palms-only.png";
 
 export const Route = createFileRoute("/p/$code")({
   head: () => ({

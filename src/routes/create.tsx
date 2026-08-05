@@ -8,7 +8,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import palmLogo from "@/assets/logo-palms.png";
+import palmLogo from "@/assets/logo-palms-only.png";
 
 export const Route = createFileRoute("/create")({
   head: () => ({

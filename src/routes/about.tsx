@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Camera, Puzzle, Heart, Sparkles, ArrowRight } from "lucide-react";
-import palmLogo from "@/assets/logo-palms.png";
+import palmLogo from "@/assets/logo-palms-only.png";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
