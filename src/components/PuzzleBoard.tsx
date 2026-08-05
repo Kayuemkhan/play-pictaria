@@ -77,6 +77,7 @@ export function PuzzleBoard({
   /** groupOf[piece] = group id */
   const [groupOf, setGroupOf] = useState<number[]>([]);
   const [flash, setFlash] = useState<number[]>([]);
+  const [floating, setFloating] = useState<number[]>([]);
   const [sparkles, setSparkles] = useState<
     { id: number; x: number; y: number; size: number; delay: number; tx: number; ty: number }[]
   >([]);
@@ -431,6 +432,12 @@ export function PuzzleBoard({
 
       if (!next) return;
       const { groups, merged } = mergePass(next, groupOf);
+      // pieces that changed cells "float" over to their new home
+      const movedPieces = next
+        .map((cell, piece) => (cell !== pos[piece] ? piece : -1))
+        .filter((p) => p >= 0);
+      setFloating(movedPieces);
+      window.setTimeout(() => setFloating([]), 520);
       setPos(next);
       setGroupOf(groups);
       setMoves((m) => m + 1);
@@ -773,6 +780,7 @@ export function PuzzleBoard({
             const isDragged = drag?.group === group;
             const justLocked = flash.includes(piece);
             const isLocked = lockedPieces.has(piece);
+            const isFloating = floating.includes(piece);
 
             return (
               <div
@@ -788,24 +796,28 @@ export function PuzzleBoard({
                   backgroundImage: `url(${src})`,
                   backgroundSize: `${bg.w}px ${bg.h}px`,
                   backgroundPosition: `${bg.x - pc * cellW}px ${bg.y - pr * cellH}px`,
-                  borderRadius: inCluster ? 2 : 6,
+                  borderRadius: inCluster ? 8 : 14,
                   boxShadow: isDragged
                     ? drag!.valid
-                      ? "0 0 0 3px var(--accent), 0 16px 28px rgba(15,45,70,0.45)"
+                      ? "0 0 0 3px var(--accent), 0 18px 32px rgba(15,45,70,0.5)"
                       : "0 0 0 3px rgba(220,90,90,0.8)"
                     : justLocked
                       ? "0 0 0 2px var(--accent)"
-                      : inCluster
-                        ? "none"
-                        : "inset 0 0 0 1px rgba(255,255,255,0.65)",
+                      : isFloating
+                        ? "0 14px 26px rgba(15,45,70,0.38)"
+                        : inCluster
+                          ? "none"
+                          : "inset 0 0 0 1px rgba(255,255,255,0.65)",
                   transform: isDragged
-                    ? `translate(${drag!.dx / scale}px, ${drag!.dy / scale}px) scale(1.02)`
-                    : "scale(1)",
-                  zIndex: isDragged ? 4 : justLocked ? 2 : 1,
+                    ? `translate(${drag!.dx / scale}px, ${drag!.dy / scale}px) scale(1.03)`
+                    : isFloating
+                      ? "scale(1.045)"
+                      : "scale(1)",
+                  zIndex: isDragged ? 4 : isFloating ? 3 : justLocked ? 2 : 1,
                   cursor: isLocked ? "default" : "grab",
                   transition: isDragged
                     ? "none"
-                    : "transform 0.26s var(--ease-calm), box-shadow 0.25s ease, border-radius 0.3s ease, left 0.26s var(--ease-calm), top 0.26s var(--ease-calm)",
+                    : "transform 0.5s cubic-bezier(0.32, 1.5, 0.4, 1), box-shadow 0.45s ease, border-radius 0.3s ease, left 0.52s cubic-bezier(0.28, 1.35, 0.36, 1), top 0.52s cubic-bezier(0.28, 1.35, 0.36, 1)",
                 }}
               />
             );
