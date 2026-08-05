@@ -494,8 +494,7 @@ export function PuzzleBoard({
     const cell = Number(cellEl.getAttribute("data-cell"));
     const piece = pos.indexOf(cell);
     if (piece < 0) return;
-    // once a piece is home inside a locked cluster it stays put for good
-    if (lockedPieces.has(piece)) return;
+    // every cluster stays movable — only a finished puzzle stops responding
 
     viewportRef.current?.setPointerCapture(e.pointerId);
     dragStart.current = {
@@ -524,42 +523,23 @@ export function PuzzleBoard({
     const dy = e.clientY - s.y;
     if (!s.moved && Math.abs(dx) + Math.abs(dy) < 3) return;
     s.moved = true;
-    const dCol = cellsTravelled(dx, cellW);
-    const dRow = cellsTravelled(dy, cellH);
-    const horizontal = Math.abs(dx) > Math.abs(dy);
-    const move = resolveMove(dCol, dRow, dx, dy);
 
     /**
-     * Tiles ride the grid, not the finger. A cluster never follows past the
-     * cell it is allowed to land on, so nothing ever looks like it is floating
-     * loose over the board.
+     * The piece floats with the fingertip anywhere over the board — it does not
+     * ride the grid while dragging. On release it settles into the nearest cell
+     * it is allowed to occupy.
      */
-    const limit = (raw: number, cells: number, cellSize: number) =>
-      Math.sign(raw) *
-      Math.min(Math.abs(raw), Math.abs(cells) * cellSize * scale);
+    const c = Math.round(dx / (cellW * scale));
+    const r = Math.round(dy / (cellH * scale));
+    const valid =
+      c === 0 && r === 0
+        ? true
+        : !!(
+            tryMove(pos, groupOf, s.group, c, r, true) ??
+            tryMove(pos, groupOf, s.group, c, r)
+          );
 
-    let ox = 0;
-    let oy = 0;
-    if (move) {
-      const useHorizontal =
-        move.dCol !== 0 && (horizontal || move.dRow === 0);
-      if (useHorizontal) ox = limit(dx, move.dCol, cellW);
-      else oy = limit(dy, move.dRow, cellH);
-    } else {
-      // no legal move: the tile only leans a hair so the drag still feels alive
-      const resist = (raw: number, cellSize: number) =>
-        Math.sign(raw) * Math.min(Math.abs(raw) * 0.18, 0.1 * cellSize * scale);
-      if (horizontal) ox = resist(dx, cellW);
-      else oy = resist(dy, cellH);
-    }
-
-
-    setDrag({
-      group: s.group,
-      dx: ox,
-      dy: oy,
-      valid: !!move,
-    });
+    setDrag({ group: s.group, dx, dy, valid });
   };
 
 
@@ -584,15 +564,28 @@ export function PuzzleBoard({
       };
 
       let best: { dCol: number; dRow: number; dist: number } | null = null;
+      // first choice: a landing spot that clicks the cluster onto its neighbours
       for (const protectLocked of [true, false]) {
         for (const c of range(unitsX)) {
           for (const r of range(unitsY)) {
             if (c === 0 && r === 0) continue;
-            // keep gestures on one axis unless the other axis genuinely moved
-            if (c !== 0 && r !== 0) continue;
             const next = tryMove(pos, groupOf, group, c, r, protectLocked);
             if (!next) continue;
             if (!mergePass(next, groupOf).merged) continue;
+            const dist = Math.abs(c - unitsX) + Math.abs(r - unitsY);
+            if (!best || dist < best.dist) best = { dCol: c, dRow: r, dist };
+          }
+        }
+        if (best) break;
+      }
+      if (best) return best;
+
+      // otherwise the piece simply settles wherever the finger left it
+      for (const protectLocked of [true, false]) {
+        for (const c of range(unitsX)) {
+          for (const r of range(unitsY)) {
+            if (c === 0 && r === 0) continue;
+            if (!tryMove(pos, groupOf, group, c, r, protectLocked)) continue;
             const dist = Math.abs(c - unitsX) + Math.abs(r - unitsY);
             if (!best || dist < best.dist) best = { dCol: c, dRow: r, dist };
           }
@@ -779,7 +772,6 @@ export function PuzzleBoard({
             const inCluster = (groupSizes.get(group) ?? 1) > 1;
             const isDragged = drag?.group === group;
             const justLocked = flash.includes(piece);
-            const isLocked = lockedPieces.has(piece);
             const isFloating = floating.includes(piece);
 
             return (
@@ -814,7 +806,7 @@ export function PuzzleBoard({
                       ? "scale(1.045)"
                       : "scale(1)",
                   zIndex: isDragged ? 4 : isFloating ? 3 : justLocked ? 2 : 1,
-                  cursor: isLocked ? "default" : "grab",
+                  cursor: "grab",
                   transition: isDragged
                     ? "none"
                     : "transform 0.5s cubic-bezier(0.32, 1.5, 0.4, 1), box-shadow 0.45s ease, border-radius 0.3s ease, left 0.52s cubic-bezier(0.28, 1.35, 0.36, 1), top 0.52s cubic-bezier(0.28, 1.35, 0.36, 1)",
