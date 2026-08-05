@@ -474,6 +474,9 @@ export function PuzzleBoard({
     const cell = Number(cellEl.getAttribute("data-cell"));
     const piece = pos.indexOf(cell);
     if (piece < 0) return;
+    // once a piece is home inside a locked cluster it stays put for good
+    if (lockedPieces.has(piece)) return;
+
     viewportRef.current?.setPointerCapture(e.pointerId);
     dragStart.current = {
       group: groupOf[piece]!,
