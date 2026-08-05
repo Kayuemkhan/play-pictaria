@@ -359,27 +359,30 @@
 @keyframes mermaid-swim {
   0% {
     opacity: 0;
-    transform: translate(-30%, 12%) rotate(-6deg) scale(0.82);
+    transform: translate(-34%, 52%) rotate(-2deg) scale(0.82);
   }
-  10% {
+  8% {
     opacity: 1;
   }
-  28% {
-    transform: translate(20%, -6%) rotate(4deg) scale(0.92);
+  22% {
+    transform: translate(12%, 78%) rotate(3deg) scale(0.92);
   }
-  46% {
-    transform: translate(58%, 8%) rotate(-3deg) scale(1);
+  38% {
+    transform: translate(36%, 44%) rotate(-3deg) scale(1);
   }
-  62% {
-    transform: translate(78%, -2%) rotate(2deg) scale(1);
+  54% {
+    transform: translate(58%, 62%) rotate(2deg) scale(1);
   }
-  84% {
+  70% {
+    transform: translate(82%, 28%) rotate(-2deg) scale(0.97);
+  }
+  88% {
     opacity: 1;
-    transform: translate(105%, 4%) rotate(-4deg) scale(0.95);
+    transform: translate(108%, 4%) rotate(1deg) scale(0.92);
   }
   100% {
     opacity: 0;
-    transform: translate(132%, 10%) rotate(-8deg) scale(0.88);
+    transform: translate(124%, -8%) rotate(-3deg) scale(0.86);
   }
 }
 
@@ -411,7 +414,7 @@
 }
 
 @utility animate-mermaid-swim {
-  animation: mermaid-swim 7s var(--ease-calm) both;
+  animation: mermaid-swim 3.2s var(--ease-calm) both;
 }
 
 @utility animate-mermaid-tail {
@@ -467,19 +470,19 @@
 @keyframes mermaid-wiggle {
   0%,
   100% {
-    transform: rotate(-5deg) translateY(-3%);
+    transform: translateY(-4%) translateX(-2%);
   }
   25% {
-    transform: rotate(3deg) translateY(3%);
+    transform: translateY(3%) translateX(2%);
   }
   50% {
-    transform: rotate(-2deg) translateY(4%);
+    transform: translateY(5%) translateX(-1%);
   }
   75% {
-    transform: rotate(4deg) translateY(-2%);
+    transform: translateY(-2%) translateX(1%);
   }
 }
 
 @utility animate-mermaid-wiggle {
-  animation: mermaid-wiggle 1.5s ease-in-out infinite;
+  animation: mermaid-wiggle 0.7s ease-in-out infinite;
 }

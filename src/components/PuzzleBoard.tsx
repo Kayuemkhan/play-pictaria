@@ -864,8 +864,8 @@ export function PuzzleBoard({
           <div
             className="animate-mermaid-swim absolute"
             style={{
-              left: "-30%",
-              top: "38%",
+              left: "-28%",
+              top: "36%",
               width: "clamp(96px, 34%, 240px)",
             }}
           >
