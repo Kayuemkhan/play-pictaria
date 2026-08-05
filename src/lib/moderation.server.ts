@@ -47,7 +47,7 @@ export async function reviewPicture(dataUrl: string): Promise<{
           role: "user",
           content: [
             { type: "text", text: "Review this picture." },
-            { type: "file", mediaType: "image/jpeg", data: new URL(dataUrl) },
+            { type: "image", image: new URL(dataUrl) },
           ],
         },
       ],
