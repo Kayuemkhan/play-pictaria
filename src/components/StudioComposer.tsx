@@ -2,7 +2,6 @@ import { Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import {
   Aperture,
-  ArrowLeft,
   Check,
   Contrast,
   Copy,
@@ -14,7 +13,6 @@ import {
   Wand2,
   X,
 } from "lucide-react";
-import { BottomBackButton } from "@/components/BottomBackButton";
 import { useServerFn } from "@tanstack/react-start";
 import { publishPictaria } from "@/lib/pictarias.functions";
 
