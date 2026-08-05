@@ -560,19 +560,22 @@ export function PuzzleBoard({
       };
 
       let best: { dCol: number; dRow: number; dist: number } | null = null;
-      for (const c of range(unitsX)) {
-        for (const r of range(unitsY)) {
-          if (c === 0 && r === 0) continue;
-          // keep gestures on one axis unless the other axis genuinely moved
-          if (c !== 0 && r !== 0) continue;
-          const next = tryMove(pos, groupOf, group, c, r);
-          if (!next) continue;
-          if (!mergePass(next, groupOf).merged) continue;
-          const dist =
-            Math.abs(c - unitsX) + Math.abs(r - unitsY);
-          if (!best || dist < best.dist) best = { dCol: c, dRow: r, dist };
+      for (const protectLocked of [true, false]) {
+        for (const c of range(unitsX)) {
+          for (const r of range(unitsY)) {
+            if (c === 0 && r === 0) continue;
+            // keep gestures on one axis unless the other axis genuinely moved
+            if (c !== 0 && r !== 0) continue;
+            const next = tryMove(pos, groupOf, group, c, r, protectLocked);
+            if (!next) continue;
+            if (!mergePass(next, groupOf).merged) continue;
+            const dist = Math.abs(c - unitsX) + Math.abs(r - unitsY);
+            if (!best || dist < best.dist) best = { dCol: c, dRow: r, dist };
+          }
         }
+        if (best) break;
       }
+
       return best;
     },
     [pos, groupOf, tryMove, mergePass, cellW, cellH, scale],
