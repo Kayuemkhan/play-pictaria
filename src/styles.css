@@ -281,6 +281,26 @@
   animation: star-float 5s ease-in-out infinite;
 }
 
+@keyframes snap-pop {
+  0% {
+    transform: scale(1);
+  }
+  35% {
+    transform: scale(1.045);
+  }
+  70% {
+    transform: scale(0.992);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@utility animate-snap-pop {
+  animation: snap-pop 0.34s var(--ease-calm) both;
+}
+
+
 @layer base {
   * {
     border-color: var(--color-border);
