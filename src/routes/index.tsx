@@ -15,13 +15,13 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Play beautiful photography puzzles for free. Ten sea turtle puzzles, four difficulty levels, and a calm Hawaiian vibe.",
+          "Discover beautiful photography, one puzzle \"peace\" at a time.",
       },
       { property: "og:title", content: "Pictaria — Turn Your Pictures Into Play" },
       {
         property: "og:description",
         content:
-          "Play beautiful photography puzzles for free. Ten sea turtle puzzles, four difficulty levels, and a calm Hawaiian vibe.",
+          "Discover beautiful photography, one puzzle \"peace\" at a time.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://play-pictaria.lovable.app/" },
