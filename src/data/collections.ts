@@ -369,7 +369,7 @@ export const collections: Collection[] = [
         id: "turtle-09",
         title: "Tide Pool",
         caption: "Sunlight through the swell",
-        image: turtle09,
+        image: turtle09.url,
       },
       {
         id: "turtle-10",
