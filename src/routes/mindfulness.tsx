@@ -39,14 +39,6 @@ function MindfulnessPage() {
           height={896}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-deep/40 via-deep/20 to-deep" />
-
-        <Link
-          to="/"
-          className="absolute left-5 top-6 inline-flex items-center gap-1.5 text-[0.65rem] tracking-[0.18em] text-shell uppercase transition-opacity hover:opacity-70 sm:left-8"
-        >
-          <ArrowLeft className="h-3.5 w-3.5" strokeWidth={1.5} />
-          Home
-        </Link>
       </div>
 
       <div className="relative z-10 -mt-24 px-5 pb-12 sm:-mt-28 sm:px-8">
