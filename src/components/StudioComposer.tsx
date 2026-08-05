@@ -41,6 +41,8 @@ export interface StudioComposerProps {
   logoPlacement?: boolean;
   /** Bullet list of what this studio celebrates. */
   highlights: string[];
+  /** Optional longer marketing description shown beneath the header. */
+  description?: string;
 }
 
 interface Photo {
