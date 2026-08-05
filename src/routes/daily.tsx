@@ -110,7 +110,6 @@ function DailyPage() {
         >
           Back home <span aria-hidden>›</span>
         </Link>
-        <BottomBackButton />
       </main>
     );
   }
