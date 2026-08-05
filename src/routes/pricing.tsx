@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 
 import { BottomBackButton } from "@/components/BottomBackButton";
-import palmLogo from "@/assets/logo-palms.png";
+import palmLogo from "@/assets/logo-palms-only.png";
 
 export const Route = createFileRoute("/pricing")({
   head: () => ({

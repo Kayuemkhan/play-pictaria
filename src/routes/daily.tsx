@@ -7,7 +7,6 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { BottomBackButton } from "@/components/BottomBackButton";
-import palmLogo from "@/assets/logo-palms.png";
 import palmLogoOnly from "@/assets/logo-palms-only.png";
 import hibiscus from "@/assets/flower-hibiscus-cutout.png";
 
@@ -127,7 +126,7 @@ function DailyPage() {
           className="pointer-events-none absolute -right-4 -top-4 h-20 w-auto opacity-90"
         />
         <img
-          src={palmLogo}
+          src={palmLogoOnly}
           alt="Pictaria"
           width={1024}
           height={1024}
