@@ -22,7 +22,7 @@ export const Route = createFileRoute("/")({
         property: "og:description",
         content:
           "Discover beautiful photography, one puzzle \"peace\" at a time.",
-      }
+      },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://play-pictaria.lovable.app/" },
       { name: "twitter:card", content: "summary_large_image" },
