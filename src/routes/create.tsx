@@ -164,7 +164,6 @@ function CreatePage() {
         maxPhotos={1}
         highlights={[]}
       />
-      <BottomBackButton />
     </>
   );
 }
