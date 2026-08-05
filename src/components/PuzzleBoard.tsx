@@ -400,9 +400,13 @@ export function PuzzleBoard({
       }
 
       const group = dragStart.current?.group ?? -1;
-      for (const [c, r] of candidates) {
-        if (tryMove(pos, groupOf, group, c, r)) return { dCol: c, dRow: r };
+      for (const protectLocked of [true, false]) {
+        for (const [c, r] of candidates) {
+          if (tryMove(pos, groupOf, group, c, r, protectLocked))
+            return { dCol: c, dRow: r };
+        }
       }
+
       return null;
     },
 
