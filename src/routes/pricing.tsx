@@ -290,10 +290,12 @@ function PricingPage() {
             Brand Studio
           </h2>
           <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-            Starts with your own Daily Pictaria — one of your pictures every day,
-            sent from your platform, so your customers get the same little joy we
-            send ours. Then everything else: drop in your own photography and the
-            whole storybook becomes yours, and watch exactly what it does.
+            What if your customers looked forward to hearing from you every day?
+            With Brand Studio, every message becomes a moment your customers can
+            enjoy. Transform your own photos into interactive Pictarias that invite
+            them to slow down, solve, discover, and smile. It's a refreshing new
+            way to build meaningful connections, strengthen your brand, and
+            create the kind of engagement people genuinely anticipate.
           </p>
 
           <div className="mt-4 flex items-baseline gap-2">
