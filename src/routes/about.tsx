@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Camera, Puzzle, Heart, Sparkles, ArrowRight } from "lucide-react";
 import palmLogo from "@/assets/logo-palms-only.png";
+import whiteSand from "@/assets/turtle-02.jpg";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -31,10 +32,23 @@ export const Route = createFileRoute("/about")({
 
 function AboutPage() {
   return (
-    <main className="min-h-screen bg-deep pb-12">
+    <main className="relative min-h-screen pb-12">
+      {/* white sand backdrop */}
+      <div className="pointer-events-none fixed inset-0 -z-10">
+        <img
+          src={whiteSand}
+          alt=""
+          aria-hidden="true"
+          className="h-full w-full object-cover"
+        />
+        <div className="absolute inset-0 bg-deep/65" />
+      </div>
+
       {/* hero */}
       <section className="relative overflow-hidden px-6 pt-10 pb-16 text-center sm:pt-16 sm:pb-20">
-        <div className="absolute inset-0 bg-gradient-to-b from-seafoam/10 via-transparent to-deep/40" />
+        <div className="absolute inset-0 bg-gradient-to-b from-seafoam/10 via-transparent to-deep/20" />
+
+
 
         <div className="relative mx-auto max-w-2xl">
           <img
