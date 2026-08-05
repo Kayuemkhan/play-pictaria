@@ -1,10 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { Menu, Search } from "lucide-react";
+import { Menu, Search, ChevronRight } from "lucide-react";
 import { collections } from "@/data/collections";
 import { HeroPuzzle } from "@/components/HeroPuzzle";
 import { BottomBackButton } from "@/components/BottomBackButton";
-import heroImage from "@/assets/hero-sunset.jpg";
+import heroImage from "@/assets/hero-pineapple.jpg";
 import palmLogo from "@/assets/logo-palms.png";
 
 
