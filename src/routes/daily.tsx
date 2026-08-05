@@ -84,8 +84,8 @@ function DailyPage() {
           aria-label="Pictaria"
           className="h-44 w-44 sm:h-56 sm:w-56"
           style={{
-            maskImage: `url(${palmLogo})`,
-            WebkitMaskImage: `url(${palmLogo})`,
+            maskImage: `url(${palmLogoOnly})`,
+            WebkitMaskImage: `url(${palmLogoOnly})`,
             maskSize: "contain",
             WebkitMaskSize: "contain",
             maskRepeat: "no-repeat",
@@ -131,7 +131,7 @@ function DailyPage() {
           alt="Pictaria"
           width={1024}
           height={1024}
-          className="mx-auto h-16 w-auto [filter:brightness(1.4)_saturate(1.25)_drop-shadow(0_2px_8px_oklch(0.15_0.04_230/0.5))]"
+          className="mx-auto h-16 w-auto rounded-[6px] drop-shadow-[0_2px_8px_oklch(0.15_0.04_230/0.5)]"
         />
         <h1 className="mt-3 font-display text-[1.35rem] text-foreground">
           Pictaria Daily
