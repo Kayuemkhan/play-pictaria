@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Search } from "lucide-react";
 import { playLock, playPick, playSolved } from "@/lib/feedback";
+import mermaidGold from "@/assets/mermaid-gold.png";
+
 
 const WORLD_W = 1000;
 
@@ -856,73 +858,32 @@ export function PuzzleBoard({
         )}
       </div>
 
-      {/* celebration — phase one: golden starbursts over the finished picture */}
+      {/* celebration — phase one: a golden mermaid swims across the finished picture */}
       {solved && (
         <div className="pointer-events-none absolute inset-0 z-30 overflow-hidden">
-          {/* radiating golden rays from the centre */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            {Array.from({ length: 18 }).map((_, i) => (
-              <span
-                key={`ray-${i}`}
-                className="animate-burst-ray absolute origin-bottom"
-                style={
-                  {
-                    "--ray-rot": `${(i / 18) * 360}deg`,
-                    bottom: "50%",
-                    width: i % 2 ? 2 : 3,
-                    height: "46%",
-                    background:
-                      "linear-gradient(to top, oklch(0.86 0.13 85 / 0.85), transparent)",
-                    animationDelay: `${i * 0.05}s`,
-                  } as React.CSSProperties
-                }
-              />
-            ))}
+          <div
+            className="animate-mermaid-swim absolute"
+            style={{
+              left: "-30%",
+              top: "38%",
+              width: "clamp(96px, 34%, 240px)",
+            }}
+          >
+            <img
+              src={mermaidGold}
+              alt=""
+              loading="lazy"
+              width={1024}
+              height={640}
+              className="animate-mermaid-wiggle w-full"
+              style={{
+                filter:
+                  "drop-shadow(0 0 14px oklch(0.88 0.11 84 / 0.7)) drop-shadow(0 6px 14px oklch(0.2 0.05 240 / 0.35))",
+              }}
+            />
           </div>
 
-          {/* a little golden mermaid swims across and waves */}
-          <div className="absolute inset-0 flex items-center">
-            <div
-              className="animate-mermaid-swim absolute"
-              style={{
-                left: "-18%",
-                top: "42%",
-                width: "clamp(74px, 26%, 190px)",
-                filter:
-                  "drop-shadow(0 0 12px oklch(0.88 0.11 84 / 0.75)) drop-shadow(0 4px 10px oklch(0.2 0.05 240 / 0.4))",
-              }}
-            >
-              <svg viewBox="0 0 120 90" className="w-full">
-                <defs>
-                  <linearGradient id="mermaid-gold" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stopColor="oklch(0.98 0.03 92)" />
-                    <stop offset="45%" stopColor="oklch(0.86 0.14 85)" />
-                    <stop offset="100%" stopColor="oklch(0.74 0.12 78)" />
-                  </linearGradient>
-                </defs>
-                <g fill="url(#mermaid-gold)">
-                  {/* flowing hair */}
-                  <path d="M64 16c-8-6-18-3-20 5-2 7 2 12 6 14-6 1-12-2-14-8-3 8 2 16 10 19-5 3-11 2-15-2 3 9 13 13 21 10z" />
-                  {/* head */}
-                  <circle cx="72" cy="22" r="8" />
-                  {/* torso */}
-                  <path d="M70 30c6 0 10 4 10 10 0 6-3 11-7 16-4-4-8-9-8-15 0-6 2-11 5-11z" />
-                  {/* waving arm */}
-                  <g className="animate-mermaid-wave">
-                    <path d="M78 34c6-5 12-11 15-19 1-2 4-2 5 0 1 2 0 4-1 6-4 9-10 16-17 21z" />
-                  </g>
-                  {/* resting arm */}
-                  <path d="M67 34c-6 2-11 6-14 12-1 2 1 4 3 3 5-3 9-7 13-9z" />
-                  {/* tail */}
-                  <g className="animate-mermaid-tail">
-                    <path d="M73 54c5 6 8 13 7 20-1 6-5 10-10 12 4-8 4-16 0-23-3-5-4-7-4-9z" />
-                    <path d="M70 84c-8 4-16 3-22-2 7 0 12-2 16-6 4 3 6 6 6 8z" />
-                    <path d="M74 84c8 4 16 3 22-2-7 0-12-2-16-6-4 3-6 6-6 8z" />
-                  </g>
-                </g>
-              </svg>
-            </div>
-          </div>
+
 
 
           {/* fine drifting sparkles */}
