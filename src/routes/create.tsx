@@ -151,7 +151,6 @@ function CreatePage() {
             Back home
           </Link>
         </div>
-        <BottomBackButton />
       </main>
     );
   }
