@@ -15,7 +15,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Pictaria turns beautiful photography into calming jigsaw puzzles. Ten free sea turtle puzzles, four difficulty levels, no clutter.",
+          "Play beautiful photography puzzles for free. Ten sea turtle puzzles, four difficulty levels, and a calm Hawaiian vibe.",
       },
       { property: "og:title", content: "Pictaria — Turn Your Pictures Into Play" },
       {
