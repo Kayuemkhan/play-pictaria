@@ -32,7 +32,7 @@ export const Route = createFileRoute("/about")({
 
 function AboutPage() {
   return (
-    <main className="relative min-h-screen bg-deep pb-12">
+    <main className="relative min-h-screen pb-12">
       {/* white sand backdrop */}
       <div className="pointer-events-none fixed inset-0 -z-10">
         <img
