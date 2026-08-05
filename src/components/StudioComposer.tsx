@@ -41,6 +41,8 @@ export interface StudioComposerProps {
   logoPlacement?: boolean;
   /** Bullet list of what this studio celebrates. */
   highlights: string[];
+  /** Optional longer marketing description shown beneath the header. */
+  description?: string;
 }
 
 interface Photo {
@@ -161,6 +163,7 @@ export function StudioComposer({
   editing = false,
   logoPlacement = false,
   highlights,
+  description,
 }: StudioComposerProps) {
   const [photos, setPhotos] = useState<Photo[]>([]);
   /** Which picture is open on the lab table. */
@@ -342,22 +345,29 @@ export function StudioComposer({
 
   return (
     <main className="min-h-screen bg-shell pb-16">
-      <header className="flex items-center gap-3 px-4 pt-5 sm:px-8">
-        <Link
-          to="/"
-          aria-label="Back to home"
-          className="grid h-10 w-10 place-items-center rounded-full bg-deep text-accent transition-transform hover:scale-105"
-        >
-          <ArrowLeft className="h-4 w-4" strokeWidth={1.5} />
-        </Link>
-        <div className="min-w-0">
-          <h1 className="font-display text-lg tracking-[0.2em] uppercase">
-            {heading}
-          </h1>
-          <p className="text-[10px] tracking-[0.22em] text-muted-foreground uppercase">
-            {kicker}
-          </p>
+      <header className="px-4 pt-5 sm:px-8">
+        <div className="flex items-center gap-3">
+          <Link
+            to="/"
+            aria-label="Back to home"
+            className="grid h-10 w-10 place-items-center rounded-full bg-deep text-accent transition-transform hover:scale-105"
+          >
+            <ArrowLeft className="h-4 w-4" strokeWidth={1.5} />
+          </Link>
+          <div className="min-w-0">
+            <h1 className="font-display text-lg tracking-[0.2em] uppercase">
+              {heading}
+            </h1>
+            <p className="text-[10px] tracking-[0.22em] text-muted-foreground uppercase">
+              {kicker}
+            </p>
+          </div>
         </div>
+        {description && (
+          <p className="mt-4 max-w-3xl text-xs leading-relaxed text-muted-foreground">
+            {description}
+          </p>
+        )}
       </header>
 
       <input
