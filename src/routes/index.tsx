@@ -166,16 +166,17 @@ function Home() {
         </div>
 
 
-        {/* Static puzzle tiles in the lower-right corner */}
+        {/* Four animating puzzle tiles in the lower-right corner */}
         <HeroPuzzle
           src={heroImage}
           cols={6}
           rows={6}
-          wedge={4}
-          depth={3}
+          wedge={3}
+          depth={2}
           corner="bottom-right"
           inset={0}
-          animated={false}
+          maxPieces={4}
+          animated
         />
 
       </section>
