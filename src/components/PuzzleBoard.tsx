@@ -431,6 +431,12 @@ export function PuzzleBoard({
 
       if (!next) return;
       const { groups, merged } = mergePass(next, groupOf);
+      // pieces that changed cells "float" over to their new home
+      const movedPieces = next
+        .map((cell, piece) => (cell !== pos[piece] ? piece : -1))
+        .filter((p) => p >= 0);
+      setFloating(movedPieces);
+      window.setTimeout(() => setFloating([]), 520);
       setPos(next);
       setGroupOf(groups);
       setMoves((m) => m + 1);
