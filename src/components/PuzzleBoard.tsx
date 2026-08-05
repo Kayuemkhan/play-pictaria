@@ -253,11 +253,17 @@ export function PuzzleBoard({
 
       for (const cluster of clusters.values()) {
         if (cluster.some((piece) => newCells.has(positions[piece]!))) {
+          // a merged cluster already sitting at home is locked — route around it
+          const locked =
+            cluster.length > 1 &&
+            cluster.every((piece) => positions[piece] === piece);
+          if (protectLocked && locked) return null;
           conflicting.push(cluster);
         } else {
           for (const piece of cluster) free.delete(positions[piece]!);
         }
       }
+
 
       const next = [...positions];
       for (const [piece, cell] of moving) next[piece] = cell;
