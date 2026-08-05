@@ -16,7 +16,7 @@ import {
   Wand2,
 } from "lucide-react";
 
-import { BottomBackButton } from "@/components/BottomBackButton";
+
 import palmLogo from "@/assets/logo-palms-only.png";
 
 export const Route = createFileRoute("/pricing")({
