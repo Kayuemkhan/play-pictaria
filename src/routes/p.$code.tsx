@@ -89,7 +89,7 @@ function SharedPictaria() {
           alt="Pictaria"
           width={1024}
           height={1024}
-          className="mx-auto h-24 w-auto [filter:brightness(1.45)_saturate(1.25)_drop-shadow(0_4px_18px_oklch(0.15_0.04_230/0.65))]"
+          className="mx-auto h-24 w-auto rounded-[8px] drop-shadow-[0_4px_18px_oklch(0.15_0.04_230/0.65)]"
         />
 
         {state === "loading" && (
