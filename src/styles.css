@@ -463,3 +463,23 @@
     letter-spacing: -0.01em;
   }
 }
+
+@keyframes mermaid-wiggle {
+  0%,
+  100% {
+    transform: rotate(-5deg) translateY(-3%);
+  }
+  25% {
+    transform: rotate(3deg) translateY(3%);
+  }
+  50% {
+    transform: rotate(-2deg) translateY(4%);
+  }
+  75% {
+    transform: rotate(4deg) translateY(-2%);
+  }
+}
+
+@utility animate-mermaid-wiggle {
+  animation: mermaid-wiggle 1.5s ease-in-out infinite;
+}
