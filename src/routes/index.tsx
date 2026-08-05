@@ -150,7 +150,7 @@ function Home() {
             className="h-[4.5rem] w-auto cursor-pointer drop-shadow-[0_4px_18px_oklch(0.15_0.04_230/0.55)] transition-transform duration-500 ease-[var(--ease-calm)] hover:scale-[1.06] sm:h-24"
           />
           <span className="-mt-2 cursor-pointer bg-gradient-to-br from-[oklch(0.99_0.03_90)] via-[oklch(0.96_0.05_88)] to-[oklch(0.88_0.09_80)] bg-clip-text font-display text-4xl leading-none tracking-[0.34em] text-transparent uppercase drop-shadow-[0_3px_14px_oklch(0.15_0.04_230/0.5)] transition-transform duration-500 ease-[var(--ease-calm)] hover:scale-[1.04] sm:text-5xl">
-            Pictxctaria
+            Pictaria
           </span>
           <span
             className="mt-3 cursor-pointer font-display text-[0.81rem] tracking-[0.42em] uppercase transition-transform duration-500 ease-[var(--ease-calm)] hover:scale-[1.04] sm:text-[0.94rem]"
