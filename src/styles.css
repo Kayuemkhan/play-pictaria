@@ -470,19 +470,19 @@
 @keyframes mermaid-wiggle {
   0%,
   100% {
-    transform: rotate(-5deg) translateY(-3%);
+    transform: translateY(-4%) translateX(-2%);
   }
   25% {
-    transform: rotate(3deg) translateY(3%);
+    transform: translateY(3%) translateX(2%);
   }
   50% {
-    transform: rotate(-2deg) translateY(4%);
+    transform: translateY(5%) translateX(-1%);
   }
   75% {
-    transform: rotate(4deg) translateY(-2%);
+    transform: translateY(-2%) translateX(1%);
   }
 }
 
 @utility animate-mermaid-wiggle {
-  animation: mermaid-wiggle 1.5s ease-in-out infinite;
+  animation: mermaid-wiggle 0.7s ease-in-out infinite;
 }
