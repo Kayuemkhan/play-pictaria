@@ -41,8 +41,8 @@ export async function reviewPicture(dataUrl: string): Promise<{
     const { output } = await generateText({
       model: gateway("google/gemini-3.6-flash"),
       output: Output.object({ schema: verdict }),
+      instructions: POLICY,
       messages: [
-        { role: "system", content: POLICY },
         {
           role: "user",
           content: [
