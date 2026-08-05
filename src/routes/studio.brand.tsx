@@ -23,19 +23,13 @@ export const Route = createFileRoute("/studio/brand")({
   component: () => (
     <StudioComposer
       tier="brand"
-      heading="Branding Studio"
-      kicker="A picture stops the scroll — a puzzle makes them stay"
+      heading="Brand Studio"
+      kicker="Meaningful connections, one picture at a time"
       maxPhotos={10}
       editing
       logoPlacement
-      highlights={[
-        "Upload your logo and drag it anywhere on the photograph.",
-        "Retouching included — light, depth, colour and golden warmth.",
-        "Branded playable links for social, email and campaigns.",
-        "Action buttons beneath the puzzle: book, shop, reserve, subscribe.",
-        "Engagement analytics: opens, plays, completions and time on puzzle.",
-        "The Pictaria badge stays very small, at the very bottom.",
-      ]}
+      description="What if your customers looked forward to hearing from you every day? With Brand Studio, every message becomes a moment your customers can enjoy. Transform your own photos into interactive Pictarias that invite them to slow down, solve, discover, and smile. It's a refreshing new way to build meaningful connections, strengthen your brand, and create the kind of engagement people genuinely anticipate."
+      highlights={[]}
     />
   ),
 });
