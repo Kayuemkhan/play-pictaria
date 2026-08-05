@@ -772,7 +772,6 @@ export function PuzzleBoard({
             const inCluster = (groupSizes.get(group) ?? 1) > 1;
             const isDragged = drag?.group === group;
             const justLocked = flash.includes(piece);
-            const isLocked = lockedPieces.has(piece);
             const isFloating = floating.includes(piece);
 
             return (
