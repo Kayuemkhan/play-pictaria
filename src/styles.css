@@ -356,6 +356,75 @@
   animation: starburst-pop 1.5s ease-out both;
 }
 
+@keyframes mermaid-swim {
+  0% {
+    opacity: 0;
+    transform: translate(-30%, 12%) rotate(-6deg) scale(0.82);
+  }
+  10% {
+    opacity: 1;
+  }
+  28% {
+    transform: translate(20%, -6%) rotate(4deg) scale(0.92);
+  }
+  46% {
+    transform: translate(58%, 8%) rotate(-3deg) scale(1);
+  }
+  62% {
+    transform: translate(78%, -2%) rotate(2deg) scale(1);
+  }
+  84% {
+    opacity: 1;
+    transform: translate(105%, 4%) rotate(-4deg) scale(0.95);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(132%, 10%) rotate(-8deg) scale(0.88);
+  }
+}
+
+@keyframes mermaid-tail {
+  0%,
+  100% {
+    transform: rotate(-9deg);
+  }
+  50% {
+    transform: rotate(11deg);
+  }
+}
+
+@keyframes mermaid-wave {
+  0%,
+  40%,
+  100% {
+    transform: rotate(6deg);
+  }
+  55% {
+    transform: rotate(-34deg);
+  }
+  70% {
+    transform: rotate(-6deg);
+  }
+  85% {
+    transform: rotate(-30deg);
+  }
+}
+
+@utility animate-mermaid-swim {
+  animation: mermaid-swim 7s var(--ease-calm) both;
+}
+
+@utility animate-mermaid-tail {
+  animation: mermaid-tail 0.85s ease-in-out infinite;
+  transform-origin: 50% 20%;
+}
+
+@utility animate-mermaid-wave {
+  animation: mermaid-wave 2.4s ease-in-out infinite;
+  transform-origin: 85% 85%;
+}
+
+
 @utility animate-script-shimmer {
   animation: script-shimmer 5s ease-in-out both;
 }
