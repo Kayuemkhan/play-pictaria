@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { PuzzleBoard } from "@/components/PuzzleBoard";
-import { BottomBackButton } from "@/components/BottomBackButton";
+
 import { difficulties } from "@/data/collections";
 import { getSharedPictaria } from "@/lib/pictarias.functions";
 import { reportPictaria } from "@/lib/reports.functions";
