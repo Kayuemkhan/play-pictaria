@@ -215,7 +215,9 @@ export function PuzzleBoard({
       group: number,
       dCol: number,
       dRow: number,
+      protectLocked = false,
     ): number[] | null => {
+
       const cells = grid * grid;
       const shift = (cell: number) => {
         const r = Math.floor(cell / grid) + dRow;
@@ -251,11 +253,17 @@ export function PuzzleBoard({
 
       for (const cluster of clusters.values()) {
         if (cluster.some((piece) => newCells.has(positions[piece]!))) {
+          // a merged cluster already sitting at home is locked — route around it
+          const locked =
+            cluster.length > 1 &&
+            cluster.every((piece) => positions[piece] === piece);
+          if (protectLocked && locked) return null;
           conflicting.push(cluster);
         } else {
           for (const piece of cluster) free.delete(positions[piece]!);
         }
       }
+
 
       const next = [...positions];
       for (const [piece, cell] of moving) next[piece] = cell;
@@ -398,9 +406,13 @@ export function PuzzleBoard({
       }
 
       const group = dragStart.current?.group ?? -1;
-      for (const [c, r] of candidates) {
-        if (tryMove(pos, groupOf, group, c, r)) return { dCol: c, dRow: r };
+      for (const protectLocked of [true, false]) {
+        for (const [c, r] of candidates) {
+          if (tryMove(pos, groupOf, group, c, r, protectLocked))
+            return { dCol: c, dRow: r };
+        }
       }
+
       return null;
     },
 
@@ -413,7 +425,10 @@ export function PuzzleBoard({
   const commitMove = useCallback(
     (group: number, dCol: number, dRow: number) => {
       if (solved || (dCol === 0 && dRow === 0)) return;
-      const next = tryMove(pos, groupOf, group, dCol, dRow);
+      const next =
+        tryMove(pos, groupOf, group, dCol, dRow, true) ??
+        tryMove(pos, groupOf, group, dCol, dRow);
+
       if (!next) return;
       const { groups, merged } = mergePass(next, groupOf);
       setPos(next);
@@ -472,6 +487,9 @@ export function PuzzleBoard({
     const cell = Number(cellEl.getAttribute("data-cell"));
     const piece = pos.indexOf(cell);
     if (piece < 0) return;
+    // once a piece is home inside a locked cluster it stays put for good
+    if (lockedPieces.has(piece)) return;
+
     viewportRef.current?.setPointerCapture(e.pointerId);
     dragStart.current = {
       group: groupOf[piece]!,
@@ -505,13 +523,13 @@ export function PuzzleBoard({
     const move = resolveMove(dCol, dRow, dx, dy);
 
     /**
-     * Never let a cluster follow the finger further than it can legally travel.
-     * Without this clamp an illegal drag looks like the block "bounced out"
-     * when it snaps back on release; now it simply resists.
+     * Tiles ride the grid, not the finger. A cluster never follows past the
+     * cell it is allowed to land on, so nothing ever looks like it is floating
+     * loose over the board.
      */
     const limit = (raw: number, cells: number, cellSize: number) =>
       Math.sign(raw) *
-      Math.min(Math.abs(raw), (Math.abs(cells) + 0.4) * cellSize * scale);
+      Math.min(Math.abs(raw), Math.abs(cells) * cellSize * scale);
 
     let ox = 0;
     let oy = 0;
@@ -521,12 +539,13 @@ export function PuzzleBoard({
       if (useHorizontal) ox = limit(dx, move.dCol, cellW);
       else oy = limit(dy, move.dRow, cellH);
     } else {
-      // no legal move: let the tile lean a little so the drag feels alive
+      // no legal move: the tile only leans a hair so the drag still feels alive
       const resist = (raw: number, cellSize: number) =>
-        Math.sign(raw) * Math.min(Math.abs(raw) * 0.25, 0.18 * cellSize * scale);
+        Math.sign(raw) * Math.min(Math.abs(raw) * 0.18, 0.1 * cellSize * scale);
       if (horizontal) ox = resist(dx, cellW);
       else oy = resist(dy, cellH);
     }
+
 
     setDrag({
       group: s.group,
@@ -548,7 +567,7 @@ export function PuzzleBoard({
     (dx: number, dy: number, group: number) => {
       const unitsX = dx / (cellW * scale);
       const unitsY = dy / (cellH * scale);
-      const TOL = 0.75;
+      const TOL = 0.62;
       const range = (u: number) => {
         const out: number[] = [];
         for (let v = Math.floor(u - TOL); v <= Math.ceil(u + TOL); v++) {
@@ -558,19 +577,22 @@ export function PuzzleBoard({
       };
 
       let best: { dCol: number; dRow: number; dist: number } | null = null;
-      for (const c of range(unitsX)) {
-        for (const r of range(unitsY)) {
-          if (c === 0 && r === 0) continue;
-          // keep gestures on one axis unless the other axis genuinely moved
-          if (c !== 0 && r !== 0) continue;
-          const next = tryMove(pos, groupOf, group, c, r);
-          if (!next) continue;
-          if (!mergePass(next, groupOf).merged) continue;
-          const dist =
-            Math.abs(c - unitsX) + Math.abs(r - unitsY);
-          if (!best || dist < best.dist) best = { dCol: c, dRow: r, dist };
+      for (const protectLocked of [true, false]) {
+        for (const c of range(unitsX)) {
+          for (const r of range(unitsY)) {
+            if (c === 0 && r === 0) continue;
+            // keep gestures on one axis unless the other axis genuinely moved
+            if (c !== 0 && r !== 0) continue;
+            const next = tryMove(pos, groupOf, group, c, r, protectLocked);
+            if (!next) continue;
+            if (!mergePass(next, groupOf).merged) continue;
+            const dist = Math.abs(c - unitsX) + Math.abs(r - unitsY);
+            if (!best || dist < best.dist) best = { dCol: c, dRow: r, dist };
+          }
         }
+        if (best) break;
       }
+
       return best;
     },
     [pos, groupOf, tryMove, mergePass, cellW, cellH, scale],
@@ -665,7 +687,30 @@ export function PuzzleBoard({
     return m;
   }, [groupOf]);
 
+  /**
+   * A piece is locked for good once it belongs to a merged cluster that is
+   * sitting exactly where it belongs in the picture. Locked pieces can't be
+   * picked up again, and other clusters are routed around them.
+   */
+  const lockedPieces = useMemo(() => {
+    const locked = new Set<number>();
+    if (!pos.length) return locked;
+    const members = new Map<number, number[]>();
+    groupOf.forEach((g, piece) => {
+      const list = members.get(g);
+      if (list) list.push(piece);
+      else members.set(g, [piece]);
+    });
+    for (const list of members.values()) {
+      if (list.length < 2) continue;
+      if (list.every((piece) => pos[piece] === piece))
+        list.forEach((piece) => locked.add(piece));
+    }
+    return locked;
+  }, [pos, groupOf]);
+
   const clusters = groupSizes.size;
+
 
   return (
     <div className="relative flex h-[100dvh] w-full flex-col overflow-hidden bg-mist-gradient">
@@ -727,10 +772,13 @@ export function PuzzleBoard({
             const inCluster = (groupSizes.get(group) ?? 1) > 1;
             const isDragged = drag?.group === group;
             const justLocked = flash.includes(piece);
+            const isLocked = lockedPieces.has(piece);
+
             return (
               <div
                 key={piece}
                 data-cell={cell}
+                className={justLocked ? "animate-snap-pop" : undefined}
                 style={{
                   position: "absolute",
                   left: col * cellW,
@@ -745,22 +793,23 @@ export function PuzzleBoard({
                     ? drag!.valid
                       ? "0 0 0 3px var(--accent), 0 16px 28px rgba(15,45,70,0.45)"
                       : "0 0 0 3px rgba(220,90,90,0.8)"
-                    : inCluster
-                      ? "none"
-                      : "inset 0 0 0 1px rgba(255,255,255,0.65)",
+                    : justLocked
+                      ? "0 0 0 2px var(--accent)"
+                      : inCluster
+                        ? "none"
+                        : "inset 0 0 0 1px rgba(255,255,255,0.65)",
                   transform: isDragged
                     ? `translate(${drag!.dx / scale}px, ${drag!.dy / scale}px) scale(1.02)`
-                    : justLocked
-                      ? "scale(1.02)"
-                      : "scale(1)",
+                    : "scale(1)",
                   zIndex: isDragged ? 4 : justLocked ? 2 : 1,
-                  cursor: "grab",
+                  cursor: isLocked ? "default" : "grab",
                   transition: isDragged
                     ? "none"
                     : "transform 0.26s var(--ease-calm), box-shadow 0.25s ease, border-radius 0.3s ease, left 0.26s var(--ease-calm), top 0.26s var(--ease-calm)",
                 }}
               />
             );
+
           })}
 
           {/* gold sparkles on snap */}
