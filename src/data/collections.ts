@@ -928,9 +928,9 @@ export const collections: Collection[] = [
         caption: "The artist at work in her studio",
         image: amy11Retouched,
         story: [
-          "Amy WakingWolf is a Maui-based glass artisan, jewelry designer, ocean advocate, and storyteller whose work blends fine craftsmanship with a deep love for the natural world. Best known as the creator of The Honu Collection, she handcrafts collectible wearable signed and numbered sculptures inspired by Hawaii's sea turtles.",
-          "Each piece is a reflection of her decades of artistic dedication and conservation work. Drawn to beauty, innovation, and meaningful connection, Amy is equally passionate about creating experiences that bring people together, whether through her art or imaginative projects like Pictaria, where memories become interactive stories.",
-          "Her work is guided by a sense of wonder, a playful spirit, and the belief that the most meaningful creations don't just decorate our lives, they tell our stories.",
+          "Pictaria is where memories become magical and pictures become play. It turns the photographs you love into calm, beautiful puzzles you can share, solve, and remember.",
+          "At the torch, every image becomes an invitation: a moment caught in light, waiting to be pieced back together. Pictaria was made for this — to slow down, to notice, and to play with the pictures that mean the most.",
+          "Whether it's a sea turtle at sunrise, a flower in the rain, or a memory you want to hold a little longer, Pictaria brings it to life one piece at a time.",
         ],
       },
       { id: "amy-01", title: "Mahalo: Gratitude", caption: "Apatite and tourmaline half moon necklace", image: amy01.url },
