@@ -48,6 +48,19 @@ export const publishPictaria = createServerFn({ method: "POST" })
       "@/integrations/supabase/client.server"
     );
 
+    const { reviewPicture } = await import("./moderation.server");
+
+    // Every picture passes a gentle safety review before it can be shared.
+    for (const photo of data.photos) {
+      const review = await reviewPicture(photo);
+      if (!review.allowed) {
+        throw new Error(
+          review.reason ||
+            "This picture doesn't suit Pictaria — please choose another.",
+        );
+      }
+    }
+
     const code = makeCode();
     const paths: string[] = [];
 

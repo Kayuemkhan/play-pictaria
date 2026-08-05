@@ -5,6 +5,7 @@ import { PuzzleBoard } from "@/components/PuzzleBoard";
 import { BottomBackButton } from "@/components/BottomBackButton";
 import { difficulties } from "@/data/collections";
 import { getSharedPictaria } from "@/lib/pictarias.functions";
+import { reportPictaria } from "@/lib/reports.functions";
 import palmLogo from "@/assets/logo-palms.png";
 
 export const Route = createFileRoute("/p/$code")({
@@ -46,6 +47,8 @@ function SharedPictaria() {
   const [playing, setPlaying] = useState<{ url: string; grid: number } | null>(
     null,
   );
+  const report = useServerFn(reportPictaria);
+  const [reported, setReported] = useState(false);
 
   useEffect(() => {
     let active = true;
@@ -163,6 +166,21 @@ function SharedPictaria() {
               <span aria-hidden>›</span>
             </Link>
           </>
+        )}
+        {state === "ready" && (
+          <button
+            type="button"
+            disabled={reported}
+            onClick={() => {
+              setReported(true);
+              void report({ data: { code, note: "" } }).catch(() => {});
+            }}
+            className="mx-auto mt-14 block text-[0.5rem] leading-none tracking-[0.14em] text-shell/15 lowercase transition-opacity hover:text-shell/40"
+          >
+            {reported
+              ? "thank you — this has been passed along"
+              : "report this pictaria if you would not show it to your mom"}
+          </button>
         )}
       </div>
       <BottomBackButton />

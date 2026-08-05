@@ -38,6 +38,27 @@ export type Database = {
         }
         Relationships: []
       }
+      pictaria_reports: {
+        Row: {
+          created_at: string
+          id: string
+          note: string
+          share_code: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          note?: string
+          share_code: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          note?: string
+          share_code?: string
+        }
+        Relationships: []
+      }
       pictarias: {
         Row: {
           created_at: string
