@@ -20,7 +20,11 @@ export const Route = createFileRoute("/about")({
         content:
           "Pictaria turns your favorite photographs into calm, beautiful puzzles. Play free collections or create your own storybook to share.",
       },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://play-pictaria.lovable.app/about" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
+    links: [{ rel: "canonical", href: "https://play-pictaria.lovable.app/about" }],
   }),
   component: AboutPage,
 });
