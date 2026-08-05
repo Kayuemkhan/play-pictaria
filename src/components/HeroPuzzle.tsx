@@ -30,6 +30,8 @@ export interface HeroPuzzleProps {
   inset?: number;
   /** when false the wedge stays jumbled (email / print safe) */
   animated?: boolean;
+  /** cap how many loose pieces exist (nearest the corner win) */
+  maxPieces?: number;
 }
 
 const GAP = 2; // px between pieces
@@ -58,6 +60,27 @@ function wedgeCells(
   return cells;
 }
 
+/** Keep only the pieces closest to the chosen corner. */
+function nearestToCorner(
+  cells: number[],
+  cols: number,
+  rows: number,
+  corner: HeroCorner,
+  limit: number,
+) {
+  if (cells.length <= limit) return cells;
+  const fromBottom = corner.startsWith("bottom");
+  const fromLeft = corner.endsWith("left");
+  const dist = (cell: number) => {
+    const col = cell % cols;
+    const row = Math.floor(cell / cols);
+    const dr = fromBottom ? rows - 1 - row : row;
+    const dc = fromLeft ? col : cols - 1 - col;
+    return dr + dc;
+  };
+  return [...cells].sort((a, b) => dist(a) - dist(b) || a - b).slice(0, limit);
+}
+
 function shuffled<T>(arr: T[]): T[] {
   const a = [...arr];
   for (let i = a.length - 1; i > 0; i--) {
@@ -76,12 +99,14 @@ export function HeroPuzzle({
   corner = "bottom-left",
   inset = 1,
   animated = true,
+  maxPieces,
 }: HeroPuzzleProps) {
-  const loose = useMemo(
-    () => wedgeCells(cols, rows, wedge, depth, corner, inset),
-    [cols, rows, wedge, depth, corner, inset],
-
-  );
+  const loose = useMemo(() => {
+    const cells = wedgeCells(cols, rows, wedge, depth, corner, inset);
+    return maxPieces
+      ? nearestToCorner(cells, cols, rows, corner, maxPieces)
+      : cells;
+  }, [cols, rows, wedge, depth, corner, inset, maxPieces]);
 
 
   const [cellFor, setCellFor] = useState<number[]>(loose);
