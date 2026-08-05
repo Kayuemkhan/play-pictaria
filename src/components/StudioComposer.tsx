@@ -205,17 +205,18 @@ export function StudioComposer({
 
   const add = (files: FileList | null) => {
     if (!files || !files.length) return;
+    // read the FileList immediately: the input is cleared right after this call
+    const picked = Array.from(files).filter((f) => f.type.startsWith("image/"));
+    if (!picked.length) return;
+    const stamped = picked.map((file, i) => {
+      const url = URL.createObjectURL(file);
+      urls.current.push(url);
+      return { id: `${Date.now()}-${i}-${file.name}`, url, file };
+    });
     setShareUrl("");
     setPhotos((prev) => {
       const room = Math.max(0, maxPhotos - prev.length);
-      const next = Array.from(files)
-        .slice(0, room)
-        .map((file, i) => {
-          const url = URL.createObjectURL(file);
-          urls.current.push(url);
-          return { id: `${Date.now()}-${i}-${file.name}`, url, file };
-        });
-      return [...prev, ...next];
+      return [...prev, ...stamped.slice(0, room)];
     });
   };
 
