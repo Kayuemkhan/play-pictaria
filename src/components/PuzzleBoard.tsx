@@ -421,7 +421,7 @@ export function PuzzleBoard({
       }
 
       const group = dragStart.current?.group ?? -1;
-      for (const protectLocked of [false]) {
+      for (const protectLocked of [true, false]) {
         for (const [c, r] of candidates) {
           if (tryMove(pos, groupOf, group, c, r, protectLocked))
             return { dCol: c, dRow: r };
@@ -651,7 +651,7 @@ export function PuzzleBoard({
       }
 
       // first choice: a landing spot that clicks the cluster onto its neighbours
-      for (const protectLocked of [false]) {
+      for (const protectLocked of [true, false]) {
         for (const c of range(unitsX)) {
           for (const r of range(unitsY)) {
             if (c === 0 && r === 0) continue;
@@ -667,7 +667,7 @@ export function PuzzleBoard({
       if (best) return best;
 
       // otherwise the piece simply settles wherever the finger left it
-      for (const protectLocked of [false]) {
+      for (const protectLocked of [true, false]) {
         for (const c of range(unitsX)) {
           for (const r of range(unitsY)) {
             if (c === 0 && r === 0) continue;
