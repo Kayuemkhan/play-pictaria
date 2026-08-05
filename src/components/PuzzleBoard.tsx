@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Search } from "lucide-react";
 import { playLock, playPick, playSolved } from "@/lib/feedback";
-import mermaidGold from "@/assets/mermaid-gold.png";
 
 
 const WORLD_W = 1000;
@@ -858,34 +857,9 @@ export function PuzzleBoard({
         )}
       </div>
 
-      {/* celebration — phase one: a golden mermaid swims across the finished picture */}
+      {/* celebration — phase one: fine drifting sparkles and congratulations */}
       {solved && (
         <div className="pointer-events-none absolute inset-0 z-30 overflow-hidden">
-          <div
-            className="animate-mermaid-swim absolute"
-            style={{
-              left: "-28%",
-              top: "36%",
-              width: "clamp(96px, 34%, 240px)",
-            }}
-          >
-            <img
-              src={mermaidGold}
-              alt=""
-              loading="lazy"
-              width={1024}
-              height={640}
-              className="animate-mermaid-wiggle w-full"
-              style={{
-                filter:
-                  "drop-shadow(0 0 14px oklch(0.88 0.11 84 / 0.7)) drop-shadow(0 6px 14px oklch(0.2 0.05 240 / 0.35))",
-              }}
-            />
-          </div>
-
-
-
-
           {/* fine drifting sparkles */}
           {Array.from({ length: 40 }).map((_, i) => (
             <svg
