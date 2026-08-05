@@ -296,6 +296,74 @@
   }
 }
 
+@keyframes burst-ray {
+  0% {
+    opacity: 0;
+    transform: rotate(var(--ray-rot)) scaleY(0.1);
+  }
+  22% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: rotate(var(--ray-rot)) scaleY(1.35);
+  }
+}
+
+@keyframes starburst-pop {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.2) rotate(0deg);
+  }
+  30% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.25) rotate(35deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.7) rotate(90deg);
+  }
+}
+
+@keyframes script-shimmer {
+  0% {
+    opacity: 0;
+    transform: rotate(-9deg) scale(0.86);
+    filter: brightness(1);
+  }
+  25% {
+    opacity: 1;
+    transform: rotate(-9deg) scale(1.02);
+  }
+  50% {
+    filter: brightness(1.35);
+  }
+  75% {
+    opacity: 1;
+    transform: rotate(-9deg) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: rotate(-9deg) scale(1.04);
+  }
+}
+
+@utility animate-burst-ray {
+  animation: burst-ray 1.6s var(--ease-calm) both;
+}
+
+@utility animate-starburst-pop {
+  animation: starburst-pop 1.5s ease-out both;
+}
+
+@utility animate-script-shimmer {
+  animation: script-shimmer 5s ease-in-out both;
+}
+
+@utility font-script {
+  font-family: "Great Vibes", "Cormorant Garamond", cursive;
+}
+
 @utility animate-snap-pop {
   animation: snap-pop 0.34s var(--ease-calm) both;
 }
