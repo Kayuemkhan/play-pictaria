@@ -16,7 +16,7 @@ import turtle05 from "@/assets/turtle-05.jpg";
 import turtle06 from "@/assets/turtle-06.jpg";
 import turtle07 from "@/assets/turtle-07.jpg";
 import turtle08 from "@/assets/turtle-08.jpg";
-import turtle09 from "@/assets/turtle-09.jpg";
+import turtle09 from "@/assets/turtle-09.jpg.asset.json";
 import turtle10 from "@/assets/turtle-10.jpg";
 import flowerHibiscus from "@/assets/flower-hibiscus.jpg";
 import flowerHibiscusPink from "@/assets/flower-hibiscus-pink.jpg";
@@ -368,8 +368,8 @@ export const collections: Collection[] = [
       {
         id: "turtle-09",
         title: "Tide Pool",
-        caption: "Golden hour on lava rock",
-        image: turtle09,
+        caption: "Sunlight through the swell",
+        image: turtle09.url,
       },
       {
         id: "turtle-10",
