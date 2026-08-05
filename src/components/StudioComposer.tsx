@@ -235,8 +235,9 @@ export function StudioComposer({
   const hero = photos[heroIndex] ?? photos[0];
   const publish = useServerFn(publishPictaria);
 
-  const createLink = async () => {
-    if (!photos.length) return;
+  /** Publishes and returns the play link, or null when it failed. */
+  const publishNow = async (): Promise<string | null> => {
+    if (!photos.length) return null;
     setPublishState("working");
     setPublishError("");
     try {
@@ -263,14 +264,21 @@ export function StudioComposer({
           photos: rendered,
         },
       });
-      setShareUrl(`${window.location.origin}/p/${code}`);
+      const url = `${window.location.origin}/p/${code}`;
+      setShareUrl(url);
       setPublishState("idle");
+      return url;
     } catch (err) {
       setPublishState("error");
       setPublishError(
         err instanceof Error ? err.message : "Something went wrong.",
       );
+      return null;
     }
+  };
+
+  const createLink = () => {
+    void publishNow();
   };
 
   const copyLink = async () => {
@@ -288,17 +296,21 @@ export function StudioComposer({
   const overLimit = recipientList.length > maxRecipients;
 
   /** Opens the visitor's own mail app with the Pictaria invitation prefilled. */
-  const sendPictaria = () => {
+  const sendPictaria = async () => {
     if (overLimit) return;
     const to = recipientList.join(",");
     if (!to) return;
+    // never send people to the front door: publish this picture first
+    const link = shareUrl || (await publishNow());
+    if (!link) return;
     const name = brand.trim() || "a Pictaria";
     const subject = `${name} — a puzzle for you`;
     const body = [
       headline.trim() || "Can you solve this one?",
       caption.trim(),
       "",
-      `Play it here: ${shareUrl || "https://memory-tile-maker.lovable.app"}`,
+      `Open your puzzle here: ${link}`,
+      "You'll see the finished picture first, then it breaks into tiles to play.",
       "",
       "Made with Pictaria — turn your pictures into play.",
     ]
@@ -306,6 +318,7 @@ export function StudioComposer({
       .join("\n");
     window.location.href = `mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
+
 
   const startLogoDrag = (e: React.PointerEvent<HTMLDivElement>) => {
     const frame = e.currentTarget.parentElement;
