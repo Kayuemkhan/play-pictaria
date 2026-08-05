@@ -799,7 +799,7 @@ export function StudioComposer({
           </div>
 
           {/* CTAs — never link a studio back to itself */}
-          {tier !== "personal" && (
+          {tier !== "personal" && tier !== "brand" && (
             <div className="relative mt-6 overflow-hidden rounded-[4px] border border-accent/60 bg-card/70 p-4">
               <div className="relative grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4">
                 <p className="min-w-0 font-display text-[0.85rem] leading-snug [color:color-mix(in_oklch,var(--foreground)_92%,black)]">
@@ -821,7 +821,7 @@ export function StudioComposer({
             </div>
           )}
 
-          {tier !== "artist" && (
+          {tier !== "artist" && tier !== "brand" && (
             <div className="relative mt-4 overflow-hidden rounded-[4px] border border-accent/60 bg-card/70 p-4">
               <div className="relative grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4">
                 <p className="min-w-0 font-display text-[0.85rem] leading-snug [color:color-mix(in_oklch,var(--foreground)_92%,black)]">
