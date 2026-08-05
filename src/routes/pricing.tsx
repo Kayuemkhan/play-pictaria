@@ -356,8 +356,6 @@ function PricingPage() {
           </Link>
         </section>
       </div>
-
-      <BottomBackButton />
     </main>
   );
 }
