@@ -53,7 +53,8 @@ export async function reviewPicture(dataUrl: string): Promise<{
       ],
     });
     return output;
-  } catch {
+  } catch (err) {
+    console.error("Picture review unavailable:", err);
     return { allowed: true, reason: "" };
   }
 }
