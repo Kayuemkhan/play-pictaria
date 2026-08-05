@@ -415,7 +415,10 @@ export function PuzzleBoard({
   const commitMove = useCallback(
     (group: number, dCol: number, dRow: number) => {
       if (solved || (dCol === 0 && dRow === 0)) return;
-      const next = tryMove(pos, groupOf, group, dCol, dRow);
+      const next =
+        tryMove(pos, groupOf, group, dCol, dRow, true) ??
+        tryMove(pos, groupOf, group, dCol, dRow);
+
       if (!next) return;
       const { groups, merged } = mergePass(next, groupOf);
       setPos(next);
