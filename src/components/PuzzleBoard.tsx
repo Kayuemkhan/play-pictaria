@@ -733,6 +733,7 @@ export function PuzzleBoard({
               <div
                 key={piece}
                 data-cell={cell}
+                className={justLocked ? "animate-snap-pop" : undefined}
                 style={{
                   position: "absolute",
                   left: col * cellW,
@@ -747,22 +748,23 @@ export function PuzzleBoard({
                     ? drag!.valid
                       ? "0 0 0 3px var(--accent), 0 16px 28px rgba(15,45,70,0.45)"
                       : "0 0 0 3px rgba(220,90,90,0.8)"
-                    : inCluster
-                      ? "none"
-                      : "inset 0 0 0 1px rgba(255,255,255,0.65)",
+                    : justLocked
+                      ? "0 0 0 2px var(--accent)"
+                      : inCluster
+                        ? "none"
+                        : "inset 0 0 0 1px rgba(255,255,255,0.65)",
                   transform: isDragged
                     ? `translate(${drag!.dx / scale}px, ${drag!.dy / scale}px) scale(1.02)`
-                    : justLocked
-                      ? "scale(1.02)"
-                      : "scale(1)",
+                    : "scale(1)",
                   zIndex: isDragged ? 4 : justLocked ? 2 : 1,
-                  cursor: "grab",
+                  cursor: isLocked ? "default" : "grab",
                   transition: isDragged
                     ? "none"
                     : "transform 0.26s var(--ease-calm), box-shadow 0.25s ease, border-radius 0.3s ease, left 0.26s var(--ease-calm), top 0.26s var(--ease-calm)",
                 }}
               />
             );
+
           })}
 
           {/* gold sparkles on snap */}
