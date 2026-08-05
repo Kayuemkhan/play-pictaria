@@ -215,7 +215,9 @@ export function PuzzleBoard({
       group: number,
       dCol: number,
       dRow: number,
+      protectLocked = false,
     ): number[] | null => {
+
       const cells = grid * grid;
       const shift = (cell: number) => {
         const r = Math.floor(cell / grid) + dRow;
