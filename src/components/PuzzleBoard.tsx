@@ -807,7 +807,7 @@ export function PuzzleBoard({
                       ? "scale(1.045)"
                       : "scale(1)",
                   zIndex: isDragged ? 4 : isFloating ? 3 : justLocked ? 2 : 1,
-                  cursor: isLocked ? "default" : "grab",
+                  cursor: "grab",
                   transition: isDragged
                     ? "none"
                     : "transform 0.5s cubic-bezier(0.32, 1.5, 0.4, 1), box-shadow 0.45s ease, border-radius 0.3s ease, left 0.52s cubic-bezier(0.28, 1.35, 0.36, 1), top 0.52s cubic-bezier(0.28, 1.35, 0.36, 1)",
