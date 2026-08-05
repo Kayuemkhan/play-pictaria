@@ -38,7 +38,7 @@ function AboutPage() {
             alt="Pictaria"
             width={1024}
             height={1024}
-            className="mx-auto h-28 w-auto [filter:brightness(1.45)_saturate(1.25)_drop-shadow(0_4px_18px_oklch(0.15_0.04_230/0.65))] sm:h-36"
+            className="mx-auto h-32 w-auto rounded-[8px] drop-shadow-[0_4px_18px_oklch(0.15_0.04_230/0.65)] sm:h-40"
           />
           <h1 className="mt-6 font-display text-[1.6rem] leading-snug text-shell sm:text-[2rem]">
             Pictaria turns your pictures into peaceful puzzles.

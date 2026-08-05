@@ -145,7 +145,7 @@ function Home() {
             alt="Pictaria — Turn pictures into play"
             width={1024}
             height={1024}
-            className="h-32 w-auto [filter:brightness(1.45)_saturate(1.25)_drop-shadow(0_4px_18px_oklch(0.15_0.04_230/0.65))] sm:h-44"
+            className="h-36 w-auto rounded-[8px] drop-shadow-[0_4px_18px_oklch(0.15_0.04_230/0.65)] sm:h-48"
           />
         </div>
 

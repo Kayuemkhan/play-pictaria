@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { BottomBackButton } from "@/components/BottomBackButton";
 import palmLogo from "@/assets/logo-palms.png";
+import palmLogoOnly from "@/assets/logo-palms-only.png";
 import hibiscus from "@/assets/flower-hibiscus-cutout.png";
 
 export const Route = createFileRoute("/daily")({
