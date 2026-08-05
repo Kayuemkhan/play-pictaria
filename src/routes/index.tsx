@@ -145,12 +145,12 @@ function Home() {
             alt="Pictaria — Turn pictures into play"
             width={1024}
             height={1024}
-            className="h-36 w-auto rounded-[8px] drop-shadow-[0_4px_18px_oklch(0.15_0.04_230/0.65)] sm:h-48"
+            className="h-40 w-auto rounded-[8px] drop-shadow-[0_4px_18px_oklch(0.15_0.04_230/0.65)] sm:h-52"
           />
         </div>
 
         {/* headline + CTA */}
-        <div className="absolute top-[26%] left-5 z-[5] max-w-[60%] sm:left-10 sm:max-w-md">
+        <div className="absolute top-[34%] left-5 z-[5] max-w-[60%] sm:left-10 sm:max-w-md">
           <h1 className="font-display text-[1.65rem] leading-[1.1] text-shell [text-shadow:0_2px_18px_oklch(0.15_0.04_230/0.85)] sm:text-4xl">
             Can you solve tonight’s pineapple?
           </h1>
