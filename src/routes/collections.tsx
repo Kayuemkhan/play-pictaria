@@ -61,7 +61,6 @@ function CollectionsPage() {
           ))}
         </div>
       </div>
-      <BottomBackButton />
     </main>
   );
 }
