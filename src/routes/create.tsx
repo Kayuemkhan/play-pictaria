@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { StudioComposer } from "@/components/StudioComposer";
-import { BottomBackButton } from "@/components/BottomBackButton";
+
 import { saveDailySubscriber } from "@/lib/daily.functions";
 import { supabase } from "@/integrations/supabase/client";
 import { Input } from "@/components/ui/input";
