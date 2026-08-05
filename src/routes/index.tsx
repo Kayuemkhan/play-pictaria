@@ -24,6 +24,7 @@ export const Route = createFileRoute("/")({
           "A peaceful jigsaw experience built on beautiful photography. Play ten sea turtle puzzles free.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://play-pictaria.lovable.app/" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
