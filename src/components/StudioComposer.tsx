@@ -873,7 +873,6 @@ export function StudioComposer({
           )}
         </section>
       </div>
-      <BottomBackButton />
     </main>
   );
 }
