@@ -57,12 +57,12 @@ function Home() {
       <section className="relative overflow-hidden">
         <img
           src={heroImage}
-          alt="Golden Hawaiian sunset over the ocean with plumeria blossoms"
+          alt="A golden pineapple on a weathered railing at Hawaiian sunset with hibiscus and plumeria blossoms"
           width={1024}
           height={1408}
           className="h-[68svh] max-h-[760px] min-h-[420px] w-full object-cover sm:h-screen sm:min-h-[520px]"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-deep/75 via-transparent to-deep/40" />
+        <div className="absolute inset-0 bg-gradient-to-b from-deep/75 via-deep/20 to-deep/50" />
 
         <div className="absolute top-5 right-5 left-5 z-[6] flex items-start justify-between">
           <div className="relative">
@@ -149,7 +149,22 @@ function Home() {
           />
         </div>
 
-        {/* hero image puzzle — solved except the lower-left wedge */}
+        {/* headline + CTA */}
+        <div className="absolute top-[42%] left-5 z-[5] max-w-[55%] sm:left-10 sm:max-w-md">
+          <h1 className="font-display text-[1.65rem] leading-[1.1] text-shell drop-shadow-lg sm:text-4xl">
+            Can you solve tonight’s pineapple?
+          </h1>
+          <Link
+            to="/collection/$collectionId"
+            params={{ collectionId: "pineapples-of-hawaii" }}
+            className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-[0.65rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03] sm:mt-5 sm:px-5 sm:py-2.5 sm:text-[0.7rem]"
+          >
+            Play now
+            <ChevronRight className="h-3.5 w-3.5" strokeWidth={2} />
+          </Link>
+        </div>
+
+        {/* hero image puzzle — solved except the lower-right wedge */}
         <HeroPuzzle
           src={heroImage}
           cols={6}
