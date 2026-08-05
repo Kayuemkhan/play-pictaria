@@ -26,14 +26,7 @@ function CollectionsPage() {
   return (
     <main className="min-h-screen bg-mist-gradient px-4 pb-20 sm:px-6">
       <div className="mx-auto w-full max-w-5xl">
-        <Link
-          to="/"
-          className="inline-block py-5 text-sm text-muted-foreground transition-colors hover:text-foreground"
-        >
-          ← Home
-        </Link>
-
-        <div className="text-center">
+        <div className="pt-8 text-center">
           <p className="text-[11px] tracking-[0.3em] text-muted-foreground uppercase">
             The Pictaria gallery
           </p>
