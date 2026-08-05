@@ -672,10 +672,11 @@ export function PuzzleBoard({
       {/* top bar */}
       <header className="glass-panel z-20 grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 px-3 py-2.5 sm:px-5">
         <button
-          onClick={onExit}
-          className="rounded-full px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+          aria-label="Back to choose difficulty"
+          onClick={onChangeDifficulty}
+          className="flex h-9 w-9 items-center justify-center rounded-full bg-secondary text-secondary-foreground transition-colors hover:bg-primary hover:text-primary-foreground"
         >
-          ← Gallery
+          <ChevronLeft size={20} strokeWidth={1.5} />
         </button>
         <div className="min-w-0 text-center">
           <p className="truncate font-display text-lg leading-tight sm:text-xl">
