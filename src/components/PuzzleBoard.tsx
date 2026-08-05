@@ -507,13 +507,13 @@ export function PuzzleBoard({
     const move = resolveMove(dCol, dRow, dx, dy);
 
     /**
-     * Never let a cluster follow the finger further than it can legally travel.
-     * Without this clamp an illegal drag looks like the block "bounced out"
-     * when it snaps back on release; now it simply resists.
+     * Tiles ride the grid, not the finger. A cluster never follows past the
+     * cell it is allowed to land on, so nothing ever looks like it is floating
+     * loose over the board.
      */
     const limit = (raw: number, cells: number, cellSize: number) =>
       Math.sign(raw) *
-      Math.min(Math.abs(raw), (Math.abs(cells) + 0.4) * cellSize * scale);
+      Math.min(Math.abs(raw), Math.abs(cells) * cellSize * scale);
 
     let ox = 0;
     let oy = 0;
@@ -523,12 +523,13 @@ export function PuzzleBoard({
       if (useHorizontal) ox = limit(dx, move.dCol, cellW);
       else oy = limit(dy, move.dRow, cellH);
     } else {
-      // no legal move: let the tile lean a little so the drag feels alive
+      // no legal move: the tile only leans a hair so the drag still feels alive
       const resist = (raw: number, cellSize: number) =>
-        Math.sign(raw) * Math.min(Math.abs(raw) * 0.25, 0.18 * cellSize * scale);
+        Math.sign(raw) * Math.min(Math.abs(raw) * 0.18, 0.1 * cellSize * scale);
       if (horizontal) ox = resist(dx, cellW);
       else oy = resist(dy, cellH);
     }
+
 
     setDrag({
       group: s.group,
