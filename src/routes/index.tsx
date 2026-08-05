@@ -15,13 +15,13 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Discover beautiful photography, one puzzle \"peace\" at a time.",
+          "Discover or create beautiful photography, one puzzle \"peace\" at a time...",
       },
       { property: "og:title", content: "Pictaria — Turn Your Pictures Into Play" },
       {
         property: "og:description",
         content:
-          "Discover beautiful photography, one puzzle \"peace\" at a time.",
+          "Discover or create beautiful photography, one puzzle \"peace\" at a time...",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://play-pictaria.lovable.app/" },
