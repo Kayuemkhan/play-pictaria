@@ -174,7 +174,6 @@ function DailyPage() {
           Back home
         </Link>
       </div>
-      <BottomBackButton />
     </main>
   );
 }
