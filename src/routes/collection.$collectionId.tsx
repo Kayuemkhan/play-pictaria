@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { collections } from "@/data/collections";
-import { BottomBackButton } from "@/components/BottomBackButton";
+
 
 export const Route = createFileRoute("/collection/$collectionId")({
   head: () => ({
@@ -44,14 +44,7 @@ function CollectionPage() {
 
   return (
     <main className="min-h-screen bg-mist-gradient px-4 pb-20 sm:px-6">
-      <div className="mx-auto w-full max-w-4xl">
-        <Link
-          to="/"
-          className="inline-block py-5 text-sm text-muted-foreground transition-colors hover:text-foreground"
-        >
-          ← Home
-        </Link>
-
+      <div className="mx-auto w-full max-w-4xl pt-8">
         <div className="text-center">
           <p className="text-[11px] tracking-[0.3em] text-muted-foreground uppercase">
             {`${collection.puzzles.length} puzzles`}
@@ -96,7 +89,6 @@ function CollectionPage() {
         </div>
 
       </div>
-      <BottomBackButton />
     </main>
   );
 }

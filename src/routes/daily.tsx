@@ -6,7 +6,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { BottomBackButton } from "@/components/BottomBackButton";
+
 import palmLogoOnly from "@/assets/logo-palms-only.png";
 import hibiscus from "@/assets/flower-hibiscus-cutout.png";
 
@@ -110,7 +110,6 @@ function DailyPage() {
         >
           Back home <span aria-hidden>›</span>
         </Link>
-        <BottomBackButton />
       </main>
     );
   }
@@ -175,7 +174,6 @@ function DailyPage() {
           Back home
         </Link>
       </div>
-      <BottomBackButton />
     </main>
   );
 }

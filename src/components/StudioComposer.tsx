@@ -2,7 +2,6 @@ import { Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import {
   Aperture,
-  ArrowLeft,
   Check,
   Contrast,
   Copy,
@@ -14,7 +13,6 @@ import {
   Wand2,
   X,
 } from "lucide-react";
-import { BottomBackButton } from "@/components/BottomBackButton";
 import { useServerFn } from "@tanstack/react-start";
 import { publishPictaria } from "@/lib/pictarias.functions";
 
@@ -347,13 +345,6 @@ export function StudioComposer({
     <main className="min-h-screen bg-shell pb-16">
       <header className="px-4 pt-5 sm:px-8">
         <div className="flex items-center gap-3">
-          <Link
-            to="/"
-            aria-label="Back to home"
-            className="grid h-10 w-10 place-items-center rounded-full bg-deep text-accent transition-transform hover:scale-105"
-          >
-            <ArrowLeft className="h-4 w-4" strokeWidth={1.5} />
-          </Link>
           <div className="min-w-0">
             <h1 className="font-display text-lg tracking-[0.2em] uppercase">
               {heading}
@@ -882,7 +873,6 @@ export function StudioComposer({
           )}
         </section>
       </div>
-      <BottomBackButton />
     </main>
   );
 }

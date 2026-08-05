@@ -1,7 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { PuzzleBoard } from "@/components/PuzzleBoard";
-import { BottomBackButton } from "@/components/BottomBackButton";
+
 import { difficulties, findPuzzle } from "@/data/collections";
 
 export const Route = createFileRoute("/puzzle/$puzzleId")({
@@ -74,15 +74,7 @@ function PuzzlePage() {
 
   return (
     <main className="min-h-screen bg-mist-gradient px-4 pb-16 sm:px-6">
-      <div className="mx-auto w-full max-w-3xl">
-        <Link
-          to="/collection/$collectionId"
-          params={{ collectionId: collection.id }}
-          className="inline-block py-5 text-sm text-muted-foreground transition-colors hover:text-foreground"
-        >
-          ← Gallery
-        </Link>
-
+      <div className="mx-auto w-full max-w-3xl pt-8">
         <div className="overflow-hidden rounded-[4px] border border-accent/60 shadow-lift">
           <img
             src={puzzle.image}
@@ -147,7 +139,6 @@ function PuzzlePage() {
           ))}
         </div>
       </div>
-      <BottomBackButton />
     </main>
   );
 }

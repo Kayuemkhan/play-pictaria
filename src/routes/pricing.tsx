@@ -1,6 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
-  ArrowLeft,
   BarChart3,
   Circle,
   Contrast,
@@ -16,7 +15,7 @@ import {
   Wand2,
 } from "lucide-react";
 
-import { BottomBackButton } from "@/components/BottomBackButton";
+
 import palmLogo from "@/assets/logo-palms-only.png";
 
 export const Route = createFileRoute("/pricing")({
@@ -156,13 +155,6 @@ function PricingPage() {
   return (
     <main className="min-h-dvh bg-background pb-16">
       <header className="mx-auto flex w-full max-w-5xl items-center gap-3 px-4 pt-6 sm:px-8">
-        <Link
-          to="/"
-          aria-label="Back home"
-          className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-border text-muted-foreground transition-colors hover:text-foreground"
-        >
-          <ArrowLeft className="h-4 w-4" strokeWidth={1.5} />
-        </Link>
         <div className="min-w-0">
           <h1 className="font-display text-lg tracking-[0.2em] uppercase">
             Pictaria Pricing
@@ -364,8 +356,6 @@ function PricingPage() {
           </Link>
         </section>
       </div>
-
-      <BottomBackButton />
     </main>
   );
 }
