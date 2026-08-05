@@ -310,7 +310,6 @@ function Home() {
         </div>
       </section>
 
-      <BottomBackButton />
     </main>
 
   );
