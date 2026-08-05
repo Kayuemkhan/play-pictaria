@@ -368,7 +368,7 @@ export const collections: Collection[] = [
       {
         id: "turtle-09",
         title: "Tide Pool",
-        caption: "Golden hour on lava rock",
+        caption: "Sunlight through the swell",
         image: turtle09,
       },
       {
