@@ -523,42 +523,23 @@ export function PuzzleBoard({
     const dy = e.clientY - s.y;
     if (!s.moved && Math.abs(dx) + Math.abs(dy) < 3) return;
     s.moved = true;
-    const dCol = cellsTravelled(dx, cellW);
-    const dRow = cellsTravelled(dy, cellH);
-    const horizontal = Math.abs(dx) > Math.abs(dy);
-    const move = resolveMove(dCol, dRow, dx, dy);
 
     /**
-     * Tiles ride the grid, not the finger. A cluster never follows past the
-     * cell it is allowed to land on, so nothing ever looks like it is floating
-     * loose over the board.
+     * The piece floats with the fingertip anywhere over the board — it does not
+     * ride the grid while dragging. On release it settles into the nearest cell
+     * it is allowed to occupy.
      */
-    const limit = (raw: number, cells: number, cellSize: number) =>
-      Math.sign(raw) *
-      Math.min(Math.abs(raw), Math.abs(cells) * cellSize * scale);
+    const c = Math.round(dx / (cellW * scale));
+    const r = Math.round(dy / (cellH * scale));
+    const valid =
+      c === 0 && r === 0
+        ? true
+        : !!(
+            tryMove(pos, groupOf, s.group, c, r, true) ??
+            tryMove(pos, groupOf, s.group, c, r)
+          );
 
-    let ox = 0;
-    let oy = 0;
-    if (move) {
-      const useHorizontal =
-        move.dCol !== 0 && (horizontal || move.dRow === 0);
-      if (useHorizontal) ox = limit(dx, move.dCol, cellW);
-      else oy = limit(dy, move.dRow, cellH);
-    } else {
-      // no legal move: the tile only leans a hair so the drag still feels alive
-      const resist = (raw: number, cellSize: number) =>
-        Math.sign(raw) * Math.min(Math.abs(raw) * 0.18, 0.1 * cellSize * scale);
-      if (horizontal) ox = resist(dx, cellW);
-      else oy = resist(dy, cellH);
-    }
-
-
-    setDrag({
-      group: s.group,
-      dx: ox,
-      dy: oy,
-      valid: !!move,
-    });
+    setDrag({ group: s.group, dx, dy, valid });
   };
 
 
