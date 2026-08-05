@@ -144,12 +144,19 @@ function Home() {
         <div className="absolute inset-x-0 top-16 flex flex-col items-center px-6 text-center sm:top-10">
           <img
             src={palmLogo}
-            alt="Pictaria — Turn pictures into play"
+            alt="Pictaria"
             width={1024}
             height={1024}
-            className="h-40 w-auto rounded-[8px] drop-shadow-[0_4px_18px_oklch(0.15_0.04_230/0.65)] sm:h-52"
+            className="h-24 w-auto drop-shadow-[0_4px_18px_oklch(0.15_0.04_230/0.55)] sm:h-32"
           />
+          <span className="-mt-2 bg-gradient-to-br from-[oklch(0.95_0.07_92)] via-[oklch(0.86_0.12_85)] to-[oklch(0.6_0.12_66)] bg-clip-text font-display text-4xl leading-none tracking-[0.34em] text-transparent uppercase drop-shadow-[0_3px_14px_oklch(0.15_0.04_230/0.5)] sm:text-5xl">
+            Pictaria
+          </span>
+          <span className="mt-3 font-display text-[0.81rem] tracking-[0.42em] text-accent uppercase sm:text-[0.94rem]">
+            Turn pictures into play
+          </span>
         </div>
+
 
         {/* Static puzzle tiles in the lower-right corner */}
         <HeroPuzzle
