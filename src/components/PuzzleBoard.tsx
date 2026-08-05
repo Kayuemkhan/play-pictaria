@@ -856,72 +856,115 @@ export function PuzzleBoard({
         )}
       </div>
 
-      {/* celebration */}
+      {/* celebration — phase one: golden starbursts over the finished picture */}
       {solved && (
-        <div className="absolute inset-0 z-30 flex items-center justify-center bg-deep/55 backdrop-blur-md">
-          {/* magical star swirl */}
-          <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-            <div
-              className="animate-star-swirl absolute"
-              style={{ width: 420, height: 420 }}
-            >
-              {Array.from({ length: 24 }).map((_, i) => {
-                const angle = (i / 24) * Math.PI * 2;
-                const radius = 90 + (i % 5) * 28;
-                return (
-                  <svg
-                    key={`swirl-${i}`}
-                    viewBox="0 0 24 24"
-                    className="animate-sparkle absolute"
-                    style={{
-                      left: `calc(50% + ${Math.cos(angle) * radius}px)`,
-                      top: `calc(50% + ${Math.sin(angle) * radius}px)`,
-                      width: 10 + (i % 4) * 4,
-                      height: 10 + (i % 4) * 4,
-                      transform: "translate(-50%, -50%)",
-                      animationDelay: `${i * 0.18}s`,
-                      fill: i % 3 === 0 ? "var(--accent)" : "oklch(0.92 0.04 80)",
-                      filter: "drop-shadow(0 0 6px oklch(0.85 0.06 70 / 0.8))",
-                    }}
-                  >
-                    <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
-                  </svg>
-                );
-              })}
-            </div>
+        <div className="pointer-events-none absolute inset-0 z-30 overflow-hidden">
+          {/* radiating golden rays from the centre */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            {Array.from({ length: 18 }).map((_, i) => (
+              <span
+                key={`ray-${i}`}
+                className="animate-burst-ray absolute origin-bottom"
+                style={
+                  {
+                    "--ray-rot": `${(i / 18) * 360}deg`,
+                    bottom: "50%",
+                    width: i % 2 ? 2 : 3,
+                    height: "46%",
+                    background:
+                      "linear-gradient(to top, oklch(0.86 0.13 85 / 0.85), transparent)",
+                    animationDelay: `${i * 0.05}s`,
+                  } as React.CSSProperties
+                }
+              />
+            ))}
           </div>
 
-          {/* floating twinkling stars */}
-          {Array.from({ length: 36 }).map((_, i) => (
+          {/* starbursts popping across the picture */}
+          {Array.from({ length: 26 }).map((_, i) => (
+            <svg
+              key={`burst-${i}`}
+              viewBox="0 0 24 24"
+              className="animate-starburst-pop absolute"
+              style={{
+                left: `${(i * 41 + Math.sin(i * 2.1) * 22) % 96}%`,
+                top: `${(i * 23 + Math.cos(i * 1.7) * 18) % 94}%`,
+                width: 14 + (i % 5) * 10,
+                height: 14 + (i % 5) * 10,
+                animationDelay: `${(i % 9) * 0.42}s`,
+                animationIterationCount: 2,
+                fill:
+                  i % 3 === 0 ? "var(--accent)" : "oklch(0.95 0.06 88)",
+                filter: "drop-shadow(0 0 8px oklch(0.88 0.1 82 / 0.9))",
+              }}
+            >
+              <path d="M12 0L14.1 8.2L20.5 3.5L15.8 9.9L24 12L15.8 14.1L20.5 20.5L14.1 15.8L12 24L9.9 15.8L3.5 20.5L8.2 14.1L0 12L8.2 9.9L3.5 3.5L9.9 8.2L12 0Z" />
+            </svg>
+          ))}
+
+          {/* fine drifting sparkles */}
+          {Array.from({ length: 40 }).map((_, i) => (
             <svg
               key={`float-${i}`}
               viewBox="0 0 24 24"
-              className="animate-star-float pointer-events-none absolute"
+              className="animate-star-float absolute"
               style={{
                 left: `${(i * 37 + Math.sin(i) * 20) % 100}%`,
                 top: `${(i * 19 + Math.cos(i) * 15) % 100}%`,
-                width: 6 + (i % 5) * 4,
-                height: 6 + (i % 5) * 4,
-                animationDelay: `${i * 0.14}s`,
-                animationDuration: `${4 + (i % 4)}s`,
-                fill:
-                  i % 4 === 0
-                    ? "var(--accent)"
-                    : i % 4 === 1
-                      ? "oklch(0.95 0.03 85)"
-                      : "oklch(0.88 0.05 190)",
-                filter: "drop-shadow(0 0 4px oklch(0.9 0.05 80 / 0.7))",
+                width: 5 + (i % 5) * 3,
+                height: 5 + (i % 5) * 3,
+                animationDelay: `${i * 0.11}s`,
+                animationDuration: `${3.5 + (i % 4)}s`,
+                fill: i % 3 === 0 ? "var(--accent)" : "oklch(0.97 0.04 88)",
+                filter: "drop-shadow(0 0 5px oklch(0.92 0.07 82 / 0.85))",
               }}
             >
               <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
             </svg>
           ))}
 
+          {/* scripted, diagonal, shimmering congratulations */}
+          {!showSummary && (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <span
+                className="animate-script-shimmer font-script text-center leading-none"
+                style={{
+                  fontSize: "clamp(2.6rem, 15vw, 5.5rem)",
+                  background:
+                    "linear-gradient(105deg, oklch(0.99 0.02 90), oklch(0.84 0.14 84) 45%, oklch(0.99 0.03 92) 70%, oklch(0.8 0.13 80))",
+                  WebkitBackgroundClip: "text",
+                  backgroundClip: "text",
+                  color: "transparent",
+                  filter:
+                    "drop-shadow(0 3px 10px oklch(0.2 0.05 240 / 0.55)) drop-shadow(0 0 18px oklch(0.88 0.1 84 / 0.55))",
+                }}
+              >
+                Congratulations
+              </span>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* celebration — phase two: the summary card, after a good long look */}
+      {solved && showSummary && (
+        <div className="absolute inset-0 z-40 flex items-center justify-center bg-deep/55 backdrop-blur-md">
           <div className="animate-soft-in glass-panel relative mx-4 w-full max-w-sm rounded-3xl p-7 text-center shadow-lift">
-            <p className="text-[11px] tracking-[0.3em] text-muted-foreground uppercase">
-              Complete
+            <p
+              className="font-script text-4xl"
+              style={{
+                background:
+                  "linear-gradient(105deg, oklch(0.98 0.02 90), oklch(0.82 0.13 84), oklch(0.98 0.03 92))",
+                WebkitBackgroundClip: "text",
+                backgroundClip: "text",
+                color: "transparent",
+                transform: "rotate(-4deg)",
+                display: "inline-block",
+              }}
+            >
+              Congratulations
             </p>
-            <h2 className="mt-2 font-display text-4xl">{title}</h2>
+            <h2 className="mt-2 font-display text-3xl">{title}</h2>
             <div className="mt-6 grid grid-cols-2 gap-3">
               <div className="rounded-2xl bg-secondary/70 py-3">
                 <p className="font-display text-2xl tabular-nums">
@@ -961,6 +1004,7 @@ export function PuzzleBoard({
           </div>
         </div>
       )}
+
     </div>
   );
 }
