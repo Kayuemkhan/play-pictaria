@@ -182,26 +182,3 @@ function InfoCard({
   );
 }
 
-function Highlight({
-  icon,
-  title,
-  body,
-}: {
-  icon: React.ReactNode;
-  title: string;
-  body: string;
-}) {
-  return (
-    <div className="flex gap-3">
-      <div className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary/15 text-primary">
-        {icon}
-      </div>
-      <div>
-        <h4 className="font-display text-[0.85rem] text-foreground">{title}</h4>
-        <p className="mt-1 text-[0.8rem] leading-relaxed text-muted-foreground">
-          {body}
-        </p>
-      </div>
-    </div>
-  );
-}
