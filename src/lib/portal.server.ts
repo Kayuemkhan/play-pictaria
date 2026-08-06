@@ -35,7 +35,7 @@ function digest(value: string) {
 export async function unlockPortalSession(passcode: string) {
   const expected = process.env["PORTAL_PASSCODE"];
   if (!expected) throw new Error("PORTAL_PASSCODE is not set");
-  if (!timingSafeEqual(digest(passcode.trim()), digest(expected))) {
+  if (!timingSafeEqual(digest(passcode.trim()), digest(expected.trim()))) {
     return false;
   }
   const session = await useSession<PortalSession>(sessionConfig());
