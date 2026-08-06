@@ -106,35 +106,17 @@ function AboutPage() {
         </div>
       </section>
 
-      {/* feature highlights */}
+      {/* mindfulness paragraph */}
       <section className="mt-10 px-4 sm:px-8">
-        <div className="mx-auto max-w-5xl rounded-[6px] border border-accent/40 bg-card/70 p-6 backdrop-blur-sm sm:p-10">
-          <h2 className="text-center font-display text-lg text-foreground">
-            Made for moments of calm
-          </h2>
-
-          <div className="mt-6 grid gap-6 sm:grid-cols-2">
-            <Highlight
-              icon={<Sparkles className="h-4 w-4" strokeWidth={1.5} />}
-              title="Four ways to play"
-              body="Relaxing, Engaging, Intriguing, and Challenging — pick the pace that fits your mood."
-            />
-            <Highlight
-              icon={<Camera className="h-4 w-4" strokeWidth={1.5} />}
-              title="Your pictures, your puzzles"
-              body="Turn personal photographs into shareable Pictaria storybooks for the people you love."
-            />
-            <Highlight
-              icon={<Heart className="h-4 w-4" strokeWidth={1.5} />}
-              title="Haptic and gentle"
-              body="Tiles snap together with a soft sound and a little vibration, making every connection satisfying."
-            />
-            <Highlight
-              icon={<Puzzle className="h-4 w-4" strokeWidth={1.5} />}
-              title="Collections to explore"
-              body="From sea turtles to pineapples, whales to Hawaiian cats — there is always a new puzzle waiting."
-            />
-          </div>
+        <div className="mx-auto max-w-2xl rounded-[6px] border border-accent/40 bg-deep/50 p-6 text-center backdrop-blur-sm sm:p-10">
+          <h2 className="font-display text-lg text-shell">A quiet kind of wellness</h2>
+          <p className="mx-auto mt-4 max-w-xl text-[0.9rem] leading-relaxed text-shell/80">
+            Puzzles gently pull your attention into the present moment. As your
+            hands move the pieces and the picture slowly appears, the outside
+            world fades away. That focused calm can ease stress, lift your mood,
+            and leave you feeling restored — a small ritual of mindfulness hidden
+            inside a simple, beautiful game.
+          </p>
         </div>
       </section>
 
