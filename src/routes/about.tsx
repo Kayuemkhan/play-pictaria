@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight } from "lucide-react";
+import { Camera, Puzzle, Heart, ArrowRight } from "lucide-react";
 import palmLogo from "@/assets/logo-palms-only.png";
 import whiteSand from "@/assets/turtle-02.jpg";
 
