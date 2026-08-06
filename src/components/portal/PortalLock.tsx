@@ -58,8 +58,11 @@ export function PortalLock({ onUnlocked }: { onUnlocked: () => void }) {
           </Label>
           <Input
             id="portal-passcode"
-            type="password"
-            autoComplete="current-password"
+            type="text"
+            autoComplete="off"
+            autoCapitalize="none"
+            autoCorrect="off"
+            spellCheck={false}
             value={passcode}
             onChange={(event) => setPasscode(event.target.value)}
             required
