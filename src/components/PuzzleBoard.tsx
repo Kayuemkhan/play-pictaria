@@ -5,6 +5,15 @@ import { playLock, playPick, playSolved } from "@/lib/feedback";
 
 const WORLD_W = 1000;
 
+/** [protectLocked, allowRelocate] — tried in order, gentlest first */
+const MOVE_MODES: [boolean, boolean][] = [
+  [true, false],
+  [false, false],
+  [true, true],
+  [false, true],
+];
+
+
 export interface PuzzleBoardProps {
   src: string;
   title: string;
@@ -231,7 +240,9 @@ export function PuzzleBoard({
       dCol: number,
       dRow: number,
       protectLocked = false,
+      allowRelocate = true,
     ): number[] | null => {
+
 
       const cells = grid * grid;
       const shift = (cell: number) => {
@@ -316,8 +327,19 @@ export function PuzzleBoard({
           swapRest.push(cluster);
         }
       }
+      /**
+       * Anything left in swapRest can only be housed by relocating it somewhere
+       * else on the board, which is exactly what makes tiles look like they
+       * "won't stay put". Strict passes refuse those moves outright, and even a
+       * permissive pass never scatters an assembled cluster.
+       */
+      if (!allowRelocate && swapRest.length) return null;
+      if (protectLocked && swapRest.some((cluster) => cluster.length > 1))
+        return null;
+
       conflicting.length = 0;
       conflicting.push(...swapRest);
+
 
 
 
@@ -385,6 +407,30 @@ export function PuzzleBoard({
 
 
   /**
+   * Least-disruptive first: keep assembled clusters intact and only allow rigid
+   * swaps before falling back to relocating loose tiles.
+   */
+  const attemptMove = useCallback(
+    (group: number, dCol: number, dRow: number) => {
+      for (const [protectLocked, allowRelocate] of MOVE_MODES) {
+        const next = tryMove(
+          pos,
+          groupOf,
+          group,
+          dCol,
+          dRow,
+          protectLocked,
+          allowRelocate,
+        );
+        if (next) return next;
+      }
+      return null;
+    },
+    [pos, groupOf, tryMove],
+  );
+
+
+  /**
    * Interpret every gesture on one grid axis. The axis is decided by the actual
    * finger travel in pixels — cells are taller than they are wide, so deciding
    * it from rounded cell counts used to turn a drag downwards into a sideways
@@ -421,9 +467,11 @@ export function PuzzleBoard({
       }
 
       const group = dragStart.current?.group ?? -1;
-      for (const protectLocked of [true, false]) {
+      for (const [protectLocked, allowRelocate] of MOVE_MODES) {
         for (const [c, r] of candidates) {
-          if (tryMove(pos, groupOf, group, c, r, protectLocked))
+          if (
+            tryMove(pos, groupOf, group, c, r, protectLocked, allowRelocate)
+          )
             return { dCol: c, dRow: r };
         }
       }
@@ -432,6 +480,7 @@ export function PuzzleBoard({
     },
 
     [pos, groupOf, tryMove],
+
   );
 
 
@@ -440,7 +489,7 @@ export function PuzzleBoard({
   const commitMove = useCallback(
     (group: number, dCol: number, dRow: number) => {
       if (solved || (dCol === 0 && dRow === 0)) return;
-      const next = tryMove(pos, groupOf, group, dCol, dRow);
+      const next = attemptMove(group, dCol, dRow);
 
       if (!next) return;
       const { groups, merged } = mergePass(next, groupOf);
@@ -496,7 +545,7 @@ export function PuzzleBoard({
         window.setTimeout(() => playSolved(), 260);
       }
     },
-    [pos, groupOf, mergePass, tryMove, solved],
+    [pos, groupOf, mergePass, attemptMove, solved],
   );
 
   const onPointerDown = (e: React.PointerEvent) => {
@@ -544,7 +593,8 @@ export function PuzzleBoard({
     const c = Math.round(dx / (cellW * scale));
     const r = Math.round(dy / (cellH * scale));
     const valid =
-      c === 0 && r === 0 ? true : !!tryMove(pos, groupOf, s.group, c, r);
+      c === 0 && r === 0 ? true : !!attemptMove(s.group, c, r);
+
 
     setDrag({ group: s.group, dx, dy, valid });
   };
@@ -632,13 +682,7 @@ export function PuzzleBoard({
       for (const candidate of [...magneticCandidates.values()].sort(
         (a, b) => a.dist - b.dist,
       )) {
-        const next = tryMove(
-          pos,
-          groupOf,
-          group,
-          candidate.dCol,
-          candidate.dRow,
-        );
+        const next = attemptMove(group, candidate.dCol, candidate.dRow);
         if (!next) continue;
         const mergedGroups = mergePass(next, groupOf).groups;
         const representative = draggedPieces[0];
@@ -651,11 +695,19 @@ export function PuzzleBoard({
       }
 
       // first choice: a landing spot that clicks the cluster onto its neighbours
-      for (const protectLocked of [true, false]) {
+      for (const [protectLocked, allowRelocate] of MOVE_MODES) {
         for (const c of range(unitsX)) {
           for (const r of range(unitsY)) {
             if (c === 0 && r === 0) continue;
-            const next = tryMove(pos, groupOf, group, c, r, protectLocked);
+            const next = tryMove(
+              pos,
+              groupOf,
+              group,
+              c,
+              r,
+              protectLocked,
+              allowRelocate,
+            );
             if (!next) continue;
             if (!mergePass(next, groupOf).merged) continue;
             const dist = Math.abs(c - unitsX) + Math.abs(r - unitsY);
@@ -667,11 +719,14 @@ export function PuzzleBoard({
       if (best) return best;
 
       // otherwise the piece simply settles wherever the finger left it
-      for (const protectLocked of [true, false]) {
+      for (const [protectLocked, allowRelocate] of MOVE_MODES) {
         for (const c of range(unitsX)) {
           for (const r of range(unitsY)) {
             if (c === 0 && r === 0) continue;
-            if (!tryMove(pos, groupOf, group, c, r, protectLocked)) continue;
+            if (
+              !tryMove(pos, groupOf, group, c, r, protectLocked, allowRelocate)
+            )
+              continue;
             const dist = Math.abs(c - unitsX) + Math.abs(r - unitsY);
             if (!best || dist < best.dist) best = { dCol: c, dRow: r, dist };
           }
@@ -681,7 +736,8 @@ export function PuzzleBoard({
 
       return best;
     },
-    [pos, groupOf, tryMove, mergePass, cellW, cellH, scale],
+    [pos, groupOf, tryMove, attemptMove, mergePass, cellW, cellH, scale],
+
   );
 
   const endPointer = (e: React.PointerEvent) => {
