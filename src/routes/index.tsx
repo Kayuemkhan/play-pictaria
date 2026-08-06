@@ -66,7 +66,7 @@ function Home() {
           height={1408}
           className="h-[68svh] max-h-[760px] min-h-[420px] w-full object-cover sm:h-screen sm:min-h-[520px]"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-deep/75 via-deep/20 to-deep/50" />
+        <div className="absolute inset-0 bg-gradient-to-b from-deep/40 via-transparent to-deep/28" />
 
         <div className="absolute top-5 right-5 left-5 z-[6] flex items-start justify-between">
           <div className="relative">
