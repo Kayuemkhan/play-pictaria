@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+
 import { useEffect, useRef, useState } from "react";
 import {
   Aperture,
@@ -164,6 +165,7 @@ export function StudioComposer({
   description,
 }: StudioComposerProps) {
   const [photos, setPhotos] = useState<Photo[]>([]);
+
   /** Which picture is open on the lab table. */
   const [activeIndex, setActiveIndex] = useState(0);
   /** Chosen at the very end — the picture friends see first. */
@@ -344,7 +346,17 @@ export function StudioComposer({
   return (
     <main className="min-h-screen bg-shell pb-16">
       <header className="px-4 pt-5 sm:px-8">
+        <div className="mb-3 flex items-center justify-end">
+
+          <Link
+            to="/"
+            className="text-[0.7rem] tracking-[0.16em] text-muted-foreground uppercase transition-opacity hover:opacity-70"
+          >
+            Home
+          </Link>
+        </div>
         <div className="flex items-center gap-3">
+
           <div className="min-w-0">
             <h1 className="font-display text-lg tracking-[0.2em] uppercase">
               {heading}
