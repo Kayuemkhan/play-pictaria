@@ -87,12 +87,18 @@ function AboutPage() {
         <div className="mx-auto max-w-2xl rounded-[6px] border border-accent/40 bg-deep/50 p-6 text-center backdrop-blur-sm sm:p-10">
           <h2 className="font-display text-lg text-shell">A quiet kind of wellness</h2>
           <p className="mx-auto mt-4 max-w-xl text-[0.9rem] leading-relaxed text-shell/80">
+            A calm, beautiful way to play with the photographs you love. Pick a
+            picture, choose a difficulty, and let the pieces guide you into a
+            little moment of paradise.
+          </p>
+          <p className="mx-auto mt-4 max-w-xl text-[0.9rem] leading-relaxed text-shell/80">
             Puzzles gently pull your attention into the present moment. As your
             hands move the pieces and the picture slowly appears, the outside
             world fades away. That focused calm can ease stress, lift your mood,
             and leave you feeling restored — a small ritual of mindfulness hidden
             inside a simple, beautiful game.
           </p>
+
         </div>
       </section>
 
