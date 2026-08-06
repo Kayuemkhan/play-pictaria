@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Camera, Puzzle, Heart, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import palmLogo from "@/assets/logo-palms-only.png";
 import whiteSand from "@/assets/turtle-02.jpg";
 
@@ -85,26 +85,6 @@ function AboutPage() {
         </div>
       </section>
 
-      {/* what / how / why */}
-      <section className="px-4 sm:px-8">
-        <div className="mx-auto grid max-w-5xl gap-4 sm:grid-cols-3">
-          <InfoCard
-            icon={<Puzzle className="h-5 w-5" strokeWidth={1.5} />}
-            title="What it is"
-            body="Pictaria is a gentle puzzle experience built around your own photographs. Every puzzle is made of equal rectangular tiles that lock together as you play."
-          />
-          <InfoCard
-            icon={<Camera className="h-5 w-5" strokeWidth={1.5} />}
-            title="How it works"
-            body="Upload a picture, choose a grid size from Relaxing 3×3 to Challenging 6×6, and share your storybook with friends. No clutter, just play."
-          />
-          <InfoCard
-            icon={<Heart className="h-5 w-5" strokeWidth={1.5} />}
-            title="Why people love it"
-            body="It is a quiet break from a noisy world. Play solo, share a storybook, or send someone a surprise puzzle made from a memory you both treasure."
-          />
-        </div>
-      </section>
 
       {/* mindfulness paragraph */}
       <section className="mt-10 px-4 sm:px-8">
@@ -162,23 +142,4 @@ function AboutPage() {
   );
 }
 
-function InfoCard({
-  icon,
-  title,
-  body,
-}: {
-  icon: React.ReactNode;
-  title: string;
-  body: string;
-}) {
-  return (
-    <div className="rounded-[6px] border border-accent/40 bg-deep/50 p-5 backdrop-blur-sm transition-colors hover:bg-accent/10">
-      <div className="flex h-9 w-9 items-center justify-center rounded-full bg-accent/20 text-accent">
-        {icon}
-      </div>
-      <h3 className="mt-4 font-display text-[0.95rem] text-shell">{title}</h3>
-      <p className="mt-2 text-[0.85rem] leading-relaxed text-shell/75">{body}</p>
-    </div>
-  );
-}
 
