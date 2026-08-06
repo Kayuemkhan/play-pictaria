@@ -467,9 +467,11 @@ export function PuzzleBoard({
       }
 
       const group = dragStart.current?.group ?? -1;
-      for (const protectLocked of [true, false]) {
+      for (const [protectLocked, allowRelocate] of MOVE_MODES) {
         for (const [c, r] of candidates) {
-          if (tryMove(pos, groupOf, group, c, r, protectLocked))
+          if (
+            tryMove(pos, groupOf, group, c, r, protectLocked, allowRelocate)
+          )
             return { dCol: c, dRow: r };
         }
       }
@@ -478,6 +480,7 @@ export function PuzzleBoard({
     },
 
     [pos, groupOf, tryMove],
+
   );
 
 
