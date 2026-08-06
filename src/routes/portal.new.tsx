@@ -37,8 +37,8 @@ function NewBusiness() {
   return (
     <main className="min-h-screen bg-deep px-4 pt-16 pb-24">
       <header className="mx-auto max-w-md text-center">
-        <h1 className="font-display text-[1.5rem] text-foreground">New business</h1>
-        <p className="mt-1 text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
+        <h1 className="font-display text-[1.5rem] text-shell">New business</h1>
+        <p className="mt-1 text-[10px] tracking-[0.2em] text-shell/60 uppercase">
           One photo · one voice note
         </p>
       </header>

@@ -77,8 +77,8 @@ function PortalIndex() {
   return (
     <main className="min-h-screen bg-deep px-4 pt-16 pb-28">
       <header className="mx-auto max-w-md text-center">
-        <h1 className="font-display text-[1.6rem] text-foreground">Pictaria Portal</h1>
-        <p className="mt-1 text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
+        <h1 className="font-display text-[1.6rem] text-shell">Pictaria Portal</h1>
+        <p className="mt-1 text-[10px] tracking-[0.2em] text-shell/60 uppercase">
           {records.length} {records.length === 1 ? "business" : "businesses"}
         </p>
       </header>
@@ -163,7 +163,7 @@ function PortalIndex() {
       </div>
 
       {filtered.length === 0 && (
-        <p className="mx-auto mt-10 max-w-md text-center text-[12px] text-muted-foreground">
+        <p className="mx-auto mt-10 max-w-md text-center text-[12px] text-shell/70">
           {records.length === 0
             ? "No businesses yet — tap the plus to capture your first visit."
             : "Nothing matches that search."}
