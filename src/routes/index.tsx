@@ -144,7 +144,7 @@ function Home() {
 
         {/* wordmark */}
         <div className="absolute inset-x-0 top-16 flex flex-col items-center px-6 text-center sm:top-10">
-          <Link to="/portal" aria-label="Pictaria Portal" className="relative z-10">
+          <Link to="/portal/new" aria-label="Pictaria Portal" className="relative z-10">
             <img
               src={palmLogo}
               alt="Pictaria"
