@@ -174,3 +174,19 @@ export async function organiseNote(transcript: string) {
   });
   return output;
 }
+
+// The sandbox/worker clock can drift slightly ahead of the auth server, which
+// makes PostgREST reject the freshly minted service-role token with
+// "JWT issued at future". It resolves itself in under a second, so retry.
+export async function withClockSkewRetry<T>(
+  run: () => Promise<{ data: T; error: { message: string } | null }>,
+  attempts = 4,
+): Promise<{ data: T; error: { message: string } | null }> {
+  let result = await run();
+  for (let i = 1; i < attempts; i += 1) {
+    if (!result.error || !/issued at future|jwt/i.test(result.error.message)) break;
+    await new Promise((resolve) => setTimeout(resolve, 350 * i));
+    result = await run();
+  }
+  return result;
+}

@@ -22,14 +22,18 @@ export const lockPortal = createServerFn({ method: "POST" }).handler(async () =>
 
 export const listPortalBusinesses = createServerFn({ method: "POST" }).handler(
   async () => {
-    const { isPortalUnlocked, toRecord } = await import("./portal.server");
+    const { isPortalUnlocked, toRecord, withClockSkewRetry } = await import(
+      "./portal.server"
+    );
     if (!(await isPortalUnlocked())) return { locked: true as const };
 
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const { data, error } = await supabaseAdmin
-      .from("portal_businesses")
-      .select("*")
-      .order("updated_at", { ascending: false });
+    const { data, error } = await withClockSkewRetry(async () =>
+      supabaseAdmin
+        .from("portal_businesses")
+        .select("*")
+        .order("updated_at", { ascending: false }),
+    );
     if (error) throw new Error(error.message);
 
     const records = await Promise.all((data ?? []).map((row) => toRecord(row as never)));
@@ -40,15 +44,19 @@ export const listPortalBusinesses = createServerFn({ method: "POST" }).handler(
 export const getPortalBusiness = createServerFn({ method: "POST" })
   .inputValidator((input) => portalIdSchema.parse(input))
   .handler(async ({ data }) => {
-    const { isPortalUnlocked, toRecord } = await import("./portal.server");
+    const { isPortalUnlocked, toRecord, withClockSkewRetry } = await import(
+      "./portal.server"
+    );
     if (!(await isPortalUnlocked())) return { locked: true as const };
 
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const { data: row, error } = await supabaseAdmin
-      .from("portal_businesses")
-      .select("*")
-      .eq("id", data.id)
-      .maybeSingle();
+    const { data: row, error } = await withClockSkewRetry(async () =>
+      supabaseAdmin
+        .from("portal_businesses")
+        .select("*")
+        .eq("id", data.id)
+        .maybeSingle(),
+    );
     if (error) throw new Error(error.message);
     if (!row) return { locked: false as const, record: null };
 
