@@ -91,7 +91,8 @@ export function BusinessEditor({ record }: Props) {
   const [linking, setLinking] = useState(false);
   const [copied, setCopied] = useState(false);
   const recorder = useRef<WavRecorder | null>(null);
-  const fileInput = useRef<HTMLInputElement>(null);
+  const cameraInput = useRef<HTMLInputElement>(null);
+  const libraryInput = useRef<HTMLInputElement>(null);
 
   const set = <K extends keyof PortalFields>(key: K, value: PortalFields[K]) =>
     setFields((prev) => ({ ...prev, [key]: value }));
