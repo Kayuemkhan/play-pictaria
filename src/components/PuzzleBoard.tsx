@@ -398,6 +398,30 @@ export function PuzzleBoard({
 
 
   /**
+   * Least-disruptive first: keep assembled clusters intact and only allow rigid
+   * swaps before falling back to relocating loose tiles.
+   */
+  const attemptMove = useCallback(
+    (group: number, dCol: number, dRow: number) => {
+      for (const [protectLocked, allowRelocate] of MOVE_MODES) {
+        const next = tryMove(
+          pos,
+          groupOf,
+          group,
+          dCol,
+          dRow,
+          protectLocked,
+          allowRelocate,
+        );
+        if (next) return next;
+      }
+      return null;
+    },
+    [pos, groupOf, tryMove],
+  );
+
+
+  /**
    * Interpret every gesture on one grid axis. The axis is decided by the actual
    * finger travel in pixels — cells are taller than they are wide, so deciding
    * it from rounded cell counts used to turn a drag downwards into a sideways
