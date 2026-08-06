@@ -5,6 +5,15 @@ import { playLock, playPick, playSolved } from "@/lib/feedback";
 
 const WORLD_W = 1000;
 
+/** [protectLocked, allowRelocate] — tried in order, gentlest first */
+const MOVE_MODES: [boolean, boolean][] = [
+  [true, false],
+  [false, false],
+  [true, true],
+  [false, true],
+];
+
+
 export interface PuzzleBoardProps {
   src: string;
   title: string;
