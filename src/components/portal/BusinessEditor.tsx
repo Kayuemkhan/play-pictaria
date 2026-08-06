@@ -84,6 +84,7 @@ export function BusinessEditor({ record }: Props) {
   const [organising, setOrganising] = useState(false);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
+  const [preview, setPreview] = useState(false);
   const recorder = useRef<WavRecorder | null>(null);
   const fileInput = useRef<HTMLInputElement>(null);
 
