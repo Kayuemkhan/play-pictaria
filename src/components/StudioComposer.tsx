@@ -1,5 +1,4 @@
 import { Link } from "@tanstack/react-router";
-import { useGoBack } from "@/components/BackNav";
 
 import { useEffect, useRef, useState } from "react";
 import {
@@ -165,7 +164,6 @@ export function StudioComposer({
   highlights,
   description,
 }: StudioComposerProps) {
-  const goBack = useGoBack();
   const [photos, setPhotos] = useState<Photo[]>([]);
 
   /** Which picture is open on the lab table. */
