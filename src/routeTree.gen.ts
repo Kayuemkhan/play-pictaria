@@ -22,6 +22,9 @@ import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as CollectionCollectionIdRouteImport } from './routes/collection.$collectionId'
 import { Route as PCodeRouteImport } from './routes/p.$code'
+import { Route as PortalIndexRouteImport } from './routes/portal.index'
+import { Route as PortalIdRouteImport } from './routes/portal.$id'
+import { Route as PortalNewRouteImport } from './routes/portal.new'
 import { Route as PuzzlePuzzleIdRouteImport } from './routes/puzzle.$puzzleId'
 import { Route as StorybookCollectionIdRouteImport } from './routes/storybook.$collectionId'
 import { Route as StudioArtistRouteImport } from './routes/studio.artist'
@@ -96,6 +99,21 @@ const PCodeRoute = PCodeRouteImport.update({
   path: '/p/$code',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PortalIndexRoute = PortalIndexRouteImport.update({
+  id: '/portal/',
+  path: '/portal/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PortalIdRoute = PortalIdRouteImport.update({
+  id: '/portal/$id',
+  path: '/portal/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PortalNewRoute = PortalNewRouteImport.update({
+  id: '/portal/new',
+  path: '/portal/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PuzzlePuzzleIdRoute = PuzzlePuzzleIdRouteImport.update({
   id: '/puzzle/$puzzleId',
   path: '/puzzle/$puzzleId',
@@ -142,11 +160,14 @@ export interface FileRoutesByFullPath {
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/collection/$collectionId': typeof CollectionCollectionIdRoute
   '/p/$code': typeof PCodeRoute
+  '/portal/$id': typeof PortalIdRoute
+  '/portal/new': typeof PortalNewRoute
   '/puzzle/$puzzleId': typeof PuzzlePuzzleIdRoute
   '/storybook/$collectionId': typeof StorybookCollectionIdRoute
   '/studio/artist': typeof StudioArtistRoute
   '/studio/brand': typeof StudioBrandRoute
   '/studio/personal': typeof StudioPersonalRoute
+  '/portal/': typeof PortalIndexRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 export interface FileRoutesByTo {
@@ -163,11 +184,14 @@ export interface FileRoutesByTo {
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/collection/$collectionId': typeof CollectionCollectionIdRoute
   '/p/$code': typeof PCodeRoute
+  '/portal/$id': typeof PortalIdRoute
+  '/portal/new': typeof PortalNewRoute
   '/puzzle/$puzzleId': typeof PuzzlePuzzleIdRoute
   '/storybook/$collectionId': typeof StorybookCollectionIdRoute
   '/studio/artist': typeof StudioArtistRoute
   '/studio/brand': typeof StudioBrandRoute
   '/studio/personal': typeof StudioPersonalRoute
+  '/portal': typeof PortalIndexRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 export interface FileRoutesById {
@@ -185,11 +209,14 @@ export interface FileRoutesById {
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/collection/$collectionId': typeof CollectionCollectionIdRoute
   '/p/$code': typeof PCodeRoute
+  '/portal/$id': typeof PortalIdRoute
+  '/portal/new': typeof PortalNewRoute
   '/puzzle/$puzzleId': typeof PuzzlePuzzleIdRoute
   '/storybook/$collectionId': typeof StorybookCollectionIdRoute
   '/studio/artist': typeof StudioArtistRoute
   '/studio/brand': typeof StudioBrandRoute
   '/studio/personal': typeof StudioPersonalRoute
+  '/portal/': typeof PortalIndexRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 export interface FileRouteTypes {
@@ -208,11 +235,14 @@ export interface FileRouteTypes {
     | '/.well-known/oauth-protected-resource'
     | '/collection/$collectionId'
     | '/p/$code'
+    | '/portal/$id'
+    | '/portal/new'
     | '/puzzle/$puzzleId'
     | '/storybook/$collectionId'
     | '/studio/artist'
     | '/studio/brand'
     | '/studio/personal'
+    | '/portal/'
     | '/.mcp/invoke-tool/$tool'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -229,11 +259,14 @@ export interface FileRouteTypes {
     | '/.well-known/oauth-protected-resource'
     | '/collection/$collectionId'
     | '/p/$code'
+    | '/portal/$id'
+    | '/portal/new'
     | '/puzzle/$puzzleId'
     | '/storybook/$collectionId'
     | '/studio/artist'
     | '/studio/brand'
     | '/studio/personal'
+    | '/portal'
     | '/.mcp/invoke-tool/$tool'
   id:
     | '__root__'
@@ -250,11 +283,14 @@ export interface FileRouteTypes {
     | '/.well-known/oauth-protected-resource'
     | '/collection/$collectionId'
     | '/p/$code'
+    | '/portal/$id'
+    | '/portal/new'
     | '/puzzle/$puzzleId'
     | '/storybook/$collectionId'
     | '/studio/artist'
     | '/studio/brand'
     | '/studio/personal'
+    | '/portal/'
     | '/.mcp/invoke-tool/$tool'
   fileRoutesById: FileRoutesById
 }
@@ -272,11 +308,14 @@ export interface RootRouteChildren {
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   CollectionCollectionIdRoute: typeof CollectionCollectionIdRoute
   PCodeRoute: typeof PCodeRoute
+  PortalIdRoute: typeof PortalIdRoute
+  PortalNewRoute: typeof PortalNewRoute
   PuzzlePuzzleIdRoute: typeof PuzzlePuzzleIdRoute
   StorybookCollectionIdRoute: typeof StorybookCollectionIdRoute
   StudioArtistRoute: typeof StudioArtistRoute
   StudioBrandRoute: typeof StudioBrandRoute
   StudioPersonalRoute: typeof StudioPersonalRoute
+  PortalIndexRoute: typeof PortalIndexRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 
@@ -373,6 +412,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PCodeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/portal/': {
+      id: '/portal/'
+      path: '/portal'
+      fullPath: '/portal/'
+      preLoaderRoute: typeof PortalIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/portal/$id': {
+      id: '/portal/$id'
+      path: '/portal/$id'
+      fullPath: '/portal/$id'
+      preLoaderRoute: typeof PortalIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/portal/new': {
+      id: '/portal/new'
+      path: '/portal/new'
+      fullPath: '/portal/new'
+      preLoaderRoute: typeof PortalNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/puzzle/$puzzleId': {
       id: '/puzzle/$puzzleId'
       path: '/puzzle/$puzzleId'
@@ -433,11 +493,14 @@ const rootRouteChildren: RootRouteChildren = {
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
   CollectionCollectionIdRoute: CollectionCollectionIdRoute,
   PCodeRoute: PCodeRoute,
+  PortalIdRoute: PortalIdRoute,
+  PortalNewRoute: PortalNewRoute,
   PuzzlePuzzleIdRoute: PuzzlePuzzleIdRoute,
   StorybookCollectionIdRoute: StorybookCollectionIdRoute,
   StudioArtistRoute: StudioArtistRoute,
   StudioBrandRoute: StudioBrandRoute,
   StudioPersonalRoute: StudioPersonalRoute,
+  PortalIndexRoute: PortalIndexRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
 }
 export const routeTree = rootRouteImport
