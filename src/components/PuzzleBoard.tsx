@@ -231,7 +231,9 @@ export function PuzzleBoard({
       dCol: number,
       dRow: number,
       protectLocked = false,
+      allowRelocate = true,
     ): number[] | null => {
+
 
       const cells = grid * grid;
       const shift = (cell: number) => {
