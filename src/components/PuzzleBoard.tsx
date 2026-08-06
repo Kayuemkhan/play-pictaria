@@ -318,8 +318,19 @@ export function PuzzleBoard({
           swapRest.push(cluster);
         }
       }
+      /**
+       * Anything left in swapRest can only be housed by relocating it somewhere
+       * else on the board, which is exactly what makes tiles look like they
+       * "won't stay put". Strict passes refuse those moves outright, and even a
+       * permissive pass never scatters an assembled cluster.
+       */
+      if (!allowRelocate && swapRest.length) return null;
+      if (protectLocked && swapRest.some((cluster) => cluster.length > 1))
+        return null;
+
       conflicting.length = 0;
       conflicting.push(...swapRest);
+
 
 
 
