@@ -109,6 +109,7 @@ export type Database = {
           phone: string
           photo_path: string
           product_service: string
+          share_code: string | null
           status: string
           story_ideas: string
           transcript: string
@@ -128,6 +129,7 @@ export type Database = {
           phone?: string
           photo_path?: string
           product_service?: string
+          share_code?: string | null
           status?: string
           story_ideas?: string
           transcript?: string
@@ -147,6 +149,7 @@ export type Database = {
           phone?: string
           photo_path?: string
           product_service?: string
+          share_code?: string | null
           status?: string
           story_ideas?: string
           transcript?: string

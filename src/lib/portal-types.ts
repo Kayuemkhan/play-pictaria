@@ -63,6 +63,7 @@ export const portalAudioSchema = z.object({
 export type PortalRecord = PortalFields & {
   id: string;
   photo_url: string;
+  share_code: string | null;
   created_at: string;
   updated_at: string;
 };

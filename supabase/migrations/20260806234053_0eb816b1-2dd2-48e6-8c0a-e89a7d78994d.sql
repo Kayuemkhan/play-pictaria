@@ -1,0 +1,2 @@
+ALTER TABLE public.portal_businesses ADD COLUMN IF NOT EXISTS share_code text;
+CREATE UNIQUE INDEX IF NOT EXISTS portal_businesses_share_code_key ON public.portal_businesses (share_code) WHERE share_code IS NOT NULL;

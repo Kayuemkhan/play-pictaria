@@ -93,13 +93,18 @@ export async function signPortalPhoto(path: string) {
 type Row = PortalFields & {
   id: string;
   photo_path: string;
+  share_code?: string | null;
   created_at: string;
   updated_at: string;
 };
 
 export async function toRecord(row: Row): Promise<PortalRecord> {
-  const { photo_path, ...rest } = row;
-  return { ...rest, photo_url: await signPortalPhoto(photo_path) };
+  const { photo_path, share_code, ...rest } = row;
+  return {
+    ...rest,
+    share_code: share_code ?? null,
+    photo_url: await signPortalPhoto(photo_path),
+  };
 }
 
 // ---------------------------------------------------------------- voice note
