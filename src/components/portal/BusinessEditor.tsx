@@ -20,6 +20,8 @@ import {
   savePortalBusiness,
 } from "@/lib/portal.functions";
 import type { WavRecorder } from "@/lib/wav-recorder";
+import { CameraCapture } from "@/components/portal/CameraCapture";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -90,9 +92,10 @@ export function BusinessEditor({ record }: Props) {
   const [shareCode, setShareCode] = useState(record?.share_code ?? "");
   const [linking, setLinking] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [cameraOpen, setCameraOpen] = useState(false);
   const recorder = useRef<WavRecorder | null>(null);
-  const cameraInput = useRef<HTMLInputElement>(null);
   const libraryInput = useRef<HTMLInputElement>(null);
+
 
   const set = <K extends keyof PortalFields>(key: K, value: PortalFields[K]) =>
     setFields((prev) => ({ ...prev, [key]: value }));
