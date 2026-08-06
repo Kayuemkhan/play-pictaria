@@ -98,7 +98,8 @@ export function BusinessEditor({ record }: Props) {
     setFields((prev) => ({ ...prev, [key]: value }));
 
   const pickPhoto = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
+    const input = event.target;
+    const file = input.files?.[0];
     if (!file) return;
     const reader = new FileReader();
     reader.onload = () => {
@@ -106,9 +107,11 @@ export function BusinessEditor({ record }: Props) {
       setPhoto(url);
       setPhotoUrl(url);
       if (fields.status === "New") set("status", "Photo Collected");
+      input.value = "";
     };
     reader.readAsDataURL(file);
   };
+
 
   const startRecording = async () => {
     setError("");
