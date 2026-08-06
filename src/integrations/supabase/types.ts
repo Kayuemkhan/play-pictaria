@@ -95,6 +95,66 @@ export type Database = {
         }
         Relationships: []
       }
+      portal_businesses: {
+        Row: {
+          category: string
+          company_name: string
+          contact_person: string
+          created_at: string
+          email: string
+          follow_up: string
+          id: string
+          marketing_ideas: string
+          notes: string
+          phone: string
+          photo_path: string
+          product_service: string
+          status: string
+          story_ideas: string
+          transcript: string
+          updated_at: string
+          website: string
+        }
+        Insert: {
+          category?: string
+          company_name?: string
+          contact_person?: string
+          created_at?: string
+          email?: string
+          follow_up?: string
+          id?: string
+          marketing_ideas?: string
+          notes?: string
+          phone?: string
+          photo_path?: string
+          product_service?: string
+          status?: string
+          story_ideas?: string
+          transcript?: string
+          updated_at?: string
+          website?: string
+        }
+        Update: {
+          category?: string
+          company_name?: string
+          contact_person?: string
+          created_at?: string
+          email?: string
+          follow_up?: string
+          id?: string
+          marketing_ideas?: string
+          notes?: string
+          phone?: string
+          photo_path?: string
+          product_service?: string
+          status?: string
+          story_ideas?: string
+          transcript?: string
+          updated_at?: string
+          website?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
