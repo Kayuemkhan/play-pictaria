@@ -5,6 +5,7 @@ import { Mic, Square, Camera, Loader2, Trash2 } from "lucide-react";
 
 import {
   PORTAL_CATEGORIES,
+  PORTAL_FIELD_LABELS,
   PORTAL_STATUSES,
   emptyPortalFields,
   type PortalCategory,
@@ -83,6 +84,7 @@ export function BusinessEditor({ record }: Props) {
   const [organising, setOrganising] = useState(false);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
+  const [preview, setPreview] = useState(false);
   const recorder = useRef<WavRecorder | null>(null);
   const fileInput = useRef<HTMLInputElement>(null);
 
@@ -314,7 +316,57 @@ export function BusinessEditor({ record }: Props) {
         ))}
       </section>
 
+      {/* AI preview */}
+      {preview && (
+        <section className="space-y-3 rounded-lg border border-accent/50 bg-shell p-4 shadow-soft">
+          <p className={labelClass}>Preview — how the note was organised</p>
+          {photoUrl && (
+            <img
+              src={photoUrl}
+              alt=""
+              className="w-24 rounded-md border border-accent/40 object-cover"
+              style={{ aspectRatio: "3 / 4" }}
+            />
+          )}
+          <dl className="space-y-2.5">
+            <div>
+              <dt className={labelClass}>Category</dt>
+              <dd className="text-[13px] text-foreground">{fields.category}</dd>
+            </div>
+            <div>
+              <dt className={labelClass}>Status</dt>
+              <dd className="text-[13px] text-foreground">{fields.status}</dd>
+            </div>
+            {Object.entries(PORTAL_FIELD_LABELS).map(([key, label]) => (
+              <div key={key}>
+                <dt className={labelClass}>{label}</dt>
+                <dd className="text-[13px] leading-relaxed whitespace-pre-wrap text-foreground">
+                  {String((fields as Record<string, unknown>)[key] ?? "").trim() ||
+                    "—"}
+                </dd>
+              </div>
+            ))}
+          </dl>
+          <Button
+            type="button"
+            variant="ghost"
+            onClick={() => setPreview(false)}
+            className="text-[0.55rem] tracking-[0.2em] uppercase"
+          >
+            Back to editing
+          </Button>
+        </section>
+      )}
+
       <div className="flex items-center gap-3">
+        <Button
+          type="button"
+          variant="outline"
+          onClick={() => setPreview((value) => !value)}
+          className="rounded-full text-[0.55rem] tracking-[0.2em] uppercase"
+        >
+          {preview ? "Hide preview" : "Preview"}
+        </Button>
         <Button
           type="submit"
           disabled={saving || organising}
