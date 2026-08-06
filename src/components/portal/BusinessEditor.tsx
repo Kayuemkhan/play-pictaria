@@ -20,8 +20,6 @@ import {
   savePortalBusiness,
 } from "@/lib/portal.functions";
 import type { WavRecorder } from "@/lib/wav-recorder";
-import { CameraCapture } from "@/components/portal/CameraCapture";
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -92,7 +90,6 @@ export function BusinessEditor({ record }: Props) {
   const [shareCode, setShareCode] = useState(record?.share_code ?? "");
   const [linking, setLinking] = useState(false);
   const [copied, setCopied] = useState(false);
-  const [cameraOpen, setCameraOpen] = useState(false);
   const recorder = useRef<WavRecorder | null>(null);
   const libraryInput = useRef<HTMLInputElement>(null);
 
@@ -212,21 +209,9 @@ export function BusinessEditor({ record }: Props) {
 
   return (
     <form onSubmit={submit} className="space-y-6">
-      {cameraOpen && (
-        <CameraCapture
-          onClose={() => setCameraOpen(false)}
-          onCapture={(url) => {
-            setPhoto(url);
-            setPhotoUrl(url);
-            if (fields.status === "New") set("status", "Photo Collected");
-          }}
-        />
-      )}
       {/* Photograph */}
       <section className="rounded-lg border border-accent/50 bg-shell p-4 shadow-soft">
-        <button
-          type="button"
-          onClick={() => setCameraOpen(true)}
+        <label
           className="relative block w-full overflow-hidden rounded-md border border-accent/40 bg-muted/40"
           style={{ aspectRatio: "3 / 4" }}
         >
@@ -240,16 +225,30 @@ export function BusinessEditor({ record }: Props) {
               </span>
             </span>
           )}
-        </button>
+          <input
+            type="file"
+            accept="image/*"
+            capture="environment"
+            onChange={pickPhoto}
+            className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
+            aria-label="Open camera"
+          />
+        </label>
         <div className="mt-3 flex items-center gap-2">
-          <Button
-            type="button"
-            onClick={() => setCameraOpen(true)}
-            className="flex-1 rounded-full bg-primary text-[0.55rem] tracking-[0.2em] text-primary-foreground uppercase"
+          <label
+            className="relative flex h-9 flex-1 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-primary px-4 text-[0.55rem] tracking-[0.2em] text-primary-foreground uppercase"
           >
             <Camera className="mr-1.5 h-3.5 w-3.5" />
             Open camera
-          </Button>
+            <input
+              type="file"
+              accept="image/*"
+              capture="environment"
+              onChange={pickPhoto}
+              className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
+              aria-label="Open camera"
+            />
+          </label>
           <Button
             type="button"
             variant="outline"
