@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { useNavigate } from "@tanstack/react-router";
-import { Mic, Square, Camera, Loader2, Trash2, Link2, Copy, Check } from "lucide-react";
+import { Mic, Square, Camera, Loader2, Trash2, Link2, Copy, Check, Image as ImageIcon } from "lucide-react";
 
 import {
   PORTAL_CATEGORIES,
