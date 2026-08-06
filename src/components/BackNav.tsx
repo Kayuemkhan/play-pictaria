@@ -20,12 +20,20 @@ export function useGoBack() {
       return;
     }
 
+    // Walk up one segment only when that parent path is a real route
+    // (e.g. /studio/brand has no /studio page — that would land on a blank
+    // not-found screen), otherwise go home.
     const segments = path.split("/").filter(Boolean);
     if (segments.length > 1) {
-      router.navigate({ to: `/${segments.slice(0, -1).join("/")}` as never });
-    } else {
-      router.navigate({ to: "/" });
+      const parent = `/${segments.slice(0, -1).join("/")}`;
+      const exists = router.routesByPath?.[parent as never] !== undefined;
+      if (exists) {
+        router.navigate({ to: parent as never });
+        return;
+      }
     }
+    router.navigate({ to: "/" });
+
   };
 }
 
