@@ -163,7 +163,9 @@ export function StudioComposer({
   highlights,
   description,
 }: StudioComposerProps) {
+  const goBack = useGoBack();
   const [photos, setPhotos] = useState<Photo[]>([]);
+
   /** Which picture is open on the lab table. */
   const [activeIndex, setActiveIndex] = useState(0);
   /** Chosen at the very end — the picture friends see first. */
