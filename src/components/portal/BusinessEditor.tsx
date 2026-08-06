@@ -5,6 +5,7 @@ import { Mic, Square, Camera, Loader2, Trash2 } from "lucide-react";
 
 import {
   PORTAL_CATEGORIES,
+  PORTAL_FIELD_LABELS,
   PORTAL_STATUSES,
   emptyPortalFields,
   type PortalCategory,
