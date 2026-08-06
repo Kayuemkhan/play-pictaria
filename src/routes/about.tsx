@@ -61,11 +61,7 @@ function AboutPage() {
           <h1 className="mt-6 font-display text-[1.6rem] leading-snug text-shell sm:text-[2rem]">
             Pictaria turns your pictures into peaceful puzzles.
           </h1>
-          <p className="mx-auto mt-4 max-w-md text-[0.9rem] leading-relaxed text-shell/80">
-            A calm, beautiful way to play with the photographs you love. Pick a
-            picture, choose a difficulty, and let the pieces guide you into a
-            little moment of paradise.
-          </p>
+
 
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Link
