@@ -85,26 +85,6 @@ function AboutPage() {
         </div>
       </section>
 
-      {/* what / how / why */}
-      <section className="px-4 sm:px-8">
-        <div className="mx-auto grid max-w-5xl gap-4 sm:grid-cols-3">
-          <InfoCard
-            icon={<Puzzle className="h-5 w-5" strokeWidth={1.5} />}
-            title="What it is"
-            body="Pictaria is a gentle puzzle experience built around your own photographs. Every puzzle is made of equal rectangular tiles that lock together as you play."
-          />
-          <InfoCard
-            icon={<Camera className="h-5 w-5" strokeWidth={1.5} />}
-            title="How it works"
-            body="Upload a picture, choose a grid size from Relaxing 3×3 to Challenging 6×6, and share your storybook with friends. No clutter, just play."
-          />
-          <InfoCard
-            icon={<Heart className="h-5 w-5" strokeWidth={1.5} />}
-            title="Why people love it"
-            body="It is a quiet break from a noisy world. Play solo, share a storybook, or send someone a surprise puzzle made from a memory you both treasure."
-          />
-        </div>
-      </section>
 
       {/* mindfulness paragraph */}
       <section className="mt-10 px-4 sm:px-8">
