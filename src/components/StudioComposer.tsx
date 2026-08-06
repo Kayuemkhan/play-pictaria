@@ -348,15 +348,8 @@ export function StudioComposer({
   return (
     <main className="min-h-screen bg-shell pb-16">
       <header className="px-4 pt-5 sm:px-8">
-        <div className="mb-3 flex items-center justify-between">
-          <button
-            type="button"
-            onClick={goBack}
-            aria-label="Back"
-            className="inline-flex items-center gap-1 text-[0.7rem] tracking-[0.16em] text-primary uppercase transition-opacity hover:opacity-70"
-          >
-            <span aria-hidden>‹</span> Back
-          </button>
+        <div className="mb-3 flex items-center justify-end">
+
           <Link
             to="/"
             className="text-[0.7rem] tracking-[0.16em] text-muted-foreground uppercase transition-opacity hover:opacity-70"
