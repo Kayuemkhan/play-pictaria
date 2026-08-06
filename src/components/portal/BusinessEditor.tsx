@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { useNavigate } from "@tanstack/react-router";
-import { Mic, Square, Camera, Loader2, Trash2 } from "lucide-react";
+import { Mic, Square, Camera, Loader2, Trash2, Link2, Copy, Check } from "lucide-react";
 
 import {
   PORTAL_CATEGORIES,
@@ -14,6 +14,7 @@ import {
   type PortalStatus,
 } from "@/lib/portal-types";
 import {
+  createPortalShareLink,
   deletePortalBusiness,
   organisePortalNote,
   savePortalBusiness,
@@ -58,6 +59,7 @@ export function BusinessEditor({ record }: Props) {
   const save = useServerFn(savePortalBusiness);
   const organise = useServerFn(organisePortalNote);
   const remove = useServerFn(deletePortalBusiness);
+  const makeLink = useServerFn(createPortalShareLink);
 
   const [fields, setFields] = useState<PortalFields>(() =>
     record
@@ -85,6 +87,9 @@ export function BusinessEditor({ record }: Props) {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
   const [preview, setPreview] = useState(false);
+  const [shareCode, setShareCode] = useState(record?.share_code ?? "");
+  const [linking, setLinking] = useState(false);
+  const [copied, setCopied] = useState(false);
   const recorder = useRef<WavRecorder | null>(null);
   const fileInput = useRef<HTMLInputElement>(null);
 
@@ -160,6 +165,37 @@ export function BusinessEditor({ record }: Props) {
     }
   };
 
+  const shareUrl = shareCode
+    ? `${typeof window === "undefined" ? "https://play-pictaria.lovable.app" : window.location.origin}/p/${shareCode}`
+    : "";
+
+  const generateLink = async () => {
+    if (!record) return;
+    setLinking(true);
+    setError("");
+    try {
+      const { code } = await makeLink({ data: { id: record.id } });
+      setShareCode(code);
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : "That link couldn't be created.",
+      );
+    } finally {
+      setLinking(false);
+    }
+  };
+
+  const copyLink = async () => {
+    if (!shareUrl) return;
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setError("Copying isn't allowed here — press and hold the link instead.");
+    }
+  };
+
   const destroy = async () => {
     if (!record) return;
     if (!window.confirm("Delete this business record?")) return;
@@ -197,6 +233,66 @@ export function BusinessEditor({ record }: Props) {
           className="hidden"
         />
       </section>
+
+      {/* Share link */}
+      {record && (
+        <section className="rounded-lg border border-accent/50 bg-shell p-4 shadow-soft">
+          <p className={labelClass}>Share link for this community Pictaria</p>
+          {shareCode ? (
+            <>
+              <p className="mt-2 rounded-md border border-accent/40 bg-muted/40 px-3 py-2 text-[12px] break-all text-foreground">
+                {shareUrl}
+              </p>
+              <div className="mt-3 flex items-center gap-2">
+                <Button
+                  type="button"
+                  onClick={copyLink}
+                  className="flex-1 rounded-full bg-primary text-[0.55rem] tracking-[0.2em] text-primary-foreground uppercase"
+                >
+                  {copied ? (
+                    <Check className="mr-1.5 h-3.5 w-3.5" />
+                  ) : (
+                    <Copy className="mr-1.5 h-3.5 w-3.5" />
+                  )}
+                  {copied ? "Copied" : "Copy link"}
+                </Button>
+                <a
+                  href={shareUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="rounded-full border border-accent/50 px-4 py-2 text-[0.55rem] tracking-[0.2em] text-foreground uppercase"
+                >
+                  Open
+                </a>
+              </div>
+              <p className="mt-2 text-[11px] leading-snug text-muted-foreground">
+                Send this to the business for their socials and customer base —
+                it opens their photo as a playable Pictaria.
+              </p>
+            </>
+          ) : (
+            <>
+              <p className="mt-1.5 text-[12px] leading-snug text-muted-foreground">
+                Turn the saved photograph into a shareable Pictaria link they can
+                post right away.
+              </p>
+              <Button
+                type="button"
+                onClick={generateLink}
+                disabled={linking}
+                className="mt-3 w-full rounded-full bg-primary text-[0.55rem] tracking-[0.2em] text-primary-foreground uppercase disabled:opacity-60"
+              >
+                {linking ? (
+                  <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" />
+                ) : (
+                  <Link2 className="mr-1.5 h-3.5 w-3.5" />
+                )}
+                {linking ? "Creating link…" : "Create share link"}
+              </Button>
+            </>
+          )}
+        </section>
+      )}
 
       {/* Voice note */}
       <section className="rounded-lg border border-accent/50 bg-shell p-4 text-center shadow-soft">
