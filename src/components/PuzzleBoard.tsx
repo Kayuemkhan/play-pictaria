@@ -593,7 +593,8 @@ export function PuzzleBoard({
     const c = Math.round(dx / (cellW * scale));
     const r = Math.round(dy / (cellH * scale));
     const valid =
-      c === 0 && r === 0 ? true : !!tryMove(pos, groupOf, s.group, c, r);
+      c === 0 && r === 0 ? true : !!attemptMove(s.group, c, r);
+
 
     setDrag({ group: s.group, dx, dy, valid });
   };
