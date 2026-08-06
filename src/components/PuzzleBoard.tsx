@@ -545,7 +545,7 @@ export function PuzzleBoard({
         window.setTimeout(() => playSolved(), 260);
       }
     },
-    [pos, groupOf, mergePass, tryMove, solved],
+    [pos, groupOf, mergePass, attemptMove, solved],
   );
 
   const onPointerDown = (e: React.PointerEvent) => {
