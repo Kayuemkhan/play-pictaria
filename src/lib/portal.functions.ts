@@ -123,3 +123,80 @@ export const organisePortalNote = createServerFn({ method: "POST" })
     const fields = await organiseNote(transcript);
     return { transcript, fields };
   });
+
+/**
+ * Creates (or returns) the public Pictaria share link for a business photo so
+ * it can be sent to the customer and posted on social media right away.
+ */
+export const createPortalShareLink = createServerFn({ method: "POST" })
+  .inputValidator((input) => portalIdSchema.parse(input))
+  .handler(async ({ data }) => {
+    const { requirePortal } = await import("./portal.server");
+    await requirePortal();
+
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+
+    const { data: row, error } = await supabaseAdmin
+      .from("portal_businesses")
+      .select("id, share_code, photo_path, company_name, product_service, story_ideas")
+      .eq("id", data.id)
+      .maybeSingle();
+    if (error) throw new Error(error.message);
+    if (!row) throw new Error("That business record no longer exists.");
+
+    const existing = (row as { share_code?: string | null }).share_code;
+    if (existing) return { code: existing };
+
+    const photoPath = (row as { photo_path?: string | null }).photo_path ?? "";
+    if (!photoPath) {
+      throw new Error("Add the community photograph first, then create the link.");
+    }
+
+    const { data: file, error: downloadError } = await supabaseAdmin.storage
+      .from("portal")
+      .download(photoPath);
+    if (downloadError || !file) {
+      throw new Error(downloadError?.message ?? "That photograph couldn't be read.");
+    }
+
+    const alphabet = "abcdefghjkmnpqrstuvwxyz23456789";
+    let code = "";
+    for (let i = 0; i < 10; i += 1) {
+      code += alphabet[Math.floor(Math.random() * alphabet.length)];
+    }
+
+    const ext = photoPath.split(".").pop()?.toLowerCase() ?? "jpg";
+    const contentType =
+      ext === "png" ? "image/png" : ext === "webp" ? "image/webp" : "image/jpeg";
+    const bytes = new Uint8Array(await file.arrayBuffer());
+
+    const { error: uploadError } = await supabaseAdmin.storage
+      .from("pictarias")
+      .upload(`${code}/0.${ext}`, bytes, { contentType, upsert: true });
+    if (uploadError) throw new Error(uploadError.message);
+
+    const business = row as {
+      company_name?: string | null;
+      product_service?: string | null;
+      story_ideas?: string | null;
+    };
+
+    const { error: insertError } = await supabaseAdmin.from("pictarias").insert({
+      share_code: code,
+      title: business.company_name || "A Pictaria for you",
+      tagline: business.product_service || "",
+      story: business.story_ideas || "",
+      grid: 4,
+      tier: "brand",
+      photo_paths: [`${code}/0.${ext}`],
+    });
+    if (insertError) throw new Error(insertError.message);
+
+    const { error: saveError } = await supabaseAdmin
+      .from("portal_businesses")
+      .update({ share_code: code } as never)
+      .eq("id", data.id);
+    if (saveError) throw new Error(saveError.message);
+
+    return { code };
+  });
