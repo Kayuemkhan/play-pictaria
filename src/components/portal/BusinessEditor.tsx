@@ -20,6 +20,8 @@ import {
   savePortalBusiness,
 } from "@/lib/portal.functions";
 import type { WavRecorder } from "@/lib/wav-recorder";
+import { CameraCapture } from "@/components/portal/CameraCapture";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -90,9 +92,10 @@ export function BusinessEditor({ record }: Props) {
   const [shareCode, setShareCode] = useState(record?.share_code ?? "");
   const [linking, setLinking] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [cameraOpen, setCameraOpen] = useState(false);
   const recorder = useRef<WavRecorder | null>(null);
-  const cameraInput = useRef<HTMLInputElement>(null);
   const libraryInput = useRef<HTMLInputElement>(null);
+
 
   const set = <K extends keyof PortalFields>(key: K, value: PortalFields[K]) =>
     setFields((prev) => ({ ...prev, [key]: value }));
@@ -209,11 +212,21 @@ export function BusinessEditor({ record }: Props) {
 
   return (
     <form onSubmit={submit} className="space-y-6">
+      {cameraOpen && (
+        <CameraCapture
+          onClose={() => setCameraOpen(false)}
+          onCapture={(url) => {
+            setPhoto(url);
+            setPhotoUrl(url);
+            if (fields.status === "New") set("status", "Photo Collected");
+          }}
+        />
+      )}
       {/* Photograph */}
       <section className="rounded-lg border border-accent/50 bg-shell p-4 shadow-soft">
         <button
           type="button"
-          onClick={() => cameraInput.current?.click()}
+          onClick={() => setCameraOpen(true)}
           className="relative block w-full overflow-hidden rounded-md border border-accent/40 bg-muted/40"
           style={{ aspectRatio: "3 / 4" }}
         >
@@ -231,7 +244,7 @@ export function BusinessEditor({ record }: Props) {
         <div className="mt-3 flex items-center gap-2">
           <Button
             type="button"
-            onClick={() => cameraInput.current?.click()}
+            onClick={() => setCameraOpen(true)}
             className="flex-1 rounded-full bg-primary text-[0.55rem] tracking-[0.2em] text-primary-foreground uppercase"
           >
             <Camera className="mr-1.5 h-3.5 w-3.5" />
@@ -248,14 +261,6 @@ export function BusinessEditor({ record }: Props) {
           </Button>
         </div>
         <input
-          ref={cameraInput}
-          type="file"
-          accept="image/*"
-          capture="environment"
-          onChange={pickPhoto}
-          className="hidden"
-        />
-        <input
           ref={libraryInput}
           type="file"
           accept="image/*"
@@ -263,6 +268,7 @@ export function BusinessEditor({ record }: Props) {
           className="hidden"
         />
       </section>
+
 
 
       {/* Share link */}
