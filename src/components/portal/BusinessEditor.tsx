@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { useNavigate } from "@tanstack/react-router";
-import { Mic, Square, Camera, Loader2, Trash2, Link2, Copy, Check } from "lucide-react";
+import { Mic, Square, Camera, Loader2, Trash2, Link2, Copy, Check, Image as ImageIcon } from "lucide-react";
 
 import {
   PORTAL_CATEGORIES,
@@ -91,13 +91,15 @@ export function BusinessEditor({ record }: Props) {
   const [linking, setLinking] = useState(false);
   const [copied, setCopied] = useState(false);
   const recorder = useRef<WavRecorder | null>(null);
-  const fileInput = useRef<HTMLInputElement>(null);
+  const cameraInput = useRef<HTMLInputElement>(null);
+  const libraryInput = useRef<HTMLInputElement>(null);
 
   const set = <K extends keyof PortalFields>(key: K, value: PortalFields[K]) =>
     setFields((prev) => ({ ...prev, [key]: value }));
 
   const pickPhoto = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
+    const input = event.target;
+    const file = input.files?.[0];
     if (!file) return;
     const reader = new FileReader();
     reader.onload = () => {
@@ -105,9 +107,11 @@ export function BusinessEditor({ record }: Props) {
       setPhoto(url);
       setPhotoUrl(url);
       if (fields.status === "New") set("status", "Photo Collected");
+      input.value = "";
     };
     reader.readAsDataURL(file);
   };
+
 
   const startRecording = async () => {
     setError("");
@@ -209,7 +213,7 @@ export function BusinessEditor({ record }: Props) {
       <section className="rounded-lg border border-accent/50 bg-shell p-4 shadow-soft">
         <button
           type="button"
-          onClick={() => fileInput.current?.click()}
+          onClick={() => cameraInput.current?.click()}
           className="relative block w-full overflow-hidden rounded-md border border-accent/40 bg-muted/40"
           style={{ aspectRatio: "3 / 4" }}
         >
@@ -224,15 +228,42 @@ export function BusinessEditor({ record }: Props) {
             </span>
           )}
         </button>
+        <div className="mt-3 flex items-center gap-2">
+          <Button
+            type="button"
+            onClick={() => cameraInput.current?.click()}
+            className="flex-1 rounded-full bg-primary text-[0.55rem] tracking-[0.2em] text-primary-foreground uppercase"
+          >
+            <Camera className="mr-1.5 h-3.5 w-3.5" />
+            Open camera
+          </Button>
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => libraryInput.current?.click()}
+            className="flex-1 rounded-full text-[0.55rem] tracking-[0.2em] uppercase"
+          >
+            <ImageIcon className="mr-1.5 h-3.5 w-3.5" />
+            Choose photo
+          </Button>
+        </div>
         <input
-          ref={fileInput}
+          ref={cameraInput}
           type="file"
           accept="image/*"
           capture="environment"
           onChange={pickPhoto}
           className="hidden"
         />
+        <input
+          ref={libraryInput}
+          type="file"
+          accept="image/*"
+          onChange={pickPhoto}
+          className="hidden"
+        />
       </section>
+
 
       {/* Share link */}
       {record && (
