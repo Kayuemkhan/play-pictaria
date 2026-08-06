@@ -1,4 +1,6 @@
 import { Link } from "@tanstack/react-router";
+import { useGoBack } from "@/components/BackNav";
+
 import { useEffect, useRef, useState } from "react";
 import {
   Aperture,
