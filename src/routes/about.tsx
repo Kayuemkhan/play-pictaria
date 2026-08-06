@@ -142,23 +142,4 @@ function AboutPage() {
   );
 }
 
-function InfoCard({
-  icon,
-  title,
-  body,
-}: {
-  icon: React.ReactNode;
-  title: string;
-  body: string;
-}) {
-  return (
-    <div className="rounded-[6px] border border-accent/40 bg-deep/50 p-5 backdrop-blur-sm transition-colors hover:bg-accent/10">
-      <div className="flex h-9 w-9 items-center justify-center rounded-full bg-accent/20 text-accent">
-        {icon}
-      </div>
-      <h3 className="mt-4 font-display text-[0.95rem] text-shell">{title}</h3>
-      <p className="mt-2 text-[0.85rem] leading-relaxed text-shell/75">{body}</p>
-    </div>
-  );
-}
 
