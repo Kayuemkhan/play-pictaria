@@ -48,14 +48,14 @@ export async function lockPortalSession() {
   await session.clear();
 }
 
+// The portal is reached only through the hidden palm-tree tap on the home
+// screen; the passcode wall was removed at the owner's request.
 export async function isPortalUnlocked() {
-  const session = await useSession<PortalSession>(sessionConfig());
-  return session.data.unlocked === true;
+  return true;
 }
 
-/** Throws when the visitor has not entered the portal passcode. */
 export async function requirePortal() {
-  if (!(await isPortalUnlocked())) throw new Error("PORTAL_LOCKED");
+  // no-op: portal access is open (hidden entry point only)
 }
 
 // ---------------------------------------------------------------- storage
