@@ -682,13 +682,7 @@ export function PuzzleBoard({
       for (const candidate of [...magneticCandidates.values()].sort(
         (a, b) => a.dist - b.dist,
       )) {
-        const next = tryMove(
-          pos,
-          groupOf,
-          group,
-          candidate.dCol,
-          candidate.dRow,
-        );
+        const next = attemptMove(group, candidate.dCol, candidate.dRow);
         if (!next) continue;
         const mergedGroups = mergePass(next, groupOf).groups;
         const representative = draggedPieces[0];
@@ -701,11 +695,19 @@ export function PuzzleBoard({
       }
 
       // first choice: a landing spot that clicks the cluster onto its neighbours
-      for (const protectLocked of [true, false]) {
+      for (const [protectLocked, allowRelocate] of MOVE_MODES) {
         for (const c of range(unitsX)) {
           for (const r of range(unitsY)) {
             if (c === 0 && r === 0) continue;
-            const next = tryMove(pos, groupOf, group, c, r, protectLocked);
+            const next = tryMove(
+              pos,
+              groupOf,
+              group,
+              c,
+              r,
+              protectLocked,
+              allowRelocate,
+            );
             if (!next) continue;
             if (!mergePass(next, groupOf).merged) continue;
             const dist = Math.abs(c - unitsX) + Math.abs(r - unitsY);
@@ -717,11 +719,14 @@ export function PuzzleBoard({
       if (best) return best;
 
       // otherwise the piece simply settles wherever the finger left it
-      for (const protectLocked of [true, false]) {
+      for (const [protectLocked, allowRelocate] of MOVE_MODES) {
         for (const c of range(unitsX)) {
           for (const r of range(unitsY)) {
             if (c === 0 && r === 0) continue;
-            if (!tryMove(pos, groupOf, group, c, r, protectLocked)) continue;
+            if (
+              !tryMove(pos, groupOf, group, c, r, protectLocked, allowRelocate)
+            )
+              continue;
             const dist = Math.abs(c - unitsX) + Math.abs(r - unitsY);
             if (!best || dist < best.dist) best = { dCol: c, dRow: r, dist };
           }
@@ -731,7 +736,8 @@ export function PuzzleBoard({
 
       return best;
     },
-    [pos, groupOf, tryMove, mergePass, cellW, cellH, scale],
+    [pos, groupOf, tryMove, attemptMove, mergePass, cellW, cellH, scale],
+
   );
 
   const endPointer = (e: React.PointerEvent) => {
