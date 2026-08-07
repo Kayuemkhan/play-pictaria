@@ -214,6 +214,7 @@ export function BusinessEditor({ record }: Props) {
         <PhotoPick
           label={photoUrl ? "Choose a different photo" : "Choose a photo"}
           onFiles={pickPhoto}
+          fallbackToCamera
           className="block w-full"
         >
           <span className="relative block aspect-[3/4] w-full overflow-hidden rounded-md border border-accent/40 bg-muted/40">
@@ -240,7 +241,12 @@ export function BusinessEditor({ record }: Props) {
               Take photo
             </Button>
           </PhotoPick>
-          <PhotoPick label="Choose a photo from your library" onFiles={pickPhoto} className="flex-1">
+          <PhotoPick
+            label="Choose a photo from your library"
+            onFiles={pickPhoto}
+            fallbackToCamera
+            className="flex-1"
+          >
             <Button
               type="button"
               tabIndex={-1}

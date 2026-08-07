@@ -1,5 +1,30 @@
+import { lazy, Suspense, useState } from "react";
 import { ImagePlus } from "lucide-react";
 import resortCove from "@/assets/fsm-resort-cove.jpg.asset.json";
+
+const CameraCapture = lazy(() =>
+  import("@/components/CameraCapture").then((m) => ({ default: m.CameraCapture })),
+);
+
+/**
+ * The Lovable mobile app renders the preview inside an Android WebView, where a
+ * plain <input type="file"> often opens nothing at all. In that environment we
+ * drive the phone camera ourselves with getUserMedia instead.
+ */
+export function isEmbeddedApp() {
+  if (typeof navigator === "undefined") return false;
+  return /LovableApp|; wv\)/i.test(navigator.userAgent);
+}
+
+const filesFromDataUrl = async (dataUrl: string): Promise<FileList | null> => {
+  const blob = await (await fetch(dataUrl)).blob();
+  const file = new File([blob], `pictaria-${Date.now()}.jpg`, {
+    type: blob.type || "image/jpeg",
+  });
+  const transfer = new DataTransfer();
+  transfer.items.add(file);
+  return transfer.files;
+};
 
 type PickProps = {
   onFiles: (files: FileList | null) => void;
@@ -9,13 +34,16 @@ type PickProps = {
   disabled?: boolean;
   label: string;
   className?: string;
+  /** In the embedded app WebView, fall back to the live camera when the file picker can't open. */
+  fallbackToCamera?: boolean;
   children: React.ReactNode;
 };
 
 /**
  * Wraps any visual with a real, invisible <input type="file"> on top so the tap
  * lands directly on the input — no programmatic .click(), which mobile browsers
- * and sandboxed frames often refuse.
+ * and sandboxed frames often refuse. When `capture` is set and we're inside the
+ * embedded app WebView, the tap opens our own live camera instead.
  */
 export function PhotoPick({
   onFiles,
@@ -25,25 +53,49 @@ export function PhotoPick({
   disabled,
   label,
   className = "",
+  fallbackToCamera,
   children,
 }: PickProps) {
+  const [live, setLive] = useState(false);
+  const useLiveCamera = (Boolean(capture) || Boolean(fallbackToCamera)) && isEmbeddedApp();
+
   return (
-    <span className={`relative isolate inline-flex ${className}`}>
+    <span className={`relative isolate ${className || "inline-flex"}`}>
       {children}
-      <input
-        type="file"
-        accept={accept}
-        {...(multiple ? { multiple: true } : {})}
-        {...(capture ? { capture } : {})}
-        disabled={disabled}
-        aria-label={label}
-        title={label}
-        onChange={(event) => {
-          onFiles(event.target.files);
-          event.target.value = "";
-        }}
-        className="absolute inset-0 z-10 h-full w-full cursor-pointer opacity-0 disabled:cursor-not-allowed"
-      />
+      {useLiveCamera ? (
+        <button
+          type="button"
+          disabled={disabled}
+          aria-label={label}
+          onClick={() => setLive(true)}
+          className="absolute inset-0 z-10 h-full w-full cursor-pointer opacity-0"
+        />
+      ) : (
+        <input
+          type="file"
+          accept={accept}
+          {...(multiple ? { multiple: true } : {})}
+          {...(capture ? { capture } : {})}
+          disabled={disabled}
+          aria-label={label}
+          title={label}
+          onChange={(event) => {
+            onFiles(event.target.files);
+            event.target.value = "";
+          }}
+          className="absolute inset-0 z-10 h-full w-full cursor-pointer opacity-0 disabled:cursor-not-allowed"
+        />
+      )}
+      {live && (
+        <Suspense fallback={null}>
+          <CameraCapture
+            onClose={() => setLive(false)}
+            onCapture={(dataUrl) => {
+              void filesFromDataUrl(dataUrl).then(onFiles);
+            }}
+          />
+        </Suspense>
+      )}
     </span>
   );
 }
