@@ -451,10 +451,6 @@ export function BusinessEditor({ record }: Props) {
               <dt className={labelClass}>Category</dt>
               <dd className="text-[13px] text-foreground">{fields.category}</dd>
             </div>
-            <div>
-              <dt className={labelClass}>Status</dt>
-              <dd className="text-[13px] text-foreground">{fields.status}</dd>
-            </div>
             {Object.entries(PORTAL_FIELD_LABELS).map(([key, label]) => (
               <div key={key}>
                 <dt className={labelClass}>{label}</dt>
