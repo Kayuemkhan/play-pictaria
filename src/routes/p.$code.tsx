@@ -27,12 +27,13 @@ export const Route = createFileRoute("/p/$code")({
       {
         name: "description",
         content:
-          "Someone sent you a Pictaria. Slide the tiles together and reveal the picture behind the puzzle.",
+          'Discover beautiful photography one puzzle "peace" at a time.',
       },
       { property: "og:title", content: "A Pictaria for You" },
       {
         property: "og:description",
-        content: "Someone sent you a puzzle made from their own photograph.",
+        content:
+          'Discover beautiful photography one puzzle "peace" at a time.',
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -106,14 +107,30 @@ function SharedPictaria() {
     <main className="min-h-screen bg-deep px-3 py-10">
       <div className="mx-auto w-full max-w-xl text-center">
         {!isBrand && (
-          <Link to="/" aria-label="Pictaria — turn pictures into play">
+          <Link
+            to="/"
+            aria-label="Pictaria — turn pictures into play"
+            className="group inline-flex flex-col items-center"
+          >
             <img
               src={palmLogo}
               alt="Pictaria"
               width={1024}
               height={1024}
-              className="mx-auto h-24 w-auto rounded-[8px] drop-shadow-[0_4px_18px_oklch(0.15_0.04_230/0.65)] transition-transform hover:scale-[1.03]"
+              className="h-16 w-auto drop-shadow-[0_4px_18px_oklch(0.15_0.04_230/0.55)] transition-transform duration-500 ease-[var(--ease-calm)] group-hover:scale-[1.06] sm:h-20"
             />
+            <span className="mt-3 bg-gradient-to-br from-[oklch(0.99_0.03_90)] via-[oklch(0.96_0.05_88)] to-[oklch(0.88_0.09_80)] bg-clip-text font-display text-3xl leading-none tracking-[0.34em] text-transparent uppercase drop-shadow-[0_3px_14px_oklch(0.15_0.04_230/0.5)] transition-transform duration-500 ease-[var(--ease-calm)] group-hover:scale-[1.04] sm:text-4xl">
+              Pictaria
+            </span>
+            <span
+              className="-mt-0.5 font-display text-[0.65rem] tracking-[0.42em] uppercase transition-transform duration-500 ease-[var(--ease-calm)] group-hover:scale-[1.04] sm:text-[0.75rem]"
+              style={{
+                color: "oklch(0.98 0.025 85)",
+                textShadow: "0 2px 12px oklch(0.15 0.04 230 / 0.55)",
+              }}
+            >
+              Turn pictures into play
+            </span>
           </Link>
         )}
 
