@@ -158,7 +158,7 @@ export function BusinessEditor({ record }: Props) {
         data: { ...fields, ...(record ? { id: record.id } : {}), ...(photo ? { photo } : {}) },
       });
       void id;
-      await navigate({ to: "/portal" });
+      await navigate({ to: "/" });
     } catch (err) {
       setError(err instanceof Error ? err.message : "That record couldn't be saved.");
       setSaving(false);
@@ -200,7 +200,7 @@ export function BusinessEditor({ record }: Props) {
     if (!record) return;
     if (!window.confirm("Delete this business record?")) return;
     await remove({ data: { id: record.id } });
-    await navigate({ to: "/portal" });
+    await navigate({ to: "/" });
   };
 
   return (

@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 
@@ -41,12 +41,6 @@ function NewBusiness() {
         <p className="mt-1 text-[10px] tracking-[0.2em] text-shell/60 uppercase">
           Victoria's — a community project celebrating Maui businesses
         </p>
-        <Link
-          to="/portal"
-          className="mt-2 inline-block text-[10px] tracking-[0.18em] text-shell/70 uppercase"
-        >
-          All businesses
-        </Link>
       </header>
       <div className="mx-auto mt-6 max-w-md">
         <BusinessEditor />
