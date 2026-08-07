@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Link } from "@tanstack/react-router";
 import { Music, Search, VolumeX } from "lucide-react";
 import palmLogo from "@/assets/logo-palms-only.png";
 import { playLock, playPick, playSolved } from "@/lib/feedback";
@@ -27,6 +28,8 @@ export interface PuzzleBoardProps {
   grid: number;
   onExit: () => void;
   onChangeDifficulty: () => void;
+  /** Brand Studio Pictarias carry no Pictaria logo — only a tiny credit link. */
+  unbranded?: boolean;
 }
 
 function formatTime(total: number) {
@@ -83,6 +86,7 @@ export function PuzzleBoard({
   grid,
   onExit,
   onChangeDifficulty,
+  unbranded = false,
 }: PuzzleBoardProps) {
   const viewportRef = useRef<HTMLDivElement>(null);
 
@@ -860,13 +864,23 @@ export function PuzzleBoard({
     <div className="relative flex h-[100dvh] w-full flex-col overflow-hidden bg-mist-gradient">
       {/* top bar */}
       <header className="glass-panel z-20 grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 px-3 py-2.5 sm:px-5">
-        <img
-          src={palmLogo}
-          alt="Pictaria"
-          width={1024}
-          height={1024}
-          className="h-8 w-auto shrink-0 sm:h-10"
-        />
+        {unbranded ? (
+          <span aria-hidden className="w-1" />
+        ) : (
+          <Link
+            to="/"
+            aria-label="Pictaria — turn pictures into play"
+            className="shrink-0 transition-transform hover:scale-[1.04]"
+          >
+            <img
+              src={palmLogo}
+              alt="Pictaria"
+              width={1024}
+              height={1024}
+              className="h-8 w-auto sm:h-10"
+            />
+          </Link>
+        )}
         <div className="min-w-0 text-center">
           <p className="truncate font-display text-lg leading-tight sm:text-xl">
             {title}
@@ -1127,6 +1141,14 @@ export function PuzzleBoard({
         </div>
       )}
 
+      {unbranded && (
+        <Link
+          to="/"
+          className="absolute bottom-1 left-1/2 z-20 -translate-x-1/2 text-[0.5rem] leading-none tracking-[0.16em] text-foreground/35 lowercase transition-colors hover:text-foreground/70"
+        >
+          made with pictaria
+        </Link>
+      )}
     </div>
   );
 }

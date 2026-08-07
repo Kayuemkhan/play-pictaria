@@ -46,6 +46,7 @@ interface Shared {
   tagline: string;
   story: string;
   grid: number;
+  tier?: string;
   photos: string[];
 }
 
@@ -85,6 +86,8 @@ function SharedPictaria() {
     };
   }, [code, fetchShared]);
 
+  const isBrand = shared?.tier === "brand";
+
   if (playing) {
     return (
       <PuzzleBoard
@@ -92,6 +95,7 @@ function SharedPictaria() {
         src={playing.url}
         title={shared?.title || "A Pictaria for you"}
         grid={playing.grid}
+        unbranded={isBrand}
         onExit={() => setPlaying(null)}
         onChangeDifficulty={() => setPlaying(null)}
       />
@@ -101,13 +105,17 @@ function SharedPictaria() {
   return (
     <main className="min-h-screen bg-deep px-3 py-10">
       <div className="mx-auto w-full max-w-xl text-center">
-        <img
-          src={palmLogo}
-          alt="Pictaria"
-          width={1024}
-          height={1024}
-          className="mx-auto h-24 w-auto rounded-[8px] drop-shadow-[0_4px_18px_oklch(0.15_0.04_230/0.65)]"
-        />
+        {!isBrand && (
+          <Link to="/" aria-label="Pictaria — turn pictures into play">
+            <img
+              src={palmLogo}
+              alt="Pictaria"
+              width={1024}
+              height={1024}
+              className="mx-auto h-24 w-auto rounded-[8px] drop-shadow-[0_4px_18px_oklch(0.15_0.04_230/0.65)] transition-transform hover:scale-[1.03]"
+            />
+          </Link>
+        )}
 
         {state === "loading" && (
           <p className="mt-8 text-[10px] tracking-[0.24em] text-accent uppercase">
@@ -175,9 +183,18 @@ function SharedPictaria() {
               </p>
             )}
 
-            <div className="mt-8">
-              <PoemCTAs />
-            </div>
+            {isBrand ? (
+              <Link
+                to="/"
+                className="mt-10 inline-block text-[0.55rem] leading-none tracking-[0.18em] text-shell/45 lowercase transition-colors hover:text-shell/80"
+              >
+                made with pictaria — play.pictaria
+              </Link>
+            ) : (
+              <div className="mt-8">
+                <PoemCTAs />
+              </div>
+            )}
           </>
         )}
 
