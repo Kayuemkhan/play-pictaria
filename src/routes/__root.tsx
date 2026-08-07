@@ -13,6 +13,8 @@ import appCss from "../styles.css?url";
 import { Toaster } from "@/components/ui/sonner";
 import { BottomBackButton } from "@/components/BottomBackButton";
 import { TopBackButton } from "@/components/TopBackButton";
+import { MindfulMiniPlayer } from "@/components/MindfulMusic";
+
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
 function NotFoundComponent() {
@@ -192,6 +194,8 @@ function RootComponent() {
       {!isHome && <BottomBackButton />}
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
+      <MindfulMiniPlayer />
+
     </QueryClientProvider>
   );
 }
