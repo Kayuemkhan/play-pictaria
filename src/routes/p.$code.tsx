@@ -183,9 +183,18 @@ function SharedPictaria() {
               </p>
             )}
 
-            <div className="mt-8">
-              <PoemCTAs />
-            </div>
+            {isBrand ? (
+              <Link
+                to="/"
+                className="mt-10 inline-block text-[0.55rem] leading-none tracking-[0.18em] text-shell/45 lowercase transition-colors hover:text-shell/80"
+              >
+                made with pictaria — play.pictaria
+              </Link>
+            ) : (
+              <div className="mt-8">
+                <PoemCTAs />
+              </div>
+            )}
           </>
         )}
 
