@@ -173,6 +173,11 @@ Rules:
   (e.g. "eight zero eight five five five one two one two" -> "808-555-1212",
   "amy at kai gallery dot com" -> "amy@kaigallery.com").
 - Choose the closest business category; use "Other" when unclear.
+- product_service is required whenever the speaker describes the business at
+  all. Write two or three warm sentences describing what this business offers
+  and what should be photographed for their Pictaria — their products, food,
+  art, rooms, tours, view, or atmosphere as described in the note. Never leave
+  it empty if the note says anything about what the business does.
 - marketing_ideas, story_ideas and notes may be a few short sentences or
   dash-prefixed lines. Keep the speaker's own voice.
 - follow_up should be a short reminder, including any timing that was mentioned.
