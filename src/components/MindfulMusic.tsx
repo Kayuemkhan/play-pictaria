@@ -232,57 +232,160 @@ function startBinaural(ctx: AudioContext, out: GainNode): Engine {
 }
 
 function startDidgeridoo(ctx: AudioContext, out: GainNode): Engine {
-  const drone = ctx.createOscillator();
-  drone.type = "sawtooth";
-  drone.frequency.value = 73.42;
+  // --- Drone: buzzing lip-reed tone with breath noise and moving formants ---
+  const fundamental = 68.5; // low D-ish, classic didgeridoo drone
+  const droneBus = ctx.createGain();
+  droneBus.gain.value = 0.0001;
+  droneBus.gain.linearRampToValueAtTime(0.5, ctx.currentTime + 2.5);
 
-  const filter = ctx.createBiquadFilter();
-  filter.type = "lowpass";
-  filter.frequency.value = 380;
-  filter.Q.value = 6;
-
-  const wobble = ctx.createOscillator();
-  wobble.frequency.value = 4.5;
-  const wobbleGain = ctx.createGain();
-  wobbleGain.gain.value = 160;
-  wobble.connect(wobbleGain).connect(filter.frequency);
-
-  const droneGain = ctx.createGain();
-  droneGain.gain.value = 0.14;
-  drone.connect(filter).connect(droneGain).connect(out);
-  drone.start();
-  wobble.start();
-
-  const beat = () => {
-    const t = ctx.currentTime + 0.05;
+  const oscs: OscillatorNode[] = [];
+  // odd/even partials with sawtooth + square give the reedy buzz
+  ([
+    [1, 0.5, "sawtooth"],
+    [2, 0.24, "square"],
+    [3, 0.16, "sawtooth"],
+    [5, 0.08, "square"],
+  ] as const).forEach(([mult, level, type]) => {
     const osc = ctx.createOscillator();
+    osc.type = type;
+    osc.frequency.value = fundamental * mult;
+    osc.detune.value = (Math.random() - 0.5) * 12;
     const g = ctx.createGain();
+    g.gain.value = level;
+    osc.connect(g).connect(droneBus);
+    osc.start();
+    oscs.push(osc);
+  });
+
+  // breath / air noise riding on the drone
+  const breathNoise = ctx.createBufferSource();
+  breathNoise.buffer = makeNoiseBuffer(ctx, 3);
+  breathNoise.loop = true;
+  const breathBand = ctx.createBiquadFilter();
+  breathBand.type = "bandpass";
+  breathBand.frequency.value = 900;
+  breathBand.Q.value = 0.8;
+  const breathGain = ctx.createGain();
+  breathGain.gain.value = 0.06;
+  breathNoise.connect(breathBand).connect(breathGain).connect(droneBus);
+  breathNoise.start();
+
+  // two vocal-tract formants that drift — the "wah-wah" didgeridoo character
+  const f1 = ctx.createBiquadFilter();
+  f1.type = "bandpass";
+  f1.frequency.value = 300;
+  f1.Q.value = 3.5;
+  const f2 = ctx.createBiquadFilter();
+  f2.type = "bandpass";
+  f2.frequency.value = 1250;
+  f2.Q.value = 4;
+  const f1Gain = ctx.createGain();
+  f1Gain.gain.value = 0.9;
+  const f2Gain = ctx.createGain();
+  f2Gain.gain.value = 0.45;
+
+  const shape = ctx.createBiquadFilter();
+  shape.type = "lowpass";
+  shape.frequency.value = 2200;
+
+  const droneOut = ctx.createGain();
+  droneOut.gain.value = 0.26;
+
+  droneBus.connect(f1).connect(f1Gain).connect(shape);
+  droneBus.connect(f2).connect(f2Gain).connect(shape);
+  droneBus.connect(droneOut); // keep some raw fundamental body
+  shape.connect(droneOut);
+  droneOut.connect(out);
+
+  // slow tongue/jaw movement on the formants
+  const mover = ctx.createOscillator();
+  mover.frequency.value = 0.35;
+  const moverGain = ctx.createGain();
+  moverGain.gain.value = 140;
+  mover.connect(moverGain).connect(f1.frequency);
+  const mover2 = ctx.createOscillator();
+  mover2.frequency.value = 0.23;
+  const mover2Gain = ctx.createGain();
+  mover2Gain.gain.value = 420;
+  mover2.connect(mover2Gain).connect(f2.frequency);
+
+  // breath pulse — the rhythmic push every couple of seconds
+  const pulse = ctx.createOscillator();
+  pulse.type = "sine";
+  pulse.frequency.value = 0.45;
+  const pulseGain = ctx.createGain();
+  pulseGain.gain.value = 0.09;
+  pulse.connect(pulseGain).connect(droneOut.gain);
+
+  mover.start();
+  mover2.start();
+  pulse.start();
+
+  // --- Frame drum: real membrane hits with a low boom and skin slap ---
+  const drumBoom = (t: number, level: number, pitch: number) => {
+    const osc = ctx.createOscillator();
     osc.type = "sine";
-    osc.frequency.setValueAtTime(120, t);
-    osc.frequency.exponentialRampToValueAtTime(48, t + 0.35);
+    const g = ctx.createGain();
+    osc.frequency.setValueAtTime(pitch * 2.1, t);
+    osc.frequency.exponentialRampToValueAtTime(pitch, t + 0.09);
+    osc.frequency.exponentialRampToValueAtTime(pitch * 0.7, t + 0.45);
     g.gain.setValueAtTime(0.0001, t);
-    g.gain.exponentialRampToValueAtTime(0.22, t + 0.03);
-    g.gain.exponentialRampToValueAtTime(0.0001, t + 0.5);
+    g.gain.exponentialRampToValueAtTime(level, t + 0.008);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + 0.55);
     osc.connect(g).connect(out);
     osc.start(t);
     osc.stop(t + 0.6);
+
+    // skin slap transient
+    const slap = ctx.createBufferSource();
+    slap.buffer = makeNoiseBuffer(ctx, 0.4);
+    const band = ctx.createBiquadFilter();
+    band.type = "bandpass";
+    band.frequency.value = 1600;
+    band.Q.value = 0.9;
+    const sg = ctx.createGain();
+    sg.gain.setValueAtTime(level * 0.5, t);
+    sg.gain.exponentialRampToValueAtTime(0.0001, t + 0.14);
+    slap.connect(band).connect(sg).connect(out);
+    slap.start(t);
+    slap.stop(t + 0.2);
   };
 
-  beat();
-  const timer = window.setInterval(beat, 1800);
+  // gentle 4-beat pattern: BOOM . ba . BOOM ba . .
+  const pattern: Array<[number, number, number]> = [
+    [0, 0.3, 62],
+    [0.75, 0.1, 96],
+    [1.5, 0.24, 62],
+    [1.9, 0.12, 96],
+    [2.6, 0.1, 88],
+  ];
+  const barLength = 3.2;
+  const playBar = () => {
+    const start = ctx.currentTime + 0.06;
+    pattern.forEach(([offset, level, pitch]) => {
+      drumBoom(start + offset, level, pitch);
+    });
+  };
+
+  playBar();
+  const timer = window.setInterval(playBar, barLength * 1000);
 
   return {
     stop: () => {
       window.clearInterval(timer);
       try {
-        drone.stop();
-        wobble.stop();
+        oscs.forEach((o) => o.stop());
+        breathNoise.stop();
+        mover.stop();
+        mover2.stop();
+        pulse.stop();
       } catch {
         /* already stopped */
       }
     },
   };
 }
+
 
 const STARTERS: Record<TrackId, (ctx: AudioContext, out: GainNode) => Engine> = {
   ocean: startOcean,
