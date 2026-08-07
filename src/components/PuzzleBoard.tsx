@@ -584,17 +584,12 @@ export function PuzzleBoard({
     s.moved = true;
 
     /**
-     * The piece floats with the fingertip anywhere over the board — it does not
-     * ride the grid while dragging. On release it settles into the nearest cell
-     * it is allowed to occupy.
+     * The piece floats freely with the fingertip anywhere over the board. We
+     * deliberately do NOT preview grid snapping or validity while the finger is
+     * down — that makes the tile feel like it is deciding where to go. The
+     * landing decision is made only on release.
      */
-    const c = Math.round(dx / (cellW * scale));
-    const r = Math.round(dy / (cellH * scale));
-    const valid =
-      c === 0 && r === 0 ? true : !!attemptMove(s.group, c, r);
-
-
-    setDrag({ group: s.group, dx, dy, valid });
+    setDrag({ group: s.group, dx, dy, valid: true });
   };
 
 
