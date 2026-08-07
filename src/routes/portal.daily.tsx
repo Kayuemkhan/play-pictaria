@@ -154,7 +154,7 @@ function DailyWaitingArea() {
         >
           <span>
             <span className="block font-display text-[1.05rem] text-foreground">
-              Yesterday&apos;s Pictarias
+              Yesterdailys
             </span>
             <span className="text-[10px] tracking-[0.16em] text-muted-foreground uppercase">
               {past.length} in the folder
