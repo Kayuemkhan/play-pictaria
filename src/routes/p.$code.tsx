@@ -2,11 +2,23 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { PuzzleBoard } from "@/components/PuzzleBoard";
+import { PoemCTAs } from "@/components/PoemCTAs";
 
 import { difficulties } from "@/data/collections";
 import { getSharedPictaria } from "@/lib/pictarias.functions";
 import { reportPictaria } from "@/lib/reports.functions";
 import palmLogo from "@/assets/logo-palms-only.png";
+import samplePhoto from "@/assets/hero-pineapple.jpg";
+
+/** A ready-made Pictaria so you can preview exactly what a recipient receives. */
+const SAMPLE: Shared = {
+  title: "A Pictaria for you",
+  tagline: "Can you solve today's pineapple?",
+  story:
+    "Aloha! Someone thought of you today and turned one of their favourite pictures into a little puzzle.\n\nPick your pace below, slide the tiles together, and the picture will reveal itself.",
+  grid: 4,
+  photos: [samplePhoto],
+};
 
 export const Route = createFileRoute("/p/$code")({
   head: () => ({
