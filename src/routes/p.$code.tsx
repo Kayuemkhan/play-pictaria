@@ -99,7 +99,7 @@ function SharedPictaria() {
   }
 
   return (
-    <main className="min-h-screen bg-deep px-5 py-10">
+    <main className="min-h-screen bg-deep px-3 py-10">
       <div className="mx-auto w-full max-w-xl text-center">
         <img
           src={palmLogo}
@@ -153,15 +153,15 @@ function SharedPictaria() {
                     alt={`${shared.title || "Shared"} picture ${i + 1}`}
                     className="aspect-[3/4] w-full object-cover"
                   />
-                  <div className="flex flex-wrap justify-center gap-2 px-4 py-4">
+                  <div className="flex flex-nowrap items-center justify-center gap-2 overflow-x-auto px-4 py-4">
                     {difficulties.map((d) => (
                       <button
                         key={d.grid}
                         type="button"
                         onClick={() => setPlaying({ url, grid: d.grid })}
-                        className="rounded-full bg-accent px-3.5 py-1.5 text-[0.55rem] tracking-[0.18em] text-deep uppercase shadow-soft transition-transform hover:scale-[1.03]"
+                        className="shrink-0 rounded-full border border-shell/25 bg-deep px-4 py-1.5 text-[0.6rem] tracking-[0.16em] text-shell uppercase shadow-soft transition-transform hover:scale-[1.03] active:scale-[0.98]"
                       >
-                        {d.label} {d.grid}×{d.grid}
+                        {d.grid}×{d.grid}
                       </button>
                     ))}
                   </div>
