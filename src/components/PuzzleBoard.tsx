@@ -1,6 +1,12 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Search } from "lucide-react";
+import { Music, Search, VolumeX } from "lucide-react";
 import { playLock, playPick, playSolved } from "@/lib/feedback";
+import {
+  toggleMindfulMusic,
+  trackName,
+  useMindfulPlayer,
+} from "@/components/MindfulMusic";
+
 
 
 const WORLD_W = 1000;
