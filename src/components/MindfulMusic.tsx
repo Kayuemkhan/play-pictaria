@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 type TrackId = "ocean" | "bowls" | "binaural" | "didgeridoo";
 
@@ -6,30 +6,40 @@ type Track = {
   id: TrackId;
   name: string;
   blurb: string;
+  benefit: string;
 };
 
 const TRACKS: Track[] = [
   {
     id: "ocean",
-    name: "Ocean & Birdsong",
-    blurb: "Slow shore break with distant birds at first light.",
+    name: "Ocean & Seagulls",
+    blurb: "Slow shore break with gulls calling over the water.",
+    benefit:
+      "Steady, unpredictable water sound masks sudden noise, which helps the nervous system stop scanning for threat and settle into rest.",
   },
   {
     id: "bowls",
     name: "Singing Bowls",
     blurb: "Warm struck bowls ringing into long, open silence.",
+    benefit:
+      "Long decaying tones slow the breath and lengthen the exhale — a simple way to nudge the body toward its calm, parasympathetic state.",
   },
   {
     id: "binaural",
     name: "Binaural Meditation",
     blurb: "A gentle theta pulse between the ears. Headphones welcome.",
+    benefit:
+      "A small pitch offset in each ear creates a slow pulse the brain follows, easing you toward the relaxed, drifting focus of meditation.",
   },
   {
     id: "didgeridoo",
     name: "Didgeridoo & Drum",
     blurb: "Earthy drone with a soft, unhurried heartbeat.",
+    benefit:
+      "Low drone and a slow drum near resting heart rate give the body a rhythm to sync with, grounding you when your thoughts feel scattered.",
   },
 ];
+
 
 type Engine = {
   stop: () => void;
