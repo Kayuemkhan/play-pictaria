@@ -888,23 +888,23 @@ export function PuzzleBoard({
       </header>
 
       {/* stage */}
-      <div
-        ref={viewportRef}
-        onPointerDown={onPointerDown}
-        onPointerMove={onPointerMove}
-        onPointerUp={endPointer}
-        onPointerCancel={endPointer}
-        className="relative flex-1 touch-none overflow-hidden select-none"
-      >
+      <div className="relative flex-1 p-3 sm:p-5">
         <div
-          className="absolute top-0 left-0 origin-top-left rounded-[18px]"
-          style={{
-            width: WORLD_W,
-            height: worldH,
-            transform: `translate(${offX}px, ${offY}px) scale(${scale})`,
-            boxShadow: "var(--shadow-soft)",
-          }}
+          ref={viewportRef}
+          onPointerDown={onPointerDown}
+          onPointerMove={onPointerMove}
+          onPointerUp={endPointer}
+          onPointerCancel={endPointer}
+          className="relative h-full w-full touch-none overflow-hidden select-none rounded-[18px] bg-card/30 shadow-soft"
         >
+          <div
+            className="absolute top-0 left-0 origin-top-left rounded-[18px]"
+            style={{
+              width: WORLD_W,
+              height: worldH,
+              transform: `translate(${offX}px, ${offY}px) scale(${scale})`,
+            }}
+          >
           {pos.map((cell, piece) => {
             const row = Math.floor(cell / grid);
             const col = cell % grid;
