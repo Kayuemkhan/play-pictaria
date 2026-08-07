@@ -43,7 +43,7 @@ const menuLinks = [
   { to: "/studio/brand", label: "Branding Studio" },
   { to: "/pricing", label: "Pricing" },
   { to: "/daily", label: "Daily Pictaria" },
-  { to: "/mindfulness", label: "Mindfulness" },
+  { to: "/mindfulness", label: "Mindful Music" },
 ] as const;
 
 
