@@ -10,8 +10,8 @@ import type { PortalRecord } from "@/lib/portal-types";
 export const Route = createFileRoute("/portal/$id")({
   head: () => ({
     meta: [
-      { title: "Business Record — Pictaria Portal" },
-      { name: "description", content: "Internal Pictaria business record." },
+      { title: "Business Record — Victoria's" },
+      { name: "description", content: "A community project celebrating Maui businesses." },
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),

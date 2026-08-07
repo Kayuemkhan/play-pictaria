@@ -15,8 +15,8 @@ import { Input } from "@/components/ui/input";
 export const Route = createFileRoute("/portal/")({
   head: () => ({
     meta: [
-      { title: "Pictaria Portal" },
-      { name: "description", content: "Internal Pictaria field portal." },
+      { title: "Victoria's" },
+      { name: "description", content: "A community project celebrating Maui businesses." },
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
@@ -77,7 +77,10 @@ function PortalIndex() {
   return (
     <main className="min-h-screen bg-deep px-4 pt-16 pb-28">
       <header className="mx-auto max-w-md text-center">
-        <h1 className="font-display text-[1.6rem] text-shell">Pictaria Portal</h1>
+        <h1 className="font-display text-[1.6rem] text-shell">Victoria's</h1>
+        <p className="mt-1 text-[10px] tracking-[0.2em] text-shell/60 uppercase">
+          A community project celebrating Maui businesses
+        </p>
         <p className="mt-1 text-[10px] tracking-[0.2em] text-shell/60 uppercase">
           {records.length} {records.length === 1 ? "business" : "businesses"}
         </p>
