@@ -991,6 +991,7 @@ export function PuzzleBoard({
           </div>
         )}
       </div>
+      </div>
 
       {/* celebration — phase one: fine drifting sparkles and congratulations */}
       {solved && (
