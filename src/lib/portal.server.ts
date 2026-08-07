@@ -237,6 +237,11 @@ function coerceOrganised(text: string | undefined, transcript: string): Organise
     result.company_name = guessCompanyName(transcript);
   }
 
+  // Same safety net for the phone number.
+  if (!result.phone) {
+    result.phone = guessPhone(transcript);
+  }
+
   // Never lose the spoken words: if nothing landed, keep the transcript.
   const anyFilled = Object.entries(result).some(
     ([field, value]) => field !== "category" && value !== "",
