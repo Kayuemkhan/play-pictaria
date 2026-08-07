@@ -413,19 +413,35 @@ type Store = {
   master: GainNode | null;
   engine: Engine | null;
   playing: TrackId | null;
+  /** Last track the listener chose, remembered even while paused. */
+  selected: TrackId | null;
   listeners: Set<() => void>;
 };
+
+const SELECTED_KEY = "pictaria.mindful.selected";
 
 const store: Store = {
   ctx: null,
   master: null,
   engine: null,
   playing: null,
+  selected: null,
   listeners: new Set(),
 };
 
 function emit() {
   store.listeners.forEach((fn) => fn());
+}
+
+function readSelected(): TrackId | null {
+  if (store.selected) return store.selected;
+  if (typeof window === "undefined") return null;
+  const saved = window.localStorage.getItem(SELECTED_KEY) as TrackId | null;
+  if (saved && TRACKS.some((t) => t.id === saved)) {
+    store.selected = saved;
+    return saved;
+  }
+  return null;
 }
 
 export function stopMindfulTrack() {
@@ -454,21 +470,44 @@ export async function playMindfulTrack(id: TrackId) {
 
   store.engine = STARTERS[id](store.ctx, store.master!);
   store.playing = id;
+  store.selected = id;
+  if (typeof window !== "undefined") {
+    window.localStorage.setItem(SELECTED_KEY, id);
+  }
   emit();
 }
 
+/** Turn the chosen soundscape on or off from anywhere (e.g. a puzzle). */
+export async function toggleMindfulMusic() {
+  if (store.playing) {
+    stopMindfulTrack();
+    return;
+  }
+  const id = readSelected() ?? "ocean";
+  await playMindfulTrack(id);
+}
+
 export function useMindfulPlayer() {
-  const [playing, setPlaying] = useState<TrackId | null>(store.playing);
+  const [state, setState] = useState<{
+    playing: TrackId | null;
+    selected: TrackId | null;
+  }>({ playing: store.playing, selected: store.selected });
   useEffect(() => {
-    const listener = () => setPlaying(store.playing);
+    const listener = () =>
+      setState({ playing: store.playing, selected: readSelected() });
     store.listeners.add(listener);
     listener();
     return () => {
       store.listeners.delete(listener);
     };
   }, []);
-  return playing;
+  return state;
 }
+
+export function trackName(id: TrackId | null) {
+  return TRACKS.find((t) => t.id === id)?.name ?? null;
+}
+
 
 export function MindfulMusic() {
   const playing = useMindfulPlayer();
