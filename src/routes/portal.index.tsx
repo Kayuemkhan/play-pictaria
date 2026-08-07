@@ -3,8 +3,8 @@ import { createFileRoute, Navigate } from "@tanstack/react-router";
 export const Route = createFileRoute("/portal/")({
   head: () => ({
     meta: [
-      { title: "Victoria's" },
-      { name: "description", content: "A community project celebrating Maui businesses." },
+      { title: "Project Pictaria's" },
+      { name: "description", content: "A community project for Maui support." },
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),

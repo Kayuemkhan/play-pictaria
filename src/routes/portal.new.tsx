@@ -9,8 +9,8 @@ import { listPortalBusinesses } from "@/lib/portal.functions";
 export const Route = createFileRoute("/portal/new")({
   head: () => ({
     meta: [
-      { title: "New Business — Victoria's" },
-      { name: "description", content: "A community project celebrating Maui businesses." },
+      { title: "Project Pictaria's" },
+      { name: "description", content: "A community project for Maui support." },
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
@@ -37,9 +37,9 @@ function NewBusiness() {
   return (
     <main className="min-h-screen bg-deep px-4 pt-16 pb-24">
       <header className="mx-auto max-w-md text-center">
-        <h1 className="font-display text-[1.5rem] text-shell">New business</h1>
+        <h1 className="font-display text-[1.5rem] text-shell">Project Pictaria's</h1>
         <p className="mt-1 text-[10px] tracking-[0.2em] text-shell/60 uppercase">
-          Victoria's — a community project celebrating Maui businesses
+          a community project for Maui support
         </p>
       </header>
       <div className="mx-auto mt-6 max-w-md">
