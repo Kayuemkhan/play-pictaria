@@ -165,19 +165,98 @@ Rules:
 - follow_up should be a short reminder, including any timing that was mentioned.
 - Put anything that fits nowhere else into notes.`;
 
+type Organised = z.infer<typeof structured>;
+
+const EMPTY: Organised = {
+  company_name: "",
+  contact_person: "",
+  phone: "",
+  email: "",
+  website: "",
+  category: "Other" as Organised["category"],
+  product_service: "",
+  marketing_ideas: "",
+  story_ideas: "",
+  follow_up: "",
+  notes: "",
+};
+
+/** Pulls the first JSON object out of a model reply and fills any gaps. */
+function coerceOrganised(text: string | undefined, transcript: string): Organised {
+  const raw = (text ?? "").replace(/```json|```/gi, "");
+  const start = raw.indexOf("{");
+  const end = raw.lastIndexOf("}");
+  let parsed: Record<string, unknown> = {};
+  if (start !== -1 && end > start) {
+    try {
+      parsed = JSON.parse(raw.slice(start, end + 1)) as Record<string, unknown>;
+    } catch {
+      parsed = {};
+    }
+  }
+
+  const pick = (field: keyof Organised) => {
+    const value = parsed[field];
+    return typeof value === "string" ? value.trim() : "";
+  };
+
+  const category = pick("category");
+  const result: Organised = {
+    ...EMPTY,
+    company_name: pick("company_name"),
+    contact_person: pick("contact_person"),
+    phone: pick("phone"),
+    email: pick("email"),
+    website: pick("website"),
+    category: (PORTAL_CATEGORIES as readonly string[]).includes(category)
+      ? (category as Organised["category"])
+      : "Other",
+    product_service: pick("product_service"),
+    marketing_ideas: pick("marketing_ideas"),
+    story_ideas: pick("story_ideas"),
+    follow_up: pick("follow_up"),
+    notes: pick("notes"),
+  };
+
+  // Never lose the spoken words: if nothing landed, keep the transcript.
+  const anyFilled = Object.entries(result).some(
+    ([field, value]) => field !== "category" && value !== "",
+  );
+  if (!anyFilled) result.notes = transcript;
+  return result;
+}
+
 /** Turns a raw transcript into organised business fields. */
-export async function organiseNote(transcript: string) {
+export async function organiseNote(transcript: string): Promise<Organised> {
   const key = process.env["LOVABLE_API_KEY"];
   if (!key) throw new Error("AI organising is unavailable right now.");
 
   const gateway = createLovableAiGatewayProvider(key);
-  const { output } = await generateText({
-    model: gateway("google/gemini-3.6-flash"),
-    output: Output.object({ schema: structured }),
-    system: ORGANISER,
-    prompt: `Spoken note:\n\n${transcript}`,
-  });
-  return output;
+  try {
+    const { output, text } = await generateText({
+      model: gateway("google/gemini-3.6-flash"),
+      output: Output.object({ schema: structured }),
+      system: ORGANISER,
+      prompt: `Spoken note:\n\n${transcript}`,
+    });
+    if (output) return coerceOrganised(JSON.stringify(output), transcript);
+    return coerceOrganised(text, transcript);
+  } catch (error) {
+    // A model reply that doesn't match the schema shouldn't lose the note.
+    if (NoObjectGeneratedError.isInstance(error)) {
+      return coerceOrganised(error.text, transcript);
+    }
+    const message = error instanceof Error ? error.message : "";
+    console.error(`organiseNote failed: ${message}`);
+    if (/429|rate limit/i.test(message)) {
+      throw new Error("Too many notes at once — try again in a moment.");
+    }
+    if (/402|credit/i.test(message)) {
+      throw new Error("AI credits are exhausted — add credits to keep using voice notes.");
+    }
+    // Fall back to keeping the transcript so nothing is lost.
+    return { ...EMPTY, notes: transcript };
+  }
 }
 
 // The sandbox/worker clock can drift slightly ahead of the auth server, which
