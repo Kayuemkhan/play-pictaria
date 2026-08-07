@@ -859,6 +859,23 @@ export function PuzzleBoard({
         </div>
         <div className="flex items-center gap-2 text-xs tabular-nums sm:gap-3 sm:text-sm">
           <button
+            aria-label={musicOn ? "Turn music off" : "Turn music on"}
+            aria-pressed={musicOn}
+            title={
+              musicTitle
+                ? `${musicTitle} — ${musicOn ? "on" : "off"}`
+                : "Mindful music"
+            }
+            onClick={() => void toggleMindfulMusic()}
+            className={`flex h-8 w-8 items-center justify-center rounded-full transition-colors ${
+              musicOn
+                ? "bg-primary text-primary-foreground"
+                : "bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground"
+            }`}
+          >
+            {musicOn ? <Music size={16} /> : <VolumeX size={16} />}
+          </button>
+          <button
             aria-label="Flash puzzle box reference"
             onClick={() => {
               if (showReference) return;
@@ -869,6 +886,7 @@ export function PuzzleBoard({
           >
             <Search size={16} />
           </button>
+
           <span className="rounded-full bg-secondary px-2.5 py-1 text-secondary-foreground">
             {formatTime(seconds)}
           </span>
