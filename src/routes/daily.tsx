@@ -2,12 +2,14 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { saveDailySubscriber } from "@/lib/daily.functions";
+import { getDailyPicks } from "@/lib/daily-pick.functions";
 import { supabase } from "@/integrations/supabase/client";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 
 import mindfulnessHero from "@/assets/mindfulness-hero.jpg";
+
 import palmLogoOnly from "@/assets/logo-palms-only.png";
 
 export const Route = createFileRoute("/daily")({
@@ -41,7 +43,10 @@ function DailyPage() {
   const [errorMsg, setErrorMsg] = useState("");
   const [signedUp, setSignedUp] = useState(false);
   const [sessionEmail, setSessionEmail] = useState<string | null>(null);
+  // Which puzzle the founder has chosen as today's Pictaria in the portal.
+  const [todaysPuzzleId, setTodaysPuzzleId] = useState("turtle-09");
   const saveSubscriber = useServerFn(saveDailySubscriber);
+  const loadPicks = useServerFn(getDailyPicks);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -60,12 +65,30 @@ function DailyPage() {
   }, []);
 
   useEffect(() => {
+    const loadToday = async () => {
+      try {
+        const result = await loadPicks({});
+        if (result.current?.puzzle_id) setTodaysPuzzleId(result.current.puzzle_id);
+      } catch {
+        // Keep the fallback puzzle if the pick can't be read.
+      }
+    };
+    void loadToday();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
     if (status !== "done") return undefined;
     const timer = setTimeout(() => {
-      navigate({ to: "/puzzle/$puzzleId", params: { puzzleId: "turtle-09" } });
+      navigate({
+        to: "/puzzle/$puzzleId",
+        params: { puzzleId: todaysPuzzleId },
+        search: { grid: undefined },
+      });
     }, 1500);
     return () => clearTimeout(timer);
-  }, [status, navigate]);
+  }, [status, navigate, todaysPuzzleId]);
+
 
 
   const submit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -130,9 +153,11 @@ function DailyPage() {
                 {status !== "done" && (
                   <Link
                     to="/puzzle/$puzzleId"
-                    params={{ puzzleId: "turtle-09" }}
+                    params={{ puzzleId: todaysPuzzleId }}
+                    search={{ grid: undefined }}
                     className="mt-4 inline-flex w-full items-center justify-center rounded-full bg-primary px-4 py-2 text-[0.55rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
                   >
+
                     Play today's Pictaria
                   </Link>
                 )}

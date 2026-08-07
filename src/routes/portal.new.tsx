@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { BusinessEditor } from "@/components/portal/BusinessEditor";
 
@@ -23,8 +23,25 @@ function NewBusiness() {
         </p>
       </header>
       <div className="mx-auto mt-6 max-w-md">
+        <Link
+          to="/portal/daily"
+          className="mb-5 flex items-center justify-between rounded-lg border border-accent/40 bg-shell/90 px-5 py-4 shadow-soft transition-transform hover:scale-[1.01]"
+        >
+          <span>
+            <span className="block font-display text-[1.05rem] text-foreground">
+              Today&apos;s Pictaria
+            </span>
+            <span className="text-[10px] tracking-[0.16em] text-muted-foreground uppercase">
+              choose from the waiting area
+            </span>
+          </span>
+          <span aria-hidden className="text-primary">
+            ›
+          </span>
+        </Link>
         <BusinessEditor />
       </div>
     </main>
   );
 }
+
