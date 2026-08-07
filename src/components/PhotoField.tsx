@@ -104,7 +104,7 @@ export function PhotoPick({
           }}
           className="sr-only"
         />
-        {embedded ? (
+        {embedded && capture ? (
           <button
             type="button"
             onClick={openEmbeddedPicker}
