@@ -555,7 +555,7 @@ export function PuzzleBoard({
     const cell = Number(cellEl.getAttribute("data-cell"));
     const piece = pos.indexOf(cell);
     if (piece < 0) return;
-    // every cluster stays movable — only a finished puzzle stops responding
+    if (lockedPieces.has(piece)) return; // locked tiles stay put
 
     viewportRef.current?.setPointerCapture(e.pointerId);
     dragStart.current = {
