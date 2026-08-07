@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Music, Search, VolumeX } from "lucide-react";
+import palmLogo from "@/assets/logo-palms-only.png";
 import { playLock, playPick, playSolved } from "@/lib/feedback";
 import {
   toggleMindfulMusic,
@@ -858,7 +859,14 @@ export function PuzzleBoard({
   return (
     <div className="relative flex h-[100dvh] w-full flex-col overflow-hidden bg-mist-gradient">
       {/* top bar */}
-      <header className="glass-panel z-20 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-3 py-2.5 sm:px-5">
+      <header className="glass-panel z-20 grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 px-3 py-2.5 sm:px-5">
+        <img
+          src={palmLogo}
+          alt="Pictaria"
+          width={1024}
+          height={1024}
+          className="h-8 w-auto shrink-0 sm:h-10"
+        />
         <div className="min-w-0 text-center">
           <p className="truncate font-display text-lg leading-tight sm:text-xl">
             {title}
