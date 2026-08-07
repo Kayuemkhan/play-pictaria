@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { useServerFn } from "@tanstack/react-start";
 import { publishPictaria } from "@/lib/pictarias.functions";
+import { PhotoPick, PhotoPlaceholder } from "@/components/PhotoField";
 
 export type StudioTier = "free" | "personal" | "artist" | "brand";
 
@@ -195,8 +196,6 @@ export function StudioComposer({
     { key: "vignette" as const, label: "Vignette", icon: Aperture, min: 0, max: 100 },
   ];
 
-  const fileInput = useRef<HTMLInputElement>(null);
-  const logoInput = useRef<HTMLInputElement>(null);
   const urls = useRef<string[]>([]);
 
   useEffect(
@@ -455,15 +454,18 @@ export function StudioComposer({
                     ? `Add up to ${maxPhotos} pictures`
                     : "Add one picture"}
               </p>
-              <button
-                type="button"
-                onClick={() => fileInput.current?.click()}
+              <PhotoPick
+                label={photos.length ? "Add more pictures" : "Choose photos"}
+                multiple={maxPhotos > 1}
                 disabled={photos.length >= maxPhotos}
-                className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-deep px-3 py-1.5 text-[0.55rem] tracking-[0.18em] text-accent uppercase shadow-soft transition-transform hover:scale-[1.03] disabled:opacity-50"
+                onFiles={add}
+                className="shrink-0"
               >
-                <ImagePlus className="h-3 w-3" strokeWidth={1.5} />
-                {photos.length ? "Add more" : "Choose photos"}
-              </button>
+                <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-deep px-3 py-1.5 text-[0.55rem] tracking-[0.18em] text-accent uppercase shadow-soft transition-transform hover:scale-[1.03]">
+                  <ImagePlus className="h-3 w-3" strokeWidth={1.5} />
+                  {photos.length ? "Add more" : "Choose photos"}
+                </span>
+              </PhotoPick>
             </div>
 
             {photos.length > 0 && (
@@ -576,30 +578,23 @@ export function StudioComposer({
               <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground">
                 Upload your mark, then drag it anywhere on the photograph.
               </p>
-              <input
-                ref={logoInput}
-                type="file"
-                accept="image/png,image/webp,image/jpeg"
-                className="sr-only"
-                onChange={(e) => {
-                  const file = e.target.files?.[0];
-                  if (file) {
+              <div className="mt-3 flex flex-wrap items-center gap-3">
+                <PhotoPick
+                  label={logoUrl ? "Replace your logo" : "Upload your logo"}
+                  accept="image/png,image/webp,image/jpeg"
+                  onFiles={(files) => {
+                    const file = files?.[0];
+                    if (!file) return;
                     const url = URL.createObjectURL(file);
                     urls.current.push(url);
                     setLogoUrl(url);
                     setShareUrl("");
-                  }
-                  e.target.value = "";
-                }}
-              />
-              <div className="mt-3 flex flex-wrap items-center gap-3">
-                <button
-                  type="button"
-                  onClick={() => logoInput.current?.click()}
-                  className="rounded-full bg-deep px-3 py-1.5 text-[0.55rem] tracking-[0.18em] text-accent uppercase shadow-soft"
+                  }}
                 >
-                  {logoUrl ? "Replace logo" : "Upload logo"}
-                </button>
+                  <span className="rounded-full bg-deep px-3 py-1.5 text-[0.55rem] tracking-[0.18em] text-accent uppercase shadow-soft">
+                    {logoUrl ? "Replace logo" : "Upload logo"}
+                  </span>
+                </PhotoPick>
                 {logoUrl && (
                   <label className="grid flex-1 gap-1">
                     <span className="text-[10px] tracking-[0.18em] text-muted-foreground uppercase">
