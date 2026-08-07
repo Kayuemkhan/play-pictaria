@@ -377,54 +377,8 @@ export function BusinessEditor({ record }: Props) {
               onChange={(event) => set(key, event.target.value as never)}
               className="mt-1.5"
             />
-            {key === "email" && (
-              <div className="mt-2 rounded-md border border-accent/40 bg-muted/40 px-3 py-2.5">
-                <p className="text-[11px] leading-relaxed text-foreground">
-                  Their Pictaria may take a little while to create. When it is
-                  ready to go out, we’ll email the finished Pictaria to this
-                  address so they can share it with their customers and socials.
-                </p>
-              </div>
-            )}
           </div>
         ))}
-
-        <div className="grid grid-cols-2 gap-3">
-          <div>
-            <Label htmlFor="category" className={labelClass}>
-              Category
-            </Label>
-            <select
-              id="category"
-              value={fields.category}
-              onChange={(event) => set("category", event.target.value as PortalCategory)}
-              className="mt-1.5 h-9 w-full rounded-md border border-input bg-background px-2 text-[13px] text-foreground"
-            >
-              {PORTAL_CATEGORIES.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div>
-            <Label htmlFor="status" className={labelClass}>
-              Status
-            </Label>
-            <select
-              id="status"
-              value={fields.status}
-              onChange={(event) => set("status", event.target.value as PortalStatus)}
-              className="mt-1.5 h-9 w-full rounded-md border border-input bg-background px-2 text-[13px] text-foreground"
-            >
-              {PORTAL_STATUSES.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
 
         {LONG_FIELDS.map((key) => (
           <div key={key}>
@@ -433,13 +387,51 @@ export function BusinessEditor({ record }: Props) {
             </Label>
             <Textarea
               id={key}
-              rows={key === "follow_up" ? 2 : 4}
+              rows={4}
               value={String(fields[key])}
               onChange={(event) => set(key, event.target.value as never)}
               className="mt-1.5"
             />
           </div>
         ))}
+
+        <div>
+          <Label htmlFor="category" className={labelClass}>
+            Category
+          </Label>
+          <select
+            id="category"
+            value={fields.category}
+            onChange={(event) => set("category", event.target.value as PortalCategory)}
+            className="mt-1.5 h-9 w-full rounded-md border border-input bg-background px-2 text-[13px] text-foreground"
+          >
+            {PORTAL_CATEGORIES.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div>
+          <Label htmlFor="email" className={labelClass}>
+            Email address
+          </Label>
+          <Input
+            id="email"
+            type="email"
+            value={String(fields.email)}
+            onChange={(event) => set("email", event.target.value)}
+            className="mt-1.5"
+          />
+          <div className="mt-2 rounded-md border border-accent/40 bg-muted/40 px-3 py-2.5">
+            <p className="text-[11px] leading-relaxed text-foreground">
+              Their Pictaria may take a little while to create. When it is
+              ready to go out, we’ll email the finished Pictaria to this
+              address so they can share it with their customers and socials.
+            </p>
+          </div>
+        </div>
       </section>
 
       {/* AI preview */}
