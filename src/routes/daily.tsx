@@ -121,11 +121,22 @@ function DailyPage() {
                   Welcome to Pictaria
                 </p>
                 <p className="mt-2 text-[11px] leading-relaxed text-muted-foreground">
-                  {sessionEmail
-                    ? `You're on the list at ${sessionEmail}. Taking you to today's Pictaria...`
-                    : "You're on the list. Taking you to today's Pictaria..."}
+                  {status === "done"
+                    ? "You're on the list. Taking you to today's Pictaria..."
+                    : sessionEmail
+                      ? `You're on the list at ${sessionEmail}.`
+                      : "You're on the list."}
                 </p>
-                {!sessionEmail && (
+                {status !== "done" && (
+                  <Link
+                    to="/puzzle/$puzzleId"
+                    params={{ puzzleId: "turtle-09" }}
+                    className="mt-4 inline-flex w-full items-center justify-center rounded-full bg-primary px-4 py-2 text-[0.55rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
+                  >
+                    Play today's Pictaria
+                  </Link>
+                )}
+                {!sessionEmail && status !== "done" && (
                   <button
                     type="button"
                     onClick={() => {
@@ -133,11 +144,12 @@ function DailyPage() {
                       setSignedUp(false);
                       setStatus("idle");
                     }}
-                    className="mt-3 text-[10px] tracking-[0.14em] text-muted-foreground uppercase underline transition-colors hover:text-foreground"
+                    className="mt-3 block w-full text-[10px] tracking-[0.14em] text-muted-foreground uppercase underline transition-colors hover:text-foreground"
                   >
                     Use a different email
                   </button>
                 )}
+
               </div>
 
             ) : (
