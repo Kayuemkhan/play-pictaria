@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { saveDailySubscriber } from "@/lib/daily.functions";
@@ -7,8 +7,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 
+import mindfulnessHero from "@/assets/mindfulness-hero.jpg";
 import palmLogoOnly from "@/assets/logo-palms-only.png";
-import hibiscus from "@/assets/flower-hibiscus-cutout.png";
 
 export const Route = createFileRoute("/daily")({
   head: () => ({
@@ -42,6 +42,7 @@ function DailyPage() {
   const [signedUp, setSignedUp] = useState(false);
   const [sessionEmail, setSessionEmail] = useState<string | null>(null);
   const saveSubscriber = useServerFn(saveDailySubscriber);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const check = async () => {
@@ -57,6 +58,15 @@ function DailyPage() {
     };
     check();
   }, []);
+
+  useEffect(() => {
+    if (signedUp || status === "done") {
+      const timer = setTimeout(() => {
+        navigate({ to: "/puzzle/turtle-09" });
+      }, 1500);
+      return () => clearTimeout(timer);
+    }
+  }, [signedUp, status, navigate]);
 
   const submit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -75,104 +85,86 @@ function DailyPage() {
     }
   };
 
-  if (signedUp || status === "done") {
-    return (
-      <main className="flex min-h-screen flex-col items-center justify-center bg-deep px-6 py-12 text-center">
-        <div
-          role="img"
-          aria-label="Pictaria"
-          className="h-44 w-44 sm:h-56 sm:w-56"
-          style={{
-            maskImage: `url(${palmLogoOnly})`,
-            WebkitMaskImage: `url(${palmLogoOnly})`,
-            maskSize: "contain",
-            WebkitMaskSize: "contain",
-            maskRepeat: "no-repeat",
-            WebkitMaskRepeat: "no-repeat",
-            maskPosition: "center",
-            WebkitMaskPosition: "center",
-            backgroundImage:
-              "linear-gradient(158deg, oklch(0.95 0.07 92) 0%, oklch(0.86 0.12 85) 32%, oklch(0.72 0.13 74) 62%, oklch(0.55 0.11 62) 100%)",
-            filter: "drop-shadow(0 6px 20px oklch(0.15 0.04 230 / 0.6))",
-          }}
-        />
-        <p className="mt-6 max-w-sm font-display text-[1.6rem] leading-snug text-accent">
-          Welcome to Pictaria
-        </p>
-        <p className="mt-3 max-w-sm font-display text-[1.15rem] leading-snug text-accent">
-          {sessionEmail
-            ? `You're on the list at ${sessionEmail} for a free puzzle every single day.`
-            : "You're on the list for a free puzzle every single day."}
-        </p>
-        <Link
-          to="/"
-          className="mt-9 font-display text-[0.95rem] tracking-[0.2em] text-accent uppercase transition-opacity hover:opacity-75"
-        >
-          Back home <span aria-hidden>›</span>
-        </Link>
-      </main>
-    );
-  }
-
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-deep px-6 py-12">
-      <div className="relative w-full max-w-sm overflow-hidden rounded-lg border border-accent/60 bg-shell p-6 text-center shadow-soft">
+    <main className="min-h-screen bg-deep">
+      <div className="relative h-[46vh] min-h-[300px] w-full sm:h-[50vh]">
         <img
-          src={hibiscus}
-          alt=""
-          width={200}
-          height={200}
-          className="pointer-events-none absolute -right-4 -top-4 h-20 w-auto opacity-90"
+          src={mindfulnessHero}
+          alt="A calm Hawaiian tide pool with a floating plumeria flower at sunset"
+          className="absolute inset-0 h-full w-full object-cover grayscale"
+          width={1344}
+          height={896}
         />
-        <img
-          src={palmLogoOnly}
-          alt="Pictaria"
-          width={1024}
-          height={1024}
-          className="mx-auto h-16 w-auto rounded-[6px] drop-shadow-[0_2px_8px_oklch(0.15_0.04_230/0.5)]"
-        />
-        <h1 className="mt-3 font-display text-[1.35rem] text-foreground">
-          Pictaria Daily
-        </h1>
-        <p className="mt-1 text-[11px] tracking-[0.12em] text-muted-foreground uppercase">
-          A free puzzle of Paradise, every single day
-        </p>
+        <div className="absolute inset-0 bg-gradient-to-b from-deep/40 via-deep/20 to-deep" />
+      </div>
 
-        <form onSubmit={submit} className="mt-6 text-left">
-          <Label
-            htmlFor="email"
-            className="text-[0.55rem] tracking-[0.18em] text-muted-foreground uppercase"
-          >
-            Email address
-          </Label>
-          <Input
-            id="email"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="you@example.com"
-            required
-            className="mt-1.5"
-          />
-          {status === "error" && (
-            <p className="mt-2 text-[11px] text-destructive">{errorMsg}</p>
-          )}
-          <Button
-            type="submit"
-            disabled={status === "submitting"}
-            className="mt-4 w-full rounded-full bg-primary text-[0.55rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03] disabled:opacity-60"
-          >
-            {status === "submitting" ? "Saving..." : "Start here"}
-          </Button>
-        </form>
+      <div className="relative z-10 -mt-24 px-5 pb-12 sm:-mt-28 sm:px-8">
+        <div className="mx-auto max-w-sm">
+          <div className="relative overflow-hidden rounded-lg border border-accent/60 bg-shell p-6 text-center shadow-soft">
+            <img
+              src={palmLogoOnly}
+              alt="Pictaria"
+              width={1024}
+              height={1024}
+              className="mx-auto h-16 w-auto rounded-[6px] drop-shadow-[0_2px_8px_oklch(0.15_0.04_230/0.5)]"
+            />
+            <h1 className="mt-3 font-display text-[1.35rem] text-foreground">
+              Pictaria Daily
+            </h1>
+            <p className="mt-1 text-[11px] tracking-[0.12em] text-muted-foreground uppercase">
+              A free puzzle of Paradise, every single day
+            </p>
 
-        <Link
-          to="/"
-          className="mt-5 inline-flex items-center gap-1 text-[11px] tracking-[0.12em] text-muted-foreground uppercase transition-colors hover:text-foreground"
-        >
-          <span aria-hidden>‹</span>
-          Back home
-        </Link>
+            {(signedUp || status === "done") ? (
+              <div className="mt-6 text-center">
+                <p className="font-display text-[1.15rem] leading-snug text-foreground">
+                  Welcome to Pictaria
+                </p>
+                <p className="mt-2 text-[11px] leading-relaxed text-muted-foreground">
+                  {sessionEmail
+                    ? `You're on the list at ${sessionEmail}. Taking you to today's Pictaria...`
+                    : "You're on the list. Taking you to today's Pictaria..."}
+                </p>
+              </div>
+            ) : (
+              <form onSubmit={submit} className="mt-6 text-left">
+                <Label
+                  htmlFor="email"
+                  className="text-[0.55rem] tracking-[0.18em] text-muted-foreground uppercase"
+                >
+                  Email address
+                </Label>
+                <Input
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="you@example.com"
+                  required
+                  className="mt-1.5"
+                />
+                {status === "error" && (
+                  <p className="mt-2 text-[11px] text-destructive">{errorMsg}</p>
+                )}
+                <Button
+                  type="submit"
+                  disabled={status === "submitting"}
+                  className="mt-4 w-full rounded-full bg-primary text-[0.55rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03] disabled:opacity-60"
+                >
+                  {status === "submitting" ? "Saving..." : "Play today's Pictaria"}
+                </Button>
+              </form>
+            )}
+
+            <Link
+              to="/"
+              className="mt-5 inline-flex items-center gap-1 text-[11px] tracking-[0.12em] text-muted-foreground uppercase transition-colors hover:text-foreground"
+            >
+              <span aria-hidden>‹</span>
+              Back home
+            </Link>
+          </div>
+        </div>
       </div>
     </main>
   );
