@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { saveDailySubscriber } from "@/lib/daily.functions";
 import { getDailyPicks } from "@/lib/daily-pick.functions";
+import { isPortalPick, portalPickCode } from "@/lib/daily-display";
 import { supabase } from "@/integrations/supabase/client";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -80,6 +81,13 @@ function DailyPage() {
   useEffect(() => {
     if (status !== "done") return undefined;
     const timer = setTimeout(() => {
+      if (isPortalPick(todaysPuzzleId)) {
+        navigate({
+          to: "/p/$code",
+          params: { code: portalPickCode(todaysPuzzleId) },
+        });
+        return;
+      }
       navigate({
         to: "/puzzle/$puzzleId",
         params: { puzzleId: todaysPuzzleId },
@@ -150,7 +158,16 @@ function DailyPage() {
                       ? `You're on the list at ${sessionEmail}.`
                       : "You're on the list."}
                 </p>
-                {status !== "done" && (
+                {status !== "done" && isPortalPick(todaysPuzzleId) && (
+                  <Link
+                    to="/p/$code"
+                    params={{ code: portalPickCode(todaysPuzzleId) }}
+                    className="mt-4 inline-flex w-full items-center justify-center rounded-full bg-primary px-4 py-2 text-[0.55rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
+                  >
+                    Play today's Pictaria
+                  </Link>
+                )}
+                {status !== "done" && !isPortalPick(todaysPuzzleId) && (
                   <Link
                     to="/puzzle/$puzzleId"
                     params={{ puzzleId: todaysPuzzleId }}
