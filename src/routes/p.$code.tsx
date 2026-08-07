@@ -64,6 +64,11 @@ function SharedPictaria() {
 
   useEffect(() => {
     let active = true;
+    if (code === "sample") {
+      setShared(SAMPLE);
+      setState("ready");
+      return;
+    }
     fetchShared({ data: { code } })
       .then((result) => {
         if (!active) return;
