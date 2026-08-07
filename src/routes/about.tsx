@@ -6,20 +6,20 @@ import whiteSand from "@/assets/turtle-02.jpg";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "What is Pictaria? — Turn Pictures Into Play" },
+      { title: "What is Pictaria? — Discover Beautiful Photography" },
       {
         name: "description",
         content:
-          "Pictaria turns your favorite photographs into calm, beautiful puzzles. Play free collections or create your own storybook to share.",
+          "Discover beautiful photography one puzzle \"peace\" at a time. Pictaria turns your favorite photographs into calm, beautiful puzzles.",
       },
       {
         property: "og:title",
-        content: "What is Pictaria? — Turn Pictures Into Play",
+        content: "What is Pictaria? — Discover Beautiful Photography",
       },
       {
         property: "og:description",
         content:
-          "Pictaria turns your favorite photographs into calm, beautiful puzzles. Play free collections or create your own storybook to share.",
+          "Discover beautiful photography one puzzle \"peace\" at a time. Pictaria turns your favorite photographs into calm, beautiful puzzles.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://play-pictaria.lovable.app/about" },
@@ -59,7 +59,7 @@ function AboutPage() {
             className="mx-auto h-32 w-auto rounded-[8px] drop-shadow-[0_4px_18px_oklch(0.15_0.04_230/0.65)] sm:h-40"
           />
           <h1 className="mt-6 font-display text-[1.6rem] leading-snug text-shell sm:text-[2rem]">
-            Pictaria turns your pictures into peaceful puzzles.
+            Discover beautiful photography one puzzle “peace” at a time.
           </h1>
 
 
