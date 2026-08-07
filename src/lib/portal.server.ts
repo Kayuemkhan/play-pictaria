@@ -265,6 +265,19 @@ function coerceOrganised(text: string | undefined, transcript: string): Organise
   return result;
 }
 
+/**
+ * Keeps the description box from ever landing empty: uses the spoken words,
+ * minus the sentences that were only contact details.
+ */
+function describeFromTranscript(transcript: string) {
+  const text = (transcript ?? "").replace(/\s+/g, " ").trim();
+  if (!text) return "";
+  const sentences = text
+    .split(/(?<=[.!?])\s+/)
+    .filter((sentence) => !/\d{3}[\s.-]?\d{4}|@|https?:|\bdot com\b/i.test(sentence));
+  return (sentences.join(" ").trim() || text).slice(0, 2000);
+}
+
 /** Last-resort company name lift from the raw transcript. */
 function guessCompanyName(transcript: string) {
   const text = (transcript ?? "").replace(/\s+/g, " ").trim();
