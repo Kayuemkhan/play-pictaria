@@ -864,13 +864,23 @@ export function PuzzleBoard({
     <div className="relative flex h-[100dvh] w-full flex-col overflow-hidden bg-mist-gradient">
       {/* top bar */}
       <header className="glass-panel z-20 grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 px-3 py-2.5 sm:px-5">
-        <img
-          src={palmLogo}
-          alt="Pictaria"
-          width={1024}
-          height={1024}
-          className="h-8 w-auto shrink-0 sm:h-10"
-        />
+        {unbranded ? (
+          <span aria-hidden className="w-1" />
+        ) : (
+          <Link
+            to="/"
+            aria-label="Pictaria — turn pictures into play"
+            className="shrink-0 transition-transform hover:scale-[1.04]"
+          >
+            <img
+              src={palmLogo}
+              alt="Pictaria"
+              width={1024}
+              height={1024}
+              className="h-8 w-auto sm:h-10"
+            />
+          </Link>
+        )}
         <div className="min-w-0 text-center">
           <p className="truncate font-display text-lg leading-tight sm:text-xl">
             {title}
