@@ -43,10 +43,10 @@ export function PortalLock({ onUnlocked }: { onUnlocked: () => void }) {
           className="mx-auto h-12 w-auto"
         />
         <h1 className="mt-3 font-display text-[1.3rem] text-foreground">
-          Victoria's
+          Project Pictaria's
         </h1>
         <p className="mt-1 text-[11px] tracking-[0.16em] text-muted-foreground uppercase">
-          A community project celebrating Maui businesses
+          a community project for Maui support
         </p>
 
         <div className="mt-6 text-left">
