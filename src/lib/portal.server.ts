@@ -1,6 +1,6 @@
 import { useSession } from "@tanstack/react-start/server";
 import { createHash, timingSafeEqual } from "node:crypto";
-import { generateText, Output } from "ai";
+import { NoObjectGeneratedError, generateText, Output } from "ai";
 import { z } from "zod";
 
 import { createLovableAiGatewayProvider } from "./ai-gateway.server";
