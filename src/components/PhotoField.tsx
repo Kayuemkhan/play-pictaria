@@ -48,6 +48,8 @@ export function PhotoPick({
   className = "",
   children,
 }: PickProps) {
+  const [allowCapture, setAllowCapture] = useState(false);
+  useEffect(() => setAllowCapture(captureSupported()), []);
   return (
     <span className={`relative isolate ${className || "inline-flex"}`}>
       {children}
@@ -55,7 +57,7 @@ export function PhotoPick({
         type="file"
         accept={accept}
         {...(multiple ? { multiple: true } : {})}
-        {...(capture ? { capture } : {})}
+        {...(capture && allowCapture ? { capture } : {})}
         disabled={disabled}
         aria-label={label}
         title={label}
