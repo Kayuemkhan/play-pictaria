@@ -14,6 +14,24 @@ export type Database = {
   }
   public: {
     Tables: {
+      daily_picks: {
+        Row: {
+          id: string
+          picked_at: string
+          puzzle_id: string
+        }
+        Insert: {
+          id?: string
+          picked_at?: string
+          puzzle_id: string
+        }
+        Update: {
+          id?: string
+          picked_at?: string
+          puzzle_id?: string
+        }
+        Relationships: []
+      }
       daily_subscribers: {
         Row: {
           created_at: string
