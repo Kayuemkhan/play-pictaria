@@ -9,8 +9,8 @@ import { listPortalBusinesses } from "@/lib/portal.functions";
 export const Route = createFileRoute("/portal/new")({
   head: () => ({
     meta: [
-      { title: "New Business — Pictaria Portal" },
-      { name: "description", content: "Internal Pictaria field capture." },
+      { title: "New Business — Victoria's" },
+      { name: "description", content: "A community project celebrating Maui businesses." },
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
@@ -39,7 +39,7 @@ function NewBusiness() {
       <header className="mx-auto max-w-md text-center">
         <h1 className="font-display text-[1.5rem] text-shell">New business</h1>
         <p className="mt-1 text-[10px] tracking-[0.2em] text-shell/60 uppercase">
-          One photo · one voice note
+          Victoria's — a community project celebrating Maui businesses
         </p>
         <Link
           to="/portal"

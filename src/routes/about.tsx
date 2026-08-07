@@ -105,11 +105,28 @@ function AboutPage() {
       {/* final CTA */}
       <section className="mt-10 px-4 text-center sm:px-8">
         <p className="font-display text-[1.1rem] text-shell">
-          Pictures say a thousand words. Puzzles make them fun.
+          pictures are worth a thousand words puzzles make them fun
+        </p>
+        <svg
+          aria-hidden="true"
+          className="mx-auto mt-4 h-3 w-24 text-accent"
+          viewBox="0 0 96 12"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M2 7C2 7 14 2 24 7C34 12 46 2 58 7C70 12 82 2 94 7"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+          />
+        </svg>
+        <p className="mt-3 text-[0.75rem] tracking-[0.16em] text-shell/70 uppercase">
+          Amy waking wolf
         </p>
         <Link
           to="/collections"
-          className="mt-5 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-[0.7rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
+          className="mt-6 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-[0.7rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
         >
           Start playing
           <ArrowRight className="h-3.5 w-3.5" strokeWidth={2} />
