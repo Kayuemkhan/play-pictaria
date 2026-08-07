@@ -100,7 +100,6 @@ export function PuzzleBoard({
     group: number;
     dx: number;
     dy: number;
-    valid: boolean;
   } | null>(null);
 
   const total = grid * grid;
