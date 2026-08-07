@@ -296,19 +296,15 @@ function Home() {
               <p className="min-w-0 font-display text-[0.85rem] leading-snug [color:color-mix(in_oklch,var(--foreground)_92%,black)]">
                 I need a little paradise and I need just a little play — please send me a free Pictaria every single day
               </p>
-              <div className="flex shrink-0 flex-col items-end gap-2">
-                <Link
-                  to="/puzzle/turtle-09"
-                  className="inline-flex items-center gap-1.5 rounded-full bg-primary px-2.5 py-1 text-[0.55rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
-                >
-                  Play a free Pictaria
-                  <span aria-hidden>›</span>
-                </Link>
+              <div className="flex shrink-0 flex-col items-end gap-1">
+                <span className="text-[0.55rem] tracking-[0.18em] text-muted-foreground uppercase">
+                  Today's free Pictaria
+                </span>
                 <Link
                   to="/daily"
-                  className="inline-flex items-center gap-1.5 rounded-full border border-accent/60 bg-card/80 px-2.5 py-1 text-[0.55rem] tracking-[0.2em] text-foreground uppercase shadow-soft transition-transform hover:scale-[1.03]"
+                  className="inline-flex items-center gap-1.5 rounded-full bg-primary px-2.5 py-1 text-[0.55rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
                 >
-                  Get it daily
+                  Play today's Pictaria
                   <span aria-hidden>›</span>
                 </Link>
               </div>
