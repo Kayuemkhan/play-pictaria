@@ -173,6 +173,11 @@ Rules:
   (e.g. "eight zero eight five five five one two one two" -> "808-555-1212",
   "amy at kai gallery dot com" -> "amy@kaigallery.com").
 - Choose the closest business category; use "Other" when unclear.
+- product_service is required whenever the speaker describes the business at
+  all. Write two or three warm sentences describing what this business offers
+  and what should be photographed for their Pictaria — their products, food,
+  art, rooms, tours, view, or atmosphere as described in the note. Never leave
+  it empty if the note says anything about what the business does.
 - marketing_ideas, story_ideas and notes may be a few short sentences or
   dash-prefixed lines. Keep the speaker's own voice.
 - follow_up should be a short reminder, including any timing that was mentioned.
@@ -242,12 +247,35 @@ function coerceOrganised(text: string | undefined, transcript: string): Organise
     result.phone = guessPhone(transcript);
   }
 
+  // The description box is the one the note always has something for: fall back
+  // to whatever else the model wrote, then to the spoken words themselves.
+  if (!result.product_service) {
+    result.product_service =
+      [result.story_ideas, result.marketing_ideas, result.notes]
+        .map((value) => value.trim())
+        .find(Boolean) ?? describeFromTranscript(transcript);
+  }
+
+
   // Never lose the spoken words: if nothing landed, keep the transcript.
   const anyFilled = Object.entries(result).some(
     ([field, value]) => field !== "category" && value !== "",
   );
   if (!anyFilled) result.notes = transcript;
   return result;
+}
+
+/**
+ * Keeps the description box from ever landing empty: uses the spoken words,
+ * minus the sentences that were only contact details.
+ */
+function describeFromTranscript(transcript: string) {
+  const text = (transcript ?? "").replace(/\s+/g, " ").trim();
+  if (!text) return "";
+  const sentences = text
+    .split(/(?<=[.!?])\s+/)
+    .filter((sentence) => !/\d{3}[\s.-]?\d{4}|@|https?:|\bdot com\b/i.test(sentence));
+  return (sentences.join(" ").trim() || text).slice(0, 2000);
 }
 
 /** Last-resort company name lift from the raw transcript. */
