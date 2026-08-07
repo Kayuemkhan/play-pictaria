@@ -164,6 +164,11 @@ Rules:
   name only. If only one name is mentioned and it sounds like a business, it is
   the company_name.
 - Leave a field as an empty string when the note does not cover it.
+- phone is second in importance after company_name. Capture ANY spoken number
+  that could be a phone number, however it is said: as digits, as words, in
+  pairs or triples ("eight oh eight, five five five, twelve twelve"), with or
+  without an area code, and whether or not the speaker says the word "phone".
+  Always write it as 808-555-1212 (or 555-1212 when no area code was given).
 - Tidy spoken phone numbers, emails and websites into normal written form
   (e.g. "eight zero eight five five five one two one two" -> "808-555-1212",
   "amy at kai gallery dot com" -> "amy@kaigallery.com").
@@ -232,6 +237,11 @@ function coerceOrganised(text: string | undefined, transcript: string): Organise
     result.company_name = guessCompanyName(transcript);
   }
 
+  // Same safety net for the phone number.
+  if (!result.phone) {
+    result.phone = guessPhone(transcript);
+  }
+
   // Never lose the spoken words: if nothing landed, keep the transcript.
   const anyFilled = Object.entries(result).some(
     ([field, value]) => field !== "category" && value !== "",
@@ -253,6 +263,41 @@ function guessCompanyName(transcript: string) {
     const match = pattern.exec(text);
     const found = match?.[1]?.trim();
     if (found) return found.replace(/^(?:called|named)\s+/i, "").slice(0, 160);
+  }
+  return "";
+}
+
+const DIGIT_WORDS: Record<string, string> = {
+  zero: "0", oh: "0", o: "0", one: "1", two: "2", to: "2", too: "2",
+  three: "3", four: "4", for: "4", five: "5", six: "6", seven: "7",
+  eight: "8", nine: "9",
+};
+
+/** Last-resort phone lift: handles digits and spoken number words. */
+function guessPhone(transcript: string) {
+  const text = (transcript ?? "").toLowerCase();
+  if (!text) return "";
+
+  // Convert spoken digit words to digits, then collapse to a digit stream.
+  const normalised = text
+    .split(/[^a-z0-9]+/)
+    .map((token) => DIGIT_WORDS[token] ?? token)
+    .join(" ");
+
+  const candidates: string[] = [];
+  const written = /(\+?1[\s.-]*)?(\(?\d{3}\)?[\s.-]*)?\d{3}[\s.-]*\d{4}\b/g;
+  for (const match of normalised.matchAll(written)) {
+    candidates.push(match[0].replace(/\D/g, ""));
+  }
+
+  for (const raw of candidates) {
+    const digits = raw.replace(/^1(?=\d{10}$)/, "");
+    if (digits.length === 10) {
+      return `${digits.slice(0, 3)}-${digits.slice(3, 6)}-${digits.slice(6)}`;
+    }
+    if (digits.length === 7) {
+      return `${digits.slice(0, 3)}-${digits.slice(3)}`;
+    }
   }
   return "";
 }
