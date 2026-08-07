@@ -404,47 +404,84 @@ const STARTERS: Record<TrackId, (ctx: AudioContext, out: GainNode) => Engine> = 
   didgeridoo: startDidgeridoo,
 };
 
+/* ---------------------------------------------------------------
+   Module-level player so a soundscape keeps playing while you move
+   between pages and solve puzzles.
+---------------------------------------------------------------- */
+type Store = {
+  ctx: AudioContext | null;
+  master: GainNode | null;
+  engine: Engine | null;
+  playing: TrackId | null;
+  listeners: Set<() => void>;
+};
+
+const store: Store = {
+  ctx: null,
+  master: null,
+  engine: null,
+  playing: null,
+  listeners: new Set(),
+};
+
+function emit() {
+  store.listeners.forEach((fn) => fn());
+}
+
+export function stopMindfulTrack() {
+  store.engine?.stop();
+  store.engine = null;
+  store.playing = null;
+  emit();
+}
+
+export async function playMindfulTrack(id: TrackId) {
+  if (store.playing === id) {
+    stopMindfulTrack();
+    return;
+  }
+  store.engine?.stop();
+  store.engine = null;
+
+  if (!store.ctx) {
+    store.ctx = new AudioContext();
+    const master = store.ctx.createGain();
+    master.gain.value = 0.9;
+    master.connect(store.ctx.destination);
+    store.master = master;
+  }
+  if (store.ctx.state === "suspended") await store.ctx.resume();
+
+  store.engine = STARTERS[id](store.ctx, store.master!);
+  store.playing = id;
+  emit();
+}
+
+export function useMindfulPlayer() {
+  const [playing, setPlaying] = useState<TrackId | null>(store.playing);
+  useEffect(() => {
+    const listener = () => setPlaying(store.playing);
+    store.listeners.add(listener);
+    listener();
+    return () => {
+      store.listeners.delete(listener);
+    };
+  }, []);
+  return playing;
+}
+
 export function MindfulMusic() {
-  const [playing, setPlaying] = useState<TrackId | null>(null);
-  const ctxRef = useRef<AudioContext | null>(null);
-  const masterRef = useRef<GainNode | null>(null);
-  const engineRef = useRef<Engine | null>(null);
-
-  const stopAll = () => {
-    engineRef.current?.stop();
-    engineRef.current = null;
-    setPlaying(null);
-  };
-
-  useEffect(() => () => engineRef.current?.stop(), []);
-
-  const toggle = async (id: TrackId) => {
-    if (playing === id) {
-      stopAll();
-      return;
-    }
-    engineRef.current?.stop();
-    engineRef.current = null;
-
-    if (!ctxRef.current) {
-      ctxRef.current = new AudioContext();
-      const master = ctxRef.current.createGain();
-      master.gain.value = 0.9;
-      master.connect(ctxRef.current.destination);
-      masterRef.current = master;
-    }
-    const ctx = ctxRef.current;
-    if (ctx.state === "suspended") await ctx.resume();
-
-    engineRef.current = STARTERS[id](ctx, masterRef.current!);
-    setPlaying(id);
-  };
+  const playing = useMindfulPlayer();
 
   return (
     <div className="mt-8">
       <h2 className="font-display text-lg tracking-[0.18em] text-accent uppercase">
         Choose your sound
       </h2>
+      <p className="mt-2 font-body text-xs leading-relaxed font-light text-shell/70">
+        Sound keeps playing while you solve — start a track, then head into a
+        puzzle.
+      </p>
       <div className="mt-4 grid gap-3 sm:grid-cols-2">
         {TRACKS.map((track) => {
           const active = playing === track.id;
@@ -452,7 +489,7 @@ export function MindfulMusic() {
             <button
               key={track.id}
               type="button"
-              onClick={() => void toggle(track.id)}
+              onClick={() => void playMindfulTrack(track.id)}
               aria-pressed={active}
               className={`rounded-[6px] border p-4 text-left transition-colors ${
                 active
@@ -471,6 +508,9 @@ export function MindfulMusic() {
               <span className="mt-1.5 block font-body text-xs leading-relaxed font-light text-shell/70">
                 {track.blurb}
               </span>
+              <span className="mt-2 block font-body text-[0.7rem] leading-relaxed font-light text-accent/80">
+                {track.benefit}
+              </span>
             </button>
           );
         })}
@@ -478,7 +518,7 @@ export function MindfulMusic() {
       {playing ? (
         <button
           type="button"
-          onClick={stopAll}
+          onClick={stopMindfulTrack}
           className="mt-4 inline-flex items-center rounded-full border border-accent/40 px-5 py-2 font-body text-[0.65rem] tracking-[0.18em] text-shell/80 uppercase"
         >
           Stop sound
@@ -487,3 +527,30 @@ export function MindfulMusic() {
     </div>
   );
 }
+
+/** Small floating control shown anywhere in the app while a track plays. */
+export function MindfulMiniPlayer() {
+  const playing = useMindfulPlayer();
+  if (!playing) return null;
+  const track = TRACKS.find((t) => t.id === playing);
+  return (
+    <div className="pointer-events-auto fixed bottom-4 left-1/2 z-50 -translate-x-1/2 rounded-full border border-accent/40 bg-deep/90 px-4 py-2 shadow-soft backdrop-blur-md">
+      <div className="flex items-center gap-3">
+        <span aria-hidden className="text-accent">
+          ♪
+        </span>
+        <span className="font-body text-[0.7rem] font-light tracking-[0.08em] text-shell/85">
+          {track?.name}
+        </span>
+        <button
+          type="button"
+          onClick={stopMindfulTrack}
+          className="font-body text-[0.6rem] tracking-[0.18em] text-accent uppercase"
+        >
+          Stop
+        </button>
+      </div>
+    </div>
+  );
+}
+
