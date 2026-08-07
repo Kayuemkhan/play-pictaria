@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { ImagePlus } from "lucide-react";
 import resortCove from "@/assets/fsm-resort-cove.jpg.asset.json";
 
