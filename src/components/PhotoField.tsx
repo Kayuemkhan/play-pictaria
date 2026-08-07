@@ -20,6 +20,24 @@ type PickProps = {
  * and sandboxed frames often refuse. The capture hint opens the phone's native
  * camera, while an input without it opens the photo library.
  */
+/**
+ * Some embedded WebViews (the Lovable in-app preview, Facebook/Instagram
+ * browsers, older Android WebViews) accept `capture` on a file input but never
+ * hand the intent to a camera app, so the tap silently does nothing. In those
+ * environments we drop `capture` and let the OS show its normal sheet, which
+ * still offers "Camera" as the first option.
+ */
+function captureSupported() {
+  if (typeof navigator === "undefined") return false;
+  const ua = navigator.userAgent;
+  const embedded =
+    /LovableApp|FBAN|FBAV|Instagram|Line\/|; wv\)/i.test(ua) ||
+    (typeof window !== "undefined" && window.self !== window.top);
+  if (embedded) return false;
+  if (typeof document === "undefined") return true;
+  return "capture" in document.createElement("input");
+}
+
 export function PhotoPick({
   onFiles,
   multiple,
