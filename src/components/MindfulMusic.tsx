@@ -70,26 +70,55 @@ function startOcean(ctx: AudioContext, out: GainNode): Engine {
   noise.start();
   lfo.start();
 
+  // Seagull cries: harsh, nasal "kee-aah" calls that glide downward.
+  const gull = (t: number, pitch: number, pan: number) => {
+    const osc = ctx.createOscillator();
+    osc.type = "sawtooth";
+    const g = ctx.createGain();
+    const formant = ctx.createBiquadFilter();
+    formant.type = "bandpass";
+    formant.frequency.value = pitch * 3.2;
+    formant.Q.value = 5;
+    const shimmer = ctx.createBiquadFilter();
+    shimmer.type = "highpass";
+    shimmer.frequency.value = 500;
+    const panner = ctx.createStereoPanner();
+    panner.pan.value = pan;
+
+    // rising squawk then a long falling wail
+    osc.frequency.setValueAtTime(pitch * 0.8, t);
+    osc.frequency.exponentialRampToValueAtTime(pitch * 1.25, t + 0.07);
+    osc.frequency.exponentialRampToValueAtTime(pitch * 0.62, t + 0.42);
+
+    // rapid warble gives the raspy gull texture
+    const warble = ctx.createOscillator();
+    warble.frequency.value = 22 + Math.random() * 8;
+    const warbleGain = ctx.createGain();
+    warbleGain.gain.value = pitch * 0.06;
+    warble.connect(warbleGain).connect(osc.frequency);
+
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(0.09, t + 0.05);
+    g.gain.exponentialRampToValueAtTime(0.05, t + 0.22);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + 0.48);
+
+    osc.connect(formant).connect(shimmer).connect(g).connect(panner).connect(out);
+    osc.start(t);
+    warble.start(t);
+    osc.stop(t + 0.55);
+    warble.stop(t + 0.55);
+  };
+
   const birds = window.setInterval(() => {
-    const now = ctx.currentTime;
-    const chirps = 2 + Math.floor(Math.random() * 3);
-    for (let i = 0; i < chirps; i += 1) {
-      const t = now + i * (0.12 + Math.random() * 0.1);
-      const osc = ctx.createOscillator();
-      const g = ctx.createGain();
-      const base = 2100 + Math.random() * 1400;
-      osc.type = "sine";
-      osc.frequency.setValueAtTime(base, t);
-      osc.frequency.exponentialRampToValueAtTime(base * 1.5, t + 0.06);
-      osc.frequency.exponentialRampToValueAtTime(base * 0.9, t + 0.12);
-      g.gain.setValueAtTime(0.0001, t);
-      g.gain.exponentialRampToValueAtTime(0.05, t + 0.02);
-      g.gain.exponentialRampToValueAtTime(0.0001, t + 0.16);
-      osc.connect(g).connect(out);
-      osc.start(t);
-      osc.stop(t + 0.2);
+    const now = ctx.currentTime + 0.1;
+    const calls = 2 + Math.floor(Math.random() * 3);
+    const pitch = 760 + Math.random() * 320;
+    const pan = Math.random() * 1.6 - 0.8;
+    for (let i = 0; i < calls; i += 1) {
+      gull(now + i * (0.5 + Math.random() * 0.25), pitch * (1 - i * 0.04), pan);
     }
-  }, 6500);
+  }, 7000);
+
 
   return {
     stop: () => {
