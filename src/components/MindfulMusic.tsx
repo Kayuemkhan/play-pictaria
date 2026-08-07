@@ -587,7 +587,7 @@ export function MindfulMusic() {
 
 /** Small floating control shown anywhere in the app while a track plays. */
 export function MindfulMiniPlayer() {
-  const playing = useMindfulPlayer();
+  const { playing } = useMindfulPlayer();
   if (!playing) return null;
   const track = TRACKS.find((t) => t.id === playing);
   return (
