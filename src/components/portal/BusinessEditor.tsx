@@ -385,6 +385,15 @@ export function BusinessEditor({ record }: Props) {
               onChange={(event) => set(key, event.target.value as never)}
               className="mt-1.5"
             />
+            {key === "email" && (
+              <div className="mt-2 rounded-md border border-accent/40 bg-muted/40 px-3 py-2.5">
+                <p className="text-[11px] leading-relaxed text-foreground">
+                  Their Pictaria may take a little while to create. When it is
+                  ready to go out, we’ll email the finished Pictaria to this
+                  address so they can share it with their customers and socials.
+                </p>
+              </div>
+            )}
           </div>
         ))}
 
