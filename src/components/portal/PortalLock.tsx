@@ -43,10 +43,10 @@ export function PortalLock({ onUnlocked }: { onUnlocked: () => void }) {
           className="mx-auto h-12 w-auto"
         />
         <h1 className="mt-3 font-display text-[1.3rem] text-foreground">
-          Pictaria Portal
+          Victoria's
         </h1>
         <p className="mt-1 text-[11px] tracking-[0.16em] text-muted-foreground uppercase">
-          Internal use only
+          A community project celebrating Maui businesses
         </p>
 
         <div className="mt-6 text-left">
