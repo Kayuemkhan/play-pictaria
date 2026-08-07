@@ -9,7 +9,7 @@ export const Route = createFileRoute("/mindfulness")({
       {
         name: "description",
         content:
-          "Play a Pictaria with ocean waves, singing bowls, binaural beats, or a peaceful didgeridoo drum — gentle soundscapes for a calmer, more present mind.",
+          "Play a Pictaria with ocean waves, singing bowls, binaural beats, a peaceful didgeridoo drum, or a still meditation piece — gentle soundscapes for a calmer, more present mind.",
       },
       {
         property: "og:title",
@@ -18,7 +18,7 @@ export const Route = createFileRoute("/mindfulness")({
       {
         property: "og:description",
         content:
-          "Play a Pictaria with ocean waves, singing bowls, binaural beats, or a peaceful didgeridoo drum — gentle soundscapes for a calmer, more present mind.",
+          "Play a Pictaria with ocean waves, singing bowls, binaural beats, a peaceful didgeridoo drum, or a still meditation piece — gentle soundscapes for a calmer, more present mind.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
