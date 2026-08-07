@@ -373,17 +373,8 @@ export function StudioComposer({
         )}
       </header>
 
-      <input
-        ref={fileInput}
-        type="file"
-        accept="image/*"
-        multiple={maxPhotos > 1}
-        className="sr-only"
-        onChange={(e) => {
-          add(e.target.files);
-          e.target.value = "";
-        }}
-      />
+
+
 
       <div className="mx-auto mt-6 grid w-full max-w-5xl gap-6 px-4 sm:px-8 lg:grid-cols-[minmax(0,360px)_minmax(0,1fr)]">
         {/* the lab: the picture, then the studio controls right beneath it */}
