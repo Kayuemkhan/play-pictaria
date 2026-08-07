@@ -6,12 +6,10 @@ import { Mic, Square, Camera, Loader2, Trash2, Link2, Copy, Check, Image as Imag
 import {
   PORTAL_CATEGORIES,
   PORTAL_FIELD_LABELS,
-  PORTAL_STATUSES,
   emptyPortalFields,
   type PortalCategory,
   type PortalFields,
   type PortalRecord,
-  type PortalStatus,
 } from "@/lib/portal-types";
 import {
   createPortalShareLink,
@@ -36,7 +34,6 @@ const SHORT_FIELDS: { key: keyof PortalFields; label: string; type?: string }[] 
   { key: "company_name", label: "Company name" },
   { key: "contact_person", label: "Contact person" },
   { key: "phone", label: "Phone number", type: "tel" },
-  { key: "email", label: "Email address", type: "email" },
   { key: "website", label: "Website" },
 ];
 
@@ -102,7 +99,6 @@ export function BusinessEditor({ record }: Props) {
       const url = String(reader.result);
       setPhoto(url);
       setPhotoUrl(url);
-      if (fields.status === "New") set("status", "Photo Collected");
     };
     reader.readAsDataURL(file);
   };
