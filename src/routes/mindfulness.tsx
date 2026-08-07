@@ -1,23 +1,24 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import mindfulnessHero from "@/assets/mindfulness-hero.jpg";
+import { MindfulMusic } from "@/components/MindfulMusic";
 
 export const Route = createFileRoute("/mindfulness")({
   head: () => ({
     meta: [
-      { title: "Mindfulness — Pictaria" },
+      { title: "Mindful Music — Pictaria" },
       {
         name: "description",
         content:
-          "Puzzles invite mindfulness. Discover how solving a Pictaria can calm the mind, focus attention, and bring you gently into the present moment.",
+          "Play a Pictaria with ocean waves, singing bowls, binaural beats, or a peaceful didgeridoo drum — gentle soundscapes for a calmer, more present mind.",
       },
       {
         property: "og:title",
-        content: "Mindfulness — Pictaria",
+        content: "Mindful Music — Pictaria",
       },
       {
         property: "og:description",
         content:
-          "Puzzles invite mindfulness. Discover how solving a Pictaria can calm the mind, focus attention, and bring you gently into the present moment.",
+          "Play a Pictaria with ocean waves, singing bowls, binaural beats, or a peaceful didgeridoo drum — gentle soundscapes for a calmer, more present mind.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -44,11 +45,11 @@ function MindfulnessPage() {
       <div className="relative z-10 -mt-24 px-5 pb-12 sm:-mt-28 sm:px-8">
         <div className="mx-auto max-w-2xl">
           <h1 className="font-display text-2xl tracking-[0.12em] text-shell uppercase sm:text-3xl">
-            Mindfulness
+            Mindful Music
           </h1>
 
           <div className="mt-5 rounded-[6px] border border-accent/40 bg-deep/90 p-6 shadow-soft backdrop-blur-md sm:p-8">
-            <p className="font-body text-base leading-relaxed text-shell/95 sm:text-lg">
+            <p className="font-body text-base leading-relaxed font-light text-shell/90 sm:text-lg">
               Puzzles are more than entertainment. Research suggests they engage
               multiple areas of the brain at once, supporting visual-spatial
               skills, attention, working memory, and problem-solving. They also
@@ -58,6 +59,8 @@ function MindfulnessPage() {
               deeply satisfying.
             </p>
           </div>
+
+          <MindfulMusic />
 
           <Link
             to="/collection/$collectionId"
