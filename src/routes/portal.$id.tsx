@@ -25,13 +25,19 @@ function BusinessRecord() {
   const [record, setRecord] = useState<PortalRecord | null>(null);
 
   const check = async () => {
-    const result = await load({ data: { id } });
-    if (result.locked) {
-      setLocked(true);
-      return;
+    try {
+      const result = await load({ data: { id } });
+      if (result.locked) {
+        setLocked(true);
+        return;
+      }
+      setLocked(false);
+      setRecord(result.record);
+    } catch {
+      // Never leave a blank screen if the record can't be fetched.
+      setLocked(false);
+      setRecord(null);
     }
-    setLocked(false);
-    setRecord(result.record);
   };
 
   useEffect(() => {
@@ -39,8 +45,14 @@ function BusinessRecord() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
-  if (locked === null) return <main className="min-h-screen bg-deep" />;
+  if (locked === null)
+    return (
+      <main className="flex min-h-screen items-center justify-center bg-deep">
+        <p className="text-[10px] tracking-[0.2em] text-shell/60 uppercase">Loading…</p>
+      </main>
+    );
   if (locked) return <PortalLock onUnlocked={check} />;
+
 
   if (!record) {
     return (
