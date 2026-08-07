@@ -97,7 +97,7 @@ export const getSharedPictaria = createServerFn({ method: "POST" })
 
     const { data: row, error } = await supabaseAdmin
       .from("pictarias")
-      .select("share_code, title, tagline, story, grid, photo_paths")
+      .select("share_code, title, tagline, story, grid, tier, photo_paths")
       .eq("share_code", data.code)
       .maybeSingle();
     if (error) throw new Error(error.message);
@@ -116,6 +116,7 @@ export const getSharedPictaria = createServerFn({ method: "POST" })
       tagline: row.tagline,
       story: row.story,
       grid: row.grid,
+      tier: row.tier ?? "free",
       photos: urls,
     };
   });
