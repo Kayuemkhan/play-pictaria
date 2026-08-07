@@ -16,6 +16,14 @@ type PickProps = {
   children: React.ReactNode;
 };
 
+type FilePickerHandle = { getFile: () => Promise<File> };
+type FilePickerWindow = Window & {
+  showOpenFilePicker?: (options: {
+    multiple: boolean;
+    types: Array<{ description: string; accept: Record<string, string[]> }>;
+  }) => Promise<FilePickerHandle[]>;
+};
+
 /**
  * Wraps any visual with a real, invisible <input type="file"> on top so the tap
  * lands directly on the input — no programmatic .click(), which mobile browsers
@@ -61,7 +69,7 @@ export function PhotoPick({
       return;
     }
     try {
-      const picker = window.showOpenFilePicker;
+      const picker = (window as FilePickerWindow).showOpenFilePicker;
       if (!picker) {
         document.getElementById(inputId)?.click();
         return;
