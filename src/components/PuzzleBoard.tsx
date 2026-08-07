@@ -1141,6 +1141,14 @@ export function PuzzleBoard({
         </div>
       )}
 
+      {unbranded && (
+        <Link
+          to="/"
+          className="absolute bottom-1 left-1/2 z-20 -translate-x-1/2 text-[0.5rem] leading-none tracking-[0.16em] text-foreground/35 lowercase transition-colors hover:text-foreground/70"
+        >
+          made with pictaria
+        </Link>
+      )}
     </div>
   );
 }
