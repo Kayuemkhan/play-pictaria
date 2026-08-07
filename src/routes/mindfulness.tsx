@@ -62,7 +62,7 @@ function MindfulnessPage() {
           <Link
             to="/collection/$collectionId"
             params={{ collectionId: "mindfulness" }}
-            className="mt-6 inline-flex items-center justify-center rounded-[4px] bg-primary px-6 py-3 font-body text-[0.7rem] tracking-[0.18em] text-primary-foreground uppercase shadow-soft transition-opacity hover:opacity-90"
+            className="mt-6 inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 font-body text-[0.7rem] tracking-[0.18em] text-primary-foreground uppercase shadow-soft transition-opacity hover:opacity-90"
           >
             Play the mindfulness collection
           </Link>
