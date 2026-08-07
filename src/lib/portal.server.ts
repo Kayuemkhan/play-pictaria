@@ -244,7 +244,7 @@ export async function organiseNote(transcript: string): Promise<Organised> {
   } catch (error) {
     // A model reply that doesn't match the schema shouldn't lose the note.
     if (NoObjectGeneratedError.isInstance(error)) {
-      return coerceOrganised(error.text, transcript);
+      return coerceOrganised((error as { text?: string }).text, transcript);
     }
     const message = error instanceof Error ? error.message : "";
     console.error(`organiseNote failed: ${message}`);
