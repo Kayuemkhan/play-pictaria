@@ -588,7 +588,7 @@ export function PuzzleBoard({
      * down — that makes the tile feel like it is deciding where to go. The
      * landing decision is made only on release.
      */
-    setDrag({ group: s.group, dx, dy, valid: true });
+    setDrag({ group: s.group, dx, dy });
   };
 
 
