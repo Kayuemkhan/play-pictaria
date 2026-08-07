@@ -62,7 +62,7 @@ function DailyPage() {
   useEffect(() => {
     if (!signedUp && status !== "done") return undefined;
     const timer = setTimeout(() => {
-      navigate({ to: "/puzzle/turtle-09" });
+      navigate({ to: "/puzzle/$puzzleId", params: { puzzleId: "turtle-09" } });
     }, 1500);
     return () => clearTimeout(timer);
   }, [signedUp, status, navigate]);
