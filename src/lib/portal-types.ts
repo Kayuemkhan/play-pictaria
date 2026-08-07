@@ -29,7 +29,14 @@ export const portalFieldsSchema = z.object({
   company_name: z.string().trim().max(160).default(""),
   contact_person: z.string().trim().max(160).default(""),
   phone: z.string().trim().max(60).default(""),
-  email: z.string().trim().max(255).default(""),
+  email: z
+    .string()
+    .trim()
+    .max(255)
+    .refine((value) => value === "" || z.email().safeParse(value).success, {
+      message: "Enter a valid email address",
+    })
+    .default(""),
   website: z.string().trim().max(255).default(""),
   category: z.enum(PORTAL_CATEGORIES).default("Other"),
   product_service: z.string().trim().max(2000).default(""),
