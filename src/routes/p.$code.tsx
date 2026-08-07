@@ -175,15 +175,12 @@ function SharedPictaria() {
               </p>
             )}
 
-            <Link
-              to="/create"
-              className="mt-8 inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-[0.6rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift"
-            >
-              Send a free Pictaria
-              <span aria-hidden>›</span>
-            </Link>
+            <div className="mt-8">
+              <PoemCTAs />
+            </div>
           </>
         )}
+
         {state === "ready" && (
           <button
             type="button"
