@@ -100,7 +100,6 @@ export function PuzzleBoard({
     group: number;
     dx: number;
     dy: number;
-    valid: boolean;
   } | null>(null);
 
   const total = grid * grid;
@@ -584,17 +583,12 @@ export function PuzzleBoard({
     s.moved = true;
 
     /**
-     * The piece floats with the fingertip anywhere over the board — it does not
-     * ride the grid while dragging. On release it settles into the nearest cell
-     * it is allowed to occupy.
+     * The piece floats freely with the fingertip anywhere over the board. We
+     * deliberately do NOT preview grid snapping or validity while the finger is
+     * down — that makes the tile feel like it is deciding where to go. The
+     * landing decision is made only on release.
      */
-    const c = Math.round(dx / (cellW * scale));
-    const r = Math.round(dy / (cellH * scale));
-    const valid =
-      c === 0 && r === 0 ? true : !!attemptMove(s.group, c, r);
-
-
-    setDrag({ group: s.group, dx, dy, valid });
+    setDrag({ group: s.group, dx, dy });
   };
 
 
@@ -930,9 +924,7 @@ export function PuzzleBoard({
                   backgroundPosition: `${bg.x - pc * cellW}px ${bg.y - pr * cellH}px`,
                   borderRadius: isLocked ? 4 : 22,
                   boxShadow: isDragged
-                    ? drag!.valid
-                      ? "0 0 0 3px var(--accent), 0 12px 22px rgba(15,45,70,0.45)"
-                      : "0 0 0 3px rgba(220,90,90,0.8)"
+                    ? "0 14px 28px rgba(15,45,70,0.35), inset 0 0 0 1.5px rgba(255,255,255,0.85)"
                     : justLocked
                       ? "0 0 0 2px var(--accent)"
                       : isFloating
