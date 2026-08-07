@@ -9,7 +9,7 @@ import type { DailyPick } from "@/lib/daily-pick.functions";
 export const Route = createFileRoute("/portal/daily-past")({
   head: () => ({
     meta: [
-      { title: "Yesterday's Pictarias — Portal" },
+      { title: "Yesterdailys — Portal" },
       {
         name: "description",
         content: "Every puzzle that has already had its day as today's Pictaria.",
@@ -56,7 +56,7 @@ function PastPictarias() {
     <main className="min-h-screen bg-deep px-4 pt-12 pb-24">
       <header className="mx-auto max-w-md text-center">
         <h1 className="font-display text-[1.5rem] text-shell">
-          Yesterday&apos;s Pictarias
+          Yesterdailys
         </h1>
         <p className="mt-1 text-[10px] tracking-[0.2em] text-shell/60 uppercase">
           {loading ? "opening the folder…" : `${past.length} already featured`}
