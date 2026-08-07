@@ -10,7 +10,7 @@ import type { PortalRecord } from "@/lib/portal-types";
 export const Route = createFileRoute("/portal/$id")({
   head: () => ({
     meta: [
-      { title: "Project Victoria's" },
+      { title: "Project Pictaria" },
       { name: "description", content: "A community project for Maui support." },
       { name: "robots", content: "noindex, nofollow" },
     ],
