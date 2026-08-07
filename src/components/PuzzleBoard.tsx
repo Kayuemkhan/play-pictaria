@@ -1032,8 +1032,37 @@ export function PuzzleBoard({
             </div>
           </div>
         )}
+       </div>
       </div>
-      </div>
+
+      {/* storybook invitation — carried on every branded Pictaria */}
+      {!unbranded && (
+        <div className="z-20 shrink-0 px-3 pt-0 pb-2 sm:px-5 sm:pb-3">
+          <div className="relative overflow-hidden rounded-[4px] border border-accent/60 bg-shell p-2.5">
+            <span
+              aria-hidden
+              className="pointer-events-none absolute -top-4 -left-5 font-display text-[5rem] leading-none text-accent/10 select-none"
+            >
+              ❦
+            </span>
+            <div className="relative grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
+              <p className="min-w-0 font-display text-[0.75rem] leading-snug [color:color-mix(in_oklch,var(--foreground)_92%,black)]">
+                Pictures say a thousand words and puzzles make them fun — I want
+                to send my own story book to everyone I love
+              </p>
+              <Link
+                to="/create"
+                className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-primary px-2.5 py-1 text-[0.55rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
+              >
+                Start here
+                <span aria-hidden>›</span>
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
+
+
 
       {/* celebration — phase one: fine drifting sparkles and congratulations */}
       {solved && (
