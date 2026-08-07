@@ -24,7 +24,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import resortCove from "@/assets/fsm-resort-cove.jpg.asset.json";
+import { PhotoPick, PhotoPlaceholder } from "@/components/PhotoField";
 
 type Props = { record?: PortalRecord };
 
