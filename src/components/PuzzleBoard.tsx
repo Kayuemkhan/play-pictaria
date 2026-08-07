@@ -669,7 +669,7 @@ export function PuzzleBoard({
           const distance = Math.hypot(dCol - unitsX, dRow - unitsY);
           // A forgiving magnetic radius, while still requiring a deliberate
           // approach toward the correct neighbour.
-          if (distance > 0.9) continue;
+          if (distance > 1.1) continue;
           const key = `${dCol},${dRow}`;
           const current = magneticCandidates.get(key);
           if (!current || distance < current.dist)
