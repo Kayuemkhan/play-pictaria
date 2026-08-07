@@ -425,6 +425,7 @@ export function StudioComposer({
                   label="Add your photograph"
                   multiple={maxPhotos > 1}
                   onFiles={add}
+                  fallbackToCamera
                   className="block h-full w-full"
                 >
                   <span className="relative block h-full w-full overflow-hidden">
@@ -459,6 +460,7 @@ export function StudioComposer({
                 multiple={maxPhotos > 1}
                 disabled={photos.length >= maxPhotos}
                 onFiles={add}
+                fallbackToCamera
                 className="shrink-0"
               >
                 <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-deep px-3 py-1.5 text-[0.55rem] tracking-[0.18em] text-accent uppercase shadow-soft transition-transform hover:scale-[1.03]">
@@ -582,6 +584,7 @@ export function StudioComposer({
                 <PhotoPick
                   label={logoUrl ? "Replace your logo" : "Upload your logo"}
                   accept="image/png,image/webp,image/jpeg"
+                  fallbackToCamera
                   onFiles={(files) => {
                     const file = files?.[0];
                     if (!file) return;

@@ -34,6 +34,8 @@ type PickProps = {
   disabled?: boolean;
   label: string;
   className?: string;
+  /** In the embedded app WebView, fall back to the live camera when the file picker can't open. */
+  fallbackToCamera?: boolean;
   children: React.ReactNode;
 };
 
@@ -51,10 +53,11 @@ export function PhotoPick({
   disabled,
   label,
   className = "",
+  fallbackToCamera,
   children,
 }: PickProps) {
   const [live, setLive] = useState(false);
-  const useLiveCamera = Boolean(capture) && isEmbeddedApp();
+  const useLiveCamera = (Boolean(capture) || Boolean(fallbackToCamera)) && isEmbeddedApp();
 
   return (
     <span className={`relative isolate ${className || "inline-flex"}`}>
