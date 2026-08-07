@@ -124,7 +124,21 @@ function DailyPage() {
                     ? `You're on the list at ${sessionEmail}. Taking you to today's Pictaria...`
                     : "You're on the list. Taking you to today's Pictaria..."}
                 </p>
+                {!sessionEmail && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      localStorage.removeItem("pictaria_daily_signed_up");
+                      setSignedUp(false);
+                      setStatus("idle");
+                    }}
+                    className="mt-3 text-[10px] tracking-[0.14em] text-muted-foreground uppercase underline transition-colors hover:text-foreground"
+                  >
+                    Use a different email
+                  </button>
+                )}
               </div>
+
             ) : (
               <form onSubmit={submit} className="mt-6 text-left">
                 <Label
