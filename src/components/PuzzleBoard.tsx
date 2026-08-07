@@ -86,6 +86,7 @@ export function PuzzleBoard({
   grid,
   onExit,
   onChangeDifficulty,
+  unbranded = false,
 }: PuzzleBoardProps) {
   const viewportRef = useRef<HTMLDivElement>(null);
 
