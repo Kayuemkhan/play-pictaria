@@ -492,6 +492,7 @@ const STARTERS: Record<TrackId, (ctx: AudioContext, out: GainNode) => Engine> = 
   bowls: startBowls,
   binaural: startBinaural,
   didgeridoo: startDidgeridoo,
+  meditation: startMeditation,
 };
 
 /* ---------------------------------------------------------------
