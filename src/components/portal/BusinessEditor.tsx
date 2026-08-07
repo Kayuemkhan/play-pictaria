@@ -99,33 +99,20 @@ export function BusinessEditor({ record }: Props) {
   const set = <K extends keyof PortalFields>(key: K, value: PortalFields[K]) =>
     setFields((prev) => ({ ...prev, [key]: value }));
 
-  const pickPhoto = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const input = event.target;
-    const file = input.files?.[0];
+  const pickPhoto = (files: FileList | null) => {
+    const file = files?.[0];
     if (!file) return;
+    setError("");
     const reader = new FileReader();
     reader.onload = () => {
       const url = String(reader.result);
       setPhoto(url);
       setPhotoUrl(url);
       if (fields.status === "New") set("status", "Photo Collected");
-      input.value = "";
     };
     reader.readAsDataURL(file);
   };
 
-  const openPhotoPicker = (
-    input: React.RefObject<HTMLInputElement | null>,
-  ) => {
-    const element = input.current;
-    if (!element) {
-      setError("The photo picker isn't ready yet. Please try again.");
-      return;
-    }
-    setError("");
-    element.value = "";
-    element.click();
-  };
 
 
   const startRecording = async () => {
