@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { ImagePlus } from "lucide-react";
 import resortCove from "@/assets/fsm-resort-cove.jpg.asset.json";
 
@@ -20,6 +21,24 @@ type PickProps = {
  * and sandboxed frames often refuse. The capture hint opens the phone's native
  * camera, while an input without it opens the photo library.
  */
+/**
+ * Some embedded WebViews (the Lovable in-app preview, Facebook/Instagram
+ * browsers, older Android WebViews) accept `capture` on a file input but never
+ * hand the intent to a camera app, so the tap silently does nothing. In those
+ * environments we drop `capture` and let the OS show its normal sheet, which
+ * still offers "Camera" as the first option.
+ */
+function captureSupported() {
+  if (typeof navigator === "undefined") return false;
+  const ua = navigator.userAgent;
+  const embedded =
+    /LovableApp|FBAN|FBAV|Instagram|Line\/|; wv\)/i.test(ua) ||
+    (typeof window !== "undefined" && window.self !== window.top);
+  if (embedded) return false;
+  if (typeof document === "undefined") return true;
+  return "capture" in document.createElement("input");
+}
+
 export function PhotoPick({
   onFiles,
   multiple,
@@ -30,6 +49,8 @@ export function PhotoPick({
   className = "",
   children,
 }: PickProps) {
+  const [allowCapture, setAllowCapture] = useState(false);
+  useEffect(() => setAllowCapture(captureSupported()), []);
   return (
     <span className={`relative isolate ${className || "inline-flex"}`}>
       {children}
@@ -37,7 +58,7 @@ export function PhotoPick({
         type="file"
         accept={accept}
         {...(multiple ? { multiple: true } : {})}
-        {...(capture ? { capture } : {})}
+        {...(capture && allowCapture ? { capture } : {})}
         disabled={disabled}
         aria-label={label}
         title={label}
