@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Link } from "@tanstack/react-router";
 import { Music, Search, VolumeX } from "lucide-react";
 import palmLogo from "@/assets/logo-palms-only.png";
 import { playLock, playPick, playSolved } from "@/lib/feedback";
@@ -27,6 +28,8 @@ export interface PuzzleBoardProps {
   grid: number;
   onExit: () => void;
   onChangeDifficulty: () => void;
+  /** Brand Studio Pictarias carry no Pictaria logo — only a tiny credit link. */
+  unbranded?: boolean;
 }
 
 function formatTime(total: number) {
