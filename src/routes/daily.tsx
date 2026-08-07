@@ -60,12 +60,11 @@ function DailyPage() {
   }, []);
 
   useEffect(() => {
-    if (signedUp || status === "done") {
-      const timer = setTimeout(() => {
-        navigate({ to: "/puzzle/turtle-09" });
-      }, 1500);
-      return () => clearTimeout(timer);
-    }
+    if (!signedUp && status !== "done") return undefined;
+    const timer = setTimeout(() => {
+      navigate({ to: "/puzzle/turtle-09" });
+    }, 1500);
+    return () => clearTimeout(timer);
   }, [signedUp, status, navigate]);
 
   const submit = async (e: React.FormEvent<HTMLFormElement>) => {
