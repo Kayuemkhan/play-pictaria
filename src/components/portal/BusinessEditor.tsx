@@ -30,10 +30,6 @@ type Props = { record?: PortalRecord };
 
 const LONG_FIELDS: (keyof PortalFields)[] = [
   "product_service",
-  "marketing_ideas",
-  "story_ideas",
-  "follow_up",
-  "notes",
 ];
 
 const SHORT_FIELDS: { key: keyof PortalFields; label: string; type?: string }[] = [

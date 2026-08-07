@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import { ImagePlus } from "lucide-react";
 import resortCove from "@/assets/fsm-resort-cove.jpg.asset.json";
 
@@ -49,12 +49,14 @@ export function PhotoPick({
   className = "",
   children,
 }: PickProps) {
+  const inputId = useId();
   const [allowCapture, setAllowCapture] = useState(false);
   useEffect(() => setAllowCapture(captureSupported()), []);
   return (
     <span className={`relative isolate ${className || "inline-flex"}`}>
-      {children}
+      <span className="pointer-events-none block h-full w-full">{children}</span>
       <input
+        id={inputId}
         type="file"
         accept={accept}
         {...(multiple ? { multiple: true } : {})}
@@ -66,7 +68,15 @@ export function PhotoPick({
           onFiles(event.target.files);
           event.target.value = "";
         }}
-        className="absolute inset-0 z-20 block h-full w-full cursor-pointer opacity-0 disabled:cursor-not-allowed"
+        className="sr-only"
+      />
+      <label
+        htmlFor={inputId}
+        aria-label={label}
+        title={label}
+        className={`absolute inset-0 z-20 block cursor-pointer ${
+          disabled ? "cursor-not-allowed" : ""
+        }`}
       />
     </span>
   );
