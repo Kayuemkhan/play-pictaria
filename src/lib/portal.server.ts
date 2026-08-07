@@ -155,6 +155,14 @@ visited a local Hawaii business. Sort what was said into the given fields.
 
 Rules:
 - Use only what the speaker actually said. Never invent details.
+- company_name is the most important field. Capture the business/company/shop/
+  gallery/restaurant name exactly as spoken, whether it is introduced
+  ("the company is...", "business name is...", "this is...", "I'm at...",
+  "we're with...") or simply said as a name near the start of the note.
+  Keep any suffix such as LLC, Inc, Gallery, Studio, Farms, Co.
+- Never put the business name into contact_person; contact_person is a person's
+  name only. If only one name is mentioned and it sounds like a business, it is
+  the company_name.
 - Leave a field as an empty string when the note does not cover it.
 - Tidy spoken phone numbers, emails and websites into normal written form
   (e.g. "eight zero eight five five five one two one two" -> "808-555-1212",
@@ -218,12 +226,35 @@ function coerceOrganised(text: string | undefined, transcript: string): Organise
     notes: pick("notes"),
   };
 
+  // Safety net: pull the company name straight out of the spoken words when
+  // the model left it blank.
+  if (!result.company_name) {
+    result.company_name = guessCompanyName(transcript);
+  }
+
   // Never lose the spoken words: if nothing landed, keep the transcript.
   const anyFilled = Object.entries(result).some(
     ([field, value]) => field !== "category" && value !== "",
   );
   if (!anyFilled) result.notes = transcript;
   return result;
+}
+
+/** Last-resort company name lift from the raw transcript. */
+function guessCompanyName(transcript: string) {
+  const text = (transcript ?? "").replace(/\s+/g, " ").trim();
+  if (!text) return "";
+  const patterns = [
+    /(?:company|business|shop|store|restaurant|gallery|studio)(?:\s+name)?(?:\s+is|\s+is called|\s*[:,])\s+([^.,;!?]{2,80})/i,
+    /(?:the name of (?:the|this) (?:company|business)\s+is)\s+([^.,;!?]{2,80})/i,
+    /(?:i(?:'m| am) (?:at|with|visiting)|we(?:'re| are) (?:at|with))\s+([^.,;!?]{2,80})/i,
+  ];
+  for (const pattern of patterns) {
+    const match = pattern.exec(text);
+    const found = match?.[1]?.trim();
+    if (found) return found.replace(/^(?:called|named)\s+/i, "").slice(0, 160);
+  }
+  return "";
 }
 
 /** Turns a raw transcript into organised business fields. */
