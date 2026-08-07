@@ -267,6 +267,41 @@ function guessCompanyName(transcript: string) {
   return "";
 }
 
+const DIGIT_WORDS: Record<string, string> = {
+  zero: "0", oh: "0", o: "0", one: "1", two: "2", to: "2", too: "2",
+  three: "3", four: "4", for: "4", five: "5", six: "6", seven: "7",
+  eight: "8", nine: "9",
+};
+
+/** Last-resort phone lift: handles digits and spoken number words. */
+function guessPhone(transcript: string) {
+  const text = (transcript ?? "").toLowerCase();
+  if (!text) return "";
+
+  // Convert spoken digit words to digits, then collapse to a digit stream.
+  const normalised = text
+    .split(/[^a-z0-9]+/)
+    .map((token) => DIGIT_WORDS[token] ?? token)
+    .join(" ");
+
+  const candidates: string[] = [];
+  const written = /(\+?1[\s.-]*)?(\(?\d{3}\)?[\s.-]*)?\d{3}[\s.-]*\d{4}\b/g;
+  for (const match of normalised.matchAll(written)) {
+    candidates.push(match[0].replace(/\D/g, ""));
+  }
+
+  for (const raw of candidates) {
+    const digits = raw.replace(/^1(?=\d{10}$)/, "");
+    if (digits.length === 10) {
+      return `${digits.slice(0, 3)}-${digits.slice(3, 6)}-${digits.slice(6)}`;
+    }
+    if (digits.length === 7) {
+      return `${digits.slice(0, 3)}-${digits.slice(3)}`;
+    }
+  }
+  return "";
+}
+
 /** Turns a raw transcript into organised business fields. */
 export async function organiseNote(transcript: string): Promise<Organised> {
   const key = process.env["LOVABLE_API_KEY"];
