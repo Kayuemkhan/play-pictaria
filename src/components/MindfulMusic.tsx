@@ -116,7 +116,7 @@ function startBowls(ctx: AudioContext, out: GainNode): Engine {
   const notes = [196, 233.08, 261.63, 293.66, 349.23];
   const strike = () => {
     const t = ctx.currentTime + 0.05;
-    const root = notes[Math.floor(Math.random() * notes.length)];
+    const root = notes[Math.floor(Math.random() * notes.length)] ?? 261.63;
     [1, 2.01, 2.98, 4.2].forEach((mult, i) => {
       const osc = ctx.createOscillator();
       const g = ctx.createGain();
