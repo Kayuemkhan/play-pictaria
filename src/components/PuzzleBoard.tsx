@@ -279,10 +279,8 @@ export function PuzzleBoard({
 
       for (const cluster of clusters.values()) {
         if (cluster.some((piece) => newCells.has(positions[piece]!))) {
-          // a merged cluster already sitting at home is locked — route around it
-          const locked =
-            cluster.length > 1 &&
-            cluster.every((piece) => positions[piece] === piece);
+          // any piece already sitting at home is locked — route around it
+          const locked = cluster.every((piece) => positions[piece] === piece);
           if (protectLocked && locked) return null;
           conflicting.push(cluster);
         } else {
@@ -555,7 +553,7 @@ export function PuzzleBoard({
     const cell = Number(cellEl.getAttribute("data-cell"));
     const piece = pos.indexOf(cell);
     if (piece < 0) return;
-    // every cluster stays movable — only a finished puzzle stops responding
+    if (lockedPieces.has(piece)) return; // locked tiles stay put
 
     viewportRef.current?.setPointerCapture(e.pointerId);
     dragStart.current = {
@@ -611,7 +609,7 @@ export function PuzzleBoard({
     (dx: number, dy: number, group: number) => {
       const unitsX = dx / (cellW * scale);
       const unitsY = dy / (cellH * scale);
-      const TOL = 0.62;
+      const TOL = 0.78;
       const range = (u: number) => {
         const out: number[] = [];
         for (let v = Math.floor(u - TOL); v <= Math.ceil(u + TOL); v++) {
@@ -671,7 +669,7 @@ export function PuzzleBoard({
           const distance = Math.hypot(dCol - unitsX, dRow - unitsY);
           // A forgiving magnetic radius, while still requiring a deliberate
           // approach toward the correct neighbour.
-          if (distance > 0.9) continue;
+          if (distance > 1.1) continue;
           const key = `${dCol},${dRow}`;
           const current = magneticCandidates.get(key);
           if (!current || distance < current.dist)
@@ -844,7 +842,6 @@ export function PuzzleBoard({
       else members.set(g, [piece]);
     });
     for (const list of members.values()) {
-      if (list.length < 2) continue;
       if (list.every((piece) => pos[piece] === piece))
         list.forEach((piece) => locked.add(piece));
     }
@@ -888,23 +885,23 @@ export function PuzzleBoard({
       </header>
 
       {/* stage */}
-      <div
-        ref={viewportRef}
-        onPointerDown={onPointerDown}
-        onPointerMove={onPointerMove}
-        onPointerUp={endPointer}
-        onPointerCancel={endPointer}
-        className="relative flex-1 touch-none overflow-hidden select-none"
-      >
+      <div className="relative flex-1 p-3 sm:p-5">
         <div
-          className="absolute top-0 left-0 origin-top-left rounded-[18px]"
-          style={{
-            width: WORLD_W,
-            height: worldH,
-            transform: `translate(${offX}px, ${offY}px) scale(${scale})`,
-            boxShadow: "var(--shadow-soft)",
-          }}
+          ref={viewportRef}
+          onPointerDown={onPointerDown}
+          onPointerMove={onPointerMove}
+          onPointerUp={endPointer}
+          onPointerCancel={endPointer}
+          className="relative h-full w-full touch-none overflow-hidden select-none rounded-[18px] bg-card/30 shadow-soft"
         >
+          <div
+            className="absolute top-0 left-0 origin-top-left rounded-[18px]"
+            style={{
+              width: WORLD_W,
+              height: worldH,
+              transform: `translate(${offX}px, ${offY}px) scale(${scale})`,
+            }}
+          >
           {pos.map((cell, piece) => {
             const row = Math.floor(cell / grid);
             const col = cell % grid;
@@ -912,6 +909,7 @@ export function PuzzleBoard({
             const pc = piece % grid;
             const group = groupOf[piece]!;
             const inCluster = (groupSizes.get(group) ?? 1) > 1;
+            const isLocked = lockedPieces.has(piece);
             const isDragged = drag?.group === group;
             const justLocked = flash.includes(piece);
             const isFloating = floating.includes(piece);
@@ -930,28 +928,30 @@ export function PuzzleBoard({
                   backgroundImage: `url(${src})`,
                   backgroundSize: `${bg.w}px ${bg.h}px`,
                   backgroundPosition: `${bg.x - pc * cellW}px ${bg.y - pr * cellH}px`,
-                  borderRadius: inCluster ? 6 : 16,
+                  borderRadius: isLocked ? 4 : 16,
                   boxShadow: isDragged
                     ? drag!.valid
-                      ? "0 0 0 3px var(--accent), 0 18px 32px rgba(15,45,70,0.5)"
+                      ? "0 0 0 3px var(--accent), 0 12px 22px rgba(15,45,70,0.45)"
                       : "0 0 0 3px rgba(220,90,90,0.8)"
                     : justLocked
                       ? "0 0 0 2px var(--accent)"
                       : isFloating
-                        ? "0 14px 26px rgba(15,45,70,0.38), inset 0 0 0 1px rgba(255,255,255,0.55)"
-                        : inCluster
+                        ? "0 10px 20px rgba(15,45,70,0.32), inset 0 0 0 1px rgba(255,255,255,0.55)"
+                        : isLocked
                           ? "none"
-                          : "inset 0 0 0 1px rgba(255,255,255,0.65)",
+                          : inCluster
+                            ? "none"
+                            : "inset 0 0 0 1px rgba(255,255,255,0.65)",
                   transform: isDragged
-                    ? `translate(${drag!.dx / scale}px, ${drag!.dy / scale}px) scale(1.03)`
+                    ? `translate(${drag!.dx / scale}px, ${drag!.dy / scale}px) scale(1.015)`
                     : isFloating
-                      ? "scale(1.045)"
+                      ? "scale(1.02)"
                       : "scale(1)",
                   zIndex: isDragged ? 4 : isFloating ? 3 : justLocked ? 2 : 1,
                   cursor: "grab",
                   transition: isDragged
                     ? "none"
-                    : "transform 0.5s cubic-bezier(0.32, 1.5, 0.4, 1), box-shadow 0.45s ease, border-radius 0.3s ease, left 0.52s cubic-bezier(0.28, 1.35, 0.36, 1), top 0.52s cubic-bezier(0.28, 1.35, 0.36, 1)",
+                    : "transform 0.48s var(--ease-calm), box-shadow 0.45s ease, border-radius 0.3s ease, left 0.52s var(--ease-calm), top 0.52s var(--ease-calm)",
                 }}
               />
             );
@@ -990,6 +990,7 @@ export function PuzzleBoard({
             </div>
           </div>
         )}
+      </div>
       </div>
 
       {/* celebration — phase one: fine drifting sparkles and congratulations */}
