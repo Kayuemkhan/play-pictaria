@@ -422,17 +422,22 @@ export function StudioComposer({
                   )}
                 </>
               ) : (
-                <button
-                  type="button"
-                  onClick={() => fileInput.current?.click()}
-                  className="flex h-full w-full flex-col items-center justify-center gap-3 text-deep-foreground/70 transition-colors hover:text-accent"
+                <PhotoPick
+                  label="Add your photograph"
+                  multiple={maxPhotos > 1}
+                  onFiles={add}
+                  className="block h-full w-full"
                 >
-                  <ImagePlus className="h-8 w-8" strokeWidth={1.25} />
-                  <span className="text-[10px] tracking-[0.24em] uppercase">
-                    Add your photograph
+                  <span className="relative block h-full w-full overflow-hidden">
+                    <PhotoPlaceholder
+                      tone="dark"
+                      title="Add your photograph"
+                      hint="Tap to take a picture or choose one from your library"
+                    />
                   </span>
-                </button>
+                </PhotoPick>
               )}
+
             </div>
             <p className="border-t border-white/10 bg-deep px-4 py-2.5 text-center text-[0.55rem] leading-relaxed tracking-[0.12em] text-deep-foreground/60 uppercase">
               Keep Pictaria beautiful — please only share pictures you'd happily show
