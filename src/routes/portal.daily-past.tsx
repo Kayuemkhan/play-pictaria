@@ -5,6 +5,8 @@ import { useServerFn } from "@tanstack/react-start";
 import { findPuzzle } from "@/data/collections";
 import { getDailyPicks, setDailyPick } from "@/lib/daily-pick.functions";
 import type { DailyPick } from "@/lib/daily-pick.functions";
+import { listPortalBusinesses } from "@/lib/portal.functions";
+import { isPortalPick, portalPickCode } from "@/lib/daily-display";
 
 export const Route = createFileRoute("/portal/daily-past")({
   head: () => ({
@@ -24,14 +26,27 @@ function PastPictarias() {
   const load = useServerFn(getDailyPicks);
   const choose = useServerFn(setDailyPick);
 
+  const loadWarehouse = useServerFn(listPortalBusinesses);
+  const [warehouse, setWarehouse] = useState<
+    { title: string; photo_url: string | null; share_code: string | null }[]
+  >([]);
   const [past, setPast] = useState<DailyPick[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState<string | null>(null);
 
   const refresh = async () => {
     try {
-      const result = await load({});
+      const [result, shed] = await Promise.all([load({}), loadWarehouse({})]);
       setPast(result.past);
+      if (!shed.locked) {
+        setWarehouse(
+          shed.records.map((row) => ({
+            title: row.company_name || "Untitled photograph",
+            photo_url: row.photo_url,
+            share_code: row.share_code,
+          })),
+        );
+      }
     } finally {
       setLoading(false);
     }
@@ -66,6 +81,35 @@ function PastPictarias() {
       <div className="mx-auto mt-8 max-w-md">
         <div className="grid grid-cols-3 gap-2.5">
           {past.map((pick) => {
+            if (isPortalPick(pick.puzzle_id)) {
+              const code = portalPickCode(pick.puzzle_id);
+              const business = warehouse.find((item) => item.share_code === code);
+              if (!business) return null;
+              return (
+                <button
+                  key={pick.id}
+                  type="button"
+                  onClick={() => void feature(pick.puzzle_id)}
+                  disabled={saving !== null}
+                  title="Feature this one again"
+                  className="overflow-hidden rounded-[8px] border border-accent/40 text-left transition-transform hover:scale-[1.03] disabled:opacity-50"
+                >
+                  <img
+                    src={business.photo_url ?? ""}
+                    alt={business.title}
+                    className="aspect-[3/4] w-full object-cover"
+                  />
+                  <span className="block bg-shell px-1.5 py-1">
+                    <span className="block truncate text-[10px] text-foreground">
+                      {saving === pick.puzzle_id ? "Setting…" : business.title}
+                    </span>
+                    <span className="block truncate text-[8px] tracking-[0.12em] text-muted-foreground uppercase">
+                      Project Pictaria
+                    </span>
+                  </span>
+                </button>
+              );
+            }
             const found = findPuzzle(pick.puzzle_id);
             if (!found) return null;
             return (

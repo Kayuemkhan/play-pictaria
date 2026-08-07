@@ -5,6 +5,8 @@ import { useServerFn } from "@tanstack/react-start";
 import { collections, findPuzzle } from "@/data/collections";
 import { getDailyPicks, setDailyPick } from "@/lib/daily-pick.functions";
 import type { DailyPick } from "@/lib/daily-pick.functions";
+import { createPortalShareLink, listPortalBusinesses } from "@/lib/portal.functions";
+import { isPortalPick, portalPickCode, portalPickId } from "@/lib/daily-display";
 import palmLogo from "@/assets/logo-palms-only.png";
 
 export const Route = createFileRoute("/portal/daily")({
@@ -40,9 +42,20 @@ function allPuzzles(): GalleryItem[] {
   return items;
 }
 
+interface WarehouseItem {
+  id: string;
+  title: string;
+  photo_url: string | null;
+  share_code: string | null;
+  category: string;
+}
+
 function DailyWaitingArea() {
   const load = useServerFn(getDailyPicks);
   const choose = useServerFn(setDailyPick);
+  const loadWarehouse = useServerFn(listPortalBusinesses);
+  const makeLink = useServerFn(createPortalShareLink);
+  const [warehouse, setWarehouse] = useState<WarehouseItem[]>([]);
 
   const [current, setCurrent] = useState<DailyPick | null>(null);
   const [past, setPast] = useState<DailyPick[]>([]);
@@ -52,9 +65,22 @@ function DailyWaitingArea() {
 
   const refresh = async () => {
     try {
-      const result = await load({});
+      const [result, shed] = await Promise.all([load({}), loadWarehouse({})]);
       setCurrent(result.current);
       setPast(result.past);
+      if (!shed.locked) {
+        setWarehouse(
+          shed.records
+            .filter((row) => Boolean(row.photo_url))
+            .map((row) => ({
+              id: row.id,
+              title: row.company_name || "Untitled photograph",
+              photo_url: row.photo_url,
+              share_code: row.share_code,
+              category: row.category,
+            })),
+        );
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Couldn't load the daily picks.");
     } finally {
@@ -74,6 +100,28 @@ function DailyWaitingArea() {
     return set;
   }, [current, past]);
 
+  const shedWaiting = useMemo(
+    () =>
+      warehouse.filter(
+        (item) => !item.share_code || !usedIds.has(portalPickId(item.share_code)),
+      ),
+    [warehouse, usedIds],
+  );
+
+  const featureBusiness = async (item: WarehouseItem) => {
+    setSaving(item.id);
+    setError("");
+    try {
+      const { code } = await makeLink({ data: { id: item.id } });
+      await choose({ data: { puzzleId: portalPickId(code) } });
+      await refresh();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "That pick didn't save.");
+    } finally {
+      setSaving(null);
+    }
+  };
+
   const waiting = useMemo(
     () => allPuzzles().filter((item) => !usedIds.has(item.id)),
     [usedIds],
@@ -92,7 +140,14 @@ function DailyWaitingArea() {
     }
   };
 
-  const currentPuzzle = current ? findPuzzle(current.puzzle_id) : null;
+  const currentPuzzle =
+    current && !isPortalPick(current.puzzle_id) ? findPuzzle(current.puzzle_id) : null;
+  const currentBusiness =
+    current && isPortalPick(current.puzzle_id)
+      ? (warehouse.find(
+          (item) => item.share_code === portalPickCode(current.puzzle_id),
+        ) ?? null)
+      : null;
 
   return (
     <main className="min-h-screen bg-deep px-4 pt-12 pb-24">
@@ -120,6 +175,25 @@ function DailyWaitingArea() {
           </p>
           {loading ? (
             <p className="mt-3 text-[12px] text-muted-foreground">Loading…</p>
+          ) : currentBusiness ? (
+            <>
+              <div className="mx-auto mt-3 w-32 overflow-hidden rounded-[6px] border border-accent/50">
+                <img
+                  src={currentBusiness.photo_url ?? ""}
+                  alt={currentBusiness.title}
+                  className="aspect-[3/4] w-full object-cover"
+                />
+              </div>
+              <p className="mt-3 font-display text-[1.15rem] text-foreground">
+                {currentBusiness.title}
+              </p>
+              <p className="text-[10px] tracking-[0.16em] text-muted-foreground uppercase">
+                Project Pictaria
+              </p>
+              <p className="mt-1 text-[11px] text-muted-foreground">
+                Chosen {new Date(current!.picked_at).toLocaleDateString()}
+              </p>
+            </>
           ) : currentPuzzle ? (
             <>
               <div className="mx-auto mt-3 w-32 overflow-hidden rounded-[6px] border border-accent/50">
@@ -168,6 +242,47 @@ function DailyWaitingArea() {
         {error && (
           <p className="text-center text-[11px] text-destructive">{error}</p>
         )}
+
+        {/* Project Pictaria warehouse */}
+        <section>
+          <p className="text-center text-[10px] tracking-[0.2em] text-shell/60 uppercase">
+            Project Pictaria warehouse · {shedWaiting.length}
+          </p>
+          <p className="mt-1 text-center text-[10px] text-shell/40">
+            Every business photograph you have collected. Tap one to make it
+            today&apos;s Pictaria.
+          </p>
+          <div className="mt-4 grid grid-cols-3 gap-2.5">
+            {shedWaiting.map((item) => (
+              <button
+                key={item.id}
+                type="button"
+                onClick={() => void featureBusiness(item)}
+                disabled={saving !== null}
+                className="overflow-hidden rounded-[8px] border border-accent/40 text-left transition-transform hover:scale-[1.03] disabled:opacity-50"
+              >
+                <img
+                  src={item.photo_url ?? ""}
+                  alt={item.title}
+                  className="aspect-[3/4] w-full object-cover"
+                />
+                <span className="block bg-shell px-1.5 py-1">
+                  <span className="block truncate text-[10px] text-foreground">
+                    {saving === item.id ? "Setting…" : item.title}
+                  </span>
+                  <span className="block truncate text-[8px] tracking-[0.12em] text-muted-foreground uppercase">
+                    {item.category}
+                  </span>
+                </span>
+              </button>
+            ))}
+          </div>
+          {!loading && shedWaiting.length === 0 && (
+            <p className="mt-3 text-center text-[11px] text-shell/60">
+              No business photographs waiting — add one in Project Pictaria.
+            </p>
+          )}
+        </section>
 
         {/* Waiting gallery */}
         <section>
