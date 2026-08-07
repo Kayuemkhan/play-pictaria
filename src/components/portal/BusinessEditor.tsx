@@ -6,12 +6,10 @@ import { Mic, Square, Camera, Loader2, Trash2, Link2, Copy, Check, Image as Imag
 import {
   PORTAL_CATEGORIES,
   PORTAL_FIELD_LABELS,
-  PORTAL_STATUSES,
   emptyPortalFields,
   type PortalCategory,
   type PortalFields,
   type PortalRecord,
-  type PortalStatus,
 } from "@/lib/portal-types";
 import {
   createPortalShareLink,
@@ -36,7 +34,6 @@ const SHORT_FIELDS: { key: keyof PortalFields; label: string; type?: string }[] 
   { key: "company_name", label: "Company name" },
   { key: "contact_person", label: "Contact person" },
   { key: "phone", label: "Phone number", type: "tel" },
-  { key: "email", label: "Email address", type: "email" },
   { key: "website", label: "Website" },
 ];
 
@@ -102,7 +99,6 @@ export function BusinessEditor({ record }: Props) {
       const url = String(reader.result);
       setPhoto(url);
       setPhotoUrl(url);
-      if (fields.status === "New") set("status", "Photo Collected");
     };
     reader.readAsDataURL(file);
   };
@@ -381,54 +377,8 @@ export function BusinessEditor({ record }: Props) {
               onChange={(event) => set(key, event.target.value as never)}
               className="mt-1.5"
             />
-            {key === "email" && (
-              <div className="mt-2 rounded-md border border-accent/40 bg-muted/40 px-3 py-2.5">
-                <p className="text-[11px] leading-relaxed text-foreground">
-                  Their Pictaria may take a little while to create. When it is
-                  ready to go out, we’ll email the finished Pictaria to this
-                  address so they can share it with their customers and socials.
-                </p>
-              </div>
-            )}
           </div>
         ))}
-
-        <div className="grid grid-cols-2 gap-3">
-          <div>
-            <Label htmlFor="category" className={labelClass}>
-              Category
-            </Label>
-            <select
-              id="category"
-              value={fields.category}
-              onChange={(event) => set("category", event.target.value as PortalCategory)}
-              className="mt-1.5 h-9 w-full rounded-md border border-input bg-background px-2 text-[13px] text-foreground"
-            >
-              {PORTAL_CATEGORIES.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div>
-            <Label htmlFor="status" className={labelClass}>
-              Status
-            </Label>
-            <select
-              id="status"
-              value={fields.status}
-              onChange={(event) => set("status", event.target.value as PortalStatus)}
-              className="mt-1.5 h-9 w-full rounded-md border border-input bg-background px-2 text-[13px] text-foreground"
-            >
-              {PORTAL_STATUSES.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
 
         {LONG_FIELDS.map((key) => (
           <div key={key}>
@@ -437,13 +387,51 @@ export function BusinessEditor({ record }: Props) {
             </Label>
             <Textarea
               id={key}
-              rows={key === "follow_up" ? 2 : 4}
+              rows={4}
               value={String(fields[key])}
               onChange={(event) => set(key, event.target.value as never)}
               className="mt-1.5"
             />
           </div>
         ))}
+
+        <div>
+          <Label htmlFor="category" className={labelClass}>
+            Category
+          </Label>
+          <select
+            id="category"
+            value={fields.category}
+            onChange={(event) => set("category", event.target.value as PortalCategory)}
+            className="mt-1.5 h-9 w-full rounded-md border border-input bg-background px-2 text-[13px] text-foreground"
+          >
+            {PORTAL_CATEGORIES.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div>
+          <Label htmlFor="email" className={labelClass}>
+            Email address
+          </Label>
+          <Input
+            id="email"
+            type="email"
+            value={String(fields.email)}
+            onChange={(event) => set("email", event.target.value)}
+            className="mt-1.5"
+          />
+          <div className="mt-2 rounded-md border border-accent/40 bg-muted/40 px-3 py-2.5">
+            <p className="text-[11px] leading-relaxed text-foreground">
+              Their Pictaria may take a little while to create. When it is
+              ready to go out, we’ll email the finished Pictaria to this
+              address so they can share it with their customers and socials.
+            </p>
+          </div>
+        </div>
       </section>
 
       {/* AI preview */}
@@ -462,10 +450,6 @@ export function BusinessEditor({ record }: Props) {
             <div>
               <dt className={labelClass}>Category</dt>
               <dd className="text-[13px] text-foreground">{fields.category}</dd>
-            </div>
-            <div>
-              <dt className={labelClass}>Status</dt>
-              <dd className="text-[13px] text-foreground">{fields.status}</dd>
             </div>
             {Object.entries(PORTAL_FIELD_LABELS).map(([key, label]) => (
               <div key={key}>
