@@ -844,7 +844,6 @@ export function PuzzleBoard({
       else members.set(g, [piece]);
     });
     for (const list of members.values()) {
-      if (list.length < 2) continue;
       if (list.every((piece) => pos[piece] === piece))
         list.forEach((piece) => locked.add(piece));
     }
