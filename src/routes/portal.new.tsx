@@ -5,7 +5,7 @@ import { BusinessEditor } from "@/components/portal/BusinessEditor";
 export const Route = createFileRoute("/portal/new")({
   head: () => ({
     meta: [
-      { title: "Project Victoria's" },
+      { title: "Project Pictaria" },
       { name: "description", content: "A community project for Maui support." },
       { name: "robots", content: "noindex, nofollow" },
     ],
