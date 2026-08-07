@@ -49,8 +49,10 @@ function buzz(pattern: number | number[]) {
 
 /** A piece locking into another piece. */
 export function playLock() {
-  tone(880, 0, 0.09, 0.16);
-  tone(1320, 0.02, 0.07, 0.08);
+  // Soft bell-like chime: E5 + B5 + G#6 with gentle decay
+  tone(659.25, 0, 0.55, 0.12);
+  tone(987.77, 0.04, 0.45, 0.07);
+  tone(1661.22, 0.08, 0.35, 0.04);
   buzz(24);
 }
 
