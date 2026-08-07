@@ -38,7 +38,97 @@ const TRACKS: Track[] = [
     benefit:
       "Low drone and a slow drum near resting heart rate give the body a rhythm to sync with, grounding you when your thoughts feel scattered.",
   },
+  {
+    id: "meditation",
+    name: "Stillness (Meditation)",
+    blurb: "Slow, drifting chords with a distant shimmer of light.",
+    benefit:
+      "Soft, slowly changing harmony with no rhythm to follow lets attention widen and soften — the quiet, spacious feeling of a settled meditation.",
+  },
 ];
+
+function startMeditation(ctx: AudioContext, out: GainNode): Engine {
+  const bus = ctx.createGain();
+  bus.gain.value = 0.0001;
+  bus.gain.exponentialRampToValueAtTime(0.5, ctx.currentTime + 6);
+
+  const warm = ctx.createBiquadFilter();
+  warm.type = "lowpass";
+  warm.frequency.value = 1600;
+  warm.Q.value = 0.4;
+  warm.connect(bus).connect(out);
+
+  // Slow, drifting pad chords (A minor 9 / F major 9 feel)
+  const chords = [
+    [110, 164.81, 220, 329.63],
+    [87.31, 130.81, 174.61, 261.63],
+    [98, 146.83, 196, 293.66],
+  ];
+
+  const oscs: OscillatorNode[] = [];
+  const gains: GainNode[] = [];
+  for (let v = 0; v < 4; v += 1) {
+    const osc = ctx.createOscillator();
+    osc.type = "triangle";
+    const detune = ctx.createOscillator();
+    detune.frequency.value = 0.07 + v * 0.013;
+    const detuneGain = ctx.createGain();
+    detuneGain.gain.value = 3.5;
+    detune.connect(detuneGain).connect(osc.detune);
+    detune.start();
+    oscs.push(detune);
+
+    const g = ctx.createGain();
+    g.gain.value = 0.12 - v * 0.015;
+    osc.connect(g).connect(warm);
+    osc.frequency.value = chords[0]![v]!;
+    osc.start();
+    oscs.push(osc);
+    gains.push(g);
+  }
+
+  let index = 0;
+  const move = () => {
+    index = (index + 1) % chords.length;
+    const chord = chords[index]!;
+    const t = ctx.currentTime;
+    oscs
+      .filter((o) => o.type === "triangle")
+      .forEach((osc, v) => {
+        osc.frequency.setTargetAtTime(chord[v]!, t, 3.5);
+      });
+  };
+  const chordTimer = window.setInterval(move, 16000);
+
+  // Distant shimmer: rare, high, very soft bell-like tones
+  const shimmer = () => {
+    const t = ctx.currentTime + 0.1;
+    const base = chords[index]![Math.floor(Math.random() * 4)]! * 4;
+    const osc = ctx.createOscillator();
+    osc.type = "sine";
+    osc.frequency.value = base;
+    const g = ctx.createGain();
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(0.035, t + 1.6);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + 7);
+    osc.connect(g).connect(out);
+    osc.start(t);
+    osc.stop(t + 7.5);
+  };
+  const shimmerTimer = window.setInterval(shimmer, 11000);
+
+  return {
+    stop: () => {
+      window.clearInterval(chordTimer);
+      window.clearInterval(shimmerTimer);
+      try {
+        oscs.forEach((o) => o.stop());
+      } catch {
+        /* already stopped */
+      }
+    },
+  };
+}
 
 
 type Engine = {
