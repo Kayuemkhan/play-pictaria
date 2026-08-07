@@ -247,6 +247,16 @@ function coerceOrganised(text: string | undefined, transcript: string): Organise
     result.phone = guessPhone(transcript);
   }
 
+  // The description box is the one the note always has something for: fall back
+  // to whatever else the model wrote, then to the spoken words themselves.
+  if (!result.product_service) {
+    result.product_service =
+      [result.story_ideas, result.marketing_ideas, result.notes]
+        .map((value) => value.trim())
+        .find(Boolean) ?? describeFromTranscript(transcript);
+  }
+
+
   // Never lose the spoken words: if nothing landed, keep the transcript.
   const anyFilled = Object.entries(result).some(
     ([field, value]) => field !== "category" && value !== "",
