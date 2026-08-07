@@ -9,7 +9,7 @@ export const Route = createFileRoute("/mindfulness")({
       {
         name: "description",
         content:
-          "Play a Pictaria with ocean waves, singing bowls, binaural beats, or a peaceful didgeridoo drum — gentle soundscapes for a calmer, more present mind.",
+          "Play a Pictaria with ocean waves, singing bowls, binaural beats, a peaceful didgeridoo drum, or a still meditation piece — gentle soundscapes for a calmer, more present mind.",
       },
       {
         property: "og:title",
@@ -18,7 +18,7 @@ export const Route = createFileRoute("/mindfulness")({
       {
         property: "og:description",
         content:
-          "Play a Pictaria with ocean waves, singing bowls, binaural beats, or a peaceful didgeridoo drum — gentle soundscapes for a calmer, more present mind.",
+          "Play a Pictaria with ocean waves, singing bowls, binaural beats, a peaceful didgeridoo drum, or a still meditation piece — gentle soundscapes for a calmer, more present mind.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -50,24 +50,13 @@ function MindfulnessPage() {
 
           <div className="mt-5 rounded-[6px] border border-accent/40 bg-deep/90 p-6 shadow-soft backdrop-blur-md sm:p-8">
             <p className="font-body text-base leading-relaxed font-light text-shell/90 sm:text-lg">
-              Puzzles are more than entertainment. Research suggests they engage
-              multiple areas of the brain at once, supporting visual-spatial
-              skills, attention, working memory, and problem-solving. They also
-              invite a state of mindfulness, gently drawing your attention into
-              the present moment as the outside world fades away, creating a
-              calming, focused experience that many people find both relaxing and
-              deeply satisfying.
-            </p>
-            <p className="mt-4 font-body text-base leading-relaxed font-light text-shell/80 sm:text-lg">
-              Sound deepens all of it. Slow, repetitive music without lyrics
-              gives the mind something steady to rest on, so breathing lengthens,
-              heart rate eases, and the body shifts out of alert mode into its
-              calmer, restorative state. Waves and drones mask the sudden noises
-              that keep us on edge; bowls and binaural pulses invite the drifting,
-              spacious attention of meditation. Played while you piece a puzzle
-              together, it turns a few quiet minutes into a real reset for a
-              tired nervous system — less racing thought, softer mood, and an
-              easier landing into sleep afterward.
+              Puzzles quietly draw your attention into the present moment, and
+              slow music without lyrics deepens it — breathing lengthens, heart
+              rate eases, and the body shifts out of alert mode into its calmer,
+              restorative state. Waves and drones mask the sudden noises that keep
+              us on edge, while bowls, binaural pulses, and stillness invite the
+              spacious attention of meditation, turning a few quiet minutes into a
+              real reset for a tired nervous system.
             </p>
 
           </div>
