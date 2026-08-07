@@ -49,10 +49,10 @@ function BusinessRecord() {
           That business record no longer exists.
         </p>
         <Link
-          to="/portal"
+          to="/"
           className="mt-4 text-[10px] tracking-[0.18em] text-primary uppercase"
         >
-          Back to portal
+          Back home
         </Link>
       </main>
     );
