@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Music, Search, VolumeX } from "lucide-react";
+import palmLogo from "@/assets/logo-palms-only.png";
 import { playLock, playPick, playSolved } from "@/lib/feedback";
 import {
   toggleMindfulMusic,
