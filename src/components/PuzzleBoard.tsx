@@ -925,9 +925,7 @@ export function PuzzleBoard({
                   backgroundPosition: `${bg.x - pc * cellW}px ${bg.y - pr * cellH}px`,
                   borderRadius: isLocked ? 4 : 22,
                   boxShadow: isDragged
-                    ? drag!.valid
-                      ? "0 0 0 3px var(--accent), 0 12px 22px rgba(15,45,70,0.45)"
-                      : "0 0 0 3px rgba(220,90,90,0.8)"
+                    ? "0 14px 28px rgba(15,45,70,0.35), inset 0 0 0 1.5px rgba(255,255,255,0.85)"
                     : justLocked
                       ? "0 0 0 2px var(--accent)"
                       : isFloating
