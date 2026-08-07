@@ -102,6 +102,10 @@ export function PuzzleBoard({
   const [solved, setSolved] = useState(false);
   const [showSummary, setShowSummary] = useState(false);
   const [showReference, setShowReference] = useState(false);
+  const { playing: musicPlaying, selected: musicSelected } = useMindfulPlayer();
+  const musicOn = musicPlaying !== null;
+  const musicTitle = trackName(musicPlaying ?? musicSelected);
+
   const [drag, setDrag] = useState<{
     group: number;
     dx: number;
