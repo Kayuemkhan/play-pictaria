@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-type TrackId = "ocean" | "bowls" | "binaural" | "didgeridoo";
+type TrackId = "ocean" | "bowls" | "binaural" | "didgeridoo" | "meditation";
 
 type Track = {
   id: TrackId;
