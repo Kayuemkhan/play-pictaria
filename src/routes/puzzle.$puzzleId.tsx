@@ -2,6 +2,9 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { PuzzleBoard } from "@/components/PuzzleBoard";
 
+import { PoemCTAs } from "@/components/PoemCTAs";
+import palmLogo from "@/assets/logo-palms-only.png";
+
 import { difficulties, findPuzzle } from "@/data/collections";
 
 export const Route = createFileRoute("/puzzle/$puzzleId")({
@@ -75,6 +78,26 @@ function PuzzlePage() {
   return (
     <main className="min-h-screen bg-mist-gradient px-4 pb-16 sm:px-6">
       <div className="mx-auto w-full max-w-3xl pt-8">
+        <Link
+          to="/"
+          aria-label="Pictaria — turn pictures into play"
+          className="group mb-6 flex flex-col items-center"
+        >
+          <img
+            src={palmLogo}
+            alt="Pictaria"
+            width={1024}
+            height={1024}
+            className="h-14 w-auto transition-transform duration-500 ease-[var(--ease-calm)] group-hover:scale-[1.06] sm:h-16"
+          />
+          <span className="mt-2 font-display text-2xl leading-none tracking-[0.34em] text-primary uppercase sm:text-3xl">
+            Pictaria
+          </span>
+          <span className="-mt-0.5 font-display text-[0.6rem] tracking-[0.42em] text-muted-foreground uppercase sm:text-[0.7rem]">
+            Turn pictures into play
+          </span>
+        </Link>
+
         <div className="overflow-hidden rounded-[4px] border border-accent/60 shadow-lift">
           <img
             src={puzzle.image}
@@ -137,6 +160,10 @@ function PuzzlePage() {
               </p>
             </button>
           ))}
+        </div>
+
+        <div className="mt-10">
+          <PoemCTAs />
         </div>
       </div>
     </main>
