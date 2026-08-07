@@ -226,73 +226,49 @@ export function BusinessEditor({ record }: Props) {
     <form onSubmit={submit} className="space-y-6">
       {/* Photograph */}
       <section className="rounded-lg border border-accent/50 bg-shell p-4 shadow-soft">
-        <button
-          type="button"
-          onClick={() => openPhotoPicker(libraryInput)}
-          className="relative block aspect-[3/4] w-full overflow-hidden rounded-md border border-accent/40 bg-muted/40 text-left"
-          aria-label={photoUrl ? "Choose a different photo" : "Choose a photo"}
+        <PhotoPick
+          label={photoUrl ? "Choose a different photo" : "Choose a photo"}
+          onFiles={pickPhoto}
+          className="block w-full"
         >
-          {photoUrl ? (
-            <img src={photoUrl} alt="Selected business" className="h-full w-full object-cover" />
-          ) : (
-            <>
-              <img
-                src={resortCove.url}
-                alt=""
-                className="absolute inset-0 h-full w-full object-cover opacity-30 grayscale-[20%]"
-              />
-              <span className="absolute inset-0 bg-shell/45" />
-              <span className="relative flex h-full w-full flex-col items-center justify-center gap-2 text-foreground">
-                <ImageIcon className="h-8 w-8" />
-                <span className="text-[10px] tracking-[0.18em] uppercase">
-                  Choose a photo
-                </span>
-                <span className="max-w-44 text-center text-[11px] leading-relaxed text-muted-foreground">
-                  Add something beautiful to turn into play
-                </span>
-              </span>
-            </>
-          )}
-        </button>
+          <span className="relative block aspect-[3/4] w-full overflow-hidden rounded-md border border-accent/40 bg-muted/40">
+            {photoUrl ? (
+              <img src={photoUrl} alt="Selected business" className="h-full w-full object-cover" />
+            ) : (
+              <PhotoPlaceholder hint="Add something beautiful to turn into play" />
+            )}
+          </span>
+        </PhotoPick>
         <div className="mt-3 flex items-center gap-2">
-          <Button
-            type="button"
-            onClick={() => openPhotoPicker(cameraInput)}
-            className="flex-1 rounded-full text-[0.55rem] tracking-[0.2em] uppercase"
+          <PhotoPick
+            label="Take a photo"
+            capture="environment"
+            onFiles={pickPhoto}
+            className="flex-1"
           >
-            <Camera className="mr-1.5 h-3.5 w-3.5" />
-            Take photo
-          </Button>
-          <Button
-            type="button"
-            variant="outline"
-            onClick={() => openPhotoPicker(libraryInput)}
-            className="flex-1 rounded-full text-[0.55rem] tracking-[0.2em] uppercase"
-          >
-            <ImageIcon className="mr-1.5 h-3.5 w-3.5" />
-            Choose photo
-          </Button>
+            <Button
+              type="button"
+              tabIndex={-1}
+              className="w-full rounded-full text-[0.55rem] tracking-[0.2em] uppercase"
+            >
+              <Camera className="mr-1.5 h-3.5 w-3.5" />
+              Take photo
+            </Button>
+          </PhotoPick>
+          <PhotoPick label="Choose a photo from your library" onFiles={pickPhoto} className="flex-1">
+            <Button
+              type="button"
+              tabIndex={-1}
+              variant="outline"
+              className="w-full rounded-full text-[0.55rem] tracking-[0.2em] uppercase"
+            >
+              <ImageIcon className="mr-1.5 h-3.5 w-3.5" />
+              Choose photo
+            </Button>
+          </PhotoPick>
         </div>
-        <input
-          ref={cameraInput}
-          type="file"
-          accept="image/*"
-          capture="environment"
-          onChange={pickPhoto}
-          className="sr-only"
-          tabIndex={-1}
-          aria-hidden="true"
-        />
-        <input
-          ref={libraryInput}
-          type="file"
-          accept="image/*"
-          onChange={pickPhoto}
-          className="sr-only"
-          tabIndex={-1}
-          aria-hidden="true"
-        />
       </section>
+
 
 
 
