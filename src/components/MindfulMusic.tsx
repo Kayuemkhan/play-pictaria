@@ -510,7 +510,7 @@ export function trackName(id: TrackId | null) {
 
 
 export function MindfulMusic() {
-  const playing = useMindfulPlayer();
+  const { playing, selected } = useMindfulPlayer();
 
   return (
     <div className="mt-8">
@@ -518,31 +518,48 @@ export function MindfulMusic() {
         Choose your sound
       </h2>
       <p className="mt-2 font-body text-xs leading-relaxed font-light text-shell/70">
-        Sound keeps playing while you solve — start a track, then head into a
-        puzzle.
+        Switch a sound on here and it keeps playing while you solve. Inside a
+        puzzle, the note button at the top turns it on and off.
       </p>
       <div className="mt-4 grid gap-3 sm:grid-cols-2">
         {TRACKS.map((track) => {
           const active = playing === track.id;
+          const chosen = selected === track.id;
           return (
-            <button
+            <div
               key={track.id}
-              type="button"
-              onClick={() => void playMindfulTrack(track.id)}
-              aria-pressed={active}
-              className={`rounded-[6px] border p-4 text-left transition-colors ${
+              className={`rounded-[6px] border p-4 transition-colors ${
                 active
                   ? "border-accent bg-accent/15"
-                  : "border-accent/30 bg-deep/70 hover:border-accent/60"
+                  : chosen
+                    ? "border-accent/60 bg-deep/70"
+                    : "border-accent/30 bg-deep/70"
               }`}
             >
-              <span className="flex items-center justify-between gap-3">
+              <div className="flex items-center justify-between gap-3">
                 <span className="font-body text-sm font-light tracking-[0.06em] text-shell">
                   {track.name}
                 </span>
-                <span className="font-body text-[0.6rem] tracking-[0.18em] text-accent uppercase">
-                  {active ? "Playing" : "Play"}
-                </span>
+                <button
+                  type="button"
+                  onClick={() => void playMindfulTrack(track.id)}
+                  aria-pressed={active}
+                  aria-label={`${active ? "Turn off" : "Turn on"} ${track.name}`}
+                  className={`flex h-6 w-12 shrink-0 items-center rounded-full border px-0.5 transition-colors ${
+                    active
+                      ? "justify-end border-accent bg-accent/40"
+                      : "justify-start border-accent/40 bg-deep"
+                  }`}
+                >
+                  <span
+                    className={`h-4.5 w-4.5 rounded-full transition-colors ${
+                      active ? "bg-accent" : "bg-accent/40"
+                    }`}
+                  />
+                </button>
+              </div>
+              <span className="mt-1 block font-body text-[0.6rem] tracking-[0.18em] text-accent uppercase">
+                {active ? "On" : "Off"}
               </span>
               <span className="mt-1.5 block font-body text-xs leading-relaxed font-light text-shell/70">
                 {track.blurb}
@@ -550,10 +567,11 @@ export function MindfulMusic() {
               <span className="mt-2 block font-body text-[0.7rem] leading-relaxed font-light text-accent/80">
                 {track.benefit}
               </span>
-            </button>
+            </div>
           );
         })}
       </div>
+
       {playing ? (
         <button
           type="button"
