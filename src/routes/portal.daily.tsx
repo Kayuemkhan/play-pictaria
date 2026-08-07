@@ -221,23 +221,6 @@ function DailyWaitingArea() {
           )}
         </section>
 
-        {/* Yesterday's folder */}
-        <Link
-          to="/portal/daily-past"
-          className="flex items-center justify-between rounded-lg border border-accent/40 bg-shell/90 px-5 py-4 shadow-soft transition-transform hover:scale-[1.01]"
-        >
-          <span>
-            <span className="block font-display text-[1.05rem] text-foreground">
-              Yesterdailys
-            </span>
-            <span className="text-[10px] tracking-[0.16em] text-muted-foreground uppercase">
-              {past.length} in the folder
-            </span>
-          </span>
-          <span aria-hidden className="text-primary">
-            ›
-          </span>
-        </Link>
 
         {error && (
           <p className="text-center text-[11px] text-destructive">{error}</p>
