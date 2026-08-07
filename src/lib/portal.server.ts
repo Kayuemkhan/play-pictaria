@@ -164,6 +164,11 @@ Rules:
   name only. If only one name is mentioned and it sounds like a business, it is
   the company_name.
 - Leave a field as an empty string when the note does not cover it.
+- phone is second in importance after company_name. Capture ANY spoken number
+  that could be a phone number, however it is said: as digits, as words, in
+  pairs or triples ("eight oh eight, five five five, twelve twelve"), with or
+  without an area code, and whether or not the speaker says the word "phone".
+  Always write it as 808-555-1212 (or 555-1212 when no area code was given).
 - Tidy spoken phone numbers, emails and websites into normal written form
   (e.g. "eight zero eight five five five one two one two" -> "808-555-1212",
   "amy at kai gallery dot com" -> "amy@kaigallery.com").
