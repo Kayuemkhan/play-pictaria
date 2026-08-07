@@ -105,14 +105,12 @@ function AboutPage() {
       {/* final CTA */}
       <section className="mt-10 px-4 text-center sm:px-8">
         <p className="font-display text-[1.1rem] text-shell">
-          — Amy Wakingwolf
-        </p>
-        <p className="mt-2 font-display text-[1.1rem] text-shell">
           “pictures are worth a thousand words puzzles make them fun”
         </p>
-        <p className="mt-2 font-display text-[1.1rem] text-shell">
+        <p className="mt-2 font-display text-[1rem] text-shell/85">
           — Amy Wakingwolf
         </p>
+
 
         <Link
           to="/collections"
