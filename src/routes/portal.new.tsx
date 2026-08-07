@@ -25,14 +25,48 @@ function NewBusiness() {
       <div className="mx-auto mt-6 max-w-md">
         <Link
           to="/portal/daily"
-          className="mb-5 flex items-center justify-between rounded-lg border border-accent/40 bg-shell/90 px-5 py-4 shadow-soft transition-transform hover:scale-[1.01]"
+          className="mb-3 flex items-center justify-between rounded-lg border border-accent/40 bg-shell/90 px-5 py-4 shadow-soft transition-transform hover:scale-[1.01]"
+        >
+          <span>
+            <span className="block font-display text-[1.05rem] text-foreground">
+              Photo Warehouse
+            </span>
+            <span className="text-[10px] tracking-[0.16em] text-muted-foreground uppercase">
+              every business photo you&apos;ve collected
+            </span>
+          </span>
+          <span aria-hidden className="text-primary">
+            ›
+          </span>
+        </Link>
+
+        <Link
+          to="/portal/daily"
+          className="mb-3 flex items-center justify-between rounded-lg border border-accent/40 bg-shell/90 px-5 py-4 shadow-soft transition-transform hover:scale-[1.01]"
         >
           <span>
             <span className="block font-display text-[1.05rem] text-foreground">
               Today&apos;s Pictaria
             </span>
             <span className="text-[10px] tracking-[0.16em] text-muted-foreground uppercase">
-              choose from the waiting area
+              pick one from the warehouse
+            </span>
+          </span>
+          <span aria-hidden className="text-primary">
+            ›
+          </span>
+        </Link>
+
+        <Link
+          to="/portal/daily-past"
+          className="mb-5 flex items-center justify-between rounded-lg border border-accent/40 bg-shell/90 px-5 py-4 shadow-soft transition-transform hover:scale-[1.01]"
+        >
+          <span>
+            <span className="block font-display text-[1.05rem] text-foreground">
+              Yesterdailys
+            </span>
+            <span className="text-[10px] tracking-[0.16em] text-muted-foreground uppercase">
+              already sent out
             </span>
           </span>
           <span aria-hidden className="text-primary">
