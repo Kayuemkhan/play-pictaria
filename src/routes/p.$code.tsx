@@ -27,12 +27,13 @@ export const Route = createFileRoute("/p/$code")({
       {
         name: "description",
         content:
-          "Someone sent you a Pictaria. Slide the tiles together and reveal the picture behind the puzzle.",
+          'Discover beautiful photography one puzzle "peace" at a time.',
       },
       { property: "og:title", content: "A Pictaria for You" },
       {
         property: "og:description",
-        content: "Someone sent you a puzzle made from their own photograph.",
+        content:
+          'Discover beautiful photography one puzzle "peace" at a time.',
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
