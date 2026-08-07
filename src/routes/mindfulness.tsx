@@ -58,6 +58,18 @@ function MindfulnessPage() {
               calming, focused experience that many people find both relaxing and
               deeply satisfying.
             </p>
+            <p className="mt-4 font-body text-base leading-relaxed font-light text-shell/80 sm:text-lg">
+              Sound deepens all of it. Slow, repetitive music without lyrics
+              gives the mind something steady to rest on, so breathing lengthens,
+              heart rate eases, and the body shifts out of alert mode into its
+              calmer, restorative state. Waves and drones mask the sudden noises
+              that keep us on edge; bowls and binaural pulses invite the drifting,
+              spacious attention of meditation. Played while you piece a puzzle
+              together, it turns a few quiet minutes into a real reset for a
+              tired nervous system — less racing thought, softer mood, and an
+              easier landing into sleep afterward.
+            </p>
+
           </div>
 
           <MindfulMusic />
