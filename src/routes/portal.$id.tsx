@@ -51,7 +51,7 @@ function BusinessRecord() {
         <p className="text-[10px] tracking-[0.2em] text-shell/60 uppercase">Loading…</p>
       </main>
     );
-  if (locked) return <PortalLock onUnlocked={check} />;
+  
 
 
   if (!record) {
