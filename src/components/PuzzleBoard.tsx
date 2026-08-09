@@ -881,25 +881,33 @@ export function PuzzleBoard({
 
   return (
     <div className="relative flex h-[100dvh] w-full flex-col overflow-hidden bg-mist-gradient">
+      {/* Pictaria branding, centered over every branded puzzle */}
+      {!unbranded && (
+        <Link
+          to="/"
+          aria-label="Pictaria — turn pictures into play"
+          className="group z-20 flex shrink-0 flex-col items-center pt-2 pb-1"
+        >
+          <img
+            src={palmLogo}
+            alt="Pictaria"
+            width={1024}
+            height={1024}
+            className="h-8 w-auto transition-transform duration-500 ease-[var(--ease-calm)] group-hover:scale-[1.05] sm:h-10"
+          />
+          <span className="mt-1 font-display text-xl leading-none tracking-[0.34em] text-primary uppercase sm:text-2xl">
+            Pictaria
+          </span>
+          <span className="-mt-0.5 font-display text-[0.5rem] tracking-[0.42em] text-muted-foreground uppercase sm:text-[0.6rem]">
+            Turn pictures into play
+          </span>
+        </Link>
+      )}
+
       {/* top bar */}
       <header className="glass-panel z-20 grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 px-3 py-2.5 sm:px-5">
-        {unbranded ? (
-          <span aria-hidden className="w-1" />
-        ) : (
-          <Link
-            to="/"
-            aria-label="Pictaria — turn pictures into play"
-            className="shrink-0 transition-transform hover:scale-[1.04]"
-          >
-            <img
-              src={palmLogo}
-              alt="Pictaria"
-              width={1024}
-              height={1024}
-              className="h-8 w-auto sm:h-10"
-            />
-          </Link>
-        )}
+        <span aria-hidden className="w-1" />
+
         <div className="min-w-0 text-center">
           <p className="truncate font-display text-lg leading-tight sm:text-xl">
             {title}
