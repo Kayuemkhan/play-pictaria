@@ -509,20 +509,32 @@ export function PuzzleBoard({
       const movedPieces = next
         .map((cell, piece) => (cell !== pos[piece] ? piece : -1))
         .filter((p) => p >= 0);
+      // a piece that just settled into its own home cell locks for good
+      const newlyHome = next
+        .map((cell, piece) =>
+          cell === piece && pos[piece] !== piece ? piece : -1,
+        )
+        .filter((p) => p >= 0);
       setFloating(movedPieces);
       window.setTimeout(() => setFloating([]), 520);
       setPos(next);
       setGroupOf(groups);
       setMoves((m) => m + 1);
-      if (merged) {
+      if (merged || newlyHome.length) {
         playLock();
         const rep = groupOf.findIndex((g) => g === group);
         const newGroup = groups[rep];
-        const flashed = groups
-          .map((g, piece) => (g === newGroup ? piece : -1))
-          .filter((p) => p >= 0);
+        const flashed = Array.from(
+          new Set([
+            ...groups
+              .map((g, piece) => (g === newGroup ? piece : -1))
+              .filter((p) => p >= 0),
+            ...newlyHome,
+          ]),
+        );
         setFlash(flashed);
         window.setTimeout(() => setFlash([]), 380);
+
 
         // little gold sparkles where pieces just clicked together
         const burst = flashed.map((piece) => {
