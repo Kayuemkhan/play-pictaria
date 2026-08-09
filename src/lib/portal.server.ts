@@ -48,15 +48,23 @@ export async function lockPortalSession() {
   await session.clear();
 }
 
-// The portal is reached only through the hidden palm-tree tap on the home
-// screen; the passcode wall was removed at the owner's request.
+// Admin-only: the portal (warehouse, today's pick, Yesterdailys, subscribers)
+// is behind the founder passcode. The hidden palm-tree tap only reveals the door.
 export async function isPortalUnlocked() {
-  return true;
+  try {
+    const session = await useSession<PortalSession>(sessionConfig());
+    return session.data.unlocked === true;
+  } catch {
+    return false;
+  }
 }
 
 export async function requirePortal() {
-  // no-op: portal access is open (hidden entry point only)
+  if (!(await isPortalUnlocked())) {
+    throw new Response("Unauthorized", { status: 401 });
+  }
 }
+
 
 // ---------------------------------------------------------------- storage
 

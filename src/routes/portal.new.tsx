@@ -2,6 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { BusinessEditor } from "@/components/portal/BusinessEditor";
 
+import { PortalGuard } from "@/components/portal/PortalGuard";
+
 export const Route = createFileRoute("/portal/new")({
   head: () => ({
     meta: [
@@ -10,7 +12,7 @@ export const Route = createFileRoute("/portal/new")({
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
-  component: NewBusiness,
+  component: GuardedNewBusiness,
 });
 
 function NewBusiness() {
@@ -97,3 +99,11 @@ function NewBusiness() {
   );
 }
 
+
+function GuardedNewBusiness() {
+  return (
+    <PortalGuard>
+      <NewBusiness />
+    </PortalGuard>
+  );
+}

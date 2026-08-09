@@ -21,6 +21,12 @@ export const lockPortal = createServerFn({ method: "POST" }).handler(async () =>
   return { ok: true };
 });
 
+export const getPortalStatus = createServerFn({ method: "POST" }).handler(async () => {
+  const { isPortalUnlocked } = await import("./portal.server");
+  return { unlocked: await isPortalUnlocked() };
+});
+
+
 export const listPortalBusinesses = createServerFn({ method: "POST" }).handler(
   async () => {
     const { isPortalUnlocked, toRecord, withClockSkewRetry } = await import(
