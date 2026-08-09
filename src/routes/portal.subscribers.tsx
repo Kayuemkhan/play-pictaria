@@ -111,7 +111,7 @@ function Subscribers() {
             to="/portal/new"
             className="text-[10px] tracking-[0.18em] text-shell/60 uppercase underline"
           >
-            Back to Project Pictaria
+            Back to Pictaria Project
           </Link>
         </div>
       </div>

@@ -7,7 +7,7 @@ import { PortalGuard } from "@/components/portal/PortalGuard";
 export const Route = createFileRoute("/portal/new")({
   head: () => ({
     meta: [
-      { title: "Project Pictaria" },
+      { title: "Pictaria Project" },
       { name: "description", content: "A community project for Maui support." },
       { name: "robots", content: "noindex, nofollow" },
     ],
@@ -19,7 +19,7 @@ function NewBusiness() {
   return (
     <main className="min-h-screen bg-deep px-4 pt-16 pb-24">
       <header className="mx-auto max-w-md text-center">
-        <h1 className="font-display text-[1.5rem] text-shell">Project Pictaria</h1>
+        <h1 className="font-display text-[1.5rem] text-shell">Pictaria Project</h1>
         <p className="mt-1 text-[10px] tracking-[0.2em] text-shell/60 uppercase">
           a community project for Maui support
         </p>
