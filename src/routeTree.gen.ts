@@ -27,6 +27,7 @@ import { Route as PortalIdRouteImport } from './routes/portal.$id'
 import { Route as PortalDailyRouteImport } from './routes/portal.daily'
 import { Route as PortalDailyPastRouteImport } from './routes/portal.daily-past'
 import { Route as PortalNewRouteImport } from './routes/portal.new'
+import { Route as PortalSubscribersRouteImport } from './routes/portal.subscribers'
 import { Route as PuzzlePuzzleIdRouteImport } from './routes/puzzle.$puzzleId'
 import { Route as StorybookCollectionIdRouteImport } from './routes/storybook.$collectionId'
 import { Route as StudioArtistRouteImport } from './routes/studio.artist'
@@ -126,6 +127,11 @@ const PortalNewRoute = PortalNewRouteImport.update({
   path: '/portal/new',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PortalSubscribersRoute = PortalSubscribersRouteImport.update({
+  id: '/portal/subscribers',
+  path: '/portal/subscribers',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PuzzlePuzzleIdRoute = PuzzlePuzzleIdRouteImport.update({
   id: '/puzzle/$puzzleId',
   path: '/puzzle/$puzzleId',
@@ -176,6 +182,7 @@ export interface FileRoutesByFullPath {
   '/portal/daily': typeof PortalDailyRoute
   '/portal/daily-past': typeof PortalDailyPastRoute
   '/portal/new': typeof PortalNewRoute
+  '/portal/subscribers': typeof PortalSubscribersRoute
   '/puzzle/$puzzleId': typeof PuzzlePuzzleIdRoute
   '/storybook/$collectionId': typeof StorybookCollectionIdRoute
   '/studio/artist': typeof StudioArtistRoute
@@ -202,6 +209,7 @@ export interface FileRoutesByTo {
   '/portal/daily': typeof PortalDailyRoute
   '/portal/daily-past': typeof PortalDailyPastRoute
   '/portal/new': typeof PortalNewRoute
+  '/portal/subscribers': typeof PortalSubscribersRoute
   '/puzzle/$puzzleId': typeof PuzzlePuzzleIdRoute
   '/storybook/$collectionId': typeof StorybookCollectionIdRoute
   '/studio/artist': typeof StudioArtistRoute
@@ -229,6 +237,7 @@ export interface FileRoutesById {
   '/portal/daily': typeof PortalDailyRoute
   '/portal/daily-past': typeof PortalDailyPastRoute
   '/portal/new': typeof PortalNewRoute
+  '/portal/subscribers': typeof PortalSubscribersRoute
   '/puzzle/$puzzleId': typeof PuzzlePuzzleIdRoute
   '/storybook/$collectionId': typeof StorybookCollectionIdRoute
   '/studio/artist': typeof StudioArtistRoute
@@ -257,6 +266,7 @@ export interface FileRouteTypes {
     | '/portal/daily'
     | '/portal/daily-past'
     | '/portal/new'
+    | '/portal/subscribers'
     | '/puzzle/$puzzleId'
     | '/storybook/$collectionId'
     | '/studio/artist'
@@ -283,6 +293,7 @@ export interface FileRouteTypes {
     | '/portal/daily'
     | '/portal/daily-past'
     | '/portal/new'
+    | '/portal/subscribers'
     | '/puzzle/$puzzleId'
     | '/storybook/$collectionId'
     | '/studio/artist'
@@ -309,6 +320,7 @@ export interface FileRouteTypes {
     | '/portal/daily'
     | '/portal/daily-past'
     | '/portal/new'
+    | '/portal/subscribers'
     | '/puzzle/$puzzleId'
     | '/storybook/$collectionId'
     | '/studio/artist'
@@ -336,6 +348,7 @@ export interface RootRouteChildren {
   PortalDailyRoute: typeof PortalDailyRoute
   PortalDailyPastRoute: typeof PortalDailyPastRoute
   PortalNewRoute: typeof PortalNewRoute
+  PortalSubscribersRoute: typeof PortalSubscribersRoute
   PuzzlePuzzleIdRoute: typeof PuzzlePuzzleIdRoute
   StorybookCollectionIdRoute: typeof StorybookCollectionIdRoute
   StudioArtistRoute: typeof StudioArtistRoute
@@ -473,6 +486,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PortalNewRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/portal/subscribers': {
+      id: '/portal/subscribers'
+      path: '/portal/subscribers'
+      fullPath: '/portal/subscribers'
+      preLoaderRoute: typeof PortalSubscribersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/puzzle/$puzzleId': {
       id: '/puzzle/$puzzleId'
       path: '/puzzle/$puzzleId'
@@ -537,6 +557,7 @@ const rootRouteChildren: RootRouteChildren = {
   PortalDailyRoute: PortalDailyRoute,
   PortalDailyPastRoute: PortalDailyPastRoute,
   PortalNewRoute: PortalNewRoute,
+  PortalSubscribersRoute: PortalSubscribersRoute,
   PuzzlePuzzleIdRoute: PuzzlePuzzleIdRoute,
   StorybookCollectionIdRoute: StorybookCollectionIdRoute,
   StudioArtistRoute: StudioArtistRoute,
