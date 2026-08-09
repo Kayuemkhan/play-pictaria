@@ -153,7 +153,7 @@ export const createPortalShareLink = createServerFn({ method: "POST" })
     };
 
     const content = {
-      title: data.title ?? business.company_name ?? "" || "A Pictaria for you",
+      title: data.title || business.company_name || "A Pictaria for you",
       tagline: data.tagline ?? business.product_service ?? "",
       story: data.story ?? business.story_ideas ?? "",
       grid: data.grid ?? 4,
