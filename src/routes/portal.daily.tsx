@@ -50,6 +50,7 @@ interface WarehouseItem {
   category: string;
   product_service: string;
   story_ideas: string;
+  notes: string;
 }
 
 interface PreviewDraft {
@@ -99,6 +100,7 @@ function DailyWaitingArea() {
               category: row.category as string,
               product_service: row.product_service ?? "",
               story_ideas: row.story_ideas ?? "",
+              notes: row.notes ?? "",
             })),
         );
       }
