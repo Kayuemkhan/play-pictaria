@@ -1,5 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { collections } from "@/data/collections";
+import { useEffect, useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
+import { collections, findPuzzle } from "@/data/collections";
+import { getYesterdailys } from "@/lib/yesterdailys.functions";
+import type { YesterdailyItem } from "@/lib/yesterdailys.functions";
 
 
 export const Route = createFileRoute("/collection/$collectionId")({
@@ -24,6 +28,16 @@ export const Route = createFileRoute("/collection/$collectionId")({
 function CollectionPage() {
   const { collectionId } = Route.useParams();
   const collection = collections.find((c) => c.id === collectionId);
+  const isArchive = collectionId === "yesterdailys";
+
+  const loadArchive = useServerFn(getYesterdailys);
+  const [archive, setArchive] = useState<YesterdailyItem[]>([]);
+
+  useEffect(() => {
+    if (!isArchive) return;
+    void loadArchive({}).then((result) => setArchive(result.items));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isArchive]);
 
   if (!collection) {
     return (
@@ -47,7 +61,7 @@ function CollectionPage() {
       <div className="mx-auto w-full max-w-4xl pt-8">
         <div className="text-center">
           <p className="text-[11px] tracking-[0.3em] text-muted-foreground uppercase">
-            {`${collection.puzzles.length} puzzles`}
+            {`${collection.puzzles.length + archive.length} puzzles`}
           </p>
           <h1 className="mt-2 font-display text-4xl sm:text-5xl">
             {collection.title}
@@ -58,6 +72,42 @@ function CollectionPage() {
         </div>
 
         <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3">
+          {archive.map((item) => {
+            const found = item.kind === "puzzle" ? findPuzzle(item.id) : null;
+            const image = item.image ?? found?.puzzle.image ?? null;
+            const title = found?.puzzle.title ?? item.title;
+            if (!image) return null;
+            const linkProps =
+              item.kind === "shared"
+                ? ({ to: "/p/$code", params: { code: item.id } } as const)
+                : ({
+                    to: "/puzzle/$puzzleId",
+                    params: { puzzleId: item.id },
+                    search: { grid: undefined },
+                  } as const);
+            return (
+              <Link
+                key={`${item.kind}-${item.id}`}
+                {...linkProps}
+                className="group relative block overflow-hidden rounded-[4px] border border-accent/60 shadow-soft transition-shadow duration-500 hover:shadow-lift"
+              >
+                <img
+                  src={image}
+                  alt={title}
+                  loading="lazy"
+                  className="aspect-[3/4] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
+                />
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-deep via-deep/70 to-transparent px-3 pt-8 pb-3 text-left">
+                  <p className="text-[11px] leading-snug tracking-[0.1em] text-deep-foreground uppercase">
+                    {title}
+                  </p>
+                  <p className="mt-1 text-[10px] tracking-[0.14em] text-accent uppercase">
+                    {new Date(item.picked_at).toLocaleDateString()}
+                  </p>
+                </div>
+              </Link>
+            );
+          })}
           {collection.puzzles.map((puzzle) => {
             return (
               <Link
