@@ -28,6 +28,10 @@ export interface PuzzleBoardProps {
   grid: number;
   onExit: () => void;
   onChangeDifficulty: () => void;
+  /** Move on to the next photograph in this gallery, at the same grid. */
+  onNext?: () => void;
+  /** Title of the next photograph, for the button label. */
+  nextTitle?: string;
   /** Brand Studio Pictarias carry no Pictaria logo — only a tiny credit link. */
   unbranded?: boolean;
 }
