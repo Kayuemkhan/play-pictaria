@@ -226,15 +226,26 @@ export function PuzzleBoard({
     return () => window.clearInterval(t);
   }, [solved, pos.length]);
 
-  /* celebration: sparkle over the finished picture first, summary after */
+  /* celebration: sparkle over the finished picture, then straight on to the
+     next photo — no stats card, so the next picture is a surprise. Only the
+     last puzzle in a gallery falls back to the summary card. */
+  const nextRef = useRef(onNext);
+  nextRef.current = onNext;
+  const hasNext = Boolean(onNext);
   useEffect(() => {
     if (!solved) {
       setShowSummary(false);
       return;
     }
+    if (hasNext) {
+      const t = window.setTimeout(() => nextRef.current?.(), 3600);
+      return () => window.clearTimeout(t);
+    }
     const t = window.setTimeout(() => setShowSummary(true), 6200);
     return () => window.clearTimeout(t);
-  }, [solved]);
+  }, [solved, hasNext]);
+
+
 
 
 
