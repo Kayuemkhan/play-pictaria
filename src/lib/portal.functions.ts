@@ -4,6 +4,7 @@ import {
   portalAudioSchema,
   portalIdSchema,
   portalSaveSchema,
+  portalShareSchema,
   portalUnlockSchema,
 } from "./portal-types";
 
