@@ -125,11 +125,12 @@ export const organisePortalNote = createServerFn({ method: "POST" })
   });
 
 /**
- * Creates (or returns) the public Pictaria share link for a business photo so
+ * Creates (or updates) the public Pictaria share link for a business photo so
  * it can be sent to the customer and posted on social media right away.
+ * Any wording passed in from the preview screen wins over the stored notes.
  */
 export const createPortalShareLink = createServerFn({ method: "POST" })
-  .inputValidator((input) => portalIdSchema.parse(input))
+  .inputValidator((input) => portalShareSchema.parse(input))
   .handler(async ({ data }) => {
     const { requirePortal } = await import("./portal.server");
     await requirePortal();
@@ -144,8 +145,28 @@ export const createPortalShareLink = createServerFn({ method: "POST" })
     if (error) throw new Error(error.message);
     if (!row) throw new Error("That business record no longer exists.");
 
+    const business = row as {
+      company_name?: string | null;
+      product_service?: string | null;
+      story_ideas?: string | null;
+    };
+
+    const content = {
+      title: data.title ?? business.company_name ?? "" || "A Pictaria for you",
+      tagline: data.tagline ?? business.product_service ?? "",
+      story: data.story ?? business.story_ideas ?? "",
+      grid: data.grid ?? 4,
+    };
+
     const existing = (row as { share_code?: string | null }).share_code;
-    if (existing) return { code: existing };
+    if (existing) {
+      const { error: patchError } = await supabaseAdmin
+        .from("pictarias")
+        .update(content as never)
+        .eq("share_code", existing);
+      if (patchError) throw new Error(patchError.message);
+      return { code: existing };
+    }
 
     const photoPath = (row as { photo_path?: string | null }).photo_path ?? "";
     if (!photoPath) {
@@ -175,18 +196,12 @@ export const createPortalShareLink = createServerFn({ method: "POST" })
       .upload(`${code}/0.${ext}`, bytes, { contentType, upsert: true });
     if (uploadError) throw new Error(uploadError.message);
 
-    const business = row as {
-      company_name?: string | null;
-      product_service?: string | null;
-      story_ideas?: string | null;
-    };
-
     const { error: insertError } = await supabaseAdmin.from("pictarias").insert({
       share_code: code,
-      title: business.company_name || "A Pictaria for you",
-      tagline: business.product_service || "",
-      story: business.story_ideas || "",
-      grid: 4,
+      title: content.title,
+      tagline: content.tagline,
+      story: content.story,
+      grid: content.grid,
       tier: "brand",
       photo_paths: [`${code}/0.${ext}`],
     });
