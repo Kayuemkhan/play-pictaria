@@ -238,7 +238,7 @@ function DailyWaitingArea() {
                 {currentBusiness.title}
               </p>
               <p className="text-[10px] tracking-[0.16em] text-muted-foreground uppercase">
-                Project Pictaria
+                Pictaria Project
               </p>
               <p className="mt-1 text-[11px] text-muted-foreground">
                 Chosen {new Date(current!.picked_at).toLocaleDateString()}
@@ -401,10 +401,10 @@ function DailyWaitingArea() {
           </section>
         )}
 
-        {/* Project Pictaria warehouse */}
+        {/* Pictaria Project warehouse */}
         <section>
           <p className="text-center text-[10px] tracking-[0.2em] text-shell/60 uppercase">
-            Project Pictaria warehouse · {shedWaiting.length}
+            Pictaria Project warehouse · {shedWaiting.length}
           </p>
           <p className="mt-1 text-center text-[10px] text-shell/40">
             Every business photograph you have collected. Tap one to preview and
@@ -442,7 +442,7 @@ function DailyWaitingArea() {
           </div>
           {!loading && shedWaiting.length === 0 && (
             <p className="mt-3 text-center text-[11px] text-shell/60">
-              No business photographs waiting — add one in Project Pictaria.
+              No business photographs waiting — add one in Pictaria Project.
             </p>
           )}
         </section>
@@ -490,7 +490,7 @@ function DailyWaitingArea() {
             to="/portal/new"
             className="text-[10px] tracking-[0.18em] text-shell/60 uppercase underline"
           >
-            Back to Project Pictaria
+            Back to Pictaria Project
           </Link>
         </div>
       </div>

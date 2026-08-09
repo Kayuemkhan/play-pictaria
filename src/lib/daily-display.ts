@@ -1,6 +1,6 @@
 /**
  * A daily pick can point either at a curated collection puzzle or at a
- * Project Pictaria business photograph, stored as `portal:<share_code>`.
+ * Pictaria Project business photograph, stored as `portal:<share_code>`.
  */
 export const PORTAL_PICK_PREFIX = "portal:";
 

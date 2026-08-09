@@ -4,7 +4,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { getPortalStatus } from "@/lib/portal.functions";
 import { PortalLock } from "@/components/portal/PortalLock";
 
-/** Wraps every Project Pictaria admin page in the founder passcode gate. */
+/** Wraps every Pictaria Project admin page in the founder passcode gate. */
 export function PortalGuard({ children }: { children: React.ReactNode }) {
   const status = useServerFn(getPortalStatus);
   const [state, setState] = useState<"checking" | "locked" | "open">("checking");

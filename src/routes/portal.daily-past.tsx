@@ -107,7 +107,7 @@ function PastPictarias() {
               if (!business) return null;
               image = business.photo_url;
               title = business.title;
-              caption = "Project Pictaria";
+              caption = "Pictaria Project";
             } else {
               const found = findPuzzle(pick.puzzle_id);
               if (!found) return null;

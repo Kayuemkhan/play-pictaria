@@ -3,7 +3,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { isPortalPick, portalPickCode } from "./daily-display";
 
 export interface YesterdailyItem {
-  /** Collection puzzle id, or the share code for a Project Pictaria photo. */
+  /** Collection puzzle id, or the share code for a Pictaria Project photo. */
   kind: "puzzle" | "shared";
   id: string;
   title: string;
@@ -13,7 +13,7 @@ export interface YesterdailyItem {
 
 /**
  * Every Pictaria that has already had its day — the daily picks archive,
- * with Project Pictaria photographs resolved to their shared pictures.
+ * with Pictaria Project photographs resolved to their shared pictures.
  */
 export const getYesterdailys = createServerFn({ method: "GET" }).handler(
   async () => {
