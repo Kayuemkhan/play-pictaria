@@ -48,7 +48,24 @@ interface WarehouseItem {
   photo_url: string | null;
   share_code: string | null;
   category: string;
+  product_service: string;
+  story_ideas: string;
 }
+
+interface PreviewDraft {
+  item: WarehouseItem;
+  title: string;
+  tagline: string;
+  story: string;
+  grid: number;
+}
+
+const GRID_LABELS: Record<number, string> = {
+  3: "Relaxing",
+  4: "Engaging",
+  5: "Intriguing",
+  6: "Challenging",
+};
 
 function DailyWaitingArea() {
   const load = useServerFn(getDailyPicks);
@@ -56,12 +73,14 @@ function DailyWaitingArea() {
   const loadWarehouse = useServerFn(listPortalBusinesses);
   const makeLink = useServerFn(createPortalShareLink);
   const [warehouse, setWarehouse] = useState<WarehouseItem[]>([]);
+  const [preview, setPreview] = useState<PreviewDraft | null>(null);
 
   const [current, setCurrent] = useState<DailyPick | null>(null);
   const [past, setPast] = useState<DailyPick[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState<string | null>(null);
   const [error, setError] = useState("");
+
 
   const refresh = async () => {
     try {
