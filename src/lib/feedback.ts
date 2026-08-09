@@ -46,19 +46,18 @@ function tone(
   osc.stop(t + dur + 0.05);
 }
 
-/** A soft, inharmonic bell chime. */
-function bellChime(rootFreq: number, start: number, gain: number) {
-  // Bells have slightly stretched, non-integer partials
+/** A soft, glassy chime with a gentle attack and long, elegant decay. */
+function elegantChime(rootFreq: number, start: number, gain: number) {
+  // Fewer, softer partials for a refined, unobtrusive tone
   const partials: [number, number, number][] = [
-    [1.0, 0.9, 1.2], // fundamental
-    [2.05, 0.5, 0.85], // tierce-ish
-    [3.15, 0.28, 0.65], // quint-ish
-    [4.35, 0.14, 0.5], // nominal
+    [1.0, 0.85, 1.6], // warm fundamental
+    [2.02, 0.22, 1.1], // breathy octave-ish
+    [3.06, 0.08, 0.7], // faint shimmer
   ];
   partials.forEach(([mult, gMult, dur]) => {
     tone(rootFreq * mult, start, dur, gain * gMult, "sine");
-    // Add a tiny detuned sister for shimmer
-    tone(rootFreq * mult * 1.003, start + 0.005, dur * 0.9, gain * gMult * 0.25, "sine");
+    // Very subtle detuned sister for airiness
+    tone(rootFreq * mult * 1.002, start + 0.008, dur * 0.85, gain * gMult * 0.18, "sine");
   });
 }
 
@@ -71,9 +70,9 @@ function buzz(pattern: number | number[]) {
 
 /** A piece locking into another piece. */
 export function playLock() {
-  // Delicate, higher-pitched bell — airy, subtle, and quick
-  bellChime(880, 0, 0.08);
-  buzz(18);
+  // Lower, softer chime — more like a distant glass bell than a bright ting
+  elegantChime(659.25, 0, 0.045);
+  buzz(14);
 }
 
 /** Puzzle completed. */
@@ -85,5 +84,5 @@ export function playSolved() {
 }
 
 export function playPick() {
-  tone(440, 0, 0.05, 0.06);
+  tone(392, 0, 0.04, 0.035);
 }
