@@ -81,63 +81,62 @@ function PastPictarias() {
       <div className="mx-auto mt-8 max-w-md">
         <div className="grid grid-cols-3 gap-2.5">
           {past.map((pick) => {
+            let image: string | null = null;
+            let title = "";
+            let caption = new Date(pick.picked_at).toLocaleDateString();
+
             if (isPortalPick(pick.puzzle_id)) {
               const code = portalPickCode(pick.puzzle_id);
               const business = warehouse.find((item) => item.share_code === code);
               if (!business) return null;
-              return (
+              image = business.photo_url;
+              title = business.title;
+              caption = "Project Pictaria";
+            } else {
+              const found = findPuzzle(pick.puzzle_id);
+              if (!found) return null;
+              image = found.puzzle.image;
+              title = found.puzzle.title;
+            }
+
+            return (
+              <div key={pick.id} className="relative">
                 <button
-                  key={pick.id}
                   type="button"
                   onClick={() => void feature(pick.puzzle_id)}
                   disabled={saving !== null}
                   title="Feature this one again"
-                  className="overflow-hidden rounded-[8px] border border-accent/40 text-left transition-transform hover:scale-[1.03] disabled:opacity-50"
+                  className="w-full overflow-hidden rounded-[8px] border border-shell/20 text-left transition-transform hover:scale-[1.03] disabled:opacity-50"
                 >
                   <img
-                    src={business.photo_url ?? ""}
-                    alt={business.title}
+                    src={image ?? ""}
+                    alt={title}
                     className="aspect-[3/4] w-full object-cover"
                   />
                   <span className="block bg-shell px-1.5 py-1">
                     <span className="block truncate text-[10px] text-foreground">
-                      {saving === pick.puzzle_id ? "Setting…" : business.title}
+                      {saving === pick.puzzle_id ? "Setting…" : title}
                     </span>
                     <span className="block truncate text-[8px] tracking-[0.12em] text-muted-foreground uppercase">
-                      Project Pictaria
+                      {caption}
                     </span>
                   </span>
                 </button>
-              );
-            }
-            const found = findPuzzle(pick.puzzle_id);
-            if (!found) return null;
-            return (
-              <button
-                key={pick.id}
-                type="button"
-                onClick={() => void feature(pick.puzzle_id)}
-                disabled={saving !== null}
-                title="Feature this one again"
-                className="overflow-hidden rounded-[8px] border border-shell/20 text-left transition-transform hover:scale-[1.03] disabled:opacity-50"
-              >
-                <img
-                  src={found.puzzle.image}
-                  alt={found.puzzle.title}
-                  className="aspect-[3/4] w-full object-cover"
-                />
-                <span className="block bg-shell px-1.5 py-1">
-                  <span className="block truncate text-[10px] text-foreground">
-                    {saving === pick.puzzle_id ? "Setting…" : found.puzzle.title}
-                  </span>
-                  <span className="block truncate text-[8px] tracking-[0.12em] text-muted-foreground uppercase">
-                    {new Date(pick.picked_at).toLocaleDateString()}
-                  </span>
-                </span>
-              </button>
+                <button
+                  type="button"
+                  onClick={() => void erase(pick.id)}
+                  disabled={erasing !== null}
+                  title="Erase from Yesterdailys"
+                  aria-label={`Erase ${title} from Yesterdailys`}
+                  className="absolute top-1 right-1 flex h-6 w-6 items-center justify-center rounded-full bg-deep/80 text-[12px] leading-none text-shell disabled:opacity-50"
+                >
+                  {erasing === pick.id ? "…" : "×"}
+                </button>
+              </div>
             );
           })}
         </div>
+
 
         {!loading && past.length === 0 && (
           <p className="text-center text-[11px] text-shell/60">
