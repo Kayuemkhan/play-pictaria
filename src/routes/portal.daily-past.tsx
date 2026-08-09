@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 
 import { findPuzzle } from "@/data/collections";
-import { getDailyPicks, setDailyPick } from "@/lib/daily-pick.functions";
+import { getDailyPicks, removeDailyPick, setDailyPick } from "@/lib/daily-pick.functions";
 import type { DailyPick } from "@/lib/daily-pick.functions";
 import { listPortalBusinesses } from "@/lib/portal.functions";
 import { isPortalPick, portalPickCode } from "@/lib/daily-display";
@@ -25,6 +25,7 @@ export const Route = createFileRoute("/portal/daily-past")({
 function PastPictarias() {
   const load = useServerFn(getDailyPicks);
   const choose = useServerFn(setDailyPick);
+  const wipe = useServerFn(removeDailyPick);
 
   const loadWarehouse = useServerFn(listPortalBusinesses);
   const [warehouse, setWarehouse] = useState<
@@ -33,6 +34,7 @@ function PastPictarias() {
   const [past, setPast] = useState<DailyPick[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState<string | null>(null);
+  const [erasing, setErasing] = useState<string | null>(null);
 
   const refresh = async () => {
     try {
