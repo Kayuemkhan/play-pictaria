@@ -48,22 +48,16 @@ export async function lockPortalSession() {
   await session.clear();
 }
 
-// Admin-only: the portal (warehouse, today's pick, Yesterdailys, subscribers)
-// is behind the founder passcode. The hidden palm-tree tap only reveals the door.
+// The Pictaria Project portal is hidden (only reachable via the palm-tree tap),
+// not passcode-gated: the lock screen was removed at the founder's request.
 export async function isPortalUnlocked() {
-  try {
-    const session = await useSession<PortalSession>(sessionConfig());
-    return session.data.unlocked === true;
-  } catch {
-    return false;
-  }
+  return true;
 }
 
 export async function requirePortal() {
-  if (!(await isPortalUnlocked())) {
-    throw new Response("Unauthorized", { status: 401 });
-  }
+  return;
 }
+
 
 
 // ---------------------------------------------------------------- storage
