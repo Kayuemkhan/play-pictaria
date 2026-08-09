@@ -8,6 +8,8 @@ import type { DailyPick } from "@/lib/daily-pick.functions";
 import { listPortalBusinesses } from "@/lib/portal.functions";
 import { isPortalPick, portalPickCode } from "@/lib/daily-display";
 
+import { PortalGuard } from "@/components/portal/PortalGuard";
+
 export const Route = createFileRoute("/portal/daily-past")({
   head: () => ({
     meta: [
@@ -19,7 +21,7 @@ export const Route = createFileRoute("/portal/daily-past")({
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
-  component: PastPictarias,
+  component: GuardedPastPictarias,
 });
 
 function PastPictarias() {
@@ -169,5 +171,13 @@ function PastPictarias() {
         </div>
       </div>
     </main>
+  );
+}
+
+function GuardedPastPictarias() {
+  return (
+    <PortalGuard>
+      <PastPictarias />
+    </PortalGuard>
   );
 }

@@ -9,6 +9,8 @@ import { createPortalShareLink, listPortalBusinesses } from "@/lib/portal.functi
 import { isPortalPick, portalPickCode, portalPickId } from "@/lib/daily-display";
 import palmLogo from "@/assets/logo-palms-only.png";
 
+import { PortalGuard } from "@/components/portal/PortalGuard";
+
 export const Route = createFileRoute("/portal/daily")({
   head: () => ({
     meta: [
@@ -17,7 +19,7 @@ export const Route = createFileRoute("/portal/daily")({
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
-  component: DailyWaitingArea,
+  component: GuardedDailyWaitingArea,
 });
 
 interface GalleryItem {
@@ -493,5 +495,13 @@ function DailyWaitingArea() {
         </div>
       </div>
     </main>
+  );
+}
+
+function GuardedDailyWaitingArea() {
+  return (
+    <PortalGuard>
+      <DailyWaitingArea />
+    </PortalGuard>
   );
 }

@@ -5,6 +5,8 @@ import { useServerFn } from "@tanstack/react-start";
 import { listSubscribers } from "@/lib/subscribers.functions";
 import type { SubscriberRow } from "@/lib/subscribers.functions";
 
+import { PortalGuard } from "@/components/portal/PortalGuard";
+
 export const Route = createFileRoute("/portal/subscribers")({
   head: () => ({
     meta: [
@@ -16,7 +18,7 @@ export const Route = createFileRoute("/portal/subscribers")({
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
-  component: Subscribers,
+  component: GuardedSubscribers,
 });
 
 function Subscribers() {
@@ -114,5 +116,13 @@ function Subscribers() {
         </div>
       </div>
     </main>
+  );
+}
+
+function GuardedSubscribers() {
+  return (
+    <PortalGuard>
+      <Subscribers />
+    </PortalGuard>
   );
 }
