@@ -69,6 +69,18 @@ function PastPictarias() {
     }
   };
 
+  const erase = async (id: string) => {
+    setErasing(id);
+    try {
+      await wipe({ data: { id } });
+      await refresh();
+    } finally {
+      setErasing(null);
+    }
+  };
+
+
+
   return (
     <main className="min-h-screen bg-deep px-4 pt-12 pb-24">
       <header className="mx-auto max-w-md text-center">
