@@ -240,33 +240,6 @@ export function isPuzzleOpenToVisitor(
  */
 export const collections: Collection[] = [
   {
-    id: "yesterdailys",
-    title: "Yesterdailys",
-    tagline: "Every Pictaria that has already had its day",
-    cover: yesterdailyFruitStand,
-    free: true,
-    puzzles: [
-      {
-        id: "yesterdaily-01",
-        title: "Fresh Fruit Stand",
-        caption: "Pineapples by the roadside",
-        image: yesterdailyFruitStand,
-      },
-      {
-        id: "yesterdaily-02",
-        title: "General Store",
-        caption: "Plumeria at the front door",
-        image: yesterdailyCornerStore,
-      },
-      {
-        id: "yesterdaily-03",
-        title: "Market Morning",
-        caption: "Fresh leis and shave ice",
-        image: yesterdailyMarketStall,
-      },
-    ],
-  },
-  {
     id: "hawaiian-flowers",
     title: "Hawaiian Flowers",
     tagline: "Eleven island blooms in full color",
@@ -1251,6 +1224,33 @@ export const collections: Collection[] = [
           "Hand-stacked walls were built stone by stone, with patience as the only tool that mattered.",
           "Solving a picture is the same craft in miniature — steady attention, and a quiet mind at the end of it.",
         ],
+      },
+    ],
+  },
+  {
+    id: "yesterdailys",
+    title: "Yesterdailys",
+    tagline: "Every Pictaria that has already had its day",
+    cover: yesterdailyFruitStand,
+    free: true,
+    puzzles: [
+      {
+        id: "yesterdaily-01",
+        title: "Fresh Fruit Stand",
+        caption: "Pineapples by the roadside",
+        image: yesterdailyFruitStand,
+      },
+      {
+        id: "yesterdaily-02",
+        title: "General Store",
+        caption: "Plumeria at the front door",
+        image: yesterdailyCornerStore,
+      },
+      {
+        id: "yesterdaily-03",
+        title: "Market Morning",
+        caption: "Fresh leis and shave ice",
+        image: yesterdailyMarketStall,
       },
     ],
   },
