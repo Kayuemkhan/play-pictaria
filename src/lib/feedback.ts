@@ -71,9 +71,9 @@ function buzz(pattern: number | number[]) {
 
 /** A piece locking into another piece. */
 export function playLock() {
-  // Soft, small bell — lower fundamental, inharmonic shimmer, gentle decay
-  bellChime(523.25, 0, 0.13);
-  buzz(24);
+  // Delicate, higher-pitched bell — airy, subtle, and quick
+  bellChime(880, 0, 0.08);
+  buzz(18);
 }
 
 /** Puzzle completed. */
