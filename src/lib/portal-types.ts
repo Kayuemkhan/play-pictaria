@@ -62,6 +62,15 @@ export const portalUnlockSchema = z.object({
 
 export const portalIdSchema = z.object({ id: z.string().uuid() });
 
+/** A business photo about to become a Pictaria, with hand-edited wording. */
+export const portalShareSchema = z.object({
+  id: z.string().uuid(),
+  title: z.string().trim().max(160).optional(),
+  tagline: z.string().trim().max(300).optional(),
+  story: z.string().trim().max(4000).optional(),
+  grid: z.number().int().min(3).max(6).optional(),
+});
+
 export const portalAudioSchema = z.object({
   /** Base64 WAV payload of the spoken note (no data-URL prefix). */
   audio: z.string().min(64).max(30_000_000),
