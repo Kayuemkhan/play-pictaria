@@ -68,3 +68,20 @@ export const setDailyPick = createServerFn({ method: "POST" })
 
     return { ok: true };
   });
+
+/** Founder action: erase one entry from the Yesterdailys archive. */
+export const removeDailyPick = createServerFn({ method: "POST" })
+  .inputValidator((input) => removeSchema.parse(input))
+  .handler(async ({ data }) => {
+    const { requirePortal } = await import("./portal.server");
+    await requirePortal();
+
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { error } = await supabaseAdmin
+      .from("daily_picks")
+      .delete()
+      .eq("id", data.id);
+    if (error) throw new Error(error.message);
+
+    return { ok: true };
+  });
