@@ -295,7 +295,10 @@ export function PuzzleBoard({
         if (cluster.some((piece) => newCells.has(positions[piece]!))) {
           // any piece already sitting at home is locked — route around it
           const locked = cluster.every((piece) => positions[piece] === piece);
-          if (protectLocked && locked) return null;
+          // a cluster sitting exactly at home is locked — never disturb it
+          if (locked) return null;
+          void protectLocked;
+
           conflicting.push(cluster);
         } else {
           for (const piece of cluster) free.delete(positions[piece]!);
@@ -509,20 +512,32 @@ export function PuzzleBoard({
       const movedPieces = next
         .map((cell, piece) => (cell !== pos[piece] ? piece : -1))
         .filter((p) => p >= 0);
+      // a piece that just settled into its own home cell locks for good
+      const newlyHome = next
+        .map((cell, piece) =>
+          cell === piece && pos[piece] !== piece ? piece : -1,
+        )
+        .filter((p) => p >= 0);
       setFloating(movedPieces);
       window.setTimeout(() => setFloating([]), 520);
       setPos(next);
       setGroupOf(groups);
       setMoves((m) => m + 1);
-      if (merged) {
+      if (merged || newlyHome.length) {
         playLock();
         const rep = groupOf.findIndex((g) => g === group);
         const newGroup = groups[rep];
-        const flashed = groups
-          .map((g, piece) => (g === newGroup ? piece : -1))
-          .filter((p) => p >= 0);
+        const flashed = Array.from(
+          new Set([
+            ...groups
+              .map((g, piece) => (g === newGroup ? piece : -1))
+              .filter((p) => p >= 0),
+            ...newlyHome,
+          ]),
+        );
         setFlash(flashed);
         window.setTimeout(() => setFlash([]), 380);
+
 
         // little gold sparkles where pieces just clicked together
         const burst = flashed.map((piece) => {
@@ -837,13 +852,16 @@ export function PuzzleBoard({
   }, [groupOf]);
 
   /**
-   * A piece is locked for good once it belongs to a merged cluster that is
-   * sitting exactly where it belongs in the picture. Locked pieces can't be
-   * picked up again, and other clusters are routed around them.
+   * A piece locks for good the moment it sits in its own home cell — alone or
+   * as part of a cluster. Locked pieces can't be picked up again, and other
+   * clusters are routed around them.
    */
   const lockedPieces = useMemo(() => {
     const locked = new Set<number>();
     if (!pos.length) return locked;
+    pos.forEach((cell, piece) => {
+      if (cell === piece) locked.add(piece);
+    });
     const members = new Map<number, number[]>();
     groupOf.forEach((g, piece) => {
       const list = members.get(g);
@@ -857,30 +875,39 @@ export function PuzzleBoard({
     return locked;
   }, [pos, groupOf]);
 
+
   const clusters = groupSizes.size;
 
 
   return (
     <div className="relative flex h-[100dvh] w-full flex-col overflow-hidden bg-mist-gradient">
+      {/* Pictaria branding, centered over every branded puzzle */}
+      {!unbranded && (
+        <Link
+          to="/"
+          aria-label="Pictaria — turn pictures into play"
+          className="group z-20 flex shrink-0 flex-col items-center pt-2 pb-1"
+        >
+          <img
+            src={palmLogo}
+            alt="Pictaria"
+            width={1024}
+            height={1024}
+            className="h-8 w-auto transition-transform duration-500 ease-[var(--ease-calm)] group-hover:scale-[1.05] sm:h-10"
+          />
+          <span className="mt-1 font-display text-xl leading-none tracking-[0.34em] text-primary uppercase sm:text-2xl">
+            Pictaria
+          </span>
+          <span className="-mt-0.5 font-display text-[0.5rem] tracking-[0.42em] text-muted-foreground uppercase sm:text-[0.6rem]">
+            Turn pictures into play
+          </span>
+        </Link>
+      )}
+
       {/* top bar */}
       <header className="glass-panel z-20 grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 px-3 py-2.5 sm:px-5">
-        {unbranded ? (
-          <span aria-hidden className="w-1" />
-        ) : (
-          <Link
-            to="/"
-            aria-label="Pictaria — turn pictures into play"
-            className="shrink-0 transition-transform hover:scale-[1.04]"
-          >
-            <img
-              src={palmLogo}
-              alt="Pictaria"
-              width={1024}
-              height={1024}
-              className="h-8 w-auto sm:h-10"
-            />
-          </Link>
-        )}
+        <span aria-hidden className="w-1" />
+
         <div className="min-w-0 text-center">
           <p className="truncate font-display text-lg leading-tight sm:text-xl">
             {title}
