@@ -48,7 +48,24 @@ interface WarehouseItem {
   photo_url: string | null;
   share_code: string | null;
   category: string;
+  product_service: string;
+  story_ideas: string;
 }
+
+interface PreviewDraft {
+  item: WarehouseItem;
+  title: string;
+  tagline: string;
+  story: string;
+  grid: number;
+}
+
+const GRID_LABELS: Record<number, string> = {
+  3: "Relaxing",
+  4: "Engaging",
+  5: "Intriguing",
+  6: "Challenging",
+};
 
 function DailyWaitingArea() {
   const load = useServerFn(getDailyPicks);
@@ -56,12 +73,14 @@ function DailyWaitingArea() {
   const loadWarehouse = useServerFn(listPortalBusinesses);
   const makeLink = useServerFn(createPortalShareLink);
   const [warehouse, setWarehouse] = useState<WarehouseItem[]>([]);
+  const [preview, setPreview] = useState<PreviewDraft | null>(null);
 
   const [current, setCurrent] = useState<DailyPick | null>(null);
   const [past, setPast] = useState<DailyPick[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState<string | null>(null);
   const [error, setError] = useState("");
+
 
   const refresh = async () => {
     try {
@@ -77,7 +96,9 @@ function DailyWaitingArea() {
               title: row.company_name || "Untitled photograph",
               photo_url: row.photo_url,
               share_code: row.share_code,
-              category: row.category,
+              category: row.category as string,
+              product_service: row.product_service ?? "",
+              story_ideas: row.story_ideas ?? "",
             })),
         );
       }
@@ -108,12 +129,33 @@ function DailyWaitingArea() {
     [warehouse, usedIds],
   );
 
-  const featureBusiness = async (item: WarehouseItem) => {
-    setSaving(item.id);
+  const openPreview = (item: WarehouseItem) => {
+    setError("");
+    setPreview({
+      item,
+      title: item.title === "Untitled photograph" ? "" : item.title,
+      tagline: item.product_service,
+      story: item.story_ideas,
+      grid: 4,
+    });
+  };
+
+  const publishPreview = async () => {
+    if (!preview) return;
+    setSaving(preview.item.id);
     setError("");
     try {
-      const { code } = await makeLink({ data: { id: item.id } });
+      const { code } = await makeLink({
+        data: {
+          id: preview.item.id,
+          title: preview.title,
+          tagline: preview.tagline,
+          story: preview.story,
+          grid: preview.grid,
+        },
+      });
       await choose({ data: { puzzleId: portalPickId(code) } });
+      setPreview(null);
       await refresh();
     } catch (err) {
       setError(err instanceof Error ? err.message : "That pick didn't save.");
@@ -121,6 +163,7 @@ function DailyWaitingArea() {
       setSaving(null);
     }
   };
+
 
   const waiting = useMemo(
     () => allPuzzles().filter((item) => !usedIds.has(item.id)),
@@ -226,24 +269,154 @@ function DailyWaitingArea() {
           <p className="text-center text-[11px] text-destructive">{error}</p>
         )}
 
+        {/* Preview & edit before sending */}
+        {preview && (
+          <section className="rounded-lg border border-accent/60 bg-shell p-5 shadow-soft">
+            <p className="text-center text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
+              Preview · edit before you send
+            </p>
+
+            <div className="mx-auto mt-4 w-40">
+              <div className="relative overflow-hidden rounded-[8px] border border-accent/50">
+                <img
+                  src={preview.item.photo_url ?? ""}
+                  alt={preview.title || preview.item.title}
+                  className="aspect-[3/4] w-full object-cover"
+                />
+                <div
+                  className="pointer-events-none absolute inset-0 grid"
+                  style={{
+                    gridTemplateColumns: `repeat(${preview.grid}, minmax(0, 1fr))`,
+                    gridTemplateRows: `repeat(${preview.grid}, minmax(0, 1fr))`,
+                  }}
+                >
+                  {Array.from({ length: preview.grid * preview.grid }).map((_, i) => (
+                    <span key={i} className="border border-white/50" />
+                  ))}
+                </div>
+              </div>
+              <p className="mt-2 text-center font-display text-[1.05rem] leading-tight text-foreground">
+                {preview.title || "A Pictaria for you"}
+              </p>
+              {preview.tagline && (
+                <p className="text-center text-[10px] text-muted-foreground">
+                  {preview.tagline}
+                </p>
+              )}
+            </div>
+
+            <div className="mt-5 space-y-3">
+              <label className="block">
+                <span className="text-[10px] tracking-[0.16em] text-muted-foreground uppercase">
+                  Title
+                </span>
+                <input
+                  value={preview.title}
+                  onChange={(e) =>
+                    setPreview({ ...preview, title: e.target.value })
+                  }
+                  placeholder="A Pictaria for you"
+                  className="mt-1 w-full rounded-full border border-accent/50 bg-background px-4 py-2 text-[13px] text-foreground outline-none focus:border-accent"
+                />
+              </label>
+
+              <label className="block">
+                <span className="text-[10px] tracking-[0.16em] text-muted-foreground uppercase">
+                  Tagline
+                </span>
+                <input
+                  value={preview.tagline}
+                  onChange={(e) =>
+                    setPreview({ ...preview, tagline: e.target.value })
+                  }
+                  placeholder="What they are known for"
+                  className="mt-1 w-full rounded-full border border-accent/50 bg-background px-4 py-2 text-[13px] text-foreground outline-none focus:border-accent"
+                />
+              </label>
+
+              <label className="block">
+                <span className="text-[10px] tracking-[0.16em] text-muted-foreground uppercase">
+                  Story
+                </span>
+                <textarea
+                  value={preview.story}
+                  onChange={(e) => setPreview({ ...preview, story: e.target.value })}
+                  rows={4}
+                  placeholder="The little story that travels with this Pictaria"
+                  className="mt-1 w-full rounded-[14px] border border-accent/50 bg-background px-4 py-2 text-[13px] leading-relaxed text-foreground outline-none focus:border-accent"
+                />
+              </label>
+
+              <div>
+                <span className="text-[10px] tracking-[0.16em] text-muted-foreground uppercase">
+                  Difficulty
+                </span>
+                <div className="mt-2 flex flex-nowrap gap-1.5">
+                  {[3, 4, 5, 6].map((grid) => (
+                    <button
+                      key={grid}
+                      type="button"
+                      onClick={() => setPreview({ ...preview, grid })}
+                      className={`flex-1 rounded-full border px-1 py-1.5 text-[9px] tracking-[0.08em] uppercase ${
+                        preview.grid === grid
+                          ? "border-accent bg-accent/20 text-foreground"
+                          : "border-accent/40 text-muted-foreground"
+                      }`}
+                    >
+                      {grid}×{grid}
+                      <span className="block text-[8px] normal-case">
+                        {GRID_LABELS[grid]}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-5 flex gap-2">
+              <button
+                type="button"
+                onClick={() => setPreview(null)}
+                disabled={saving !== null}
+                className="flex-1 rounded-full border border-accent/50 px-4 py-2.5 text-[11px] tracking-[0.14em] text-muted-foreground uppercase disabled:opacity-50"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={() => void publishPreview()}
+                disabled={saving !== null}
+                className="flex-1 rounded-full bg-primary px-4 py-2.5 text-[11px] tracking-[0.14em] text-primary-foreground uppercase disabled:opacity-50"
+              >
+                {saving ? "Sending…" : "Make it today's"}
+              </button>
+            </div>
+          </section>
+        )}
+
         {/* Project Pictaria warehouse */}
         <section>
           <p className="text-center text-[10px] tracking-[0.2em] text-shell/60 uppercase">
             Project Pictaria warehouse · {shedWaiting.length}
           </p>
           <p className="mt-1 text-center text-[10px] text-shell/40">
-            Every business photograph you have collected. Tap one to make it
-            today&apos;s Pictaria.
+            Every business photograph you have collected. Tap one to preview and
+            edit it before it becomes today&apos;s Pictaria.
           </p>
           <div className="mt-4 grid grid-cols-3 gap-2.5">
             {shedWaiting.map((item) => (
               <button
                 key={item.id}
                 type="button"
-                onClick={() => void featureBusiness(item)}
+                onClick={() => openPreview(item)}
                 disabled={saving !== null}
-                className="overflow-hidden rounded-[8px] border border-accent/40 text-left transition-transform hover:scale-[1.03] disabled:opacity-50"
+                className={`overflow-hidden rounded-[8px] border text-left transition-transform hover:scale-[1.03] disabled:opacity-50 ${
+                  preview?.item.id === item.id
+                    ? "border-primary ring-1 ring-primary"
+                    : "border-accent/40"
+                }`}
               >
+
                 <img
                   src={item.photo_url ?? ""}
                   alt={item.title}
