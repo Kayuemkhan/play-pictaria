@@ -90,8 +90,9 @@ export function PuzzleBoard({
   grid,
   onExit,
   onChangeDifficulty,
+  onNext,
+  nextTitle,
   unbranded = false,
-}: PuzzleBoardProps) {
   const viewportRef = useRef<HTMLDivElement>(null);
 
   const [aspect, setAspect] = useState<number | null>(null);
