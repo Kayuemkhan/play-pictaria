@@ -445,58 +445,6 @@ export function PuzzleBoard({
   );
 
 
-  /**
-   * Interpret every gesture on one grid axis. The axis is decided by the actual
-   * finger travel in pixels — cells are taller than they are wide, so deciding
-   * it from rounded cell counts used to turn a drag downwards into a sideways
-   * move whenever the thumb drifted half a (narrow) column.
-   */
-  const resolveMove = useCallback(
-    (
-      dCol: number,
-      dRow: number,
-      dx: number,
-      dy: number,
-    ): { dCol: number; dRow: number } | null => {
-      const candidates: [number, number][] = [];
-      const push = (c: number, r: number) => {
-        if (c === 0 && r === 0) return;
-        if (!candidates.some(([a, b]) => a === c && b === r))
-          candidates.push([c, r]);
-      };
-
-      const horizontal = Math.abs(dx) > Math.abs(dy);
-      const primary = horizontal ? dCol : dRow;
-      const secondary = horizontal ? dRow : dCol;
-
-      // Try the requested distance, then each shorter distance on that axis.
-      for (let distance = Math.abs(primary); distance >= 1; distance--) {
-        const signed = Math.sign(primary) * distance;
-        push(horizontal ? signed : 0, horizontal ? 0 : signed);
-      }
-
-      // If the dominant axis is blocked, honor a clear secondary-axis drag.
-      for (let distance = Math.abs(secondary); distance >= 1; distance--) {
-        const signed = Math.sign(secondary) * distance;
-        push(horizontal ? 0 : signed, horizontal ? signed : 0);
-      }
-
-      const group = dragStart.current?.group ?? -1;
-      for (const [protectLocked, allowRelocate] of MOVE_MODES) {
-        for (const [c, r] of candidates) {
-          if (
-            tryMove(pos, groupOf, group, c, r, protectLocked, allowRelocate)
-          )
-            return { dCol: c, dRow: r };
-        }
-      }
-
-      return null;
-    },
-
-    [pos, groupOf, tryMove],
-
-  );
 
 
 
@@ -593,16 +541,8 @@ export function PuzzleBoard({
     };
   };
 
-  /**
-   * How many cells a finger travel represents. A drag only needs to cover 40%
-   * of a cell to count as one step, so a short deliberate nudge downwards is
-   * never rounded away to "no move".
-   */
-  const cellsTravelled = (raw: number, cellSize: number) => {
-    const units = raw / (cellSize * scale);
-    const steps = Math.sign(units) * Math.floor(Math.abs(units) + 0.6);
-    return steps;
-  };
+
+
 
   const onPointerMove = (e: React.PointerEvent) => {
     const s = dragStart.current;
@@ -623,42 +563,58 @@ export function PuzzleBoard({
 
 
   /**
-   * Magnetic snap. On release we look at every landing spot within roughly
-   * three quarters of a cell of where the finger actually stopped, and prefer
-   * one that locks the cluster onto a piece it truly belongs to. That gives the
-   * "you don't have to line it up exactly, but it only clicks when it's right"
-   * feel: near misses get pulled in, wrong matches never lock.
+   * Where the cluster lands on release.
+   *
+   * The tile goes exactly where the finger left it — both axes at once. The
+   * previous version collapsed every gesture onto a single axis, so a natural
+   * diagonal drag (the normal way you carry a tile to its neighbour) landed one
+   * cell sideways instead and nothing ever clicked together.
+   *
+   * Order of preference, all measured from the real finger position:
+   *   1. a landing spot that locks the cluster onto a picture neighbour
+   *   2. a landing spot that puts a piece in its own home cell
+   *   3. the nearest legal landing spot (it simply settles there)
    */
   const snapMove = useCallback(
     (dx: number, dy: number, group: number) => {
       const unitsX = dx / (cellW * scale);
       const unitsY = dy / (cellH * scale);
-      const TOL = 0.78;
-      const range = (u: number) => {
-        const out: number[] = [];
-        for (let v = Math.floor(u - TOL); v <= Math.ceil(u + TOL); v++) {
-          if (Math.abs(v - u) <= TOL) out.push(v);
-        }
-        return out.sort((a, b) => Math.abs(a - u) - Math.abs(b - u));
+
+      const axis = (u: number) => {
+        const out = new Set<number>([
+          Math.round(u),
+          Math.floor(u),
+          Math.ceil(u),
+        ]);
+        return [...out];
       };
 
-      let best: { dCol: number; dRow: number; dist: number } | null = null;
+      const candidates: { dCol: number; dRow: number; dist: number }[] = [];
+      const seen = new Set<string>();
+      const addCandidate = (dCol: number, dRow: number) => {
+        if (dCol === 0 && dRow === 0) return;
+        const key = `${dCol},${dRow}`;
+        if (seen.has(key)) return;
+        seen.add(key);
+        candidates.push({
+          dCol,
+          dRow,
+          dist: Math.hypot(dCol - unitsX, dRow - unitsY),
+        });
+      };
 
-      /**
-       * First derive exact lock positions from the picture relationship itself.
-       * This is more reliable than only rounding the finger position: if another
-       * tile occupies the intended cell, tryMove can swap that tile away while
-       * this candidate still preserves the matching edge we are aiming for.
-       */
+      for (const c of axis(unitsX)) for (const r of axis(unitsY)) addCandidate(c, r);
+
       const draggedPieces = groupOf
         .map((pieceGroup, piece) => (pieceGroup === group ? piece : -1))
         .filter((piece) => piece >= 0);
       const draggedSize = draggedPieces.length;
-      const magneticCandidates = new Map<
-        string,
-        { dCol: number; dRow: number; dist: number }
-      >();
+      const representative = draggedPieces[0];
 
+      /**
+       * Magnetic pull: exact lock offsets derived from the picture itself, so a
+       * near miss is drawn onto the neighbour it belongs to.
+       */
       for (const piece of draggedPieces) {
         const pieceCell = pos[piece];
         if (pieceCell === undefined) continue;
@@ -667,12 +623,16 @@ export function PuzzleBoard({
         const pieceRow = Math.floor(pieceCell / grid);
         const pieceCol = pieceCell % grid;
 
+        // home cell of this very piece is always worth aiming at
+        addCandidateIfNear(
+          Math.floor(piece / grid) - pieceRow,
+          (piece % grid) - pieceCol,
+        );
+
         for (let neighbour = 0; neighbour < total; neighbour++) {
           if (groupOf[neighbour] === group) continue;
-          const neighbourHomeRow = Math.floor(neighbour / grid);
-          const neighbourHomeCol = neighbour % grid;
-          const homeRowDelta = neighbourHomeRow - pieceHomeRow;
-          const homeColDelta = neighbourHomeCol - pieceHomeCol;
+          const homeRowDelta = Math.floor(neighbour / grid) - pieceHomeRow;
+          const homeColDelta = (neighbour % grid) - pieceHomeCol;
           if (Math.abs(homeRowDelta) + Math.abs(homeColDelta) !== 1) continue;
 
           const neighbourCell = pos[neighbour];
@@ -687,79 +647,44 @@ export function PuzzleBoard({
           )
             continue;
 
-          const dCol = desiredCol - pieceCol;
-          const dRow = desiredRow - pieceRow;
-          if (dCol === 0 && dRow === 0) continue;
-          const distance = Math.hypot(dCol - unitsX, dRow - unitsY);
-          // A forgiving magnetic radius, while still requiring a deliberate
-          // approach toward the correct neighbour.
-          if (distance > 1.1) continue;
-          const key = `${dCol},${dRow}`;
-          const current = magneticCandidates.get(key);
-          if (!current || distance < current.dist)
-            magneticCandidates.set(key, { dCol, dRow, dist: distance });
+          addCandidateIfNear(desiredRow - pieceRow, desiredCol - pieceCol);
         }
       }
 
-      for (const candidate of [...magneticCandidates.values()].sort(
-        (a, b) => a.dist - b.dist,
-      )) {
+      function addCandidateIfNear(dRow: number, dCol: number) {
+        if (Math.hypot(dCol - unitsX, dRow - unitsY) > 1.25) return;
+        addCandidate(dCol, dRow);
+      }
+
+      candidates.sort((a, b) => a.dist - b.dist);
+
+      const merges = (next: number[]) => {
+        if (representative === undefined) return false;
+        const groups = mergePass(next, groupOf).groups;
+        const mergedGroup = groups[representative];
+        return (
+          groups.filter((pieceGroup) => pieceGroup === mergedGroup).length >
+          draggedSize
+        );
+      };
+      const landsHome = (next: number[]) =>
+        next.some((cell, piece) => cell === piece && pos[piece] !== piece);
+
+      // 1 + 2: nearest landing that actually clicks something into place
+      for (const candidate of candidates) {
         const next = attemptMove(group, candidate.dCol, candidate.dRow);
         if (!next) continue;
-        const mergedGroups = mergePass(next, groupOf).groups;
-        const representative = draggedPieces[0];
-        if (representative === undefined) continue;
-        const mergedGroup = mergedGroups[representative];
-        const mergedSize = mergedGroups.filter(
-          (pieceGroup) => pieceGroup === mergedGroup,
-        ).length;
-        if (mergedSize > draggedSize) return candidate;
+        if (merges(next) || landsHome(next)) return candidate;
       }
 
-      // first choice: a landing spot that clicks the cluster onto its neighbours
-      for (const [protectLocked, allowRelocate] of MOVE_MODES) {
-        for (const c of range(unitsX)) {
-          for (const r of range(unitsY)) {
-            if (c === 0 && r === 0) continue;
-            const next = tryMove(
-              pos,
-              groupOf,
-              group,
-              c,
-              r,
-              protectLocked,
-              allowRelocate,
-            );
-            if (!next) continue;
-            if (!mergePass(next, groupOf).merged) continue;
-            const dist = Math.abs(c - unitsX) + Math.abs(r - unitsY);
-            if (!best || dist < best.dist) best = { dCol: c, dRow: r, dist };
-          }
-        }
-        if (best) break;
-      }
-      if (best) return best;
-
-      // otherwise the piece simply settles wherever the finger left it
-      for (const [protectLocked, allowRelocate] of MOVE_MODES) {
-        for (const c of range(unitsX)) {
-          for (const r of range(unitsY)) {
-            if (c === 0 && r === 0) continue;
-            if (
-              !tryMove(pos, groupOf, group, c, r, protectLocked, allowRelocate)
-            )
-              continue;
-            const dist = Math.abs(c - unitsX) + Math.abs(r - unitsY);
-            if (!best || dist < best.dist) best = { dCol: c, dRow: r, dist };
-          }
-        }
-        if (best) break;
+      // 3: nearest landing that is simply legal
+      for (const candidate of candidates) {
+        if (attemptMove(group, candidate.dCol, candidate.dRow)) return candidate;
       }
 
-      return best;
+      return null;
     },
-    [pos, groupOf, tryMove, attemptMove, mergePass, cellW, cellH, scale],
-
+    [pos, groupOf, attemptMove, mergePass, cellW, cellH, scale, grid, total],
   );
 
   const endPointer = (e: React.PointerEvent) => {
@@ -771,15 +696,8 @@ export function PuzzleBoard({
     }
     const dx = e.clientX - s.x;
     const dy = e.clientY - s.y;
-    const snap = snapMove(dx, dy, s.group);
-    const move =
-      snap ??
-      resolveMove(
-        cellsTravelled(dx, cellW),
-        cellsTravelled(dy, cellH),
-        dx,
-        dy,
-      );
+    const move = snapMove(dx, dy, s.group);
+
     dragStart.current = null;
     if (move) {
       commitMove(s.group, move.dCol, move.dRow);
