@@ -137,7 +137,10 @@ function DailyWaitingArea() {
       item,
       title: item.title === "Untitled photograph" ? "" : item.title,
       tagline: item.product_service,
-      story: item.story_ideas,
+      story: [item.product_service, item.story_ideas, item.notes]
+        .map((part) => part.trim())
+        .filter(Boolean)
+        .join("\n\n"),
       grid: 4,
     });
   };
