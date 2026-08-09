@@ -14,6 +14,11 @@ const pickSchema = z.object({
   puzzleId: z.string().trim().min(1).max(120),
 });
 
+const removeSchema = z.object({
+  id: z.string().uuid(),
+});
+
+
 /**
  * Which puzzle is today's Pictaria, plus every puzzle featured before it.
  * Public: read through the publishable key behind the anon SELECT policy.
