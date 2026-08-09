@@ -1098,9 +1098,21 @@ export function PuzzleBoard({
               </div>
             </div>
             <div className="mt-6 flex flex-col gap-2">
+              {onNext && (
+                <button
+                  onClick={onNext}
+                  className="rounded-full bg-primary py-3 text-sm tracking-wide text-primary-foreground transition-opacity hover:opacity-90"
+                >
+                  {nextTitle ? `Next: ${nextTitle}` : "Next puzzle"}
+                </button>
+              )}
               <button
                 onClick={() => setRound((r) => r + 1)}
-                className="rounded-full bg-primary py-3 text-sm tracking-wide text-primary-foreground transition-opacity hover:opacity-90"
+                className={
+                  onNext
+                    ? "rounded-full border border-border py-3 text-sm text-foreground transition-colors hover:bg-secondary"
+                    : "rounded-full bg-primary py-3 text-sm tracking-wide text-primary-foreground transition-opacity hover:opacity-90"
+                }
               >
                 Play again
               </button>
