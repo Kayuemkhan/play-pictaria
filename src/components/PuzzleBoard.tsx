@@ -541,16 +541,8 @@ export function PuzzleBoard({
     };
   };
 
-  /**
-   * How many cells a finger travel represents. A drag only needs to cover 40%
-   * of a cell to count as one step, so a short deliberate nudge downwards is
-   * never rounded away to "no move".
-   */
-  const cellsTravelled = (raw: number, cellSize: number) => {
-    const units = raw / (cellSize * scale);
-    const steps = Math.sign(units) * Math.floor(Math.abs(units) + 0.6);
-    return steps;
-  };
+
+
 
   const onPointerMove = (e: React.PointerEvent) => {
     const s = dragStart.current;
