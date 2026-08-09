@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 
 import { BusinessEditor } from "@/components/portal/BusinessEditor";
-import { PortalLock } from "@/components/portal/PortalLock";
+
 import { getPortalBusiness } from "@/lib/portal.functions";
 import type { PortalRecord } from "@/lib/portal-types";
 
@@ -51,7 +51,7 @@ function BusinessRecord() {
         <p className="text-[10px] tracking-[0.2em] text-shell/60 uppercase">Loading…</p>
       </main>
     );
-  if (locked) return <PortalLock onUnlocked={check} />;
+  
 
 
   if (!record) {
