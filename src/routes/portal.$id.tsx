@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 
 import { BusinessEditor } from "@/components/portal/BusinessEditor";
-import { PortalLock } from "@/components/portal/PortalLock";
+
 import { getPortalBusiness } from "@/lib/portal.functions";
 import type { PortalRecord } from "@/lib/portal-types";
 
