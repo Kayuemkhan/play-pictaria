@@ -295,7 +295,10 @@ export function PuzzleBoard({
         if (cluster.some((piece) => newCells.has(positions[piece]!))) {
           // any piece already sitting at home is locked — route around it
           const locked = cluster.every((piece) => positions[piece] === piece);
-          if (protectLocked && locked) return null;
+          // a cluster sitting exactly at home is locked — never disturb it
+          if (locked) return null;
+          void protectLocked;
+
           conflicting.push(cluster);
         } else {
           for (const piece of cluster) free.delete(positions[piece]!);
