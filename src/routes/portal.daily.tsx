@@ -96,7 +96,9 @@ function DailyWaitingArea() {
               title: row.company_name || "Untitled photograph",
               photo_url: row.photo_url,
               share_code: row.share_code,
-              category: row.category,
+              category: row.category as string,
+              product_service: row.product_service ?? "",
+              story_ideas: row.story_ideas ?? "",
             })),
         );
       }
@@ -127,12 +129,33 @@ function DailyWaitingArea() {
     [warehouse, usedIds],
   );
 
-  const featureBusiness = async (item: WarehouseItem) => {
-    setSaving(item.id);
+  const openPreview = (item: WarehouseItem) => {
+    setError("");
+    setPreview({
+      item,
+      title: item.title === "Untitled photograph" ? "" : item.title,
+      tagline: item.product_service,
+      story: item.story_ideas,
+      grid: 4,
+    });
+  };
+
+  const publishPreview = async () => {
+    if (!preview) return;
+    setSaving(preview.item.id);
     setError("");
     try {
-      const { code } = await makeLink({ data: { id: item.id } });
+      const { code } = await makeLink({
+        data: {
+          id: preview.item.id,
+          title: preview.title,
+          tagline: preview.tagline,
+          story: preview.story,
+          grid: preview.grid,
+        },
+      });
       await choose({ data: { puzzleId: portalPickId(code) } });
+      setPreview(null);
       await refresh();
     } catch (err) {
       setError(err instanceof Error ? err.message : "That pick didn't save.");
@@ -140,6 +163,7 @@ function DailyWaitingArea() {
       setSaving(null);
     }
   };
+
 
   const waiting = useMemo(
     () => allPuzzles().filter((item) => !usedIds.has(item.id)),
