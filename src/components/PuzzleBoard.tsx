@@ -849,13 +849,16 @@ export function PuzzleBoard({
   }, [groupOf]);
 
   /**
-   * A piece is locked for good once it belongs to a merged cluster that is
-   * sitting exactly where it belongs in the picture. Locked pieces can't be
-   * picked up again, and other clusters are routed around them.
+   * A piece locks for good the moment it sits in its own home cell — alone or
+   * as part of a cluster. Locked pieces can't be picked up again, and other
+   * clusters are routed around them.
    */
   const lockedPieces = useMemo(() => {
     const locked = new Set<number>();
     if (!pos.length) return locked;
+    pos.forEach((cell, piece) => {
+      if (cell === piece) locked.add(piece);
+    });
     const members = new Map<number, number[]>();
     groupOf.forEach((g, piece) => {
       const list = members.get(g);
@@ -868,6 +871,7 @@ export function PuzzleBoard({
     }
     return locked;
   }, [pos, groupOf]);
+
 
   const clusters = groupSizes.size;
 
