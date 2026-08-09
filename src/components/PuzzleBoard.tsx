@@ -445,58 +445,6 @@ export function PuzzleBoard({
   );
 
 
-  /**
-   * Interpret every gesture on one grid axis. The axis is decided by the actual
-   * finger travel in pixels — cells are taller than they are wide, so deciding
-   * it from rounded cell counts used to turn a drag downwards into a sideways
-   * move whenever the thumb drifted half a (narrow) column.
-   */
-  const resolveMove = useCallback(
-    (
-      dCol: number,
-      dRow: number,
-      dx: number,
-      dy: number,
-    ): { dCol: number; dRow: number } | null => {
-      const candidates: [number, number][] = [];
-      const push = (c: number, r: number) => {
-        if (c === 0 && r === 0) return;
-        if (!candidates.some(([a, b]) => a === c && b === r))
-          candidates.push([c, r]);
-      };
-
-      const horizontal = Math.abs(dx) > Math.abs(dy);
-      const primary = horizontal ? dCol : dRow;
-      const secondary = horizontal ? dRow : dCol;
-
-      // Try the requested distance, then each shorter distance on that axis.
-      for (let distance = Math.abs(primary); distance >= 1; distance--) {
-        const signed = Math.sign(primary) * distance;
-        push(horizontal ? signed : 0, horizontal ? 0 : signed);
-      }
-
-      // If the dominant axis is blocked, honor a clear secondary-axis drag.
-      for (let distance = Math.abs(secondary); distance >= 1; distance--) {
-        const signed = Math.sign(secondary) * distance;
-        push(horizontal ? 0 : signed, horizontal ? signed : 0);
-      }
-
-      const group = dragStart.current?.group ?? -1;
-      for (const [protectLocked, allowRelocate] of MOVE_MODES) {
-        for (const [c, r] of candidates) {
-          if (
-            tryMove(pos, groupOf, group, c, r, protectLocked, allowRelocate)
-          )
-            return { dCol: c, dRow: r };
-        }
-      }
-
-      return null;
-    },
-
-    [pos, groupOf, tryMove],
-
-  );
 
 
 
