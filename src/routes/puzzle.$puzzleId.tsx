@@ -54,8 +54,8 @@ function PuzzlePage() {
 
   const { puzzle, collection } = found;
 
-
-
+  const index = collection.puzzles.findIndex((p) => p.id === puzzle.id);
+  const next = index >= 0 ? collection.puzzles[index + 1] : undefined;
 
   if (grid) {
     return (
@@ -64,6 +64,17 @@ function PuzzlePage() {
         src={puzzle.image}
         title={puzzle.title}
         grid={grid}
+        {...(next
+          ? {
+              nextTitle: next.title,
+              onNext: () =>
+                navigate({
+                  to: "/puzzle/$puzzleId",
+                  params: { puzzleId: next.id },
+                  search: { grid },
+                }),
+            }
+          : {})}
         onExit={() =>
           navigate({
             to: "/collection/$collectionId",
