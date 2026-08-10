@@ -8,7 +8,7 @@ export const Route = createFileRoute("/studio/personal")({
       {
         name: "description",
         content:
-          "Compose a storybook of up to ten pictures, get an instant playable link and send it to everyone you love.",
+          "Compose a storybook of up to ten pictures, get an instant playable link and send your special moments as a game to those you love!",
       },
       { property: "og:title", content: "Personal Studio — Pictaria" },
       {
