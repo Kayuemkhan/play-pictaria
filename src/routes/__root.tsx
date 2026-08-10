@@ -8,6 +8,7 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
+import { Sparkles } from "lucide-react";
 
 import appCss from "../styles.css?url";
 import { Toaster } from "@/components/ui/sonner";
@@ -181,6 +182,30 @@ function BackGuard() {
   return null;
 }
 
+function LaunchBanner() {
+  const router = useRouter();
+  const path = router.state.location.pathname.replace(/\/+$/, "");
+  if (path === "/launch") return null;
+
+  return (
+    <div className="sticky top-0 z-50 border-b border-accent/40 bg-deep-gradient px-4 py-2.5">
+      <div className="mx-auto flex max-w-5xl items-center justify-center gap-2 text-center">
+        <Sparkles className="h-3.5 w-3.5 shrink-0 text-accent" />
+        <span className="text-[0.7rem] tracking-[0.14em] text-deep-foreground uppercase">
+          Launching soon — be the first to play
+        </span>
+        <Link
+          to="/launch"
+          className="ml-1 inline-flex shrink-0 items-center gap-1 rounded-full bg-accent px-2.5 py-1 text-[0.6rem] tracking-[0.18em] text-accent-foreground uppercase transition-transform hover:scale-[1.03]"
+        >
+          Join the launch list
+          <span aria-hidden>›</span>
+        </Link>
+      </div>
+    </div>
+  );
+}
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const router = useRouter();
@@ -190,6 +215,7 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <BackGuard />
+      <LaunchBanner />
       {!isHome && <TopBackButton />}
       {!isHome && <BottomBackButton />}
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
