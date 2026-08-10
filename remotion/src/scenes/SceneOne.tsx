@@ -2,7 +2,7 @@ import React from "react";
 import { AbsoluteFill, interpolate, useCurrentFrame } from "remotion";
 import { PuzzleReveal } from "../components/PuzzleReveal";
 import { Sparkles } from "../components/Sparkles";
-import { Kicker, WordsLine } from "../components/Type";
+import { WordsLine } from "../components/Type";
 import { C } from "../theme";
 
 export const SceneOne: React.FC = () => {
@@ -33,10 +33,6 @@ export const SceneOne: React.FC = () => {
           stagger={5}
         />
       </AbsoluteFill>
-
-      <div style={{ position: "absolute", left: 92, top: 150 }}>
-        <Kicker text="Introducing Pictaria" delay={2} />
-      </div>
 
       <div
         style={{

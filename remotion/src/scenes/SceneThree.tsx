@@ -40,8 +40,8 @@ export const SceneThree: React.FC = () => {
       </div>
 
       <div style={{ position: "absolute", left: 92, right: 92, bottom: 180 }}>
-        <WordsLine text="Every piece" delay={44} size={96} color={C.shell} stagger={5} />
-        <WordsLine text="a little peace." delay={58} size={96} color={C.aqua} italic stagger={5} />
+        <WordsLine text="A gallery from" delay={44} size={96} color={C.shell} stagger={5} />
+        <WordsLine text="the islands." delay={58} size={96} color={C.aqua} italic stagger={5} />
       </div>
     </AbsoluteFill>
   );
