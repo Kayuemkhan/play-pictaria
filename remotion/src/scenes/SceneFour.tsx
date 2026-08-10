@@ -30,8 +30,8 @@ export const SceneFour: React.FC = () => {
       <AbsoluteFill
         style={{
           alignItems: "center",
-          justifyContent: "flex-end",
-          paddingBottom: 170,
+          justifyContent: "center",
+          paddingTop: 200,
           transform: `scale(${zoom})`,
         }}
       >
@@ -50,7 +50,7 @@ export const SceneFour: React.FC = () => {
           position: "absolute",
           left: 0,
           right: 0,
-          bottom: 86,
+          bottom: 130,
           display: "flex",
           justifyContent: "center",
           opacity: chip,

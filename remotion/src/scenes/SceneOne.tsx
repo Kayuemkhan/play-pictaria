@@ -21,10 +21,10 @@ export const SceneOne: React.FC = () => {
         style={{
           alignItems: "center",
           justifyContent: "center",
-          transform: `scale(${zoom}) translateY(${drift - 60}px)`,
+          transform: `scale(${zoom}) translateY(${drift - 170}px)`,
         }}
       >
-        <PuzzleReveal src="images/hero-sunset.jpg" width={760} start={4} stagger={5} />
+        <PuzzleReveal src="images/hero-sunset.jpg" width={700} start={4} stagger={5} />
       </AbsoluteFill>
 
       <div style={{ position: "absolute", left: 92, top: 150 }}>

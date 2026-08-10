@@ -20,15 +20,15 @@ export const SceneTwo: React.FC = () => {
         style={{
           alignItems: "center",
           justifyContent: "flex-start",
-          paddingTop: 210,
+          paddingTop: 240,
           transform: `translateX(${pan}px) scale(${scale})`,
         }}
       >
         <PuzzleReveal
-          src="images/lei-03.jpg"
+          src="images/waterfall-06.jpg"
           cols={2}
           rows={3}
-          width={640}
+          width={560}
           start={0}
           stagger={7}
         />
