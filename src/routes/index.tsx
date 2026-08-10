@@ -84,16 +84,23 @@ function Home() {
             </button>
             {openPanel === "menu" && (
               <div className="absolute top-13 left-0 w-52 overflow-hidden rounded-[6px] border border-accent/40 bg-deep/95 py-1 shadow-lift backdrop-blur-sm">
-                {menuLinks.map((item) => (
-                  <Link
-                    key={item.label}
-                    to={item.to}
-                    onClick={() => setOpenPanel(null)}
-                    className="block px-4 py-2.5 text-[0.6rem] tracking-[0.2em] text-shell uppercase transition-colors hover:bg-accent/15 hover:text-accent"
-                  >
-                    {item.label}
-                  </Link>
-                ))}
+                {menuLinks.map((item) => {
+                  const isLaunch = item.label === "Launch";
+                  return (
+                    <Link
+                      key={item.label}
+                      to={item.to}
+                      onClick={() => setOpenPanel(null)}
+                      className={`block px-4 py-2.5 text-[0.6rem] tracking-[0.2em] uppercase transition-colors ${
+                        isLaunch
+                          ? "bg-primary/15 text-primary hover:bg-primary/25 hover:text-primary"
+                          : "text-shell hover:bg-accent/15 hover:text-accent"
+                      }`}
+                    >
+                      {item.label}
+                    </Link>
+                  );
+                })}
               </div>
             )}
           </div>
@@ -264,8 +271,29 @@ function Home() {
             Explore
           </h2>
 
+          {/* launch CTA */}
+          <div className="relative mt-2 overflow-hidden rounded-[4px] border border-accent/60 bg-deep-gradient p-4">
+            <div className="relative flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <p className="font-display text-[0.85rem] leading-snug text-deep-foreground">
+                  Watch the launch film and join the list — be first to send your special moments as a game.
+                </p>
+                <p className="mt-1 text-[0.6rem] tracking-[0.14em] text-accent uppercase">
+                  Launching soon
+                </p>
+              </div>
+              <Link
+                to="/launch"
+                className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-primary px-3 py-1.5 text-[0.55rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
+              >
+                Join the launch list
+                <span aria-hidden>›</span>
+              </Link>
+            </div>
+          </div>
+
           {/* poem CTA — daily */}
-          <div className="relative mt-2 overflow-hidden rounded-[4px] border border-accent/60 bg-card/70 p-4">
+          <div className="relative mt-3 overflow-hidden rounded-[4px] border border-accent/60 bg-card/70 p-4">
             <div className="relative grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4">
               <p className="min-w-0 font-display text-[0.85rem] leading-snug [color:color-mix(in_oklch,var(--foreground)_92%,black)]">
                 I need a little paradise and I need just a little play — please send me a free Pictaria every single day
