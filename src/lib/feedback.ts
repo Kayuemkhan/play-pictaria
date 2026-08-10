@@ -70,8 +70,7 @@ function buzz(pattern: number | number[]) {
 
 /** A piece locking into another piece. */
 export function playLock() {
-  // Lower, softer chime — more like a distant glass bell than a bright ting
-  elegantChime(659.25, 0, 0.045);
+  // Chime removed — the user found it distracting. Haptic feedback stays.
   buzz(14);
 }
 
