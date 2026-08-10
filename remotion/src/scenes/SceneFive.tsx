@@ -112,7 +112,7 @@ export const SceneFive: React.FC = () => {
           }),
         }}
       >
-        Send your own · free every day
+        Send a free pictaria today
       </div>
     </AbsoluteFill>
   );
