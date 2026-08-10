@@ -1009,8 +1009,8 @@ export function PuzzleBoard({
             </span>
             <div className="relative grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
               <p className="min-w-0 font-display text-[0.75rem] leading-snug [color:color-mix(in_oklch,var(--foreground)_92%,black)]">
-                Pictures say a thousand words and puzzles make them fun — I want
-                to send my own story book to everyone I love
+                Pictures say a thousand words and puzzles make them fun — Send your
+                special moments as a game to those you love!
               </p>
               <Link
                 to="/create"
