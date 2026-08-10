@@ -26,7 +26,7 @@ export const SceneThree: React.FC = () => {
         }}
       >
         <PuzzleReveal
-          src="images/turtle-05.jpg"
+          src="images/turtle-10.jpg"
           cols={3}
           rows={4}
           width={660}
