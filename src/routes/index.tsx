@@ -35,6 +35,7 @@ export const Route = createFileRoute("/")({
 const featured = collections;
 
 const menuLinks = [
+  { to: "/launch", label: "Launch" },
   { to: "/collections", label: "Gallery" },
   { to: "/about", label: "What is Pictaria?" },
   { to: "/create", label: "Send a free Pictaria" },

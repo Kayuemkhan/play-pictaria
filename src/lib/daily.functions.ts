@@ -3,7 +3,7 @@ import { z } from "zod";
 
 const emailSchema = z.object({
   email: z.string().trim().email().max(255),
-  source: z.enum(["daily_card", "storybook_create"]).optional(),
+  source: z.enum(["daily_card", "storybook_create", "launch_list"]).optional(),
   daily: z.boolean().optional(),
 });
 
