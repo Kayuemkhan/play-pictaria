@@ -2,7 +2,7 @@ import React from "react";
 import { AbsoluteFill, interpolate, useCurrentFrame } from "remotion";
 import { PuzzleReveal } from "../components/PuzzleReveal";
 import { Sparkles } from "../components/Sparkles";
-import { Kicker, WordsLine } from "../components/Type";
+import { WordsLine } from "../components/Type";
 import { C } from "../theme";
 
 export const SceneThree: React.FC = () => {
@@ -26,7 +26,7 @@ export const SceneThree: React.FC = () => {
         }}
       >
         <PuzzleReveal
-          src="images/turtle-10.jpg"
+          src="images/wedding-couple.jpg"
           cols={3}
           rows={4}
           width={660}
@@ -35,13 +35,9 @@ export const SceneThree: React.FC = () => {
         />
       </AbsoluteFill>
 
-      <div style={{ position: "absolute", left: 92, top: 150 }}>
-        <Kicker text="A gallery of Hawaiʻi" delay={4} />
-      </div>
-
       <div style={{ position: "absolute", left: 92, right: 92, bottom: 180 }}>
-        <WordsLine text="A gallery from" delay={44} size={96} color={C.shell} stagger={5} />
-        <WordsLine text="the islands." delay={58} size={96} color={C.aqua} italic stagger={5} />
+        <WordsLine text="Send a free" delay={44} size={96} color={C.shell} stagger={5} />
+        <WordsLine text="Pictaria" delay={58} size={96} color={C.aqua} italic stagger={5} />
       </div>
     </AbsoluteFill>
   );
