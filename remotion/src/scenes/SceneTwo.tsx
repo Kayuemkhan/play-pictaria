@@ -7,8 +7,8 @@ import { C } from "../theme";
 
 export const SceneTwo: React.FC = () => {
   const frame = useCurrentFrame();
-  const pan = interpolate(frame, [0, 105], [-40, 40]);
-  const scale = interpolate(frame, [0, 105], [1.12, 1.02]);
+  const scale = interpolate(frame, [0, 105], [1.04, 1.0]);
+  const drift = Math.sin(frame / 44) * 5;
 
   return (
     <AbsoluteFill
@@ -19,47 +19,25 @@ export const SceneTwo: React.FC = () => {
       <AbsoluteFill
         style={{
           alignItems: "center",
-          justifyContent: "flex-start",
-          paddingTop: 240,
-          transform: `translateX(${pan}px) scale(${scale})`,
+          justifyContent: "center",
+          transform: `scale(${scale}) translateY(${drift - 150}px)`,
         }}
       >
         <PuzzleReveal
-          src="images/waterfall-06.jpg"
-          cols={2}
-          rows={3}
-          width={560}
-          start={0}
-          stagger={7}
+          src="images/aloha-shirt.jpg"
+          cols={3}
+          rows={4}
+          width={660}
+          start={14}
+          stagger={5}
         />
       </AbsoluteFill>
 
       <Sparkles count={18} seedShift={7} />
 
-      <div style={{ position: "absolute", left: 92, right: 92, bottom: 210 }}>
-        <WordsLine text="Puzzles make" delay={40} size={104} color={C.shell} stagger={5} />
-        <WordsLine text="them fun." delay={54} size={104} color={C.aqua} italic stagger={5} />
-      </div>
-
-      <div
-        style={{
-          position: "absolute",
-          left: 92,
-          bottom: 150,
-          opacity: interpolate(frame, [70, 90], [0, 1], { extrapolateRight: "clamp" }),
-          fontFamily: "inherit",
-        }}
-      >
-        <span
-          style={{
-            fontSize: 26,
-            letterSpacing: 6,
-            textTransform: "uppercase",
-            color: "rgba(251,247,241,0.6)",
-          }}
-        >
-          Tiles that click into place
-        </span>
+      <div style={{ position: "absolute", left: 92, right: 92, bottom: 180 }}>
+        <WordsLine text="Puzzles make" delay={40} size={96} color={C.shell} stagger={5} />
+        <WordsLine text="them fun!" delay={54} size={96} color={C.aqua} italic stagger={5} />
       </div>
     </AbsoluteFill>
   );

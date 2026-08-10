@@ -1,110 +1,47 @@
 import React from "react";
-import {
-  AbsoluteFill,
-  Img,
-  interpolate,
-  spring,
-  staticFile,
-  useCurrentFrame,
-  useVideoConfig,
-} from "remotion";
+import { AbsoluteFill, interpolate, useCurrentFrame } from "remotion";
+import { PuzzleReveal } from "../components/PuzzleReveal";
+import { Sparkles } from "../components/Sparkles";
 import { Kicker, WordsLine } from "../components/Type";
 import { C } from "../theme";
 
-const SHOTS = [
-  "images/turtle-05.jpg",
-  "images/whale-02.jpg",
-  "images/waterfall-06.jpg",
-  "images/lei-09.jpg",
-  "images/wave-03.jpg",
-  "images/pineapple-02.jpg",
-  "images/flower-hibiscus.jpg",
-  "images/mindfulness-lotus.jpg",
-  "images/sunset-04.jpg",
-];
-
 export const SceneThree: React.FC = () => {
   const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
-  const rise = interpolate(frame, [0, 105], [40, -40]);
+  const zoom = interpolate(frame, [0, 105], [1.0, 1.05]);
+  const drift = Math.sin(frame / 42) * 5;
 
   return (
-    <AbsoluteFill style={{ background: C.deeper }}>
+    <AbsoluteFill
+      style={{
+        background: `radial-gradient(110% 75% at 75% 5%, #12414f 0%, ${C.deep} 50%, ${C.deeper} 100%)`,
+      }}
+    >
+      <Sparkles count={20} seedShift={13} />
+
       <AbsoluteFill
         style={{
-          padding: "0 60px",
           alignItems: "center",
           justifyContent: "center",
-          transform: `translateY(${rise}px)`,
+          transform: `scale(${zoom}) translateY(${drift - 150}px)`,
         }}
       >
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
-            gap: 14,
-            width: "100%",
-          }}
-        >
-          {SHOTS.map((src, i) => {
-            const p = spring({
-              frame: frame - i * 3,
-              fps,
-              config: { damping: 200 },
-            });
-            const y = interpolate(p, [0, 1], [60, 0]);
-            const float = Math.sin((frame + i * 24) / 38) * 5;
-            return (
-              <div
-                key={src}
-                style={{
-                  aspectRatio: "3 / 4",
-                  borderRadius: 6,
-                  overflow: "hidden",
-                  opacity: p,
-                  transform: `translateY(${y + float}px)`,
-                  boxShadow: "0 12px 30px rgba(0,0,0,0.45)",
-                }}
-              >
-                <Img
-                  src={staticFile(src)}
-                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                />
-              </div>
-            );
-          })}
-        </div>
+        <PuzzleReveal
+          src="images/turtle-10.jpg"
+          cols={3}
+          rows={4}
+          width={660}
+          start={12}
+          stagger={5}
+        />
       </AbsoluteFill>
 
-      <AbsoluteFill
-        style={{
-          background:
-            "linear-gradient(180deg, rgba(4,20,28,0.9) 0%, rgba(4,20,28,0.1) 34%, rgba(4,20,28,0.55) 66%, rgba(4,20,28,0.96) 100%)",
-        }}
-      />
-
-      <div style={{ position: "absolute", left: 0, right: 0, top: 170 }}>
-        <Kicker text="A gallery of Hawaiʻi" delay={12} align="center" />
+      <div style={{ position: "absolute", left: 92, top: 150 }}>
+        <Kicker text="A gallery of Hawaiʻi" delay={4} />
       </div>
 
-      <div style={{ position: "absolute", left: 70, right: 70, bottom: 200 }}>
-        <WordsLine
-          text="Turtles. Whales."
-          delay={38}
-          size={86}
-          color={C.shell}
-          align="center"
-          stagger={4}
-        />
-        <WordsLine
-          text="Waterfalls. Leis."
-          delay={50}
-          size={86}
-          color={C.aqua}
-          italic
-          align="center"
-          stagger={4}
-        />
+      <div style={{ position: "absolute", left: 92, right: 92, bottom: 180 }}>
+        <WordsLine text="Every piece" delay={44} size={96} color={C.shell} stagger={5} />
+        <WordsLine text="a little peace." delay={58} size={96} color={C.aqua} italic stagger={5} />
       </div>
     </AbsoluteFill>
   );

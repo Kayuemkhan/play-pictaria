@@ -20,10 +20,9 @@ export const PuzzleReveal: React.FC<{
 }> = ({ src, cols = 3, rows = 4, width, start = 0, stagger = 5, radius = 18 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const height = (width / cols) * (rows > 0 ? (4 / 3) * (cols / rows) * (rows / cols) : 1);
   const tileW = width / cols;
-  const tileH = tileW * (4 / 3);
-  const boardH = tileH * rows;
+  const boardH = (width * 4) / 3;
+  const cellH = boardH / rows;
 
   const order = React.useMemo(() => {
     const list = Array.from({ length: cols * rows }, (_, i) => i);
@@ -51,10 +50,12 @@ export const PuzzleReveal: React.FC<{
         const x = interpolate(p, [0, 1], [ox, 0]);
         const y = interpolate(p, [0, 1], [oy, 0]);
         const r = interpolate(p, [0, 1], [rot, 0]);
-        const opacity = interpolate(frame - delay, [0, 6], [0, 1], {
+        // Every tile is visible (scattered) from the very first frames, then locks in.
+        const opacity = interpolate(frame, [0, 8], [0, 1], {
           extrapolateLeft: "clamp",
           extrapolateRight: "clamp",
         });
+
 
         const locked = frame - delay > 12;
         const flash = interpolate(frame - delay, [10, 15, 26], [0, 1, 0], {
@@ -73,9 +74,9 @@ export const PuzzleReveal: React.FC<{
             style={{
               position: "absolute",
               left: col * tileW,
-              top: row * tileH,
+              top: row * cellH,
               width: tileW,
-              height: tileH,
+              height: cellH,
               opacity,
               transform: `translate(${x}px, ${y}px) rotate(${r}deg) scale(${pop})`,
               zIndex: locked ? 1 : 3,
