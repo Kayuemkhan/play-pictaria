@@ -27,14 +27,14 @@ export const SceneFour: React.FC = () => {
         style={{
           alignItems: "center",
           justifyContent: "center",
-          transform: `scale(${zoom}) translateY(${drift + 160}px)`,
+          transform: `scale(${zoom}) translateY(${drift + 30}px)`,
         }}
       >
         <PuzzleReveal
           src="images/birthday-two.jpg"
           cols={3}
           rows={4}
-          width={620}
+          width={780}
           start={22}
           stagger={6}
         />

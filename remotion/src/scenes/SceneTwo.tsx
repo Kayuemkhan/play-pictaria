@@ -27,14 +27,14 @@ export const SceneTwo: React.FC = () => {
         style={{
           alignItems: "center",
           justifyContent: "center",
-          transform: `scale(${scale}) translateY(${drift + 160}px)`,
+          transform: `scale(${scale}) translateY(${drift + 30}px)`,
         }}
       >
         <PuzzleReveal
           src="images/pineapple-table-laughs.jpg"
           cols={3}
           rows={4}
-          width={620}
+          width={780}
           start={22}
           stagger={6}
         />
