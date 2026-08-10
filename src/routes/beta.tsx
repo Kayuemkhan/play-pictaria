@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 
 import { redeemBetaCode } from "@/lib/beta.functions";
-import palmLogo from "@/assets/pictaria-logo-v4-transparent.png";
+import palmLogo from "@/assets/logo-palms-only.png";
 
 export const Route = createFileRoute("/beta")({
   head: () => ({
