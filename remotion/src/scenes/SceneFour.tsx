@@ -19,8 +19,8 @@ export const SceneFour: React.FC = () => {
       <Sparkles count={18} seedShift={19} />
 
       <div style={{ position: "absolute", left: 92, right: 92, top: 130 }}>
-        <WordsLine text="to everyone" delay={2} size={92} color={C.shell} stagger={4} />
-        <WordsLine text="you love." delay={14} size={92} color={C.aqua} italic stagger={4} />
+        <WordsLine text="as a game to" delay={2} size={92} color={C.shell} stagger={4} />
+        <WordsLine text="those you love!" delay={14} size={92} color={C.aqua} italic stagger={4} />
       </div>
 
       <AbsoluteFill
