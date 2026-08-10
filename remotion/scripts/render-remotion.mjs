@@ -42,7 +42,7 @@ if (stillFrames.length) {
     composition,
     serveUrl: bundled,
     codec: "h264",
-    outputLocation: "/mnt/documents/pictaria-launch-15s.mp4",
+    outputLocation: "/mnt/documents/pictaria-launch-15s-v4.mp4",
     puppeteerInstance: browser,
     muted: true,
     concurrency: 1,
