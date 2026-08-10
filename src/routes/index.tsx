@@ -56,7 +56,7 @@ function Home() {
   );
 
   return (
-    <main className="min-h-screen bg-deep pb-8">
+    <main className="flex min-h-screen flex-col bg-deep">
       {/* hero */}
       <section className="relative overflow-hidden">
         <img
