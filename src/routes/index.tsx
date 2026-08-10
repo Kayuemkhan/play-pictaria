@@ -56,7 +56,7 @@ function Home() {
   );
 
   return (
-    <main className="min-h-screen bg-deep pb-8">
+    <main className="flex min-h-screen flex-col bg-deep">
       {/* hero */}
       <section className="relative overflow-hidden">
         <img
@@ -184,7 +184,7 @@ function Home() {
       </section>
 
       {/* panel */}
-      <section className="relative rounded-t-lg bg-shell px-4 pt-6 pb-8 sm:px-8">
+      <section className="relative flex-1 rounded-t-lg bg-shell px-4 pt-6 pb-8 sm:px-8">
         <div className="mx-auto w-full max-w-5xl">
           <div className="mb-3 flex items-center justify-between">
             <h2 className="font-display text-sm tracking-[0.2em] text-foreground uppercase">
