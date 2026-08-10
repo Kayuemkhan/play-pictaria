@@ -14,6 +14,63 @@ export type Database = {
   }
   public: {
     Tables: {
+      beta_codes: {
+        Row: {
+          code: string
+          created_at: string
+          disabled: boolean
+          expires_at: string | null
+          id: string
+          max_uses: number
+          note: string
+          tier: string
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          disabled?: boolean
+          expires_at?: string | null
+          id?: string
+          max_uses?: number
+          note?: string
+          tier?: string
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          disabled?: boolean
+          expires_at?: string | null
+          id?: string
+          max_uses?: number
+          note?: string
+          tier?: string
+        }
+        Relationships: []
+      }
+      beta_redemptions: {
+        Row: {
+          code: string
+          created_at: string
+          email: string
+          id: string
+          tier: string
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          email: string
+          id?: string
+          tier?: string
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          email?: string
+          id?: string
+          tier?: string
+        }
+        Relationships: []
+      }
       daily_picks: {
         Row: {
           id: string

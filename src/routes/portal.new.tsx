@@ -78,7 +78,7 @@ function NewBusiness() {
 
         <Link
           to="/portal/subscribers"
-          className="mb-5 flex items-center justify-between rounded-lg border border-accent/40 bg-shell/90 px-5 py-4 shadow-soft transition-transform hover:scale-[1.01]"
+          className="mb-3 flex items-center justify-between rounded-lg border border-accent/40 bg-shell/90 px-5 py-4 shadow-soft transition-transform hover:scale-[1.01]"
         >
           <span>
             <span className="block font-display text-[1.05rem] text-foreground">
@@ -92,6 +92,24 @@ function NewBusiness() {
             ›
           </span>
         </Link>
+
+        <Link
+          to="/portal/beta"
+          className="mb-5 flex items-center justify-between rounded-lg border border-accent/40 bg-shell/90 px-5 py-4 shadow-soft transition-transform hover:scale-[1.01]"
+        >
+          <span>
+            <span className="block font-display text-[1.05rem] text-foreground">
+              Beta Codes
+            </span>
+            <span className="text-[10px] tracking-[0.16em] text-muted-foreground uppercase">
+              give away the artist version
+            </span>
+          </span>
+          <span aria-hidden className="text-primary">
+            ›
+          </span>
+        </Link>
+
 
         <BusinessEditor />
       </div>
