@@ -76,7 +76,7 @@ export const SceneFive: React.FC = () => {
           opacity: tag,
         }}
       >
-        Pictures become play
+        Where pictures become play
       </div>
 
       <div
@@ -112,7 +112,7 @@ export const SceneFive: React.FC = () => {
           }),
         }}
       >
-        Send your own · free every day
+        Send a free pictaria today
       </div>
     </AbsoluteFill>
   );
