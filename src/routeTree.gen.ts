@@ -16,6 +16,7 @@ import { Route as BetaRouteImport } from './routes/beta'
 import { Route as CollectionsRouteImport } from './routes/collections'
 import { Route as CreateRouteImport } from './routes/create'
 import { Route as DailyRouteImport } from './routes/daily'
+import { Route as LaunchRouteImport } from './routes/launch'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as MindfulnessRouteImport } from './routes/mindfulness'
 import { Route as PricingRouteImport } from './routes/pricing'
@@ -70,6 +71,11 @@ const CreateRoute = CreateRouteImport.update({
 const DailyRoute = DailyRouteImport.update({
   id: '/daily',
   path: '/daily',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LaunchRoute = LaunchRouteImport.update({
+  id: '/launch',
+  path: '/launch',
   getParentRoute: () => rootRouteImport,
 } as any)
 const McpRoute = McpRouteImport.update({
@@ -184,6 +190,7 @@ export interface FileRoutesByFullPath {
   '/collections': typeof CollectionsRoute
   '/create': typeof CreateRoute
   '/daily': typeof DailyRoute
+  '/launch': typeof LaunchRoute
   '/mcp': typeof McpRoute
   '/mindfulness': typeof MindfulnessRoute
   '/pricing': typeof PricingRoute
@@ -213,6 +220,7 @@ export interface FileRoutesByTo {
   '/collections': typeof CollectionsRoute
   '/create': typeof CreateRoute
   '/daily': typeof DailyRoute
+  '/launch': typeof LaunchRoute
   '/mcp': typeof McpRoute
   '/mindfulness': typeof MindfulnessRoute
   '/pricing': typeof PricingRoute
@@ -243,6 +251,7 @@ export interface FileRoutesById {
   '/collections': typeof CollectionsRoute
   '/create': typeof CreateRoute
   '/daily': typeof DailyRoute
+  '/launch': typeof LaunchRoute
   '/mcp': typeof McpRoute
   '/mindfulness': typeof MindfulnessRoute
   '/pricing': typeof PricingRoute
@@ -274,6 +283,7 @@ export interface FileRouteTypes {
     | '/collections'
     | '/create'
     | '/daily'
+    | '/launch'
     | '/mcp'
     | '/mindfulness'
     | '/pricing'
@@ -303,6 +313,7 @@ export interface FileRouteTypes {
     | '/collections'
     | '/create'
     | '/daily'
+    | '/launch'
     | '/mcp'
     | '/mindfulness'
     | '/pricing'
@@ -332,6 +343,7 @@ export interface FileRouteTypes {
     | '/collections'
     | '/create'
     | '/daily'
+    | '/launch'
     | '/mcp'
     | '/mindfulness'
     | '/pricing'
@@ -362,6 +374,7 @@ export interface RootRouteChildren {
   CollectionsRoute: typeof CollectionsRoute
   CreateRoute: typeof CreateRoute
   DailyRoute: typeof DailyRoute
+  LaunchRoute: typeof LaunchRoute
   McpRoute: typeof McpRoute
   MindfulnessRoute: typeof MindfulnessRoute
   PricingRoute: typeof PricingRoute
@@ -433,6 +446,13 @@ declare module '@tanstack/react-router' {
       path: '/daily'
       fullPath: '/daily'
       preLoaderRoute: typeof DailyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/launch': {
+      id: '/launch'
+      path: '/launch'
+      fullPath: '/launch'
+      preLoaderRoute: typeof LaunchRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mcp': {
@@ -586,6 +606,7 @@ const rootRouteChildren: RootRouteChildren = {
   CollectionsRoute: CollectionsRoute,
   CreateRoute: CreateRoute,
   DailyRoute: DailyRoute,
+  LaunchRoute: LaunchRoute,
   McpRoute: McpRoute,
   MindfulnessRoute: MindfulnessRoute,
   PricingRoute: PricingRoute,
