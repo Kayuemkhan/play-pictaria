@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SplatRouteImport } from './routes/$'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as BetaRouteImport } from './routes/beta'
 import { Route as CollectionsRouteImport } from './routes/collections'
 import { Route as CreateRouteImport } from './routes/create'
 import { Route as DailyRouteImport } from './routes/daily'
@@ -49,6 +50,11 @@ const SplatRoute = SplatRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BetaRoute = BetaRouteImport.update({
+  id: '/beta',
+  path: '/beta',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CollectionsRoute = CollectionsRouteImport.update({
@@ -174,6 +180,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
   '/about': typeof AboutRoute
+  '/beta': typeof BetaRoute
   '/collections': typeof CollectionsRoute
   '/create': typeof CreateRoute
   '/daily': typeof DailyRoute
@@ -202,6 +209,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
   '/about': typeof AboutRoute
+  '/beta': typeof BetaRoute
   '/collections': typeof CollectionsRoute
   '/create': typeof CreateRoute
   '/daily': typeof DailyRoute
@@ -231,6 +239,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
   '/about': typeof AboutRoute
+  '/beta': typeof BetaRoute
   '/collections': typeof CollectionsRoute
   '/create': typeof CreateRoute
   '/daily': typeof DailyRoute
@@ -261,6 +270,7 @@ export interface FileRouteTypes {
     | '/'
     | '/$'
     | '/about'
+    | '/beta'
     | '/collections'
     | '/create'
     | '/daily'
@@ -289,6 +299,7 @@ export interface FileRouteTypes {
     | '/'
     | '/$'
     | '/about'
+    | '/beta'
     | '/collections'
     | '/create'
     | '/daily'
@@ -317,6 +328,7 @@ export interface FileRouteTypes {
     | '/'
     | '/$'
     | '/about'
+    | '/beta'
     | '/collections'
     | '/create'
     | '/daily'
@@ -346,6 +358,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   SplatRoute: typeof SplatRoute
   AboutRoute: typeof AboutRoute
+  BetaRoute: typeof BetaRoute
   CollectionsRoute: typeof CollectionsRoute
   CreateRoute: typeof CreateRoute
   DailyRoute: typeof DailyRoute
@@ -392,6 +405,13 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/beta': {
+      id: '/beta'
+      path: '/beta'
+      fullPath: '/beta'
+      preLoaderRoute: typeof BetaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/collections': {
@@ -562,6 +582,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   SplatRoute: SplatRoute,
   AboutRoute: AboutRoute,
+  BetaRoute: BetaRoute,
   CollectionsRoute: CollectionsRoute,
   CreateRoute: CreateRoute,
   DailyRoute: DailyRoute,
