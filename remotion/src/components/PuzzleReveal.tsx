@@ -18,7 +18,7 @@ export const PuzzleReveal: React.FC<{
   /** frames between tile landings */
   stagger?: number;
   radius?: number;
-}> = ({ src, cols = 3, rows = 4, width, start = 0, stagger = 5, radius = 18 }) => {
+}> = ({ src, cols = 3, rows = 4, width, start = 0, stagger = 5, radius = 6 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const count = cols * rows;
@@ -72,11 +72,9 @@ export const PuzzleReveal: React.FC<{
         // offsets stay inside the square: from scrambled slot -> home cell
         const ox = (sCol - col) * tileW;
         const oy = (sRow - row) * cellH;
-        const rot = (((cell * 17) % 5) - 2) * 0.9;
 
         const x = interpolate(p, [0, 1], [ox, 0]);
         const y = interpolate(p, [0, 1], [oy, 0]);
-        const r = interpolate(p, [0, 1], [rot, 0]);
         const opacity = interpolate(frame, [0, 8], [0, 1], {
           extrapolateLeft: "clamp",
           extrapolateRight: "clamp",
@@ -88,7 +86,7 @@ export const PuzzleReveal: React.FC<{
           extrapolateRight: "clamp",
           easing: Easing.ease,
         });
-        const pop = interpolate(frame - delay, [11, 15, 22], [1, 1.03, 1], {
+        const pop = interpolate(frame - delay, [11, 15, 22], [1, 1.02, 1], {
           extrapolateLeft: "clamp",
           extrapolateRight: "clamp",
         });
@@ -103,7 +101,7 @@ export const PuzzleReveal: React.FC<{
               width: tileW,
               height: cellH,
               opacity,
-              transform: `translate(${x}px, ${y}px) rotate(${r}deg) scale(${pop})`,
+              transform: `translate(${x}px, ${y}px) scale(${pop})`,
               zIndex: locked ? 1 : 3,
             }}
           >
@@ -111,7 +109,7 @@ export const PuzzleReveal: React.FC<{
               style={{
                 position: "absolute",
                 inset: 2,
-                borderRadius: locked ? 4 : radius,
+                borderRadius: radius,
                 overflow: "hidden",
                 backgroundImage: `url(${staticFile(src)})`,
                 backgroundSize: `${cols * 100}% ${rows * 100}%`,
@@ -119,7 +117,7 @@ export const PuzzleReveal: React.FC<{
                 boxShadow: locked
                   ? "0 2px 10px rgba(4,20,28,0.25)"
                   : "0 12px 26px rgba(4,20,28,0.45)",
-                outline: locked ? "none" : "3px solid rgba(255,255,255,0.9)",
+                outline: "3px solid rgba(255,255,255,0.92)",
                 outlineOffset: -3,
                 filter: `brightness(${1 + flash * 0.35}) saturate(${1 + flash * 0.2})`,
               }}
