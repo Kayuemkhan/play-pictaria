@@ -20,10 +20,11 @@ export const SceneFour: React.FC = () => {
       <Sparkles count={16} seedShift={19} />
 
       <div style={{ position: "absolute", left: 92, top: 160 }}>
-        <Kicker text="Your photographs" delay={4} />
+        <Kicker text="Real moments" delay={4} />
         <div style={{ marginTop: 24 }}>
-          <WordsLine text="Send your own" delay={12} size={96} color={C.shell} stagger={5} />
-          <WordsLine text="as a puzzle." delay={26} size={96} color={C.aqua} italic stagger={5} />
+          <WordsLine text="Discover beautiful" delay={12} size={82} color={C.shell} stagger={5} />
+          <WordsLine text="photography, one puzzle" delay={22} size={72} color={C.shell} stagger={4} />
+          <WordsLine text="&ldquo;peace&rdquo; at a time." delay={34} size={82} color={C.aqua} italic stagger={5} />
         </div>
       </div>
 
@@ -36,10 +37,10 @@ export const SceneFour: React.FC = () => {
         }}
       >
         <PuzzleReveal
-          src="images/sunset-08.jpg"
+          src="images/wedding-couple.jpg"
           cols={3}
-          rows={3}
-          width={620}
+          rows={4}
+          width={560}
           start={24}
           stagger={5}
         />
@@ -69,7 +70,7 @@ export const SceneFour: React.FC = () => {
             color: C.aqua,
           }}
         >
-          One photo · one link · instant play
+          Or you can send your own!
         </div>
       </div>
     </AbsoluteFill>

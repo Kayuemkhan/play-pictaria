@@ -112,7 +112,7 @@ export const SceneFive: React.FC = () => {
           }),
         }}
       >
-        A free puzzle every day
+        Send your own · free every day
       </div>
     </AbsoluteFill>
   );
