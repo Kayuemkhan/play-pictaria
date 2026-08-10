@@ -35,7 +35,7 @@ export const SceneSix: React.FC = () => {
       style={{
         background: `radial-gradient(78% 52% at 50% 34%, #165062 0%, ${C.deep} 46%, ${C.deeper} 100%)`,
         alignItems: "center",
-        paddingTop: 190,
+        paddingTop: 380,
       }}
     >
       <Sparkles count={26} seedShift={57} />
