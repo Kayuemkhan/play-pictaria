@@ -20,7 +20,7 @@ export const SceneTwo: React.FC = () => {
 
       <div style={{ position: "absolute", left: 92, right: 92, top: 130 }}>
         <WordsLine text="And puzzles" delay={2} size={92} color={C.shell} stagger={4} />
-        <WordsLine text="make them fun!" delay={14} size={92} color={C.aqua} italic stagger={4} />
+        <WordsLine text="make them fun..." delay={14} size={92} color={C.aqua} italic stagger={4} />
       </div>
 
       <AbsoluteFill
