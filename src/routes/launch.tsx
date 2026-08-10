@@ -76,8 +76,7 @@ function LaunchPage() {
             Launch
           </h1>
           <p className="mt-3 font-display text-[0.95rem] leading-snug text-shell">
-            Pictures say a thousand words and puzzles make them fun — Send your
-            special moments as a game to those you love!
+            Discover beautiful photography one puzzle "peace" at a time.
           </p>
         </div>
 
