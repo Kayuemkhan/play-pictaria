@@ -7,7 +7,7 @@ import { C } from "../theme";
 
 export const SceneThree: React.FC = () => {
   const frame = useCurrentFrame();
-  const zoom = interpolate(frame, [0, 105], [1.0, 1.05]);
+  const zoom = interpolate(frame, [0, 140], [1.0, 1.04]);
   const drift = Math.sin(frame / 42) * 5;
 
   return (
@@ -18,27 +18,27 @@ export const SceneThree: React.FC = () => {
     >
       <Sparkles count={20} seedShift={13} />
 
+      <div style={{ position: "absolute", left: 92, right: 92, top: 130 }}>
+        <WordsLine text="Send your special" delay={2} size={88} color={C.shell} stagger={4} />
+        <WordsLine text="moments" delay={14} size={88} color={C.aqua} italic stagger={4} />
+      </div>
+
       <AbsoluteFill
         style={{
           alignItems: "center",
           justifyContent: "center",
-          transform: `scale(${zoom}) translateY(${drift - 150}px)`,
+          transform: `scale(${zoom}) translateY(${drift + 160}px)`,
         }}
       >
         <PuzzleReveal
           src="images/wedding-couple.jpg"
           cols={3}
           rows={4}
-          width={660}
-          start={12}
-          stagger={5}
+          width={620}
+          start={22}
+          stagger={6}
         />
       </AbsoluteFill>
-
-      <div style={{ position: "absolute", left: 92, right: 92, bottom: 180 }}>
-        <WordsLine text="Send a free" delay={44} size={96} color={C.shell} stagger={5} />
-        <WordsLine text="Pictaria" delay={58} size={96} color={C.aqua} italic stagger={5} />
-      </div>
     </AbsoluteFill>
   );
 };

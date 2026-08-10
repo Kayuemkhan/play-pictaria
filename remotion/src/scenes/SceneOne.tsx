@@ -7,7 +7,7 @@ import { C } from "../theme";
 
 export const SceneOne: React.FC = () => {
   const frame = useCurrentFrame();
-  const zoom = interpolate(frame, [0, 105], [1.05, 1.0]);
+  const zoom = interpolate(frame, [0, 145], [1.04, 1.0]);
   const drift = Math.sin(frame / 40) * 5;
 
   return (
@@ -17,47 +17,28 @@ export const SceneOne: React.FC = () => {
       }}
     >
       <Sparkles count={22} />
+
+      <div style={{ position: "absolute", left: 92, right: 92, top: 130 }}>
+        <WordsLine text="A picture is worth" delay={2} size={92} color={C.shell} stagger={4} />
+        <WordsLine text="a thousand words." delay={14} size={92} color={C.aqua} italic stagger={4} />
+      </div>
+
       <AbsoluteFill
         style={{
           alignItems: "center",
           justifyContent: "center",
-          transform: `scale(${zoom}) translateY(${drift - 150}px)`,
+          transform: `scale(${zoom}) translateY(${drift + 160}px)`,
         }}
       >
         <PuzzleReveal
           src="images/flower-hibiscus.jpg"
           cols={3}
           rows={4}
-          width={660}
-          start={16}
-          stagger={5}
+          width={620}
+          start={24}
+          stagger={6}
         />
       </AbsoluteFill>
-
-      <div
-        style={{
-          position: "absolute",
-          left: 92,
-          right: 92,
-          bottom: 180,
-        }}
-      >
-        <WordsLine
-          text="A picture is worth"
-          delay={44}
-          size={96}
-          color={C.shell}
-          stagger={5}
-        />
-        <WordsLine
-          text="a thousand words."
-          delay={58}
-          size={96}
-          color={C.aqua}
-          italic
-          stagger={5}
-        />
-      </div>
     </AbsoluteFill>
   );
 };
