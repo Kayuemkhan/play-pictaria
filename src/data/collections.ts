@@ -32,6 +32,20 @@ import flowerOrchid from "@/assets/flower-orchid.jpg";
 import flowerBougainvillea from "@/assets/flower-bougainvillea.jpg";
 import flowerPassionflower from "@/assets/flower-passionflower.jpg";
 import flowerOhiaLehua from "@/assets/flower-ohia-lehua.jpg";
+import lei01 from "@/assets/lei-01.jpg";
+import lei02 from "@/assets/lei-02.jpg";
+import lei03 from "@/assets/lei-03.jpg";
+import lei04 from "@/assets/lei-04.jpg";
+import lei05 from "@/assets/lei-05.jpg";
+import lei06 from "@/assets/lei-06.jpg";
+import lei07 from "@/assets/lei-07.jpg";
+import lei08 from "@/assets/lei-08.jpg";
+import lei09 from "@/assets/lei-09.jpg";
+import lei10 from "@/assets/lei-10.jpg";
+import lei11 from "@/assets/lei-11.jpg";
+import lei12 from "@/assets/lei-12.jpg";
+import lei13 from "@/assets/lei-13.jpg";
+import lei14 from "@/assets/lei-14.jpg";
 import waterfall01 from "@/assets/waterfall-01.jpg";
 import waterfall02 from "@/assets/waterfall-02.jpg";
 import waterfall03 from "@/assets/waterfall-03.jpg";
@@ -311,6 +325,99 @@ export const collections: Collection[] = [
         title: "Ōhia Lehua",
         caption: "Scarlet blooms on mountain slopes",
         image: flowerOhiaLehua,
+      },
+    ],
+  },
+  {
+    id: "exotic-leis",
+    title: "Exotic Leis",
+    tagline: "Fourteen contest-winning Hawaiian leis",
+    cover: lei01,
+    free: true,
+    puzzles: [
+      {
+        id: "lei-01",
+        title: "Plumeria Lei",
+        caption: "Sun-kissed plumeria strands",
+        image: lei01,
+      },
+      {
+        id: "lei-02",
+        title: "Pikake Lei",
+        caption: "Delicate jasmine blossoms",
+        image: lei02,
+      },
+      {
+        id: "lei-03",
+        title: "Tuberose Lei",
+        caption: "Ivory fragrance woven tight",
+        image: lei03,
+      },
+      {
+        id: "lei-04",
+        title: "Orchid Lei",
+        caption: "Purple dendrobium elegance",
+        image: lei04,
+      },
+      {
+        id: "lei-05",
+        title: "Maile Lei",
+        caption: "Sacred green maile leaves",
+        image: lei05,
+      },
+      {
+        id: "lei-06",
+        title: "Ilima Lei",
+        caption: "Golden native ilima blooms",
+        image: lei06,
+      },
+      {
+        id: "lei-07",
+        title: "Mokihana Lei",
+        caption: "Kauai's emerald mokihana",
+        image: lei07,
+      },
+      {
+        id: "lei-08",
+        title: "Kukui Lei",
+        caption: "Polished kukui and ti leaf",
+        image: lei08,
+      },
+      {
+        id: "lei-09",
+        title: "Crown Flower Lei",
+        caption: "Lavender crown flower glory",
+        image: lei09,
+      },
+      {
+        id: "lei-10",
+        title: "Torch Ginger Lei",
+        caption: "Scarlet ginger torch",
+        image: lei10,
+      },
+      {
+        id: "lei-11",
+        title: "Hibiscus Lei",
+        caption: "Vibrant aloalo blossoms",
+        image: lei11,
+      },
+      {
+        id: "lei-12",
+        title: "Rainbow Orchid Lei",
+        caption: "Best of show rainbow strands",
+        image: lei12,
+      },
+      {
+        id: "lei-13",
+        title: "Ōhia Lehua Lei",
+        caption: "Scarlet ohia lehua",
+        image: lei13,
+      },
+      {
+        id: "lei-14",
+        title: "Master's Mixed Lei",
+        caption: "A harmonious bloom symphony",
+        image: lei14,
       },
     ],
   },
