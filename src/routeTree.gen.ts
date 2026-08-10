@@ -24,6 +24,7 @@ import { Route as CollectionCollectionIdRouteImport } from './routes/collection.
 import { Route as PCodeRouteImport } from './routes/p.$code'
 import { Route as PortalIndexRouteImport } from './routes/portal.index'
 import { Route as PortalIdRouteImport } from './routes/portal.$id'
+import { Route as PortalBetaRouteImport } from './routes/portal.beta'
 import { Route as PortalDailyRouteImport } from './routes/portal.daily'
 import { Route as PortalDailyPastRouteImport } from './routes/portal.daily-past'
 import { Route as PortalNewRouteImport } from './routes/portal.new'
@@ -112,6 +113,11 @@ const PortalIdRoute = PortalIdRouteImport.update({
   path: '/portal/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PortalBetaRoute = PortalBetaRouteImport.update({
+  id: '/portal/beta',
+  path: '/portal/beta',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PortalDailyRoute = PortalDailyRouteImport.update({
   id: '/portal/daily',
   path: '/portal/daily',
@@ -179,6 +185,7 @@ export interface FileRoutesByFullPath {
   '/collection/$collectionId': typeof CollectionCollectionIdRoute
   '/p/$code': typeof PCodeRoute
   '/portal/$id': typeof PortalIdRoute
+  '/portal/beta': typeof PortalBetaRoute
   '/portal/daily': typeof PortalDailyRoute
   '/portal/daily-past': typeof PortalDailyPastRoute
   '/portal/new': typeof PortalNewRoute
@@ -206,6 +213,7 @@ export interface FileRoutesByTo {
   '/collection/$collectionId': typeof CollectionCollectionIdRoute
   '/p/$code': typeof PCodeRoute
   '/portal/$id': typeof PortalIdRoute
+  '/portal/beta': typeof PortalBetaRoute
   '/portal/daily': typeof PortalDailyRoute
   '/portal/daily-past': typeof PortalDailyPastRoute
   '/portal/new': typeof PortalNewRoute
@@ -234,6 +242,7 @@ export interface FileRoutesById {
   '/collection/$collectionId': typeof CollectionCollectionIdRoute
   '/p/$code': typeof PCodeRoute
   '/portal/$id': typeof PortalIdRoute
+  '/portal/beta': typeof PortalBetaRoute
   '/portal/daily': typeof PortalDailyRoute
   '/portal/daily-past': typeof PortalDailyPastRoute
   '/portal/new': typeof PortalNewRoute
@@ -263,6 +272,7 @@ export interface FileRouteTypes {
     | '/collection/$collectionId'
     | '/p/$code'
     | '/portal/$id'
+    | '/portal/beta'
     | '/portal/daily'
     | '/portal/daily-past'
     | '/portal/new'
@@ -290,6 +300,7 @@ export interface FileRouteTypes {
     | '/collection/$collectionId'
     | '/p/$code'
     | '/portal/$id'
+    | '/portal/beta'
     | '/portal/daily'
     | '/portal/daily-past'
     | '/portal/new'
@@ -317,6 +328,7 @@ export interface FileRouteTypes {
     | '/collection/$collectionId'
     | '/p/$code'
     | '/portal/$id'
+    | '/portal/beta'
     | '/portal/daily'
     | '/portal/daily-past'
     | '/portal/new'
@@ -345,6 +357,7 @@ export interface RootRouteChildren {
   CollectionCollectionIdRoute: typeof CollectionCollectionIdRoute
   PCodeRoute: typeof PCodeRoute
   PortalIdRoute: typeof PortalIdRoute
+  PortalBetaRoute: typeof PortalBetaRoute
   PortalDailyRoute: typeof PortalDailyRoute
   PortalDailyPastRoute: typeof PortalDailyPastRoute
   PortalNewRoute: typeof PortalNewRoute
@@ -465,6 +478,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PortalIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/portal/beta': {
+      id: '/portal/beta'
+      path: '/portal/beta'
+      fullPath: '/portal/beta'
+      preLoaderRoute: typeof PortalBetaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/portal/daily': {
       id: '/portal/daily'
       path: '/portal/daily'
@@ -554,6 +574,7 @@ const rootRouteChildren: RootRouteChildren = {
   CollectionCollectionIdRoute: CollectionCollectionIdRoute,
   PCodeRoute: PCodeRoute,
   PortalIdRoute: PortalIdRoute,
+  PortalBetaRoute: PortalBetaRoute,
   PortalDailyRoute: PortalDailyRoute,
   PortalDailyPastRoute: PortalDailyPastRoute,
   PortalNewRoute: PortalNewRoute,
