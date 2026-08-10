@@ -21,7 +21,6 @@ export const PuzzleReveal: React.FC<{
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const tileW = width / cols;
-  const tileH = tileW * (4 / 3) * (3 / 4) * (4 / 3);
   const boardH = (width * 4) / 3;
   const cellH = boardH / rows;
 
@@ -75,9 +74,9 @@ export const PuzzleReveal: React.FC<{
             style={{
               position: "absolute",
               left: col * tileW,
-              top: row * tileH,
+              top: row * cellH,
               width: tileW,
-              height: tileH,
+              height: cellH,
               opacity,
               transform: `translate(${x}px, ${y}px) rotate(${r}deg) scale(${pop})`,
               zIndex: locked ? 1 : 3,
