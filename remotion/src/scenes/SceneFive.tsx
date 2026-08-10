@@ -76,7 +76,7 @@ export const SceneFive: React.FC = () => {
           opacity: tag,
         }}
       >
-        Pictures become play
+        Where pictures become play
       </div>
 
       <div
