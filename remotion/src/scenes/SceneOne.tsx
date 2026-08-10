@@ -35,8 +35,8 @@ export const SceneOne: React.FC = () => {
           cols={3}
           rows={4}
           width={780}
-          start={24}
-          stagger={6}
+          start={18}
+          stagger={5}
         />
       </AbsoluteFill>
     </AbsoluteFill>

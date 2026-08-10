@@ -35,8 +35,8 @@ export const SceneTwo: React.FC = () => {
           cols={3}
           rows={4}
           width={780}
-          start={22}
-          stagger={6}
+          start={18}
+          stagger={5}
         />
       </AbsoluteFill>
     </AbsoluteFill>
