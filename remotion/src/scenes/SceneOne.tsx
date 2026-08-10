@@ -7,8 +7,8 @@ import { C } from "../theme";
 
 export const SceneOne: React.FC = () => {
   const frame = useCurrentFrame();
-  const zoom = interpolate(frame, [0, 105], [1.06, 1.0]);
-  const drift = Math.sin(frame / 40) * 6;
+  const zoom = interpolate(frame, [0, 105], [1.05, 1.0]);
+  const drift = Math.sin(frame / 40) * 5;
 
   return (
     <AbsoluteFill
@@ -21,14 +21,21 @@ export const SceneOne: React.FC = () => {
         style={{
           alignItems: "center",
           justifyContent: "center",
-          transform: `scale(${zoom}) translateY(${drift - 170}px)`,
+          transform: `scale(${zoom}) translateY(${drift - 150}px)`,
         }}
       >
-        <PuzzleReveal src="images/hero-sunset.jpg" width={700} start={4} stagger={5} />
+        <PuzzleReveal
+          src="images/flower-hibiscus.jpg"
+          cols={3}
+          rows={4}
+          width={660}
+          start={16}
+          stagger={5}
+        />
       </AbsoluteFill>
 
       <div style={{ position: "absolute", left: 92, top: 150 }}>
-        <Kicker text="Introducing" delay={2} />
+        <Kicker text="Introducing Pictaria" delay={2} />
       </div>
 
       <div
@@ -36,20 +43,20 @@ export const SceneOne: React.FC = () => {
           position: "absolute",
           left: 92,
           right: 92,
-          bottom: 190,
+          bottom: 180,
         }}
       >
         <WordsLine
-          text="Pictures say a"
+          text="A picture is worth"
           delay={44}
-          size={104}
+          size={96}
           color={C.shell}
           stagger={5}
         />
         <WordsLine
-          text="thousand words."
+          text="a thousand words."
           delay={58}
-          size={104}
+          size={96}
           color={C.aqua}
           italic
           stagger={5}
