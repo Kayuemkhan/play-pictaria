@@ -106,6 +106,31 @@ function LaunchPage() {
           <span aria-hidden>↓</span>
         </a>
 
+        <h2 className="mt-10 text-center font-display text-sm tracking-[0.2em] text-accent uppercase">
+          Puzzle demo
+        </h2>
+        <div className="mt-3 overflow-hidden rounded-[6px] border border-accent/40 shadow-lift">
+          <video
+            src={puzzleDemo.url}
+            controls
+            playsInline
+            muted
+            loop
+            preload="metadata"
+            className="aspect-[9/16] w-full bg-black object-cover"
+          />
+        </div>
+
+        <a
+          href={puzzleDemo.url}
+          download="pictaria-puzzle-demo.mp4"
+          className="mt-4 flex w-full items-center justify-center gap-2 rounded-full border border-accent/60 bg-accent/10 px-5 py-3 font-display text-[0.65rem] tracking-[0.18em] text-accent uppercase transition hover:bg-accent/20"
+        >
+          Download puzzle demo
+          <span aria-hidden>↓</span>
+        </a>
+
+
         <section className="mt-6 rounded-[6px] border border-accent/40 bg-shell p-5">
           <h2 className="font-display text-sm tracking-[0.2em] text-foreground uppercase">
             Join the launch list
