@@ -142,8 +142,13 @@ export function PuzzleBoard({
 
   const scale = useMemo(() => {
     if (!size.w || !size.h) return 0;
-    return Math.min(size.w / WORLD_W, size.h / worldH);
+    // keep a soft margin so tiles never sit flush against the walls
+    const inset = Math.max(10, Math.min(size.w, size.h) * 0.045);
+    const w = Math.max(1, size.w - inset * 2);
+    const h = Math.max(1, size.h - inset * 2);
+    return Math.min(w / WORLD_W, h / worldH);
   }, [size.w, size.h, worldH]);
+
 
   const offX = (size.w - WORLD_W * scale) / 2;
   const offY = (size.h - worldH * scale) / 2;
