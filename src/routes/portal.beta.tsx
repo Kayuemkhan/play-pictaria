@@ -73,9 +73,10 @@ function Beta() {
           max_uses: Number(maxUses) || 1,
           expires_at: expires ? new Date(expires).toISOString() : undefined,
           note: note.trim(),
+          tier,
         },
       });
-      setCode(suggestCode());
+      setCode(suggestCode(tier));
       setNote("");
       await refresh();
     } catch (caught) {
