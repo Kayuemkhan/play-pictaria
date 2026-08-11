@@ -11,7 +11,7 @@ import {
 import { difficulties } from "@/data/collections";
 import palmLogo from "@/assets/logo-palms-only.png";
 import tropicalIslandBg from "@/assets/pinup-08.jpg";
-import { isMuted, playLock, playPick, playSolved, setMuted } from "@/lib/feedback";
+import { playLock, playPick, playSolved, setMuted } from "@/lib/feedback";
 import {
   TRACK_OPTIONS,
   playMindfulTrack,
