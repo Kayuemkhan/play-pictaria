@@ -97,8 +97,8 @@ function BetaRedeem() {
                 Your beta code
               </h1>
               <p className="mt-2 text-[12px] text-muted-foreground">
-                Enter your email and the code you were given to unlock the
-                Artist Studio.
+                Enter your email and the code you were given to unlock your
+                studio.
               </p>
 
               <input
@@ -111,7 +111,7 @@ function BetaRedeem() {
               <input
                 value={code}
                 onChange={(event) => setCode(event.target.value.toUpperCase())}
-                placeholder="ARTIST-XXXX"
+                placeholder="ARTIST-XXXX or BRAND-XXXX"
                 className="mt-3 w-full rounded-full border border-accent/40 px-4 py-3 text-center text-[13px] tracking-[0.14em] text-foreground"
               />
 
@@ -125,7 +125,7 @@ function BetaRedeem() {
                 disabled={busy || !email.trim() || !code.trim()}
                 className="mt-5 w-full rounded-full bg-primary px-6 py-3 text-[11px] tracking-[0.16em] text-primary-foreground uppercase disabled:opacity-50"
               >
-                {busy ? "Unlocking…" : "Unlock the Artist Studio"}
+                {busy ? "Unlocking…" : "Unlock your studio"}
               </button>
             </>
           )}
