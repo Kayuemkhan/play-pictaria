@@ -751,7 +751,6 @@ export function PuzzleBoard({
       setPos(solvedPositions);
       setGroupOf(Array.from({ length: total }, () => solvedGroup));
       setMoves((count) => count + 1);
-      setFlash(solvedPositions);
       playLock();
       setSolved(true);
       window.setTimeout(() => playSolved(), 260);
