@@ -194,7 +194,7 @@ function Beta() {
                 </span>
               </div>
               <p className="mt-0.5 text-[10px] tracking-[0.12em] text-muted-foreground uppercase">
-                artist
+                {row.tier}
                 {row.expires_at
                   ? ` · ends ${new Date(row.expires_at).toLocaleDateString()}`
                   : " · no end date"}
