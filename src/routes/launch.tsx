@@ -78,6 +78,13 @@ function LaunchPage() {
           <p className="mt-3 font-display text-[0.95rem] leading-snug text-shell">
             Discover beautiful photography one puzzle "peace" at a time.
           </p>
+          <Link
+            to="/collections"
+            className="mt-4 inline-flex items-center gap-1.5 rounded-full border border-accent/60 bg-accent/10 px-5 py-2.5 font-display text-[0.65rem] tracking-[0.18em] text-accent uppercase transition hover:bg-accent/20"
+          >
+            Play more puzzles
+            <span aria-hidden>›</span>
+          </Link>
         </div>
 
         <div className="mt-6 overflow-hidden rounded-[6px] border border-accent/40 shadow-lift">
