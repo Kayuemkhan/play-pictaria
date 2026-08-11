@@ -25,13 +25,13 @@ export const Route = createFileRoute("/portal/beta")({
   component: GuardedBeta,
 });
 
-function suggestCode() {
+function suggestCode(tier: string) {
   const letters = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
   let tail = "";
   for (let i = 0; i < 4; i += 1) {
     tail += letters[Math.floor(Math.random() * letters.length)];
   }
-  return `ARTIST-${tail}`;
+  return tier === "brand" ? `BRAND-${tail}` : `ARTIST-${tail}`;
 }
 
 function Beta() {
