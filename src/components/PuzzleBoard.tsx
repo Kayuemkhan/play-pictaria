@@ -226,24 +226,38 @@ export function PuzzleBoard({
     return () => window.clearInterval(t);
   }, [solved, pos.length]);
 
-  /* celebration: sparkle over the finished picture, then straight on to the
-     next photo — no stats card, so the next picture is a surprise. Only the
-     last puzzle in a gallery falls back to the summary card. */
+  /* celebration: the congratulations drifts in and back out, then the finished
+     picture is left alone to be admired — with a quiet "Next →" beside it. Only
+     the last puzzle in a gallery falls through to the summary card. */
   const nextRef = useRef(onNext);
   nextRef.current = onNext;
   const hasNext = Boolean(onNext);
+  const [congratsOut, setCongratsOut] = useState(false);
+  const [linger, setLinger] = useState(false);
   useEffect(() => {
     if (!solved) {
       setShowSummary(false);
+      setCongratsOut(false);
+      setLinger(false);
       return;
     }
+    const fade = window.setTimeout(() => setCongratsOut(true), 2800);
+    const gone = window.setTimeout(() => setLinger(true), 4100);
     if (hasNext) {
-      const t = window.setTimeout(() => nextRef.current?.(), 3600);
-      return () => window.clearTimeout(t);
+      return () => {
+        window.clearTimeout(fade);
+        window.clearTimeout(gone);
+      };
     }
-    const t = window.setTimeout(() => setShowSummary(true), 6200);
-    return () => window.clearTimeout(t);
+    const t = window.setTimeout(() => setShowSummary(true), 6800);
+    return () => {
+      window.clearTimeout(fade);
+      window.clearTimeout(gone);
+      window.clearTimeout(t);
+    };
   }, [solved, hasNext]);
+  void nextRef;
+
 
 
 
@@ -1027,8 +1041,11 @@ export function PuzzleBoard({
 
 
       {/* celebration — phase one: fine drifting sparkles and congratulations */}
-      {solved && (
-        <div className="pointer-events-none absolute inset-0 z-30 overflow-hidden">
+      {solved && !linger && (
+        <div
+          className="pointer-events-none absolute inset-0 z-30 overflow-hidden transition-opacity duration-[1300ms] ease-[var(--ease-calm)]"
+          style={{ opacity: congratsOut ? 0 : 1 }}
+        >
           {/* fine drifting sparkles */}
           {Array.from({ length: 40 }).map((_, i) => (
             <svg
@@ -1072,6 +1089,23 @@ export function PuzzleBoard({
           )}
         </div>
       )}
+
+      {/* linger — the finished picture, with a quiet way onward */}
+      {solved && linger && !showSummary && (
+        <div className="animate-fade-in absolute inset-x-0 bottom-3 z-30 flex items-center justify-center gap-3 px-4">
+          {onNext && (
+            <button
+              type="button"
+              onClick={onNext}
+              className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-[0.7rem] tracking-[0.22em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03] active:scale-[0.98]"
+            >
+              Next
+              <span aria-hidden="true">→</span>
+            </button>
+          )}
+        </div>
+      )}
+
 
       {/* celebration — phase two: the summary card, after a good long look */}
       {solved && showSummary && (
