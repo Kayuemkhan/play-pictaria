@@ -9,6 +9,14 @@ type Track = {
   benefit: string;
 };
 
+export const TRACK_OPTIONS: { id: TrackId; name: string }[] = [
+  { id: "ocean", name: "Ocean & Seagulls" },
+  { id: "bowls", name: "Singing Bowls" },
+  { id: "binaural", name: "Binaural Meditation" },
+  { id: "didgeridoo", name: "Didgeridoo & Drum" },
+  { id: "meditation", name: "Meditation" },
+];
+
 const TRACKS: Track[] = [
   {
     id: "ocean",

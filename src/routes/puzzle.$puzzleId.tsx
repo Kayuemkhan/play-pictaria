@@ -5,7 +5,7 @@ import { PuzzleBoard } from "@/components/PuzzleBoard";
 import { PoemCTAs } from "@/components/PoemCTAs";
 import palmLogo from "@/assets/logo-palms-only.png";
 
-import { collections, difficulties, findPuzzle } from "@/data/collections";
+import { collections, findPuzzle } from "@/data/collections";
 
 export const Route = createFileRoute("/puzzle/$puzzleId")({
   validateSearch: (search: Record<string, unknown>) => ({
@@ -34,7 +34,7 @@ function PuzzlePage() {
   const { puzzleId } = Route.useParams();
   const { grid: initialGrid } = Route.useSearch();
   const navigate = useNavigate();
-  const [grid, setGrid] = useState<number | null>(initialGrid ?? null);
+  const [grid, setGrid] = useState<number>(initialGrid ?? 4);
   const found = findPuzzle(puzzleId);
 
 
@@ -91,7 +91,6 @@ function PuzzlePage() {
             params: { collectionId: collection.id },
           })
         }
-        onChangeDifficulty={() => setGrid(null)}
       />
     );
   }
@@ -160,28 +159,6 @@ function PuzzlePage() {
           )}
         </div>
 
-
-        <p className="mt-10 text-center text-[11px] tracking-[0.3em] text-muted-foreground uppercase">
-          Choose your pace
-        </p>
-
-        <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
-          {difficulties.map((d) => (
-            <button
-              key={d.grid}
-              onClick={() => setGrid(d.grid)}
-              className="group rounded-[4px] border border-accent/60 bg-card px-4 py-6 text-center shadow-soft transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-lift"
-            >
-              <p className="font-display text-3xl text-primary">
-                {d.grid}×{d.grid}
-              </p>
-              <p className="mt-2 text-sm">{d.label}</p>
-              <p className="text-[11px] tracking-wide text-muted-foreground">
-                {d.note}
-              </p>
-            </button>
-          ))}
-        </div>
 
         <div className="mt-10">
           <PoemCTAs />

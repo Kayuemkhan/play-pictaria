@@ -13,10 +13,14 @@ import palmLogo from "@/assets/logo-palms-only.png";
 import tropicalIslandBg from "@/assets/pinup-08.jpg";
 import { isMuted, playLock, playPick, playSolved, setMuted } from "@/lib/feedback";
 import {
-  toggleMindfulMusic,
+  TRACK_OPTIONS,
+  playMindfulTrack,
+  stopMindfulTrack,
   trackName,
   useMindfulPlayer,
 } from "@/components/MindfulMusic";
+
+type SoundscapeId = (typeof TRACK_OPTIONS)[number]["id"];
 
 
 
@@ -36,7 +40,7 @@ export interface PuzzleBoardProps {
   title: string;
   grid: number;
   onExit: () => void;
-  onChangeDifficulty: () => void;
+  onChangeDifficulty?: () => void;
   /** Change grid from inside the puzzle without leaving the screen. */
   onChangeGrid?: (grid: number) => void;
   /** Move on to the next photograph in this gallery, at the same grid. */
@@ -100,7 +104,6 @@ export function PuzzleBoard({
   title,
   grid,
   onExit,
-  onChangeDifficulty,
   onChangeGrid,
   onNext,
   nextTitle,
@@ -852,10 +855,52 @@ export function PuzzleBoard({
               {grid}×{grid}
             </p>
           )}
+        </div>
+
+        <div className="min-w-0 text-center">
+          <p className="truncate font-display text-sm leading-tight sm:text-xl">
+            {title}
+          </p>
+        </div>
+        <div className="flex items-center gap-1.5 text-xs tabular-nums sm:gap-3 sm:text-sm">
+          <Select
+            value={musicOn ? (musicPlaying as string) : "off"}
+            onValueChange={(v) => {
+              if (v === "off") {
+                stopMindfulTrack();
+                return;
+              }
+              void playMindfulTrack(v as SoundscapeId);
+            }}
+          >
+            <SelectTrigger
+              aria-label="Choose a soundscape"
+              title={
+                musicTitle
+                  ? `${musicTitle} — ${musicOn ? "on" : "off"}`
+                  : "Mindful sound"
+              }
+              className={`h-8 w-fit min-w-0 gap-1 rounded-full border-0 px-2.5 text-[10px] tracking-[0.14em] uppercase shadow-none focus:ring-0 [&>svg]:h-3 [&>svg]:w-3 ${
+                musicOn
+                  ? "bg-primary text-primary-foreground"
+                  : "bg-secondary text-secondary-foreground"
+              }`}
+            >
+              {musicOn ? <Music size={14} /> : <VolumeX size={14} />}
+            </SelectTrigger>
+            <SelectContent align="end" className="min-w-[11rem]">
+              <SelectItem value="off">Sound off</SelectItem>
+              {TRACK_OPTIONS.map((t) => (
+                <SelectItem key={t.id} value={t.id}>
+                  {t.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
           <button
-            aria-label={soundOn ? "Turn sound off" : "Turn sound on"}
+            aria-label={soundOn ? "Turn puzzle sounds off" : "Turn puzzle sounds on"}
             aria-pressed={soundOn}
-            title={soundOn ? "Sound on" : "Sound off"}
+            title={soundOn ? "Puzzle sounds on" : "Puzzle sounds off"}
             onClick={() => {
               const next = !soundOn;
               setSoundOn(next);
@@ -869,31 +914,6 @@ export function PuzzleBoard({
           >
             {soundOn ? <Volume2 size={16} /> : <VolumeX size={16} />}
           </button>
-        </div>
-
-        <div className="min-w-0 text-center">
-          <p className="truncate font-display text-lg leading-tight sm:text-xl">
-            {title}
-          </p>
-        </div>
-        <div className="flex items-center gap-2 text-xs tabular-nums sm:gap-3 sm:text-sm">
-          <button
-            aria-label={musicOn ? "Turn music off" : "Turn music on"}
-            aria-pressed={musicOn}
-            title={
-              musicTitle
-                ? `${musicTitle} — ${musicOn ? "on" : "off"}`
-                : "Mindful music"
-            }
-            onClick={() => void toggleMindfulMusic()}
-            className={`flex h-8 w-8 items-center justify-center rounded-full transition-colors ${
-              musicOn
-                ? "bg-primary text-primary-foreground"
-                : "bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground"
-            }`}
-          >
-            {musicOn ? <Music size={16} /> : <VolumeX size={16} />}
-          </button>
           <button
             aria-label="Flash puzzle box reference"
             onClick={() => {
@@ -906,10 +926,10 @@ export function PuzzleBoard({
             <Search size={16} />
           </button>
 
-          <span className="rounded-full bg-secondary px-2.5 py-1 text-secondary-foreground">
+          <span className="rounded-full bg-secondary px-2 py-1 text-[10px] text-secondary-foreground sm:text-sm">
             {formatTime(seconds)}
           </span>
-          <span className="rounded-full bg-secondary px-2.5 py-1 text-secondary-foreground">
+          <span className="hidden rounded-full bg-secondary px-2 py-1 text-secondary-foreground sm:inline sm:text-sm">
             {moves} moves
           </span>
         </div>
@@ -1184,12 +1204,6 @@ export function PuzzleBoard({
                 }
               >
                 Play again
-              </button>
-              <button
-                onClick={onChangeDifficulty}
-                className="rounded-full border border-border py-3 text-sm text-foreground transition-colors hover:bg-secondary"
-              >
-                Change difficulty
               </button>
               <button
                 onClick={onExit}
