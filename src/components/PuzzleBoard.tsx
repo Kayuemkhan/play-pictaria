@@ -12,6 +12,7 @@ import { difficulties } from "@/data/collections";
 import palmLogo from "@/assets/logo-palms-only.png";
 import tropicalIslandBg from "@/assets/pinup-08.jpg";
 import { playLock, playPick, playSolved, setMuted } from "@/lib/feedback";
+import { cn } from "@/lib/utils";
 import {
   TRACK_OPTIONS,
   playMindfulTrack,
@@ -943,10 +944,16 @@ export function PuzzleBoard({
           onPointerMove={onPointerMove}
           onPointerUp={endPointer}
           onPointerCancel={endPointer}
-          className="relative h-full w-full touch-none overflow-hidden select-none rounded-[18px] bg-card/30 shadow-soft"
+          className={cn(
+            "relative h-full w-full touch-none overflow-hidden select-none bg-card/30 shadow-soft",
+            showReference ? "rounded-none" : "rounded-[18px]",
+          )}
         >
           <div
-            className="absolute top-0 left-0 origin-top-left rounded-[18px]"
+            className={cn(
+              "absolute top-0 left-0 origin-top-left",
+              showReference ? "rounded-none" : "rounded-[18px]",
+            )}
             style={{
               width: WORLD_W,
               height: worldH,
@@ -1006,17 +1013,16 @@ export function PuzzleBoard({
 
         </div>
 
-        {/* puzzle box flash */}
+        {/* reference flash — completed puzzle, no frame */}
         {showReference && (
-          <div className="absolute inset-0 z-20 flex items-center justify-center bg-deep/70 p-6 backdrop-blur-sm animate-fade-in">
-            <div className="glass-panel relative max-h-full max-w-sm overflow-hidden rounded-3xl shadow-lift animate-scale-in">
-              <img
-                src={src}
-                alt="Puzzle box reference"
-                className="max-h-[70vh] w-auto object-contain"
-              />
-            </div>
-          </div>
+          <div
+            className="absolute inset-0 z-20 animate-fade-in"
+            style={{
+              backgroundImage: `url(${src})`,
+              backgroundSize: `${bg.w}px ${bg.h}px`,
+              backgroundPosition: `${bg.x}px ${bg.y}px`,
+            }}
+          />
         )}
        </div>
       </div>
