@@ -34,6 +34,7 @@ function BetaRedeem() {
   const [error, setError] = useState("");
   const [done, setDone] = useState(false);
   const [busy, setBusy] = useState(false);
+  const [tier, setTier] = useState<"artist" | "brand">("artist");
 
   useEffect(() => {
     const fromLink = new URLSearchParams(window.location.search).get("code");
