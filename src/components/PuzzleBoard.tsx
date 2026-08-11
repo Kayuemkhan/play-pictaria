@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Music, Search, VolumeX } from "lucide-react";
 import palmLogo from "@/assets/logo-palms-only.png";
+import tropicalIslandBg from "@/assets/tropical-island-bg.jpg";
 import { playLock, playPick, playSolved } from "@/lib/feedback";
 import {
   toggleMindfulMusic,
