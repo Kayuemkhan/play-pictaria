@@ -71,7 +71,7 @@ function buzz(pattern: number | number[]) {
 /** A piece locking into another piece. */
 export function playLock() {
   // Chime removed — the user found it distracting. Haptic feedback stays.
-  buzz(14);
+  buzz([18, 40, 22]);
 }
 
 /** Puzzle completed. */
