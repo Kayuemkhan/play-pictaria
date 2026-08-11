@@ -659,7 +659,9 @@ export function PuzzleBoard({
       }
 
       function addCandidateIfNear(dRow: number, dCol: number) {
-        if (Math.hypot(dCol - unitsX, dRow - unitsY) > 1.25) return;
+        // tighter magnet: the finger has to genuinely carry the tile most of the
+        // way to its neighbour before it will click in
+        if (Math.hypot(dCol - unitsX, dRow - unitsY) > 0.4) return;
         addCandidate(dCol, dRow);
       }
 
