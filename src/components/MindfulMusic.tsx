@@ -684,29 +684,4 @@ export function MindfulMusic() {
   );
 }
 
-/** Small floating control shown anywhere in the app while a track plays. */
-export function MindfulMiniPlayer() {
-  const { playing } = useMindfulPlayer();
-  if (!playing) return null;
-  const track = TRACKS.find((t) => t.id === playing);
-  return (
-    <div className="pointer-events-auto fixed bottom-4 left-1/2 z-50 -translate-x-1/2 rounded-full border border-accent/40 bg-deep/90 px-4 py-2 shadow-soft backdrop-blur-md">
-      <div className="flex items-center gap-3">
-        <span aria-hidden className="text-accent">
-          ♪
-        </span>
-        <span className="font-body text-[0.7rem] font-light tracking-[0.08em] text-shell/85">
-          {track?.name}
-        </span>
-        <button
-          type="button"
-          onClick={stopMindfulTrack}
-          className="font-body text-[0.6rem] tracking-[0.18em] text-accent uppercase"
-        >
-          Stop
-        </button>
-      </div>
-    </div>
-  );
-}
 
