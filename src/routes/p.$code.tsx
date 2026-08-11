@@ -97,6 +97,7 @@ function SharedPictaria() {
         title={shared?.title || "A Pictaria for you"}
         grid={playing.grid}
         unbranded={isBrand}
+        onChangeGrid={(g) => setPlaying({ ...playing, grid: g })}
         onExit={() => setPlaying(null)}
         onChangeDifficulty={() => setPlaying(null)}
       />

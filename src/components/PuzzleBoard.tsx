@@ -1,6 +1,14 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Music, Search, VolumeX } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { difficulties } from "@/data/collections";
 import palmLogo from "@/assets/logo-palms-only.png";
 import tropicalIslandBg from "@/assets/pinup-08.jpg";
 import { playLock, playPick, playSolved } from "@/lib/feedback";
@@ -29,6 +37,8 @@ export interface PuzzleBoardProps {
   grid: number;
   onExit: () => void;
   onChangeDifficulty: () => void;
+  /** Change grid from inside the puzzle without leaving the screen. */
+  onChangeGrid?: (grid: number) => void;
   /** Move on to the next photograph in this gallery, at the same grid. */
   onNext?: () => void;
   /** Title of the next photograph, for the button label. */
@@ -91,6 +101,7 @@ export function PuzzleBoard({
   grid,
   onExit,
   onChangeDifficulty,
+  onChangeGrid,
   onNext,
   nextTitle,
   unbranded = false,
@@ -862,9 +873,35 @@ export function PuzzleBoard({
           <p className="truncate font-display text-lg leading-tight sm:text-xl">
             {title}
           </p>
-          <p className="text-[11px] tracking-[0.18em] text-muted-foreground uppercase">
-            {grid}×{grid}
-          </p>
+          {onChangeGrid ? (
+            <Select
+              value={String(grid)}
+              onValueChange={(v) => onChangeGrid(Number(v))}
+            >
+              <SelectTrigger
+                aria-label="Change difficulty"
+                className="mx-auto mt-1 h-auto w-fit min-w-0 border-0 bg-transparent p-0 text-[11px] tracking-[0.18em] text-muted-foreground uppercase shadow-none hover:text-primary focus:ring-0 [&>svg]:ml-1 [&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-muted-foreground [&>span]:pr-1"
+              >
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent className="min-w-[8rem]" align="center">
+                {difficulties.map((d) => (
+                  <SelectItem key={d.grid} value={String(d.grid)}>
+                    <span className="font-display text-base">
+                      {d.grid}×{d.grid}
+                    </span>
+                    <span className="ml-2 text-xs text-muted-foreground">
+                      {d.label}
+                    </span>
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          ) : (
+            <p className="text-[11px] tracking-[0.18em] text-muted-foreground uppercase">
+              {grid}×{grid}
+            </p>
+          )}
         </div>
         <div className="flex items-center gap-2 text-xs tabular-nums sm:gap-3 sm:text-sm">
           <button
