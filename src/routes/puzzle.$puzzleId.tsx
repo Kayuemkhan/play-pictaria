@@ -5,7 +5,7 @@ import { PuzzleBoard } from "@/components/PuzzleBoard";
 import { PoemCTAs } from "@/components/PoemCTAs";
 import palmLogo from "@/assets/logo-palms-only.png";
 
-import { difficulties, findPuzzle } from "@/data/collections";
+import { collections, difficulties, findPuzzle } from "@/data/collections";
 
 export const Route = createFileRoute("/puzzle/$puzzleId")({
   validateSearch: (search: Record<string, unknown>) => ({
