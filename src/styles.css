@@ -99,6 +99,7 @@
   --shadow-piece: 0 6px 14px -6px oklch(0.28 0.06 232 / 0.55);
 
   --ease-calm: cubic-bezier(0.22, 0.8, 0.24, 1);
+  --ease-organic: cubic-bezier(0.19, 0.9, 0.22, 1);
 }
 
 .dark {
@@ -285,13 +286,10 @@
 
 @keyframes snap-pop {
   0% {
-    transform: scale(1);
+    transform: scale(1.006);
   }
-  40% {
-    transform: scale(1.02);
-  }
-  75% {
-    transform: scale(0.995);
+  55% {
+    transform: scale(1.002);
   }
   100% {
     transform: scale(1);
@@ -439,7 +437,7 @@
 }
 
 @utility animate-snap-pop {
-  animation: snap-pop 0.34s var(--ease-calm) both;
+  animation: snap-pop 0.9s var(--ease-organic) both;
 }
 
 
