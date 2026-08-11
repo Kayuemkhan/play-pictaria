@@ -839,7 +839,9 @@ export function PuzzleBoard({
                 aria-label="Change difficulty"
                 className="h-auto w-fit min-w-0 border-0 bg-transparent p-0 text-[11px] tracking-[0.18em] text-muted-foreground uppercase shadow-none hover:text-primary focus:ring-0 [&>svg]:ml-1 [&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-muted-foreground [&>span]:pr-1"
               >
-                <SelectValue />
+                <SelectValue>
+                  {grid}×{grid}
+                </SelectValue>
               </SelectTrigger>
               <SelectContent className="min-w-[8rem]" align="start">
                 {difficulties.map((d) => (
@@ -886,13 +888,9 @@ export function PuzzleBoard({
                   ? `${musicTitle} — ${musicOn ? "on" : "off"}`
                   : "Mindful sound"
               }
-              className={`h-8 w-fit min-w-0 gap-1 rounded-full border-0 px-2.5 text-[10px] tracking-[0.14em] uppercase shadow-none focus:ring-0 [&>svg]:h-3 [&>svg]:w-3 ${
-                musicOn
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-secondary text-secondary-foreground"
-              }`}
+              className="h-8 w-fit min-w-0 border-0 bg-transparent p-0 text-[10px] tracking-[0.14em] uppercase text-muted-foreground shadow-none hover:text-primary focus:ring-0 [&>svg]:h-4 [&>svg]:w-4"
             >
-              {musicOn ? <Music size={14} /> : <VolumeX size={14} />}
+              {musicOn ? <Music size={16} /> : <VolumeX size={16} />}
             </SelectTrigger>
             <SelectContent align="end" className="min-w-[12rem]">
               <SelectItem value="off">
@@ -928,9 +926,6 @@ export function PuzzleBoard({
             <Search size={16} />
           </button>
 
-          <span className="rounded-full bg-secondary px-2 py-1 text-[10px] text-secondary-foreground sm:text-sm">
-            {formatTime(seconds)}
-          </span>
           <span className="hidden rounded-full bg-secondary px-2 py-1 text-secondary-foreground sm:inline sm:text-sm">
             {moves} moves
           </span>
