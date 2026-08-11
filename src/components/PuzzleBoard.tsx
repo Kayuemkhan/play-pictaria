@@ -115,11 +115,7 @@ export function PuzzleBoard({
   const [pos, setPos] = useState<number[]>([]);
   /** groupOf[piece] = group id */
   const [groupOf, setGroupOf] = useState<number[]>([]);
-  const [flash, setFlash] = useState<number[]>([]);
   const [floating, setFloating] = useState<number[]>([]);
-  const [sparkles, setSparkles] = useState<
-    { id: number; x: number; y: number; size: number; delay: number; tx: number; ty: number }[]
-  >([]);
   const [moves, setMoves] = useState(0);
   const [seconds, setSeconds] = useState(0);
   const [solved, setSolved] = useState(false);
@@ -227,7 +223,6 @@ export function PuzzleBoard({
     setMoves(0);
     setSeconds(0);
     setSolved(false);
-    setFlash([]);
     setDrag(null);
   }, [aspect, total, round, mergePass]);
 
@@ -510,51 +505,12 @@ export function PuzzleBoard({
         )
         .filter((p) => p >= 0);
       setFloating(movedPieces);
-      window.setTimeout(() => setFloating([]), 520);
+      window.setTimeout(() => setFloating([]), 880);
       setPos(next);
       setGroupOf(groups);
       setMoves((m) => m + 1);
       if (merged || newlyHome.length) {
         playLock();
-        const rep = groupOf.findIndex((g) => g === group);
-        const newGroup = groups[rep];
-        const flashed = Array.from(
-          new Set([
-            ...groups
-              .map((g, piece) => (g === newGroup ? piece : -1))
-              .filter((p) => p >= 0),
-            ...newlyHome,
-          ]),
-        );
-        setFlash(flashed);
-        window.setTimeout(() => setFlash([]), 900);
-
-
-        // little gold sparkles where pieces just clicked together
-        const burst = flashed.map((piece) => {
-          const cell = next[piece]!;
-          const cRow = Math.floor(cell / grid);
-          const cCol = cell % grid;
-          const cx = cCol * cellW + cellW / 2;
-          const cy = cRow * cellH + cellH / 2;
-          return Array.from({ length: 5 }).map((_, i) => {
-            const angle = (i / 5) * Math.PI * 2 + Math.random() * 0.4;
-            const dist = 18 + Math.random() * 22;
-            return {
-              id: Date.now() + Math.random(),
-              x: cx,
-              y: cy,
-              size: 3 + Math.random() * 4,
-              delay: Math.random() * 0.12,
-              tx: Math.cos(angle) * dist,
-              ty: Math.sin(angle) * dist,
-            };
-          });
-        }).flat();
-        setSparkles((prev) => [...prev, ...burst].slice(-120));
-        window.setTimeout(() => {
-          setSparkles((prev) => prev.filter((s) => !burst.find((b) => b.id === s.id)));
-        }, 800);
       } else {
         playPick();
       }
@@ -799,7 +755,6 @@ export function PuzzleBoard({
       playLock();
       setSolved(true);
       window.setTimeout(() => playSolved(), 260);
-      window.setTimeout(() => setFlash([]), 900);
     }
   };
 
@@ -969,7 +924,6 @@ export function PuzzleBoard({
             const inCluster = (groupSizes.get(group) ?? 1) > 1;
             const isLocked = lockedPieces.has(piece);
             const isDragged = drag?.group === group;
-            const justLocked = flash.includes(piece);
             const isFloating = floating.includes(piece);
 
             return (
@@ -985,46 +939,33 @@ export function PuzzleBoard({
                   backgroundImage: `url(${src})`,
                   backgroundSize: `${bg.w}px ${bg.h}px`,
                   backgroundPosition: `${bg.x - pc * cellW}px ${bg.y - pr * cellH}px`,
-                  borderRadius: isLocked || inCluster ? 3 : 22,
+                  borderRadius:
+                    isFloating && !inCluster ? 22 : isLocked || inCluster ? 3 : 22,
                   boxShadow: isDragged
                     ? "0 14px 28px rgba(15,45,70,0.35), inset 0 0 0 3px rgba(255,255,255,0.85)"
                     : isFloating
-                      ? "0 10px 20px rgba(15,45,70,0.3), inset 0 0 0 3px rgba(255,255,255,0.7)"
+                      ? inCluster
+                        ? "0 10px 20px rgba(15,45,70,0.3)"
+                        : "0 10px 20px rgba(15,45,70,0.3), inset 0 0 0 3px rgba(255,255,255,0.7)"
                       : isLocked || inCluster
                         ? "none"
                         : "inset 0 0 0 3px rgba(255,255,255,0.8)",
                   transform: isDragged
                     ? `translate(${drag!.dx / scale}px, ${drag!.dy / scale}px) scale(1.006)`
                     : "scale(1)",
-                  zIndex: isDragged ? 4 : isFloating ? 3 : justLocked ? 2 : 1,
+                  zIndex: isDragged ? 4 : isFloating ? 3 : 1,
                   cursor: "grab",
                   transition: isDragged
                     ? "none"
-                    : "transform 1.5s var(--ease-organic), box-shadow 1.5s var(--ease-organic), border-radius 1.2s var(--ease-organic), left 1.5s var(--ease-organic), top 1.5s var(--ease-organic)",
+                    : isFloating
+                      ? "transform 880ms var(--ease-organic), left 880ms var(--ease-organic), top 880ms var(--ease-organic)"
+                      : "box-shadow 320ms var(--ease-organic), border-radius 320ms var(--ease-organic), left 880ms var(--ease-organic), top 880ms var(--ease-organic)",
                 }}
               />
             );
 
           })}
 
-          {/* gold sparkles on snap */}
-          {sparkles.map((s) => (
-            <span
-              key={s.id}
-              className="pointer-events-none absolute animate-sparkle-burst rounded-full bg-accent shadow-[0_0_6px_var(--accent)]"
-              style={{
-                left: s.x,
-                top: s.y,
-                width: s.size,
-                height: s.size,
-                marginLeft: -s.size / 2,
-                marginTop: -s.size / 2,
-                animationDelay: `${s.delay}s`,
-                ["--tw-translate-x" as string]: `${s.tx}px`,
-                ["--tw-translate-y" as string]: `${s.ty}px`,
-              }}
-            />
-          ))}
         </div>
 
         {/* puzzle box flash */}
