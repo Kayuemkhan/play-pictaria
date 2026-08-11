@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Music, Search, VolumeX } from "lucide-react";
 import palmLogo from "@/assets/logo-palms-only.png";
+import tropicalIslandBg from "@/assets/tropical-island-bg.jpg";
 import { playLock, playPick, playSolved } from "@/lib/feedback";
 import {
   toggleMindfulMusic,
@@ -1109,8 +1110,42 @@ export function PuzzleBoard({
 
       {/* celebration — phase two: the summary card, after a good long look */}
       {solved && showSummary && (
-        <div className="absolute inset-0 z-40 flex items-center justify-center bg-deep/55 backdrop-blur-md">
-          <div className="animate-soft-in glass-panel relative mx-4 w-full max-w-sm rounded-3xl p-7 text-center shadow-lift">
+        <div className="absolute inset-0 z-40 flex items-center justify-center overflow-hidden">
+          {/* faded tropical island background */}
+          <div className="absolute inset-0">
+            <img
+              src={tropicalIslandBg}
+              alt=""
+              className="h-full w-full object-cover opacity-50"
+              loading="lazy"
+              width={1024}
+              height={1024}
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-background/55 via-deep/35 to-background/70" />
+          </div>
+
+          {/* slow drifting golden stars */}
+          {Array.from({ length: 24 }).map((_, i) => (
+            <svg
+              key={`summary-star-${i}`}
+              viewBox="0 0 24 24"
+              className="animate-star-float absolute opacity-60"
+              style={{
+                left: `${(i * 41 + Math.sin(i) * 18) % 100}%`,
+                top: `${(i * 23 + Math.cos(i) * 12) % 100}%`,
+                width: 4 + (i % 4) * 3,
+                height: 4 + (i % 4) * 3,
+                animationDelay: `${i * 0.15}s`,
+                animationDuration: `${4 + (i % 5)}s`,
+                fill: i % 3 === 0 ? "var(--accent)" : "oklch(0.97 0.04 88)",
+                filter: "drop-shadow(0 0 5px oklch(0.92 0.07 82 / 0.7))",
+              }}
+            >
+              <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
+            </svg>
+          ))}
+
+          <div className="animate-soft-in glass-panel relative mx-4 w-full max-w-sm rounded-3xl border border-accent/40 p-7 text-center shadow-lift">
             <p
               className="font-script text-4xl"
               style={{
@@ -1148,7 +1183,7 @@ export function PuzzleBoard({
                   onClick={onNext}
                   className="rounded-full bg-primary py-3 text-sm tracking-wide text-primary-foreground transition-opacity hover:opacity-90"
                 >
-                  {nextTitle ? `Next: ${nextTitle}` : "Next puzzle"}
+                  Play another
                 </button>
               )}
               <button
