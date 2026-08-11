@@ -1100,8 +1100,8 @@ export function PuzzleBoard({
               onClick={onNext}
               className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-[0.7rem] tracking-[0.22em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03] active:scale-[0.98]"
             >
-              Next
-              <span aria-hidden="true">→</span>
+              Surprise me
+              <span aria-hidden="true">✨</span>
             </button>
           )}
         </div>
@@ -1183,7 +1183,7 @@ export function PuzzleBoard({
                   onClick={onNext}
                   className="rounded-full bg-primary py-3 text-sm tracking-wide text-primary-foreground transition-opacity hover:opacity-90"
                 >
-                  Play another
+                  Surprise me ✨
                 </button>
               )}
               <button

@@ -5,7 +5,7 @@ import { PuzzleBoard } from "@/components/PuzzleBoard";
 import { PoemCTAs } from "@/components/PoemCTAs";
 import palmLogo from "@/assets/logo-palms-only.png";
 
-import { difficulties, findPuzzle } from "@/data/collections";
+import { collections, difficulties, findPuzzle } from "@/data/collections";
 
 export const Route = createFileRoute("/puzzle/$puzzleId")({
   validateSearch: (search: Record<string, unknown>) => ({
@@ -54,8 +54,19 @@ function PuzzlePage() {
 
   const { puzzle, collection } = found;
 
-  const index = collection.puzzles.findIndex((p) => p.id === puzzle.id);
-  const next = index >= 0 ? collection.puzzles[index + 1] : undefined;
+  // Surprise me — a random photograph from anywhere in the Pictaria universe
+  const surpriseMe = (g: number) => {
+    const pool = collections
+      .flatMap((c) => c.puzzles)
+      .filter((p) => p.id !== puzzle.id);
+    if (!pool.length) return;
+    const pick = pool[Math.floor(Math.random() * pool.length)]!;
+    navigate({
+      to: "/puzzle/$puzzleId",
+      params: { puzzleId: pick.id },
+      search: { grid: g },
+    });
+  };
 
   if (grid) {
     return (
@@ -64,17 +75,8 @@ function PuzzlePage() {
         src={puzzle.image}
         title={puzzle.title}
         grid={grid}
-        {...(next
-          ? {
-              nextTitle: next.title,
-              onNext: () =>
-                navigate({
-                  to: "/puzzle/$puzzleId",
-                  params: { puzzleId: next.id },
-                  search: { grid },
-                }),
-            }
-          : {})}
+        onNext={() => surpriseMe(grid)}
+
         onExit={() =>
           navigate({
             to: "/collection/$collectionId",
