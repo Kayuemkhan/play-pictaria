@@ -858,11 +858,11 @@ export function PuzzleBoard({
         </div>
 
         <div className="min-w-0 text-center">
-          <p className="truncate font-display text-lg leading-tight sm:text-xl">
+          <p className="truncate font-display text-sm leading-tight sm:text-xl">
             {title}
           </p>
         </div>
-        <div className="flex items-center gap-2 text-xs tabular-nums sm:gap-3 sm:text-sm">
+        <div className="flex items-center gap-1.5 text-xs tabular-nums sm:gap-3 sm:text-sm">
           <Select
             value={musicOn ? (musicPlaying as string) : "off"}
             onValueChange={(v) => {
@@ -926,11 +926,12 @@ export function PuzzleBoard({
             <Search size={16} />
           </button>
 
-          <span className="rounded-full bg-secondary px-2.5 py-1 text-secondary-foreground">
+          <span className="rounded-full bg-secondary px-2 py-1 text-[10px] text-secondary-foreground sm:text-sm">
             {formatTime(seconds)}
           </span>
-          <span className="rounded-full bg-secondary px-2.5 py-1 text-secondary-foreground">
-            {moves} moves
+          <span className="rounded-full bg-secondary px-2 py-1 text-[10px] text-secondary-foreground sm:text-sm">
+            {moves}
+            <span className="hidden sm:inline"> moves</span>
           </span>
         </div>
       </header>
