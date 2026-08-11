@@ -8,17 +8,17 @@ import palmLogo from "@/assets/logo-palms-only.png";
 export const Route = createFileRoute("/beta")({
   head: () => ({
     meta: [
-      { title: "Pictaria Beta — Unlock the Artist Studio" },
+      { title: "Pictaria Beta — Unlock Your Studio" },
       {
         name: "description",
         content:
-          "Have a Pictaria beta code? Enter it with your email address to unlock the Artist Studio while we're in beta.",
+          "Have a Pictaria beta code? Enter it with your email address to unlock the Artist or Brand Studio while we're in beta.",
       },
-      { property: "og:title", content: "Pictaria Beta — Artist Studio" },
+      { property: "og:title", content: "Pictaria Beta — Unlock Your Studio" },
       {
         property: "og:description",
         content:
-          "Redeem your beta code to unlock the Artist Studio: retouching, story notes and shareable puzzle links.",
+          "Redeem your beta code to unlock the Artist or Brand Studio: retouching, story notes, logo placement and shareable puzzle links.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
