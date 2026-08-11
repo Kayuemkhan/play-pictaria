@@ -116,6 +116,22 @@ function Beta() {
             className="mt-1 w-full rounded-full border border-accent/40 px-4 py-2.5 text-[13px] tracking-[0.1em] text-foreground"
           />
 
+          <label className="mt-3 block text-[10px] tracking-[0.16em] text-muted-foreground uppercase">
+            Tier
+          </label>
+          <select
+            value={tier}
+            onChange={(event) => {
+              const next = event.target.value as "artist" | "brand";
+              setTier(next);
+              setCode(suggestCode(next));
+            }}
+            className="mt-1 w-full rounded-full border border-accent/40 bg-transparent px-4 py-2.5 text-[13px] text-foreground"
+          >
+            <option value="artist">Artist Studio</option>
+            <option value="brand">Brand Studio</option>
+          </select>
+
           <div className="mt-3 flex gap-2">
             <div className="flex-1">
               <label className="block text-[10px] tracking-[0.16em] text-muted-foreground uppercase">
