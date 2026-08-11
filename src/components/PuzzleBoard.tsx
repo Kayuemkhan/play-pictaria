@@ -142,7 +142,7 @@ export function PuzzleBoard({
   const scale = useMemo(() => {
     if (!size.w || !size.h) return 0;
     // keep a soft margin so tiles never sit flush against the walls
-    const inset = Math.max(10, Math.min(size.w, size.h) * 0.045);
+    const inset = Math.max(18, Math.min(size.w, size.h) * 0.085);
     const w = Math.max(1, size.w - inset * 2);
     const h = Math.max(1, size.h - inset * 2);
     return Math.min(w / WORLD_W, h / worldH);
@@ -659,7 +659,9 @@ export function PuzzleBoard({
       }
 
       function addCandidateIfNear(dRow: number, dCol: number) {
-        if (Math.hypot(dCol - unitsX, dRow - unitsY) > 1.25) return;
+        // tighter magnet: the finger has to genuinely carry the tile most of the
+        // way to its neighbour before it will click in
+        if (Math.hypot(dCol - unitsX, dRow - unitsY) > 0.4) return;
         addCandidate(dCol, dRow);
       }
 
@@ -677,8 +679,10 @@ export function PuzzleBoard({
       const landsHome = (next: number[]) =>
         next.some((cell, piece) => cell === piece && pos[piece] !== piece);
 
-      // 1 + 2: nearest landing that actually clicks something into place
+      // 1 + 2: nearest landing that actually clicks something into place —
+      // only when the drop really is close to that landing spot
       for (const candidate of candidates) {
+        if (candidate.dist > 0.45) continue;
         const next = attemptMove(group, candidate.dCol, candidate.dRow);
         if (!next) continue;
         if (merges(next) || landsHome(next)) return candidate;
@@ -726,8 +730,8 @@ export function PuzzleBoard({
       .filter((piece) => piece >= 0);
     const draggedSize = draggedPieces.length;
     const deliberateDrag =
-      Math.abs(dx) >= cellW * scale * 0.4 ||
-      Math.abs(dy) >= cellH * scale * 0.4;
+      Math.abs(dx) >= cellW * scale * 0.85 ||
+      Math.abs(dy) >= cellH * scale * 0.85;
     const largestGroup = [...sizes.entries()].sort((a, b) => b[1] - a[1])[0]?.[0];
     const solvedMass =
       largestGroup !== undefined &&
