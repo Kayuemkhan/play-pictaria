@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Music, Search, VolumeX } from "lucide-react";
+import { Music, Sparkles, VolumeX } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -920,10 +920,9 @@ export function PuzzleBoard({
               setShowReference(true);
               window.setTimeout(() => setShowReference(false), 900);
             }}
-
-            className="flex h-8 w-8 items-center justify-center rounded-full bg-secondary text-secondary-foreground transition-colors hover:bg-primary hover:text-primary-foreground"
+            className="flex h-8 w-8 items-center justify-center text-muted-foreground transition-colors hover:text-primary"
           >
-            <Search size={16} />
+            <Sparkles size={16} />
           </button>
 
           <span className="hidden rounded-full bg-secondary px-2 py-1 text-secondary-foreground sm:inline sm:text-sm">
