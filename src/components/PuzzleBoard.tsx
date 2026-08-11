@@ -679,8 +679,10 @@ export function PuzzleBoard({
       const landsHome = (next: number[]) =>
         next.some((cell, piece) => cell === piece && pos[piece] !== piece);
 
-      // 1 + 2: nearest landing that actually clicks something into place
+      // 1 + 2: nearest landing that actually clicks something into place —
+      // only when the drop really is close to that landing spot
       for (const candidate of candidates) {
+        if (candidate.dist > 0.45) continue;
         const next = attemptMove(group, candidate.dCol, candidate.dRow);
         if (!next) continue;
         if (merges(next) || landsHome(next)) return candidate;
