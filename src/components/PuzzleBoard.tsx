@@ -515,7 +515,7 @@ export function PuzzleBoard({
           ]),
         );
         setFlash(flashed);
-        window.setTimeout(() => setFlash([]), 380);
+        window.setTimeout(() => setFlash([]), 900);
 
 
         // little gold sparkles where pieces just clicked together
@@ -787,7 +787,7 @@ export function PuzzleBoard({
       playLock();
       setSolved(true);
       window.setTimeout(() => playSolved(), 260);
-      window.setTimeout(() => setFlash([]), 380);
+      window.setTimeout(() => setFlash([]), 900);
     }
   };
 
