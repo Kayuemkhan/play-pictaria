@@ -30,6 +30,7 @@ const createSchema = z.object({
   max_uses: z.number().int().min(1).max(10000),
   expires_at: z.string().trim().max(40).optional(),
   note: z.string().trim().max(200).optional(),
+  tier: z.enum(["artist", "brand"]).optional(),
 });
 
 const idSchema = z.object({ id: z.string().uuid() });
