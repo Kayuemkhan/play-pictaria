@@ -78,14 +78,15 @@ function BetaRedeem() {
                 Welcome to the beta
               </h1>
               <p className="mt-2 text-[12px] text-muted-foreground">
-                The Artist Studio is open for you — retouching, story notes and
-                your own shareable Pictaria links.
+                {tier === "brand"
+                  ? "Brand Studio is open for you — logo placement, action buttons, analytics and unlimited branded storybooks."
+                  : "The Artist Studio is open for you — retouching, story notes and your own shareable Pictaria links."}
               </p>
               <Link
-                to="/studio/artist"
+                to={tier === "brand" ? "/studio/brand" : "/studio/artist"}
                 className="mt-5 inline-block rounded-full bg-primary px-6 py-3 text-[11px] tracking-[0.16em] text-primary-foreground uppercase"
               >
-                Open Artist Studio
+                {tier === "brand" ? "Open Brand Studio" : "Open Artist Studio"}
               </Link>
             </>
           ) : (
