@@ -1041,8 +1041,11 @@ export function PuzzleBoard({
 
 
       {/* celebration — phase one: fine drifting sparkles and congratulations */}
-      {solved && (
-        <div className="pointer-events-none absolute inset-0 z-30 overflow-hidden">
+      {solved && !linger && (
+        <div
+          className="pointer-events-none absolute inset-0 z-30 overflow-hidden transition-opacity duration-[1300ms] ease-[var(--ease-calm)]"
+          style={{ opacity: congratsOut ? 0 : 1 }}
+        >
           {/* fine drifting sparkles */}
           {Array.from({ length: 40 }).map((_, i) => (
             <svg
@@ -1086,6 +1089,23 @@ export function PuzzleBoard({
           )}
         </div>
       )}
+
+      {/* linger — the finished picture, with a quiet way onward */}
+      {solved && linger && !showSummary && (
+        <div className="animate-fade-in absolute inset-x-0 bottom-3 z-30 flex items-center justify-center gap-3 px-4">
+          {onNext && (
+            <button
+              type="button"
+              onClick={onNext}
+              className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-[0.7rem] tracking-[0.22em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03] active:scale-[0.98]"
+            >
+              Next
+              <span aria-hidden="true">→</span>
+            </button>
+          )}
+        </div>
+      )}
+
 
       {/* celebration — phase two: the summary card, after a good long look */}
       {solved && showSummary && (
