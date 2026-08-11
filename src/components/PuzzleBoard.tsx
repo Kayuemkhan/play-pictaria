@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Music, Search, Volume2, VolumeX } from "lucide-react";
+import { Music, Search, VolumeX } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -11,7 +11,7 @@ import {
 import { difficulties } from "@/data/collections";
 import palmLogo from "@/assets/logo-palms-only.png";
 import tropicalIslandBg from "@/assets/pinup-08.jpg";
-import { isMuted, playLock, playPick, playSolved, setMuted } from "@/lib/feedback";
+import { playLock, playPick, playSolved, setMuted } from "@/lib/feedback";
 import {
   TRACK_OPTIONS,
   playMindfulTrack,
@@ -124,7 +124,6 @@ export function PuzzleBoard({
   const [solved, setSolved] = useState(false);
   const [showSummary, setShowSummary] = useState(false);
   const [showReference, setShowReference] = useState(false);
-  const [soundOn, setSoundOn] = useState(!isMuted());
   const { playing: musicPlaying, selected: musicSelected } = useMindfulPlayer();
   const musicOn = musicPlaying !== null;
   const musicTitle = trackName(musicPlaying ?? musicSelected);
@@ -142,8 +141,13 @@ export function PuzzleBoard({
 
   const scale = useMemo(() => {
     if (!size.w || !size.h) return 0;
-    return Math.min(size.w / WORLD_W, size.h / worldH);
+    // keep a soft margin so tiles never sit flush against the walls
+    const inset = Math.max(10, Math.min(size.w, size.h) * 0.045);
+    const w = Math.max(1, size.w - inset * 2);
+    const h = Math.max(1, size.h - inset * 2);
+    return Math.min(w / WORLD_W, h / worldH);
   }, [size.w, size.h, worldH]);
+
 
   const offX = (size.w - WORLD_W * scale) / 2;
   const offY = (size.h - worldH * scale) / 2;
@@ -868,8 +872,10 @@ export function PuzzleBoard({
             onValueChange={(v) => {
               if (v === "off") {
                 stopMindfulTrack();
+                setMuted(true);
                 return;
               }
+              setMuted(false);
               void playMindfulTrack(v as SoundscapeId);
             }}
           >
@@ -888,32 +894,27 @@ export function PuzzleBoard({
             >
               {musicOn ? <Music size={14} /> : <VolumeX size={14} />}
             </SelectTrigger>
-            <SelectContent align="end" className="min-w-[11rem]">
-              <SelectItem value="off">Sound off</SelectItem>
+            <SelectContent align="end" className="min-w-[12rem]">
+              <SelectItem value="off">
+                <span className="flex items-center gap-2">
+                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-secondary text-secondary-foreground">
+                    <VolumeX size={13} />
+                  </span>
+                  Sound off
+                </span>
+              </SelectItem>
               {TRACK_OPTIONS.map((t) => (
                 <SelectItem key={t.id} value={t.id}>
-                  {t.name}
+                  <span className="flex items-center gap-2">
+                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-primary/12 text-primary">
+                      <Music size={13} />
+                    </span>
+                    {t.name}
+                  </span>
                 </SelectItem>
               ))}
             </SelectContent>
           </Select>
-          <button
-            aria-label={soundOn ? "Turn puzzle sounds off" : "Turn puzzle sounds on"}
-            aria-pressed={soundOn}
-            title={soundOn ? "Puzzle sounds on" : "Puzzle sounds off"}
-            onClick={() => {
-              const next = !soundOn;
-              setSoundOn(next);
-              setMuted(!next);
-            }}
-            className={`flex h-8 w-8 items-center justify-center rounded-full transition-colors ${
-              soundOn
-                ? "bg-primary text-primary-foreground"
-                : "bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground"
-            }`}
-          >
-            {soundOn ? <Volume2 size={16} /> : <VolumeX size={16} />}
-          </button>
           <button
             aria-label="Flash puzzle box reference"
             onClick={() => {
@@ -921,6 +922,7 @@ export function PuzzleBoard({
               setShowReference(true);
               window.setTimeout(() => setShowReference(false), 900);
             }}
+
             className="flex h-8 w-8 items-center justify-center rounded-full bg-secondary text-secondary-foreground transition-colors hover:bg-primary hover:text-primary-foreground"
           >
             <Search size={16} />
