@@ -97,6 +97,15 @@ function LaunchPage() {
           />
         </div>
 
+        <a
+          href="/pictaria-launch.mp4"
+          download="pictaria-launch.mp4"
+          className="mt-4 flex w-full items-center justify-center gap-2 rounded-full border border-accent/60 bg-accent/10 px-5 py-3 font-display text-[0.65rem] tracking-[0.18em] text-accent uppercase transition hover:bg-accent/20"
+        >
+          Download video
+          <span aria-hidden>↓</span>
+        </a>
+
         <section className="mt-6 rounded-[6px] border border-accent/40 bg-shell p-5">
           <h2 className="font-display text-sm tracking-[0.2em] text-foreground uppercase">
             Join the launch list
