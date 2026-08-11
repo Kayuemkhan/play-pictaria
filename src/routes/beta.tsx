@@ -54,6 +54,7 @@ function BetaRedeem() {
       }
       window.localStorage.setItem("pictaria-email", result.email);
       window.localStorage.setItem("pictaria-beta-tier", result.tier);
+      setTier(result.tier === "brand" ? "brand" : "artist");
       setDone(true);
     } catch {
       setError("Something went sideways — please try that again.");
