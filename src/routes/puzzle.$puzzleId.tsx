@@ -76,7 +76,15 @@ function PuzzlePage() {
         title={puzzle.title}
         grid={grid}
         onNext={() => surpriseMe(grid)}
-
+        onChangeGrid={(g) => {
+          setGrid(g);
+          navigate({
+            to: "/puzzle/$puzzleId",
+            params: { puzzleId },
+            search: { grid: g },
+            replace: true,
+          });
+        }}
         onExit={() =>
           navigate({
             to: "/collection/$collectionId",
