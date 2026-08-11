@@ -111,7 +111,7 @@ function BetaRedeem() {
               <input
                 value={code}
                 onChange={(event) => setCode(event.target.value.toUpperCase())}
-                placeholder="ARTIST-XXXX or BRAND-XXXX"
+                placeholder="ARTIST3 or BRANDSTUDIO50"
                 className="mt-3 w-full rounded-full border border-accent/40 px-4 py-3 text-center text-[13px] tracking-[0.14em] text-foreground"
               />
 
