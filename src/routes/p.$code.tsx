@@ -4,7 +4,6 @@ import { useServerFn } from "@tanstack/react-start";
 import { PuzzleBoard } from "@/components/PuzzleBoard";
 import { PoemCTAs } from "@/components/PoemCTAs";
 
-import { difficulties } from "@/data/collections";
 import { getSharedPictaria } from "@/lib/pictarias.functions";
 import { reportPictaria } from "@/lib/reports.functions";
 import palmLogo from "@/assets/logo-palms-only.png";
@@ -99,7 +98,6 @@ function SharedPictaria() {
         unbranded={isBrand}
         onChangeGrid={(g) => setPlaying({ ...playing, grid: g })}
         onExit={() => setPlaying(null)}
-        onChangeDifficulty={() => setPlaying(null)}
       />
     );
   }
@@ -179,17 +177,14 @@ function SharedPictaria() {
                     alt={`${shared.title || "Shared"} picture ${i + 1}`}
                     className="aspect-[3/4] w-full object-cover"
                   />
-                  <div className="flex flex-nowrap items-center justify-center gap-2 overflow-x-auto px-4 py-4">
-                    {difficulties.map((d) => (
-                      <button
-                        key={d.grid}
-                        type="button"
-                        onClick={() => setPlaying({ url, grid: d.grid })}
-                        className="shrink-0 rounded-full border border-shell/25 bg-deep px-4 py-1.5 text-[0.6rem] tracking-[0.16em] text-shell uppercase shadow-soft transition-transform hover:scale-[1.03] active:scale-[0.98]"
-                      >
-                        {d.grid}×{d.grid}
-                      </button>
-                    ))}
+                  <div className="flex items-center justify-center px-4 py-4">
+                    <button
+                      type="button"
+                      onClick={() => setPlaying({ url, grid: shared.grid || 4 })}
+                      className="rounded-full border border-shell/25 bg-deep px-6 py-2 text-[0.6rem] tracking-[0.18em] text-shell uppercase shadow-soft transition-transform hover:scale-[1.03] active:scale-[0.98]"
+                    >
+                      Play this Pictaria
+                    </button>
                   </div>
                 </div>
               ))}
