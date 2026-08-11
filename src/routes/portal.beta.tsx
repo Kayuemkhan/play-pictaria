@@ -43,7 +43,8 @@ function Beta() {
   const [codes, setCodes] = useState<BetaCodeRow[]>([]);
   const [redemptions, setRedemptions] = useState<BetaRedemptionRow[]>([]);
   const [loading, setLoading] = useState(true);
-  const [code, setCode] = useState(suggestCode);
+  const [tier, setTier] = useState<"artist" | "brand">("artist");
+  const [code, setCode] = useState(() => suggestCode("artist"));
   const [maxUses, setMaxUses] = useState("25");
   const [expires, setExpires] = useState("");
   const [note, setNote] = useState("");
