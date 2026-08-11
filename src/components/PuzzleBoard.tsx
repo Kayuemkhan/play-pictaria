@@ -988,7 +988,7 @@ export function PuzzleBoard({
                   backgroundPosition: `${bg.x - pc * cellW}px ${bg.y - pr * cellH}px`,
                   borderRadius: isLocked || inCluster ? 3 : 22,
                   boxShadow: justLocked
-                    ? "0 0 0 3px var(--accent), 0 0 18px 2px var(--accent)"
+                    ? "0 0 0 1.5px color-mix(in oklch, var(--accent) 55%, transparent), 0 0 26px 6px color-mix(in oklch, var(--accent) 30%, transparent)"
                     : isDragged
                       ? "0 14px 28px rgba(15,45,70,0.35), inset 0 0 0 3px rgba(255,255,255,0.85)"
                       : isFloating
@@ -999,15 +999,15 @@ export function PuzzleBoard({
                             ? "none"
                             : "inset 0 0 0 3px rgba(255,255,255,0.8)",
                   transform: isDragged
-                    ? `translate(${drag!.dx / scale}px, ${drag!.dy / scale}px) scale(1.015)`
+                    ? `translate(${drag!.dx / scale}px, ${drag!.dy / scale}px) scale(1.008)`
                     : isFloating
-                      ? "scale(1.02)"
+                      ? "scale(1.012)"
                       : "scale(1)",
                   zIndex: isDragged ? 4 : isFloating ? 3 : justLocked ? 2 : 1,
                   cursor: "grab",
                   transition: isDragged
                     ? "none"
-                    : "transform 0.48s var(--ease-calm), box-shadow 0.45s ease, border-radius 0.3s ease, left 0.52s var(--ease-calm), top 0.52s var(--ease-calm)",
+                    : "transform 0.95s var(--ease-organic), box-shadow 1.1s var(--ease-organic), border-radius 0.7s var(--ease-organic), left 0.95s var(--ease-organic), top 0.95s var(--ease-organic)",
                 }}
               />
             );
