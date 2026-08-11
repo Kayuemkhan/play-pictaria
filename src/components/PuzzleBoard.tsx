@@ -929,9 +929,8 @@ export function PuzzleBoard({
           <span className="rounded-full bg-secondary px-2 py-1 text-[10px] text-secondary-foreground sm:text-sm">
             {formatTime(seconds)}
           </span>
-          <span className="rounded-full bg-secondary px-2 py-1 text-[10px] text-secondary-foreground sm:text-sm">
-            {moves}
-            <span className="hidden sm:inline"> moves</span>
+          <span className="hidden rounded-full bg-secondary px-2 py-1 text-secondary-foreground sm:inline sm:text-sm">
+            {moves} moves
           </span>
         </div>
       </header>
