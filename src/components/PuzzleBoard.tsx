@@ -893,32 +893,27 @@ export function PuzzleBoard({
             >
               {musicOn ? <Music size={14} /> : <VolumeX size={14} />}
             </SelectTrigger>
-            <SelectContent align="end" className="min-w-[11rem]">
-              <SelectItem value="off">Sound off</SelectItem>
+            <SelectContent align="end" className="min-w-[12rem]">
+              <SelectItem value="off">
+                <span className="flex items-center gap-2">
+                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-secondary text-secondary-foreground">
+                    <VolumeX size={13} />
+                  </span>
+                  Sound off
+                </span>
+              </SelectItem>
               {TRACK_OPTIONS.map((t) => (
                 <SelectItem key={t.id} value={t.id}>
-                  {t.name}
+                  <span className="flex items-center gap-2">
+                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-primary/12 text-primary">
+                      <Music size={13} />
+                    </span>
+                    {t.name}
+                  </span>
                 </SelectItem>
               ))}
             </SelectContent>
           </Select>
-          <button
-            aria-label={soundOn ? "Turn puzzle sounds off" : "Turn puzzle sounds on"}
-            aria-pressed={soundOn}
-            title={soundOn ? "Puzzle sounds on" : "Puzzle sounds off"}
-            onClick={() => {
-              const next = !soundOn;
-              setSoundOn(next);
-              setMuted(!next);
-            }}
-            className={`flex h-8 w-8 items-center justify-center rounded-full transition-colors ${
-              soundOn
-                ? "bg-primary text-primary-foreground"
-                : "bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground"
-            }`}
-          >
-            {soundOn ? <Volume2 size={16} /> : <VolumeX size={16} />}
-          </button>
           <button
             aria-label="Flash puzzle box reference"
             onClick={() => {
@@ -926,6 +921,7 @@ export function PuzzleBoard({
               setShowReference(true);
               window.setTimeout(() => setShowReference(false), 900);
             }}
+
             className="flex h-8 w-8 items-center justify-center rounded-full bg-secondary text-secondary-foreground transition-colors hover:bg-primary hover:text-primary-foreground"
           >
             <Search size={16} />
