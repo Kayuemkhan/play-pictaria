@@ -1116,7 +1116,7 @@ export function PuzzleBoard({
             <img
               src={tropicalIslandBg}
               alt=""
-              className="h-full w-full object-cover opacity-50"
+              className="h-full w-full object-cover opacity-35 saturate-[0.35]"
               loading="lazy"
               width={1024}
               height={1024}
