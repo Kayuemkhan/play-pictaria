@@ -730,8 +730,8 @@ export function PuzzleBoard({
       .filter((piece) => piece >= 0);
     const draggedSize = draggedPieces.length;
     const deliberateDrag =
-      Math.abs(dx) >= cellW * scale * 0.4 ||
-      Math.abs(dy) >= cellH * scale * 0.4;
+      Math.abs(dx) >= cellW * scale * 0.85 ||
+      Math.abs(dy) >= cellH * scale * 0.85;
     const largestGroup = [...sizes.entries()].sort((a, b) => b[1] - a[1])[0]?.[0];
     const solvedMass =
       largestGroup !== undefined &&
