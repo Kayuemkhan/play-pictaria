@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Music, Search, VolumeX } from "lucide-react";
+import { Music, Search, Volume2, VolumeX } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -11,7 +11,7 @@ import {
 import { difficulties } from "@/data/collections";
 import palmLogo from "@/assets/logo-palms-only.png";
 import tropicalIslandBg from "@/assets/pinup-08.jpg";
-import { playLock, playPick, playSolved } from "@/lib/feedback";
+import { isMuted, playLock, playPick, playSolved, setMuted } from "@/lib/feedback";
 import {
   toggleMindfulMusic,
   trackName,
@@ -121,6 +121,7 @@ export function PuzzleBoard({
   const [solved, setSolved] = useState(false);
   const [showSummary, setShowSummary] = useState(false);
   const [showReference, setShowReference] = useState(false);
+  const [soundOn, setSoundOn] = useState(!isMuted());
   const { playing: musicPlaying, selected: musicSelected } = useMindfulPlayer();
   const musicOn = musicPlaying !== null;
   const musicTitle = trackName(musicPlaying ?? musicSelected);
