@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Music, Search, VolumeX } from "lucide-react";
+import { Music, Search, Volume2, VolumeX } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -11,7 +11,7 @@ import {
 import { difficulties } from "@/data/collections";
 import palmLogo from "@/assets/logo-palms-only.png";
 import tropicalIslandBg from "@/assets/pinup-08.jpg";
-import { playLock, playPick, playSolved } from "@/lib/feedback";
+import { isMuted, playLock, playPick, playSolved, setMuted } from "@/lib/feedback";
 import {
   toggleMindfulMusic,
   trackName,
@@ -121,6 +121,7 @@ export function PuzzleBoard({
   const [solved, setSolved] = useState(false);
   const [showSummary, setShowSummary] = useState(false);
   const [showReference, setShowReference] = useState(false);
+  const [soundOn, setSoundOn] = useState(!isMuted());
   const { playing: musicPlaying, selected: musicSelected } = useMindfulPlayer();
   const musicOn = musicPlaying !== null;
   const musicTitle = trackName(musicPlaying ?? musicSelected);
@@ -821,12 +822,7 @@ export function PuzzleBoard({
 
       {/* top bar */}
       <header className="glass-panel z-20 grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 px-3 py-2.5 sm:px-5">
-        <span aria-hidden className="w-1" />
-
-        <div className="min-w-0 text-center">
-          <p className="truncate font-display text-lg leading-tight sm:text-xl">
-            {title}
-          </p>
+        <div className="flex items-center gap-2">
           {onChangeGrid ? (
             <Select
               value={String(grid)}
@@ -834,11 +830,11 @@ export function PuzzleBoard({
             >
               <SelectTrigger
                 aria-label="Change difficulty"
-                className="mx-auto mt-1 h-auto w-fit min-w-0 border-0 bg-transparent p-0 text-[11px] tracking-[0.18em] text-muted-foreground uppercase shadow-none hover:text-primary focus:ring-0 [&>svg]:ml-1 [&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-muted-foreground [&>span]:pr-1"
+                className="h-auto w-fit min-w-0 border-0 bg-transparent p-0 text-[11px] tracking-[0.18em] text-muted-foreground uppercase shadow-none hover:text-primary focus:ring-0 [&>svg]:ml-1 [&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-muted-foreground [&>span]:pr-1"
               >
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent className="min-w-[8rem]" align="center">
+              <SelectContent className="min-w-[8rem]" align="start">
                 {difficulties.map((d) => (
                   <SelectItem key={d.grid} value={String(d.grid)}>
                     <span className="font-display text-base">
@@ -856,6 +852,29 @@ export function PuzzleBoard({
               {grid}×{grid}
             </p>
           )}
+          <button
+            aria-label={soundOn ? "Turn sound off" : "Turn sound on"}
+            aria-pressed={soundOn}
+            title={soundOn ? "Sound on" : "Sound off"}
+            onClick={() => {
+              const next = !soundOn;
+              setSoundOn(next);
+              setMuted(!next);
+            }}
+            className={`flex h-8 w-8 items-center justify-center rounded-full transition-colors ${
+              soundOn
+                ? "bg-primary text-primary-foreground"
+                : "bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground"
+            }`}
+          >
+            {soundOn ? <Volume2 size={16} /> : <VolumeX size={16} />}
+          </button>
+        </div>
+
+        <div className="min-w-0 text-center">
+          <p className="truncate font-display text-lg leading-tight sm:text-xl">
+            {title}
+          </p>
         </div>
         <div className="flex items-center gap-2 text-xs tabular-nums sm:gap-3 sm:text-sm">
           <button
