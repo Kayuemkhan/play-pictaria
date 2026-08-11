@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 
 import palmLogoOnly from "@/assets/logo-palms-only.png";
+import puzzleDemo from "@/assets/pictaria-puzzle-demo.mp4.asset.json";
 
 export const Route = createFileRoute("/launch")({
   head: () => ({
