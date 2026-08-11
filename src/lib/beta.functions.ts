@@ -30,6 +30,7 @@ const createSchema = z.object({
   max_uses: z.number().int().min(1).max(10000),
   expires_at: z.string().trim().max(40).optional(),
   note: z.string().trim().max(200).optional(),
+  tier: z.enum(["artist", "brand"]).optional(),
 });
 
 const idSchema = z.object({ id: z.string().uuid() });
@@ -88,7 +89,7 @@ export const createBetaCode = createServerFn({ method: "POST" })
 
     const { error } = await supabaseAdmin.from("beta_codes").insert({
       code: data.code.toUpperCase(),
-      tier: "artist",
+      tier: data.tier ?? "artist",
       max_uses: data.max_uses,
       expires_at: data.expires_at ? data.expires_at : null,
       note: data.note ?? "",

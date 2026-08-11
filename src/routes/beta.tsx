@@ -8,17 +8,17 @@ import palmLogo from "@/assets/logo-palms-only.png";
 export const Route = createFileRoute("/beta")({
   head: () => ({
     meta: [
-      { title: "Pictaria Beta — Unlock the Artist Studio" },
+      { title: "Pictaria Beta — Unlock Your Studio" },
       {
         name: "description",
         content:
-          "Have a Pictaria beta code? Enter it with your email address to unlock the Artist Studio while we're in beta.",
+          "Have a Pictaria beta code? Enter it with your email address to unlock the Artist or Brand Studio while we're in beta.",
       },
-      { property: "og:title", content: "Pictaria Beta — Artist Studio" },
+      { property: "og:title", content: "Pictaria Beta — Unlock Your Studio" },
       {
         property: "og:description",
         content:
-          "Redeem your beta code to unlock the Artist Studio: retouching, story notes and shareable puzzle links.",
+          "Redeem your beta code to unlock the Artist or Brand Studio: retouching, story notes, logo placement and shareable puzzle links.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -34,6 +34,7 @@ function BetaRedeem() {
   const [error, setError] = useState("");
   const [done, setDone] = useState(false);
   const [busy, setBusy] = useState(false);
+  const [tier, setTier] = useState<"artist" | "brand">("artist");
 
   useEffect(() => {
     const fromLink = new URLSearchParams(window.location.search).get("code");
@@ -53,6 +54,7 @@ function BetaRedeem() {
       }
       window.localStorage.setItem("pictaria-email", result.email);
       window.localStorage.setItem("pictaria-beta-tier", result.tier);
+      setTier(result.tier === "brand" ? "brand" : "artist");
       setDone(true);
     } catch {
       setError("Something went sideways — please try that again.");
@@ -78,14 +80,15 @@ function BetaRedeem() {
                 Welcome to the beta
               </h1>
               <p className="mt-2 text-[12px] text-muted-foreground">
-                The Artist Studio is open for you — retouching, story notes and
-                your own shareable Pictaria links.
+                {tier === "brand"
+                  ? "Brand Studio is open for you — logo placement, action buttons, analytics and unlimited branded storybooks."
+                  : "The Artist Studio is open for you — retouching, story notes and your own shareable Pictaria links."}
               </p>
               <Link
-                to="/studio/artist"
+                to={tier === "brand" ? "/studio/brand" : "/studio/artist"}
                 className="mt-5 inline-block rounded-full bg-primary px-6 py-3 text-[11px] tracking-[0.16em] text-primary-foreground uppercase"
               >
-                Open Artist Studio
+                {tier === "brand" ? "Open Brand Studio" : "Open Artist Studio"}
               </Link>
             </>
           ) : (
@@ -94,8 +97,8 @@ function BetaRedeem() {
                 Your beta code
               </h1>
               <p className="mt-2 text-[12px] text-muted-foreground">
-                Enter your email and the code you were given to unlock the
-                Artist Studio.
+                Enter your email and the code you were given to unlock your
+                studio.
               </p>
 
               <input
@@ -108,7 +111,7 @@ function BetaRedeem() {
               <input
                 value={code}
                 onChange={(event) => setCode(event.target.value.toUpperCase())}
-                placeholder="ARTIST-XXXX"
+                placeholder="ARTIST-XXXX or BRAND-XXXX"
                 className="mt-3 w-full rounded-full border border-accent/40 px-4 py-3 text-center text-[13px] tracking-[0.14em] text-foreground"
               />
 
@@ -122,7 +125,7 @@ function BetaRedeem() {
                 disabled={busy || !email.trim() || !code.trim()}
                 className="mt-5 w-full rounded-full bg-primary px-6 py-3 text-[11px] tracking-[0.16em] text-primary-foreground uppercase disabled:opacity-50"
               >
-                {busy ? "Unlocking…" : "Unlock the Artist Studio"}
+                {busy ? "Unlocking…" : "Unlock your studio"}
               </button>
             </>
           )}

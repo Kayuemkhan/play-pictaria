@@ -25,13 +25,13 @@ export const Route = createFileRoute("/portal/beta")({
   component: GuardedBeta,
 });
 
-function suggestCode() {
+function suggestCode(tier: string) {
   const letters = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
   let tail = "";
   for (let i = 0; i < 4; i += 1) {
     tail += letters[Math.floor(Math.random() * letters.length)];
   }
-  return `ARTIST-${tail}`;
+  return tier === "brand" ? `BRAND-${tail}` : `ARTIST-${tail}`;
 }
 
 function Beta() {
@@ -43,7 +43,8 @@ function Beta() {
   const [codes, setCodes] = useState<BetaCodeRow[]>([]);
   const [redemptions, setRedemptions] = useState<BetaRedemptionRow[]>([]);
   const [loading, setLoading] = useState(true);
-  const [code, setCode] = useState(suggestCode);
+  const [tier, setTier] = useState<"artist" | "brand">("artist");
+  const [code, setCode] = useState(() => suggestCode("artist"));
   const [maxUses, setMaxUses] = useState("25");
   const [expires, setExpires] = useState("");
   const [note, setNote] = useState("");
@@ -72,9 +73,10 @@ function Beta() {
           max_uses: Number(maxUses) || 1,
           expires_at: expires ? new Date(expires).toISOString() : undefined,
           note: note.trim(),
+          tier,
         },
       });
-      setCode(suggestCode());
+      setCode(suggestCode(tier));
       setNote("");
       await refresh();
     } catch (caught) {
@@ -113,6 +115,22 @@ function Beta() {
             onChange={(event) => setCode(event.target.value.toUpperCase())}
             className="mt-1 w-full rounded-full border border-accent/40 px-4 py-2.5 text-[13px] tracking-[0.1em] text-foreground"
           />
+
+          <label className="mt-3 block text-[10px] tracking-[0.16em] text-muted-foreground uppercase">
+            Tier
+          </label>
+          <select
+            value={tier}
+            onChange={(event) => {
+              const next = event.target.value as "artist" | "brand";
+              setTier(next);
+              setCode(suggestCode(next));
+            }}
+            className="mt-1 w-full rounded-full border border-accent/40 bg-transparent px-4 py-2.5 text-[13px] text-foreground"
+          >
+            <option value="artist">Artist Studio</option>
+            <option value="brand">Brand Studio</option>
+          </select>
 
           <div className="mt-3 flex gap-2">
             <div className="flex-1">
@@ -176,7 +194,7 @@ function Beta() {
                 </span>
               </div>
               <p className="mt-0.5 text-[10px] tracking-[0.12em] text-muted-foreground uppercase">
-                artist
+                {row.tier}
                 {row.expires_at
                   ? ` · ends ${new Date(row.expires_at).toLocaleDateString()}`
                   : " · no end date"}
