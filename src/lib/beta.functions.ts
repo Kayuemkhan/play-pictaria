@@ -89,7 +89,7 @@ export const createBetaCode = createServerFn({ method: "POST" })
 
     const { error } = await supabaseAdmin.from("beta_codes").insert({
       code: data.code.toUpperCase(),
-      tier: "artist",
+      tier: data.tier ?? "artist",
       max_uses: data.max_uses,
       expires_at: data.expires_at ? data.expires_at : null,
       note: data.note ?? "",
