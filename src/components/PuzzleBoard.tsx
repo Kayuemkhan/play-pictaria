@@ -515,7 +515,7 @@ export function PuzzleBoard({
           ]),
         );
         setFlash(flashed);
-        window.setTimeout(() => setFlash([]), 380);
+        window.setTimeout(() => setFlash([]), 900);
 
 
         // little gold sparkles where pieces just clicked together
@@ -787,7 +787,7 @@ export function PuzzleBoard({
       playLock();
       setSolved(true);
       window.setTimeout(() => playSolved(), 260);
-      window.setTimeout(() => setFlash([]), 380);
+      window.setTimeout(() => setFlash([]), 900);
     }
   };
 
@@ -948,11 +948,11 @@ export function PuzzleBoard({
                   backgroundImage: `url(${src})`,
                   backgroundSize: `${bg.w}px ${bg.h}px`,
                   backgroundPosition: `${bg.x - pc * cellW}px ${bg.y - pr * cellH}px`,
-                  borderRadius: isLocked ? 4 : 22,
-                  boxShadow: isDragged
-                    ? "0 14px 28px rgba(15,45,70,0.35), inset 0 0 0 3px rgba(255,255,255,0.85)"
-                    : justLocked
-                      ? "0 0 0 2px var(--accent)"
+                  borderRadius: isLocked || inCluster ? 3 : 22,
+                  boxShadow: justLocked
+                    ? "0 0 0 3px var(--accent), 0 0 18px 2px var(--accent)"
+                    : isDragged
+                      ? "0 14px 28px rgba(15,45,70,0.35), inset 0 0 0 3px rgba(255,255,255,0.85)"
                       : isFloating
                         ? "0 10px 20px rgba(15,45,70,0.32), inset 0 0 0 3px rgba(255,255,255,0.7)"
                         : isLocked
