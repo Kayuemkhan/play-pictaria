@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Music, Search, VolumeX } from "lucide-react";
 import palmLogo from "@/assets/logo-palms-only.png";
-import tropicalIslandBg from "@/assets/tropical-island-bg.jpg";
+import tropicalIslandBg from "@/assets/pinup-08.jpg";
 import { playLock, playPick, playSolved } from "@/lib/feedback";
 import {
   toggleMindfulMusic,
@@ -1116,7 +1116,7 @@ export function PuzzleBoard({
             <img
               src={tropicalIslandBg}
               alt=""
-              className="h-full w-full object-cover opacity-50"
+              className="h-full w-full object-cover opacity-35 saturate-[0.35]"
               loading="lazy"
               width={1024}
               height={1024}
