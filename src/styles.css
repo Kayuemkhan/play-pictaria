@@ -285,13 +285,10 @@
 
 @keyframes snap-pop {
   0% {
-    transform: scale(1);
+    transform: scale(1.006);
   }
-  40% {
-    transform: scale(1.02);
-  }
-  75% {
-    transform: scale(0.995);
+  55% {
+    transform: scale(1.002);
   }
   100% {
     transform: scale(1);
