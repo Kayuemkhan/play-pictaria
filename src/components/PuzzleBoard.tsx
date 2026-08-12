@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import type { ReactNode } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
-import { ChevronLeft, Music, Sparkles, VolumeX } from "lucide-react";
+import { ChevronLeft, Music, Sparkle, Sparkles, VolumeX } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -50,6 +51,8 @@ export interface PuzzleBoardProps {
   nextTitle?: string;
   /** Brand Studio Pictarias carry no Pictaria logo — only a tiny credit link. */
   unbranded?: boolean;
+  /** Story about this picture, shown under the board. */
+  info?: ReactNode;
 }
 
 function formatTime(total: number) {
@@ -109,6 +112,7 @@ export function PuzzleBoard({
   onNext,
   nextTitle,
   unbranded = false,
+  info,
 }: PuzzleBoardProps) {
   const viewportRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
@@ -1048,17 +1052,6 @@ export function PuzzleBoard({
               ))}
             </SelectContent>
           </Select>
-          <button
-            aria-label="Flash puzzle box reference"
-            onClick={() => {
-              if (showReference) return;
-              setShowReference(true);
-              window.setTimeout(() => setShowReference(false), 900);
-            }}
-            className="flex h-8 w-8 items-center justify-center text-muted-foreground transition-colors hover:text-primary"
-          >
-            <Sparkles size={16} />
-          </button>
 
           <span className="hidden rounded-full bg-secondary px-2 py-1 text-secondary-foreground sm:inline sm:text-sm">
             {moves} moves
@@ -1078,18 +1071,8 @@ export function PuzzleBoard({
           </button>
         )}
 
-        {!solved && (
-          <button
-            type="button"
-            onClick={autoSolve}
-            disabled={autoRunning}
-            aria-label={autoRunning ? "Completing puzzle" : "Auto complete puzzle"}
-            title={autoRunning ? "Completing…" : "Auto complete"}
-            className="absolute bottom-5 left-3 z-40 text-muted-foreground transition-colors hover:text-primary disabled:opacity-50"
-          >
-            <Sparkles size={20} />
-          </button>
-        )}
+
+
 
 
 
@@ -1185,6 +1168,37 @@ export function PuzzleBoard({
        </div>
 
       </div>
+
+      {/* under-board controls — auto complete and the reference twinkle */}
+      <div className="z-20 flex shrink-0 items-center justify-center gap-6 px-5 pb-1">
+        <button
+          type="button"
+          onClick={autoSolve}
+          disabled={autoRunning || solved}
+          aria-label={autoRunning ? "Completing puzzle" : "Auto complete puzzle"}
+          title={autoRunning ? "Completing…" : "Auto complete"}
+          className="text-primary transition-colors hover:text-accent-foreground disabled:opacity-40"
+        >
+          <Sparkles size={22} />
+        </button>
+        <button
+          type="button"
+          aria-label="Flash puzzle box reference"
+          onClick={() => {
+            if (showReference) return;
+            setShowReference(true);
+            window.setTimeout(() => setShowReference(false), 900);
+          }}
+          className="text-primary transition-colors hover:text-accent-foreground"
+        >
+          <Sparkle size={20} />
+        </button>
+      </div>
+
+      {info ? (
+        <div className="z-20 shrink-0 px-5 pb-2 text-center">{info}</div>
+      ) : null}
+
 
       {/* storybook invitation — carried on every branded Pictaria */}
       {!unbranded && (
