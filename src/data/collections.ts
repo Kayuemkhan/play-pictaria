@@ -323,7 +323,7 @@ export const collections: Collection[] = [
         image: visionKitchen,
       },
     ],
-  }
+  },
   {
     id: "beaches",
     title: "Beaches",
