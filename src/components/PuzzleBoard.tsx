@@ -1060,7 +1060,7 @@ export function PuzzleBoard({
       </header>
 
       {/* stage */}
-      <div className="relative aspect-[3/4] w-full shrink-0 p-1 sm:p-2">
+      <div className="relative mx-auto aspect-[3/4] max-h-[62vh] w-full shrink-0 p-1 sm:p-2">
         {solved && congratsOut && (
           <button
             type="button"
