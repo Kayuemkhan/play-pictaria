@@ -1184,28 +1184,31 @@ export function PuzzleBoard({
       </div>
 
       {/* under-board controls — auto complete and the reference twinkle */}
-      <div className="z-20 flex w-full shrink-0 items-center justify-between px-16 pb-0.5 sm:px-24">
+      <div className="z-20 flex w-full shrink-0 items-center justify-between px-14 pb-0.5 sm:px-24">
         <button
           type="button"
           onClick={autoSolve}
           disabled={autoRunning || solved}
           aria-label={autoRunning ? "Completing puzzle" : "Auto complete puzzle"}
           title={autoRunning ? "Completing…" : "Auto complete"}
-          className="p-2 text-primary transition-colors hover:text-accent-foreground disabled:opacity-40"
+          className="p-3 text-primary transition-colors hover:text-accent-foreground disabled:opacity-40"
         >
-          <Sparkles size={11} strokeWidth={1} />
+          <Sparkles size={18} strokeWidth={1.25} />
         </button>
         <button
           type="button"
-          aria-label="Flash puzzle box reference"
-          onClick={() => {
-            if (showReference) return;
-            setShowReference(true);
-            window.setTimeout(() => setShowReference(false), 900);
-          }}
-          className="p-2 text-primary transition-colors hover:text-accent-foreground"
+          aria-pressed={showReference}
+          aria-label={
+            showReference ? "Hide picture preview" : "Show picture preview"
+          }
+          title={showReference ? "Hide preview" : "Show preview"}
+          onClick={() => setShowReference((v) => !v)}
+          className={cn(
+            "p-3 transition-colors hover:text-accent-foreground",
+            showReference ? "text-accent-foreground" : "text-primary",
+          )}
         >
-          <Sparkle size={11} strokeWidth={1} />
+          <Sparkle size={18} strokeWidth={1.25} />
         </button>
       </div>
 
