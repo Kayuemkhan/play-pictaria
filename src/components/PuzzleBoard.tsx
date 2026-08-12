@@ -160,8 +160,8 @@ export function PuzzleBoard({
 
   const scale = useMemo(() => {
     if (!size.w || !size.h) return 0;
-    // keep a soft margin so tiles never sit flush against the walls
-    const inset = Math.max(12, Math.min(size.w, size.h) * 0.04);
+    // a gentle, thin margin so tiles never touch the walls
+    const inset = Math.max(6, Math.min(size.w, size.h) * 0.012);
     const w = Math.max(1, size.w - inset * 2);
     const h = Math.max(1, size.h - inset * 2);
     return Math.min(w / WORLD_W, h / worldH);
