@@ -54,11 +54,16 @@ function PuzzlePage() {
 
   const { puzzle, collection } = found;
 
-  // Surprise me — a random photograph from anywhere in the Pictaria universe
+  // Surprise me — hop to a different collection somewhere in the Pictaria universe
   const surpriseMe = (g: number) => {
-    const pool = collections
-      .flatMap((c) => c.puzzles)
-      .filter((p) => p.id !== puzzle.id);
+    const others = collections.filter(
+      (c) => c.id !== collection.id && c.puzzles.length > 0,
+    );
+    const bag = others.length
+      ? others
+      : collections.filter((c) => c.puzzles.length > 0);
+    const nextCollection = bag[Math.floor(Math.random() * bag.length)]!;
+    const pool = nextCollection.puzzles.filter((p) => p.id !== puzzle.id);
     if (!pool.length) return;
     const pick = pool[Math.floor(Math.random() * pool.length)]!;
     navigate({
@@ -67,6 +72,7 @@ function PuzzlePage() {
       search: { grid: g },
     });
   };
+
 
   if (grid) {
     return (
