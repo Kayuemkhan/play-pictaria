@@ -563,6 +563,35 @@ export function PuzzleBoard({
     };
   };
 
+  /** Keep the whole dragged cluster visibly inside the play area, even when a
+   * finger travels beyond the clipped stage during a fast swipe. */
+  const clampDrag = useCallback(
+    (group: number, dx: number, dy: number) => {
+      const cells = pos.filter((_, piece) => groupOf[piece] === group);
+      if (!cells.length || !scale) return { dx, dy };
+
+      const cols = cells.map((cell) => cell % grid);
+      const rows = cells.map((cell) => Math.floor(cell / grid));
+      const minCol = Math.min(...cols);
+      const maxCol = Math.max(...cols);
+      const minRow = Math.min(...rows);
+      const maxRow = Math.max(...rows);
+      const gutter = 10;
+      const minDx = gutter - (offX + minCol * cellW * scale);
+      const maxDx =
+        size.w - gutter - (offX + (maxCol + 1) * cellW * scale);
+      const minDy = gutter - (offY + minRow * cellH * scale);
+      const maxDy =
+        size.h - gutter - (offY + (maxRow + 1) * cellH * scale);
+
+      return {
+        dx: Math.max(minDx, Math.min(maxDx, dx)),
+        dy: Math.max(minDy, Math.min(maxDy, dy)),
+      };
+    },
+    [pos, groupOf, scale, grid, offX, offY, cellW, cellH, size.w, size.h],
+  );
+
 
 
 
@@ -580,7 +609,8 @@ export function PuzzleBoard({
      * down — that makes the tile feel like it is deciding where to go. The
      * landing decision is made only on release.
      */
-    setDrag({ group: s.group, dx, dy });
+    const bounded = clampDrag(s.group, dx, dy);
+    setDrag({ group: s.group, ...bounded });
   };
 
 
@@ -720,8 +750,8 @@ export function PuzzleBoard({
       dragStart.current = null;
       return;
     }
-    const dx = e.clientX - s.x;
-    const dy = e.clientY - s.y;
+    const bounded = clampDrag(s.group, e.clientX - s.x, e.clientY - s.y);
+    const { dx, dy } = bounded;
     const move = snapMove(dx, dy, s.group);
 
     dragStart.current = null;
