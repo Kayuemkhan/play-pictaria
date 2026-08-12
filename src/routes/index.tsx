@@ -50,11 +50,7 @@ const menuLinks = [
 
 
 function Home() {
-  const [openPanel, setOpenPanel] = useState<"menu" | "search" | null>(null);
-  const [query, setQuery] = useState("");
-  const results = collections.filter((c) =>
-    c.title.toLowerCase().includes(query.trim().toLowerCase()),
-  );
+  const [openPanel, setOpenPanel] = useState<"menu" | null>(null);
 
   return (
     <main className="flex min-h-screen flex-col bg-deep">
