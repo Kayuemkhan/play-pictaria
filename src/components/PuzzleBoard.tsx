@@ -1013,11 +1013,14 @@ export function PuzzleBoard({
 
         </div>
 
-        {/* reference flash — completed puzzle, no frame */}
+        {/* reference flash — completed puzzle, exactly the board's footprint */}
         {showReference && (
           <div
-            className="absolute inset-0 z-20 animate-fade-in"
+            className="animate-fade-in absolute top-0 left-0 z-20 origin-top-left overflow-hidden"
             style={{
+              width: WORLD_W,
+              height: worldH,
+              transform: `translate(${offX}px, ${offY}px) scale(${scale})`,
               backgroundImage: `url(${src})`,
               backgroundSize: `${bg.w}px ${bg.h}px`,
               backgroundPosition: `${bg.x}px ${bg.y}px`,
@@ -1025,6 +1028,7 @@ export function PuzzleBoard({
           />
         )}
        </div>
+
       </div>
 
       {/* storybook invitation — carried on every branded Pictaria */}
