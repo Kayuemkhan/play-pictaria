@@ -1170,7 +1170,7 @@ export function PuzzleBoard({
       </div>
 
       {/* under-board controls — auto complete and the reference twinkle */}
-      <div className="z-20 flex shrink-0 items-center justify-center gap-6 px-5 pb-1">
+      <div className="z-20 flex w-full shrink-0 items-center justify-between px-5 pb-1">
         <button
           type="button"
           onClick={autoSolve}
@@ -1179,7 +1179,7 @@ export function PuzzleBoard({
           title={autoRunning ? "Completing…" : "Auto complete"}
           className="text-primary transition-colors hover:text-accent-foreground disabled:opacity-40"
         >
-          <Sparkles size={22} />
+          <Sparkles size={11} strokeWidth={1} />
         </button>
         <button
           type="button"
@@ -1191,7 +1191,7 @@ export function PuzzleBoard({
           }}
           className="text-primary transition-colors hover:text-accent-foreground"
         >
-          <Sparkle size={20} />
+          <Sparkle size={11} strokeWidth={1} />
         </button>
       </div>
 
