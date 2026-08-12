@@ -1078,6 +1078,19 @@ export function PuzzleBoard({
           </button>
         )}
 
+        {!solved && (
+          <button
+            type="button"
+            onClick={autoSolve}
+            disabled={autoRunning}
+            className="absolute bottom-1.5 left-1/2 z-40 -translate-x-1/2 rounded-full border border-primary/60 bg-card/85 px-3.5 py-1 text-[0.55rem] tracking-[0.18em] text-primary uppercase shadow-soft backdrop-blur-sm transition-colors hover:bg-card disabled:opacity-60 sm:bottom-3 sm:text-[0.6rem]"
+          >
+            {autoRunning ? "Completing…" : "Auto complete"}
+          </button>
+        )}
+
+
+
         <div
           ref={viewportRef}
           onPointerDown={onPointerDown}
