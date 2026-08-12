@@ -457,7 +457,13 @@ function startBinauralBeat(
 
 
 function startBinaural(ctx: AudioContext, out: GainNode): Engine {
-  return startBinauralBeat(ctx, out, 196, 6.5);
+  return startBinauralBeat(ctx, out, {
+    carrier: 196,
+    beat: 6.5,
+    padWave: "triangle",
+    padCutoff: 500,
+    pulse: 0.25,
+  });
 }
 
 function startDidgeridoo(ctx: AudioContext, out: GainNode): Engine {
