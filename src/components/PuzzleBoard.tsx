@@ -937,6 +937,16 @@ export function PuzzleBoard({
         </div>
 
         <div className="min-w-0 text-center">
+          {solved && (
+            <button
+              type="button"
+              onClick={goSurprise}
+              className="mb-1 inline-flex items-center gap-1.5 rounded-full border border-primary/70 bg-card/85 px-3 py-1 text-[0.6rem] tracking-[0.16em] text-primary uppercase shadow-soft backdrop-blur-sm transition-colors hover:bg-card"
+            >
+              Surprise me
+              <Sparkles aria-hidden="true" size={12} />
+            </button>
+          )}
           <p className="truncate font-display text-sm leading-tight sm:text-xl">
             {title}
           </p>
