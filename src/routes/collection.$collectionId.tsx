@@ -131,11 +131,6 @@ function CollectionPage() {
                   <p className="font-display text-base leading-tight text-foreground">
                     {puzzle.title}
                   </p>
-                  {(puzzle.meaning ?? puzzle.caption) && (
-                    <p className="mt-0.5 text-xs leading-tight text-muted-foreground italic">
-                      {puzzle.meaning ?? puzzle.caption}
-                    </p>
-                  )}
                 </div>
               </Link>
             );
