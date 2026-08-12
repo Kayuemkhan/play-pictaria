@@ -161,7 +161,7 @@ export function PuzzleBoard({
   const scale = useMemo(() => {
     if (!size.w || !size.h) return 0;
     // keep a soft margin so tiles never sit flush against the walls
-    const inset = Math.max(24, Math.min(size.w, size.h) * 0.12);
+    const inset = Math.max(12, Math.min(size.w, size.h) * 0.04);
     const w = Math.max(1, size.w - inset * 2);
     const h = Math.max(1, size.h - inset * 2);
     return Math.min(w / WORLD_W, h / worldH);
@@ -1170,7 +1170,7 @@ export function PuzzleBoard({
       </div>
 
       {/* under-board controls — auto complete and the reference twinkle */}
-      <div className="z-20 flex shrink-0 items-center justify-center gap-6 px-5 pb-1">
+      <div className="z-20 flex w-full shrink-0 items-center justify-between px-5 pb-1">
         <button
           type="button"
           onClick={autoSolve}
@@ -1179,7 +1179,7 @@ export function PuzzleBoard({
           title={autoRunning ? "Completing…" : "Auto complete"}
           className="text-primary transition-colors hover:text-accent-foreground disabled:opacity-40"
         >
-          <Sparkles size={22} />
+          <Sparkles size={11} strokeWidth={1} />
         </button>
         <button
           type="button"
@@ -1191,7 +1191,7 @@ export function PuzzleBoard({
           }}
           className="text-primary transition-colors hover:text-accent-foreground"
         >
-          <Sparkle size={20} />
+          <Sparkle size={11} strokeWidth={1} />
         </button>
       </div>
 
