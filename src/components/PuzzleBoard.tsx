@@ -870,12 +870,12 @@ export function PuzzleBoard({
           <button
             type="button"
             onClick={onExit}
-            aria-label="Back to gallery"
-            className="absolute left-3 flex items-center gap-1 rounded-full border border-border/70 px-3 py-1.5 text-[0.62rem] tracking-[0.18em] text-muted-foreground uppercase transition-colors hover:border-primary/50 hover:text-primary sm:left-5"
+            aria-label="Back"
+            className="absolute left-3 grid h-9 w-9 place-items-center text-accent/80 transition-transform hover:scale-105 active:scale-95 sm:left-5"
           >
-            <ChevronLeft className="h-3.5 w-3.5" />
-            Back
+            <ChevronLeft className="h-5 w-5" strokeWidth={1.5} />
           </button>
+
           <Link
             to="/"
             aria-label="Pictaria — turn pictures into play"
@@ -1010,7 +1010,7 @@ export function PuzzleBoard({
           <button
             type="button"
             onClick={goSurprise}
-            className="absolute top-1.5 left-1/2 z-40 -translate-x-1/2 rounded-full border border-primary/70 bg-card/85 px-3 py-1 text-[0.6rem] tracking-[0.16em] text-primary uppercase shadow-soft backdrop-blur-sm transition-colors hover:bg-card sm:top-3"
+            className="absolute top-7 left-1/2 z-40 -translate-x-1/2 rounded-full border border-primary/70 bg-card/85 px-3 py-1 text-[0.6rem] tracking-[0.16em] text-primary uppercase shadow-soft backdrop-blur-sm transition-colors hover:bg-card sm:top-10"
           >
             Surprise me
           </button>
