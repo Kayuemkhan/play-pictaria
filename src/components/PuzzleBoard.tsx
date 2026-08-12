@@ -1136,17 +1136,17 @@ export function PuzzleBoard({
         </div>
       )}
 
-      {/* linger — the finished picture, with a quiet way onward */}
-      {solved && linger && !showSummary && (
-        <div className="animate-fade-in absolute inset-x-0 bottom-3 z-30 flex items-center justify-center gap-3 px-4">
+      {/* Always offer a visible way onward as soon as the puzzle is complete. */}
+      {solved && !showSummary && (
+        <div className="animate-soft-in absolute inset-x-0 bottom-[18%] z-40 flex items-center justify-center px-4">
           <button
-              type="button"
-              onClick={goSurprise}
-              className="inline-flex items-center gap-2 rounded-full border border-primary/70 bg-transparent px-6 py-3 text-[0.7rem] tracking-[0.22em] text-primary uppercase transition-transform hover:scale-[1.03] active:scale-[0.98]"
-            >
-              Surprise me
-              <span aria-hidden="true">✨</span>
-            </button>
+            type="button"
+            onClick={goSurprise}
+            className="inline-flex min-h-12 items-center gap-2 rounded-full border-2 border-primary bg-transparent px-7 py-3 text-sm tracking-[0.18em] text-primary uppercase shadow-soft transition-transform hover:scale-[1.03] active:scale-[0.98]"
+          >
+            Surprise me
+            <span aria-hidden="true">✨</span>
+          </button>
         </div>
       )}
 
