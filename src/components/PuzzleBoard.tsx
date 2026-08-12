@@ -936,20 +936,11 @@ export function PuzzleBoard({
         </div>
 
         <div className="min-w-0 text-center">
-          {solved && (
-            <button
-              type="button"
-              onClick={goSurprise}
-              className="-mt-1 mb-0.5 inline-flex items-center rounded-full border border-primary/70 bg-card/85 px-2 py-[1px] text-[0.5rem] tracking-[0.14em] text-primary uppercase shadow-soft backdrop-blur-sm transition-colors hover:bg-card"
-            >
-              Surprise me
-            </button>
-          )}
-
           <p className="truncate font-display text-sm leading-tight sm:text-xl">
             {title}
           </p>
         </div>
+
         <div className="flex items-center gap-1.5 text-xs tabular-nums sm:gap-3 sm:text-sm">
           <Select
             value={musicOn ? (musicPlaying as string) : "off"}
@@ -1015,6 +1006,16 @@ export function PuzzleBoard({
 
       {/* stage */}
       <div className="relative flex-1 p-5 sm:p-8">
+        {solved && congratsOut && (
+          <button
+            type="button"
+            onClick={goSurprise}
+            className="absolute top-1.5 left-1/2 z-40 -translate-x-1/2 rounded-full border border-primary/70 bg-card/85 px-3 py-1 text-[0.6rem] tracking-[0.16em] text-primary uppercase shadow-soft backdrop-blur-sm transition-colors hover:bg-card sm:top-3"
+          >
+            Surprise me
+          </button>
+        )}
+
         <div
           ref={viewportRef}
           onPointerDown={onPointerDown}
