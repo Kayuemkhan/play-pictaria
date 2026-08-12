@@ -629,14 +629,14 @@ const STARTERS: Record<TrackId, (ctx: AudioContext, out: GainNode) => Engine> = 
   // Each frequency gets its own carrier, timbre and pulse so they sound distinct
   "binaural-4": (ctx, out) =>
     startBinauralBeat(ctx, out, {
-      carrier: 110,
+      carrier: 198,
       beat: 4,
       wave: "sine",
       padWave: "sine",
       padOctaves: 1,
-      padCutoff: 220,
+      padCutoff: 420,
       pulse: 0.55,
-      level: 0.13,
+      level: 0.16,
     }),
   "binaural-6": (ctx, out) =>
     startBinauralBeat(ctx, out, {
