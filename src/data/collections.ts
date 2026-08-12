@@ -184,6 +184,16 @@ import healNiu from "@/assets/heal-08-niu.jpg";
 import healMamaki from "@/assets/heal-09-mamaki.jpg";
 import healIlima from "@/assets/heal-10-ilima.jpg";
 import healHau from "@/assets/heal-11-hau.jpg";
+import beach01 from "@/assets/beach-01.jpg";
+import beach02 from "@/assets/beach-02.jpg";
+import beach03 from "@/assets/beach-03.jpg";
+import beach04 from "@/assets/beach-04.jpg";
+import beach05 from "@/assets/beach-05.jpg";
+import beach06 from "@/assets/beach-06.jpg";
+import beach07 from "@/assets/beach-07.jpg";
+import beach08 from "@/assets/beach-08.jpg";
+import beach09 from "@/assets/beach-09.jpg";
+import beach10 from "@/assets/beach-10.jpg";
 
 export interface Puzzle {
   id: string;
@@ -253,6 +263,75 @@ export function isPuzzleOpenToVisitor(
  * an entry here. Everything else (routing, difficulty, play) picks it up.
  */
 export const collections: Collection[] = [
+  {
+    id: "beaches",
+    title: "Beaches",
+    tagline: "Ten Maui shorelines of greenery, cloud and ocean",
+    cover: beach01,
+    free: true,
+    puzzles: [
+      {
+        id: "beach-01",
+        title: "Kāʻanapali",
+        caption: "Golden sand beneath swaying palms",
+        image: beach01,
+      },
+      {
+        id: "beach-02",
+        title: "Nāpili Bay",
+        caption: "A crescent of clear aqua water",
+        image: beach02,
+      },
+      {
+        id: "beach-03",
+        title: "Waiʻānapanapa",
+        caption: "Black sand and emerald cliffs",
+        image: beach03,
+      },
+      {
+        id: "beach-04",
+        title: "Big Beach, Mākena",
+        caption: "Turquoise surf below Puʻu Ōlaʻi",
+        image: beach04,
+      },
+      {
+        id: "beach-05",
+        title: "Honolua Bay",
+        caption: "A green cove of deep blue",
+        image: beach05,
+      },
+      {
+        id: "beach-06",
+        title: "Kapalua Bay",
+        caption: "Sheltered water over quiet reef",
+        image: beach06,
+      },
+      {
+        id: "beach-07",
+        title: "Hoʻokipa",
+        caption: "Wind, grass and long white lines",
+        image: beach07,
+      },
+      {
+        id: "beach-08",
+        title: "Wailea",
+        caption: "Footprints in the golden hour",
+        image: beach08,
+      },
+      {
+        id: "beach-09",
+        title: "Hāmoa",
+        caption: "A jungle cove near Hāna",
+        image: beach09,
+      },
+      {
+        id: "beach-10",
+        title: "Baby Beach, Lahaina",
+        caption: "Glassy shallows and coconut palms",
+        image: beach10,
+      },
+    ],
+  },
   {
     id: "hawaiian-flowers",
     title: "Hawaiian Flowers",
