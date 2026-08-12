@@ -1074,6 +1074,17 @@ export function PuzzleBoard({
           </button>
         )}
 
+        {onNextInSeries && (
+          <button
+            type="button"
+            onClick={onNextInSeries}
+            className="absolute bottom-7 left-1/2 z-40 -translate-x-1/2 rounded-full border border-primary/70 bg-card/85 px-3 py-1 text-[0.6rem] tracking-[0.16em] text-primary uppercase shadow-soft backdrop-blur-sm transition-colors hover:bg-card sm:bottom-10"
+          >
+            Next
+          </button>
+        )}
+
+
 
 
 
