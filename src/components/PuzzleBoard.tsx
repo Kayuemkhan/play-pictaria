@@ -1188,20 +1188,6 @@ export function PuzzleBoard({
         </div>
       )}
 
-      {/* Always offer a visible way onward as soon as the puzzle is complete. */}
-      {solved && !showSummary && (
-        <div className="animate-soft-in absolute inset-x-0 bottom-[18%] z-40 flex items-center justify-center px-4">
-          <button
-            type="button"
-            onClick={goSurprise}
-            className="inline-flex min-h-12 items-center gap-2 rounded-full border-2 border-primary bg-transparent px-7 py-3 text-sm tracking-[0.18em] text-primary uppercase shadow-soft transition-transform hover:scale-[1.03] active:scale-[0.98]"
-          >
-            Surprise me
-            <span aria-hidden="true">✨</span>
-          </button>
-        </div>
-      )}
-
 
       {/* celebration — phase two: the summary card, after a good long look */}
       {solved && showSummary && (
