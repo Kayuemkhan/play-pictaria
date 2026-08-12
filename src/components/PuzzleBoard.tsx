@@ -157,7 +157,7 @@ export function PuzzleBoard({
   const scale = useMemo(() => {
     if (!size.w || !size.h) return 0;
     // keep a soft margin so tiles never sit flush against the walls
-    const inset = Math.max(18, Math.min(size.w, size.h) * 0.085);
+    const inset = Math.max(24, Math.min(size.w, size.h) * 0.12);
     const w = Math.max(1, size.w - inset * 2);
     const h = Math.max(1, size.h - inset * 2);
     return Math.min(w / WORLD_W, h / worldH);
@@ -963,7 +963,7 @@ export function PuzzleBoard({
       </header>
 
       {/* stage */}
-      <div className="relative flex-1 p-3 sm:p-5">
+      <div className="relative flex-1 p-5 sm:p-8">
         <div
           ref={viewportRef}
           onPointerDown={onPointerDown}
