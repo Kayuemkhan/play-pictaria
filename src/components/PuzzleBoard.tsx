@@ -1186,6 +1186,37 @@ export function PuzzleBoard({
 
       </div>
 
+      {/* under-board controls — auto complete and the reference twinkle */}
+      <div className="z-20 flex shrink-0 items-center justify-center gap-6 px-5 pb-1">
+        <button
+          type="button"
+          onClick={autoSolve}
+          disabled={autoRunning || solved}
+          aria-label={autoRunning ? "Completing puzzle" : "Auto complete puzzle"}
+          title={autoRunning ? "Completing…" : "Auto complete"}
+          className="text-primary transition-colors hover:text-accent-foreground disabled:opacity-40"
+        >
+          <Sparkles size={22} />
+        </button>
+        <button
+          type="button"
+          aria-label="Flash puzzle box reference"
+          onClick={() => {
+            if (showReference) return;
+            setShowReference(true);
+            window.setTimeout(() => setShowReference(false), 900);
+          }}
+          className="text-primary transition-colors hover:text-accent-foreground"
+        >
+          <Sparkle size={20} />
+        </button>
+      </div>
+
+      {info ? (
+        <div className="z-20 shrink-0 px-5 pb-2 text-center">{info}</div>
+      ) : null}
+
+
       {/* storybook invitation — carried on every branded Pictaria */}
       {!unbranded && (
         <div className="z-20 shrink-0 px-3 pt-0 pb-2 sm:px-5 sm:pb-3">
