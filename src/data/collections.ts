@@ -194,6 +194,12 @@ import beach07 from "@/assets/beach-07.jpg";
 import beach08 from "@/assets/beach-08.jpg";
 import beach09 from "@/assets/beach-09.jpg";
 import beach10 from "@/assets/beach-10.jpg";
+import visionPuppies from "@/assets/vision-puppies.jpg";
+import visionVan from "@/assets/vision-van.jpg";
+import visionGarden from "@/assets/vision-garden.jpg";
+import visionHarvest from "@/assets/vision-harvest.jpg";
+import visionMermaid from "@/assets/vision-mermaid.jpg";
+import visionMillion from "@/assets/vision-million.jpg";
 
 export interface Puzzle {
   id: string;
@@ -265,6 +271,51 @@ export function isPuzzleOpenToVisitor(
  * an entry here. Everything else (routing, difficulty, play) picks it up.
  */
 export const collections: Collection[] = [
+  {
+    id: "vision-board",
+    title: "Vision Board",
+    tagline: "The life we are calling in, one peace at a time",
+    cover: visionMermaid,
+    free: true,
+    puzzles: [
+      {
+        id: "vision-01",
+        title: "The Puppy Litter",
+        caption: "A basket full of dachshund puppies",
+        image: visionPuppies,
+      },
+      {
+        id: "vision-02",
+        title: "The Van",
+        caption: "Wood-paneled home on wheels above the ocean",
+        image: visionVan,
+      },
+      {
+        id: "vision-03",
+        title: "The Flower Garden",
+        caption: "A path through blooms in the morning sun",
+        image: visionGarden,
+      },
+      {
+        id: "vision-04",
+        title: "The Harvest",
+        caption: "A big basket of vegetables straight from the garden",
+        image: visionHarvest,
+      },
+      {
+        id: "vision-05",
+        title: "The Mermaid",
+        caption: "Swimming with sea turtles in clear turquoise water",
+        image: visionMermaid,
+      },
+      {
+        id: "vision-06",
+        title: "One Million",
+        caption: "A million followers and a whole lot of aloha",
+        image: visionMillion,
+      },
+    ],
+  },
   {
     id: "beaches",
     title: "Beaches",

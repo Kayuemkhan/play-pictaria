@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { Menu, Search } from "lucide-react";
+import { Menu } from "lucide-react";
 import { collections } from "@/data/collections";
 import { HeroPuzzle } from "@/components/HeroPuzzle";
 
@@ -50,11 +50,7 @@ const menuLinks = [
 
 
 function Home() {
-  const [openPanel, setOpenPanel] = useState<"menu" | "search" | null>(null);
-  const [query, setQuery] = useState("");
-  const results = collections.filter((c) =>
-    c.title.toLowerCase().includes(query.trim().toLowerCase()),
-  );
+  const [openPanel, setOpenPanel] = useState<"menu" | null>(null);
 
   return (
     <main className="flex min-h-screen flex-col bg-deep">
@@ -101,48 +97,6 @@ function Home() {
                     </Link>
                   );
                 })}
-              </div>
-            )}
-          </div>
-          <div className="relative">
-            <button
-              type="button"
-              aria-label="Search puzzles"
-              aria-expanded={openPanel === "search"}
-              onClick={() =>
-                setOpenPanel(openPanel === "search" ? null : "search")
-              }
-              className="grid h-11 w-11 place-items-center rounded-full bg-deep/80 text-accent backdrop-blur-sm transition-transform hover:scale-105"
-            >
-              <Search className="h-5 w-5" strokeWidth={1.5} />
-            </button>
-            {openPanel === "search" && (
-              <div className="absolute top-13 right-0 w-60 overflow-hidden rounded-[6px] border border-accent/40 bg-deep/95 p-3 shadow-lift backdrop-blur-sm">
-                <input
-                  autoFocus
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  placeholder="Search collections"
-                  className="w-full rounded-full border border-accent/40 bg-deep/60 px-3 py-1.5 text-[0.7rem] text-shell placeholder:text-shell/50 focus:outline-none"
-                />
-                <div className="mt-2 max-h-56 overflow-y-auto">
-                  {results.map((c) => (
-                    <Link
-                      key={c.id}
-                      to="/collection/$collectionId"
-                      params={{ collectionId: c.id }}
-                      onClick={() => setOpenPanel(null)}
-                      className="block rounded px-2 py-2 text-[0.6rem] tracking-[0.18em] text-shell uppercase transition-colors hover:bg-accent/15 hover:text-accent"
-                    >
-                      {c.title}
-                    </Link>
-                  ))}
-                  {results.length === 0 && (
-                    <p className="px-2 py-2 text-[0.6rem] tracking-[0.18em] text-shell/60 uppercase">
-                      Nothing found
-                    </p>
-                  )}
-                </div>
               </div>
             )}
           </div>
