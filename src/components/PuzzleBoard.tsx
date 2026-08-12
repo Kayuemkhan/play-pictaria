@@ -1170,7 +1170,7 @@ export function PuzzleBoard({
       </div>
 
       {/* under-board controls — auto complete and the reference twinkle */}
-      <div className="z-20 flex w-full shrink-0 items-center justify-between px-10 pb-0.5 sm:px-16">
+      <div className="z-20 flex w-full shrink-0 items-center justify-between px-16 pb-0.5 sm:px-24">
         <button
           type="button"
           onClick={autoSolve}
