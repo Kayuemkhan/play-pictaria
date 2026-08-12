@@ -161,7 +161,7 @@ export function PuzzleBoard({
   const scale = useMemo(() => {
     if (!size.w || !size.h) return 0;
     // a gentle, thin margin so tiles never touch the walls
-    const inset = Math.max(6, Math.min(size.w, size.h) * 0.012);
+    const inset = Math.max(3, Math.min(size.w, size.h) * 0.008);
     const w = Math.max(1, size.w - inset * 2);
     const h = Math.max(1, size.h - inset * 2);
     return Math.min(w / WORLD_W, h / worldH);
@@ -932,7 +932,7 @@ export function PuzzleBoard({
     <div className="relative flex h-[100dvh] w-full flex-col overflow-hidden bg-mist-gradient">
       {/* Pictaria branding, centered over every branded puzzle */}
       {!unbranded && (
-        <div className="relative z-20 flex shrink-0 items-center justify-center pt-2 pb-1">
+        <div className="relative z-20 flex shrink-0 items-center justify-center pt-1 pb-0.5">
           <button
             type="button"
             onClick={onExit}
@@ -966,7 +966,7 @@ export function PuzzleBoard({
 
 
       {/* top bar */}
-      <header className="glass-panel z-20 grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 px-3 py-2.5 sm:px-5">
+      <header className="glass-panel z-20 grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 px-3 py-2 sm:px-5">
         <div className="flex items-center gap-2">
           {onChangeGrid ? (
             <Select
@@ -1060,7 +1060,7 @@ export function PuzzleBoard({
       </header>
 
       {/* stage */}
-      <div className="relative flex-1 p-2 sm:p-3">
+      <div className="relative flex-1 p-1 sm:p-2">
         {solved && congratsOut && (
           <button
             type="button"
@@ -1084,7 +1084,7 @@ export function PuzzleBoard({
           onPointerCancel={endPointer}
           className={cn(
             "relative h-full w-full touch-none overflow-hidden select-none",
-            showReference ? "rounded-none" : "rounded-[18px]",
+            showReference ? "rounded-none" : "rounded-[12px]",
           )}
         >
           <div
@@ -1170,7 +1170,7 @@ export function PuzzleBoard({
       </div>
 
       {/* under-board controls — auto complete and the reference twinkle */}
-      <div className="z-20 flex w-full shrink-0 items-center justify-between px-5 pb-1">
+      <div className="z-20 flex w-full shrink-0 items-center justify-between px-3 pb-0.5 sm:px-5">
         <button
           type="button"
           onClick={autoSolve}
@@ -1196,7 +1196,7 @@ export function PuzzleBoard({
       </div>
 
       {info ? (
-        <div className="z-20 shrink-0 px-5 pb-2 text-center">{info}</div>
+        <div className="z-20 shrink-0 px-4 pb-1 text-center sm:px-5">{info}</div>
       ) : null}
 
 
