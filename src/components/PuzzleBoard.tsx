@@ -546,8 +546,70 @@ export function PuzzleBoard({
     [pos, groupOf, mergePass, attemptMove, solved],
   );
 
+  /**
+   * Auto complete — the puzzle finishes itself, one tile at a time, exactly the
+   * way a person would: each tile slides across the grid and trades places with
+   * whatever is sitting in its home cell, locking as it lands.
+   */
+  const [autoRunning, setAutoRunning] = useState(false);
+  const autoRef = useRef(false);
+  useEffect(() => {
+    autoRef.current = false;
+    setAutoRunning(false);
+  }, [round, grid, src]);
+  useEffect(() => () => { autoRef.current = false; }, []);
+
+  const autoSolve = useCallback(() => {
+    if (autoRef.current || solved || !pos.length) return;
+    autoRef.current = true;
+    setAutoRunning(true);
+    setDrag(null);
+    dragStart.current = null;
+
+    let current = [...pos];
+    let index = 0;
+    const identity = () => Array.from({ length: total }, (_, i) => i);
+
+    const finish = () => {
+      autoRef.current = false;
+      setAutoRunning(false);
+      setSolved(true);
+      window.setTimeout(() => playSolved(), 260);
+    };
+
+    const step = () => {
+      if (!autoRef.current) return;
+      while (index < current.length && current[index] === index) index++;
+      if (index >= current.length) return finish();
+
+      const piece = index;
+      const other = current.indexOf(piece);
+      const from = current[piece]!;
+      const next = [...current];
+      next[piece] = piece;
+      if (other >= 0) next[other] = from;
+      current = next;
+
+      setFloating(other >= 0 ? [piece, other] : [piece]);
+      setPos(next);
+      setGroupOf(mergePass(next, identity()).groups);
+      setMoves((m) => m + 1);
+      playLock();
+
+      if (next.every((cell, p) => cell === p)) {
+        window.setTimeout(() => setFloating([]), 880);
+        window.setTimeout(finish, 520);
+        return;
+      }
+      window.setTimeout(step, 620);
+    };
+
+    window.setTimeout(step, 220);
+  }, [pos, solved, total, mergePass]);
+
   const onPointerDown = (e: React.PointerEvent) => {
-    if (solved) return;
+    if (solved || autoRunning) return;
+
     const cellEl = (e.target as Element).closest("[data-cell]");
     if (!cellEl) return;
     const cell = Number(cellEl.getAttribute("data-cell"));
