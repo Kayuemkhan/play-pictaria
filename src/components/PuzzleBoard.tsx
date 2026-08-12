@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import type { ReactNode } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { ChevronLeft, Music, Sparkle, Sparkles, VolumeX } from "lucide-react";
 import {
