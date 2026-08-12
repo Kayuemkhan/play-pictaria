@@ -141,7 +141,13 @@ function PuzzlePage() {
           <h1 className="mt-2 font-display text-4xl sm:text-5xl">
             {puzzle.title}
           </h1>
+          {puzzle.meaning && (
+            <p className="mt-1 text-sm text-muted-foreground italic">
+              {puzzle.meaning}
+            </p>
+          )}
           <p className="mt-2 text-sm text-muted-foreground">{puzzle.caption}</p>
+
           {puzzle.recipe && (
             <div className="mt-4 rounded-[4px] border border-accent/40 bg-card/60 p-4 text-left">
               <p className="text-[10px] tracking-[0.2em] text-primary uppercase">
