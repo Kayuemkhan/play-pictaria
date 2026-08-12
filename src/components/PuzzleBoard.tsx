@@ -1168,7 +1168,11 @@ export function PuzzleBoard({
         {/* reference flash — completed puzzle, exactly the board's footprint */}
         {showReference && (
           <div
-            className="animate-fade-in absolute top-0 left-0 z-20 origin-top-left overflow-hidden"
+            onPointerDown={(e) => {
+              e.stopPropagation();
+              setShowReference(false);
+            }}
+            className="absolute top-0 left-0 z-20 origin-top-left overflow-hidden"
             style={{
               width: WORLD_W,
               height: worldH,
