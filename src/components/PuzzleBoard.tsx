@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { Music, Sparkles, VolumeX } from "lucide-react";
 import {
   Select,
@@ -8,7 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { difficulties } from "@/data/collections";
+import { collections, difficulties } from "@/data/collections";
 import palmLogo from "@/assets/logo-palms-only.png";
 import tropicalIslandBg from "@/assets/pinup-08.jpg";
 import { playLock, playPick, playSolved, setMuted } from "@/lib/feedback";
@@ -111,6 +111,20 @@ export function PuzzleBoard({
   unbranded = false,
 }: PuzzleBoardProps) {
   const viewportRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
+
+  /** always offer a way onward — a random picture from the whole Pictaria universe */
+  const goSurprise = useCallback(() => {
+    if (onNext) return onNext();
+    const pool = collections.flatMap((c) => c.puzzles);
+    if (!pool.length) return;
+    const pick = pool[Math.floor(Math.random() * pool.length)]!;
+    void navigate({
+      to: "/puzzle/$puzzleId",
+      params: { puzzleId: pick.id },
+      search: { grid },
+    });
+  }, [onNext, navigate, grid]);
 
   const [aspect, setAspect] = useState<number | null>(null);
   const [round, setRound] = useState(0);
@@ -1113,10 +1127,10 @@ export function PuzzleBoard({
       {/* linger — the finished picture, with a quiet way onward */}
       {solved && linger && !showSummary && (
         <div className="animate-fade-in absolute inset-x-0 bottom-3 z-30 flex items-center justify-center gap-3 px-4">
-          {onNext && (
+          {(
             <button
               type="button"
-              onClick={onNext}
+              onClick={goSurprise}
               className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-[0.7rem] tracking-[0.22em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03] active:scale-[0.98]"
             >
               Surprise me
@@ -1197,9 +1211,9 @@ export function PuzzleBoard({
               </div>
             </div>
             <div className="mt-6 flex flex-col gap-2">
-              {onNext && (
+              {(
                 <button
-                  onClick={onNext}
+                  onClick={goSurprise}
                   className="rounded-full bg-primary py-3 text-sm tracking-wide text-primary-foreground transition-opacity hover:opacity-90"
                 >
                   Surprise me ✨
@@ -1208,7 +1222,7 @@ export function PuzzleBoard({
               <button
                 onClick={() => setRound((r) => r + 1)}
                 className={
-                  onNext
+                  true
                     ? "rounded-full border border-border py-3 text-sm text-foreground transition-colors hover:bg-secondary"
                     : "rounded-full bg-primary py-3 text-sm tracking-wide text-primary-foreground transition-opacity hover:opacity-90"
                 }
