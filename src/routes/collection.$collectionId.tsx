@@ -128,9 +128,14 @@ function CollectionPage() {
                   />
                 </div>
                 <div className="px-1 pt-2 text-center">
-                  <p className="font-display text-base leading-tight">
+                  <p className="font-display text-base leading-tight text-foreground">
                     {puzzle.title}
                   </p>
+                  {puzzle.meaning && (
+                    <p className="mt-0.5 text-xs leading-tight text-muted-foreground italic">
+                      {puzzle.meaning}
+                    </p>
+                  )}
                 </div>
               </Link>
             );
