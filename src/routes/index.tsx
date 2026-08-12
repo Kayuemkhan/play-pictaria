@@ -104,48 +104,6 @@ function Home() {
               </div>
             )}
           </div>
-          <div className="relative">
-            <button
-              type="button"
-              aria-label="Search puzzles"
-              aria-expanded={openPanel === "search"}
-              onClick={() =>
-                setOpenPanel(openPanel === "search" ? null : "search")
-              }
-              className="grid h-11 w-11 place-items-center rounded-full bg-deep/80 text-accent backdrop-blur-sm transition-transform hover:scale-105"
-            >
-              <Search className="h-5 w-5" strokeWidth={1.5} />
-            </button>
-            {openPanel === "search" && (
-              <div className="absolute top-13 right-0 w-60 overflow-hidden rounded-[6px] border border-accent/40 bg-deep/95 p-3 shadow-lift backdrop-blur-sm">
-                <input
-                  autoFocus
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  placeholder="Search collections"
-                  className="w-full rounded-full border border-accent/40 bg-deep/60 px-3 py-1.5 text-[0.7rem] text-shell placeholder:text-shell/50 focus:outline-none"
-                />
-                <div className="mt-2 max-h-56 overflow-y-auto">
-                  {results.map((c) => (
-                    <Link
-                      key={c.id}
-                      to="/collection/$collectionId"
-                      params={{ collectionId: c.id }}
-                      onClick={() => setOpenPanel(null)}
-                      className="block rounded px-2 py-2 text-[0.6rem] tracking-[0.18em] text-shell uppercase transition-colors hover:bg-accent/15 hover:text-accent"
-                    >
-                      {c.title}
-                    </Link>
-                  ))}
-                  {results.length === 0 && (
-                    <p className="px-2 py-2 text-[0.6rem] tracking-[0.18em] text-shell/60 uppercase">
-                      Nothing found
-                    </p>
-                  )}
-                </div>
-              </div>
-            )}
-          </div>
         </div>
 
 
