@@ -275,7 +275,7 @@ export const collections: Collection[] = [
     id: "vision-board",
     title: "Vision Board",
     tagline: "The life we are calling in, one peace at a time",
-    cover: visionMermaid,
+    cover: visionSnorkeler,
     free: true,
     puzzles: [
       {
@@ -304,9 +304,9 @@ export const collections: Collection[] = [
       },
       {
         id: "vision-05",
-        title: "The Mermaid",
-        caption: "Swimming with sea turtles in clear turquoise water",
-        image: visionMermaid,
+        title: "The Snorkeler",
+        caption: "A blonde snorkeler gliding beside a sea turtle",
+        image: visionSnorkeler,
       },
       {
         id: "vision-06",
