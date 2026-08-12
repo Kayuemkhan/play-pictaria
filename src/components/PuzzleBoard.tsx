@@ -50,6 +50,8 @@ export interface PuzzleBoardProps {
   nextTitle?: string;
   /** Brand Studio Pictarias carry no Pictaria logo — only a tiny credit link. */
   unbranded?: boolean;
+  /** Story about this picture, shown under the board. */
+  info?: React.ReactNode;
 }
 
 function formatTime(total: number) {
