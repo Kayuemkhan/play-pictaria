@@ -131,9 +131,6 @@ function CollectionPage() {
                   <p className="font-display text-base leading-tight">
                     {puzzle.title}
                   </p>
-                  <p className="mt-0.5 text-[10px] leading-snug text-muted-foreground italic">
-                    {puzzle.meaning ?? puzzle.caption}
-                  </p>
                 </div>
               </Link>
             );
