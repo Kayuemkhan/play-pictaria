@@ -1048,17 +1048,6 @@ export function PuzzleBoard({
               ))}
             </SelectContent>
           </Select>
-          <button
-            aria-label="Flash puzzle box reference"
-            onClick={() => {
-              if (showReference) return;
-              setShowReference(true);
-              window.setTimeout(() => setShowReference(false), 900);
-            }}
-            className="flex h-8 w-8 items-center justify-center text-muted-foreground transition-colors hover:text-primary"
-          >
-            <Sparkles size={16} />
-          </button>
 
           <span className="hidden rounded-full bg-secondary px-2 py-1 text-secondary-foreground sm:inline sm:text-sm">
             {moves} moves
