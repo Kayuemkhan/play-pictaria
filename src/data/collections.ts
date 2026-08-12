@@ -184,6 +184,16 @@ import healNiu from "@/assets/heal-08-niu.jpg";
 import healMamaki from "@/assets/heal-09-mamaki.jpg";
 import healIlima from "@/assets/heal-10-ilima.jpg";
 import healHau from "@/assets/heal-11-hau.jpg";
+import beach01 from "@/assets/beach-01.jpg";
+import beach02 from "@/assets/beach-02.jpg";
+import beach03 from "@/assets/beach-03.jpg";
+import beach04 from "@/assets/beach-04.jpg";
+import beach05 from "@/assets/beach-05.jpg";
+import beach06 from "@/assets/beach-06.jpg";
+import beach07 from "@/assets/beach-07.jpg";
+import beach08 from "@/assets/beach-08.jpg";
+import beach09 from "@/assets/beach-09.jpg";
+import beach10 from "@/assets/beach-10.jpg";
 
 export interface Puzzle {
   id: string;
