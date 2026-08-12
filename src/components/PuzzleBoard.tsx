@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { ChevronLeft, Music, Sparkles, VolumeX } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
@@ -298,6 +299,7 @@ export function PuzzleBoard({
     x: number;
     y: number;
     moved: boolean;
+    pointerType: string;
   } | null>(null);
 
   /**
@@ -560,6 +562,7 @@ export function PuzzleBoard({
       x: e.clientX,
       y: e.clientY,
       moved: false,
+      pointerType: e.pointerType,
     };
   };
 
@@ -628,9 +631,17 @@ export function PuzzleBoard({
    *   3. the nearest legal landing spot (it simply settles there)
    */
   const snapMove = useCallback(
-    (dx: number, dy: number, group: number) => {
+    (dx: number, dy: number, group: number, pointerType: string) => {
       const unitsX = dx / (cellW * scale);
       const unitsY = dy / (cellH * scale);
+      const touchPointer = pointerType === "touch" || pointerType === "pen";
+      const tolerancePx = touchPointer ? 26 : 14;
+      const toleranceX = Math.min(0.48, tolerancePx / (cellW * scale));
+      const toleranceY = Math.min(0.48, tolerancePx / (cellH * scale));
+
+      const isNear = (dCol: number, dRow: number) =>
+        Math.abs(dCol - unitsX) <= toleranceX &&
+        Math.abs(dRow - unitsY) <= toleranceY;
 
       const axis = (u: number) => {
         const out = new Set<number>([
@@ -704,9 +715,10 @@ export function PuzzleBoard({
       }
 
       function addCandidateIfNear(dRow: number, dCol: number) {
-        // tighter magnet: the finger has to genuinely carry the tile most of the
-        // way to its neighbour before it will click in
-        if (Math.hypot(dCol - unitsX, dRow - unitsY) > 0.4) return;
+        // Keep forgiveness consistent in screen pixels. Checking each axis
+        // separately prevents ordinary sideways finger drift from cancelling an
+        // otherwise accurate drop on a phone.
+        if (!isNear(dCol, dRow)) return;
         addCandidate(dCol, dRow);
       }
 
@@ -727,7 +739,7 @@ export function PuzzleBoard({
       // 1 + 2: nearest landing that actually clicks something into place —
       // only when the drop really is close to that landing spot
       for (const candidate of candidates) {
-        if (candidate.dist > 0.45) continue;
+        if (!isNear(candidate.dCol, candidate.dRow)) continue;
         const next = attemptMove(group, candidate.dCol, candidate.dRow);
         if (!next) continue;
         if (merges(next) || landsHome(next)) return candidate;
@@ -752,7 +764,7 @@ export function PuzzleBoard({
     }
     const bounded = clampDrag(s.group, e.clientX - s.x, e.clientY - s.y);
     const { dx, dy } = bounded;
-    const move = snapMove(dx, dy, s.group);
+    const move = snapMove(dx, dy, s.group, s.pointerType);
 
     dragStart.current = null;
     if (move) {
@@ -1005,6 +1017,16 @@ export function PuzzleBoard({
             showReference ? "rounded-none" : "rounded-[18px]",
           )}
         >
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={goSurprise}
+            className="absolute top-2 left-1/2 z-20 -translate-x-1/2 border-primary/70 bg-card/85 px-4 text-[0.65rem] tracking-[0.16em] text-primary uppercase shadow-soft backdrop-blur-sm hover:bg-card"
+          >
+            Surprise me
+            <Sparkles aria-hidden="true" />
+          </Button>
           <div
             className={cn(
               "absolute top-0 left-0 origin-top-left",
