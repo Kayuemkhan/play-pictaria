@@ -160,8 +160,8 @@ export function PuzzleBoard({
 
   const scale = useMemo(() => {
     if (!size.w || !size.h) return 0;
-    // keep a soft margin so tiles never sit flush against the walls
-    const inset = Math.max(12, Math.min(size.w, size.h) * 0.04);
+    // a gentle, thin margin so tiles never touch the walls
+    const inset = Math.max(3, Math.min(size.w, size.h) * 0.008);
     const w = Math.max(1, size.w - inset * 2);
     const h = Math.max(1, size.h - inset * 2);
     return Math.min(w / WORLD_W, h / worldH);
@@ -932,7 +932,7 @@ export function PuzzleBoard({
     <div className="relative flex h-[100dvh] w-full flex-col overflow-hidden bg-mist-gradient">
       {/* Pictaria branding, centered over every branded puzzle */}
       {!unbranded && (
-        <div className="relative z-20 flex shrink-0 items-center justify-center pt-2 pb-1">
+        <div className="relative z-20 flex shrink-0 items-center justify-center pt-1 pb-0.5">
           <button
             type="button"
             onClick={onExit}
@@ -966,7 +966,7 @@ export function PuzzleBoard({
 
 
       {/* top bar */}
-      <header className="glass-panel z-20 grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 px-3 py-2.5 sm:px-5">
+      <header className="glass-panel z-20 grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 px-3 py-2 sm:px-5">
         <div className="flex items-center gap-2">
           {onChangeGrid ? (
             <Select
@@ -1060,7 +1060,7 @@ export function PuzzleBoard({
       </header>
 
       {/* stage */}
-      <div className="relative flex-1 p-5 sm:p-8">
+      <div className="relative flex-1 p-1 sm:p-2">
         {solved && congratsOut && (
           <button
             type="button"
@@ -1083,8 +1083,8 @@ export function PuzzleBoard({
           onPointerUp={endPointer}
           onPointerCancel={endPointer}
           className={cn(
-            "relative h-full w-full touch-none overflow-hidden select-none bg-card/30 shadow-soft",
-            showReference ? "rounded-none" : "rounded-[18px]",
+            "relative h-full w-full touch-none overflow-hidden select-none",
+            showReference ? "rounded-none" : "rounded-[12px]",
           )}
         >
           <div
@@ -1170,7 +1170,7 @@ export function PuzzleBoard({
       </div>
 
       {/* under-board controls — auto complete and the reference twinkle */}
-      <div className="z-20 flex w-full shrink-0 items-center justify-between px-5 pb-1">
+      <div className="z-20 flex w-full shrink-0 items-center justify-between px-3 pb-0.5 sm:px-5">
         <button
           type="button"
           onClick={autoSolve}
@@ -1196,28 +1196,28 @@ export function PuzzleBoard({
       </div>
 
       {info ? (
-        <div className="z-20 shrink-0 px-5 pb-2 text-center">{info}</div>
+        <div className="z-20 shrink-0 px-4 pb-1 text-center sm:px-5">{info}</div>
       ) : null}
 
 
       {/* storybook invitation — carried on every branded Pictaria */}
       {!unbranded && (
-        <div className="z-20 shrink-0 px-3 pt-0 pb-2 sm:px-5 sm:pb-3">
-          <div className="relative overflow-hidden rounded-[4px] border border-accent/60 bg-shell p-2.5">
+        <div className="z-20 shrink-0 px-2 pt-0 pb-1 sm:px-5 sm:pb-2">
+          <div className="relative overflow-hidden rounded-[4px] border border-accent/60 bg-shell p-1.5">
             <span
               aria-hidden
-              className="pointer-events-none absolute -top-4 -left-5 font-display text-[5rem] leading-none text-accent/10 select-none"
+              className="pointer-events-none absolute -top-3 -left-4 font-display text-[4rem] leading-none text-accent/10 select-none"
             >
               ❦
             </span>
-            <div className="relative grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
-              <p className="min-w-0 font-display text-[0.75rem] leading-snug [color:color-mix(in_oklch,var(--foreground)_92%,black)]">
+            <div className="relative grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2">
+              <p className="min-w-0 font-display text-[0.65rem] leading-snug [color:color-mix(in_oklch,var(--foreground)_92%,black)]">
                 Pictures say a thousand words and puzzles make them fun — Send your
                 special moments as a game to those you love!
               </p>
               <Link
                 to="/create"
-                className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-primary px-2.5 py-1 text-[0.55rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
+                className="inline-flex shrink-0 items-center gap-1 rounded-full bg-primary px-2 py-0.5 text-[0.5rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
               >
                 Start here
                 <span aria-hidden>›</span>
