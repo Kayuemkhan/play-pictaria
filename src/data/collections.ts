@@ -200,6 +200,8 @@ export interface Puzzle {
   title: string;
   caption: string;
   image: string;
+  /** What the Hawaiian name means, shown as a little tagline under the title. */
+  meaning?: string;
   /** Optional recipe to show beneath the puzzle image. */
   recipe?: string;
   /** Optional story/bio paragraphs to show beneath the puzzle image. */
