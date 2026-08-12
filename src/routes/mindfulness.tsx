@@ -50,15 +50,18 @@ function MindfulnessPage() {
 
           <div className="mt-5 rounded-[6px] border border-accent/40 bg-deep/90 p-6 shadow-soft backdrop-blur-md sm:p-8">
             <p className="font-body text-base leading-relaxed font-light text-shell/90 sm:text-lg">
-              Puzzles quietly draw your attention into the present moment, and
-              slow music without lyrics deepens it — breathing lengthens, heart
-              rate eases, and the body shifts out of alert mode into its calmer,
-              restorative state. Waves and drones mask the sudden noises that keep
-              us on edge, while bowls, binaural pulses, and stillness invite the
-              spacious attention of meditation, turning a few quiet minutes into a
-              real reset for a tired nervous system.
+              Pictaria puzzles are a gentle kind of meditation. A quiet picture,
+              a slow breath, and the soft click of a piece falling into place
+              draw the mind out of the noise and into the present moment.
             </p>
-
+            <p className="mt-4 font-body text-base leading-relaxed font-light text-shell/90 sm:text-lg">
+              Add slow music without lyrics — waves, bowls, binaural tones, or a
+              grounding didgeridoo — and the calm deepens. Breathing lengthens,
+              the heart rate eases, and the body shifts from alert mode into a
+              calmer, more restorative state. It is a simple ritual: focus,
+              restore, and finish feeling a little more peaceful than when you
+              started.
+            </p>
           </div>
 
           <MindfulMusic />
