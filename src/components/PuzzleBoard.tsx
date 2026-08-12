@@ -1078,18 +1078,8 @@ export function PuzzleBoard({
           </button>
         )}
 
-        {!solved && (
-          <button
-            type="button"
-            onClick={autoSolve}
-            disabled={autoRunning}
-            aria-label={autoRunning ? "Completing puzzle" : "Auto complete puzzle"}
-            title={autoRunning ? "Completing…" : "Auto complete"}
-            className="absolute bottom-5 left-3 z-40 text-muted-foreground transition-colors hover:text-primary disabled:opacity-50"
-          >
-            <Sparkles size={20} />
-          </button>
-        )}
+
+
 
 
 
