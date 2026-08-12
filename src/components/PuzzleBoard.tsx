@@ -112,6 +112,7 @@ export function PuzzleBoard({
   onExit,
   onChangeGrid,
   onNext,
+  onNextInSeries,
   nextTitle,
   unbranded = false,
   info,
