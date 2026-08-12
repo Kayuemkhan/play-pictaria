@@ -1083,7 +1083,7 @@ export function PuzzleBoard({
           onPointerUp={endPointer}
           onPointerCancel={endPointer}
           className={cn(
-            "relative h-full w-full touch-none overflow-hidden select-none bg-card/30 shadow-soft",
+            "relative h-full w-full touch-none overflow-hidden select-none",
             showReference ? "rounded-none" : "rounded-[18px]",
           )}
         >
