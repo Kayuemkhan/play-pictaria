@@ -34,9 +34,8 @@ function PuzzlePage() {
   const { puzzleId } = Route.useParams();
   const { grid: initialGrid } = Route.useSearch();
   const navigate = useNavigate();
-  const [grid, setGrid] = useState<number | undefined>(initialGrid);
+  const [grid, setGrid] = useState<number>(initialGrid ?? 4);
   const found = findPuzzle(puzzleId);
-
 
   if (!found) {
     return (
@@ -73,33 +72,73 @@ function PuzzlePage() {
     });
   };
 
+  const info = (
+    <div className="mx-auto max-w-2xl">
+      <h1 className="font-display text-2xl leading-tight sm:text-3xl">
+        {puzzle.title}
+      </h1>
+      {puzzle.meaning && (
+        <p className="mt-0.5 text-xs text-muted-foreground italic">
+          {puzzle.meaning}
+        </p>
+      )}
+      {puzzle.story ? (
+        <div className="mt-2 space-y-1.5 text-left">
+          {puzzle.story.map((para, i) => (
+            <p key={i} className="text-[0.8rem] leading-relaxed text-foreground">
+              {para}
+            </p>
+          ))}
+        </div>
+      ) : (
+        puzzle.caption && (
+          <p className="mt-1 text-[0.8rem] text-muted-foreground">
+            {puzzle.caption}
+          </p>
+        )
+      )}
+      {puzzle.recipe && (
+        <div className="mt-3 rounded-[4px] border border-accent/40 bg-card/60 p-3 text-left">
+          <p className="text-[10px] tracking-[0.2em] text-primary uppercase">
+            Recipe
+          </p>
+          <ol className="mt-1.5 list-decimal space-y-1 pl-4 text-[0.8rem] leading-relaxed text-foreground">
+            {puzzle.recipe.split("\n").map((step, i) => (
+              <li key={i}>{step}</li>
+            ))}
+          </ol>
+        </div>
+      )}
+    </div>
+  );
 
-  if (grid) {
-    return (
-      <PuzzleBoard
-        key={`${puzzle.id}-${grid}`}
-        src={puzzle.image}
-        title={puzzle.title}
-        grid={grid}
-        onNext={() => surpriseMe(grid)}
-        onChangeGrid={(g) => {
-          setGrid(g);
-          navigate({
-            to: "/puzzle/$puzzleId",
-            params: { puzzleId },
-            search: { grid: g },
-            replace: true,
-          });
-        }}
-        onExit={() =>
-          navigate({
-            to: "/collection/$collectionId",
-            params: { collectionId: collection.id },
-          })
-        }
-      />
-    );
-  }
+  return (
+    <PuzzleBoard
+      key={`${puzzle.id}-${grid}`}
+      src={puzzle.image}
+      title={puzzle.title}
+      grid={grid}
+      info={info}
+      onNext={() => surpriseMe(grid)}
+      onChangeGrid={(g) => {
+        setGrid(g);
+        navigate({
+          to: "/puzzle/$puzzleId",
+          params: { puzzleId },
+          search: { grid: g },
+          replace: true,
+        });
+      }}
+      onExit={() =>
+        navigate({
+          to: "/collection/$collectionId",
+          params: { collectionId: collection.id },
+        })
+      }
+    />
+  );
+}
+
 
   return (
     <main className="min-h-screen bg-mist-gradient px-4 pb-16 sm:px-6">
