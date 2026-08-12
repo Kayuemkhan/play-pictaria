@@ -1,6 +1,17 @@
 import { useEffect, useState } from "react";
 
-type TrackId = "ocean" | "bowls" | "binaural" | "didgeridoo" | "meditation";
+type TrackId =
+  | "ocean"
+  | "bowls"
+  | "binaural"
+  | "binaural-4"
+  | "binaural-6"
+  | "binaural-10"
+  | "binaural-15"
+  | "binaural-20"
+  | "binaural-528"
+  | "didgeridoo"
+  | "meditation";
 
 type Track = {
   id: TrackId;
@@ -13,6 +24,12 @@ export const TRACK_OPTIONS: { id: TrackId; name: string }[] = [
   { id: "ocean", name: "Ocean & Seagulls" },
   { id: "bowls", name: "Singing Bowls" },
   { id: "binaural", name: "Binaural Meditation" },
+  { id: "binaural-4", name: "Sleep" },
+  { id: "binaural-6", name: "Memory" },
+  { id: "binaural-10", name: "Focus" },
+  { id: "binaural-15", name: "Concentration" },
+  { id: "binaural-20", name: "Energy" },
+  { id: "binaural-528", name: "Repair" },
   { id: "didgeridoo", name: "Didgeridoo & Drum" },
   { id: "meditation", name: "Meditation" },
 ];
@@ -38,6 +55,42 @@ const TRACKS: Track[] = [
     blurb: "A gentle theta pulse between the ears. Headphones welcome.",
     benefit:
       "A small pitch offset in each ear creates a slow pulse the brain follows, easing you toward the relaxed, drifting focus of meditation.",
+  },
+  {
+    id: "binaural-4",
+    name: "Sleep",
+    blurb: "4 Hz theta — deep sleep & healing.",
+    benefit: "Supports the brainwave state linked to rest and recovery.",
+  },
+  {
+    id: "binaural-6",
+    name: "Memory",
+    blurb: "6 Hz theta — memory & visualization.",
+    benefit: "Helps long-term memory consolidation and vivid mental imagery.",
+  },
+  {
+    id: "binaural-10",
+    name: "Focus",
+    blurb: "10 Hz alpha — relaxed focus.",
+    benefit: "Encourages the calm, alert state where anxiety drops and awareness stays open.",
+  },
+  {
+    id: "binaural-15",
+    name: "Concentration",
+    blurb: "15 Hz beta — active concentration.",
+    benefit: "Sharpens logical thinking and alertness during demanding tasks.",
+  },
+  {
+    id: "binaural-20",
+    name: "Energy",
+    blurb: "20 Hz beta — energy & motivation.",
+    benefit: "Boosts mental energy and reduces fatigue without feeling jarring.",
+  },
+  {
+    id: "binaural-528",
+    name: "Repair",
+    blurb: "528 Hz solfeggio — DNA repair & intention.",
+    benefit: "Used for emotional release, intention-setting, and restorative meditation.",
   },
   {
     id: "didgeridoo",
@@ -284,13 +337,18 @@ function startBowls(ctx: AudioContext, out: GainNode): Engine {
   };
 }
 
-function startBinaural(ctx: AudioContext, out: GainNode): Engine {
+function startBinauralBeat(
+  ctx: AudioContext,
+  out: GainNode,
+  carrier: number,
+  beat: number
+): Engine {
   const left = ctx.createOscillator();
   const right = ctx.createOscillator();
   left.type = "sine";
   right.type = "sine";
-  left.frequency.value = 196;
-  right.frequency.value = 202.5;
+  left.frequency.value = carrier;
+  right.frequency.value = carrier + beat;
 
   const panL = ctx.createStereoPanner();
   panL.pan.value = -1;
@@ -305,9 +363,10 @@ function startBinaural(ctx: AudioContext, out: GainNode): Engine {
   left.connect(gL).connect(panL).connect(out);
   right.connect(gR).connect(panR).connect(out);
 
+  // Soft pad underneath the pulse
   const pad = ctx.createOscillator();
   pad.type = "triangle";
-  pad.frequency.value = 98;
+  pad.frequency.value = carrier * 0.5;
   const padFilter = ctx.createBiquadFilter();
   padFilter.type = "lowpass";
   padFilter.frequency.value = 500;
@@ -337,6 +396,10 @@ function startBinaural(ctx: AudioContext, out: GainNode): Engine {
       }
     },
   };
+}
+
+function startBinaural(ctx: AudioContext, out: GainNode): Engine {
+  return startBinauralBeat(ctx, out, 196, 6.5);
 }
 
 function startDidgeridoo(ctx: AudioContext, out: GainNode): Engine {
@@ -499,6 +562,12 @@ const STARTERS: Record<TrackId, (ctx: AudioContext, out: GainNode) => Engine> = 
   ocean: startOcean,
   bowls: startBowls,
   binaural: startBinaural,
+  "binaural-4": (ctx, out) => startBinauralBeat(ctx, out, 200, 4),
+  "binaural-6": (ctx, out) => startBinauralBeat(ctx, out, 200, 6),
+  "binaural-10": (ctx, out) => startBinauralBeat(ctx, out, 200, 10),
+  "binaural-15": (ctx, out) => startBinauralBeat(ctx, out, 200, 15),
+  "binaural-20": (ctx, out) => startBinauralBeat(ctx, out, 200, 20),
+  "binaural-528": (ctx, out) => startBinauralBeat(ctx, out, 528, 4),
   didgeridoo: startDidgeridoo,
   meditation: startMeditation,
 };
