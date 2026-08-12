@@ -111,6 +111,7 @@ export function PuzzleBoard({
   onNext,
   nextTitle,
   unbranded = false,
+  info,
 }: PuzzleBoardProps) {
   const viewportRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
