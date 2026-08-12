@@ -1060,7 +1060,7 @@ export function PuzzleBoard({
       </header>
 
       {/* stage */}
-      <div className="relative flex-1 p-1 sm:p-2">
+      <div className="relative mx-auto aspect-[3/4] max-h-[62vh] w-full shrink-0 p-1 sm:p-2">
         {solved && congratsOut && (
           <button
             type="button"
@@ -1170,14 +1170,14 @@ export function PuzzleBoard({
       </div>
 
       {/* under-board controls — auto complete and the reference twinkle */}
-      <div className="z-20 flex w-full shrink-0 items-center justify-between px-3 pb-0.5 sm:px-5">
+      <div className="z-20 flex w-full shrink-0 items-center justify-between px-16 pb-0.5 sm:px-24">
         <button
           type="button"
           onClick={autoSolve}
           disabled={autoRunning || solved}
           aria-label={autoRunning ? "Completing puzzle" : "Auto complete puzzle"}
           title={autoRunning ? "Completing…" : "Auto complete"}
-          className="text-primary transition-colors hover:text-accent-foreground disabled:opacity-40"
+          className="p-2 text-primary transition-colors hover:text-accent-foreground disabled:opacity-40"
         >
           <Sparkles size={11} strokeWidth={1} />
         </button>
@@ -1189,21 +1189,23 @@ export function PuzzleBoard({
             setShowReference(true);
             window.setTimeout(() => setShowReference(false), 900);
           }}
-          className="text-primary transition-colors hover:text-accent-foreground"
+          className="p-2 text-primary transition-colors hover:text-accent-foreground"
         >
           <Sparkle size={11} strokeWidth={1} />
         </button>
       </div>
 
       {info ? (
-        <div className="z-20 shrink-0 px-4 pb-1 text-center sm:px-5">{info}</div>
+        <div className="z-20 min-h-0 flex-1 overflow-y-auto px-4 pb-1 text-center sm:px-5">
+          {info}
+        </div>
       ) : null}
 
 
       {/* storybook invitation — carried on every branded Pictaria */}
       {!unbranded && (
         <div className="z-20 shrink-0 px-2 pt-0 pb-1 sm:px-5 sm:pb-2">
-          <div className="relative overflow-hidden rounded-[4px] border border-accent/60 bg-shell p-1.5">
+          <div className="relative overflow-hidden rounded-[4px] border border-accent/60 bg-card p-1.5">
             <span
               aria-hidden
               className="pointer-events-none absolute -top-3 -left-4 font-display text-[4rem] leading-none text-accent/10 select-none"
@@ -1217,9 +1219,9 @@ export function PuzzleBoard({
               </p>
               <Link
                 to="/create"
-                className="inline-flex shrink-0 items-center gap-1 rounded-full bg-primary px-2 py-0.5 text-[0.5rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
+                className="inline-flex shrink-0 items-center gap-1 rounded-full border border-primary px-3 py-0.5 text-[0.5rem] tracking-[0.2em] text-primary uppercase transition-transform hover:scale-[1.03]"
               >
-                Start here
+                Play
                 <span aria-hidden>›</span>
               </Link>
             </div>
