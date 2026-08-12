@@ -1060,7 +1060,7 @@ export function PuzzleBoard({
       </header>
 
       {/* stage */}
-      <div className="relative flex-1 p-5 sm:p-8">
+      <div className="relative flex-1 p-2 sm:p-3">
         {solved && congratsOut && (
           <button
             type="button"
