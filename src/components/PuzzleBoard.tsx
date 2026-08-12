@@ -1060,7 +1060,7 @@ export function PuzzleBoard({
       </header>
 
       {/* stage */}
-      <div className="relative min-h-0 flex-1 p-1 sm:p-2">
+      <div className="relative aspect-[3/4] w-full shrink-0 p-1 sm:p-2">
         {solved && congratsOut && (
           <button
             type="button"
@@ -1196,7 +1196,7 @@ export function PuzzleBoard({
       </div>
 
       {info ? (
-        <div className="z-20 h-[19vh] shrink-0 overflow-y-auto px-4 pb-1 text-center sm:px-5">
+        <div className="z-20 min-h-0 flex-1 overflow-y-auto px-4 pb-1 text-center sm:px-5">
           {info}
         </div>
       ) : null}
