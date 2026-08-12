@@ -337,18 +337,50 @@ function startBowls(ctx: AudioContext, out: GainNode): Engine {
   };
 }
 
+type BinauralVoice = {
+  /** base tone both ears share */
+  carrier: number;
+  /** difference between ears = entrainment frequency */
+  beat: number;
+  /** timbre of the carrier tones */
+  wave?: OscillatorType;
+  /** timbre of the bed underneath */
+  padWave?: OscillatorType;
+  /** how far below the carrier the bed sits (in octaves) */
+  padOctaves?: number;
+  /** brightness of the bed */
+  padCutoff?: number;
+  /** audible tremolo depth at the beat rate (0 = none) */
+  pulse?: number;
+  /** optional airy harmonic above the carrier */
+  shimmer?: number;
+  level?: number;
+};
+
 function startBinauralBeat(
   ctx: AudioContext,
   out: GainNode,
-  carrier: number,
-  beat: number
+  voice: BinauralVoice
 ): Engine {
+  const {
+    carrier,
+    beat,
+    wave = "sine",
+    padWave = "triangle",
+    padOctaves = 1,
+    padCutoff = 500,
+    pulse = 0,
+    shimmer = 0,
+    level = 0.12,
+  } = voice;
+
+  const nodes: OscillatorNode[] = [];
   const left = ctx.createOscillator();
   const right = ctx.createOscillator();
-  left.type = "sine";
-  right.type = "sine";
-  left.frequency.value = carrier;
-  right.frequency.value = carrier + beat;
+  left.type = wave;
+  right.type = wave;
+  left.frequency.value = carrier - beat / 2;
+  right.frequency.value = carrier + beat / 2;
 
   const panL = ctx.createStereoPanner();
   panL.pan.value = -1;
@@ -356,20 +388,35 @@ function startBinauralBeat(
   panR.pan.value = 1;
 
   const gL = ctx.createGain();
-  gL.gain.value = 0.12;
+  gL.gain.value = level;
   const gR = ctx.createGain();
-  gR.gain.value = 0.12;
+  gR.gain.value = level;
 
   left.connect(gL).connect(panL).connect(out);
   right.connect(gR).connect(panR).connect(out);
+  nodes.push(left, right);
 
-  // Soft pad underneath the pulse
+  // Audible tremolo at the entrainment rate so each frequency has its own feel
+  if (pulse > 0) {
+    const trem = ctx.createOscillator();
+    trem.type = "sine";
+    trem.frequency.value = beat;
+    const tremGain = ctx.createGain();
+    tremGain.gain.value = level * pulse;
+    trem.connect(tremGain);
+    tremGain.connect(gL.gain);
+    tremGain.connect(gR.gain);
+    trem.start();
+    nodes.push(trem);
+  }
+
+  // Soft bed underneath
   const pad = ctx.createOscillator();
-  pad.type = "triangle";
-  pad.frequency.value = carrier * 0.5;
+  pad.type = padWave;
+  pad.frequency.value = carrier / Math.pow(2, padOctaves);
   const padFilter = ctx.createBiquadFilter();
   padFilter.type = "lowpass";
-  padFilter.frequency.value = 500;
+  padFilter.frequency.value = padCutoff;
   const padGain = ctx.createGain();
   padGain.gain.value = 0.05;
   const breathe = ctx.createOscillator();
@@ -378,28 +425,45 @@ function startBinauralBeat(
   breatheGain.gain.value = 0.03;
   breathe.connect(breatheGain).connect(padGain.gain);
   pad.connect(padFilter).connect(padGain).connect(out);
-
-  left.start();
-  right.start();
   pad.start();
   breathe.start();
+  nodes.push(pad, breathe);
+
+  // Airy harmonic for the brighter states
+  if (shimmer > 0) {
+    const high = ctx.createOscillator();
+    high.type = "sine";
+    high.frequency.value = carrier * 3;
+    const highGain = ctx.createGain();
+    highGain.gain.value = shimmer;
+    high.connect(highGain).connect(out);
+    high.start();
+    nodes.push(high);
+  }
 
   return {
     stop: () => {
-      try {
-        left.stop();
-        right.stop();
-        pad.stop();
-        breathe.stop();
-      } catch {
-        /* already stopped */
+      for (const n of nodes) {
+        try {
+          n.stop();
+        } catch {
+          /* already stopped */
+        }
       }
     },
   };
 }
 
+
+
 function startBinaural(ctx: AudioContext, out: GainNode): Engine {
-  return startBinauralBeat(ctx, out, 196, 6.5);
+  return startBinauralBeat(ctx, out, {
+    carrier: 196,
+    beat: 6.5,
+    padWave: "triangle",
+    padCutoff: 500,
+    pulse: 0.25,
+  });
 }
 
 function startDidgeridoo(ctx: AudioContext, out: GainNode): Engine {
@@ -562,12 +626,79 @@ const STARTERS: Record<TrackId, (ctx: AudioContext, out: GainNode) => Engine> = 
   ocean: startOcean,
   bowls: startBowls,
   binaural: startBinaural,
-  "binaural-4": (ctx, out) => startBinauralBeat(ctx, out, 200, 4),
-  "binaural-6": (ctx, out) => startBinauralBeat(ctx, out, 200, 6),
-  "binaural-10": (ctx, out) => startBinauralBeat(ctx, out, 200, 10),
-  "binaural-15": (ctx, out) => startBinauralBeat(ctx, out, 200, 15),
-  "binaural-20": (ctx, out) => startBinauralBeat(ctx, out, 200, 20),
-  "binaural-528": (ctx, out) => startBinauralBeat(ctx, out, 528, 4),
+  // Each frequency gets its own carrier, timbre and pulse so they sound distinct
+  "binaural-4": (ctx, out) =>
+    startBinauralBeat(ctx, out, {
+      carrier: 110,
+      beat: 4,
+      wave: "sine",
+      padWave: "sine",
+      padOctaves: 1,
+      padCutoff: 220,
+      pulse: 0.55,
+      level: 0.13,
+    }),
+  "binaural-6": (ctx, out) =>
+    startBinauralBeat(ctx, out, {
+      carrier: 144,
+      beat: 6,
+      wave: "sine",
+      padWave: "triangle",
+      padOctaves: 1,
+      padCutoff: 320,
+      pulse: 0.4,
+      shimmer: 0.012,
+      level: 0.12,
+    }),
+  "binaural-10": (ctx, out) =>
+    startBinauralBeat(ctx, out, {
+      carrier: 220,
+      beat: 10,
+      wave: "triangle",
+      padWave: "sine",
+      padOctaves: 2,
+      padCutoff: 600,
+      pulse: 0.3,
+      shimmer: 0.02,
+      level: 0.11,
+    }),
+  "binaural-15": (ctx, out) =>
+    startBinauralBeat(ctx, out, {
+      carrier: 288,
+      beat: 15,
+      wave: "sine",
+      padWave: "sawtooth",
+      padOctaves: 2,
+      padCutoff: 700,
+      pulse: 0.22,
+      shimmer: 0.016,
+      level: 0.1,
+    }),
+  "binaural-20": (ctx, out) =>
+    startBinauralBeat(ctx, out, {
+      carrier: 330,
+      beat: 20,
+      wave: "triangle",
+      padWave: "square",
+      padOctaves: 3,
+      padCutoff: 900,
+      pulse: 0.2,
+      shimmer: 0.024,
+      level: 0.1,
+    }),
+  "binaural-528": (ctx, out) =>
+    startBinauralBeat(ctx, out, {
+      carrier: 528,
+      beat: 0.5,
+      wave: "sine",
+      padWave: "sine",
+      padOctaves: 1,
+      padCutoff: 1200,
+      pulse: 0,
+      shimmer: 0.01,
+      level: 0.09,
+    }),
+
   didgeridoo: startDidgeridoo,
   meditation: startMeditation,
 };
