@@ -1202,22 +1202,22 @@ export function PuzzleBoard({
 
       {/* storybook invitation — carried on every branded Pictaria */}
       {!unbranded && (
-        <div className="z-20 shrink-0 px-3 pt-0 pb-2 sm:px-5 sm:pb-3">
-          <div className="relative overflow-hidden rounded-[4px] border border-accent/60 bg-shell p-2.5">
+        <div className="z-20 shrink-0 px-2 pt-0 pb-1 sm:px-5 sm:pb-2">
+          <div className="relative overflow-hidden rounded-[4px] border border-accent/60 bg-shell p-1.5">
             <span
               aria-hidden
-              className="pointer-events-none absolute -top-4 -left-5 font-display text-[5rem] leading-none text-accent/10 select-none"
+              className="pointer-events-none absolute -top-3 -left-4 font-display text-[4rem] leading-none text-accent/10 select-none"
             >
               ❦
             </span>
-            <div className="relative grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
-              <p className="min-w-0 font-display text-[0.75rem] leading-snug [color:color-mix(in_oklch,var(--foreground)_92%,black)]">
+            <div className="relative grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2">
+              <p className="min-w-0 font-display text-[0.65rem] leading-snug [color:color-mix(in_oklch,var(--foreground)_92%,black)]">
                 Pictures say a thousand words and puzzles make them fun — Send your
                 special moments as a game to those you love!
               </p>
               <Link
                 to="/create"
-                className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-primary px-2.5 py-1 text-[0.55rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
+                className="inline-flex shrink-0 items-center gap-1 rounded-full bg-primary px-2 py-0.5 text-[0.5rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
               >
                 Start here
                 <span aria-hidden>›</span>
