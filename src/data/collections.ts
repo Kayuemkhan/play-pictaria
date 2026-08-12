@@ -320,7 +320,7 @@ export const collections: Collection[] = [
         id: "vision-07",
         title: "The Kitchen",
         caption: "Women cooking, laughing and sharing aloha",
-        image: visionKitchen,
+        image: visionKitchen.url,
       },
     ],
   },
