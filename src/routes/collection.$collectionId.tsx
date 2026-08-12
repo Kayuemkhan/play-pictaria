@@ -115,22 +115,24 @@ function CollectionPage() {
                 to="/puzzle/$puzzleId"
                 params={{ puzzleId: puzzle.id }}
                 search={{ grid: undefined }}
-                className="group relative block overflow-hidden rounded-[4px] border border-accent/60 shadow-soft transition-shadow duration-500 hover:shadow-lift"
+                className="group block"
               >
-                <img
-                  src={puzzle.image}
-                  alt={puzzle.title}
-                  loading="lazy"
-                  width={1024}
-                  height={768}
-                  className="aspect-[3/4] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
-                />
-                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-deep via-deep/70 to-transparent px-3 pt-8 pb-3 text-left">
-                  <p className="text-[11px] leading-snug tracking-[0.1em] text-deep-foreground uppercase">
+                <div className="overflow-hidden rounded-[4px] border border-accent/60 shadow-soft transition-shadow duration-500 group-hover:shadow-lift">
+                  <img
+                    src={puzzle.image}
+                    alt={puzzle.title}
+                    loading="lazy"
+                    width={1024}
+                    height={768}
+                    className="aspect-[3/4] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
+                  />
+                </div>
+                <div className="px-1 pt-2 text-center">
+                  <p className="font-display text-base leading-tight">
                     {puzzle.title}
                   </p>
-                  <p className="mt-1 text-[10px] tracking-[0.14em] text-accent uppercase">
-                    Play
+                  <p className="mt-0.5 text-[10px] leading-snug text-muted-foreground italic">
+                    {puzzle.meaning ?? puzzle.caption}
                   </p>
                 </div>
               </Link>
