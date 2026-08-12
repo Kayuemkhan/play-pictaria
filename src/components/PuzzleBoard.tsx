@@ -1196,7 +1196,7 @@ export function PuzzleBoard({
       </div>
 
       {info ? (
-        <div className="z-20 max-h-[20vh] shrink-0 overflow-y-auto px-4 pb-1 text-center sm:px-5">
+        <div className="z-20 h-[19vh] shrink-0 overflow-y-auto px-4 pb-1 text-center sm:px-5">
           {info}
         </div>
       ) : null}
