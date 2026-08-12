@@ -1127,8 +1127,7 @@ export function PuzzleBoard({
       {/* linger — the finished picture, with a quiet way onward */}
       {solved && linger && !showSummary && (
         <div className="animate-fade-in absolute inset-x-0 bottom-3 z-30 flex items-center justify-center gap-3 px-4">
-          {(
-            <button
+          <button
               type="button"
               onClick={goSurprise}
               className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-[0.7rem] tracking-[0.22em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03] active:scale-[0.98]"
@@ -1136,7 +1135,6 @@ export function PuzzleBoard({
               Surprise me
               <span aria-hidden="true">✨</span>
             </button>
-          )}
         </div>
       )}
 
@@ -1211,21 +1209,15 @@ export function PuzzleBoard({
               </div>
             </div>
             <div className="mt-6 flex flex-col gap-2">
-              {(
-                <button
+              <button
                   onClick={goSurprise}
                   className="rounded-full bg-primary py-3 text-sm tracking-wide text-primary-foreground transition-opacity hover:opacity-90"
                 >
                   Surprise me ✨
                 </button>
-              )}
               <button
                 onClick={() => setRound((r) => r + 1)}
-                className={
-                  true
-                    ? "rounded-full border border-border py-3 text-sm text-foreground transition-colors hover:bg-secondary"
-                    : "rounded-full bg-primary py-3 text-sm tracking-wide text-primary-foreground transition-opacity hover:opacity-90"
-                }
+                className="rounded-full border border-border py-3 text-sm text-foreground transition-colors hover:bg-secondary"
               >
                 Play again
               </button>
