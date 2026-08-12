@@ -34,7 +34,7 @@ function PuzzlePage() {
   const { puzzleId } = Route.useParams();
   const { grid: initialGrid } = Route.useSearch();
   const navigate = useNavigate();
-  const [grid, setGrid] = useState<number>(initialGrid ?? 4);
+  const [grid, setGrid] = useState<number | undefined>(initialGrid);
   const found = findPuzzle(puzzleId);
 
 
@@ -134,44 +134,56 @@ function PuzzlePage() {
           />
         </div>
 
-        {puzzle.meaning && (
-          <p className="mt-3 text-center text-sm text-muted-foreground italic">
-            {puzzle.meaning}
-          </p>
-        )}
-
-        <div className="mt-6 text-center">
+        <div className="mt-4 text-center">
           <p className="text-[11px] tracking-[0.3em] text-muted-foreground uppercase">
             {collection.title}
           </p>
-          <h1 className="mt-2 font-display text-4xl sm:text-5xl">
+          <h1 className="mt-1 font-display text-3xl sm:text-4xl">
             {puzzle.title}
           </h1>
-          <p className="mt-2 text-sm text-muted-foreground">{puzzle.caption}</p>
-
-          {puzzle.recipe && (
-            <div className="mt-4 rounded-[4px] border border-accent/40 bg-card/60 p-4 text-left">
-              <p className="text-[10px] tracking-[0.2em] text-primary uppercase">
-                Recipe
-              </p>
-              <ol className="mt-2 list-decimal space-y-1.5 pl-4 text-sm leading-relaxed text-foreground">
-                {puzzle.recipe.split("\n").map((step, i) => (
-                  <li key={i}>{step}</li>
-                ))}
-              </ol>
-            </div>
-          )}
-          {puzzle.story && (
-            <div className="mx-auto mt-5 max-w-prose space-y-3 text-left">
+          {puzzle.story ? (
+            <div className="mt-3 space-y-2 text-left">
               {puzzle.story.map((para, i) => (
                 <p key={i} className="text-sm leading-relaxed text-foreground">
                   {para}
                 </p>
               ))}
             </div>
+          ) : puzzle.meaning ? (
+            <p className="mt-2 text-sm text-muted-foreground italic">
+              {puzzle.meaning}
+            </p>
+          ) : (
+            <p className="mt-2 text-sm text-muted-foreground">
+              {puzzle.caption}
+            </p>
           )}
         </div>
 
+        {puzzle.recipe && (
+          <div className="mt-4 rounded-[4px] border border-accent/40 bg-card/60 p-4 text-left">
+            <p className="text-[10px] tracking-[0.2em] text-primary uppercase">
+              Recipe
+            </p>
+            <ol className="mt-2 list-decimal space-y-1.5 pl-4 text-sm leading-relaxed text-foreground">
+              {puzzle.recipe.split("\n").map((step, i) => (
+                <li key={i}>{step}</li>
+              ))}
+            </ol>
+          </div>
+        )}
+
+
+        <div className="mt-6 text-center">
+          <Link
+            to="/puzzle/$puzzleId"
+            params={{ puzzleId }}
+            search={{ grid: 4 }}
+            className="inline-block rounded-full bg-primary px-6 py-3 text-sm text-primary-foreground shadow-lift transition-transform hover:scale-[1.03]"
+          >
+            Play Pictaria
+          </Link>
+        </div>
 
         <div className="mt-10">
           <PoemCTAs />
