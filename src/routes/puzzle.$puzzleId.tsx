@@ -2,8 +2,6 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { PuzzleBoard } from "@/components/PuzzleBoard";
 
-import { PoemCTAs } from "@/components/PoemCTAs";
-import palmLogo from "@/assets/logo-palms-only.png";
 
 import { collections, findPuzzle } from "@/data/collections";
 
@@ -136,98 +134,5 @@ function PuzzlePage() {
         })
       }
     />
-  );
-}
-
-
-  return (
-    <main className="min-h-screen bg-mist-gradient px-4 pb-16 sm:px-6">
-      <div className="mx-auto w-full max-w-3xl pt-8">
-        <Link
-          to="/"
-          aria-label="Pictaria — turn pictures into play"
-          className="group mb-6 flex flex-col items-center"
-        >
-          <img
-            src={palmLogo}
-            alt="Pictaria"
-            width={1024}
-            height={1024}
-            className="h-14 w-auto transition-transform duration-500 ease-[var(--ease-calm)] group-hover:scale-[1.06] sm:h-16"
-          />
-          <span className="mt-2 font-display text-2xl leading-none tracking-[0.34em] text-primary uppercase sm:text-3xl">
-            Pictaria
-          </span>
-          <span className="-mt-0.5 font-display text-[0.6rem] tracking-[0.42em] text-muted-foreground uppercase sm:text-[0.7rem]">
-            Turn pictures into play
-          </span>
-        </Link>
-
-        <div className="overflow-hidden rounded-[4px] border border-accent/60 shadow-lift">
-          <img
-            src={puzzle.image}
-            alt={puzzle.title}
-            width={1024}
-            height={768}
-            className="aspect-[3/4] w-full object-cover"
-          />
-        </div>
-
-        <div className="mt-4 text-center">
-          <p className="text-[11px] tracking-[0.3em] text-muted-foreground uppercase">
-            {collection.title}
-          </p>
-          <h1 className="mt-1 font-display text-3xl sm:text-4xl">
-            {puzzle.title}
-          </h1>
-          {puzzle.story ? (
-            <div className="mt-3 space-y-2 text-left">
-              {puzzle.story.map((para, i) => (
-                <p key={i} className="text-sm leading-relaxed text-foreground">
-                  {para}
-                </p>
-              ))}
-            </div>
-          ) : puzzle.meaning ? (
-            <p className="mt-2 text-sm text-muted-foreground italic">
-              {puzzle.meaning}
-            </p>
-          ) : (
-            <p className="mt-2 text-sm text-muted-foreground">
-              {puzzle.caption}
-            </p>
-          )}
-        </div>
-
-        {puzzle.recipe && (
-          <div className="mt-4 rounded-[4px] border border-accent/40 bg-card/60 p-4 text-left">
-            <p className="text-[10px] tracking-[0.2em] text-primary uppercase">
-              Recipe
-            </p>
-            <ol className="mt-2 list-decimal space-y-1.5 pl-4 text-sm leading-relaxed text-foreground">
-              {puzzle.recipe.split("\n").map((step, i) => (
-                <li key={i}>{step}</li>
-              ))}
-            </ol>
-          </div>
-        )}
-
-
-        <div className="mt-6 text-center">
-          <Link
-            to="/puzzle/$puzzleId"
-            params={{ puzzleId }}
-            search={{ grid: 4 }}
-            className="inline-block rounded-full bg-primary px-6 py-3 text-sm text-primary-foreground shadow-lift transition-transform hover:scale-[1.03]"
-          >
-            Play Pictaria
-          </Link>
-        </div>
-
-        <div className="mt-10">
-          <PoemCTAs />
-        </div>
-      </div>
-    </main>
   );
 }
