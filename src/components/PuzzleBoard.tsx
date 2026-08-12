@@ -1006,6 +1006,16 @@ export function PuzzleBoard({
 
       {/* stage */}
       <div className="relative flex-1 p-5 sm:p-8">
+        {solved && congratsOut && (
+          <button
+            type="button"
+            onClick={goSurprise}
+            className="absolute top-1.5 left-1/2 z-40 -translate-x-1/2 rounded-full border border-primary/70 bg-card/85 px-3 py-1 text-[0.6rem] tracking-[0.16em] text-primary uppercase shadow-soft backdrop-blur-sm transition-colors hover:bg-card sm:top-3"
+          >
+            Surprise me
+          </button>
+        )}
+
         <div
           ref={viewportRef}
           onPointerDown={onPointerDown}
