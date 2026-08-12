@@ -198,7 +198,7 @@ import visionPuppies from "@/assets/vision-puppies.jpg";
 import visionVan from "@/assets/vision-van.jpg";
 import visionGarden from "@/assets/vision-garden.jpg";
 import visionHarvest from "@/assets/vision-harvest.jpg";
-import visionMermaid from "@/assets/vision-mermaid.jpg";
+import visionSnorkeler from "@/assets/vision-snorkeler.jpg";
 import visionMillion from "@/assets/vision-million.jpg";
 
 export interface Puzzle {
