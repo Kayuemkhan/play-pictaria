@@ -1027,16 +1027,6 @@ export function PuzzleBoard({
             showReference ? "rounded-none" : "rounded-[18px]",
           )}
         >
-          <Button
-            type="button"
-            variant="outline"
-            size="sm"
-            onClick={goSurprise}
-            className="absolute top-2 left-1/2 z-20 -translate-x-1/2 border-primary/70 bg-card/85 px-4 text-[0.65rem] tracking-[0.16em] text-primary uppercase shadow-soft backdrop-blur-sm hover:bg-card"
-          >
-            Surprise me
-            <Sparkles aria-hidden="true" />
-          </Button>
           <div
             className={cn(
               "absolute top-0 left-0 origin-top-left",
