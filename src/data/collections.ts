@@ -200,7 +200,8 @@ import visionGarden from "@/assets/vision-garden.jpg";
 import visionHarvest from "@/assets/vision-harvest.jpg";
 import visionSnorkeler from "@/assets/vision-snorkeler.jpg";
 import visionMillion from "@/assets/vision-million.jpg";
-import visionKitchen from "@/assets/vision-kitchen.jpg.asset.json";
+import visionKitchen from "@/assets/vision-kitchen.jpg";
+import visionSurfer from "@/assets/vision-surfer.jpg";
 
 
 export interface Puzzle {
@@ -320,7 +321,13 @@ export const collections: Collection[] = [
         id: "vision-07",
         title: "The Kitchen",
         caption: "Women cooking, laughing and sharing aloha",
-        image: visionKitchen.url,
+        image: visionKitchen,
+      },
+      {
+        id: "vision-08",
+        title: "The Surfer",
+        caption: "A woman out on the water, riding her own wave",
+        image: visionSurfer,
       },
     ],
   },

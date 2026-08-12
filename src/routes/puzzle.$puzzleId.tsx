@@ -118,6 +118,21 @@ function PuzzlePage() {
       grid={grid}
       info={info}
       onNext={() => surpriseMe(grid)}
+      {...(collection.puzzles.length > 1
+        ? {
+            onNextInSeries: () => {
+              const i = collection.puzzles.findIndex((p) => p.id === puzzle.id);
+              const next =
+                collection.puzzles[(i + 1) % collection.puzzles.length]!;
+              navigate({
+                to: "/puzzle/$puzzleId",
+                params: { puzzleId: next.id },
+                search: { grid },
+              });
+            },
+          }
+        : {})}
+
       onChangeGrid={(g) => {
         setGrid(g);
         navigate({
