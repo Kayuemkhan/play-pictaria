@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
-import { Music, Sparkles, VolumeX } from "lucide-react";
+import { ChevronLeft, Music, Sparkles, VolumeX } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -825,26 +825,38 @@ export function PuzzleBoard({
     <div className="relative flex h-[100dvh] w-full flex-col overflow-hidden bg-mist-gradient">
       {/* Pictaria branding, centered over every branded puzzle */}
       {!unbranded && (
-        <Link
-          to="/"
-          aria-label="Pictaria — turn pictures into play"
-          className="group z-20 flex shrink-0 flex-col items-center pt-2 pb-1"
-        >
-          <img
-            src={palmLogo}
-            alt="Pictaria"
-            width={1024}
-            height={1024}
-            className="h-8 w-auto transition-transform duration-500 ease-[var(--ease-calm)] group-hover:scale-[1.05] sm:h-10"
-          />
-          <span className="mt-1 font-display text-xl leading-none tracking-[0.34em] text-primary uppercase sm:text-2xl">
-            Pictaria
-          </span>
-          <span className="-mt-0.5 font-display text-[0.5rem] tracking-[0.42em] text-muted-foreground uppercase sm:text-[0.6rem]">
-            Turn pictures into play
-          </span>
-        </Link>
+        <div className="relative z-20 flex shrink-0 items-center justify-center pt-2 pb-1">
+          <button
+            type="button"
+            onClick={onExit}
+            aria-label="Back to gallery"
+            className="absolute left-3 flex items-center gap-1 rounded-full border border-border/70 px-3 py-1.5 text-[0.62rem] tracking-[0.18em] text-muted-foreground uppercase transition-colors hover:border-primary/50 hover:text-primary sm:left-5"
+          >
+            <ChevronLeft className="h-3.5 w-3.5" />
+            Back
+          </button>
+          <Link
+            to="/"
+            aria-label="Pictaria — turn pictures into play"
+            className="group flex flex-col items-center"
+          >
+            <img
+              src={palmLogo}
+              alt="Pictaria"
+              width={1024}
+              height={1024}
+              className="h-8 w-auto transition-transform duration-500 ease-[var(--ease-calm)] group-hover:scale-[1.05] sm:h-10"
+            />
+            <span className="mt-1 font-display text-xl leading-none tracking-[0.34em] text-primary uppercase sm:text-2xl">
+              Pictaria
+            </span>
+            <span className="-mt-0.5 font-display text-[0.5rem] tracking-[0.42em] text-muted-foreground uppercase sm:text-[0.6rem]">
+              Turn pictures into play
+            </span>
+          </Link>
+        </div>
       )}
+
 
       {/* top bar */}
       <header className="glass-panel z-20 grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 px-3 py-2.5 sm:px-5">
@@ -1130,7 +1142,7 @@ export function PuzzleBoard({
           <button
               type="button"
               onClick={goSurprise}
-              className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-[0.7rem] tracking-[0.22em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03] active:scale-[0.98]"
+              className="inline-flex items-center gap-2 rounded-full border border-primary/70 bg-transparent px-6 py-3 text-[0.7rem] tracking-[0.22em] text-primary uppercase transition-transform hover:scale-[1.03] active:scale-[0.98]"
             >
               Surprise me
               <span aria-hidden="true">✨</span>
@@ -1211,7 +1223,7 @@ export function PuzzleBoard({
             <div className="mt-6 flex flex-col gap-2">
               <button
                   onClick={goSurprise}
-                  className="rounded-full bg-primary py-3 text-sm tracking-wide text-primary-foreground transition-opacity hover:opacity-90"
+                  className="rounded-full border border-primary/70 bg-transparent py-3 text-sm tracking-wide text-primary transition-colors hover:bg-primary/10"
                 >
                   Surprise me ✨
                 </button>
