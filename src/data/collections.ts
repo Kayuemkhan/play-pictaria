@@ -433,6 +433,11 @@ export const collections: Collection[] = [
         title: "Hibiscus",
         meaning: "“Aloalo” — the island’s open-hearted bloom",
         caption: "Dew on coral petals",
+        story: [
+          "The hibiscus is Hawaiʻi's state flower, and the native yellow maʻo hau hele is the bloom that officially carries that honor. Most of the hibiscus you see along island fences and hotel walkways are cultivated cousins, bred for color in every shade from butter yellow to deep crimson.",
+          "Each blossom opens for only a day. That short life is part of its charm — it asks nothing of you but to notice it while it is here. Traditionally a flower worn behind the ear is a small, quiet message: an open heart, a good day, a welcome offered without words.",
+          "Look closely at the petals as you build this one. The veins fan out like rivers, the dew catches the morning, and the long column of stamens reaches out for the first bee of the day.",
+        ],
         image: flowerHibiscus,
       },
       {
@@ -440,6 +445,11 @@ export const collections: Collection[] = [
         title: "Plumeria",
         meaning: "“Melia” — flower of welcome and farewell",
         caption: "Sunset fragrance",
+        story: [
+          "Plumeria is the scent most people remember long after they leave the islands. Brought to Hawaiʻi in the 1860s, it settled in so completely that it became the backbone of the lei — easy to string, slow to wilt, and impossibly fragrant in the warm evening air.",
+          "Its perfume grows stronger at dusk, a trick of the flower to draw in night-flying moths that find no nectar waiting for them at all. Beauty, in this case, is an invitation with nothing behind it but the invitation itself.",
+          "A plumeria lei greets arrivals and sends off departures, which makes it the flower of both hello and goodbye. Take your time with these petals — they are the color of a Hawaiian sunset, soft cream warming into gold.",
+        ],
         image: flowerPlumeria,
       },
       {
@@ -447,6 +457,11 @@ export const collections: Collection[] = [
         title: "Bird of Paradise",
         meaning: "“Manu o Ka Lani” — bird of the heavens",
         caption: "A crane in orange and blue",
+        story: [
+          "Few flowers look so much like something alive. The bird of paradise holds its orange crest and blue tongue in the exact posture of a crane about to lift off, and the resemblance is no accident — in its native South Africa, sunbirds perch on the blue petal, which bends beneath them and dusts their feet with pollen.",
+          "In Hawaiʻi it thrives in gardens and along roadsides, throwing up one bright head after another from a fan of stiff, paddle-shaped leaves. It is a plant of patience: young ones can take years to bloom, then bloom faithfully for decades.",
+          "Its sculptural shape makes it a favorite for arrangements and a satisfying puzzle, all hard angles and confident color against deep green.",
+        ],
         image: flowerBirdOfParadise,
       },
       {
@@ -454,6 +469,11 @@ export const collections: Collection[] = [
         title: "Anthurium",
         meaning: "“Puakalaunu” — the crown-shaped flower",
         caption: "A heart of glossy red",
+        story: [
+          "The glossy red heart of an anthurium is not a petal at all. It is a spathe, a modified leaf, and the true flowers are the tiny bumps crowded along the pale spike at its center. That is why the color lasts for weeks and looks almost lacquered.",
+          "Anthuriums arrived in Hawaiʻi in the late 1800s and found a perfect home in the wet, shaded uplands above Hilo. Generations of island growers bred them into hundreds of forms — obake greens, pinks, whites, and the deep reds that became a signature Hawaiian export.",
+          "They are flowers of hospitality, often given to say welcome, and they ask for very little: filtered light, humidity, and someone to admire them.",
+        ],
         image: flowerAnthurium,
       },
       {
@@ -461,6 +481,11 @@ export const collections: Collection[] = [
         title: "Heliconia",
         meaning: "“Lobster claw” — a jungle torch of scarlet",
         caption: "Scarlet bracts reaching up",
+        story: [
+          "Heliconia is the jungle in flower form. Its scarlet and yellow bracts stack up the stem like a row of lobster claws, each one a small cup that catches rain and holds it — tiny reservoirs that frogs and insects use as nurseries in its native tropical Americas.",
+          "In its home range, hummingbirds and heliconias evolved together, some bird bills curving to match a single species. In Hawaiʻi, where there are no hummingbirds, the plant simply grows for the pleasure of growing, spreading into broad banana-leaved clumps in valley shade.",
+          "Assembling this one is a study in structure: bold overlapping shapes, wax-bright color, and the cool green of a rainforest behind it.",
+        ],
         image: flowerHeliconia,
       },
       {
@@ -468,6 +493,11 @@ export const collections: Collection[] = [
         title: "Pink Hibiscus",
         meaning: "“Aloalo” — the island’s open-hearted bloom",
         caption: "Morning light on open petals",
+        story: [
+          "This is the hibiscus at its softest — pink petals catching the first hour of light, edges still translucent from the night's dew. The single-day bloom means the flower you see in a photograph is one that no longer exists anywhere else.",
+          "Hibiscus has practical life in the islands too. The leaves and blossoms of some varieties were used in traditional Hawaiian remedies as a gentle tonic, and the dried flowers still steep into a tart, ruby-colored tea.",
+          "There is a reason it turns up in so many photographs. It is the flower that says you are somewhere warm, somewhere unhurried, somewhere worth coming back to.",
+        ],
         image: flowerHibiscusPink,
       },
       {
@@ -475,6 +505,11 @@ export const collections: Collection[] = [
         title: "Torch Ginger",
         meaning: "“ʻAwapuhi koʻokoʻo” — the staff ginger",
         caption: "A pink flame in the jungle",
+        story: [
+          "Torch ginger rises on a bare stalk straight out of the ground, sometimes taller than a person, and opens into a waxy pink cone that genuinely looks lit from within. It is the flower people stop the car for on the road to Hāna.",
+          "The plant belongs to the ginger family, and in Southeast Asia its buds are chopped into curries and sour soups. In Hawaiʻi it is grown for cut flowers and for the sheer drama of it, thriving in the wet, warm gulches where rain comes daily.",
+          "A single bloom holds an astonishing amount of geometry — tight spirals of bracts, each one glossy and precisely placed. Take it apart slowly and you will see the pattern.",
+        ],
         image: flowerTorchGinger,
       },
       {
@@ -482,6 +517,11 @@ export const collections: Collection[] = [
         title: "Orchid",
         meaning: "“Okika” — treasured and long-lasting",
         caption: "Purple petals in dappled light",
+        story: [
+          "Orchids are the largest flowering family on earth, with more than 25,000 species, and nearly all of them are masters of persuasion. Their shapes and scents are tuned to specific pollinators — a shape that mimics a female insect here, a landing platform there, a nectar tube fitted to one particular moth.",
+          "Hawaiʻi has only three native orchids, all modest and rarely seen. The showy ones filling island nurseries came later, and the state now grows orchids as a serious crop, shipping potted plants and sprays worldwide.",
+          "What makes them beloved is endurance. A single spray can hold its color for a month or more, which is why an orchid says something lasting rather than something fleeting.",
+        ],
         image: flowerOrchid,
       },
       {
@@ -489,6 +529,11 @@ export const collections: Collection[] = [
         title: "Bougainvillea",
         meaning: "“Pua kepalō” — paper petals of the sun",
         caption: "Magenta paper petals",
+        story: [
+          "Bougainvillea is another beautiful trick of the eye. Those magenta, coral, and white “petals” are papery bracts; the real flowers are the small cream trumpets tucked at their centers. The bracts stay colorful for weeks, which is how a single vine can look like it is blooming all summer.",
+          "It loves what most flowers hate — heat, poor soil, and neglect. Water it too kindly and it grows leaves instead of color. Along Hawaiʻi's dry leeward coasts it climbs walls and spills over rooftops in sheets of impossible pink.",
+          "The plant carries thorns beneath all that softness, a fair reminder that toughness and beauty are not opposites.",
+        ],
         image: flowerBougainvillea,
       },
       {
@@ -496,6 +541,11 @@ export const collections: Collection[] = [
         title: "Passion Flower",
         meaning: "“Liliko‘i” — named for the Maui land of Lilikoʻi",
         caption: "A blue crown of filaments",
+        story: [
+          "The passion flower is a piece of living architecture: a fringe of blue and white filaments, five stamens, and three curved styles arranged with such deliberate symmetry that early Spanish missionaries read the whole Passion story in it and gave it its name.",
+          "In Hawaiʻi the fruit is better known than the flower. Lilikoʻi takes its name from a district on East Maui where the vine was first planted in the 1880s, and it went on to flavor everything from butter and chiffon pie to shave ice syrup.",
+          "The vine climbs by tendrils, blooms for a single day, and then quietly starts a fruit. Beauty first, then something to share.",
+        ],
         image: flowerPassionflower,
       },
       {
@@ -503,8 +553,14 @@ export const collections: Collection[] = [
         title: "Ōhia Lehua",
         meaning: "“Lehua” — sacred to Pele, first to bloom on new lava",
         caption: "Scarlet blooms on mountain slopes",
+        story: [
+          "ʻŌhiʻa lehua is the most important tree in Hawaiʻi's forests and the first life to return to bare lava. Its scarlet pompom blossoms — really bundles of stamens — feed the native ʻapapane and ʻiʻiwi, whose curved bills evolved alongside them.",
+          "The old story tells of ʻŌhiʻa and Lehua, two lovers. When Pele's affection was refused she turned the young man into a twisted tree, and the gods, in pity, made the girl its flower so the two would never be apart. Picking a lehua blossom, it is said, brings rain — the tears of the parted lovers.",
+          "Today the tree faces Rapid ʻŌhiʻa Death, a fungal disease that has killed more than a million trees. Islanders are asked to clean shoes and gear between forests. Sitting with this one is a small act of attention toward a tree worth keeping.",
+        ],
         image: flowerOhiaLehua,
       },
+
     ],
   },
   {
