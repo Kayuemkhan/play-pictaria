@@ -1138,6 +1138,7 @@ export function PuzzleBoard({
                   backgroundSize: `${bg.w}px ${bg.h}px`,
                   backgroundPosition: `${bg.x - pc * cellW + seam}px ${bg.y - pr * cellH + seam}px`,
                   backgroundRepeat: isLocked ? "no-repeat" : "repeat",
+                  imageRendering: isLocked ? "pixelated" : "auto",
                   borderRadius:
                     isFloating && !inCluster ? 26 : isLocked || inCluster ? 0 : 26,
                   boxShadow: isDragged
