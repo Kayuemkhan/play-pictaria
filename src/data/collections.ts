@@ -285,7 +285,7 @@ export function isPuzzleOpenToVisitor(
 export const collections: Collection[] = [
   {
     id: "vision-board",
-    title: "Amy's vision board",
+    title: "My vision board",
     tagline: "The life we are calling in, one peace at a time",
     cover: visionPuppies,
     free: true,
@@ -295,6 +295,9 @@ export const collections: Collection[] = [
         title: "The Puppy Litter",
         caption: "A basket full of dachshund puppies",
         image: visionPuppies,
+        story: [
+          "I would love to have a little litter of dachshund puppies tumbling around my feet, warm and wiggly and completely ridiculous. I want mornings that start with puppy breath and afternoons that get interrupted by somebody wanting a belly rub.",
+        ],
       },
       {
         id: "vision-02",
@@ -308,26 +311,38 @@ export const collections: Collection[] = [
       {
         id: "vision-03",
         title: "The Flower Garden",
-        caption: "A path through blooms in the morning sun",
+        caption: "A little winding path through the blooms",
         image: visionGarden,
+        story: [
+          "I would love a cute little flower garden with a winding path I can wander through, no rush and nowhere to be. I want cosmos and zinnias and lavender crowding the edges, butterflies working the blooms, and one small bench where I can sit and just breathe.",
+        ],
       },
       {
         id: "vision-04",
         title: "The Harvest",
         caption: "A big basket of vegetables straight from the garden",
         image: visionHarvest,
+        story: [
+          "I would love to eat fresh vegetables every day, and I'd love to know exactly where my food came from. I want to pick it myself, wash the dirt off in my own sink, and eat something that was still growing that morning.",
+        ],
       },
       {
         id: "vision-05",
         title: "The Snorkeler",
-        caption: "A blonde snorkeler gliding beside a sea turtle",
+        caption: "Swimming beside a sea turtle",
         image: visionSnorkeler,
+        story: [
+          "I would love to spend my mornings in the water, floating quietly next to a honu who doesn't mind me being there. I want to feel strong and easy in my own body, no hurry, just breathing through the snorkel and watching the light move on the reef.",
+        ],
       },
       {
         id: "vision-06",
         title: "One Million",
         caption: "A million followers and a whole lot of aloha",
         image: visionMillion,
+        story: [
+          "I would love to reach a million people with something that actually makes their day softer. I want the numbers to mean real humans who felt a little more calm, a little more seen, because of something I made.",
+        ],
       },
       {
         id: "vision-07",
@@ -341,14 +356,20 @@ export const collections: Collection[] = [
       {
         id: "vision-08",
         title: "The Surfer",
-        caption: "A woman out on the water, riding her own wave",
+        caption: "Out on the water, riding my own wave",
         image: visionSurfer,
+        story: [
+          "I would love to paddle out and catch my own wave, whatever my body looks like doing it. I want the ocean to be a place I belong, not a place I have to earn.",
+        ],
       },
       {
         id: "vision-09",
         title: "The Pool",
         caption: "A backyard pool, a floatie chair and a table set for friends",
-      image: visionPool,
+        image: visionPool,
+        story: [
+          "I would love a beautiful backyard pool with plants all around it, a big floatie chair I can drift in, a shady umbrella and a table outside where friends can eat with me. I want a lovely wooden porch, good food, and long afternoons that nobody is in a hurry to end.",
+        ],
       },
 
     ],
