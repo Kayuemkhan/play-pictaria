@@ -132,30 +132,6 @@ function AboutPage() {
         </Link>
       </section>
 
-      {/* bottom nav */}
-      <nav className="mt-12 flex flex-wrap items-center justify-center gap-4 px-4 text-[0.6rem] tracking-[0.18em] text-shell/60 uppercase">
-        <Link to="/" className="transition-colors hover:text-accent">
-          Home
-        </Link>
-        <span aria-hidden className="text-shell/30">
-          •
-        </span>
-        <Link to="/collections" className="transition-colors hover:text-accent">
-          Gallery
-        </Link>
-        <span aria-hidden className="text-shell/30">
-          •
-        </span>
-        <Link to="/create" className="transition-colors hover:text-accent">
-          Create
-        </Link>
-        <span aria-hidden className="text-shell/30">
-          •
-        </span>
-        <Link to="/pricing" className="transition-colors hover:text-accent">
-          Pricing
-        </Link>
-      </nav>
     </main>
   );
 }
