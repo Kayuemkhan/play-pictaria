@@ -152,6 +152,8 @@ import fsmInfinitySunset from "@/assets/fsm-infinity-sunset.jpg.asset.json";
 import fsmPoolCaviar from "@/assets/fsm-pool-caviar.jpg.asset.json";
 import fsmCanoeGirls from "@/assets/fsm-canoe-girls.jpg.asset.json";
 import fsmBeachYoga from "@/assets/fsm-beach-yoga.jpg.asset.json";
+import fsmSwimUpBar from "@/assets/fsm-swim-up-bar.jpg.asset.json";
+import fsmInfinitySwim from "@/assets/fsm-infinity-swim.jpg.asset.json";
 import amy01 from "@/assets/amy-art-01.jpg.asset.json";
 import amy02 from "@/assets/amy-art-02.jpg.asset.json";
 import amy03 from "@/assets/amy-art-03.jpg.asset.json";
@@ -1266,6 +1268,28 @@ export const collections: Collection[] = [
         title: "To the Break",
         caption: "Carrying the board to the shore break",
         image: fsmCanoeGirls.url,
+      },
+      {
+        id: "fsm-07",
+        title: "Ka Pā Inu",
+        caption: "The swim-up bar, stone seats under the water",
+        image: fsmSwimUpBar.url,
+        story: [
+          "Ka Pā Inu means \"the drinking place\" — and at Wailea it is a row of pale stone seats set just below the surface, where the water stays warm all afternoon.",
+          "The pool's edge disappears into the channel between Maui and Kaho'olawe, so guests sip with their shoulders in the water and the West Maui mountains floating across the blue.",
+          "Hawaiians have always gathered where fresh water meets salt. A swim-up bar is only the newest version of a very old habit: standing waist-deep together, talking story until the light goes gold.",
+        ],
+      },
+      {
+        id: "fsm-08",
+        title: "Lana Wai",
+        caption: "Floating at the infinity edge",
+        image: fsmInfinitySwim.url,
+        story: [
+          "Lana wai means \"to float on water\" — the whole point of an infinity pool, where the far wall drops away and the surface seems to spill straight into the sea.",
+          "From this spot the silhouette of Kaho'olawe and the long shoulder of Haleakalā ring the horizon, and on a still morning the water goes so flat that pool and ocean become one sheet of blue.",
+          "Swimmers here often stop mid-stroke and simply hang in the water. There is nothing to reach for; the view has already arrived.",
+        ],
       },
     ],
 
