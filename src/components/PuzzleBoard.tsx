@@ -932,7 +932,7 @@ export function PuzzleBoard({
 
 
   return (
-    <div className="relative flex h-[100dvh] w-full flex-col overflow-hidden bg-mist-gradient">
+    <div className="relative flex min-h-[100dvh] w-full flex-col bg-mist-gradient">
       {/* Pictaria branding, centered over every branded puzzle */}
       <div className="relative z-20 flex shrink-0 items-center justify-center pt-1 pb-0.5">
         <button
@@ -1236,7 +1236,7 @@ export function PuzzleBoard({
       </div>
 
       {info ? (
-        <div className="z-20 min-h-0 flex-1 overflow-y-auto px-4 pb-24 text-center sm:px-5">
+        <div className="z-20 px-4 pb-24 text-center sm:px-5">
           {info}
         </div>
       ) : null}
@@ -1274,7 +1274,7 @@ export function PuzzleBoard({
       {/* celebration — phase one: fine drifting sparkles and congratulations */}
       {solved && !linger && (
         <div
-          className="pointer-events-none absolute inset-0 z-30 overflow-hidden transition-opacity duration-[1300ms] ease-[var(--ease-calm)]"
+          className="pointer-events-none fixed inset-0 z-30 overflow-hidden transition-opacity duration-[1300ms] ease-[var(--ease-calm)]"
           style={{ opacity: congratsOut ? 0 : 1 }}
         >
           {/* fine drifting sparkles */}
@@ -1304,7 +1304,7 @@ export function PuzzleBoard({
 
       {/* celebration — phase two: the summary card, after a good long look */}
       {solved && showSummary && (
-        <div className="absolute inset-0 z-40 flex items-center justify-center overflow-hidden">
+        <div className="fixed inset-0 z-40 flex items-center justify-center overflow-hidden">
           {/* faded tropical island background */}
           <div className="absolute inset-0">
             <img
