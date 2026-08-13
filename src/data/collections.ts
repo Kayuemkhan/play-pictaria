@@ -152,6 +152,8 @@ import fsmInfinitySunset from "@/assets/fsm-infinity-sunset.jpg.asset.json";
 import fsmPoolCaviar from "@/assets/fsm-pool-caviar.jpg.asset.json";
 import fsmCanoeGirls from "@/assets/fsm-canoe-girls.jpg.asset.json";
 import fsmBeachYoga from "@/assets/fsm-beach-yoga.jpg.asset.json";
+import fsmSwimUpBar from "@/assets/fsm-swim-up-bar.jpg.asset.json";
+import fsmInfinitySwim from "@/assets/fsm-infinity-swim.jpg.asset.json";
 import amy01 from "@/assets/amy-art-01.jpg.asset.json";
 import amy02 from "@/assets/amy-art-02.jpg.asset.json";
 import amy03 from "@/assets/amy-art-03.jpg.asset.json";
