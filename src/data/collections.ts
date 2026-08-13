@@ -202,6 +202,7 @@ import visionSnorkeler from "@/assets/vision-snorkeler.jpg";
 import visionMillion from "@/assets/vision-million.jpg";
 import visionKitchen from "@/assets/vision-kitchen.jpg";
 import visionSurfer from "@/assets/vision-surfer.jpg";
+import visionPool from "@/assets/vision-pool.jpg";
 
 
 export interface Puzzle {
@@ -332,6 +333,13 @@ export const collections: Collection[] = [
         caption: "A woman out on the water, riding her own wave",
         image: visionSurfer,
       },
+      {
+        id: "vision-09",
+        title: "The Pool",
+        caption: "A backyard pool, a floatie chair and a table set for friends",
+      image: visionPool,
+      },
+
     ],
   },
   {
