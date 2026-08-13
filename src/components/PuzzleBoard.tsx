@@ -932,7 +932,7 @@ export function PuzzleBoard({
 
 
   return (
-    <div className="relative flex h-[100dvh] w-full flex-col overflow-hidden bg-mist-gradient">
+    <div className="relative flex min-h-[100dvh] w-full flex-col bg-mist-gradient">
       {/* Pictaria branding, centered over every branded puzzle */}
       <div className="relative z-20 flex shrink-0 items-center justify-center pt-1 pb-0.5">
         <button
