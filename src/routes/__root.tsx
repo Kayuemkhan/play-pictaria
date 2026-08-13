@@ -179,12 +179,29 @@ function BackGuard() {
 }
 
 
+/**
+ * A single back arrow on every screen except home. Puzzle screens draw their
+ * own arrow inside the board header, so we skip those to avoid two arrows.
+ */
+function GlobalBackArrow() {
+  const router = useRouter();
+  const path = router.state.location.pathname.replace(/\/+$/, "");
+
+  const isHome = path === "" || path === "/";
+  const hasOwnArrow =
+    path.startsWith("/puzzle") || path.startsWith("/daily") || path.startsWith("/p/");
+
+  if (isHome || hasOwnArrow) return null;
+  return <TopBackButton />;
+}
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
   return (
     <QueryClientProvider client={queryClient}>
       <BackGuard />
+      <GlobalBackArrow />
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
 
