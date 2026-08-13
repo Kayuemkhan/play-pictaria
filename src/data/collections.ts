@@ -205,6 +205,10 @@ import visionSurfer from "@/assets/vision-surfer.jpg";
 import visionPool from "@/assets/vision-pool.jpg";
 
 
+import { natureStories } from "./stories-nature";
+import { cultureStories } from "./stories-culture";
+import { islandLifeStories } from "./stories-island-life";
+
 export interface Puzzle {
   id: string;
   title: string;
@@ -1615,6 +1619,23 @@ export const collections: Collection[] = [
 
 
 
+
+// Every photograph gets a little paragraph beneath it — history, the meaning of
+// its Hawaiian name, or an interesting factoid.
+const storyById: Record<string, string[]> = {
+  ...natureStories,
+  ...cultureStories,
+  ...islandLifeStories,
+};
+
+for (const collection of collections) {
+  for (const puzzle of collection.puzzles) {
+    const story = storyById[puzzle.id];
+    if (!puzzle.story && story) {
+      puzzle.story = story;
+    }
+  }
+}
 
 export const freeCollection = collections[0]!;
 
