@@ -188,32 +188,17 @@ function BackGuard() {
  */
 function GlobalChrome() {
   const raw = useRouterState({ select: (s) => s.location.pathname });
-  const router = useRouter();
   const path = raw.replace(/\/+$/, "");
 
   const isHome = path === "" || path === "/";
   const hasOwnChrome =
     path.startsWith("/puzzle") || path.startsWith("/daily") || path.startsWith("/p/");
-  const isProjectHome = path === "/portal/new" || path === "/portal";
 
   if (isHome || hasOwnChrome) return null;
 
-  return (
-    <>
-      <TopBackButton />
-      <button
-        type="button"
-        onClick={() => router.navigate({ to: "/" })}
-        aria-label="Home"
-        className={`pointer-events-auto fixed top-3 z-50 transition-transform hover:scale-105 active:scale-95 ${
-          isProjectHome ? "left-1/2 -translate-x-1/2" : "right-4"
-        }`}
-      >
-        <img src={palmLogo} alt="Pictaria home" className="h-9 w-auto opacity-90" />
-      </button>
-    </>
-  );
+  return <TopBackButton />;
 }
+
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
