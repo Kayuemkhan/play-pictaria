@@ -1175,7 +1175,6 @@ export function PuzzleBoard({
             style={{
               width: WORLD_W,
               height: worldH,
-              transform: `translate(${offX}px, ${offY}px) scale(${scale})`,
               backgroundImage: `url(${src})`,
               backgroundSize: `${bg.w}px ${bg.h}px`,
               backgroundPosition: `${bg.x}px ${bg.y}px`,
