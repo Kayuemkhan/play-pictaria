@@ -154,6 +154,8 @@ import fsmCanoeGirls from "@/assets/fsm-canoe-girls.jpg.asset.json";
 import fsmBeachYoga from "@/assets/fsm-beach-yoga.jpg.asset.json";
 import fsmSwimUpBar from "@/assets/fsm-swim-up-bar.jpg.asset.json";
 import fsmInfinitySwim from "@/assets/fsm-infinity-swim.jpg.asset.json";
+import fsmMissingPiece from "@/assets/fsm-missing-piece.jpg";
+import fsmPoiBread from "@/assets/fsm-poi-bread.jpg";
 import amy01 from "@/assets/amy-art-01.jpg.asset.json";
 import amy02 from "@/assets/amy-art-02.jpg.asset.json";
 import amy03 from "@/assets/amy-art-03.jpg.asset.json";
