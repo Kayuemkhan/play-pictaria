@@ -33,7 +33,7 @@ function CollectionsPage() {
           <h1 className="mt-2 font-display text-4xl sm:text-5xl">All Collections</h1>
         </div>
 
-        <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3">
+        <div className="mt-8 grid grid-cols-3 gap-2 sm:gap-3">
           {collections.map((collection) => (
             <Link
               key={collection.id}
