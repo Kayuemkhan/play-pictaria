@@ -12,8 +12,6 @@ import { Sparkles } from "lucide-react";
 
 import appCss from "../styles.css?url";
 import { Toaster } from "@/components/ui/sonner";
-import { BottomBackButton } from "@/components/BottomBackButton";
-import { TopBackButton } from "@/components/TopBackButton";
 
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
@@ -191,9 +189,6 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <BackGuard />
-      
-      {!isHome && <TopBackButton />}
-      {!isHome && <BottomBackButton />}
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
 
