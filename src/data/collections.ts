@@ -207,7 +207,7 @@ import visionMillion from "@/assets/vision-million.jpg";
 import visionKitchen from "@/assets/vision-kitchen.jpg";
 import visionSurfer from "@/assets/vision-surfer.jpg";
 import visionPool from "@/assets/vision-pool.jpg";
-import amyGallerySelfie from "@/assets/amy-gallery-selfie.jpg.asset.json";
+import visionGallery from "@/assets/vision-gallery.jpg";
 
 
 import { natureStories } from "./stories-nature";
@@ -376,9 +376,9 @@ export const collections: Collection[] = [
         id: "vision-10",
         title: "The Gallery",
         caption: "My art, my heart, in the hands of people on vacation",
-        image: amyGallerySelfie.url,
+        image: visionGallery,
         story: [
-          "I would love for my gallery to be even more successful, and for my art to become a meaningful part of people's vacation. I want someone to pick up a piece I made and feel like they are taking a little piece of aloha home with them.",
+          "I would love for everyone who has a special experience with a sea turtle while they are on Maui to know about my gallery, to experience my art, and if they connect with it, to bring it home as a wonderful reminder of that magical day.",
         ],
       },
 
