@@ -60,21 +60,6 @@ function AboutPage() {
             Why travel to Pictaria everyday?
           </h1>
 
-          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Link
-              to="/collections"
-              className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-[0.65rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
-            >
-              Play a puzzle
-              <ArrowRight className="h-3.5 w-3.5" strokeWidth={2} />
-            </Link>
-            <Link
-              to="/create"
-              className="inline-flex items-center gap-2 rounded-full border border-accent/60 bg-deep/60 px-5 py-2.5 text-[0.65rem] tracking-[0.2em] text-shell uppercase backdrop-blur-sm transition-colors hover:bg-accent/15"
-            >
-              Create your own
-            </Link>
-          </div>
         </div>
       </section>
 
@@ -132,30 +117,6 @@ function AboutPage() {
         </Link>
       </section>
 
-      {/* bottom nav */}
-      <nav className="mt-12 flex flex-wrap items-center justify-center gap-4 px-4 text-[0.6rem] tracking-[0.18em] text-shell/60 uppercase">
-        <Link to="/" className="transition-colors hover:text-accent">
-          Home
-        </Link>
-        <span aria-hidden className="text-shell/30">
-          •
-        </span>
-        <Link to="/collections" className="transition-colors hover:text-accent">
-          Gallery
-        </Link>
-        <span aria-hidden className="text-shell/30">
-          •
-        </span>
-        <Link to="/create" className="transition-colors hover:text-accent">
-          Create
-        </Link>
-        <span aria-hidden className="text-shell/30">
-          •
-        </span>
-        <Link to="/pricing" className="transition-colors hover:text-accent">
-          Pricing
-        </Link>
-      </nav>
     </main>
   );
 }
