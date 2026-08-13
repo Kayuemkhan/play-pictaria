@@ -934,17 +934,17 @@ export function PuzzleBoard({
   return (
     <div className="relative flex h-[100dvh] w-full flex-col overflow-hidden bg-mist-gradient">
       {/* Pictaria branding, centered over every branded puzzle */}
-      {!unbranded && (
-        <div className="relative z-20 flex shrink-0 items-center justify-center pt-1 pb-0.5">
-          <button
-            type="button"
-            onClick={onExit}
-            aria-label="Back"
-            className="absolute left-3 grid h-9 w-9 place-items-center text-accent/80 transition-transform hover:scale-105 active:scale-95 sm:left-5"
-          >
-            <ChevronLeft className="h-5 w-5" strokeWidth={1.5} />
-          </button>
+      <div className="relative z-20 flex shrink-0 items-center justify-center pt-1 pb-0.5">
+        <button
+          type="button"
+          onClick={onExit}
+          aria-label="Back"
+          className="absolute left-3 grid h-9 w-9 place-items-center text-accent/80 transition-transform hover:scale-105 active:scale-95 sm:left-5"
+        >
+          <ChevronLeft className="h-5 w-5" strokeWidth={1.5} />
+        </button>
 
+        {!unbranded && (
           <Link
             to="/"
             aria-label="Pictaria — turn pictures into play"
@@ -964,8 +964,8 @@ export function PuzzleBoard({
               Turn pictures into play
             </span>
           </Link>
-        </div>
-      )}
+        )}
+      </div>
 
 
       {/* top bar */}
@@ -1074,7 +1074,7 @@ export function PuzzleBoard({
           </button>
         )}
 
-        {onNextInSeries && (
+        {onNextInSeries && solved && congratsOut && (
           <button
             type="button"
             onClick={onNextInSeries}
@@ -1279,26 +1279,6 @@ export function PuzzleBoard({
             </svg>
           ))}
 
-          {/* scripted, diagonal, shimmering congratulations */}
-          {!showSummary && (
-            <div className="absolute inset-0 flex items-center justify-center">
-              <span
-                className="animate-script-shimmer font-script text-center leading-none"
-                style={{
-                  fontSize: "clamp(2.6rem, 15vw, 5.5rem)",
-                  background:
-                    "linear-gradient(105deg, oklch(0.99 0.02 90), oklch(0.84 0.14 84) 45%, oklch(0.99 0.03 92) 70%, oklch(0.8 0.13 80))",
-                  WebkitBackgroundClip: "text",
-                  backgroundClip: "text",
-                  color: "transparent",
-                  filter:
-                    "drop-shadow(0 3px 10px oklch(0.2 0.05 240 / 0.55)) drop-shadow(0 0 18px oklch(0.88 0.1 84 / 0.55))",
-                }}
-              >
-                Congratulations
-              </span>
-            </div>
-          )}
         </div>
       )}
 
@@ -1341,20 +1321,6 @@ export function PuzzleBoard({
           ))}
 
           <div className="animate-soft-in glass-panel relative mx-4 w-full max-w-sm rounded-3xl border border-accent/40 p-7 text-center shadow-lift">
-            <p
-              className="font-script text-4xl"
-              style={{
-                background:
-                  "linear-gradient(105deg, oklch(0.98 0.02 90), oklch(0.82 0.13 84), oklch(0.98 0.03 92))",
-                WebkitBackgroundClip: "text",
-                backgroundClip: "text",
-                color: "transparent",
-                transform: "rotate(-4deg)",
-                display: "inline-block",
-              }}
-            >
-              Congratulations
-            </p>
             <h2 className="mt-2 font-display text-3xl">{title}</h2>
             <div className="mt-6 grid grid-cols-2 gap-3">
               <div className="rounded-2xl bg-secondary/70 py-3">
