@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { collections, findPuzzle } from "@/data/collections";
+import palmLogo from "@/assets/logo-palms-only.png";
 import { getYesterdailys } from "@/lib/yesterdailys.functions";
 import type { YesterdailyItem } from "@/lib/yesterdailys.functions";
 
