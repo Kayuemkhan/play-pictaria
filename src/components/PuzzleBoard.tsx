@@ -1166,6 +1166,23 @@ export function PuzzleBoard({
 
           })}
 
+          {/* Solved overlay: one continuous image so locked tiles never show seams */}
+          <div
+            className={cn(
+              "pointer-events-none absolute top-0 left-0 z-[2] origin-top-left transition-opacity duration-700",
+              solved ? "opacity-100" : "opacity-0",
+            )}
+            style={{
+              width: WORLD_W,
+              height: worldH,
+              transform: `translate(${offX}px, ${offY}px) scale(${scale})`,
+              backgroundImage: `url(${src})`,
+              backgroundSize: `${bg.w}px ${bg.h}px`,
+              backgroundPosition: `${bg.x}px ${bg.y}px`,
+              borderRadius: showReference ? 0 : 18,
+            }}
+          />
+
         </div>
 
         {/* reference flash — completed puzzle, exactly the board's footprint */}
