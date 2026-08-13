@@ -163,8 +163,8 @@ export function PuzzleBoard({
 
   const scale = useMemo(() => {
     if (!size.w || !size.h) return 0;
-    // a gentle, thin margin so tiles never touch the walls
-    const inset = Math.max(3, Math.min(size.w, size.h) * 0.008);
+    // a generous margin so tiles never touch the walls
+    const inset = Math.max(8, Math.min(size.w, size.h) * 0.045);
     const w = Math.max(1, size.w - inset * 2);
     const h = Math.max(1, size.h - inset * 2);
     return Math.min(w / WORLD_W, h / worldH);
@@ -647,7 +647,7 @@ export function PuzzleBoard({
       const maxCol = Math.max(...cols);
       const minRow = Math.min(...rows);
       const maxRow = Math.max(...rows);
-      const gutter = 10;
+      const gutter = 24;
       const minDx = gutter - (offX + minCol * cellW * scale);
       const maxDx =
         size.w - gutter - (offX + (maxCol + 1) * cellW * scale);
@@ -1123,30 +1123,32 @@ export function PuzzleBoard({
             const isDragged = drag?.group === group;
             const isFloating = floating.includes(piece);
 
+            const seam = isLocked ? 2 : 0;
             return (
               <div
                 key={piece}
                 data-cell={cell}
                 style={{
                   position: "absolute",
-                  left: col * cellW,
-                  top: row * cellH,
-                  width: cellW,
-                  height: cellH,
+                  left: col * cellW - seam,
+                  top: row * cellH - seam,
+                  width: cellW + seam * 2,
+                  height: cellH + seam * 2,
                   backgroundImage: `url(${src})`,
                   backgroundSize: `${bg.w}px ${bg.h}px`,
-                  backgroundPosition: `${bg.x - pc * cellW}px ${bg.y - pr * cellH}px`,
+                  backgroundPosition: `${bg.x - pc * cellW + seam}px ${bg.y - pr * cellH + seam}px`,
+                  backgroundRepeat: isLocked ? "no-repeat" : "repeat",
                   borderRadius:
-                    isFloating && !inCluster ? 22 : isLocked || inCluster ? 3 : 22,
+                    isFloating && !inCluster ? 28 : isLocked || inCluster ? 0 : 28,
                   boxShadow: isDragged
-                    ? "0 14px 28px rgba(15,45,70,0.35), inset 0 0 0 3px rgba(255,255,255,0.85)"
+                    ? "0 14px 28px rgba(15,45,70,0.35), inset 0 0 0 5px rgba(255,255,255,0.85)"
                     : isFloating
                       ? inCluster
                         ? "0 10px 20px rgba(15,45,70,0.3)"
-                        : "0 10px 20px rgba(15,45,70,0.3), inset 0 0 0 3px rgba(255,255,255,0.7)"
+                        : "0 10px 20px rgba(15,45,70,0.3), inset 0 0 0 5px rgba(255,255,255,0.7)"
                       : isLocked || inCluster
                         ? "none"
-                        : "inset 0 0 0 3px rgba(255,255,255,0.8)",
+                        : "inset 0 0 0 5px rgba(255,255,255,0.8)",
                   transform: isDragged
                     ? `translate(${drag!.dx / scale}px, ${drag!.dy / scale}px) scale(1.006)`
                     : "scale(1)",
@@ -1161,7 +1163,25 @@ export function PuzzleBoard({
               />
             );
 
+
           })}
+
+          {/* Solved overlay: one continuous image so locked tiles never show seams */}
+          <div
+            className={cn(
+              "pointer-events-none absolute top-0 left-0 z-[2] origin-top-left transition-opacity duration-700",
+              solved ? "opacity-100" : "opacity-0",
+            )}
+            style={{
+              width: WORLD_W,
+              height: worldH,
+              transform: `translate(${offX}px, ${offY}px) scale(${scale})`,
+              backgroundImage: `url(${src})`,
+              backgroundSize: `${bg.w}px ${bg.h}px`,
+              backgroundPosition: `${bg.x}px ${bg.y}px`,
+              borderRadius: showReference ? 0 : 18,
+            }}
+          />
 
         </div>
 
