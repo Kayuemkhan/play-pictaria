@@ -4,6 +4,7 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
@@ -12,6 +13,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { Toaster } from "@/components/ui/sonner";
 import { TopBackButton } from "@/components/TopBackButton";
+import palmLogo from "@/assets/logo-palms-only.png";
 
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
@@ -184,16 +186,30 @@ function BackGuard() {
  * A single back arrow on every screen except home. Puzzle screens draw their
  * own arrow inside the board header, so we skip those to avoid two arrows.
  */
-function GlobalBackArrow() {
+function GlobalChrome() {
+  const raw = useRouterState({ select: (s) => s.location.pathname });
   const router = useRouter();
-  const path = router.state.location.pathname.replace(/\/+$/, "");
+  const path = raw.replace(/\/+$/, "");
 
   const isHome = path === "" || path === "/";
-  const hasOwnArrow =
+  const hasOwnChrome =
     path.startsWith("/puzzle") || path.startsWith("/daily") || path.startsWith("/p/");
 
-  if (isHome || hasOwnArrow) return null;
-  return <TopBackButton />;
+  if (isHome || hasOwnChrome) return null;
+
+  return (
+    <>
+      <TopBackButton />
+      <button
+        type="button"
+        onClick={() => router.navigate({ to: "/" })}
+        aria-label="Home"
+        className="pointer-events-auto fixed right-4 top-3 z-50 transition-transform hover:scale-105 active:scale-95"
+      >
+        <img src={palmLogo} alt="Pictaria home" className="h-9 w-auto opacity-90" />
+      </button>
+    </>
+  );
 }
 
 function RootComponent() {
@@ -202,7 +218,7 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <BackGuard />
-      <GlobalBackArrow />
+      <GlobalChrome />
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
 
