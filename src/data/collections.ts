@@ -376,7 +376,7 @@ export const collections: Collection[] = [
         id: "vision-10",
         title: "The Gallery",
         caption: "My art, my heart, in the hands of people on vacation",
-        image: amyGallerySelfie,
+        image: amyGallerySelfie.url,
         story: [
           "I would love for my gallery to be even more successful, and for my art to become a meaningful part of people's vacation. I want someone to pick up a piece I made and feel like they are taking a little piece of aloha home with them.",
         ],
