@@ -19,7 +19,12 @@ export function useGoBack() {
       const segments = path.split("/").filter(Boolean);
       if (segments.length > 1) {
         const parent = `/${segments.slice(0, -1).join("/")}`;
-        if (router.routesByPath?.[parent as never] !== undefined) {
+        // `/portal` immediately redirects to `/portal/new`, so using it as a
+        // fallback leaves the Project back button visibly doing nothing.
+        if (
+          parent !== "/portal" &&
+          router.routesByPath?.[parent as never] !== undefined
+        ) {
           router.navigate({ to: parent as never });
           return;
         }
@@ -32,7 +37,7 @@ export function useGoBack() {
       // If the location is unchanged shortly after, the history entry was a
       // sentinel (or blocked) — take the deterministic route instead.
       window.setTimeout(() => {
-        const now = router.state.location.pathname.replace(/\/+$/, "");
+        const now = window.location.pathname.replace(/\/+$/, "");
         if (now === path) fallback();
       }, 260);
       return;
