@@ -8,12 +8,9 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
-import { Sparkles } from "lucide-react";
 
 import appCss from "../styles.css?url";
 import { Toaster } from "@/components/ui/sonner";
-import { BottomBackButton } from "@/components/BottomBackButton";
-import { TopBackButton } from "@/components/TopBackButton";
 
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
@@ -184,16 +181,10 @@ function BackGuard() {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
-  const router = useRouter();
-  const isHome =
-    router.state.location.pathname.replace(/\/+$/, "") === "";
 
   return (
     <QueryClientProvider client={queryClient}>
       <BackGuard />
-      
-      {!isHome && <TopBackButton />}
-      {!isHome && <BottomBackButton />}
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
 

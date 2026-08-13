@@ -278,7 +278,7 @@ export const collections: Collection[] = [
     id: "vision-board",
     title: "Vision Board",
     tagline: "The life we are calling in, one peace at a time",
-    cover: visionSnorkeler,
+    cover: visionPuppies,
     free: true,
     puzzles: [
       {
@@ -322,6 +322,9 @@ export const collections: Collection[] = [
         title: "The Kitchen",
         caption: "Women cooking, laughing and sharing aloha",
         image: visionKitchen,
+        story: [
+          "I really want to have good healthy meals with good healthy friends that have a great sense of humor and love living our lives.",
+        ],
       },
       {
         id: "vision-08",
