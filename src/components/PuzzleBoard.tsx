@@ -1236,7 +1236,7 @@ export function PuzzleBoard({
       </div>
 
       {info ? (
-        <div className="z-20 min-h-0 flex-1 overflow-y-auto px-4 pb-14 text-center sm:px-5">
+        <div className="z-20 min-h-0 flex-1 overflow-y-auto px-4 pb-24 text-center sm:px-5">
           {info}
         </div>
       ) : null}
@@ -1244,7 +1244,7 @@ export function PuzzleBoard({
 
       {/* storybook invitation — carried on every branded Pictaria */}
       {!unbranded && (
-        <div className="z-20 shrink-0 px-2 pt-0 pb-1 sm:px-5 sm:pb-2">
+        <div className="z-20 mt-8 shrink-0 px-2 pb-1 sm:px-5 sm:pb-2">
           <div className="relative overflow-hidden rounded-[4px] border border-accent/60 bg-card p-1.5">
             <span
               aria-hidden
