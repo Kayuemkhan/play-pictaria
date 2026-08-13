@@ -107,7 +107,7 @@ export const islandLifeStories: Record<string, string[]> = {
     "Maui's leeward coast is dry and sunny because the mountains catch the trade-wind rain first — the same rain shadow that makes the windward valleys green keeps poolside afternoons cloudless.",
   ],
   "fsm-04": [
-    "Carrying the waʻa to the water is a shared job, and it is done in a certain order for a reason: the canoe is treated as a living member of the crew, not equipment.",
+    "In old Hawaiʻi, surfboards were shaped from solid koa or wiliwili and could weigh more than a grown person, so carrying one to the water was always a shared effort. Two friends walking a board down to the shore break is a small scene that carries a long history: Hawaiian women surfed as equals from the very beginning, with their own boards and their own breaks.",
   ],
   "fsm-05": [
     "Morning practice on the sand follows an old rhythm — Hawaiian warriors trained at dawn in lua, the traditional martial art, before the heat arrived. The barefoot instability of sand is part of the training.",

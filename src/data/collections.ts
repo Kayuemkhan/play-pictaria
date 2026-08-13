@@ -1263,8 +1263,8 @@ export const collections: Collection[] = [
       },
       {
         id: "fsm-04",
-        title: "Outrigger",
-        caption: "Carrying the canoe to the shore break",
+        title: "To the Break",
+        caption: "Carrying the board to the shore break",
         image: fsmCanoeGirls.url,
       },
     ],
