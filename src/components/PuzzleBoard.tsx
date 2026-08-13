@@ -934,17 +934,17 @@ export function PuzzleBoard({
   return (
     <div className="relative flex h-[100dvh] w-full flex-col overflow-hidden bg-mist-gradient">
       {/* Pictaria branding, centered over every branded puzzle */}
-      {!unbranded && (
-        <div className="relative z-20 flex shrink-0 items-center justify-center pt-1 pb-0.5">
-          <button
-            type="button"
-            onClick={onExit}
-            aria-label="Back"
-            className="absolute left-3 grid h-9 w-9 place-items-center text-accent/80 transition-transform hover:scale-105 active:scale-95 sm:left-5"
-          >
-            <ChevronLeft className="h-5 w-5" strokeWidth={1.5} />
-          </button>
+      <div className="relative z-20 flex shrink-0 items-center justify-center pt-1 pb-0.5">
+        <button
+          type="button"
+          onClick={onExit}
+          aria-label="Back"
+          className="absolute left-3 grid h-9 w-9 place-items-center text-accent/80 transition-transform hover:scale-105 active:scale-95 sm:left-5"
+        >
+          <ChevronLeft className="h-5 w-5" strokeWidth={1.5} />
+        </button>
 
+        {!unbranded && (
           <Link
             to="/"
             aria-label="Pictaria — turn pictures into play"
@@ -964,8 +964,8 @@ export function PuzzleBoard({
               Turn pictures into play
             </span>
           </Link>
-        </div>
-      )}
+        )}
+      </div>
 
 
       {/* top bar */}
@@ -1074,7 +1074,7 @@ export function PuzzleBoard({
           </button>
         )}
 
-        {onNextInSeries && (
+        {onNextInSeries && solved && congratsOut && (
           <button
             type="button"
             onClick={onNextInSeries}
