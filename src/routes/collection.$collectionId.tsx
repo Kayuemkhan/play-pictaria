@@ -60,9 +60,16 @@ function CollectionPage() {
     <main className="min-h-screen bg-mist-gradient px-4 pb-20 sm:px-6">
       <div className="mx-auto w-full max-w-4xl pt-8">
         <div className="text-center">
-          <p className="text-[11px] tracking-[0.3em] text-muted-foreground uppercase">
-            {`${collection.puzzles.length + archive.length} puzzles`}
-          </p>
+          {/* secret palms — tap to slip straight home */}
+          <Link to="/" aria-label="Home" className="inline-block">
+            <img
+              src={palmLogo}
+              alt=""
+              width={1024}
+              height={1024}
+              className="mx-auto h-9 w-auto transition-transform duration-500 ease-[var(--ease-calm)] hover:scale-105 active:scale-95"
+            />
+          </Link>
           <h1 className="mt-2 font-display text-4xl sm:text-5xl">
             {collection.title}
           </h1>
