@@ -207,6 +207,7 @@ import visionMillion from "@/assets/vision-million.jpg";
 import visionKitchen from "@/assets/vision-kitchen.jpg";
 import visionSurfer from "@/assets/vision-surfer.jpg";
 import visionPool from "@/assets/vision-pool.jpg";
+import amyGallerySelfie from "@/assets/amy-gallery-selfie.jpg.asset.json";
 
 
 import { natureStories } from "./stories-nature";
@@ -369,6 +370,15 @@ export const collections: Collection[] = [
         image: visionPool,
         story: [
           "I would love a beautiful backyard pool with plants all around it, a big floatie chair I can drift in, a shady umbrella and a table outside where friends can eat with me. I want a lovely wooden porch, good food, and long afternoons that nobody is in a hurry to end.",
+        ],
+      },
+      {
+        id: "vision-10",
+        title: "The Gallery",
+        caption: "My art, my heart, in the hands of people on vacation",
+        image: amyGallerySelfie.url,
+        story: [
+          "I would love for my gallery to be even more successful, and for my art to become a meaningful part of people's vacation. I want someone to pick up a piece I made and feel like they are taking a little piece of aloha home with them.",
         ],
       },
 
