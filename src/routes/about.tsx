@@ -60,21 +60,6 @@ function AboutPage() {
             Why travel to Pictaria everyday?
           </h1>
 
-          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Link
-              to="/collections"
-              className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-[0.65rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
-            >
-              Play a puzzle
-              <ArrowRight className="h-3.5 w-3.5" strokeWidth={2} />
-            </Link>
-            <Link
-              to="/create"
-              className="inline-flex items-center gap-2 rounded-full border border-accent/60 bg-deep/60 px-5 py-2.5 text-[0.65rem] tracking-[0.2em] text-shell uppercase backdrop-blur-sm transition-colors hover:bg-accent/15"
-            >
-              Create your own
-            </Link>
-          </div>
         </div>
       </section>
 
