@@ -1630,8 +1630,9 @@ const storyById: Record<string, string[]> = {
 
 for (const collection of collections) {
   for (const puzzle of collection.puzzles) {
-    if (!puzzle.story && storyById[puzzle.id]) {
-      puzzle.story = storyById[puzzle.id];
+    const story = storyById[puzzle.id];
+    if (!puzzle.story && story) {
+      puzzle.story = story;
     }
   }
 }
