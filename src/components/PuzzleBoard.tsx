@@ -1123,7 +1123,7 @@ export function PuzzleBoard({
             const isDragged = drag?.group === group;
             const isFloating = floating.includes(piece);
 
-            const seam = isLocked ? 12 : 0;
+            const seam = isLocked ? 2 : 0;
             return (
               <div
                 key={piece}
@@ -1138,18 +1138,17 @@ export function PuzzleBoard({
                   backgroundSize: `${bg.w}px ${bg.h}px`,
                   backgroundPosition: `${bg.x - pc * cellW + seam}px ${bg.y - pr * cellH + seam}px`,
                   backgroundRepeat: isLocked ? "no-repeat" : "repeat",
-                  imageRendering: isLocked ? "pixelated" : "auto",
                   borderRadius:
-                    isFloating && !inCluster ? 26 : isLocked || inCluster ? 0 : 26,
+                    isFloating && !inCluster ? 28 : isLocked || inCluster ? 0 : 28,
                   boxShadow: isDragged
-                    ? "0 14px 28px rgba(15,45,70,0.35), inset 0 0 0 4px rgba(255,255,255,0.85)"
+                    ? "0 14px 28px rgba(15,45,70,0.35), inset 0 0 0 5px rgba(255,255,255,0.85)"
                     : isFloating
                       ? inCluster
                         ? "0 10px 20px rgba(15,45,70,0.3)"
-                        : "0 10px 20px rgba(15,45,70,0.3), inset 0 0 0 4px rgba(255,255,255,0.7)"
+                        : "0 10px 20px rgba(15,45,70,0.3), inset 0 0 0 5px rgba(255,255,255,0.7)"
                       : isLocked || inCluster
                         ? "none"
-                        : "inset 0 0 0 4px rgba(255,255,255,0.8)",
+                        : "inset 0 0 0 5px rgba(255,255,255,0.8)",
                   transform: isDragged
                     ? `translate(${drag!.dx / scale}px, ${drag!.dy / scale}px) scale(1.006)`
                     : "scale(1)",
@@ -1163,6 +1162,7 @@ export function PuzzleBoard({
                 }}
               />
             );
+
 
           })}
 
