@@ -2,9 +2,9 @@ import { useRouter } from "@tanstack/react-router";
 import { ChevronLeft } from "lucide-react";
 
 /**
- * Shared back behaviour: prefer the router's own history stack (so we never
- * step outside the app or land on the home sentinel entry), otherwise walk up
- * one path segment, otherwise go home.
+ * Shared back behaviour: prefer the router's own history stack, but if going
+ * back doesn't actually change the page (sentinel entries, fresh loads,
+ * embedded previews), fall back to the parent path and finally home.
  */
 export function useGoBack() {
   const router = useRouter();
@@ -15,25 +15,30 @@ export function useGoBack() {
     // Already home — nothing to go back to.
     if (path === "") return;
 
+    const fallback = () => {
+      const segments = path.split("/").filter(Boolean);
+      if (segments.length > 1) {
+        const parent = `/${segments.slice(0, -1).join("/")}`;
+        if (router.routesByPath?.[parent as never] !== undefined) {
+          router.navigate({ to: parent as never });
+          return;
+        }
+      }
+      router.navigate({ to: "/" });
+    };
+
     if (router.history.canGoBack()) {
       router.history.back();
+      // If the location is unchanged shortly after, the history entry was a
+      // sentinel (or blocked) — take the deterministic route instead.
+      window.setTimeout(() => {
+        const now = router.state.location.pathname.replace(/\/+$/, "");
+        if (now === path) fallback();
+      }, 260);
       return;
     }
 
-    // Walk up one segment only when that parent path is a real route
-    // (e.g. /studio/brand has no /studio page — that would land on a blank
-    // not-found screen), otherwise go home.
-    const segments = path.split("/").filter(Boolean);
-    if (segments.length > 1) {
-      const parent = `/${segments.slice(0, -1).join("/")}`;
-      const exists = router.routesByPath?.[parent as never] !== undefined;
-      if (exists) {
-        router.navigate({ to: parent as never });
-        return;
-      }
-    }
-    router.navigate({ to: "/" });
-
+    fallback();
   };
 }
 
