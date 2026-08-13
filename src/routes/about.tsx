@@ -6,7 +6,7 @@ import eKomoMai from "@/assets/cat-08.jpg";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "Why travel to Pictaria everyday?" },
+      { title: "travel to Pictaria" },
       {
         name: "description",
         content:
@@ -14,7 +14,7 @@ export const Route = createFileRoute("/about")({
       },
       {
         property: "og:title",
-        content: "Why travel to Pictaria everyday?",
+        content: "travel to Pictaria",
       },
       {
         property: "og:description",
@@ -57,7 +57,7 @@ function AboutPage() {
             className="mx-auto h-32 w-auto rounded-[8px] drop-shadow-[0_4px_18px_oklch(0.15_0.04_230/0.65)] sm:h-40"
           />
           <h1 className="mt-6 font-display text-[1.6rem] leading-snug text-shell sm:text-[2rem]">
-            Why travel to Pictaria everyday?
+            travel to Pictaria
           </h1>
 
         </div>
