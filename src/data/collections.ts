@@ -285,7 +285,7 @@ export function isPuzzleOpenToVisitor(
 export const collections: Collection[] = [
   {
     id: "vision-board",
-    title: "Vision Board",
+    title: "Amy's vision board",
     tagline: "The life we are calling in, one peace at a time",
     cover: visionPuppies,
     free: true,
@@ -301,6 +301,9 @@ export const collections: Collection[] = [
         title: "The Van",
         caption: "Wood-paneled home on wheels above the ocean",
         image: visionVan,
+        story: [
+          "I would just love to have a little camping set up that looks like a little cabin on wheels with plenty of room to sleep and sit and play games and just really enjoy my life anytime I need to get away from everything. I would love for there to be an awesome place for Cocoa and I'd love for it to be solar paneled.",
+        ],
       },
       {
         id: "vision-03",
