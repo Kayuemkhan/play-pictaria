@@ -7,7 +7,7 @@ const config: CapacitorConfig = {
   // so every Lovable update ships instantly without a new store build.
   webDir: "dist",
   server: {
-    url: "https://memory-tile-maker.lovable.app",
+    url: "https://play-pictaria.lovable.app",
     cleartext: false,
   },
   ios: {
