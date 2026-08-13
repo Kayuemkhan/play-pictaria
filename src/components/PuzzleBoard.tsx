@@ -1274,7 +1274,7 @@ export function PuzzleBoard({
       {/* celebration — phase one: fine drifting sparkles and congratulations */}
       {solved && !linger && (
         <div
-          className="pointer-events-none absolute inset-0 z-30 overflow-hidden transition-opacity duration-[1300ms] ease-[var(--ease-calm)]"
+          className="pointer-events-none fixed inset-0 z-30 overflow-hidden transition-opacity duration-[1300ms] ease-[var(--ease-calm)]"
           style={{ opacity: congratsOut ? 0 : 1 }}
         >
           {/* fine drifting sparkles */}
@@ -1304,7 +1304,7 @@ export function PuzzleBoard({
 
       {/* celebration — phase two: the summary card, after a good long look */}
       {solved && showSummary && (
-        <div className="absolute inset-0 z-40 flex items-center justify-center overflow-hidden">
+        <div className="fixed inset-0 z-40 flex items-center justify-center overflow-hidden">
           {/* faded tropical island background */}
           <div className="absolute inset-0">
             <img
