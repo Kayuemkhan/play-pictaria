@@ -1293,6 +1293,32 @@ export const collections: Collection[] = [
           "Swimmers here often stop mid-stroke and simply hang in the water. There is nothing to reach for; the view has already arrived.",
         ],
       },
+      {
+        id: "fsm-09",
+        title: "The Missing Piece",
+        caption: "The resort's signature sparkling cocktail at golden hour",
+        image: fsmMissingPiece,
+        story: [
+          "Four Seasons Maui is famous for its Mai Tai, but the cocktail people talk about afterward is The Missing Piece — a sparkling, savory-sweet creation from the resort's mixology team, poured at the Lobby Lounge and at Ferraro's Bar e Ristorante down on the sand.",
+          "It leans on upcountry Maui: Kula strawberries picked on the slopes of Haleakalā, fresh basil, a whisper of aged balsamic, and Hawaiian-made Ocean Organic Vodka distilled from island sugarcane and deep seawater.",
+          "The balsamic is the trick. One teaspoon turns strawberry from candy into something grown-up — jammy, herbal, and just tart enough to keep pace with the bubbles and the sunset.",
+        ],
+        recipe:
+          "Muddle 3 ripe strawberries and 2 basil leaves with ½ oz simple syrup and 1 tsp aged balsamic glaze.\nAdd 1½ oz vodka and fill the shaker with ice.\nShake hard for 10–15 seconds until frosty.\nFine-strain into a chilled coupe or flute.\nTop with 3 oz brut sparkling wine or Prosecco.\nGarnish with a thin strawberry slice and a slapped basil leaf.",
+      },
+      {
+        id: "fsm-10",
+        title: "Poi Bread & Maui Onions",
+        caption: "DUO Steakhouse's purple taro rolls with caramelized sweet onions",
+        image: fsmPoiBread,
+        story: [
+          "At DUO, the resort's steakhouse, dinner begins with a small cast-iron skillet of warm rolls the color of orchids — the purple comes from poi, the pounded taro that has fed Hawaiian families for well over a thousand years.",
+          "On top go Maui onions, grown in the red dirt of Kula and so sweet that locals eat them raw like apples. Slow-cooked in butter and thyme, they turn to golden jam.",
+          "Alongside sits a quenelle of Surfing Goat Dairy chèvre whipped with butter and tarragon, finished with smoked sea salt — ancient staple and modern steakhouse, on one plate.",
+        ],
+        recipe:
+          "Make a sweet yeast roll dough, working 1 cup fresh poi into the wet ingredients for a deep violet crumb.\nShape into small rounds, nestle into a buttered cast-iron skillet, and let rise until puffy.\nThinly slice 2 large Maui sweet onions and cook slowly in butter with thyme until golden and jammy.\nPile the onions over the risen rolls.\nBake at 375°F for 20–25 minutes, until airy and the onion edges char.\nWhip 4 oz goat cheese with 4 tbsp soft butter and 1 tbsp chopped tarragon.\nServe the bread warm with the whipped cheese and a pinch of smoked sea salt.",
+      },
     ],
 
   },
