@@ -761,13 +761,27 @@ export function PuzzleBoard({
       const unitsX = dx / (cellW * scale);
       const unitsY = dy / (cellH * scale);
       const touchPointer = pointerType === "touch" || pointerType === "pen";
-      const tolerancePx = touchPointer ? 26 : 14;
-      const toleranceX = Math.min(0.48, tolerancePx / (cellW * scale));
-      const toleranceY = Math.min(0.48, tolerancePx / (cellH * scale));
+      /**
+       * Two forgiveness radii. The magnet radius is generous: if a drop is
+       * anywhere near a spot where the cluster would click onto its picture
+       * neighbour (or land home) it is pulled there. The settle radius stays
+       * tight so a tile never slides off to a far cell or hugs the board edge.
+       */
+      const magnetPx = touchPointer ? 52 : 34;
+      const settlePx = touchPointer ? 24 : 14;
+      const tol = (px: number) => ({
+        x: Math.min(0.72, px / (cellW * scale)),
+        y: Math.min(0.72, px / (cellH * scale)),
+      });
+      const magnet = tol(magnetPx);
+      const settle = tol(settlePx);
 
-      const isNear = (dCol: number, dRow: number) =>
-        Math.abs(dCol - unitsX) <= toleranceX &&
-        Math.abs(dRow - unitsY) <= toleranceY;
+      const isNear = (
+        dCol: number,
+        dRow: number,
+        t: { x: number; y: number } = magnet,
+      ) =>
+        Math.abs(dCol - unitsX) <= t.x && Math.abs(dRow - unitsY) <= t.y;
 
       const axis = (u: number) => {
         const out = new Set<number>([
@@ -793,6 +807,7 @@ export function PuzzleBoard({
       };
 
       for (const c of axis(unitsX)) for (const r of axis(unitsY)) addCandidate(c, r);
+
 
       const draggedPieces = groupOf
         .map((pieceGroup, piece) => (pieceGroup === group ? piece : -1))
@@ -863,18 +878,22 @@ export function PuzzleBoard({
         next.some((cell, piece) => cell === piece && pos[piece] !== piece);
 
       // 1 + 2: nearest landing that actually clicks something into place —
-      // only when the drop really is close to that landing spot
+      // generous magnet radius, so a near miss still locks
       for (const candidate of candidates) {
-        if (!isNear(candidate.dCol, candidate.dRow)) continue;
+        if (!isNear(candidate.dCol, candidate.dRow, magnet)) continue;
         const next = attemptMove(group, candidate.dCol, candidate.dRow);
         if (!next) continue;
         if (merges(next) || landsHome(next)) return candidate;
       }
 
-      // 3: nearest landing that is simply legal
+      // 3: settle on the cell under the finger, but only if the drop really is
+      // there — otherwise the cluster stays where it was instead of drifting to
+      // a far cell or sticking to the edge of the board.
       for (const candidate of candidates) {
+        if (!isNear(candidate.dCol, candidate.dRow, settle)) continue;
         if (attemptMove(group, candidate.dCol, candidate.dRow)) return candidate;
       }
+
 
       return null;
     },
@@ -1199,14 +1218,15 @@ export function PuzzleBoard({
                   borderRadius:
                     isFloating && !inCluster ? 28 : isLocked || inCluster ? 0 : 28,
                   boxShadow: isDragged
-                    ? "0 14px 28px rgba(15,45,70,0.35), inset 0 0 0 5px rgba(255,255,255,0.85)"
+                    ? "0 14px 28px rgba(15,45,70,0.35), inset 0 0 0 8px rgba(255,255,255,0.95)"
                     : isFloating
                       ? inCluster
                         ? "0 10px 20px rgba(15,45,70,0.3)"
-                        : "0 10px 20px rgba(15,45,70,0.3), inset 0 0 0 5px rgba(255,255,255,0.7)"
+                        : "0 10px 20px rgba(15,45,70,0.3), inset 0 0 0 8px rgba(255,255,255,0.85)"
                       : isLocked || inCluster
                         ? "none"
-                        : "inset 0 0 0 5px rgba(255,255,255,0.8)",
+                        : "inset 0 0 0 8px rgba(255,255,255,0.92)",
+
                   transform: isDragged
                     ? `translate(${drag!.dx / scale}px, ${drag!.dy / scale}px) scale(1.006)`
                     : "scale(1)",
