@@ -16,8 +16,6 @@ import {
 } from "lucide-react";
 
 
-import palmLogo from "@/assets/logo-palms-only.png";
-
 export const Route = createFileRoute("/pricing")({
   head: () => ({
     meta: [
@@ -154,26 +152,13 @@ const business = [
 function PricingPage() {
   return (
     <main className="min-h-dvh bg-background pb-16">
-      <header className="mx-auto flex w-full max-w-5xl items-center gap-3 px-4 pt-6 sm:px-8">
-        <div className="min-w-0">
-          <h1 className="font-display text-lg tracking-[0.2em] uppercase">
-            Pictaria Pricing
-          </h1>
-          <p className="text-[10px] tracking-[0.22em] text-muted-foreground uppercase">
-            Pictures say a thousand words
-          </p>
-        </div>
-        <img
-          src={palmLogo}
-          alt=""
-          aria-hidden
-          width={1024}
-          height={1024}
-          className="ml-auto h-12 w-12 shrink-0 rounded-none object-contain drop-shadow-[0_2px_8px_oklch(0.15_0.04_230/0.5)]"
-        />
+      <header className="mx-auto w-full max-w-5xl px-4 pt-8 text-center sm:px-8">
+        <h1 className="font-display text-lg tracking-[0.2em] uppercase">
+          Pictaria Pricing
+        </h1>
       </header>
 
-      <div className="mx-auto mt-6 w-full max-w-5xl px-4 sm:px-8">
+      <div className="mx-auto mt-10 w-full max-w-5xl px-4 sm:px-8">
 
         {/* free, every day */}
         <section className="mt-6">
@@ -188,6 +173,14 @@ function PricingPage() {
             beaches, and more. Play as many as you like, stay as long as you
             like, and come back whenever you need a little piece of paradise.
           </p>
+          <div className="mt-4 flex items-baseline gap-2">
+            <span className="font-display text-3xl tracking-[0.08em] text-foreground">
+              free
+            </span>
+            <span className="text-[0.7rem] tracking-[0.18em] text-muted-foreground uppercase">
+              / every day
+            </span>
+          </div>
           <div className="mt-4 grid gap-3 sm:grid-cols-2">
             <div className="flex gap-3 rounded-none border border-accent/50 bg-card/70 p-4">
               <Sparkles
