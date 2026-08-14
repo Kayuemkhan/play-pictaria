@@ -1268,16 +1268,16 @@ export function PuzzleBoard({
                       boxSizing: "border-box",
                       borderTop: joinedTop
                         ? "0 solid transparent"
-                        : "10px solid var(--piece-outline)",
+                        : "8px solid var(--piece-outline)",
                       borderRight: joinedRight
                         ? "0 solid transparent"
-                        : "10px solid var(--piece-outline)",
+                        : "8px solid var(--piece-outline)",
                       borderBottom: joinedBottom
                         ? "0 solid transparent"
-                        : "10px solid var(--piece-outline)",
+                        : "8px solid var(--piece-outline)",
                       borderLeft: joinedLeft
                         ? "0 solid transparent"
-                        : "10px solid var(--piece-outline)",
+                        : "8px solid var(--piece-outline)",
                       borderRadius: inCluster ? 0 : 28,
                     }}
                   />
