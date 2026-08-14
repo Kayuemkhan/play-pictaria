@@ -6,7 +6,7 @@ import eKomoMai from "@/assets/cat-08.jpg";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "travel to Pictaria" },
+      { title: "Travel to Pictaria" },
       {
         name: "description",
         content:
@@ -14,7 +14,7 @@ export const Route = createFileRoute("/about")({
       },
       {
         property: "og:title",
-        content: "travel to Pictaria",
+        content: "Travel to Pictaria",
       },
       {
         property: "og:description",
@@ -57,7 +57,7 @@ function AboutPage() {
             className="mx-auto h-32 w-auto rounded-[8px] drop-shadow-[0_4px_18px_oklch(0.15_0.04_230/0.65)] sm:h-40"
           />
           <h1 className="mt-6 font-display text-[1.6rem] leading-snug text-shell sm:text-[2rem]">
-            travel to Pictaria
+            Travel to Pictaria
           </h1>
 
         </div>
@@ -100,6 +100,9 @@ function AboutPage() {
             </p>
             <p className="mx-auto mt-4 max-w-xl text-[0.9rem] leading-relaxed text-shell/80">
               Years ago, when I had almost no money, I put a beautiful Maui property on my vision board. Within a year, an unexpected opportunity appeared, and I acquired that very property. I've been making vision boards ever since.
+            </p>
+            <p className="mx-auto mt-4 max-w-xl text-[0.9rem] leading-relaxed text-shell/80">
+              And I have been a believer in vision boards and living in my dream home in Maui ever since.
             </p>
           </div>
         </div>
