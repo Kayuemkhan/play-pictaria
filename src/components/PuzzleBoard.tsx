@@ -761,13 +761,27 @@ export function PuzzleBoard({
       const unitsX = dx / (cellW * scale);
       const unitsY = dy / (cellH * scale);
       const touchPointer = pointerType === "touch" || pointerType === "pen";
-      const tolerancePx = touchPointer ? 26 : 14;
-      const toleranceX = Math.min(0.48, tolerancePx / (cellW * scale));
-      const toleranceY = Math.min(0.48, tolerancePx / (cellH * scale));
+      /**
+       * Two forgiveness radii. The magnet radius is generous: if a drop is
+       * anywhere near a spot where the cluster would click onto its picture
+       * neighbour (or land home) it is pulled there. The settle radius stays
+       * tight so a tile never slides off to a far cell or hugs the board edge.
+       */
+      const magnetPx = touchPointer ? 52 : 34;
+      const settlePx = touchPointer ? 24 : 14;
+      const tol = (px: number) => ({
+        x: Math.min(0.72, px / (cellW * scale)),
+        y: Math.min(0.72, px / (cellH * scale)),
+      });
+      const magnet = tol(magnetPx);
+      const settle = tol(settlePx);
 
-      const isNear = (dCol: number, dRow: number) =>
-        Math.abs(dCol - unitsX) <= toleranceX &&
-        Math.abs(dRow - unitsY) <= toleranceY;
+      const isNear = (
+        dCol: number,
+        dRow: number,
+        t: { x: number; y: number } = magnet,
+      ) =>
+        Math.abs(dCol - unitsX) <= t.x && Math.abs(dRow - unitsY) <= t.y;
 
       const axis = (u: number) => {
         const out = new Set<number>([
@@ -793,6 +807,7 @@ export function PuzzleBoard({
       };
 
       for (const c of axis(unitsX)) for (const r of axis(unitsY)) addCandidate(c, r);
+
 
       const draggedPieces = groupOf
         .map((pieceGroup, piece) => (pieceGroup === group ? piece : -1))
