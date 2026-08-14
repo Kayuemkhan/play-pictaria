@@ -1227,7 +1227,7 @@ export function PuzzleBoard({
             const joinedBottom = joinedAt(row + 1, col);
             const joinedLeft = joinedAt(row, col - 1);
 
-            const seam = isLocked ? 2 : 0;
+            const seam = isLocked || inCluster ? 2 : 0;
             return (
               <div
                 key={piece}
