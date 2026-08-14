@@ -710,13 +710,16 @@ export function PuzzleBoard({
       const maxCol = Math.max(...cols);
       const minRow = Math.min(...rows);
       const maxRow = Math.max(...rows);
-      const gutter = 24;
-      const minDx = gutter - (offX + minCol * cellW * scale);
+      // Let a dragged cluster travel a little past the board edge so it never
+      // feels pinned or "stuck" to the sides while the finger keeps moving.
+      const slack = Math.min(cellW, cellH) * scale * 0.85;
+      const minDx = -slack - (offX + minCol * cellW * scale);
       const maxDx =
-        size.w - gutter - (offX + (maxCol + 1) * cellW * scale);
-      const minDy = gutter - (offY + minRow * cellH * scale);
+        size.w + slack - (offX + (maxCol + 1) * cellW * scale);
+      const minDy = -slack - (offY + minRow * cellH * scale);
       const maxDy =
-        size.h - gutter - (offY + (maxRow + 1) * cellH * scale);
+        size.h + slack - (offY + (maxRow + 1) * cellH * scale);
+
 
       return {
         dx: Math.max(minDx, Math.min(maxDx, dx)),
@@ -1194,22 +1197,8 @@ export function PuzzleBoard({
               transform: `translate(${offX}px, ${offY}px) scale(${scale})`,
             }}
           >
-          {/* faint grayed-out reference image behind the tiles */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute top-0 left-0 z-0 origin-top-left"
-            style={{
-              width: WORLD_W,
-              height: worldH,
-              backgroundImage: `url(${src})`,
-              backgroundSize: `${bg.w}px ${bg.h}px`,
-              backgroundPosition: `${bg.x}px ${bg.y}px`,
-              filter: "grayscale(100%)",
-              opacity: solved ? 0 : 0.28,
-              borderRadius: showReference ? 0 : 18,
-              transition: "opacity 700ms var(--ease-calm)",
-            }}
-          />
+
+
 
           {pos.map((cell, piece) => {
             const row = Math.floor(cell / grid);
