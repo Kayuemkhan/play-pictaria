@@ -1194,6 +1194,23 @@ export function PuzzleBoard({
               transform: `translate(${offX}px, ${offY}px) scale(${scale})`,
             }}
           >
+          {/* faint grayed-out reference image behind the tiles */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute top-0 left-0 z-0 origin-top-left"
+            style={{
+              width: WORLD_W,
+              height: worldH,
+              backgroundImage: `url(${src})`,
+              backgroundSize: `${bg.w}px ${bg.h}px`,
+              backgroundPosition: `${bg.x}px ${bg.y}px`,
+              filter: "grayscale(100%)",
+              opacity: solved ? 0 : 0.28,
+              borderRadius: showReference ? 0 : 18,
+              transition: "opacity 700ms var(--ease-calm)",
+            }}
+          />
+
           {pos.map((cell, piece) => {
             const row = Math.floor(cell / grid);
             const col = cell % grid;
