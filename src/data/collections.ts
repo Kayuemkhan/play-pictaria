@@ -213,6 +213,16 @@ import beach07 from "@/assets/beach-07.jpg";
 import beach08 from "@/assets/beach-08.jpg";
 import beach09 from "@/assets/beach-09.jpg";
 import beach10 from "@/assets/beach-10.jpg";
+import dog01 from "@/assets/dog-01.jpg";
+import dog02 from "@/assets/dog-02.jpg";
+import dog03 from "@/assets/dog-03.jpg";
+import dog04 from "@/assets/dog-04.jpg";
+import dog05 from "@/assets/dog-05.jpg";
+import dog06 from "@/assets/dog-06.jpg";
+import dog07 from "@/assets/dog-07.jpg";
+import dog08 from "@/assets/dog-08.jpg";
+import dog09 from "@/assets/dog-09.jpg";
+import dog10 from "@/assets/dog-10.jpg";
 import visionPuppies from "@/assets/vision-puppies.jpg";
 import visionVan from "@/assets/vision-van.jpg";
 import visionGarden from "@/assets/vision-garden.jpg";
@@ -475,6 +485,125 @@ export const collections: Collection[] = [
         meaning: "“Cruel sun”",
         caption: "Glassy shallows and coconut palms",
         image: beach10,
+      },
+    ],
+  },
+  {
+    id: "island-dogs",
+    title: "Island Dogs",
+    tagline: "Ten island pups, from beach to jungle",
+    cover: dog01,
+    free: true,
+    puzzles: [
+      {
+        id: "dog-01",
+        title: "ʻĪlio Pua",
+        meaning: "“Flower pup”",
+        caption: "A golden puppy on the morning sand",
+        image: dog01,
+        story: [
+          "He is barely old enough to know what the ocean is, and already it is his favorite thing. Every wave that slides up the sand gets a fresh round of barking, as if it might be talked into staying.",
+          "Island dogs learn early that the beach belongs to everyone. Shade under a palm, a rinse in the shallows, a nap in warm sand — the whole day is one long invitation.",
+        ],
+      },
+      {
+        id: "dog-02",
+        title: "Niu Nui",
+        meaning: "“Big coconut”",
+        caption: "A young lab and his prize",
+        image: dog02,
+        story: [
+          "No toy on the island beats a fallen coconut. It rolls, it thumps, it smells like the whole tree, and it never gives up without a fight.",
+          "He carried this one all the way down the beach and settled in the palm shade to work on it, husk flying, tail going the entire time.",
+        ],
+      },
+      {
+        id: "dog-03",
+        title: "Pāʻani",
+        meaning: "“Play”",
+        caption: "Two friends wrestling in the shallows",
+        image: dog03,
+        story: [
+          "This is what play looks like when nobody is keeping score — all teeth and no bite, all splash and no grudge. They will do it again in five minutes, and again after that.",
+          "Behind them the green cliffs hold the morning clouds, and the water is exactly warm enough that nobody has any reason to get out.",
+        ],
+      },
+      {
+        id: "dog-04",
+        title: "Nahele Keiki",
+        meaning: "“Child of the forest”",
+        caption: "A puppy in the ferns and monstera",
+        image: dog04,
+        story: [
+          "The jungle side of the island is cooler, wetter and full of things worth sniffing. Ferns brush past his ears, ti leaves glow red, and the valley behind him disappears into mist.",
+          "He is small enough that a single monstera leaf could shelter him, and brave enough to sit right out front anyway.",
+        ],
+      },
+      {
+        id: "dog-05",
+        title: "Lei Aloha",
+        meaning: "“Garland of love”",
+        caption: "Plumeria on a very patient pup",
+        image: dog05,
+        story: [
+          "Someone slipped a plumeria lei over his head and he has decided to allow it, mostly because the lanai boards are warm and the breeze smells sweet.",
+          "In Hawaiʻi a lei is given for arrivals, celebrations and pure affection. This one is clearly the third kind.",
+        ],
+      },
+      {
+        id: "dog-06",
+        title: "Wailele",
+        meaning: "“Waterfall”",
+        caption: "A jungle scout at the falls",
+        image: dog06,
+        story: [
+          "He knows this trail better than most people do — where the rocks stay slick, where the heliconia leans over the path, where the pool is deep enough to swim.",
+          "Standing on the wet stone with the falls behind him, he looks less like a pet and more like the guide he actually is.",
+        ],
+      },
+      {
+        id: "dog-07",
+        title: "Hoʻokele",
+        meaning: "“One who navigates”",
+        caption: "Splashing through the tide pools",
+        image: dog07,
+        story: [
+          "Lava rock, warm shallow water and small darting fish: the tide pools are a whole world at puppy scale, and he is running through the middle of it.",
+          "Behind him the pali rise green and steep, and the palms lean out over the shoreline the way they have for generations.",
+        ],
+      },
+      {
+        id: "dog-08",
+        title: "Hoʻomaha",
+        meaning: "“Rest”",
+        caption: "Asleep in the garden shade",
+        image: dog08,
+        story: [
+          "Island afternoons ask very little of anyone. He found the coolest patch of grass under the monstera, turned around twice, and gave in.",
+          "Hibiscus above him, plumeria petals in the grass beside him, and nothing at all on the schedule until the sun moves.",
+        ],
+      },
+      {
+        id: "dog-09",
+        title: "Nāpō Ahiahi",
+        meaning: "“Evening light”",
+        caption: "A sunset run through the shallows",
+        image: dog09,
+        story: [
+          "Every dog on this island has one favorite hour, and this is it — when the water goes gold, the sand cools off and the whole shoreline turns loose.",
+          "He runs straight down the edge of the water with the sun going down behind him, spraying light in every direction.",
+        ],
+      },
+      {
+        id: "dog-10",
+        title: "ʻOhana",
+        meaning: "“Family”",
+        caption: "Three breeds, one beach, one sunset",
+        image: dog10,
+        story: [
+          "A dachshund, a beagle and a scruffy terrier mix, none of them related and all of them family. On the islands ʻohana has never been about matching.",
+          "They sat down together for exactly as long as the sunset lasted, then went right back to chasing each other down the sand.",
+        ],
       },
     ],
   },
