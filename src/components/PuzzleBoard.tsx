@@ -574,8 +574,51 @@ export function PuzzleBoard({
     dragStart.current = null;
 
     let current = [...pos];
-    let index = 0;
     const identity = () => Array.from({ length: total }, (_, i) => i);
+
+    /**
+     * Human-ish solve order: start a clump somewhere, grow it outward through
+     * neighbours (with a little wandering), then abandon it and start a fresh
+     * clump elsewhere — instead of marching 1,2,3,4 top to bottom.
+     */
+    const buildOrder = () => {
+      const remaining = new Set<number>();
+      for (let i = 0; i < total; i++) if (current[i] !== i) remaining.add(i);
+      const order: number[] = [];
+      const neighbours = (p: number) => {
+        const r = Math.floor(p / grid);
+        const c = p % grid;
+        const out: number[] = [];
+        if (r > 0) out.push(p - grid);
+        if (r < grid - 1) out.push(p + grid);
+        if (c > 0) out.push(p - 1);
+        if (c < grid - 1) out.push(p + 1);
+        return out;
+      };
+      const pick = <T,>(arr: T[]) => arr[Math.floor(Math.random() * arr.length)]!;
+
+      while (remaining.size) {
+        // seed a new clump somewhere random
+        let frontier = [pick([...remaining])];
+        // clumps run 2–5 pieces before attention wanders elsewhere
+        let budget = 2 + Math.floor(Math.random() * 4);
+        while (frontier.length && budget > 0 && remaining.size) {
+          const idx = Math.floor(Math.random() * frontier.length);
+          const p = frontier.splice(idx, 1)[0]!;
+          if (!remaining.has(p)) continue;
+          remaining.delete(p);
+          order.push(p);
+          budget--;
+          for (const n of neighbours(p)) {
+            if (remaining.has(n) && !frontier.includes(n)) frontier.push(n);
+          }
+        }
+      }
+      return order;
+    };
+
+    let queue = buildOrder();
+    let qi = 0;
 
     const finish = () => {
       autoRef.current = false;
@@ -586,10 +629,17 @@ export function PuzzleBoard({
 
     const step = () => {
       if (!autoRef.current) return;
-      while (index < current.length && current[index] === index) index++;
-      if (index >= current.length) return finish();
+      while (qi < queue.length && current[queue[qi]!] === queue[qi]) qi++;
+      if (qi >= queue.length) {
+        // anything left over (shouldn't normally happen) gets a fresh pass
+        if (current.some((cell, p) => cell !== p)) {
+          queue = buildOrder();
+          qi = 0;
+          if (!queue.length) return finish();
+        } else return finish();
+      }
 
-      const piece = index;
+      const piece = queue[qi]!;
       const other = current.indexOf(piece);
       const from = current[piece]!;
       const next = [...current];
@@ -608,11 +658,19 @@ export function PuzzleBoard({
         window.setTimeout(finish, 520);
         return;
       }
-      window.setTimeout(step, 620);
+      // uneven, human rhythm: quick within a clump, a beat before a new one
+      const newClump = qi + 1 < queue.length && (() => {
+        const nxt = queue[qi + 1]!;
+        const r1 = Math.floor(piece / grid), c1 = piece % grid;
+        const r2 = Math.floor(nxt / grid), c2 = nxt % grid;
+        return Math.abs(r1 - r2) + Math.abs(c1 - c2) > 1;
+      })();
+      window.setTimeout(step, (newClump ? 780 : 480) + Math.random() * 220);
     };
 
     window.setTimeout(step, 220);
-  }, [pos, solved, total, mergePass]);
+  }, [pos, solved, total, grid, mergePass]);
+
 
   const onPointerDown = (e: React.PointerEvent) => {
     if (solved || autoRunning) return;
