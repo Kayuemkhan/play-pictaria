@@ -32,6 +32,21 @@ import flowerOrchid from "@/assets/flower-orchid.jpg";
 import flowerBougainvillea from "@/assets/flower-bougainvillea.jpg";
 import flowerPassionflower from "@/assets/flower-passionflower.jpg";
 import flowerOhiaLehua from "@/assets/flower-ohia-lehua.jpg";
+import flowerNaupaka from "@/assets/flower-naupaka.jpg";
+import flowerPuakenikeni from "@/assets/flower-puakenikeni.jpg";
+import flowerGardenia from "@/assets/flower-gardenia.jpg";
+import flowerPikake from "@/assets/flower-pikake.jpg";
+import flowerIlima from "@/assets/flower-ilima.jpg";
+import flowerSilversword from "@/assets/flower-silversword.jpg";
+import flowerMamane from "@/assets/flower-mamane.jpg";
+import flowerWhiteHibiscus from "@/assets/flower-white-hibiscus.jpg";
+import flowerShampooGinger from "@/assets/flower-shampoo-ginger.jpg";
+import flowerWhiteGinger from "@/assets/flower-white-ginger.jpg";
+import flowerProtea from "@/assets/flower-protea.jpg";
+import flowerLokelani from "@/assets/flower-lokelani.jpg";
+import flowerCrownFlower from "@/assets/flower-crown-flower.jpg";
+import flowerJadeVine from "@/assets/flower-jade-vine.jpg";
+import flowerNightCereus from "@/assets/flower-night-cereus.jpg";
 import lei01 from "@/assets/lei-01.jpg";
 import lei02 from "@/assets/lei-02.jpg";
 import lei03 from "@/assets/lei-03.jpg";
@@ -466,7 +481,7 @@ export const collections: Collection[] = [
   {
     id: "hawaiian-flowers",
     title: "Hawaiian Flowers",
-    tagline: "Eleven island blooms in full color",
+    tagline: "Twenty-six island blooms in full color",
     cover: flowerPlumeria,
     free: true,
     puzzles: [
@@ -602,6 +617,187 @@ export const collections: Collection[] = [
         ],
         image: flowerOhiaLehua,
       },
+      {
+        id: "flower-12",
+        title: "Naupaka",
+        meaning: "“Naupaka” — the half flower of the shore",
+        caption: "White half-blooms above the surf",
+        story: [
+          "Naupaka grows where almost nothing else will — in salt spray, on hot sand, right at the edge of the water. Its small white blossoms look torn in half, as though someone pulled away one side and walked off with it.",
+          "The legend says two lovers were separated, one sent to the mountains and one to the sea. The mountain naupaka and the beach naupaka each keep half a flower, and only together do they make a whole bloom.",
+          "The plant is a quiet hero of the coastline, holding dunes in place against the wind. Take your time with this one and notice how the leaves shine — that waxy coat is what lets it drink the sun and shrug off the salt.",
+        ],
+        image: flowerNaupaka,
+      },
+      {
+        id: "flower-13",
+        title: "Puakenikeni",
+        meaning: "“Pua kenikeni” — the ten-cent flower",
+        caption: "Cream trumpets warming to gold",
+        story: [
+          "Puakenikeni opens creamy white, deepens to butter yellow, then turns a rich apricot orange before it falls — three colors from a single blossom over three days.",
+          "The name means ten-cent flower, from the days when a single bloom sold for a dime at the lei stands because its perfume was worth the price. One flower can scent an entire room.",
+          "It is a lei flower of honor, strung for graduations and weddings and anyone being celebrated. The fragrance peaks in the evening, which is why the trees seem to wake up just as the day is ending.",
+        ],
+        image: flowerPuakenikeni,
+      },
+      {
+        id: "flower-14",
+        title: "Naʻu",
+        meaning: "“Naʻu” — the rare native Hawaiian gardenia",
+        caption: "White petals in green shade",
+        story: [
+          "Naʻu is Hawaiʻi's own gardenia, and it is genuinely rare — fewer than a hundred wild trees are known. What you usually smell in island gardens is its imported cousin, generous with perfume and easy to grow.",
+          "The flower opens pure white and ages to soft cream, and its scent is heavy and sweet, the kind that stops people mid-sentence. The fruit yields a yellow dye once used for kapa cloth.",
+          "There is something restful about a white flower against dark leaves. No competition, no noise — just the shape of it, and the light finding the edge of each petal.",
+        ],
+        image: flowerGardenia,
+      },
+      {
+        id: "flower-15",
+        title: "Pīkake",
+        meaning: "“Pīkake” — peacock, Princess Kaʻiulani’s jasmine",
+        caption: "Tiny jasmine stars and buds",
+        story: [
+          "Pīkake is Arabian jasmine, and the Hawaiian name means peacock. Princess Kaʻiulani kept both peacocks and this jasmine in her Waikīkī garden, and the name of one became the name of the other.",
+          "The buds are picked closed and strung tight, so the lei opens slowly on the wearer through the evening, releasing its scent a little at a time.",
+          "A pīkake lei is the lei of romance and of hula dancers. It is a small flower doing an enormous amount of work — proof that presence has nothing to do with size.",
+        ],
+        image: flowerPikake,
+      },
+      {
+        id: "flower-16",
+        title: "ʻIlima",
+        meaning: "“ʻIlima” — the royal flower of Oʻahu",
+        caption: "Papery gold on a coastal hillside",
+        story: [
+          "ʻIlima blossoms are thin as tissue and no bigger than a coin, and it takes somewhere between five hundred and a thousand of them to make a single lei.",
+          "That effort is exactly why the lei ʻilima was reserved for aliʻi, Hawaiian royalty. To give one was to give hours of quiet, patient work along with the flower.",
+          "It is the island flower of Oʻahu and one of the toughest native plants there is, blooming happily on dry, windy coastal ground where the soil is mostly rock and salt.",
+        ],
+        image: flowerIlima,
+      },
+      {
+        id: "flower-17",
+        title: "ʻĀhinahina",
+        meaning: "“ʻĀhinahina” — the silversword of Haleakalā",
+        caption: "A silver rosette in bloom on the crater",
+        story: [
+          "The Haleakalā silversword grows only on this one mountain, nowhere else on earth. Its silver hairs reflect the fierce high-altitude sun and trap warmth through freezing nights.",
+          "It spends decades as a low silver rosette, then sends up a single flowering spike taller than a person, hundreds of maroon blossoms at once — and then it dies. One bloom, one lifetime.",
+          "Seeing one flowering above the clouds is a matter of luck and timing. It is a good reminder that some things are worth waiting years for, and worth doing only once, completely.",
+        ],
+        image: flowerSilversword,
+      },
+      {
+        id: "flower-18",
+        title: "Māmane",
+        meaning: "“Māmane” — golden blossoms of the high forest",
+        caption: "Yellow clusters in upland light",
+        story: [
+          "Māmane is a native Hawaiian tree of the high slopes, hung with clusters of bright yellow pea-shaped flowers. Its wood is dense and was used for tools, posts, and canoe parts.",
+          "The endangered palila bird depends almost entirely on māmane seed pods to survive. Where the māmane forest goes, the palila goes with it — one of the tightest partnerships in the islands.",
+          "It is a subtle beauty, easy to drive past. But in the thin upland air, with the light coming sideways, a māmane in full flower looks lit from inside.",
+        ],
+        image: flowerMamane,
+      },
+      {
+        id: "flower-19",
+        title: "Kokiʻo Keʻokeʻo",
+        meaning: "“Kokiʻo keʻokeʻo” — the white native hibiscus",
+        caption: "Pure white petals in forest shade",
+        story: [
+          "Kokiʻo keʻokeʻo is one of the very few hibiscus in the world with a fragrance, and it is native to Hawaiʻi. The scent is light and clean, easy to miss unless you lean in.",
+          "The white petals fold like fabric around a long slender column of stamens, and the whole flower lasts a single day before letting go.",
+          "Several native Hawaiian hibiscus are endangered, kept alive in botanical gardens and restoration plantings. This bloom is a small argument for protecting what only grows in one place.",
+        ],
+        image: flowerWhiteHibiscus,
+      },
+      {
+        id: "flower-20",
+        title: "ʻAwapuhi",
+        meaning: "“ʻAwapuhi kuahiwi” — the shampoo ginger",
+        caption: "A scarlet cone in the rainforest",
+        story: [
+          "Squeeze the red cone of ʻawapuhi and clear, fragrant liquid runs out. Hawaiians used it as shampoo and conditioner, and it still works — slippery, sweet-smelling, and completely free.",
+          "The cone is not the flower. It is a cluster of bracts holding water, with small pale yellow blossoms emerging a few at a time from between the scales.",
+          "Brought to the islands by early Polynesian voyagers, ʻawapuhi now grows wild in wet valleys. Rainforest plants like this one were the original medicine cabinet, and the original apothecary.",
+        ],
+        image: flowerShampooGinger,
+      },
+      {
+        id: "flower-21",
+        title: "White Ginger",
+        meaning: "“ʻAwapuhi keʻokeʻo” — butterfly ginger of the valleys",
+        caption: "Fragrant white blooms above the mist",
+        story: [
+          "White ginger is sometimes called butterfly ginger, because each blossom looks like a white moth resting on the stalk with its wings half open.",
+          "Its perfume is one of the great smells of Hawaiʻi, strongest in the evening and after rain, drifting out of wet valleys long before you find the plant.",
+          "The blossoms are strung into some of the most fragrant leis made, though they bruise easily and must be worn the same day. Some beautiful things simply refuse to be saved for later.",
+        ],
+        image: flowerWhiteGinger,
+      },
+      {
+        id: "flower-22",
+        title: "King Protea",
+        meaning: "“Pua aliʻi” — the upcountry crown",
+        caption: "A pink crown on the slopes of Haleakalā",
+        story: [
+          "Protea are not native to Hawaiʻi, but the cool volcanic slopes of upcountry Maui suit them so perfectly that Kula has become one of the world's finest growing regions for them.",
+          "The king protea is enormous — a bloom can span the width of two hands — and it is really hundreds of tiny flowers packed into a silky dome, ringed by pointed pink bracts like a crown.",
+          "They dry beautifully, holding their shape and color for years, which is why upcountry farmers ship them all over the world. A flower that keeps its dignity long after the season is over.",
+        ],
+        image: flowerProtea,
+      },
+      {
+        id: "flower-23",
+        title: "Lokelani",
+        meaning: "“Lokelani” — the heavenly rose of Maui",
+        caption: "A small pink rose beaded with dew",
+        story: [
+          "Lokelani is the island flower of Maui and the only non-native flower to hold that honor. It is a small pink damask rose, brought to the islands in the 1800s and taken to heart ever since.",
+          "The name means heavenly rose. Layer after layer of deep pink petals wrap around a center you can barely see, and the fragrance is old-fashioned and unmistakable.",
+          "It grows best in the cool air upcountry, in gardens tended for generations. Maui claimed a rose, and the rose seems to have agreed to the arrangement.",
+        ],
+        image: flowerLokelani,
+      },
+      {
+        id: "flower-24",
+        title: "Crown Flower",
+        meaning: "“Pua kalaunu” — Queen Liliʻuokalani’s favorite",
+        caption: "Lavender stars on silver leaves",
+        story: [
+          "Crown flower blossoms look like tiny lavender crowns, each with a raised center ringed by five pale petals. Queen Liliʻuokalani loved them, and they have carried a royal association ever since.",
+          "The plant is a giant milkweed, which makes it the nursery of the monarch butterfly in Hawaiʻi. Where you find crown flower, you find monarchs circling.",
+          "Strung into a lei, the blossoms hold their shape and their soft color for days. It is one of the most patient lei flowers there is — and one of the most generous to the butterflies.",
+        ],
+        image: flowerCrownFlower,
+      },
+      {
+        id: "flower-25",
+        title: "Jade Vine",
+        meaning: "“Pua ʻōmaʻomaʻo” — the impossible turquoise bloom",
+        caption: "Turquoise claws hanging in the shade",
+        story: [
+          "The jade vine's color barely looks real — a luminous turquoise that appears almost nowhere else in nature. The pigment works with the flower's structure to bounce blue-green light back at you.",
+          "The blossoms hang in long chandeliers from a woody vine, each one shaped like a curved claw. In its native Philippine forests, bats hang upside down to drink from them and pollinate as they go.",
+          "The species is endangered in the wild as those forests disappear. In Hawaiʻi's botanical gardens it thrives, stopping visitors mid-path with a color they don't quite believe.",
+        ],
+        image: flowerJadeVine,
+      },
+      {
+        id: "flower-26",
+        title: "Night-Blooming Cereus",
+        meaning: "“Pānini o ka puna” — the flower of one night",
+        caption: "A white bloom open under the moon",
+        story: [
+          "Night-blooming cereus opens after dark and is finished by morning. A single flower gets one night, and it spends it wide open, huge and white and pouring out perfume.",
+          "It grows out of stone walls in the driest, most unlikely places — a sprawling cactus that looks like nothing at all for most of the year, then blooms by the hundreds on the same summer night.",
+          "People used to drive out just to see the walls in flower under the moon. A whole community showing up for something that would not last until sunrise.",
+        ],
+        image: flowerNightCereus,
+      },
+
 
     ],
   },
