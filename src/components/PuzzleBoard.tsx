@@ -1227,7 +1227,7 @@ export function PuzzleBoard({
             const joinedBottom = joinedAt(row + 1, col);
             const joinedLeft = joinedAt(row, col - 1);
 
-            const seam = isLocked ? 2 : 0;
+            const seam = isLocked || inCluster ? 2 : 0;
             return (
               <div
                 key={piece}
@@ -1241,7 +1241,7 @@ export function PuzzleBoard({
                   backgroundImage: `url(${src})`,
                   backgroundSize: `${bg.w}px ${bg.h}px`,
                   backgroundPosition: `${bg.x - pc * cellW + seam}px ${bg.y - pr * cellH + seam}px`,
-                  backgroundRepeat: isLocked ? "no-repeat" : "repeat",
+                  backgroundRepeat: seam > 0 ? "no-repeat" : "repeat",
                   borderRadius:
                     isFloating && !inCluster ? 28 : isLocked || inCluster ? 0 : 28,
                   boxShadow: isDragged
