@@ -1218,14 +1218,15 @@ export function PuzzleBoard({
                   borderRadius:
                     isFloating && !inCluster ? 28 : isLocked || inCluster ? 0 : 28,
                   boxShadow: isDragged
-                    ? "0 14px 28px rgba(15,45,70,0.35), inset 0 0 0 5px rgba(255,255,255,0.85)"
+                    ? "0 14px 28px rgba(15,45,70,0.35), inset 0 0 0 8px rgba(255,255,255,0.95)"
                     : isFloating
                       ? inCluster
                         ? "0 10px 20px rgba(15,45,70,0.3)"
-                        : "0 10px 20px rgba(15,45,70,0.3), inset 0 0 0 5px rgba(255,255,255,0.7)"
+                        : "0 10px 20px rgba(15,45,70,0.3), inset 0 0 0 8px rgba(255,255,255,0.85)"
                       : isLocked || inCluster
                         ? "none"
-                        : "inset 0 0 0 5px rgba(255,255,255,0.8)",
+                        : "inset 0 0 0 8px rgba(255,255,255,0.92)",
+
                   transform: isDragged
                     ? `translate(${drag!.dx / scale}px, ${drag!.dy / scale}px) scale(1.006)`
                     : "scale(1)",
