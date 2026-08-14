@@ -20,6 +20,7 @@ import { Route as LaunchRouteImport } from './routes/launch'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as MindfulnessRouteImport } from './routes/mindfulness'
 import { Route as PricingRouteImport } from './routes/pricing'
+import { Route as ShareRouteImport } from './routes/share'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as CollectionCollectionIdRouteImport } from './routes/collection.$collectionId'
@@ -91,6 +92,11 @@ const MindfulnessRoute = MindfulnessRouteImport.update({
 const PricingRoute = PricingRouteImport.update({
   id: '/pricing',
   path: '/pricing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ShareRoute = ShareRouteImport.update({
+  id: '/share',
+  path: '/share',
   getParentRoute: () => rootRouteImport,
 } as any)
 const Char91DotmcpChar93ListToolsRoute =
@@ -194,6 +200,7 @@ export interface FileRoutesByFullPath {
   '/mcp': typeof McpRoute
   '/mindfulness': typeof MindfulnessRoute
   '/pricing': typeof PricingRoute
+  '/share': typeof ShareRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/collection/$collectionId': typeof CollectionCollectionIdRoute
@@ -224,6 +231,7 @@ export interface FileRoutesByTo {
   '/mcp': typeof McpRoute
   '/mindfulness': typeof MindfulnessRoute
   '/pricing': typeof PricingRoute
+  '/share': typeof ShareRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/collection/$collectionId': typeof CollectionCollectionIdRoute
@@ -255,6 +263,7 @@ export interface FileRoutesById {
   '/mcp': typeof McpRoute
   '/mindfulness': typeof MindfulnessRoute
   '/pricing': typeof PricingRoute
+  '/share': typeof ShareRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/collection/$collectionId': typeof CollectionCollectionIdRoute
@@ -287,6 +296,7 @@ export interface FileRouteTypes {
     | '/mcp'
     | '/mindfulness'
     | '/pricing'
+    | '/share'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/collection/$collectionId'
@@ -317,6 +327,7 @@ export interface FileRouteTypes {
     | '/mcp'
     | '/mindfulness'
     | '/pricing'
+    | '/share'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/collection/$collectionId'
@@ -347,6 +358,7 @@ export interface FileRouteTypes {
     | '/mcp'
     | '/mindfulness'
     | '/pricing'
+    | '/share'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/collection/$collectionId'
@@ -378,6 +390,7 @@ export interface RootRouteChildren {
   McpRoute: typeof McpRoute
   MindfulnessRoute: typeof MindfulnessRoute
   PricingRoute: typeof PricingRoute
+  ShareRoute: typeof ShareRoute
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   CollectionCollectionIdRoute: typeof CollectionCollectionIdRoute
@@ -474,6 +487,13 @@ declare module '@tanstack/react-router' {
       path: '/pricing'
       fullPath: '/pricing'
       preLoaderRoute: typeof PricingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/share': {
+      id: '/share'
+      path: '/share'
+      fullPath: '/share'
+      preLoaderRoute: typeof ShareRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/.mcp/list-tools': {
@@ -610,6 +630,7 @@ const rootRouteChildren: RootRouteChildren = {
   McpRoute: McpRoute,
   MindfulnessRoute: MindfulnessRoute,
   PricingRoute: PricingRoute,
+  ShareRoute: ShareRoute,
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
