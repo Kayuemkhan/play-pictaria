@@ -176,16 +176,15 @@ function PricingPage() {
       <div className="mx-auto mt-6 w-full max-w-5xl px-4 sm:px-8">
 
         {/* free, every day */}
-        <section className="mt-6 border border-accent/30 p-5">
-          <div className="flex items-center gap-2">
-            <Sparkles className="h-4 w-4 text-accent" strokeWidth={1.5} />
-            <p className="text-[10px] tracking-[0.2em] text-accent uppercase">
+        <section className="mt-8">
+          <div className="flex flex-wrap items-center gap-2">
+            <h2 className="font-display text-lg font-semibold tracking-[0.18em] uppercase">
+              a little vacay everyday
+            </h2>
+            <span className="rounded-full border border-accent/60 bg-accent/10 px-2.5 py-0.5 text-[0.55rem] tracking-[0.2em] text-accent uppercase">
               Free forever
-            </p>
+            </span>
           </div>
-          <h2 className="mt-2 font-display text-lg font-semibold tracking-[0.16em] uppercase">
-            Pictaria is a little vacay, every day
-          </h2>
           <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
             Pictaria is a magical, whimsical place you can visit whenever you
             need a break. Each morning a fresh picture is waiting to be solved —
@@ -195,9 +194,39 @@ function PricingPage() {
             like, and come back tomorrow for another. No card, no trial, no
             paywall.
           </p>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2">
+            <div className="flex gap-3 rounded-none border border-accent/50 bg-card/70 p-4">
+              <Sparkles
+                className="mt-0.5 h-5 w-5 shrink-0 text-primary"
+                strokeWidth={1.5}
+              />
+              <div className="min-w-0">
+                <p className="font-display text-sm tracking-[0.14em] uppercase">
+                  A fresh Pictaria every morning
+                </p>
+                <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                  Wake up to a new picture waiting to be solved — a little daily escape that costs nothing.
+                </p>
+              </div>
+            </div>
+            <div className="flex gap-3 rounded-none border border-accent/50 bg-card/70 p-4">
+              <Images
+                className="mt-0.5 h-5 w-5 shrink-0 text-primary"
+                strokeWidth={1.5}
+              />
+              <div className="min-w-0">
+                <p className="font-display text-sm tracking-[0.14em] uppercase">
+                  Wander the public gallery
+                </p>
+                <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                  Play as many public puzzles as you like, stay as long as you like, and come back anytime.
+                </p>
+              </div>
+            </div>
+          </div>
           <Link
             to="/daily"
-            className="mt-4 inline-flex items-center gap-1.5 rounded-full border border-primary/40 bg-primary/10 px-4 py-2 text-[0.6rem] tracking-[0.2em] text-primary uppercase transition-colors hover:bg-primary hover:text-primary-foreground"
+            className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-[0.6rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
           >
             Step into Pictaria
             <span aria-hidden>›</span>
