@@ -481,7 +481,7 @@ export const collections: Collection[] = [
   {
     id: "hawaiian-flowers",
     title: "Hawaiian Flowers",
-    tagline: "Eleven island blooms in full color",
+    tagline: "Twenty-six island blooms in full color",
     cover: flowerPlumeria,
     free: true,
     puzzles: [
