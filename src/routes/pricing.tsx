@@ -365,24 +365,6 @@ function PricingPage() {
           </div>
         </section>
 
-        <section className="mt-10 rounded-2xl bg-deep/5 p-4">
-          <p className="flex items-center gap-2 text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
-            <Sparkles className="h-3.5 w-3.5 text-accent" strokeWidth={1.5} />
-            Always free
-          </p>
-          <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-            Daily Pictaria — one new picture to solve every day, plus the whole
-            public gallery of turtles, whales, cats and pineapples. No card, no
-            paywall.
-          </p>
-          <Link
-            to="/daily"
-            className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-primary/40 bg-primary/10 px-3.5 py-1.5 text-[0.6rem] tracking-[0.2em] text-primary uppercase transition-colors hover:bg-primary hover:text-primary-foreground"
-          >
-            Get the daily Pictaria
-            <span aria-hidden>›</span>
-          </Link>
-        </section>
       </div>
     </main>
   );
