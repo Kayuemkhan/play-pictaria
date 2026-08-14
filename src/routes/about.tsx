@@ -91,9 +91,15 @@ function AboutPage() {
           </div>
 
           <div className="rounded-[6px] border border-accent/40 bg-deep/50 p-6 backdrop-blur-sm sm:p-10">
-            <h2 className="font-display text-lg text-shell">Build Your Vision Board</h2>
+            <h2 className="font-display text-lg text-shell">Manifestation Station</h2>
             <p className="mx-auto mt-4 max-w-xl text-[0.9rem] leading-relaxed text-shell/80">
-              A traditional vision board is something you look at. Pictaria turns it into something you do. Instead of simply viewing the life you envision, you actively assemble it, piece by piece, engaging your hands, eyes, and mind in bringing the image together.
+              There's a reason so many people use vision boards, including millionaires and CEOs. Your brain's Reticular Activating System (RAS) helps focus your attention on your goals and notice opportunities that might otherwise pass you by.
+            </p>
+            <p className="mx-auto mt-4 max-w-xl text-[0.9rem] leading-relaxed text-shell/80">
+              Pictaria makes vision boards active. As you build your vision piece by piece, the satisfaction of solving the puzzle connects a positive feeling to the image, bringing thought and emotion together with intention.
+            </p>
+            <p className="mx-auto mt-4 max-w-xl text-[0.9rem] leading-relaxed text-shell/80">
+              Years ago, when I had almost no money, I put a beautiful Maui property on my vision board. Within a year, an unexpected opportunity appeared, and I acquired that very property. I've been making vision boards ever since.
             </p>
           </div>
         </div>
