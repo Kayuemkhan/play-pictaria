@@ -680,11 +680,16 @@ export function PuzzleBoard({
     const cell = Number(cellEl.getAttribute("data-cell"));
     const piece = pos.indexOf(cell);
     if (piece < 0) return;
-    if (lockedPieces.has(piece)) return; // locked tiles stay put
+    const group = groupOf[piece];
+    if (group === undefined) return;
+    const groupIsHome = groupOf.every(
+      (pieceGroup, member) => pieceGroup !== group || pos[member] === member,
+    );
+    if (groupIsHome) return; // only a whole cluster anchored in its final place stays put
 
     viewportRef.current?.setPointerCapture(e.pointerId);
     dragStart.current = {
-      group: groupOf[piece]!,
+      group,
       x: e.clientX,
       y: e.clientY,
       moved: false,
@@ -1200,6 +1205,22 @@ export function PuzzleBoard({
             const isDragged = drag?.group === group;
             const isFloating = floating.includes(piece);
 
+            const joinedAt = (checkRow: number, checkCol: number) => {
+              if (
+                checkRow < 0 ||
+                checkRow >= grid ||
+                checkCol < 0 ||
+                checkCol >= grid
+              )
+                return false;
+              const neighbour = pos.indexOf(checkRow * grid + checkCol);
+              return neighbour >= 0 && groupOf[neighbour] === group;
+            };
+            const joinedTop = joinedAt(row - 1, col);
+            const joinedRight = joinedAt(row, col + 1);
+            const joinedBottom = joinedAt(row + 1, col);
+            const joinedLeft = joinedAt(row, col - 1);
+
             const seam = isLocked ? 2 : 0;
             return (
               <div
@@ -1218,14 +1239,14 @@ export function PuzzleBoard({
                   borderRadius:
                     isFloating && !inCluster ? 28 : isLocked || inCluster ? 0 : 28,
                   boxShadow: isDragged
-                    ? "0 14px 28px rgba(15,45,70,0.35), inset 0 0 0 8px rgba(255,255,255,0.95)"
+                    ? "var(--shadow-piece)"
                     : isFloating
                       ? inCluster
-                        ? "0 10px 20px rgba(15,45,70,0.3)"
-                        : "0 10px 20px rgba(15,45,70,0.3), inset 0 0 0 8px rgba(255,255,255,0.85)"
+                        ? "var(--shadow-piece)"
+                        : "var(--shadow-piece)"
                       : isLocked || inCluster
                         ? "none"
-                        : "inset 0 0 0 8px rgba(255,255,255,0.92)",
+                        : "none",
 
                   transform: isDragged
                     ? `translate(${drag!.dx / scale}px, ${drag!.dy / scale}px) scale(1.006)`
@@ -1238,7 +1259,30 @@ export function PuzzleBoard({
                       ? "transform 880ms var(--ease-organic), left 880ms var(--ease-organic), top 880ms var(--ease-organic)"
                       : "box-shadow 320ms var(--ease-organic), border-radius 320ms var(--ease-organic), left 880ms var(--ease-organic), top 880ms var(--ease-organic)",
                 }}
-              />
+              >
+                {!isLocked && (
+                  <span
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0"
+                    style={{
+                      boxSizing: "border-box",
+                      borderTop: joinedTop
+                        ? "0 solid transparent"
+                        : "10px solid var(--piece-outline)",
+                      borderRight: joinedRight
+                        ? "0 solid transparent"
+                        : "10px solid var(--piece-outline)",
+                      borderBottom: joinedBottom
+                        ? "0 solid transparent"
+                        : "10px solid var(--piece-outline)",
+                      borderLeft: joinedLeft
+                        ? "0 solid transparent"
+                        : "10px solid var(--piece-outline)",
+                      borderRadius: inCluster ? 0 : 28,
+                    }}
+                  />
+                )}
+              </div>
             );
 
 
