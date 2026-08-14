@@ -16,8 +16,6 @@ import {
 } from "lucide-react";
 
 
-import palmLogo from "@/assets/logo-palms-only.png";
-
 export const Route = createFileRoute("/pricing")({
   head: () => ({
     meta: [
