@@ -176,7 +176,7 @@ function PricingPage() {
       <div className="mx-auto mt-6 w-full max-w-5xl px-4 sm:px-8">
 
         {/* free, every day */}
-        <section className="mt-6 rounded-2xl border border-accent/30 bg-gradient-to-br from-primary/10 via-deep/5 to-card/80 p-5">
+        <section className="mt-6 border border-accent/30 p-5">
           <div className="flex items-center gap-2">
             <Sparkles className="h-4 w-4 text-accent" strokeWidth={1.5} />
             <p className="text-[10px] tracking-[0.2em] text-accent uppercase">
@@ -184,21 +184,22 @@ function PricingPage() {
             </p>
           </div>
           <h2 className="mt-2 font-display text-lg font-semibold tracking-[0.16em] uppercase">
-            A free Pictaria, every day
+            Pictaria is a little vacay, every day
           </h2>
           <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-            Start each morning with a fresh picture to solve — a little moment of
-            calm before the day begins. Then wander through the entire public
-            gallery: sea turtles, humpback whales, island dogs, Hawaiian flowers,
-            golden beaches, and more. Play as many as you like, stay as long as
-            you like, and come back tomorrow for another. No card, no trial, no
-            paywall — Pictaria is open to everyone.
+            Pictaria is a magical, whimsical place you can visit whenever you
+            need a break. Each morning a fresh picture is waiting to be solved —
+            a tiny escape that costs nothing. Wander the public gallery of sea
+            turtles, humpback whales, island dogs, Hawaiian flowers, golden
+            beaches, and more. Play as many as you like, stay as long as you
+            like, and come back tomorrow for another. No card, no trial, no
+            paywall.
           </p>
           <Link
             to="/daily"
             className="mt-4 inline-flex items-center gap-1.5 rounded-full border border-primary/40 bg-primary/10 px-4 py-2 text-[0.6rem] tracking-[0.2em] text-primary uppercase transition-colors hover:bg-primary hover:text-primary-foreground"
           >
-            Play the daily Pictaria
+            Step into Pictaria
             <span aria-hidden>›</span>
           </Link>
         </section>
