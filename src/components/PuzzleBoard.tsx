@@ -164,7 +164,7 @@ export function PuzzleBoard({
   const scale = useMemo(() => {
     if (!size.w || !size.h) return 0;
     // a generous margin so tiles never touch the walls
-    const inset = Math.max(8, Math.min(size.w, size.h) * 0.045);
+    const inset = Math.max(6, Math.min(size.w, size.h) * 0.018);
     const w = Math.max(1, size.w - inset * 2);
     const h = Math.max(1, size.h - inset * 2);
     return Math.min(w / WORLD_W, h / worldH);
@@ -1145,7 +1145,7 @@ export function PuzzleBoard({
       </header>
 
       {/* stage */}
-      <div className="relative mx-auto aspect-[3/4] max-h-[62vh] w-full shrink-0 p-1 sm:p-2">
+      <div className="relative mx-auto aspect-[3/4] max-h-[88vh] w-full shrink-0 p-1 sm:p-2">
         {solved && congratsOut && (
           <button
             type="button"
@@ -1268,16 +1268,16 @@ export function PuzzleBoard({
                       boxSizing: "border-box",
                       borderTop: joinedTop
                         ? "0 solid transparent"
-                        : "10px solid var(--piece-outline)",
+                        : "8px solid var(--piece-outline)",
                       borderRight: joinedRight
                         ? "0 solid transparent"
-                        : "10px solid var(--piece-outline)",
+                        : "8px solid var(--piece-outline)",
                       borderBottom: joinedBottom
                         ? "0 solid transparent"
-                        : "10px solid var(--piece-outline)",
+                        : "8px solid var(--piece-outline)",
                       borderLeft: joinedLeft
                         ? "0 solid transparent"
-                        : "10px solid var(--piece-outline)",
+                        : "8px solid var(--piece-outline)",
                       borderRadius: inCluster ? 0 : 28,
                     }}
                   />
