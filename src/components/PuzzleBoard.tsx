@@ -878,18 +878,22 @@ export function PuzzleBoard({
         next.some((cell, piece) => cell === piece && pos[piece] !== piece);
 
       // 1 + 2: nearest landing that actually clicks something into place —
-      // only when the drop really is close to that landing spot
+      // generous magnet radius, so a near miss still locks
       for (const candidate of candidates) {
-        if (!isNear(candidate.dCol, candidate.dRow)) continue;
+        if (!isNear(candidate.dCol, candidate.dRow, magnet)) continue;
         const next = attemptMove(group, candidate.dCol, candidate.dRow);
         if (!next) continue;
         if (merges(next) || landsHome(next)) return candidate;
       }
 
-      // 3: nearest landing that is simply legal
+      // 3: settle on the cell under the finger, but only if the drop really is
+      // there — otherwise the cluster stays where it was instead of drifting to
+      // a far cell or sticking to the edge of the board.
       for (const candidate of candidates) {
+        if (!isNear(candidate.dCol, candidate.dRow, settle)) continue;
         if (attemptMove(group, candidate.dCol, candidate.dRow)) return candidate;
       }
+
 
       return null;
     },
