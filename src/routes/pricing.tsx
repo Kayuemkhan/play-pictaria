@@ -169,7 +169,7 @@ function PricingPage() {
           aria-hidden
           width={1024}
           height={1024}
-          className="ml-auto h-12 w-12 shrink-0 rounded-[4px] object-contain drop-shadow-[0_2px_8px_oklch(0.15_0.04_230/0.5)]"
+          className="ml-auto h-12 w-12 shrink-0 rounded-none object-contain drop-shadow-[0_2px_8px_oklch(0.15_0.04_230/0.5)]"
         />
       </header>
 
@@ -226,7 +226,7 @@ function PricingPage() {
             {personal.map((f) => (
               <div
                 key={f.title}
-                className="flex gap-3 rounded-[4px] border border-accent/50 bg-card/70 p-4"
+                className="flex gap-3 rounded-none border border-accent/50 bg-card/70 p-4"
               >
                 <f.icon
                   className="mt-0.5 h-5 w-5 shrink-0 text-primary"
@@ -279,7 +279,7 @@ function PricingPage() {
             {bougie.map((f) => (
               <div
                 key={f.title}
-                className="flex gap-3 rounded-[4px] border border-accent/50 bg-card/70 p-4"
+                className="flex gap-3 rounded-none border border-accent/50 bg-card/70 p-4"
               >
                 <f.icon
                   className="mt-0.5 h-5 w-5 shrink-0 text-primary"
@@ -331,7 +331,7 @@ function PricingPage() {
             {business.map((f) => (
               <div
                 key={f.title}
-                className="flex gap-3 rounded-[4px] border border-accent/50 bg-card/70 p-4"
+                className="flex gap-3 rounded-none border border-accent/50 bg-card/70 p-4"
               >
                 <f.icon
                   className="mt-0.5 h-5 w-5 shrink-0 text-primary"
