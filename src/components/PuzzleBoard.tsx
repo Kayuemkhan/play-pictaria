@@ -710,13 +710,16 @@ export function PuzzleBoard({
       const maxCol = Math.max(...cols);
       const minRow = Math.min(...rows);
       const maxRow = Math.max(...rows);
-      const gutter = 24;
-      const minDx = gutter - (offX + minCol * cellW * scale);
+      // Let a dragged cluster travel a little past the board edge so it never
+      // feels pinned or "stuck" to the sides while the finger keeps moving.
+      const slack = Math.min(cellW, cellH) * scale * 0.85;
+      const minDx = -slack - (offX + minCol * cellW * scale);
       const maxDx =
-        size.w - gutter - (offX + (maxCol + 1) * cellW * scale);
-      const minDy = gutter - (offY + minRow * cellH * scale);
+        size.w + slack - (offX + (maxCol + 1) * cellW * scale);
+      const minDy = -slack - (offY + minRow * cellH * scale);
       const maxDy =
-        size.h - gutter - (offY + (maxRow + 1) * cellH * scale);
+        size.h + slack - (offY + (maxRow + 1) * cellH * scale);
+
 
       return {
         dx: Math.max(minDx, Math.min(maxDx, dx)),
