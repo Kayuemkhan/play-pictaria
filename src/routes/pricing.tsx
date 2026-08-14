@@ -176,23 +176,17 @@ function PricingPage() {
       <div className="mx-auto mt-6 w-full max-w-5xl px-4 sm:px-8">
 
         {/* free, every day */}
-        <section className="mt-8">
-          <div className="flex flex-wrap items-center gap-2">
-            <h2 className="font-display text-lg font-semibold tracking-[0.18em] uppercase">
-              a little vacay everyday
-            </h2>
-            <span className="rounded-full border border-accent/60 bg-accent/10 px-2.5 py-0.5 text-[0.55rem] tracking-[0.2em] text-accent uppercase">
-              Free forever
-            </span>
-          </div>
-          <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-            Pictaria is a magical, whimsical place you can visit whenever you
-            need a break. Each morning a fresh picture is waiting to be solved —
-            a tiny escape that costs nothing. Wander the public gallery of sea
-            turtles, humpback whales, island dogs, Hawaiian flowers, golden
+        <section className="mt-6">
+          <h2 className="font-display text-sm font-semibold tracking-[0.18em] uppercase">
+            a little vacay everyday
+          </h2>
+          <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+            Pictaria is a magical place you can visit whenever you need a little
+            escape. Start your day with a little adventure, and a fresh mystery
+            waiting to be solved, a tiny moment of relaxation that costs nothing.
+            Wander through galleries of sea turtles, Hawaiian flowers, golden
             beaches, and more. Play as many as you like, stay as long as you
-            like, and come back tomorrow for another. No card, no trial, no
-            paywall.
+            like, and come back whenever you need a little piece of paradise.
           </p>
           <div className="mt-4 grid gap-3 sm:grid-cols-2">
             <div className="flex gap-3 rounded-none border border-accent/50 bg-card/70 p-4">
