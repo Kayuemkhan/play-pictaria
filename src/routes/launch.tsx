@@ -63,32 +63,7 @@ function LaunchPage() {
   return (
     <main className="min-h-screen bg-deep px-4 py-10 sm:px-8">
       <div className="mx-auto w-full max-w-xl">
-        <div className="flex flex-col items-center text-center">
-          <Link to="/" aria-label="Pictaria home">
-            <img
-              src={palmLogoOnly}
-              alt="Pictaria"
-              width={1024}
-              height={1024}
-              className="h-12 w-auto"
-            />
-          </Link>
-          <h1 className="mt-4 font-display text-3xl tracking-[0.28em] text-accent uppercase">
-            Launch
-          </h1>
-          <p className="mt-3 font-display text-[0.95rem] leading-snug text-shell">
-            Discover beautiful photography one puzzle "peace" at a time.
-          </p>
-          <Link
-            to="/collections"
-            className="mt-4 inline-flex items-center gap-1.5 rounded-full border border-accent/60 bg-accent/10 px-5 py-2.5 font-display text-[0.65rem] tracking-[0.18em] text-accent uppercase transition hover:bg-accent/20"
-          >
-            Play more puzzles
-            <span aria-hidden>›</span>
-          </Link>
-        </div>
-
-        <div className="mt-6 overflow-hidden rounded-[6px] border border-accent/40 shadow-lift">
+        <div className="overflow-hidden rounded-[6px] border border-accent/40 shadow-lift">
           <video
             src="/pictaria-launch.mp4"
             controls
@@ -97,40 +72,6 @@ function LaunchPage() {
             className="aspect-[9/16] w-full bg-black object-cover"
           />
         </div>
-
-        <a
-          href="/pictaria-launch.mp4"
-          download="pictaria-launch.mp4"
-          className="mt-4 flex w-full items-center justify-center gap-2 rounded-full border border-accent/60 bg-accent/10 px-5 py-3 font-display text-[0.65rem] tracking-[0.18em] text-accent uppercase transition hover:bg-accent/20"
-        >
-          Download video
-          <span aria-hidden>↓</span>
-        </a>
-
-        <h2 className="mt-10 text-center font-display text-sm tracking-[0.2em] text-accent uppercase">
-          Puzzle demo
-        </h2>
-        <div className="mt-3 overflow-hidden rounded-[6px] border border-accent/40 shadow-lift">
-          <video
-            src={puzzleDemo.url}
-            controls
-            playsInline
-            muted
-            loop
-            preload="metadata"
-            className="aspect-[9/16] w-full bg-black object-cover"
-          />
-        </div>
-
-        <a
-          href={puzzleDemo.url}
-          download="pictaria-puzzle-demo.mp4"
-          className="mt-4 flex w-full items-center justify-center gap-2 rounded-full border border-accent/60 bg-accent/10 px-5 py-3 font-display text-[0.65rem] tracking-[0.18em] text-accent uppercase transition hover:bg-accent/20"
-        >
-          Download puzzle demo
-          <span aria-hidden>↓</span>
-        </a>
-
 
         <section className="mt-6 rounded-[6px] border border-accent/40 bg-shell p-5">
           <h2 className="font-display text-sm tracking-[0.2em] text-foreground uppercase">
@@ -146,13 +87,6 @@ function LaunchPage() {
               <p className="font-display text-[0.95rem] text-foreground">
                 You're on the list — count you in!
               </p>
-              <Link
-                to="/daily"
-                className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-[0.55rem] tracking-[0.2em] text-primary-foreground uppercase"
-              >
-                Play today's Pictaria
-                <span aria-hidden>›</span>
-              </Link>
             </div>
           ) : (
             <form onSubmit={onSubmit} className="mt-4 space-y-3">
@@ -186,6 +120,14 @@ function LaunchPage() {
               </Button>
             </form>
           )}
+
+          <Link
+            to="/collections"
+            className="mt-4 flex w-full items-center justify-center gap-1.5 rounded-full border border-accent/60 bg-accent/10 px-5 py-2.5 font-display text-[0.65rem] tracking-[0.18em] text-accent uppercase transition hover:bg-accent/20"
+          >
+            Play more puzzles
+            <span aria-hidden>›</span>
+          </Link>
         </section>
       </div>
     </main>
