@@ -11,6 +11,9 @@ import pinup07 from "@/assets/pinup-07.jpg";
 import pinup08 from "@/assets/pinup-08.jpg";
 import pinup09 from "@/assets/pinup-09.jpg";
 import pinup10 from "@/assets/pinup-10.jpg";
+import portalShark from "@/assets/portal-shark.jpg";
+import portalPanda from "@/assets/portal-panda.jpg";
+import portalTurtle from "@/assets/portal-turtle.jpg";
 import turtle01 from "@/assets/turtle-01.jpg";
 import turtle02 from "@/assets/turtle-02.jpg";
 import turtle03 from "@/assets/turtle-03.jpg";
@@ -2026,7 +2029,47 @@ export const collections: Collection[] = [
       },
     ],
   },
+  {
+    id: "portal",
+    title: "Portal",
+    tagline: "A secret little doorway — only three peaces live here",
+    cover: portalTurtle,
+    free: true,
+    hidden: true,
+    puzzles: [
+      {
+        id: "portal-01",
+        title: "Manō",
+        caption: "A reef shark gliding through the light",
+        meaning: "Manō — shark, an ʻaumakua, a family guardian",
+        image: portalShark,
+        story: [
+          "You found the portal. In old Hawaiʻi the manō was often an ʻaumakua — a family guardian who watched over the ones who traveled by water. Seeing one was not a fright; it was a sign you were being looked after.",
+        ],
+      },
+      {
+        id: "portal-02",
+        title: "The Panda",
+        caption: "A panda in the bamboo and hibiscus",
+        image: portalPanda,
+        story: [
+          "Nobody expects a panda in the jungle in Hawaiʻi, and that is exactly why he lives in the secret folder. He is here to remind you that a little bit of nonsense is good for the soul.",
+        ],
+      },
+      {
+        id: "portal-03",
+        title: "Honu",
+        caption: "A green sea turtle over the reef",
+        meaning: "Honu — the sea turtle, a symbol of long life and good luck",
+        image: portalTurtle,
+        story: [
+          "The honu always knows the way home, even across hundreds of miles of open ocean. Take her with you when you leave the portal — she is the quiet promise that you will always find your way back to the places you love.",
+        ],
+      },
+    ],
+  },
 ];
+
 
 
 
