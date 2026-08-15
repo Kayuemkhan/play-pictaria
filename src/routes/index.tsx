@@ -81,23 +81,16 @@ function Home() {
             </button>
             {openPanel === "menu" && (
               <div className="absolute top-13 left-0 w-52 overflow-hidden rounded-[6px] border border-accent/40 bg-deep/95 py-1 shadow-lift backdrop-blur-sm">
-                {menuLinks.map((item) => {
-                  const isLaunch = item.label === "Launch";
-                  return (
-                    <Link
-                      key={item.label}
-                      to={item.to}
-                      onClick={() => setOpenPanel(null)}
-                      className={`block px-4 py-2.5 text-[0.6rem] tracking-[0.2em] uppercase transition-colors ${
-                        isLaunch
-                          ? "bg-primary/15 text-primary hover:bg-primary/25 hover:text-primary"
-                          : "text-shell hover:bg-accent/15 hover:text-accent"
-                      }`}
-                    >
-                      {item.label}
-                    </Link>
-                  );
-                })}
+                {menuLinks.map((item) => (
+                  <Link
+                    key={item.label}
+                    to={item.to}
+                    onClick={() => setOpenPanel(null)}
+                    className="block px-4 py-2.5 text-[0.6rem] tracking-[0.2em] text-shell uppercase transition-colors hover:bg-accent/15 hover:text-accent"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
               </div>
             )}
           </div>
