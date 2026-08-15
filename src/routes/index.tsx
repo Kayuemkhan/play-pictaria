@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Menu } from "lucide-react";
-import { collections } from "@/data/collections";
+import { visibleCollections } from "@/data/collections";
 import { HeroPuzzle } from "@/components/HeroPuzzle";
 
 import heroImage from "@/assets/hero-sunset.jpg";
@@ -32,7 +32,7 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
-const featured = collections;
+const featured = visibleCollections;
 
 const menuLinks = [
   { to: "/launch", label: "Launch" },
