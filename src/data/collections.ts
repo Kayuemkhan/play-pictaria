@@ -267,6 +267,9 @@ export interface Collection {
   free: boolean;
   /** Storybook announced on the home screen but not yet filled with puzzles. */
   comingSoon?: boolean;
+  /** Secret collection: playable by direct link only, never listed anywhere. */
+  hidden?: boolean;
+
   /**
    * Set when the collection is a member's or brand's own storybook. Visitors
    * opening a shared storybook play a set number of puzzles for free, then get
