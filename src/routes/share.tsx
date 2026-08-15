@@ -110,7 +110,12 @@ function SharePage() {
 
         {/* QR square */}
         <div className="mt-8 w-full max-w-[19rem] rounded-[6px] border border-accent/50 bg-shell p-4 shadow-lift">
-          <span className="block aspect-square w-full overflow-hidden rounded-[4px] bg-white">
+          <Link
+            to="/collection/$collectionId"
+            params={{ collectionId: "portal" }}
+            aria-label="Scan to play"
+            className="block aspect-square w-full overflow-hidden rounded-[4px] bg-white"
+          >
             {qr ? (
               <img
                 src={qr}
@@ -118,11 +123,12 @@ function SharePage() {
                 className="h-full w-full object-contain"
               />
             ) : null}
-          </span>
+          </Link>
           <p className="mt-3 text-[0.55rem] tracking-[0.2em] text-muted-foreground uppercase">
             Scan to play
           </p>
         </div>
+
 
         <p className="mt-4 text-[0.7rem] tracking-[0.14em] text-accent uppercase">
           play-pictaria.lovable.app
