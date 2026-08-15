@@ -24,7 +24,7 @@ export function collectionSummary(collection: (typeof collections)[number]) {
 }
 
 export function listCollectionSummaries() {
-  return collections.map(collectionSummary);
+  return collections.filter((c) => !c.hidden).map(collectionSummary);
 }
 
 export function findCollection(collectionId: string) {
@@ -52,6 +52,7 @@ export function searchPuzzles(query: string, limit: number) {
   const needle = query.trim().toLowerCase();
   const results: ReturnType<typeof puzzleSummary>[] = [];
   for (const collection of collections) {
+    if (collection.hidden) continue;
     for (const puzzle of collection.puzzles) {
       const haystack = `${puzzle.title} ${puzzle.caption} ${collection.title}`.toLowerCase();
       if (haystack.includes(needle)) {

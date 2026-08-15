@@ -2094,6 +2094,9 @@ for (const collection of collections) {
   }
 }
 
+/** Collections shown in the gallery and on the home screen (secret ones excluded). */
+export const visibleCollections = collections.filter((c) => !c.hidden);
+
 export const freeCollection = collections[0]!;
 
 export function findPuzzle(puzzleId: string) {

@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { collections } from "@/data/collections";
+import { visibleCollections } from "@/data/collections";
 
 
 export const Route = createFileRoute("/collections")({
@@ -34,7 +34,7 @@ function CollectionsPage() {
         </div>
 
         <div className="mt-8 grid grid-cols-3 gap-2 sm:gap-3">
-          {collections.map((collection) => (
+          {visibleCollections.map((collection) => (
             <Link
               key={collection.id}
               to="/collection/$collectionId"
