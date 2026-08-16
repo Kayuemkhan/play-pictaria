@@ -7,8 +7,6 @@ import { clearBreak } from "@/lib/break-session";
  * them gently back to work.
  */
 export function BreakOverBanner({ onClose }: { onClose: () => void }) {
-  const navigate = useNavigate();
-
   const dismiss = () => {
     clearBreak();
     onClose();
@@ -19,7 +17,7 @@ export function BreakOverBanner({ onClose }: { onClose: () => void }) {
       <div className="animate-soft-in w-full max-w-sm overflow-hidden rounded-[10px] border border-accent/40 bg-card shadow-lift">
         <img
           src={kittenLook}
-          alt="A kitten in wireframe glasses at a laptop, looking over the top of her glasses at you"
+          alt="A kitten in wireframe glasses at a laptop, looking directly at you"
           className="h-56 w-full object-cover"
           width={1024}
           height={1024}
