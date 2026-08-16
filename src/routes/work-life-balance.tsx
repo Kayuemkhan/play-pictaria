@@ -169,6 +169,24 @@ function WorkLifeBalancePage() {
               </button>
             </div>
           </div>
+
+          <div className="rounded-[6px] border border-accent/40 bg-deep/50 p-6 backdrop-blur-sm sm:p-10">
+            <h2 className="font-display text-lg text-shell">
+              Benefits of doing puzzles
+            </h2>
+            <ul className="mt-6 space-y-4">
+              {BENEFITS.map((b) => (
+                <li key={b.title} className="flex gap-3">
+                  <span aria-hidden className="mt-1 text-accent">
+                    ·
+                  </span>
+                  <p className="text-[0.85rem] leading-relaxed text-shell/80">
+                    <span className="text-shell">{b.title}:</span> {b.body}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </section>
     </main>
