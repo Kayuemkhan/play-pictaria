@@ -58,28 +58,28 @@ function WorkLifeBalancePage() {
   };
 
   return (
-    <main className="relative min-h-screen pb-16">
-      {/* kitten-at-work backdrop */}
-      <div className="pointer-events-none fixed inset-0 -z-10">
+    <main className="relative min-h-screen bg-deep pb-16">
+      {/* hero picture */}
+      <div className="relative h-[46vh] min-h-[300px] w-full sm:h-[50vh]">
         <img
           src={kittenAtWork}
-          alt="A kitten in glasses working at a laptop surrounded by Hawaiian flowers, an ocean view out the window"
-          aria-hidden="true"
-          className="h-full w-full object-cover"
+          alt="A kitten in glasses beside a laptop surrounded by Hawaiian flowers, an ocean view out the window"
+          className="absolute inset-0 h-full w-full object-cover"
+          width={1344}
+          height={896}
         />
-        <div className="absolute inset-0 bg-deep/65" />
+        <div className="absolute inset-0 bg-gradient-to-b from-deep/40 via-deep/20 to-deep" />
       </div>
 
       {/* hero */}
-      <section className="relative overflow-hidden px-6 pt-10 pb-12 text-center sm:pt-16">
-        <div className="absolute inset-0 bg-gradient-to-b from-seafoam/10 via-transparent to-deep/20" />
+      <section className="relative z-10 -mt-24 px-6 pb-10 text-center sm:-mt-28">
         <div className="relative mx-auto max-w-2xl">
           <img
             src={palmLogo}
             alt="Pictaria"
             width={1024}
             height={1024}
-            className="mx-auto h-32 w-auto rounded-[8px] drop-shadow-[0_4px_18px_oklch(0.15_0.04_230/0.65)] sm:h-40"
+            className="mx-auto h-24 w-auto rounded-[8px] drop-shadow-[0_4px_18px_oklch(0.15_0.04_230/0.65)] sm:h-32"
           />
           <h1 className="mt-6 font-display text-[1.6rem] leading-snug text-shell sm:text-[2rem]">
             Work Life Balance
@@ -99,11 +99,8 @@ function WorkLifeBalancePage() {
               you'd like to complete before going back to work — a small,
               beautiful pause, then right back to it with a clearer head.
             </p>
-            <p className="mx-auto mt-4 max-w-xl text-[0.9rem] leading-relaxed text-shell/80">
-              Pick your number below. We'll keep your break in mind while you
-              play, and you'll know exactly when it's time to head back.
-            </p>
           </div>
+
 
           <div className="rounded-[6px] border border-accent/40 bg-deep/50 p-6 backdrop-blur-sm sm:p-10">
             <h2 className="font-display text-lg text-shell">
