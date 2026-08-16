@@ -160,6 +160,17 @@ function PricingPage() {
 
       <div className="mx-auto mt-10 w-full max-w-5xl px-4 sm:px-8">
 
+        {/* no ads, ever */}
+        <section className="rounded-none border border-accent/50 bg-card/70 p-5 text-center">
+          <h2 className="font-display text-sm font-semibold tracking-[0.18em] uppercase">
+            There will never be any ads in Pictaria
+          </h2>
+          <p className="mx-auto mt-2 max-w-2xl text-xs leading-relaxed text-muted-foreground">
+            Not even ads for Pictaria. No pop-ups, no banners, no
+            "watch this to keep playing." We're not that kind of app.
+          </p>
+        </section>
+
         {/* free, every day */}
         <section className="mt-6">
           <h2 className="font-display text-sm font-semibold tracking-[0.18em] uppercase">
