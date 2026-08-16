@@ -13,6 +13,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { Toaster } from "@/components/ui/sonner";
 import { TopBackButton } from "@/components/TopBackButton";
+import { BottomHomeButton } from "@/components/BottomBackButton";
 
 import { reportLovableError } from "../lib/lovable-error-reporting";
 

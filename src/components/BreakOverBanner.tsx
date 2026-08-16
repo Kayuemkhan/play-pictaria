@@ -3,13 +3,36 @@ import { clearBreak } from "@/lib/break-session";
 
 /**
  * Shown once the visitor finishes the number of puzzles they picked on the
- * Work Life Balance page — the kitten turns her head, wire-rim glasses
- * clearly visible, and sends them gently back to work.
+ * Work Life Balance page — the kitten turns her head fully toward the viewer,
+ * wire-rim glasses clearly visible, and sends them gently back to work.
  */
 export function BreakOverBanner({ onClose }: { onClose: () => void }) {
-  const dismiss = () => {
+  const exitApp = () => {
     clearBreak();
     onClose();
+    if (typeof window === "undefined") return;
+    // Try to close the tab/app window. If the browser blocks it (window was not
+    // opened by script), fall back to a blank page so the user leaves Pictaria.
+    window.close();
+    window.setTimeout(() => {
+      window.location.href = "about:blank";
+    }, 120);
+  };
+
+  const shareThenExit = async () => {
+    const url = "https://play-pictaria.lovable.app";
+    const text = "Take a little brain break with me in Pictaria 🧩";
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: "Pictaria", text, url });
+      } else if (navigator.clipboard) {
+        await navigator.clipboard.writeText(`${text} ${url}`);
+      }
+    } catch {
+      // User cancelled the share/copy — stay in the banner so they can choose again.
+      return;
+    }
+    exitApp();
   };
 
   return (
@@ -32,10 +55,17 @@ export function BreakOverBanner({ onClose }: { onClose: () => void }) {
           <div className="mt-6 flex flex-col gap-2">
             <button
               type="button"
-              onClick={dismiss}
+              onClick={exitApp}
               className="rounded-full border border-primary/70 py-3 text-sm tracking-wide text-primary transition-colors hover:bg-primary/10"
             >
-              Back to work
+              click out of this app completely
+            </button>
+            <button
+              type="button"
+              onClick={shareThenExit}
+              className="rounded-full border border-border bg-transparent py-3 text-sm tracking-wide text-foreground transition-colors hover:bg-secondary"
+            >
+              or send this to my friend and then send me back to work
             </button>
           </div>
         </div>
