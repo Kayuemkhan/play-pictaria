@@ -1528,6 +1528,8 @@ export function PuzzleBoard({
         </div>
       )}
 
+      {breakOver && <BreakOverBanner onClose={() => setBreakOver(false)} />}
+
       {unbranded && (
         <Link
           to="/"
