@@ -295,6 +295,23 @@ export function PuzzleBoard({
   }, [solved, hasNext]);
   void nextRef;
 
+  /* Work Life Balance: count this puzzle toward the chosen break */
+  const [breakOver, setBreakOver] = useState(false);
+  const countedRef = useRef(false);
+  useEffect(() => {
+    if (!solved) {
+      countedRef.current = false;
+      return;
+    }
+    if (countedRef.current) return;
+    countedRef.current = true;
+    if (completePuzzleInBreak()) {
+      const t = window.setTimeout(() => setBreakOver(true), 3200);
+      return () => window.clearTimeout(t);
+    }
+    return;
+  }, [solved]);
+
 
 
 
