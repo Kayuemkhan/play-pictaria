@@ -1,4 +1,3 @@
-import { useNavigate } from "@tanstack/react-router";
 import kittenLook from "@/assets/work-life-kitten-look.jpg";
 import { clearBreak } from "@/lib/break-session";
 
