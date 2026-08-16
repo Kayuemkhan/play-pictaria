@@ -21,6 +21,7 @@ import { Route as McpRouteImport } from './routes/mcp'
 import { Route as MindfulnessRouteImport } from './routes/mindfulness'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as ShareRouteImport } from './routes/share'
+import { Route as WorkLifeBalanceRouteImport } from './routes/work-life-balance'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as CollectionCollectionIdRouteImport } from './routes/collection.$collectionId'
@@ -97,6 +98,11 @@ const PricingRoute = PricingRouteImport.update({
 const ShareRoute = ShareRouteImport.update({
   id: '/share',
   path: '/share',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WorkLifeBalanceRoute = WorkLifeBalanceRouteImport.update({
+  id: '/work-life-balance',
+  path: '/work-life-balance',
   getParentRoute: () => rootRouteImport,
 } as any)
 const Char91DotmcpChar93ListToolsRoute =
@@ -201,6 +207,7 @@ export interface FileRoutesByFullPath {
   '/mindfulness': typeof MindfulnessRoute
   '/pricing': typeof PricingRoute
   '/share': typeof ShareRoute
+  '/work-life-balance': typeof WorkLifeBalanceRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/collection/$collectionId': typeof CollectionCollectionIdRoute
@@ -232,6 +239,7 @@ export interface FileRoutesByTo {
   '/mindfulness': typeof MindfulnessRoute
   '/pricing': typeof PricingRoute
   '/share': typeof ShareRoute
+  '/work-life-balance': typeof WorkLifeBalanceRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/collection/$collectionId': typeof CollectionCollectionIdRoute
@@ -264,6 +272,7 @@ export interface FileRoutesById {
   '/mindfulness': typeof MindfulnessRoute
   '/pricing': typeof PricingRoute
   '/share': typeof ShareRoute
+  '/work-life-balance': typeof WorkLifeBalanceRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/collection/$collectionId': typeof CollectionCollectionIdRoute
@@ -297,6 +306,7 @@ export interface FileRouteTypes {
     | '/mindfulness'
     | '/pricing'
     | '/share'
+    | '/work-life-balance'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/collection/$collectionId'
@@ -328,6 +338,7 @@ export interface FileRouteTypes {
     | '/mindfulness'
     | '/pricing'
     | '/share'
+    | '/work-life-balance'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/collection/$collectionId'
@@ -359,6 +370,7 @@ export interface FileRouteTypes {
     | '/mindfulness'
     | '/pricing'
     | '/share'
+    | '/work-life-balance'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/collection/$collectionId'
@@ -391,6 +403,7 @@ export interface RootRouteChildren {
   MindfulnessRoute: typeof MindfulnessRoute
   PricingRoute: typeof PricingRoute
   ShareRoute: typeof ShareRoute
+  WorkLifeBalanceRoute: typeof WorkLifeBalanceRoute
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   CollectionCollectionIdRoute: typeof CollectionCollectionIdRoute
@@ -494,6 +507,13 @@ declare module '@tanstack/react-router' {
       path: '/share'
       fullPath: '/share'
       preLoaderRoute: typeof ShareRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/work-life-balance': {
+      id: '/work-life-balance'
+      path: '/work-life-balance'
+      fullPath: '/work-life-balance'
+      preLoaderRoute: typeof WorkLifeBalanceRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/.mcp/list-tools': {
@@ -631,6 +651,7 @@ const rootRouteChildren: RootRouteChildren = {
   MindfulnessRoute: MindfulnessRoute,
   PricingRoute: PricingRoute,
   ShareRoute: ShareRoute,
+  WorkLifeBalanceRoute: WorkLifeBalanceRoute,
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
