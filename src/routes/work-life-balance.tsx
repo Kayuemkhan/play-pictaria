@@ -79,13 +79,8 @@ function WorkLifeBalancePage() {
   const [goal, setGoal] = useState<number>(2);
   const navigate = useNavigate();
 
-  const startBreak = () => {
-    if (typeof window !== "undefined") {
-      window.localStorage.setItem(
-        "pictaria:break",
-        JSON.stringify({ goal, done: 0, startedAt: Date.now() }),
-      );
-    }
+  const beginBreak = () => {
+    startBreak(goal);
     navigate({ to: randomPuzzlePath() });
   };
 
@@ -166,7 +161,7 @@ function WorkLifeBalancePage() {
             <div className="mt-6 flex justify-center">
               <button
                 type="button"
-                onClick={startBreak}
+                onClick={beginBreak}
                 className="inline-flex items-center gap-1.5 rounded-full border border-accent/60 bg-accent/15 px-6 py-3 text-[0.6rem] tracking-[0.2em] text-accent uppercase transition-transform hover:scale-[1.03]"
               >
                 Start my break
