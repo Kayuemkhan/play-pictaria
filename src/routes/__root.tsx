@@ -13,6 +13,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { Toaster } from "@/components/ui/sonner";
 import { TopBackButton } from "@/components/TopBackButton";
+import { BottomHomeButton } from "@/components/BottomBackButton";
 
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
@@ -182,7 +183,7 @@ function BackGuard() {
 
 
 /**
- * A single back arrow on every screen except home. Puzzle screens draw their
+ * A single back arrow on most screens except home. Puzzle screens draw their
  * own arrow inside the board header, so we skip those to avoid two arrows.
  */
 function GlobalChrome() {
@@ -198,6 +199,18 @@ function GlobalChrome() {
   return <TopBackButton />;
 }
 
+/**
+ * A tiny home button fixed to the bottom-left on every page except home.
+ * It complements the top back arrow by always returning to the home screen.
+ */
+function GlobalBottomChrome() {
+  const raw = useRouterState({ select: (s) => s.location.pathname });
+  const path = raw.replace(/\/+$/, "");
+  const isHome = path === "" || path === "/";
+  if (isHome) return null;
+  return <BottomHomeButton />;
+}
+
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
@@ -206,6 +219,7 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <BackGuard />
       <GlobalChrome />
+      <GlobalBottomChrome />
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
 
