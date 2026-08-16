@@ -200,14 +200,10 @@ function GlobalChrome() {
 }
 
 /**
- * A tiny home button fixed to the bottom-left on every page except home.
+ * The palm-tree home button fixed to the bottom-center of every page.
  * It complements the top back arrow by always returning to the home screen.
  */
 function GlobalBottomChrome() {
-  const raw = useRouterState({ select: (s) => s.location.pathname });
-  const path = raw.replace(/\/+$/, "");
-  const isHome = path === "" || path === "/";
-  if (isHome) return null;
   return <BottomHomeButton />;
 }
 
