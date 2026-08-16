@@ -13,6 +13,8 @@ import { collections, difficulties } from "@/data/collections";
 import palmLogo from "@/assets/logo-palms-only.png";
 import tropicalIslandBg from "@/assets/pinup-08.jpg";
 import { playLock, playPick, playSolved, setMuted } from "@/lib/feedback";
+import { completePuzzleInBreak } from "@/lib/break-session";
+import { BreakOverBanner } from "@/components/BreakOverBanner";
 import { cn } from "@/lib/utils";
 import {
   TRACK_OPTIONS,
