@@ -40,17 +40,6 @@ export function BreakOverBanner({ onClose }: { onClose: () => void }) {
             >
               Back to work
             </button>
-            <button
-              type="button"
-              onClick={() => {
-                clearBreak();
-                onClose();
-                navigate({ to: "/work-life-balance" });
-              }}
-              className="py-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
-            >
-              One more little break
-            </button>
           </div>
         </div>
       </div>
