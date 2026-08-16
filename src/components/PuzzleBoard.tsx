@@ -13,6 +13,8 @@ import { collections, difficulties } from "@/data/collections";
 import palmLogo from "@/assets/logo-palms-only.png";
 import tropicalIslandBg from "@/assets/pinup-08.jpg";
 import { playLock, playPick, playSolved, setMuted } from "@/lib/feedback";
+import { completePuzzleInBreak } from "@/lib/break-session";
+import { BreakOverBanner } from "@/components/BreakOverBanner";
 import { cn } from "@/lib/utils";
 import {
   TRACK_OPTIONS,
@@ -294,6 +296,23 @@ export function PuzzleBoard({
     };
   }, [solved, hasNext]);
   void nextRef;
+
+  /* Work Life Balance: count this puzzle toward the chosen break */
+  const [breakOver, setBreakOver] = useState(false);
+  const countedRef = useRef(false);
+  useEffect(() => {
+    if (!solved) {
+      countedRef.current = false;
+      return;
+    }
+    if (countedRef.current) return;
+    countedRef.current = true;
+    if (completePuzzleInBreak()) {
+      const t = window.setTimeout(() => setBreakOver(true), 3200);
+      return () => window.clearTimeout(t);
+    }
+    return;
+  }, [solved]);
 
 
 
@@ -1508,6 +1527,8 @@ export function PuzzleBoard({
           </div>
         </div>
       )}
+
+      {breakOver && <BreakOverBanner onClose={() => setBreakOver(false)} />}
 
       {unbranded && (
         <Link

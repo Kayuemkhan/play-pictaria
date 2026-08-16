@@ -3,6 +3,7 @@ import { useState } from "react";
 import palmLogo from "@/assets/logo-palms-only.png";
 import kittenAtWork from "@/assets/work-life-kitten.jpg";
 import { visibleCollections } from "@/data/collections";
+import { startBreak } from "@/lib/break-session";
 
 export const Route = createFileRoute("/work-life-balance")({
   head: () => ({
@@ -37,6 +38,37 @@ export const Route = createFileRoute("/work-life-balance")({
 
 const BREAK_CHOICES = [1, 2, 3, 5] as const;
 
+const BENEFITS: { title: string; body: string }[] = [
+  {
+    title: "Stress relief & relaxation",
+    body: "Shifts the brain into a meditative state, lowering heart rate and cortisol.",
+  },
+  {
+    title: "Improves cognitive function",
+    body: "Strengthens memory, focus and problem-solving, and promotes neuroplasticity.",
+  },
+  {
+    title: "Mindfulness & flow",
+    body: "Anchors you in the present, reducing rumination and anxious thoughts.",
+  },
+  {
+    title: "Slows cognitive decline",
+    body: "Builds cognitive reserve, potentially delaying dementia and Alzheimer's symptoms.",
+  },
+  {
+    title: "Builds resilience & patience",
+    body: "Teaches emotional regulation and a growth mindset through healthy frustration.",
+  },
+  {
+    title: "Social connection",
+    body: "Fosters bonding and communication, and eases loneliness when done with others.",
+  },
+  {
+    title: "Boosts mood & dopamine",
+    body: "Small wins trigger dopamine release, improving mood and motivation.",
+  },
+];
+
 function randomPuzzlePath() {
   const pool = visibleCollections.flatMap((c) => c.puzzles.map((p) => p.id));
   const id = pool[Math.floor(Math.random() * pool.length)];
@@ -47,13 +79,8 @@ function WorkLifeBalancePage() {
   const [goal, setGoal] = useState<number>(2);
   const navigate = useNavigate();
 
-  const startBreak = () => {
-    if (typeof window !== "undefined") {
-      window.localStorage.setItem(
-        "pictaria:break",
-        JSON.stringify({ goal, done: 0, startedAt: Date.now() }),
-      );
-    }
+  const beginBreak = () => {
+    startBreak(goal);
     navigate({ to: randomPuzzlePath() });
   };
 
@@ -134,13 +161,31 @@ function WorkLifeBalancePage() {
             <div className="mt-6 flex justify-center">
               <button
                 type="button"
-                onClick={startBreak}
+                onClick={beginBreak}
                 className="inline-flex items-center gap-1.5 rounded-full border border-accent/60 bg-accent/15 px-6 py-3 text-[0.6rem] tracking-[0.2em] text-accent uppercase transition-transform hover:scale-[1.03]"
               >
                 Start my break
                 <span aria-hidden>›</span>
               </button>
             </div>
+          </div>
+
+          <div className="rounded-[6px] border border-accent/40 bg-deep/50 p-6 backdrop-blur-sm sm:p-10">
+            <h2 className="font-display text-lg text-shell">
+              Benefits of doing puzzles
+            </h2>
+            <ul className="mt-6 space-y-4">
+              {BENEFITS.map((b) => (
+                <li key={b.title} className="flex gap-3">
+                  <span aria-hidden className="mt-1 text-accent">
+                    ·
+                  </span>
+                  <p className="text-[0.85rem] leading-relaxed text-shell/80">
+                    <span className="text-shell">{b.title}:</span> {b.body}
+                  </p>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </section>
