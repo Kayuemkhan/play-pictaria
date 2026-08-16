@@ -39,7 +39,6 @@ const menuLinks = [
   { to: "/collections", label: "Gallery" },
   { to: "/about", label: "Travel to Pictaria" },
   { to: "/create", label: "Send a free Pictaria" },
-  { to: "/pricing", label: "Pricing" },
 
   { to: "/pricing", label: "Pricing" },
   { to: "/daily", label: "Daily Pictaria" },
