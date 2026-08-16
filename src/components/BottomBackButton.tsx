@@ -1,18 +1,32 @@
-import { Home } from "lucide-react";
 import { Link } from "@tanstack/react-router";
+import palmLogo from "@/assets/logo-palms-only.png";
 
 /**
- * A subtle fixed home button for the bottom-left of non-home screens.
- * The top arrow still goes back; this one always returns to the home page.
+ * A subtle home button pinned to the bottom-center of every non-home screen.
+ * It shows the two Pictaria palm trees, masked into the soft light-blue accent,
+ * so it's the last thing you see on the page.
  */
 export function BottomHomeButton() {
   return (
     <Link
       to="/"
       aria-label="Home"
-      className="pointer-events-auto fixed bottom-4 left-4 z-50 flex flex-col items-center gap-0.5 text-accent/55 transition-transform hover:scale-105 active:scale-95"
+      className="pointer-events-auto fixed bottom-4 left-1/2 z-50 flex -translate-x-1/2 flex-col items-center gap-1 text-accent/55 transition-transform hover:scale-105 active:scale-95"
     >
-      <Home className="h-4 w-4" strokeWidth={1.5} />
+      <span
+        aria-hidden
+        className="block h-7 w-7 bg-accent/55"
+        style={{
+          maskImage: `url(${palmLogo})`,
+          WebkitMaskImage: `url(${palmLogo})`,
+          maskSize: "contain",
+          WebkitMaskSize: "contain",
+          maskRepeat: "no-repeat",
+          WebkitMaskRepeat: "no-repeat",
+          maskPosition: "center",
+          WebkitMaskPosition: "center",
+        }}
+      />
       <span className="text-[0.55rem] font-medium tracking-[0.14em] uppercase">
         home
       </span>
