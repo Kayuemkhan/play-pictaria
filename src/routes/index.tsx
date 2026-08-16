@@ -39,9 +39,8 @@ const menuLinks = [
   { to: "/collections", label: "Gallery" },
   { to: "/about", label: "Travel to Pictaria" },
   { to: "/create", label: "Send a free Pictaria" },
-  { to: "/studio/personal", label: "Personal Studio" },
-  { to: "/studio/artist", label: "Artist Studio" },
-  { to: "/studio/brand", label: "Branding Studio" },
+  { to: "/pricing", label: "Pricing" },
+
   { to: "/pricing", label: "Pricing" },
   { to: "/daily", label: "Daily Pictaria" },
   { to: "/mindfulness", label: "Mindful Music" },
