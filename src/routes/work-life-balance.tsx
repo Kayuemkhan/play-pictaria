@@ -3,6 +3,7 @@ import { useState } from "react";
 import palmLogo from "@/assets/logo-palms-only.png";
 import kittenAtWork from "@/assets/work-life-kitten.jpg";
 import { visibleCollections } from "@/data/collections";
+import { startBreak } from "@/lib/break-session";
 
 export const Route = createFileRoute("/work-life-balance")({
   head: () => ({
@@ -36,6 +37,37 @@ export const Route = createFileRoute("/work-life-balance")({
 });
 
 const BREAK_CHOICES = [1, 2, 3, 5] as const;
+
+const BENEFITS: { title: string; body: string }[] = [
+  {
+    title: "Stress relief & relaxation",
+    body: "Shifts the brain into a meditative state, lowering heart rate and cortisol.",
+  },
+  {
+    title: "Improves cognitive function",
+    body: "Strengthens memory, focus and problem-solving, and promotes neuroplasticity.",
+  },
+  {
+    title: "Mindfulness & flow",
+    body: "Anchors you in the present, reducing rumination and anxious thoughts.",
+  },
+  {
+    title: "Slows cognitive decline",
+    body: "Builds cognitive reserve, potentially delaying dementia and Alzheimer's symptoms.",
+  },
+  {
+    title: "Builds resilience & patience",
+    body: "Teaches emotional regulation and a growth mindset through healthy frustration.",
+  },
+  {
+    title: "Social connection",
+    body: "Fosters bonding and communication, and eases loneliness when done with others.",
+  },
+  {
+    title: "Boosts mood & dopamine",
+    body: "Small wins trigger dopamine release, improving mood and motivation.",
+  },
+];
 
 function randomPuzzlePath() {
   const pool = visibleCollections.flatMap((c) => c.puzzles.map((p) => p.id));
