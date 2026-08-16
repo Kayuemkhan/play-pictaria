@@ -3,8 +3,8 @@ import { clearBreak } from "@/lib/break-session";
 
 /**
  * Shown once the visitor finishes the number of puzzles they picked on the
- * Work Life Balance page — the kitten looks up over her glasses and sends
- * them gently back to work.
+ * Work Life Balance page — the kitten turns her head, wire-rim glasses
+ * clearly visible, and sends them gently back to work.
  */
 export function BreakOverBanner({ onClose }: { onClose: () => void }) {
   const dismiss = () => {
