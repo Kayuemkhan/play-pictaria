@@ -81,17 +81,7 @@ function AboutPage() {
           </div>
 
           <div className="rounded-[6px] border border-accent/40 bg-deep/50 p-6 backdrop-blur-sm sm:p-10">
-            <h2 className="font-display text-lg text-shell">Find Your Frequency</h2>
-            <p className="mx-auto mt-4 max-w-xl text-[0.9rem] leading-relaxed text-shell/80">
-              Sound is more than something we hear. It is a physical vibration, and scientists are discovering fascinating ways our brains and even our cells respond to it. Recent research has found that acoustic stimulation can influence gene activity and cellular behavior, while studies of entrainment explore how rhythmic sound may interact with the brain’s own electrical rhythms.
-            </p>
-            <p className="mx-auto mt-4 max-w-xl text-[0.9rem] leading-relaxed text-shell/80">
-              Research into music, sound, and binaural beats is showing promising possibilities for relaxation, focus, memory, mood, and stress reduction. The science is still unfolding, but the connection between sound, rhythm, and the human body is fascinating.
-            </p>
-          </div>
-
-          <div className="rounded-[6px] border border-accent/40 bg-deep/50 p-6 backdrop-blur-sm sm:p-10">
-            <h2 className="font-display text-lg text-shell">Manifestation Station</h2>
+            <h2 className="font-display text-lg text-shell">Manifest</h2>
             <p className="mx-auto mt-4 max-w-xl text-[0.9rem] leading-relaxed text-shell/80">
               There's a reason so many people use vision boards, including millionaires and CEOs. Your brain's Reticular Activating System (RAS) helps focus your attention on your goals and notice opportunities that might otherwise pass you by.
             </p>
@@ -105,6 +95,16 @@ function AboutPage() {
               And I have been a believer in vision boards and living in my dream home in Maui ever since.
             </p>
           </div>
+          <div className="rounded-[6px] border border-accent/40 bg-deep/50 p-6 backdrop-blur-sm sm:p-10">
+            <h2 className="font-display text-lg text-shell">Find Your Frequency</h2>
+            <p className="mx-auto mt-4 max-w-xl text-[0.9rem] leading-relaxed text-shell/80">
+              Sound is more than something we hear. It is a physical vibration, and scientists are discovering fascinating ways our brains and even our cells respond to it. Recent research has found that acoustic stimulation can influence gene activity and cellular behavior, while studies of entrainment explore how rhythmic sound may interact with the brain’s own electrical rhythms.
+            </p>
+            <p className="mx-auto mt-4 max-w-xl text-[0.9rem] leading-relaxed text-shell/80">
+              Research into music, sound, and binaural beats is showing promising possibilities for relaxation, focus, memory, mood, and stress reduction. The science is still unfolding, but the connection between sound, rhythm, and the human body is fascinating.
+            </p>
+          </div>
+
         </div>
       </section>
 
