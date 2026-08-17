@@ -52,6 +52,8 @@ interface Photo {
   id: string;
   url: string;
   file: File;
+  /** Opt-in: may this picture also be shown in the public Pictaria community? */
+  share: boolean;
 }
 
 interface Edits {
@@ -218,7 +220,8 @@ export function StudioComposer({
     const stamped = picked.map((file, i) => {
       const url = URL.createObjectURL(file);
       urls.current.push(url);
-      return { id: `${Date.now()}-${i}-${file.name}`, url, file };
+      // private by default — the visitor opts each picture in
+      return { id: `${Date.now()}-${i}-${file.name}`, url, file, share: false };
     });
     setShareUrl("");
     setPhotos((prev) => {
@@ -236,6 +239,11 @@ export function StudioComposer({
       setHeroIndex((i) => Math.min(i, last));
       return kept;
     });
+  };
+
+  /** Yes/No community sharing, per picture. */
+  const setShare = (id: string, share: boolean) => {
+    setPhotos((prev) => prev.map((p) => (p.id === id ? { ...p, share } : p)));
   };
 
   const active = photos[activeIndex] ?? photos[0];
