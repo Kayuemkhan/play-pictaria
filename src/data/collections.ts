@@ -1059,9 +1059,10 @@ export const collections: Collection[] = [
     ],
   },
   {
-    id: "flowers-grow-on-trees",
-    title: "Flowers Grow on Trees in Hawaii",
+    id: "flowers-that-grow-on-trees",
+    title: "Flowers That Grow on Trees",
     tagline: "Ten flowering trees that turn the islands into a garden",
+
     cover: treeflowerPlumeria,
     free: true,
     puzzles: [
