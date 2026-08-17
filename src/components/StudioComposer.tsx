@@ -463,8 +463,9 @@ export function StudioComposer({
                   ? `${photos.length} of ${maxPhotos} — tap one to work on it`
                   : maxPhotos > 1
                     ? `Add up to ${maxPhotos} pictures`
-                    : "Add one picture"}
+                    : ""}
               </p>
+
               <PhotoPick
                 label={photos.length ? "Add more pictures" : "Choose photos"}
                 multiple={maxPhotos > 1}
