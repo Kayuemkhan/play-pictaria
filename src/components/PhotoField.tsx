@@ -153,26 +153,15 @@ export function PhotoPlaceholder({
       <img
         src={resortCove.url}
         alt=""
-        className={`absolute inset-0 h-full w-full object-cover grayscale-[20%] ${
-          tone === "dark" ? "opacity-25" : "opacity-30"
-        }`}
+        className="absolute inset-0 h-full w-full object-cover opacity-15 grayscale-[35%]"
       />
-      <span
-        className={`absolute inset-0 ${tone === "dark" ? "bg-deep/55" : "bg-shell/45"}`}
-      />
-      <span
-        className={`relative flex h-full w-full flex-col items-center justify-center gap-2 px-4 ${
-          tone === "dark" ? "text-deep-foreground" : "text-foreground"
-        }`}
-      >
-        <ImagePlus className="h-8 w-8" strokeWidth={1.25} />
+      <span className="absolute inset-0 bg-accent/12" />
+      <span className="absolute inset-0 bg-shell/70" />
+      <span className="relative flex h-full w-full flex-col items-center justify-center gap-2 px-4 text-accent">
+        <ImagePlus className="h-7 w-7" strokeWidth={1.25} />
         <span className="text-[10px] tracking-[0.2em] uppercase">{title}</span>
         {hint && (
-          <span
-            className={`max-w-52 text-center text-[11px] leading-relaxed ${
-              tone === "dark" ? "text-deep-foreground/70" : "text-muted-foreground"
-            }`}
-          >
+          <span className="max-w-52 text-center text-[11px] leading-relaxed text-accent/70">
             {hint}
           </span>
         )}

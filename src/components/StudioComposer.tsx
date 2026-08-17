@@ -466,19 +466,21 @@ export function StudioComposer({
                     : ""}
               </p>
 
-              <PhotoPick
-                label={photos.length ? "Add more pictures" : "Choose photos"}
-                multiple={maxPhotos > 1}
-                disabled={photos.length >= maxPhotos}
-                onFiles={add}
-                fallbackToCamera
-                className="shrink-0"
-              >
-                <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-deep px-3 py-1.5 text-[0.55rem] tracking-[0.18em] text-accent uppercase shadow-soft transition-transform hover:scale-[1.03]">
-                  <ImagePlus className="h-3 w-3" strokeWidth={1.5} />
-                  {photos.length ? "Add more" : "Choose photos"}
-                </span>
-              </PhotoPick>
+              {photos.length > 0 && (
+                <PhotoPick
+                  label="Add more pictures"
+                  multiple={maxPhotos > 1}
+                  disabled={photos.length >= maxPhotos}
+                  onFiles={add}
+                  fallbackToCamera
+                  className="shrink-0"
+                >
+                  <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-deep px-3 py-1.5 text-[0.55rem] tracking-[0.18em] text-accent uppercase shadow-soft transition-transform hover:scale-[1.03]">
+                    <ImagePlus className="h-3 w-3" strokeWidth={1.5} />
+                    Add more
+                  </span>
+                </PhotoPick>
+              )}
             </div>
 
             {photos.length > 0 && (
