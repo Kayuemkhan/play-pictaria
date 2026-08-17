@@ -1,12 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   BarChart3,
+  Check,
   Circle,
   Contrast,
   Crop,
   Droplets,
   Heart,
   Images,
+  Minus,
   MousePointerClick,
   Palette,
   Sparkles,
@@ -14,6 +16,33 @@ import {
   Sun,
   Wand2,
 } from "lucide-react";
+
+const planColumns = [
+  { name: "Free", price: "free", period: "/ every day" },
+  { name: "Personal", price: "$5.95", period: "/ month" },
+  { name: "Artist", price: "$9.95", period: "/ month" },
+  { name: "Brand", price: "$195", period: "/ month" },
+];
+
+const planRows: { label: string; values: (boolean | string)[] }[] = [
+  { label: "A fresh Pictaria every day", values: [true, true, true, true] },
+  { label: "The whole public gallery", values: [true, true, true, true] },
+  { label: "Every difficulty, 3×3 to 6×6", values: [true, true, true, true] },
+  { label: "No ads, ever", values: [true, true, true, true] },
+  { label: "Turn your own photos into puzzles", values: [false, true, true, true] },
+  { label: "Storybooks a month", values: ["—", "3", "5", "Unlimited"] },
+  { label: "Captions & recipes under each picture", values: [false, true, true, true] },
+  { label: "Send a link anywhere", values: [false, true, true, true] },
+  { label: "Crop, straighten & reframe", values: [false, false, true, true] },
+  { label: "Exposure, contrast & saturation", values: [false, false, true, true] },
+  { label: "Vignettes, glow & one-tap looks", values: [false, false, true, true] },
+  { label: "Saved presets", values: [false, false, true, true] },
+  { label: "Your logo on every picture", values: [false, false, false, true] },
+  { label: "Full analytics", values: [false, false, false, true] },
+  { label: "Action buttons at the celebration", values: [false, false, false, true] },
+  { label: "Your own branded Daily Pictaria", values: [false, false, false, true] },
+];
+
 
 
 export const Route = createFileRoute("/pricing")({
