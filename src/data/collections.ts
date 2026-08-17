@@ -1140,11 +1140,12 @@ export const collections: Collection[] = [
       {
         id: "treeflower-07",
         title: "Monkeypod",
-        meaning: "“Samanea” — a wide umbrella of pink puffs",
-        caption: "Pink powderpuff flowers over the ocean",
+        meaning: "“Samanea” — a wide umbrella of shade",
+        caption: "Cream powderpuffs with rose-tipped stamens",
         story: [
-          "Monkeypod trees are the great shade trees of the islands. They spread a wide, flat crown that can cover a whole yard, and their fine, fern-like leaves filter sunlight into soft green coins on the ground.",
-          "When they bloom, the canopy fills with small pink powderpuff flowers that look like they were made of silk. The flowers do not last long, but for a week or two the whole tree hums with bees.",
+          "Monkeypod trees are the great shade trees of the islands. They spread a wide, flat crown that can cover a whole yard, and their broad paired leaflets fold up at dusk and in the rain.",
+          "When they bloom, the canopy fills with small powderpuff flowers — bundles of thread-fine stamens, greenish-cream at the base and brushed with rose only at the tips. They are easy to miss until you look up, and then the whole tree hums with bees.",
+
           "It is a tree built for picnics and afternoon naps and slow conversations. The photograph is the feeling of sitting under something older and steadier than the day.",
         ],
         image: treeflowerMonkeypod,
