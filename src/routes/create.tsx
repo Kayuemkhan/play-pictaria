@@ -163,7 +163,9 @@ function CreatePage() {
         kicker="One photograph, one instant link"
         maxPhotos={1}
         highlights={[]}
+        heroImage={puppyLetter}
       />
     </>
   );
 }
+
