@@ -13,6 +13,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { Toaster } from "@/components/ui/sonner";
 import { TopBackButton } from "@/components/TopBackButton";
+import { TopHomeButton } from "@/components/TopHomeButton";
 import { BottomHomeButton } from "@/components/BottomBackButton";
 
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -183,8 +184,9 @@ function BackGuard() {
 
 
 /**
- * A single back arrow on most screens except home. Puzzle screens draw their
- * own arrow inside the board header, so we skip those to avoid two arrows.
+ * Top navigation on most screens: a back arrow in the top-left and a
+ * palm-tree home button in the top-right. Home and puzzle screens draw their
+ * own chrome, so we skip those to avoid duplicate controls.
  */
 function GlobalChrome() {
   const raw = useRouterState({ select: (s) => s.location.pathname });
@@ -196,7 +198,12 @@ function GlobalChrome() {
 
   if (isHome || hasOwnChrome) return null;
 
-  return <TopBackButton />;
+  return (
+    <>
+      <TopBackButton />
+      <TopHomeButton />
+    </>
+  );
 }
 
 /**
