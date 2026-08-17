@@ -94,6 +94,24 @@ function NewBusiness() {
         </Link>
 
         <Link
+          to="/portal/community"
+          className="mb-3 flex items-center justify-between rounded-lg border border-accent/40 bg-shell/90 px-5 py-4 shadow-soft transition-transform hover:scale-[1.01]"
+        >
+          <span>
+            <span className="block font-display text-[1.05rem] text-foreground">
+              To Be Authorized
+            </span>
+            <span className="text-[10px] tracking-[0.16em] text-muted-foreground uppercase">
+              community pictures waiting on your yes
+            </span>
+          </span>
+          <span aria-hidden className="text-primary">
+            ›
+          </span>
+        </Link>
+
+
+        <Link
           to="/portal/beta"
           className="mb-5 flex items-center justify-between rounded-lg border border-accent/40 bg-shell/90 px-5 py-4 shadow-soft transition-transform hover:scale-[1.01]"
         >
