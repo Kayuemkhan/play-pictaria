@@ -158,14 +158,9 @@ function CreatePage() {
               {gateStatus === "saving" ? "Saving..." : "Start here"}
             </Button>
           </form>
-
-          <Link
-            to="/"
-            className="mt-4 inline-block text-[10px] tracking-[0.18em] text-muted-foreground uppercase"
-          >
-            Back home
-          </Link>
+          </div>
         </div>
+
       </main>
     );
   }
