@@ -1164,7 +1164,7 @@ export const collections: Collection[] = [
       {
         id: "treeflower-09",
         title: "Champaca",
-        meaning: “Michelia” — golden fragrant stars",
+        meaning: "Michelia — golden fragrant stars",
         caption: "Creamy yellow blossoms among dark leaves",
         story: [
           "Champaca is a small tree with dark, glossy leaves and clusters of creamy yellow-orange flowers that release a heavy, sweet perfume, especially in the evening. It is the kind of scent that stops people mid-step.",
@@ -1176,7 +1176,7 @@ export const collections: Collection[] = [
       {
         id: "treeflower-10",
         title: "Coral Tree",
-        meaning: “Wiliwili” — bright coral fingers against the sky",
+        meaning: "Wiliwili — bright coral fingers against the sky",
         caption: "Tubular red flowers on sculptural branches",
         story: [
           "Coral trees are named for their flowers, which look like pieces of bright coral lifted out of the reef and hung on bare branches. The blooms are tubular and vivid, and they appear before the leaves do, so the color seems to come from the wood itself.",
