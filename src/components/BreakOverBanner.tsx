@@ -72,14 +72,14 @@ export function BreakOverBanner({ onClose }: { onClose: () => void }) {
             <button
               type="button"
               onClick={exitApp}
-              className="rounded-full border border-accent/60 bg-accent/15 px-4 py-2.5 text-[0.8rem] leading-snug tracking-wide text-accent transition-colors hover:bg-accent/25"
+              className="rounded-full border border-primary bg-primary px-4 py-3 text-[0.85rem] leading-snug font-medium tracking-wide text-primary-foreground transition-opacity hover:opacity-90"
             >
               click out of this app completely
             </button>
             <button
               type="button"
               onClick={shareThenExit}
-              className="rounded-full border border-accent/60 bg-accent/15 px-4 py-2.5 text-[0.8rem] leading-snug tracking-wide text-accent transition-colors hover:bg-accent/25"
+              className="rounded-full border border-primary bg-primary px-4 py-3 text-[0.85rem] leading-snug font-medium tracking-wide text-primary-foreground transition-opacity hover:opacity-90"
             >
               pass the fun to a friend, then back to work
             </button>

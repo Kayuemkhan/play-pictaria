@@ -204,6 +204,9 @@ function GlobalChrome() {
  * It complements the top back arrow by always returning to the home screen.
  */
 function GlobalBottomChrome() {
+  const raw = useRouterState({ select: (s) => s.location.pathname });
+  const path = raw.replace(/\/+$/, "");
+  if (path === "" || path === "/") return null;
   return <BottomHomeButton />;
 }
 
