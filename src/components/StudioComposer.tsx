@@ -296,6 +296,13 @@ export function StudioComposer({
     void publishNow();
   };
 
+  /** Publishes, then takes you straight to the real Pictaria page. */
+  const previewIt = async () => {
+    const link = shareUrl || (await publishNow());
+    if (!link) return;
+    window.location.href = link;
+  };
+
   const copyLink = async () => {
     if (!shareUrl) return;
     await navigator.clipboard.writeText(shareUrl);
