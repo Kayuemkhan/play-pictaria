@@ -349,16 +349,21 @@ export function StudioComposer({
 
   return (
     <main className="min-h-screen bg-shell pb-16">
-      <header className="px-4 pt-5 sm:px-8">
-        <div className="mb-3 flex items-center justify-end">
-
-          <Link
-            to="/"
-            className="text-[0.7rem] tracking-[0.16em] text-muted-foreground uppercase transition-opacity hover:opacity-70"
-          >
-            Home
-          </Link>
+      {heroImage && (
+        <div className="relative h-40 w-full overflow-hidden sm:h-52">
+          <img
+            src={heroImage}
+            alt=""
+            aria-hidden
+            width={1024}
+            height={768}
+            className="h-full w-full object-cover opacity-45"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-shell/40 to-shell" />
         </div>
+      )}
+      <header className="px-4 pt-5 sm:px-8">
+
         <div className="flex items-center gap-3">
 
           <div className="min-w-0">
