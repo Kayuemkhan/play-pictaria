@@ -52,6 +52,8 @@ interface Photo {
   id: string;
   url: string;
   file: File;
+  /** Opt-in: may this picture also be shown in the public Pictaria community? */
+  share: boolean;
 }
 
 interface Edits {
@@ -218,7 +220,8 @@ export function StudioComposer({
     const stamped = picked.map((file, i) => {
       const url = URL.createObjectURL(file);
       urls.current.push(url);
-      return { id: `${Date.now()}-${i}-${file.name}`, url, file };
+      // private by default — the visitor opts each picture in
+      return { id: `${Date.now()}-${i}-${file.name}`, url, file, share: false };
     });
     setShareUrl("");
     setPhotos((prev) => {
@@ -236,6 +239,11 @@ export function StudioComposer({
       setHeroIndex((i) => Math.min(i, last));
       return kept;
     });
+  };
+
+  /** Yes/No community sharing, per picture. */
+  const setShare = (id: string, share: boolean) => {
+    setPhotos((prev) => prev.map((p) => (p.id === id ? { ...p, share } : p)));
   };
 
   const active = photos[activeIndex] ?? photos[0];
@@ -286,6 +294,13 @@ export function StudioComposer({
 
   const createLink = () => {
     void publishNow();
+  };
+
+  /** Publishes, then takes you straight to the real Pictaria page. */
+  const previewIt = async () => {
+    const link = shareUrl || (await publishNow());
+    if (!link) return;
+    window.location.href = link;
   };
 
   const copyLink = async () => {
@@ -484,38 +499,72 @@ export function StudioComposer({
             </div>
 
             {photos.length > 0 && (
-              <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
-                {photos.map((photo, i) => (
-                  <div key={photo.id} className="relative">
-                    <button
-                      type="button"
-                      onClick={() => setActiveIndex(i)}
-                      className={`block w-full overflow-hidden rounded-xl transition-shadow ${
-                        i === activeIndex
-                          ? "ring-2 ring-accent"
-                          : "shadow-soft hover:shadow-lift"
-                      }`}
-                    >
-                      <img
-                        src={photo.url}
-                        alt=""
-                        style={editing ? { filter: filterCss(edits) } : undefined}
-                        className="aspect-[3/4] w-full object-cover"
-                      />
-                    </button>
-                    <button
-                      type="button"
-                      aria-label="Remove picture"
-                      onClick={() => remove(photo.id)}
-                      className="absolute top-1 right-1 grid h-6 w-6 place-items-center rounded-full bg-deep/85 text-shell transition-transform hover:scale-105"
-                    >
-                      <X className="h-3 w-3" strokeWidth={2} />
-                    </button>
-                  </div>
-                ))}
-              </div>
+              <>
+                <p className="mb-2 text-[10px] leading-relaxed tracking-[0.08em] text-muted-foreground">
+                  Your folder is private. Beneath each picture, choose whether
+                  that one picture may also be shared with the Pictaria
+                  community.
+                </p>
+                <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
+                  {photos.map((photo, i) => (
+                    <div key={photo.id} className="relative">
+                      <button
+                        type="button"
+                        onClick={() => setActiveIndex(i)}
+                        className={`block w-full overflow-hidden rounded-xl transition-shadow ${
+                          i === activeIndex
+                            ? "ring-2 ring-accent"
+                            : "shadow-soft hover:shadow-lift"
+                        }`}
+                      >
+                        <img
+                          src={photo.url}
+                          alt=""
+                          style={editing ? { filter: filterCss(edits) } : undefined}
+                          className="aspect-[3/4] w-full object-cover"
+                        />
+                      </button>
+                      <button
+                        type="button"
+                        aria-label="Remove picture"
+                        onClick={() => remove(photo.id)}
+                        className="absolute top-1 right-1 grid h-6 w-6 place-items-center rounded-full bg-deep/85 text-shell transition-transform hover:scale-105"
+                      >
+                        <X className="h-3 w-3" strokeWidth={2} />
+                      </button>
+                      <div className="mt-1.5">
+                        <p className="text-[0.5rem] leading-tight tracking-[0.12em] text-muted-foreground uppercase">
+                          Share with the community
+                        </p>
+                        <div
+                          role="group"
+                          aria-label={`Share picture ${i + 1} with the community`}
+                          className="mt-1 inline-flex overflow-hidden rounded-full border border-accent/50"
+                        >
+                          {([true, false] as const).map((yes) => (
+                            <button
+                              key={String(yes)}
+                              type="button"
+                              aria-pressed={photo.share === yes}
+                              onClick={() => setShare(photo.id, yes)}
+                              className={`px-2 py-0.5 text-[0.5rem] tracking-[0.14em] uppercase transition-colors ${
+                                photo.share === yes
+                                  ? "bg-primary text-primary-foreground"
+                                  : "bg-transparent text-muted-foreground hover:text-foreground"
+                              }`}
+                            >
+                              {yes ? "Yes" : "No"}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </>
             )}
           </div>
+
 
           {/* artist retouching — right beneath the picture */}
           {editing && (
@@ -724,15 +773,27 @@ export function StudioComposer({
               We publish your Pictaria and hand you a link anyone can open and
               play — text it, post it, or send it below.
             </p>
-            <button
-              type="button"
-              onClick={createLink}
-              disabled={!photos.length || publishState === "working"}
-              className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-[0.6rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03] disabled:opacity-50"
-            >
-              {publishState === "working" ? "Publishing…" : "Create my link"}
-              <span aria-hidden>›</span>
-            </button>
+            <div className="mt-3 flex flex-wrap items-center gap-2">
+              <button
+                type="button"
+                onClick={createLink}
+                disabled={!photos.length || publishState === "working"}
+                className="inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-[0.6rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03] disabled:opacity-50"
+              >
+                {publishState === "working" ? "Publishing…" : "Create my link"}
+                <span aria-hidden>›</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => void previewIt()}
+                disabled={!photos.length || publishState === "working"}
+                className="inline-flex items-center gap-1.5 rounded-full border border-accent/60 bg-transparent px-4 py-2 text-[0.6rem] tracking-[0.2em] uppercase transition-transform hover:scale-[1.03] disabled:opacity-50"
+              >
+                Preview it
+                <span aria-hidden>›</span>
+              </button>
+            </div>
+
             {publishState === "error" && (
               <p className="mt-2 text-[11px] text-destructive">{publishError}</p>
             )}
