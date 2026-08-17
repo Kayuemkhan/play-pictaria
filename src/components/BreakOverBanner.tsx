@@ -48,17 +48,15 @@ export function BreakOverBanner({ onClose }: { onClose: () => void }) {
             width={1024}
             height={1024}
           />
-          <Link
-            to="/"
+          <button
+            type="button"
             onClick={onClose}
-            aria-label="Home"
-            className="absolute top-2 left-1/2 flex -translate-x-1/2 flex-col items-center gap-0.5 text-accent/90 drop-shadow-[0_2px_8px_oklch(0.15_0.04_230/0.7)] transition-transform hover:scale-105 active:scale-95"
+            aria-label="Back"
+            className="absolute top-2 left-2 grid h-10 w-10 place-items-center text-accent/90 drop-shadow-[0_2px_8px_oklch(0.15_0.04_230/0.7)] transition-transform hover:scale-105 active:scale-95"
           >
-            <img src={palmLogo} alt="" aria-hidden className="h-7 w-auto" />
-            <span className="text-[0.5rem] font-medium tracking-[0.14em] uppercase">
-              home
-            </span>
-          </Link>
+            <ChevronLeft className="h-5 w-5" strokeWidth={1.5} />
+          </button>
+
         </div>
 
         <div className="p-6 text-center">
