@@ -614,6 +614,39 @@ export const collections: Collection[] = [
           "They sat down together for exactly as long as the sunset lasted, then went right back to chasing each other down the sand.",
         ],
       },
+      {
+        id: "dog-11",
+        title: "Lā Hiki",
+        meaning: "“Rising sun”",
+        caption: "Asleep in a sunbeam on the porch",
+        image: dog11,
+        story: [
+          "The sun comes around the corner of the porch at the same hour every morning and lays one warm stripe across the old boards. He has known about it his whole life, and he has never once missed it.",
+          "Hibiscus at the railing, mountain mist beyond, dust turning slowly in the light — and a dog doing the single most sensible thing available on a Hawaiian morning.",
+        ],
+      },
+      {
+        id: "dog-12",
+        title: "Alanui ʻUlaʻula",
+        meaning: "“Red road”",
+        caption: "Riding in the back of the old truck",
+        image: dog12,
+        story: [
+          "Red dirt roads and an old green pickup are how a lot of the island still gets around, and every truck bed eventually becomes somebody's favorite seat.",
+          "Ears up in the trade wind, cane grass on one side, green pali on the other. He does not need to know where they are going.",
+        ],
+      },
+      {
+        id: "dog-13",
+        title: "Heʻe Nalu",
+        meaning: "“Wave sliding”",
+        caption: "A young surfer on his own board",
+        image: dog13,
+        story: [
+          "Someone let him stand on the board once, and that was the end of the discussion. Now he paddles out with the family and waits in the shallows like he has a spot in the lineup.",
+          "Wet fur, turquoise water, palms leaning in from the shore — this is a dog who has fully understood where he lives.",
+        ],
+      },
     ],
   },
   {
