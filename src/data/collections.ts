@@ -658,7 +658,7 @@ export const collections: Collection[] = [
   {
     id: "hawaiian-flowers",
     title: "Hawaiian Flowers",
-    tagline: "Twenty-six island blooms in full color",
+    tagline: "Thirty-two island blooms in full color",
     cover: flowerPlumeria,
     free: true,
     puzzles: [
@@ -974,8 +974,78 @@ export const collections: Collection[] = [
         ],
         image: flowerNightCereus,
       },
-
-
+      {
+        id: "flower-27",
+        title: "Jacaranda",
+        meaning: "“Pua lanahu” — the purple upcountry season",
+        caption: "Lavender blossoms above a Kula pasture",
+        story: [
+          "Jacaranda is not from Hawaiʻi, but every spring it takes over the upcountry roads with a purple so soft it looks painted on the air.",
+          "The petals fall in drifts and the pasture beneath the trees turns lavender, which is somehow even prettier than the branches above.",
+          "People plan drives around it. A tree that makes an entire island slow down for a few weeks has earned its place here.",
+        ],
+        image: flowerJacaranda,
+      },
+      {
+        id: "flower-28",
+        title: "Rainbow Shower",
+        meaning: "“Pua hōʻike anuenue” — Honolulu's own tree",
+        caption: "Cascades of pink, cream and gold",
+        story: [
+          "The rainbow shower is the official tree of Honolulu, a hybrid that blooms in long hanging clusters of pink, cream and yellow all at once.",
+          "It flowers hardest in the hottest months, when the branches disappear under blossoms and the sidewalks below turn into confetti.",
+          "Every tree is slightly different, since each hybrid leans its own way. No two streets bloom the same color.",
+        ],
+        image: flowerRainbowShower,
+      },
+      {
+        id: "flower-29",
+        title: "African Tulip",
+        meaning: "“Pua ʻulaʻula lani” — flame of the valley",
+        caption: "Orange flames along the green pali",
+        story: [
+          "The African tulip tree lights the wet valleys with cups of orange that glow when the sun comes through them.",
+          "The unopened buds hold water, and children have always known you can squeeze them like little water pistols.",
+          "It grows fast and freely here — a bold, generous flower that asks nobody's permission to bloom.",
+        ],
+        image: flowerAfricanTulip,
+      },
+      {
+        id: "flower-30",
+        title: "Water Lily",
+        meaning: "“Pua wai” — the flower of still water",
+        caption: "Pink petals open on a quiet pond",
+        story: [
+          "Water lilies open with the morning sun and close again in the afternoon, keeping their own gentle schedule on the surface of a pond.",
+          "The pads spread flat and dark, and the flower sits among them like a small lit lamp.",
+          "Garden ponds all over the islands grow them, which means most of us have stood over one, quietly, longer than we meant to.",
+        ],
+        image: flowerWaterLily,
+      },
+      {
+        id: "flower-31",
+        title: "Lotus",
+        meaning: "“Pua līpoa lani” — rising clean from the mud",
+        caption: "One blossom lifted above the leaves",
+        story: [
+          "The lotus grows out of mud and pond silt and arrives at the surface immaculate, which is why it has meant renewal in so many places for so long.",
+          "Its leaves shed water completely — drops bead up and roll off, leaving nothing behind.",
+          "Temple ponds and taro-country gardens in Hawaiʻi grow them, blooming in the heat of summer, one flower at a time.",
+        ],
+        image: flowerLotus,
+      },
+      {
+        id: "flower-32",
+        title: "Hydrangea",
+        meaning: "“Pua uliuli” — the cool-country blue",
+        caption: "Blue blooms on a misty upcountry road",
+        story: [
+          "Hydrangeas love the cool mist of upcountry Maui, where they line the roadsides in heads of blue and lavender the size of your hand.",
+          "The color comes from the soil itself — more acid makes them bluer, which means the land is quietly choosing the shade.",
+          "Driving through the fog and finding a whole hedge of them is one of the small, reliable pleasures of the mountain.",
+        ],
+        image: flowerHydrangea,
+      },
     ],
   },
   {
