@@ -1188,6 +1188,7 @@ export const collections: Collection[] = [
     ],
   },
   {
+    id: "exotic-leis",
     title: "Exotic Leis",
     tagline: "Fourteen contest-winning Hawaiian leis",
     cover: lei01,
