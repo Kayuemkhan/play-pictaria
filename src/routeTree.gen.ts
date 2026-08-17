@@ -29,6 +29,7 @@ import { Route as PCodeRouteImport } from './routes/p.$code'
 import { Route as PortalIndexRouteImport } from './routes/portal.index'
 import { Route as PortalIdRouteImport } from './routes/portal.$id'
 import { Route as PortalBetaRouteImport } from './routes/portal.beta'
+import { Route as PortalCommunityRouteImport } from './routes/portal.community'
 import { Route as PortalDailyRouteImport } from './routes/portal.daily'
 import { Route as PortalDailyPastRouteImport } from './routes/portal.daily-past'
 import { Route as PortalNewRouteImport } from './routes/portal.new'
@@ -142,6 +143,11 @@ const PortalBetaRoute = PortalBetaRouteImport.update({
   path: '/portal/beta',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PortalCommunityRoute = PortalCommunityRouteImport.update({
+  id: '/portal/community',
+  path: '/portal/community',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PortalDailyRoute = PortalDailyRouteImport.update({
   id: '/portal/daily',
   path: '/portal/daily',
@@ -214,6 +220,7 @@ export interface FileRoutesByFullPath {
   '/p/$code': typeof PCodeRoute
   '/portal/$id': typeof PortalIdRoute
   '/portal/beta': typeof PortalBetaRoute
+  '/portal/community': typeof PortalCommunityRoute
   '/portal/daily': typeof PortalDailyRoute
   '/portal/daily-past': typeof PortalDailyPastRoute
   '/portal/new': typeof PortalNewRoute
@@ -246,6 +253,7 @@ export interface FileRoutesByTo {
   '/p/$code': typeof PCodeRoute
   '/portal/$id': typeof PortalIdRoute
   '/portal/beta': typeof PortalBetaRoute
+  '/portal/community': typeof PortalCommunityRoute
   '/portal/daily': typeof PortalDailyRoute
   '/portal/daily-past': typeof PortalDailyPastRoute
   '/portal/new': typeof PortalNewRoute
@@ -279,6 +287,7 @@ export interface FileRoutesById {
   '/p/$code': typeof PCodeRoute
   '/portal/$id': typeof PortalIdRoute
   '/portal/beta': typeof PortalBetaRoute
+  '/portal/community': typeof PortalCommunityRoute
   '/portal/daily': typeof PortalDailyRoute
   '/portal/daily-past': typeof PortalDailyPastRoute
   '/portal/new': typeof PortalNewRoute
@@ -313,6 +322,7 @@ export interface FileRouteTypes {
     | '/p/$code'
     | '/portal/$id'
     | '/portal/beta'
+    | '/portal/community'
     | '/portal/daily'
     | '/portal/daily-past'
     | '/portal/new'
@@ -345,6 +355,7 @@ export interface FileRouteTypes {
     | '/p/$code'
     | '/portal/$id'
     | '/portal/beta'
+    | '/portal/community'
     | '/portal/daily'
     | '/portal/daily-past'
     | '/portal/new'
@@ -377,6 +388,7 @@ export interface FileRouteTypes {
     | '/p/$code'
     | '/portal/$id'
     | '/portal/beta'
+    | '/portal/community'
     | '/portal/daily'
     | '/portal/daily-past'
     | '/portal/new'
@@ -410,6 +422,7 @@ export interface RootRouteChildren {
   PCodeRoute: typeof PCodeRoute
   PortalIdRoute: typeof PortalIdRoute
   PortalBetaRoute: typeof PortalBetaRoute
+  PortalCommunityRoute: typeof PortalCommunityRoute
   PortalDailyRoute: typeof PortalDailyRoute
   PortalDailyPastRoute: typeof PortalDailyPastRoute
   PortalNewRoute: typeof PortalNewRoute
@@ -565,6 +578,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PortalBetaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/portal/community': {
+      id: '/portal/community'
+      path: '/portal/community'
+      fullPath: '/portal/community'
+      preLoaderRoute: typeof PortalCommunityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/portal/daily': {
       id: '/portal/daily'
       path: '/portal/daily'
@@ -659,6 +679,7 @@ const rootRouteChildren: RootRouteChildren = {
   PCodeRoute: PCodeRoute,
   PortalIdRoute: PortalIdRoute,
   PortalBetaRoute: PortalBetaRoute,
+  PortalCommunityRoute: PortalCommunityRoute,
   PortalDailyRoute: PortalDailyRoute,
   PortalDailyPastRoute: PortalDailyPastRoute,
   PortalNewRoute: PortalNewRoute,
