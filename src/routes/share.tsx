@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Download } from "lucide-react";
+
 
 import waterRocks from "@/assets/share-water-rocks.jpg";
 import palmLogo from "@/assets/logo-palms-only.png";
@@ -64,13 +64,15 @@ function SharePage() {
       </div>
 
       <div className="relative z-[2] -mt-24 flex w-full max-w-sm flex-col items-center px-6">
-        <img
-          src={palmLogo}
-          alt="Pictaria"
-          width={1024}
-          height={1024}
-          className="h-[3.25rem] w-auto drop-shadow-[0_4px_18px_oklch(0.15_0.04_230/0.55)]"
-        />
+        <Link to="/" aria-label="Home">
+          <img
+            src={palmLogo}
+            alt="Pictaria"
+            width={1024}
+            height={1024}
+            className="h-[3.25rem] w-auto drop-shadow-[0_4px_18px_oklch(0.15_0.04_230/0.55)]"
+          />
+        </Link>
         <span className="mt-4 bg-gradient-to-br from-[oklch(0.99_0.03_90)] via-[oklch(0.96_0.05_88)] to-[oklch(0.88_0.09_80)] bg-clip-text font-display text-3xl leading-none tracking-[0.14em] text-transparent uppercase drop-shadow-[0_3px_14px_oklch(0.15_0.04_230/0.5)]">
           Pictaria
         </span>
@@ -110,16 +112,8 @@ function SharePage() {
             href={SHARE_URL}
             className="inline-flex items-center justify-center gap-1.5 rounded-full border border-accent/50 px-4 py-2 text-[0.6rem] tracking-[0.18em] text-accent uppercase transition-colors hover:bg-accent/15"
           >
-            play-pictaria.com
+            link play-pictaria.com
             <span aria-hidden>›</span>
-          </a>
-          <a
-            href={qr || undefined}
-            download="pictaria-qr.png"
-            className="inline-flex items-center justify-center gap-1.5 rounded-full border border-accent/50 px-4 py-2 text-[0.55rem] tracking-[0.2em] text-shell uppercase transition-colors hover:bg-accent/15"
-          >
-            <Download className="h-3.5 w-3.5" />
-            Save QR
           </a>
         </div>
       </div>

@@ -11,12 +11,12 @@ export function BottomHomeButton() {
     <Link
       to="/"
       aria-label="Home"
-      className="pointer-events-auto fixed bottom-4 left-4 z-50 flex flex-col items-center gap-1 text-accent/55 transition-transform hover:scale-105 active:scale-95"
+      className="pointer-events-auto fixed bottom-4 left-4 z-50 flex flex-col items-center gap-0 text-accent/55 transition-transform hover:scale-105 active:scale-95"
     >
 
       <span
         aria-hidden
-        className="block h-7 w-7 bg-accent/55"
+        className="block h-10 w-10 bg-accent/55"
         style={{
           maskImage: `url(${palmLogo})`,
           WebkitMaskImage: `url(${palmLogo})`,
