@@ -1152,7 +1152,7 @@ export const collections: Collection[] = [
       {
         id: "treeflower-08",
         title: "Pink Trumpet",
-        meaning: “Tabebuia” — a cloud of soft pink trumpets",
+        meaning: "Tabebuia — a cloud of soft pink trumpets",
         caption: "Bare branches covered in blossoms",
         story: [
           "Pink trumpet trees spend part of the year bare and sleepy, then suddenly cover every branch with dense clusters of soft pink, trumpet-shaped flowers. It looks like the tree has been wrapped in tissue paper.",
