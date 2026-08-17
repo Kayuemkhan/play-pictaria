@@ -766,15 +766,27 @@ export function StudioComposer({
               We publish your Pictaria and hand you a link anyone can open and
               play — text it, post it, or send it below.
             </p>
-            <button
-              type="button"
-              onClick={createLink}
-              disabled={!photos.length || publishState === "working"}
-              className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-[0.6rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03] disabled:opacity-50"
-            >
-              {publishState === "working" ? "Publishing…" : "Create my link"}
-              <span aria-hidden>›</span>
-            </button>
+            <div className="mt-3 flex flex-wrap items-center gap-2">
+              <button
+                type="button"
+                onClick={createLink}
+                disabled={!photos.length || publishState === "working"}
+                className="inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-[0.6rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03] disabled:opacity-50"
+              >
+                {publishState === "working" ? "Publishing…" : "Create my link"}
+                <span aria-hidden>›</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => void previewIt()}
+                disabled={!photos.length || publishState === "working"}
+                className="inline-flex items-center gap-1.5 rounded-full border border-accent/60 bg-transparent px-4 py-2 text-[0.6rem] tracking-[0.2em] uppercase transition-transform hover:scale-[1.03] disabled:opacity-50"
+              >
+                Preview it
+                <span aria-hidden>›</span>
+              </button>
+            </div>
+
             {publishState === "error" && (
               <p className="mt-2 text-[11px] text-destructive">{publishError}</p>
             )}
