@@ -71,6 +71,48 @@ export type Database = {
         }
         Relationships: []
       }
+      community_submissions: {
+        Row: {
+          created_at: string
+          id: string
+          photo_path: string
+          reviewed_at: string | null
+          share_code: string
+          status: string
+          story: string
+          tagline: string
+          tier: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          photo_path: string
+          reviewed_at?: string | null
+          share_code: string
+          status?: string
+          story?: string
+          tagline?: string
+          tier?: string
+          title?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          photo_path?: string
+          reviewed_at?: string | null
+          share_code?: string
+          status?: string
+          story?: string
+          tagline?: string
+          tier?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       daily_picks: {
         Row: {
           id: string
