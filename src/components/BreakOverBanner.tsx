@@ -1,4 +1,6 @@
 import { Link } from "@tanstack/react-router";
+import { ChevronLeft } from "lucide-react";
+
 import kittenLook from "@/assets/work-life-kitten-look.jpg";
 import palmLogo from "@/assets/logo-palms-only.png";
 import { clearBreak } from "@/lib/break-session";
