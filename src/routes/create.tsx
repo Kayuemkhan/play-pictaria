@@ -9,6 +9,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import palmLogo from "@/assets/logo-palms-only.png";
+import puppyLetter from "@/assets/create-puppy-letter.jpg";
+
 
 export const Route = createFileRoute("/create")({
   head: () => ({
