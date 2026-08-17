@@ -500,7 +500,7 @@ export const collections: Collection[] = [
   {
     id: "island-dogs",
     title: "Island Dogs",
-    tagline: "Ten island pups, from beach to jungle",
+    tagline: "Thirteen island pups, from beach to jungle",
     cover: dog01,
     free: true,
     puzzles: [
