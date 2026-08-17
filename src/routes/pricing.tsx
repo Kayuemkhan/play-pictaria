@@ -39,7 +39,7 @@ const planRows: { label: string; values: (boolean | string)[] }[] = [
   { label: "Saved presets", values: [false, false, true, true] },
   { label: "Your logo on every picture", values: [false, false, false, true] },
   { label: "Full analytics", values: [false, false, false, true] },
-  { label: "Action buttons at the celebration", values: [false, false, false, true] },
+  { label: "Actions: book, payment, calendar", values: [false, false, false, true] },
   { label: "Your own branded Daily Pictaria", values: [false, false, false, true] },
 ];
 
