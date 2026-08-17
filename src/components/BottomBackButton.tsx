@@ -2,18 +2,17 @@ import { Link } from "@tanstack/react-router";
 import palmLogo from "@/assets/logo-palms-only.png";
 
 /**
- * A subtle home button pinned to the bottom-center of every non-home screen.
+ * A subtle home button placed at the bottom of the page content.
  * It shows the two Pictaria palm trees, masked into the soft light-blue accent,
- * so it's the last thing you see on the page.
+ * so it appears after the user scrolls to the end of the page.
  */
 export function BottomHomeButton() {
   return (
     <Link
       to="/"
       aria-label="Home"
-      className="pointer-events-auto fixed bottom-4 left-4 z-50 flex flex-col items-center gap-0 text-accent/55 transition-transform hover:scale-105 active:scale-95"
+      className="pointer-events-auto relative z-50 mx-4 mt-8 mb-4 flex w-fit flex-col items-center gap-0 text-accent/55 transition-transform hover:scale-105 active:scale-95"
     >
-
       <span
         aria-hidden
         className="block h-10 w-10 bg-accent/55"
