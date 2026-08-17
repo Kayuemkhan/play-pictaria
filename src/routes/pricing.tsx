@@ -160,6 +160,72 @@ function PricingPage() {
 
       <div className="mx-auto mt-10 w-full max-w-5xl px-4 sm:px-8">
 
+        {/* plan comparison chart */}
+        <section className="mb-8">
+          <h2 className="font-display text-sm font-semibold tracking-[0.18em] uppercase">
+            Compare the plans
+          </h2>
+          <div className="mt-4 overflow-x-auto">
+            <table className="w-full min-w-[34rem] border-collapse text-left">
+              <thead>
+                <tr>
+                  <th className="border border-accent/50 bg-card/70 p-3 text-[0.6rem] tracking-[0.18em] text-muted-foreground uppercase">
+                    What you get
+                  </th>
+                  {planColumns.map((p) => (
+                    <th
+                      key={p.name}
+                      className="border border-accent/50 bg-card/70 p-3 text-center"
+                    >
+                      <span className="block font-display text-[0.7rem] tracking-[0.16em] uppercase">
+                        {p.name}
+                      </span>
+                      <span className="mt-1 block font-display text-base tracking-[0.06em] text-foreground">
+                        {p.price}
+                      </span>
+                      <span className="block text-[0.55rem] tracking-[0.18em] text-muted-foreground uppercase">
+                        {p.period}
+                      </span>
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {planRows.map((row) => (
+                  <tr key={row.label}>
+                    <td className="border border-accent/50 p-3 text-xs leading-relaxed text-muted-foreground">
+                      {row.label}
+                    </td>
+                    {row.values.map((v, i) => (
+                      <td
+                        key={i}
+                        className="border border-accent/50 p-3 text-center align-middle"
+                      >
+                        {v === true ? (
+                          <Check
+                            className="mx-auto h-4 w-4 text-primary"
+                            strokeWidth={2.5}
+                            aria-label="included"
+                          />
+                        ) : v === false ? (
+                          <Minus
+                            className="mx-auto h-4 w-4 text-muted-foreground/50"
+                            strokeWidth={2}
+                            aria-label="not included"
+                          />
+                        ) : (
+                          <span className="text-xs text-foreground">{v}</span>
+                        )}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+
         {/* no ads, ever */}
         <section className="rounded-none border border-accent/50 bg-card/70 p-5 text-center">
           <h2 className="font-display text-sm font-semibold tracking-[0.18em] uppercase">
