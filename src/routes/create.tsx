@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { StudioComposer } from "@/components/StudioComposer";
@@ -9,6 +9,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import palmLogo from "@/assets/logo-palms-only.png";
+import puppyLetter from "@/assets/create-puppy-letter.jpg";
+
 
 export const Route = createFileRoute("/create")({
   head: () => ({
@@ -86,7 +88,20 @@ function CreatePage() {
   if (!unlocked) {
     return (
       <main className="flex min-h-screen flex-col items-center justify-center bg-deep px-6 py-12">
-        <div className="w-full max-w-sm rounded-lg border border-accent/60 bg-shell p-6 text-center shadow-soft">
+        <div className="w-full max-w-sm overflow-hidden rounded-lg border border-accent/60 bg-shell text-center shadow-soft">
+          <div className="relative h-36 w-full overflow-hidden">
+            <img
+              src={puppyLetter}
+              alt=""
+              aria-hidden
+              width={1024}
+              height={768}
+              className="h-full w-full object-cover opacity-45"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-shell/40 to-shell" />
+          </div>
+          <div className="p-6">
+
           <img
             src={palmLogo}
             alt="Pictaria"
@@ -143,14 +158,9 @@ function CreatePage() {
               {gateStatus === "saving" ? "Saving..." : "Start here"}
             </Button>
           </form>
-
-          <Link
-            to="/"
-            className="mt-4 inline-block text-[10px] tracking-[0.18em] text-muted-foreground uppercase"
-          >
-            Back home
-          </Link>
+          </div>
         </div>
+
       </main>
     );
   }
@@ -163,7 +173,9 @@ function CreatePage() {
         kicker="One photograph, one instant link"
         maxPhotos={1}
         highlights={[]}
+        heroImage={puppyLetter}
       />
     </>
   );
 }
+
