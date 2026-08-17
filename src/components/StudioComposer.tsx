@@ -492,38 +492,72 @@ export function StudioComposer({
             </div>
 
             {photos.length > 0 && (
-              <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
-                {photos.map((photo, i) => (
-                  <div key={photo.id} className="relative">
-                    <button
-                      type="button"
-                      onClick={() => setActiveIndex(i)}
-                      className={`block w-full overflow-hidden rounded-xl transition-shadow ${
-                        i === activeIndex
-                          ? "ring-2 ring-accent"
-                          : "shadow-soft hover:shadow-lift"
-                      }`}
-                    >
-                      <img
-                        src={photo.url}
-                        alt=""
-                        style={editing ? { filter: filterCss(edits) } : undefined}
-                        className="aspect-[3/4] w-full object-cover"
-                      />
-                    </button>
-                    <button
-                      type="button"
-                      aria-label="Remove picture"
-                      onClick={() => remove(photo.id)}
-                      className="absolute top-1 right-1 grid h-6 w-6 place-items-center rounded-full bg-deep/85 text-shell transition-transform hover:scale-105"
-                    >
-                      <X className="h-3 w-3" strokeWidth={2} />
-                    </button>
-                  </div>
-                ))}
-              </div>
+              <>
+                <p className="mb-2 text-[10px] leading-relaxed tracking-[0.08em] text-muted-foreground">
+                  Your folder is private. Beneath each picture, choose whether
+                  that one picture may also be shared with the Pictaria
+                  community.
+                </p>
+                <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
+                  {photos.map((photo, i) => (
+                    <div key={photo.id} className="relative">
+                      <button
+                        type="button"
+                        onClick={() => setActiveIndex(i)}
+                        className={`block w-full overflow-hidden rounded-xl transition-shadow ${
+                          i === activeIndex
+                            ? "ring-2 ring-accent"
+                            : "shadow-soft hover:shadow-lift"
+                        }`}
+                      >
+                        <img
+                          src={photo.url}
+                          alt=""
+                          style={editing ? { filter: filterCss(edits) } : undefined}
+                          className="aspect-[3/4] w-full object-cover"
+                        />
+                      </button>
+                      <button
+                        type="button"
+                        aria-label="Remove picture"
+                        onClick={() => remove(photo.id)}
+                        className="absolute top-1 right-1 grid h-6 w-6 place-items-center rounded-full bg-deep/85 text-shell transition-transform hover:scale-105"
+                      >
+                        <X className="h-3 w-3" strokeWidth={2} />
+                      </button>
+                      <div className="mt-1.5">
+                        <p className="text-[0.5rem] leading-tight tracking-[0.12em] text-muted-foreground uppercase">
+                          Share with the community
+                        </p>
+                        <div
+                          role="group"
+                          aria-label={`Share picture ${i + 1} with the community`}
+                          className="mt-1 inline-flex overflow-hidden rounded-full border border-accent/50"
+                        >
+                          {([true, false] as const).map((yes) => (
+                            <button
+                              key={String(yes)}
+                              type="button"
+                              aria-pressed={photo.share === yes}
+                              onClick={() => setShare(photo.id, yes)}
+                              className={`px-2 py-0.5 text-[0.5rem] tracking-[0.14em] uppercase transition-colors ${
+                                photo.share === yes
+                                  ? "bg-primary text-primary-foreground"
+                                  : "bg-transparent text-muted-foreground hover:text-foreground"
+                              }`}
+                            >
+                              {yes ? "Yes" : "No"}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </>
             )}
           </div>
+
 
           {/* artist retouching — right beneath the picture */}
           {editing && (
