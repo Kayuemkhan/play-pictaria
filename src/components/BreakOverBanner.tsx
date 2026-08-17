@@ -1,4 +1,6 @@
+import { Link } from "@tanstack/react-router";
 import kittenLook from "@/assets/work-life-kitten-look.jpg";
+import palmLogo from "@/assets/logo-palms-only.png";
 import { clearBreak } from "@/lib/break-session";
 
 /**
@@ -38,13 +40,27 @@ export function BreakOverBanner({ onClose }: { onClose: () => void }) {
   return (
     <div className="fixed inset-0 z-[60] flex items-center justify-center bg-deep/70 px-4 backdrop-blur-sm">
       <div className="animate-soft-in w-full max-w-sm overflow-hidden rounded-[10px] border border-accent/40 bg-card shadow-lift">
-        <img
-          src={kittenLook}
-          alt="A kitten in wireframe glasses at a laptop, looking directly at you"
-          className="h-56 w-full object-cover"
-          width={1024}
-          height={1024}
-        />
+        <div className="relative">
+          <img
+            src={kittenLook}
+            alt="A kitten in wireframe glasses at a laptop, looking directly at you"
+            className="h-56 w-full object-cover"
+            width={1024}
+            height={1024}
+          />
+          <Link
+            to="/"
+            onClick={onClose}
+            aria-label="Home"
+            className="absolute top-2 left-1/2 flex -translate-x-1/2 flex-col items-center gap-0.5 text-accent/90 drop-shadow-[0_2px_8px_oklch(0.15_0.04_230/0.7)] transition-transform hover:scale-105 active:scale-95"
+          >
+            <img src={palmLogo} alt="" aria-hidden className="h-7 w-auto" />
+            <span className="text-[0.5rem] font-medium tracking-[0.14em] uppercase">
+              home
+            </span>
+          </Link>
+        </div>
+
         <div className="p-6 text-center">
           <p className="font-display text-xl leading-snug text-foreground">
             Okay, that was fun!
