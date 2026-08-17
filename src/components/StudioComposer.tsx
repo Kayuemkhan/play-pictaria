@@ -389,7 +389,7 @@ export function StudioComposer({
         {/* the lab: the picture, then the studio controls right beneath it */}
         <section>
           <div className="relative overflow-hidden rounded-[26px] bg-deep shadow-lift">
-            <div className="relative aspect-[3/4] w-full">
+            <div className={`relative w-full ${active ? "aspect-[3/4]" : "h-44 sm:h-52"}`}>
               {active ? (
                 <>
                   <img
