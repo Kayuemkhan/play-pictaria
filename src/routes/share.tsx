@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Download } from "lucide-react";
+
 
 import waterRocks from "@/assets/share-water-rocks.jpg";
 import palmLogo from "@/assets/logo-palms-only.png";
