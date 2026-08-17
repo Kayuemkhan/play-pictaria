@@ -43,7 +43,10 @@ export interface StudioComposerProps {
   highlights: string[];
   /** Optional longer marketing description shown beneath the header. */
   description?: string;
+  /** Softly muted image across the top of the page. */
+  heroImage?: string;
 }
+
 
 interface Photo {
   id: string;
