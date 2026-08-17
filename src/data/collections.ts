@@ -646,7 +646,7 @@ export const collections: Collection[] = [
         id: "dog-13",
         title: "Heʻe Nalu",
         meaning: "“Wave sliding”",
-        caption: "A young surfer on his own board",
+        caption: "A little pug riding his own wave",
         image: dog13,
         story: [
           "Someone let him stand on the board once, and that was the end of the discussion. Now he paddles out with the family and waits in the shallows like he has a spot in the lineup.",
