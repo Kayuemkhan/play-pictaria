@@ -14,6 +14,8 @@ const publishSchema = z.object({
     .array(z.string().max(MAX_PHOTO_CHARS))
     .min(1)
     .max(10),
+  /** Indexes (into `photos`) the sender offered to share with the community. */
+  shareIndexes: z.array(z.number().int().min(0).max(9)).default([]),
 });
 
 const codeSchema = z.object({
@@ -84,6 +86,25 @@ export const publishPictaria = createServerFn({ method: "POST" })
       photo_paths: paths,
     });
     if (error) throw new Error(error.message);
+
+    // Offered to the community? It waits for Amy's authorization first.
+    const offered = data.shareIndexes
+      .filter((i) => i < paths.length)
+      .map((i) => ({
+        share_code: code,
+        photo_path: paths[i]!,
+        title: data.title,
+        tagline: data.tagline,
+        story: data.story,
+        tier: data.tier,
+        status: "pending",
+      }));
+    if (offered.length) {
+      const { error: offerError } = await supabaseAdmin
+        .from("community_submissions")
+        .insert(offered);
+      if (offerError) throw new Error(offerError.message);
+    }
 
     return { code };
   });

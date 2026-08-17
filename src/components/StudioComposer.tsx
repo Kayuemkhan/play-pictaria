@@ -277,6 +277,9 @@ export function StudioComposer({
           grid: 4,
           tier,
           photos: rendered,
+          shareIndexes: ordered
+            .map((p, i) => (p.share ? i : -1))
+            .filter((i) => i >= 0),
         },
       });
       const url = `${window.location.origin}/p/${code}`;
@@ -534,7 +537,7 @@ export function StudioComposer({
                       </button>
                       <div className="mt-1.5">
                         <p className="text-[0.5rem] leading-tight tracking-[0.12em] text-muted-foreground uppercase">
-                          Share with the community
+                          Offer to the community
                         </p>
                         <div
                           role="group"
