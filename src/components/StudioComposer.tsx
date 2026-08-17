@@ -167,6 +167,8 @@ export function StudioComposer({
   logoPlacement = false,
   highlights,
   description,
+  heroImage,
+
 }: StudioComposerProps) {
   const [photos, setPhotos] = useState<Photo[]>([]);
 
