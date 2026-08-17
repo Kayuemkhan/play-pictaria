@@ -84,7 +84,21 @@ export function BreakOverBanner({ onClose }: { onClose: () => void }) {
               pass the fun to a friend, then back to work
             </button>
           </div>
+          <div className="mt-5 flex justify-start">
+            <Link
+              to="/"
+              onClick={onClose}
+              aria-label="Home"
+              className="flex flex-col items-center gap-1 text-accent/55 transition-transform hover:scale-105 active:scale-95"
+            >
+              <img src={palmLogo} alt="" aria-hidden className="h-7 w-auto opacity-70" />
+              <span className="text-[0.55rem] font-medium tracking-[0.14em] uppercase">
+                home
+              </span>
+            </Link>
+          </div>
         </div>
+
       </div>
     </div>
   );
