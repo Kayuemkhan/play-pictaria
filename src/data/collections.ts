@@ -56,6 +56,16 @@ import flowerAfricanTulip from "@/assets/flower-african-tulip.jpg";
 import flowerWaterLily from "@/assets/flower-water-lily.jpg";
 import flowerLotus from "@/assets/flower-lotus.jpg";
 import flowerHydrangea from "@/assets/flower-hydrangea.jpg";
+import treeflowerPlumeria from "@/assets/treeflower-plumeria.jpg";
+import treeflowerRainbowShower from "@/assets/treeflower-rainbow-shower.jpg";
+import treeflowerAfricanTulip from "@/assets/treeflower-african-tulip.jpg";
+import treeflowerJacaranda from "@/assets/treeflower-jacaranda.jpg";
+import treeflowerRoyalPoinciana from "@/assets/treeflower-royal-poinciana.jpg";
+import treeflowerOhiaLehua from "@/assets/treeflower-ohia-lehua.jpg";
+import treeflowerMonkeypod from "@/assets/treeflower-monkeypod.jpg";
+import treeflowerPinkTrumpet from "@/assets/treeflower-pink-trumpet.jpg";
+import treeflowerChampaca from "@/assets/treeflower-champaca.jpg";
+import treeflowerCoral from "@/assets/treeflower-coral.jpg";
 import lei01 from "@/assets/lei-01.jpg";
 import lei02 from "@/assets/lei-02.jpg";
 import lei03 from "@/assets/lei-03.jpg";
@@ -1045,6 +1055,135 @@ export const collections: Collection[] = [
           "Driving through the fog and finding a whole hedge of them is one of the small, reliable pleasures of the mountain.",
         ],
         image: flowerHydrangea,
+      },
+    ],
+  },
+  {
+    id: "flowers-grow-on-trees",
+    title: "Flowers Grow on Trees in Hawaii",
+    tagline: "Ten flowering trees that turn the islands into a garden",
+    cover: treeflowerPlumeria,
+    free: true,
+    puzzles: [
+      {
+        id: "treeflower-01",
+        title: "Plumeria",
+        meaning: "“Melia” — flower of welcome and farewell",
+        caption: "Cream and gold blossoms against the sea",
+        story: [
+          "Plumeria is not native to Hawaiʻi, but it arrived in the 1860s and promptly became the island's signature scent. It grows as a small, stout tree with thick branches and glossy leaves, and it drops its flowers in thick carpets beneath itself.",
+          "The blossom is the backbone of the lei: easy to string, slow to wilt, and impossibly fragrant at dusk. It is given to arriving guests and departing friends, which makes it the flower of both hello and goodbye.",
+          "Take your time with these petals. They are the color of warm sand turning to gold, and the tree behind them is the shape of a Hawaiian afternoon.",
+        ],
+        image: treeflowerPlumeria,
+      },
+      {
+        id: "treeflower-02",
+        title: "Rainbow Shower",
+        meaning: "“Cassia” — a cascade of pink, gold and coral",
+        caption: "Trailing blossoms in island sunlight",
+        story: [
+          "The rainbow shower tree is a hybrid of two tropical cassias, and it behaves like a tree that cannot decide which color it loves best. Pink, yellow, and coral trumpet flowers hang in long, loose clusters that turn the whole canopy into a living lei.",
+          "It is a common street and park tree in Hawaiʻi, chosen partly because it stays manageable and partly because no one can resist the show. After a heavy bloom, the ground below looks like a dropped scarf.",
+          "The flowers are light and papery, but the colors are saturated enough to carry a whole photograph. Building this one is like sorting a box of sunset.",
+        ],
+        image: treeflowerRainbowShower,
+      },
+      {
+        id: "treeflower-03",
+        title: "African Tulip",
+        meaning: "“Nandi flame” — cups of sunset orange",
+        caption: "Brilliant red-orange bells on a tropical tree",
+        story: [
+          "African tulip trees announce themselves from blocks away. They grow tall with a wide crown, and when they bloom the whole canopy fills with upright, waxy cups in shades of orange, red, and gold.",
+          "Each flower holds a small pool of nectar at its base, enough to attract honeycreepers, mynas, and any child who has learned to tilt the bloom like a tiny cup. The tree can be a little messy and a lot dramatic, which is exactly why people plant it.",
+          "In photographs the color is almost hard to believe — a tree made of traffic-cone orange and flame. It is a good reminder that nature does not always choose subtlety.",
+        ],
+        image: treeflowerAfricanTulip,
+      },
+      {
+        id: "treeflower-04",
+        title: "Jacaranda",
+        meaning: "“Purple rain” — a lavender cloud in spring",
+        caption: "Soft violet blossoms on twisted branches",
+        story: [
+          "Jacarandas are not native to Hawaiʻi, but they have made themselves at home in the cool upcountry hills. For a few weeks each spring the trees drop their leaves and cover themselves in thousands of small, trumpet-shaped violet flowers.",
+          "From a distance a blooming jacaranda looks like a cloud of purple smoke. From underneath, the fallen petals turn the ground lavender and the light comes through the canopy in soft blue patches.",
+          "It is a brief, extravagant bloom, and it makes spring feel like an event rather than a season. The color is almost impossible to capture, which is why it is worth trying in pieces.",
+        ],
+        image: treeflowerJacaranda,
+      },
+      {
+        id: "treeflower-05",
+        title: "Royal Poinciana",
+        meaning: "“Flamboyant” — a crown of scarlet flowers",
+        caption: "A wide canopy blazing with red",
+        story: [
+          "Royal poinciana is sometimes called the flame tree, and the name is not an exaggeration. It grows into a broad, flat umbrella and then covers itself with scarlet and orange flowers so completely that the leaves almost disappear.",
+          "The flowers are small, but they mass together in huge clusters, and when the petals fall they carpet the ground in red. Children in tropical towns know to look for the first bloom as the signal that summer has truly arrived.",
+          "It is a tree with no modesty at all, and that is its gift. Some things are meant to be loud and temporary and impossible to ignore.",
+        ],
+        image: treeflowerRoyalPoinciana,
+      },
+      {
+        id: "treeflower-06",
+        title: "ʻŌhiʻa Lehua",
+        meaning: "“Lehua” — the first bloom on new lava",
+        caption: "Scarlet pompoms on dark, twisted branches",
+        story: [
+          "ʻŌhiʻa lehua is the most important native tree in Hawaiʻi. It is the first plant to return to bare lava, anchoring itself in cracks and building soil for everything that comes after it.",
+          "The flowers are not petals at all but dense bundles of red stamens, shaped like tiny fireworks. They feed the native ʻapapane and ʻiʻiwi, whose curved bills fit them precisely. The old story says the flowers are the separated lovers Lehua and ʻŌhiʻa, reunited as blossom and branch.",
+          "This tree is worth building slowly. The branches are gnarled and dark, the flowers are impossibly bright, and the contrast between them is what makes the story work.",
+        ],
+        image: treeflowerOhiaLehua,
+      },
+      {
+        id: "treeflower-07",
+        title: "Monkeypod",
+        meaning: "“Samanea” — a wide umbrella of pink puffs",
+        caption: "Pink powderpuff flowers over the ocean",
+        story: [
+          "Monkeypod trees are the great shade trees of the islands. They spread a wide, flat crown that can cover a whole yard, and their fine, fern-like leaves filter sunlight into soft green coins on the ground.",
+          "When they bloom, the canopy fills with small pink powderpuff flowers that look like they were made of silk. The flowers do not last long, but for a week or two the whole tree hums with bees.",
+          "It is a tree built for picnics and afternoon naps and slow conversations. The photograph is the feeling of sitting under something older and steadier than the day.",
+        ],
+        image: treeflowerMonkeypod,
+      },
+      {
+        id: "treeflower-08",
+        title: "Pink Trumpet",
+        meaning: "Tabebuia — a cloud of soft pink trumpets",
+        caption: "Bare branches covered in blossoms",
+        story: [
+          "Pink trumpet trees spend part of the year bare and sleepy, then suddenly cover every branch with dense clusters of soft pink, trumpet-shaped flowers. It looks like the tree has been wrapped in tissue paper.",
+          "They are not native to Hawaiʻi, but they thrive in the warm climate and have become a familiar sight along roadsides and in botanical gardens. The bloom is brief, and when the petals fall the ground beneath turns pink for a few days.",
+          "The contrast between the dark branches and the bright flowers is what makes this puzzle satisfying. It is a study in patience, then explosion, then quiet again.",
+        ],
+        image: treeflowerPinkTrumpet,
+      },
+      {
+        id: "treeflower-09",
+        title: "Champaca",
+        meaning: "Michelia — golden fragrant stars",
+        caption: "Creamy yellow blossoms among dark leaves",
+        story: [
+          "Champaca is a small tree with dark, glossy leaves and clusters of creamy yellow-orange flowers that release a heavy, sweet perfume, especially in the evening. It is the kind of scent that stops people mid-step.",
+          "In its native range the flowers are used to flavor tea and scent perfumes, and in Hawaiʻi it is planted in tropical gardens for the fragrance alone. The blooms are not large, but they are numerous and long-lasting.",
+          "This is a quieter tree than some of the others, but it rewards close attention. The petals are thick and waxy, the leaves are almost black-green, and the whole thing feels like a secret.",
+        ],
+        image: treeflowerChampaca,
+      },
+      {
+        id: "treeflower-10",
+        title: "Coral Tree",
+        meaning: "Wiliwili — bright coral fingers against the sky",
+        caption: "Tubular red flowers on sculptural branches",
+        story: [
+          "Coral trees are named for their flowers, which look like pieces of bright coral lifted out of the reef and hung on bare branches. The blooms are tubular and vivid, and they appear before the leaves do, so the color seems to come from the wood itself.",
+          "Hawaiʻi has its own native wiliwili, a coastal tree with pale, corky bark and salmon-colored flowers that thrives in dry, windy places. It is a tough, drought-adapted tree that can live on almost no soil at all.",
+          "The shape of the branches is as interesting as the flowers. Twisted, sculptural, almost human — building this one is as much about the dark lines as the bright color.",
+        ],
+        image: treeflowerCoral,
       },
     ],
   },
