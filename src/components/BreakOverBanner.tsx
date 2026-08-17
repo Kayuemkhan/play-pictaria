@@ -52,20 +52,20 @@ export function BreakOverBanner({ onClose }: { onClose: () => void }) {
           <p className="mt-2 text-[0.9rem] leading-relaxed text-muted-foreground">
             Let's both go back to work now....
           </p>
-          <div className="mt-6 flex flex-col gap-2">
+          <div className="mt-6 flex flex-col gap-3">
             <button
               type="button"
               onClick={exitApp}
-              className="rounded-full border border-primary/70 py-3 text-sm tracking-wide text-primary transition-colors hover:bg-primary/10"
+              className="rounded-full border border-accent/60 bg-accent/15 py-3 text-sm tracking-wide text-accent transition-colors hover:bg-accent/25"
             >
               click out of this app completely
             </button>
             <button
               type="button"
               onClick={shareThenExit}
-              className="rounded-full border border-border bg-transparent py-3 text-sm tracking-wide text-foreground transition-colors hover:bg-secondary"
+              className="rounded-full border border-accent/60 bg-accent/15 py-3 text-sm tracking-wide text-accent transition-colors hover:bg-accent/25"
             >
-              or send this to my friend and then send me back to work
+              pass the fun to a friend, then back to work
             </button>
           </div>
         </div>
