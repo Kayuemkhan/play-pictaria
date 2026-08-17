@@ -38,11 +38,19 @@ export function clearBreak() {
   window.localStorage.removeItem(KEY);
 }
 
-/** Counts a finished puzzle. Returns true when the break goal is complete. */
+/**
+ * Counts a finished puzzle toward an active break. Returns true only on the
+ * puzzle that completes the goal — the break is then cleared, so later puzzles
+ * played outside a Work Life Balance break never show the send-off again.
+ */
 export function completePuzzleInBreak(): boolean {
   const state = readBreak();
   if (!state) return false;
   const done = state.done + 1;
+  if (done >= state.goal) {
+    clearBreak();
+    return true;
+  }
   window.localStorage.setItem(KEY, JSON.stringify({ ...state, done }));
-  return done >= state.goal;
+  return false;
 }
