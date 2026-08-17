@@ -18,7 +18,7 @@ import {
 } from "lucide-react";
 
 const planColumns = [
-  { name: "Free", price: "free", period: "/ every day" },
+  { name: "Free", price: "FREE", period: "" },
   { name: "Personal", price: "$5.95", period: "/ month" },
   { name: "Artist", price: "$9.95", period: "/ month" },
   { name: "Brand", price: "$195", period: "/ month" },
