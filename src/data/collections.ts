@@ -2345,6 +2345,12 @@ export const collections: Collection[] = [
         ],
       },
       { id: "amy-01", title: "Mahalo: Gratitude", caption: "Apatite and tourmaline half moon necklace", image: amy01.url },
+      { id: "amy-15", title: "Honu Kai", caption: "A gold and blue glass honu resting on white coral above the sea", image: amy15.url },
+      { id: "amy-16", title: "Ohana Stack", caption: "Beaded honu bracelets and a ring, gathered under a beach tree", image: amy16.url },
+      { id: "amy-17", title: "Po", caption: "A midnight shell on faceted black spinel, bright with green fire", image: amy17.url },
+      { id: "amy-18", title: "Lilikoi Sky", caption: "Violet and gold blossoms suspended in glass on a tourmaline strand", image: amy18.url },
+      { id: "amy-19", title: "Manao", caption: "A stone of intuition and of possibilities, held in the palm", image: amy19.url },
+      { id: "amy-20", title: "Malama Ember", caption: "Deep indigo shell with a sunrise ember burning at its heart", image: amy20.url },
 
     ],
   },
