@@ -239,9 +239,27 @@ function GlobalChrome() {
 function GlobalBottomChrome() {
   const raw = useRouterState({ select: (s) => s.location.pathname });
   const path = raw.replace(/\/+$/, "");
+
+  // The strip behind the bottom palms used to show the pale page background on
+  // dark pages, which read as a stray white box. Match the body to whatever
+  // background the current page's <main> uses so it blends away.
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    const sync = () => {
+      const main = document.querySelector("main");
+      if (!main) return;
+      const bg = window.getComputedStyle(main).backgroundColor;
+      if (bg && bg !== "rgba(0, 0, 0, 0)") document.body.style.backgroundColor = bg;
+    };
+    const timer = window.setTimeout(sync, 60);
+    sync();
+    return () => window.clearTimeout(timer);
+  }, [path]);
+
   if (path === "" || path === "/") return null;
   return <BottomHomeButton />;
 }
+
 
 
 function RootComponent() {

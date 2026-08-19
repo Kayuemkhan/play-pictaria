@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
-import eggPalms from "@/assets/easter-egg-palms.jpg";
+import eggHomestead from "@/assets/easter-egg-homestead.jpg";
 import palmLogo from "@/assets/logo-palms-only.png";
 import { hawaiianWords } from "@/data/hawaiian-words";
 
@@ -29,17 +29,20 @@ export const Route = createFileRoute("/easter-egg")({
 function EasterEggPage() {
   return (
     <main className="relative min-h-screen bg-deep">
-      {/* the whole picture, muted and grayed back behind the message */}
-      <img
-        src={eggPalms}
-        alt="Palm trees silhouetted against a soft Hawaiian sunset over the ocean"
-        width={1024}
-        height={1408}
-        className="absolute inset-0 h-full w-full object-cover opacity-40 grayscale-[0.65]"
-      />
-      <div className="absolute inset-0 bg-gradient-to-b from-deep/70 via-deep/55 to-deep/85" />
+      {/* a Hawaiian homestead in full color up top, fading down into the words */}
+      <div className="absolute inset-x-0 top-0 h-[62vh] min-h-[380px]">
+        <img
+          src={eggHomestead}
+          alt="An old Hawaiian homestead at golden hour with chickens and a rooster in the yard"
+          width={1024}
+          height={1408}
+          className="h-full w-full object-cover object-top"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-deep/20 via-deep/45 to-deep" />
+      </div>
 
-      <div className="relative z-[2] flex min-h-screen flex-col items-center justify-center px-6 py-20 text-center">
+      <div className="relative z-[2] flex min-h-screen flex-col items-center px-6 pt-[34vh] pb-20 text-center">
+
         <Link to="/" aria-label="Home">
           <img
             src={palmLogo}

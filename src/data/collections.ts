@@ -1492,16 +1492,17 @@ export const collections: Collection[] = [
       },
       {
         id: "sunset-09",
-        title: "Ridge Line",
-        caption: "Layered blue silhouettes",
+        title: "Throw Net",
+        caption: "Fishing the shorebreak at dusk",
         image: sunset09,
       },
       {
         id: "sunset-10",
-        title: "Last Sliver",
-        caption: "Twilight over tide pools",
+        title: "Gold Spray",
+        caption: "Waves splashing in the last light",
         image: sunset10,
       },
+
     ],
   },
   {

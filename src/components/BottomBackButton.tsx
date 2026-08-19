@@ -20,9 +20,7 @@ export function BottomHomeButton() {
         height={1024}
         className="h-11 w-11 object-contain drop-shadow-[0_2px_8px_oklch(0.15_0.04_230/0.45)]"
       />
-      <span className="text-[0.55rem] font-medium tracking-[0.14em] text-[oklch(0.82_0.11_82)] uppercase">
-        home
-      </span>
+
     </Link>
   );
 }
