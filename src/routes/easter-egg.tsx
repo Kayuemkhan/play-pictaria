@@ -53,7 +53,7 @@ function EasterEggPage() {
           height={1408}
           className="h-full w-full object-cover object-bottom"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-deep/80 via-deep/25 to-deep" />
+        <div className="absolute inset-0 bg-gradient-to-b from-deep/80 via-deep/15 via-55% to-deep/50" />
       </div>
 
       <div className="relative z-[2] flex min-h-screen flex-col items-center px-6 pt-[42vh] pb-20 text-center">
