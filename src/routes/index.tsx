@@ -1,5 +1,5 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useRef, useState } from "react";
 import { Menu } from "lucide-react";
 import { visibleCollections } from "@/data/collections";
 import { HeroPuzzle } from "@/components/HeroPuzzle";
@@ -52,6 +52,20 @@ const menuLinks = [
 
 function Home() {
   const [openPanel, setOpenPanel] = useState<"menu" | null>(null);
+  const navigate = useNavigate();
+  const taps = useRef<{ count: number; last: number }>({ count: 0, last: 0 });
+
+  // The hidden admin page opens only after three quick taps on the palm logo.
+  const handleLogoTap = () => {
+    const now = Date.now();
+    const state = taps.current;
+    state.count = now - state.last > 1200 ? 1 : state.count + 1;
+    state.last = now;
+    if (state.count >= 3) {
+      state.count = 0;
+      navigate({ to: "/portal/new" });
+    }
+  };
 
   return (
     <main className="flex min-h-screen flex-col bg-deep">
