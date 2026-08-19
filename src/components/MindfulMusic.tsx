@@ -35,7 +35,7 @@ export const TRACK_OPTIONS: { id: TrackId; name: string }[] = [
   { id: "binaural-528", name: "Repair · 528 Hz" },
   { id: "didgeridoo", name: "Didgeridoo & Drum" },
   { id: "meditation", name: "Meditation · 7.83 Hz" },
-  { id: "island-ambient", name: "Island Shoreline" },
+  { id: "island-ambient", name: "Tropical ʻUkulele" },
   { id: "island-ukulele", name: "Soft ʻUkulele" },
   { id: "island-guitar", name: "Two Guitars at Dusk" },
 ];
