@@ -1,5 +1,5 @@
 import { useEffect, useId, useState } from "react";
-import { ImagePlus } from "lucide-react";
+import { Camera } from "lucide-react";
 import resortCove from "@/assets/fsm-resort-cove.jpg.asset.json";
 import { CameraCapture } from "@/components/CameraCapture";
 
@@ -158,7 +158,7 @@ export function PhotoPlaceholder({
       <span className="absolute inset-0 bg-accent/12" />
       <span className="absolute inset-0 bg-shell/70" />
       <span className="relative flex h-full w-full flex-col items-center justify-center gap-2 px-4 text-accent">
-        <ImagePlus className="h-7 w-7" strokeWidth={1.25} />
+        <Camera className="h-9 w-9" strokeWidth={1.25} />
         <span className="text-[10px] tracking-[0.2em] uppercase">{title}</span>
         {hint && (
           <span className="max-w-52 text-center text-[11px] leading-relaxed text-accent/70">
