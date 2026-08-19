@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-type TrackId =
+export type TrackId =
   | "ocean"
   | "bowls"
   | "binaural"

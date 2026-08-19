@@ -1,8 +1,9 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useRef, useState } from "react";
-import { Menu } from "lucide-react";
+import { Menu, Music } from "lucide-react";
 import { visibleCollections } from "@/data/collections";
 import { HeroPuzzle } from "@/components/HeroPuzzle";
+import { playMindfulTrack, type TrackId } from "@/components/MindfulMusic";
 
 import heroImage from "@/assets/hero-sunset.jpg";
 import palmLogo from "@/assets/logo-palms-only.png";
@@ -33,6 +34,12 @@ export const Route = createFileRoute("/")({
 });
 
 const featured = visibleCollections;
+
+const musicLinks = [
+  { id: "island-ambient" as TrackId, label: "Tropical ʻUkulele" },
+  { id: "island-ukulele" as TrackId, label: "Soft ʻUkulele" },
+  { id: "island-guitar" as TrackId, label: "Two Guitars at Dusk" },
+] as const;
 
 const menuLinks = [
   { to: "/launch", label: "Launch" },
@@ -93,7 +100,23 @@ function Home() {
               <Menu className="h-5 w-5" strokeWidth={1.5} />
             </button>
             {openPanel === "menu" && (
-              <div className="absolute top-13 left-0 w-52 overflow-hidden rounded-[6px] border border-accent/40 bg-deep/95 py-1 shadow-lift backdrop-blur-sm">
+              <div className="absolute top-13 left-0 w-56 overflow-hidden rounded-[6px] border border-accent/40 bg-deep/95 py-1 shadow-lift backdrop-blur-sm">
+                {musicLinks.map((item) => (
+                  <button
+                    key={item.id}
+                    type="button"
+                    onClick={() => {
+                      void playMindfulTrack(item.id);
+                      setOpenPanel(null);
+                      navigate({ to: "/mindfulness" });
+                    }}
+                    className="flex w-full items-center gap-2.5 px-4 py-2.5 text-left text-[0.6rem] tracking-[0.2em] text-shell uppercase transition-colors hover:bg-accent/15 hover:text-accent"
+                  >
+                    <Music className="h-3.5 w-3.5 text-accent" strokeWidth={1.5} />
+                    {item.label}
+                  </button>
+                ))}
+                <div className="my-1 border-t border-accent/20" />
                 {menuLinks.map((item) => (
                   <Link
                     key={item.label}
