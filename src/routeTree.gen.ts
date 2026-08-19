@@ -16,6 +16,7 @@ import { Route as BetaRouteImport } from './routes/beta'
 import { Route as CollectionsRouteImport } from './routes/collections'
 import { Route as CreateRouteImport } from './routes/create'
 import { Route as DailyRouteImport } from './routes/daily'
+import { Route as EasterEggRouteImport } from './routes/easter-egg'
 import { Route as LaunchRouteImport } from './routes/launch'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as MindfulnessRouteImport } from './routes/mindfulness'
@@ -74,6 +75,11 @@ const CreateRoute = CreateRouteImport.update({
 const DailyRoute = DailyRouteImport.update({
   id: '/daily',
   path: '/daily',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EasterEggRoute = EasterEggRouteImport.update({
+  id: '/easter-egg',
+  path: '/easter-egg',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LaunchRoute = LaunchRouteImport.update({
@@ -208,6 +214,7 @@ export interface FileRoutesByFullPath {
   '/collections': typeof CollectionsRoute
   '/create': typeof CreateRoute
   '/daily': typeof DailyRoute
+  '/easter-egg': typeof EasterEggRoute
   '/launch': typeof LaunchRoute
   '/mcp': typeof McpRoute
   '/mindfulness': typeof MindfulnessRoute
@@ -241,6 +248,7 @@ export interface FileRoutesByTo {
   '/collections': typeof CollectionsRoute
   '/create': typeof CreateRoute
   '/daily': typeof DailyRoute
+  '/easter-egg': typeof EasterEggRoute
   '/launch': typeof LaunchRoute
   '/mcp': typeof McpRoute
   '/mindfulness': typeof MindfulnessRoute
@@ -275,6 +283,7 @@ export interface FileRoutesById {
   '/collections': typeof CollectionsRoute
   '/create': typeof CreateRoute
   '/daily': typeof DailyRoute
+  '/easter-egg': typeof EasterEggRoute
   '/launch': typeof LaunchRoute
   '/mcp': typeof McpRoute
   '/mindfulness': typeof MindfulnessRoute
@@ -310,6 +319,7 @@ export interface FileRouteTypes {
     | '/collections'
     | '/create'
     | '/daily'
+    | '/easter-egg'
     | '/launch'
     | '/mcp'
     | '/mindfulness'
@@ -343,6 +353,7 @@ export interface FileRouteTypes {
     | '/collections'
     | '/create'
     | '/daily'
+    | '/easter-egg'
     | '/launch'
     | '/mcp'
     | '/mindfulness'
@@ -376,6 +387,7 @@ export interface FileRouteTypes {
     | '/collections'
     | '/create'
     | '/daily'
+    | '/easter-egg'
     | '/launch'
     | '/mcp'
     | '/mindfulness'
@@ -410,6 +422,7 @@ export interface RootRouteChildren {
   CollectionsRoute: typeof CollectionsRoute
   CreateRoute: typeof CreateRoute
   DailyRoute: typeof DailyRoute
+  EasterEggRoute: typeof EasterEggRoute
   LaunchRoute: typeof LaunchRoute
   McpRoute: typeof McpRoute
   MindfulnessRoute: typeof MindfulnessRoute
@@ -485,6 +498,13 @@ declare module '@tanstack/react-router' {
       path: '/daily'
       fullPath: '/daily'
       preLoaderRoute: typeof DailyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/easter-egg': {
+      id: '/easter-egg'
+      path: '/easter-egg'
+      fullPath: '/easter-egg'
+      preLoaderRoute: typeof EasterEggRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/launch': {
@@ -666,6 +686,7 @@ const rootRouteChildren: RootRouteChildren = {
   CollectionsRoute: CollectionsRoute,
   CreateRoute: CreateRoute,
   DailyRoute: DailyRoute,
+  EasterEggRoute: EasterEggRoute,
   LaunchRoute: LaunchRoute,
   McpRoute: McpRoute,
   MindfulnessRoute: MindfulnessRoute,
