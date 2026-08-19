@@ -6,6 +6,13 @@
  */
 const KEY = "pictaria:break";
 
+/**
+ * A break only counts while it is fresh. Anything older than this is treated
+ * as abandoned, so an old, forgotten break can never surprise someone with the
+ * "back to work" send-off during ordinary play.
+ */
+const MAX_AGE_MS = 3 * 60 * 60 * 1000; // 3 hours
+
 export type BreakState = { goal: number; done: number; startedAt: number };
 
 export function readBreak(): BreakState | null {
@@ -14,13 +21,22 @@ export function readBreak(): BreakState | null {
     const raw = window.localStorage.getItem(KEY);
     if (!raw) return null;
     const parsed = JSON.parse(raw) as Partial<BreakState>;
-    if (typeof parsed?.goal !== "number") return null;
+    // Only an explicitly started break (goal >= 1 with a start time) qualifies.
+    if (typeof parsed?.goal !== "number" || parsed.goal < 1) {
+      clearBreak();
+      return null;
+    }
+    if (typeof parsed.startedAt !== "number" || Date.now() - parsed.startedAt > MAX_AGE_MS) {
+      clearBreak();
+      return null;
+    }
     return {
       goal: parsed.goal,
       done: typeof parsed.done === "number" ? parsed.done : 0,
-      startedAt: typeof parsed.startedAt === "number" ? parsed.startedAt : Date.now(),
+      startedAt: parsed.startedAt,
     };
   } catch {
+    clearBreak();
     return null;
   }
 }
