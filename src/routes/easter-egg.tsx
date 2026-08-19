@@ -45,7 +45,7 @@ function EasterEggPage() {
       </Link>
 
       {/* a Hawaiian farm at golden hour up top, fading down into the words */}
-      <div className="absolute inset-x-0 top-0 h-[60vh] min-h-[360px]">
+      <div className="absolute inset-x-0 top-0 h-[62vh] min-h-[380px]">
         <img
           src={eggFarm}
           alt="A Hawaiian farm with three hens eating feed and a mother hen walking with three chicks beneath lush mountains"
@@ -53,10 +53,10 @@ function EasterEggPage() {
           height={1408}
           className="h-full w-full object-cover object-bottom"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-deep/30 via-deep/0 via-40% to-deep/65" />
+        <div className="absolute inset-0 bg-gradient-to-b from-deep/30 via-deep/0 via-40% to-deep/20" />
       </div>
 
-      <div className="relative z-[2] flex min-h-screen flex-col items-center px-6 pt-[46vh] pb-20 text-center">
+      <div className="relative z-[2] flex min-h-screen flex-col items-center px-6 pt-[54vh] pb-20 text-center">
 
         <h1 className="mt-2 bg-gradient-to-br from-[oklch(0.99_0.03_90)] via-[oklch(0.96_0.05_88)] to-[oklch(0.88_0.09_80)] bg-clip-text font-display text-3xl leading-none tracking-[0.14em] text-transparent uppercase drop-shadow-[0_3px_14px_oklch(0.15_0.04_230/0.5)] sm:text-4xl">
           Easter Eggs
