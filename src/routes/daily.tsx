@@ -143,12 +143,13 @@ function DailyPage() {
           Pictaria Daily
         </h1>
 
-        {/* the box — same rounded glass style as the Easter Egg page */}
-        <div className="mt-8 w-full max-w-sm rounded-[6px] border border-accent/50 bg-deep/70 px-6 py-7 shadow-lift backdrop-blur-sm">
-          <p className="font-display text-[0.95rem] leading-relaxed text-deep-foreground">
+        {/* no box — copy and form sit right on the picture */}
+        <div className="mt-8 w-full max-w-sm">
+          <p className="font-display text-[1rem] leading-relaxed text-deep-foreground drop-shadow-[0_2px_10px_oklch(0.15_0.04_230/0.75)]">
             A free puzzle of Paradise, delivered every single day. Sign up and
             today's Pictaria will arrive in your inbox.
           </p>
+
 
           {(signedUp || status === "done") ? (
             <div className="mt-6 text-center">
