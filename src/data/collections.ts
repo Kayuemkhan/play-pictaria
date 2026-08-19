@@ -2321,6 +2321,7 @@ export const collections: Collection[] = [
     id: "amys-art",
     title: "Amy's Art",
     tagline: "Hand-blown glass sea turtles made in Maui",
+    storyFooter: "Each piece is signed and numbered by the artist.",
     cover: amy08Enhanced,
     coverZoom: 1.15,
     free: true,
