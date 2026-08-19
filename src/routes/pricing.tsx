@@ -280,11 +280,8 @@ function PricingPage() {
             like, and come back whenever you need a little piece of paradise.
           </p>
           <div className="mt-4 flex items-baseline gap-2">
-            <span className="font-display text-3xl tracking-[0.08em] text-foreground">
-              free
-            </span>
-            <span className="text-[0.7rem] tracking-[0.18em] text-muted-foreground uppercase">
-              / every day
+            <span className="font-display text-3xl tracking-[0.08em] text-foreground uppercase">
+              FREE
             </span>
           </div>
           <div className="mt-4 grid gap-3 sm:grid-cols-2">
@@ -476,13 +473,6 @@ function PricingPage() {
               className="inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-[0.6rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
             >
               Start your Brand Studio
-              <span aria-hidden>›</span>
-            </Link>
-            <Link
-              to="/collections"
-              className="inline-flex items-center gap-1.5 rounded-full border border-primary/40 bg-primary/10 px-4 py-2 text-[0.6rem] tracking-[0.2em] text-primary uppercase transition-colors hover:bg-primary hover:text-primary-foreground"
-            >
-              See it in play
               <span aria-hidden>›</span>
             </Link>
           </div>
