@@ -122,11 +122,12 @@ export const natureStories: Record<string, string[]> = {
     "Honu often take their last breaths of the day at the surface as the light goes copper, resting in the warmer top layer of water. Evening is one of the best times to spot them from shore.",
   ],
   "sunset-09": [
-    "Those layered blue ridges are the result of aerial perspective — each further ridge scatters more light and loses more contrast. In Hawaiian, mauka means toward the mountain, and this is the view the word conjures.",
+    "Throw-net fishing — ʻupena kiloi — is patient work: you stand in the shorebreak, read the water, and let the net open like a flower over the fish. At dusk the light turns the whole cast to gold.",
   ],
   "sunset-10": [
-    "Tide pools at twilight belong to the ʻopihi, the limpet clinging to wave-washed rock, long prized as a delicacy and gathered with great care. After the sun goes, the pools keep glowing for a while.",
+    "When a swell meets lava rock the water has nowhere to go but up, and for a second the spray catches the last of the sun. Kai is the word for sea, and this is the sea at its most alive.",
   ],
+
 
   // Whales
   "whale-01": [

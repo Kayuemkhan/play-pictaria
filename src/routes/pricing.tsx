@@ -483,7 +483,7 @@ function PricingPage() {
         </section>
 
         {/* artist at the bottom — a blonde painter on a Hawaiian beach */}
-        <div className="relative z-[1] mt-10 overflow-hidden rounded-2xl">
+        <div className="relative z-[1] mt-10 overflow-hidden rounded-[4px]">
           <div className="pointer-events-none absolute inset-x-0 top-0 z-[2] h-24 bg-gradient-to-b from-background to-transparent" />
           <img
             src={artistBottom}
