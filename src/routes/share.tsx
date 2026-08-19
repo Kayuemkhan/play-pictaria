@@ -31,6 +31,7 @@ export const Route = createFileRoute("/share")({
 
 function SharePage() {
   const [qr, setQr] = useState("");
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     let alive = true;
@@ -48,6 +49,16 @@ function SharePage() {
       alive = false;
     };
   }, []);
+
+  const copyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(SHARE_URL);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // Clipboard not available — do nothing so the button stays usable.
+    }
+  };
 
   return (
     <main className="relative flex min-h-screen flex-col items-center bg-deep pb-16 text-center">
