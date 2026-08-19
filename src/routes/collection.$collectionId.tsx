@@ -59,7 +59,7 @@ function CollectionPage() {
 
   return (
     <main className="min-h-screen bg-mist-gradient px-4 pb-20 sm:px-6">
-      <div className="mx-auto w-full max-w-4xl pt-8">
+      <div className="mx-auto w-full max-w-4xl pt-6">
         <div className="text-center">
           {/* secret palms — tap to slip straight home */}
           <Link to="/" aria-label="Home" className="inline-block">
@@ -71,15 +71,16 @@ function CollectionPage() {
               className="mx-auto h-9 w-auto transition-transform duration-500 ease-[var(--ease-calm)] hover:scale-105 active:scale-95"
             />
           </Link>
-          <h1 className="mt-2 font-display text-4xl sm:text-5xl">
+          <h1 className="mt-1 font-display text-3xl sm:text-4xl">
             {collection.title}
           </h1>
-          <p className="mt-2 text-sm text-muted-foreground">
+          <p className="mt-1 text-[0.8rem] text-muted-foreground">
             {collection.tagline}
           </p>
         </div>
 
-        <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3">
+        <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3">
+
           {archive.map((item) => {
             const found = item.kind === "puzzle" ? findPuzzle(item.id) : null;
             const image = item.image ?? found?.puzzle.image ?? null;

@@ -26,14 +26,15 @@ function CollectionsPage() {
   return (
     <main className="min-h-screen bg-mist-gradient px-4 pb-20 sm:px-6">
       <div className="mx-auto w-full max-w-5xl">
-        <div className="pt-8 text-center">
-          <p className="text-[11px] tracking-[0.3em] text-muted-foreground uppercase">
+        <div className="pt-24 text-center">
+          <p className="text-[10px] tracking-[0.28em] text-muted-foreground uppercase">
             The Pictaria gallery
           </p>
-          <h1 className="mt-2 font-display text-4xl sm:text-5xl">All Collections</h1>
+          <h1 className="mt-1 font-display text-3xl sm:text-4xl">All Collections</h1>
         </div>
 
-        <div className="mt-8 grid grid-cols-3 gap-2 sm:gap-3">
+        <div className="mt-5 grid grid-cols-3 gap-2 sm:gap-3">
+
           {visibleCollections.map((collection) => (
             <Link
               key={collection.id}
