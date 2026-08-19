@@ -96,17 +96,71 @@ function PuzzlePage() {
         )
       )}
       {puzzle.recipe && (
-        <div className="mt-3 rounded-[4px] border border-accent/40 bg-card/60 p-3 text-left">
-          <p className="text-[10px] tracking-[0.2em] text-primary uppercase">
-            Recipe
-          </p>
-          <ol className="mt-1.5 list-decimal space-y-1 pl-4 text-[0.8rem] leading-relaxed text-foreground">
-            {puzzle.recipe.split("\n").map((step, i) => (
-              <li key={i}>{step}</li>
-            ))}
-          </ol>
+        <div className="mt-4 rounded-[6px] border border-accent/50 bg-card/70 px-4 py-4 text-left shadow-soft">
+          {/* recipe card header */}
+          <div className="border-b border-accent/40 pb-2 text-center">
+            <p className="text-[9px] tracking-[0.34em] text-primary uppercase">
+              Recipe
+            </p>
+            <p className="mt-1 font-display text-xl leading-tight text-foreground">
+              {puzzle.title}
+            </p>
+            {puzzle.recipe.yield && (
+              <p className="mt-0.5 text-[10px] tracking-[0.18em] text-muted-foreground uppercase">
+                {puzzle.recipe.yield}
+              </p>
+            )}
+          </div>
+
+          <div className="mt-3">
+            <p className="text-[9px] tracking-[0.28em] text-primary uppercase">
+              Ingredients
+            </p>
+            <ul className="mt-1.5 space-y-1">
+              {puzzle.recipe.ingredients.map((item, i) => (
+                <li
+                  key={i}
+                  className="flex gap-2 text-[0.8rem] leading-relaxed text-foreground"
+                >
+                  <span aria-hidden className="text-accent">
+                    •
+                  </span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="mt-3.5">
+            <p className="text-[9px] tracking-[0.28em] text-primary uppercase">
+              Directions
+            </p>
+            <ol className="mt-1.5 space-y-1.5">
+              {puzzle.recipe.steps.map((step, i) => (
+                <li
+                  key={i}
+                  className="flex gap-2.5 text-[0.8rem] leading-relaxed text-foreground"
+                >
+                  <span
+                    aria-hidden
+                    className="mt-[1px] font-display text-[0.85rem] text-primary"
+                  >
+                    {i + 1}.
+                  </span>
+                  <span>{step}</span>
+                </li>
+              ))}
+            </ol>
+          </div>
+
+          {puzzle.recipe.note && (
+            <p className="mt-3.5 border-t border-accent/30 pt-2.5 text-[0.74rem] leading-relaxed text-muted-foreground italic">
+              {puzzle.recipe.note}
+            </p>
+          )}
         </div>
       )}
+
     </div>
   );
 

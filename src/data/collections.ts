@@ -288,8 +288,15 @@ export interface Puzzle {
   image: string;
   /** What the Hawaiian name means, shown as a little tagline under the title. */
   meaning?: string;
-  /** Optional recipe to show beneath the puzzle image. */
-  recipe?: string;
+  /** Optional recipe card to show beneath the puzzle image. */
+  recipe?: {
+    /** e.g. "Serves 1" or "Makes 2 tall glasses". */
+    yield?: string;
+    ingredients: string[];
+    steps: string[];
+    /** A closing line: a tip, or a bit of history. */
+    note?: string;
+  };
   /** Optional story/bio paragraphs to show beneath the puzzle image. */
   story?: string[];
 }
@@ -1771,16 +1778,58 @@ export const collections: Collection[] = [
         title: "Pineapple Sunset Cocktail",
         caption: "A golden island sipper for golden hour",
         image: pineapple11,
-        recipe:
-          "Muddle 4 pineapple chunks with 6 mint leaves and ½ oz lime juice.\nAdd 2 oz white rum, 1 oz pineapple juice, and ½ oz simple syrup.\nFill with ice and shake until cold.\nStrain into an ice-filled glass.\nTop with soda and garnish with pineapple and mint.",
+        recipe: {
+          yield: "Serves 1",
+          ingredients: [
+            "4 fresh pineapple chunks",
+            "6 mint leaves",
+            "½ oz fresh lime juice",
+            "2 oz white rum",
+            "1 oz pineapple juice",
+            "½ oz simple syrup",
+            "Soda water, to top",
+            "Pineapple wedge and mint sprig, to garnish",
+          ],
+          steps: [
+            "Muddle the pineapple, mint, and lime juice in a shaker.",
+            "Add the rum, pineapple juice, and simple syrup.",
+            "Fill with ice and shake until the tin frosts.",
+            "Strain into an ice-filled glass.",
+            "Top with soda and garnish with pineapple and mint.",
+          ],
+        },
       },
       {
         id: "pineapple-12",
         title: "Pineapple Upside-Down Cake",
         caption: "Caramelized rings over a soft golden crumb",
         image: pineapple12,
-        recipe:
-          "Melt ¼ cup butter in a 9-inch round cake pan.\nSprinkle with ½ cup brown sugar.\nArrange pineapple rings with cherries in the centers.\nWhisk 1½ cups flour, 1½ tsp baking powder, and ¼ tsp salt.\nCream ½ cup butter and ¾ cup sugar.\nBeat in 2 eggs, 1 tsp vanilla, and ½ cup milk.\nSpread batter over the pineapple.\nBake at 350°F for 40–45 minutes.\nCool 10 minutes, then invert onto a plate.",
+        recipe: {
+          yield: "Makes one 9-inch cake",
+          ingredients: [
+            "¼ cup butter, for the pan",
+            "½ cup brown sugar",
+            "Pineapple rings and maraschino cherries",
+            "1½ cups flour",
+            "1½ tsp baking powder",
+            "¼ tsp salt",
+            "½ cup butter, softened",
+            "¾ cup sugar",
+            "2 eggs",
+            "1 tsp vanilla",
+            "½ cup milk",
+          ],
+          steps: [
+            "Melt the ¼ cup butter in a 9-inch round cake pan and sprinkle with the brown sugar.",
+            "Arrange pineapple rings over the sugar with a cherry in each center.",
+            "Whisk the flour, baking powder, and salt.",
+            "Cream the softened butter with the sugar, then beat in the eggs, vanilla, and milk.",
+            "Fold in the dry ingredients and spread the batter over the pineapple.",
+            "Bake at 350°F for 40–45 minutes.",
+            "Cool 10 minutes, then invert onto a plate.",
+          ],
+          note: "Invert while still warm — the caramel sets fast and will stick if it cools in the pan.",
+        },
       },
       {
         id: "pineapple-13",
@@ -1850,77 +1899,168 @@ export const collections: Collection[] = [
         title: "Mai Tai",
         caption: "Amber rum float on the lava rock",
         image: drink01,
-        story: [
-          "1 oz aged dark rum, 1 oz light rum, 1/2 oz orange curacao, 1/2 oz orgeat (almond syrup), 3/4 oz fresh lime juice.",
-          "Shake everything but the dark rum with crushed ice, pour into a tall glass, then float the dark rum on top. Garnish with a spent lime shell, mint, and an orchid.",
-          "Trader Vic mixed the first one in 1944 and a Tahitian friend tasted it and said \u201cMai tai roa ae\u201d \u2014 out of this world. The name stuck.",
-        ],
+        recipe: {
+          yield: "Serves 1",
+          ingredients: [
+            "1 oz aged dark rum, for floating",
+            "1 oz light rum",
+            "½ oz orange curacao",
+            "½ oz orgeat (almond syrup)",
+            "¾ oz fresh lime juice",
+            "Crushed ice",
+            "Mint sprig and an orchid, to garnish",
+          ],
+          steps: [
+            "Shake the light rum, curacao, orgeat, and lime juice with crushed ice.",
+            "Pour unstrained into a tall glass.",
+            "Float the dark rum gently over the top.",
+            "Garnish with the spent lime shell, mint, and an orchid.",
+          ],
+          note: "Trader Vic mixed the first one in 1944; a Tahitian friend tasted it and said \u201cMai tai roa ae\u201d — out of this world.",
+        },
       },
       {
         id: "drink-02",
-        title: "Pi\u00f1a Colada",
+        title: "Piña Colada",
         caption: "Frosty and creamy at the pool's edge",
         image: drink02,
-        story: [
-          "2 oz white rum, 3 oz pineapple juice, 1 1/2 oz cream of coconut, 1 cup ice.",
-          "Blend until thick and snowy, pour into a chilled hurricane glass, and top with toasted coconut, a pineapple wedge, and a cherry.",
-          "For a virgin version, drop the rum and add a splash of coconut milk \u2014 nobody will notice.",
-        ],
+        recipe: {
+          yield: "Serves 1",
+          ingredients: [
+            "2 oz white rum",
+            "3 oz pineapple juice",
+            "1½ oz cream of coconut",
+            "1 cup ice",
+            "Toasted coconut, pineapple wedge, and a cherry",
+          ],
+          steps: [
+            "Blend the rum, pineapple juice, cream of coconut, and ice until thick and snowy.",
+            "Pour into a chilled hurricane glass.",
+            "Top with toasted coconut and garnish with pineapple and a cherry.",
+          ],
+          note: "For a virgin version, drop the rum and add a splash of coconut milk — nobody will notice.",
+        },
       },
       {
         id: "drink-03",
         title: "Blue Hawaii",
         caption: "Electric blue on white sand",
         image: drink03,
-        story: [
-          "3/4 oz light rum, 3/4 oz vodka, 1/2 oz blue curacao, 3 oz pineapple juice, 1 oz sweet and sour mix.",
-          "Shake with ice, pour over crushed ice in a tall glass, and garnish with pineapple, a cherry, and a paper umbrella.",
-          "Harry Yee created it at the Hilton Hawaiian Village in 1957 when a liqueur company asked him to build something around their blue curacao.",
-        ],
+        recipe: {
+          yield: "Serves 1",
+          ingredients: [
+            "¾ oz light rum",
+            "¾ oz vodka",
+            "½ oz blue curacao",
+            "3 oz pineapple juice",
+            "1 oz sweet and sour mix",
+            "Crushed ice",
+            "Pineapple wedge, cherry, and a paper umbrella",
+          ],
+          steps: [
+            "Shake the rum, vodka, curacao, pineapple juice, and sweet and sour with ice.",
+            "Pour over crushed ice in a tall glass.",
+            "Garnish with pineapple, a cherry, and an umbrella.",
+          ],
+          note: "Harry Yee created it at the Hilton Hawaiian Village in 1957, built around a liqueur company's new blue curacao.",
+        },
       },
       {
         id: "drink-04",
         title: "Lava Flow",
         caption: "Strawberry erupting through coconut",
         image: drink04,
-        story: [
-          "Blend 1 oz light rum, 1 oz coconut rum, 2 oz pineapple juice, and 2 oz cream of coconut with ice. Separately blend 1/2 cup frozen strawberries with a splash of juice.",
-          "Pour the strawberry puree into the bottom of the glass, then pour the white blend slowly down the middle \u2014 the red climbs the sides like lava.",
-          "Garnish with a pineapple wedge and serve immediately, before the flow settles.",
-        ],
+        recipe: {
+          yield: "Serves 1 tall glass",
+          ingredients: [
+            "1 oz light rum",
+            "1 oz coconut rum",
+            "2 oz pineapple juice",
+            "2 oz cream of coconut",
+            "½ cup frozen strawberries",
+            "Ice",
+            "Pineapple wedge, to garnish",
+          ],
+          steps: [
+            "Blend the rums, pineapple juice, cream of coconut, and ice until smooth.",
+            "Blend the strawberries separately with a splash of juice.",
+            "Pour the strawberry puree into the bottom of the glass.",
+            "Pour the white blend slowly down the middle so the red climbs the sides.",
+            "Garnish with pineapple and serve right away.",
+          ],
+          note: "Serve immediately — the flow settles into pink after a few minutes.",
+        },
       },
       {
         id: "drink-05",
         title: "POG Sunset",
         caption: "Passion, orange, guava at golden hour",
         image: drink05,
-        story: [
-          "2 oz POG juice (passion fruit, orange, and guava in equal parts), 1 oz vodka or sparkling wine, 1/2 oz lime juice.",
-          "Shake the juice, spirit, and lime, strain into a chilled coupe, and top with bubbles. Garnish with a guava slice and a passionflower.",
-          "POG has been the everyday juice of Hawaii since the 1970s, when a Maui dairy first blended the three fruits for school lunches.",
-        ],
+        recipe: {
+          yield: "Serves 1",
+          ingredients: [
+            "2 oz POG juice (equal parts passion fruit, orange, and guava)",
+            "1 oz vodka, or sparkling wine",
+            "½ oz fresh lime juice",
+            "Bubbles, to top",
+            "Guava slice and a passionflower, to garnish",
+          ],
+          steps: [
+            "Shake the POG juice, vodka, and lime with ice.",
+            "Strain into a chilled coupe.",
+            "Top with bubbles.",
+            "Garnish with a guava slice and a passionflower.",
+          ],
+          note: "POG has been the everyday juice of Hawaii since the 1970s, when a Maui dairy blended the three fruits for school lunches.",
+        },
       },
       {
         id: "drink-06",
-        title: "Liliko\u02bbi Margarita",
+        title: "Lilikoʻi Margarita",
         caption: "Salt rim above a tide pool",
         image: drink06,
-        story: [
-          "2 oz blanco tequila, 1 oz fresh lilikoi (passion fruit) pulp, 3/4 oz lime juice, 1/2 oz agave or honey syrup.",
-          "Salt half the rim, shake everything hard with ice, and pour over fresh cubes. Garnish with half a passion fruit and a lime wheel.",
-          "Liliko\u02bbi vines grow wild along Hawaii's back roads \u2014 the fruit is ripe when it wrinkles and falls on its own.",
-        ],
+        recipe: {
+          yield: "Serves 1",
+          ingredients: [
+            "2 oz blanco tequila",
+            "1 oz fresh lilikoʻi (passion fruit) pulp",
+            "¾ oz fresh lime juice",
+            "½ oz agave or honey syrup",
+            "Coarse sea salt, for the rim",
+            "Half a passion fruit and a lime wheel, to garnish",
+          ],
+          steps: [
+            "Salt half the rim of a rocks glass.",
+            "Shake the tequila, passion fruit pulp, lime, and syrup hard with ice.",
+            "Pour over fresh ice cubes.",
+            "Garnish with half a passion fruit and a lime wheel.",
+          ],
+          note: "Lilikoʻi vines grow wild along the back roads — the fruit is ripe when it wrinkles and falls on its own.",
+        },
       },
       {
         id: "drink-07",
         title: "Coconut Cooler",
         caption: "Straight from the shell, poolside",
         image: drink07,
-        story: [
-          "Open a young green coconut, add ice, 1 1/2 oz dark rum, 1/2 oz lime juice, and a teaspoon of honey syrup. Stir gently in the shell.",
-          "Sip through a bamboo straw, then spoon out the soft jelly meat inside when the drink is gone.",
-          "Coconut water is naturally full of potassium, which is why it has been the islands' after-surf drink for generations.",
-        ],
+        recipe: {
+          yield: "Serves 1",
+          ingredients: [
+            "1 young green coconut",
+            "1½ oz dark rum",
+            "½ oz fresh lime juice",
+            "1 tsp honey syrup",
+            "Ice",
+            "Lime wheel and a bamboo straw",
+          ],
+          steps: [
+            "Open the top of the coconut and add ice.",
+            "Pour in the rum, lime juice, and honey syrup.",
+            "Stir gently right in the shell.",
+            "Sip through a bamboo straw, then spoon out the soft jelly meat when the drink is gone.",
+          ],
+          note: "Coconut water is naturally full of potassium — the islands' after-surf drink for generations.",
+        },
       },
     ],
   },
@@ -2111,8 +2251,27 @@ export const collections: Collection[] = [
           "It leans on upcountry Maui: Kula strawberries picked on the slopes of Haleakalā, fresh basil, a whisper of aged balsamic, and Hawaiian-made Ocean Organic Vodka distilled from island sugarcane and deep seawater.",
           "The balsamic is the trick. One teaspoon turns strawberry from candy into something grown-up — jammy, herbal, and just tart enough to keep pace with the bubbles and the sunset.",
         ],
-        recipe:
-          "Muddle 3 ripe strawberries and 2 basil leaves with ½ oz simple syrup and 1 tsp aged balsamic glaze.\nAdd 1½ oz vodka and fill the shaker with ice.\nShake hard for 10–15 seconds until frosty.\nFine-strain into a chilled coupe or flute.\nTop with 3 oz brut sparkling wine or Prosecco.\nGarnish with a thin strawberry slice and a slapped basil leaf.",
+        recipe: {
+          yield: "Serves 1",
+          ingredients: [
+            "3 ripe strawberries",
+            "2 basil leaves",
+            "½ oz simple syrup",
+            "1 tsp aged balsamic glaze",
+            "1½ oz vodka",
+            "3 oz brut sparkling wine or Prosecco",
+            "Strawberry slice and a basil leaf, to garnish",
+          ],
+          steps: [
+            "Muddle the strawberries and basil with the simple syrup and balsamic glaze.",
+            "Add the vodka and fill the shaker with ice.",
+            "Shake hard for 10–15 seconds, until frosty.",
+            "Fine-strain into a chilled coupe or flute.",
+            "Top with the sparkling wine.",
+            "Garnish with a thin strawberry slice and a slapped basil leaf.",
+          ],
+          note: "One teaspoon of balsamic is the whole trick — it turns the strawberry jammy instead of candied.",
+        },
       },
       {
         id: "fsm-10",
@@ -2124,8 +2283,28 @@ export const collections: Collection[] = [
           "On top go Maui onions, grown in the red dirt of Kula and so sweet that locals eat them raw like apples. Slow-cooked in butter and thyme, they turn to golden jam.",
           "Alongside sits a quenelle of Surfing Goat Dairy chèvre whipped with butter and tarragon, finished with smoked sea salt — ancient staple and modern steakhouse, on one plate.",
         ],
-        recipe:
-          "Make a sweet yeast roll dough, working 1 cup fresh poi into the wet ingredients for a deep violet crumb.\nShape into small rounds, nestle into a buttered cast-iron skillet, and let rise until puffy.\nThinly slice 2 large Maui sweet onions and cook slowly in butter with thyme until golden and jammy.\nPile the onions over the risen rolls.\nBake at 375°F for 20–25 minutes, until airy and the onion edges char.\nWhip 4 oz goat cheese with 4 tbsp soft butter and 1 tbsp chopped tarragon.\nServe the bread warm with the whipped cheese and a pinch of smoked sea salt.",
+        recipe: {
+          yield: "Makes one skillet, serves 6",
+          ingredients: [
+            "Your favorite sweet yeast roll dough",
+            "1 cup fresh poi",
+            "2 large Maui sweet onions",
+            "Butter and a few thyme sprigs",
+            "4 oz goat cheese",
+            "4 tbsp softened butter",
+            "1 tbsp chopped tarragon",
+            "Smoked sea salt",
+          ],
+          steps: [
+            "Make the dough, working the poi into the wet ingredients for a deep violet crumb.",
+            "Shape into small rounds, nestle into a buttered cast-iron skillet, and let rise until puffy.",
+            "Thinly slice the onions and cook slowly in butter with thyme until golden and jammy.",
+            "Pile the onions over the risen rolls.",
+            "Bake at 375°F for 20–25 minutes, until airy and the onion edges char.",
+            "Whip the goat cheese with the softened butter and tarragon.",
+            "Serve the bread warm with the whipped cheese and a pinch of smoked sea salt.",
+          ],
+        },
       },
     ],
 

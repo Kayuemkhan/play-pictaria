@@ -1,6 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { Menu } from "lucide-react";
 import { visibleCollections } from "@/data/collections";
 import { HeroPuzzle } from "@/components/HeroPuzzle";
 
@@ -34,31 +33,12 @@ export const Route = createFileRoute("/")({
 
 const featured = visibleCollections;
 
-const menuLinks = [
-  { to: "/launch", label: "Launch" },
-  { to: "/collections", label: "Gallery" },
-  { to: "/about", label: "Travel to Pictaria" },
-  { to: "/create", label: "Send a free Pictaria" },
-  { to: "/daily", label: "Daily Pictaria" },
-  { to: "/mindfulness", label: "Mindful Music" },
-  { to: "/work-life-balance", label: "Work Life Balance" },
-  { to: "/easter-egg", label: "Easter Eggs" },
-  { to: "/share", label: "Share Pictaria" },
-  { to: "/pricing", label: "Pricing" },
-] as const;
 
 
 
 function Home() {
-  const [openPanel, setOpenPanel] = useState<"menu" | null>(null);
   const navigate = useNavigate();
   const taps = useRef<{ count: number; last: number }>({ count: 0, last: 0 });
-
-  // Tuck the fixed gold palms away while the pull-down menu is open.
-  useEffect(() => {
-    document.body.classList.toggle("menu-open", openPanel === "menu");
-    return () => document.body.classList.remove("menu-open");
-  }, [openPanel]);
 
   // The hidden admin page opens only after three quick taps on the palm logo.
   const handleLogoTap = () => {
@@ -85,35 +65,6 @@ function Home() {
         />
         <div className="absolute inset-0 bg-gradient-to-b from-deep/40 via-transparent to-deep/28" />
 
-        <div className="absolute top-5 right-5 left-5 z-20 flex items-start justify-between">
-          <div className="relative">
-            <button
-              type="button"
-              aria-label="Menu"
-              aria-expanded={openPanel === "menu"}
-              onClick={() =>
-                setOpenPanel(openPanel === "menu" ? null : "menu")
-              }
-              className="grid h-11 w-11 place-items-center rounded-full bg-deep/80 text-accent backdrop-blur-sm transition-transform hover:scale-105"
-            >
-              <Menu className="h-5 w-5" strokeWidth={1.5} />
-            </button>
-            {openPanel === "menu" && (
-              <div className="absolute top-13 left-0 z-[60] w-56 overflow-hidden rounded-[6px] border border-accent/40 bg-deep py-1 shadow-lift">
-                {menuLinks.map((item) => (
-                  <Link
-                    key={item.label}
-                    to={item.to}
-                    onClick={() => setOpenPanel(null)}
-                    className="block px-4 py-2.5 text-[0.6rem] tracking-[0.2em] text-shell uppercase transition-colors hover:bg-accent/15 hover:text-accent"
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
 
 
 
