@@ -119,13 +119,23 @@ function SharePage() {
         </div>
 
         <div className="mt-6 flex w-full max-w-[19rem] flex-col items-center gap-2">
-          <a
-            href={SHARE_URL}
-            className="inline-flex items-center justify-center gap-1.5 rounded-full border border-accent/50 px-4 py-2 text-[0.6rem] tracking-[0.18em] text-accent uppercase transition-colors hover:bg-accent/15"
+          <button
+            type="button"
+            onClick={copyLink}
+            className="inline-flex cursor-pointer items-center justify-center gap-1.5 rounded-full border border-accent/50 px-4 py-2 text-[0.6rem] tracking-[0.18em] text-accent uppercase transition-colors hover:bg-accent/15"
           >
-            link play-pictaria.com
-            <span aria-hidden>›</span>
-          </a>
+            {copied ? (
+              <>
+                copied!
+                <span aria-hidden>✓</span>
+              </>
+            ) : (
+              <>
+                link play-pictaria.com
+                <span aria-hidden>›</span>
+              </>
+            )}
+          </button>
         </div>
       </div>
     </main>
