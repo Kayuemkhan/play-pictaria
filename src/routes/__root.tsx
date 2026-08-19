@@ -188,9 +188,31 @@ function BackGuard() {
 
 
 /**
+ * Pages that already draw their own centered Pictaria palm + wordmark
+ * at the top. We skip the global palm-tree home button there so the
+ * branding doesn't stack or duplicate.
+ */
+const OWN_PALM_BRANDING = new Set([
+  "/about",
+  "/work-life-balance",
+  "/beta",
+  "/share",
+  "/easter-egg",
+  "/create",
+]);
+
+function hasOwnPalmBranding(path: string) {
+  if (OWN_PALM_BRANDING.has(path)) return true;
+  if (path.startsWith("/collection/")) return true;
+  // /portal/daily has its own palms; /portal/daily-past does not.
+  if (path === "/portal/daily") return true;
+  return false;
+}
+
+/**
  * Top navigation on most screens: a back arrow in the top-left and a
- * palm-tree home button in the top-right. Home and puzzle screens draw their
- * own chrome, so we skip those to avoid duplicate controls.
+ * palm-tree home button centered at the top. Home and puzzle screens draw
+ * their own chrome, so we skip those to avoid duplicate controls.
  */
 function GlobalChrome() {
   const raw = useRouterState({ select: (s) => s.location.pathname });
@@ -205,7 +227,7 @@ function GlobalChrome() {
   return (
     <>
       <TopBackButton />
-      <TopHomeButton />
+      {!hasOwnPalmBranding(path) && <TopHomeButton />}
     </>
   );
 }
