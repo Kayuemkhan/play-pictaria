@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 
 import eggPalms from "@/assets/easter-egg-palms.jpg";
 import palmLogo from "@/assets/logo-palms-only.png";
+import { hawaiianWords } from "@/data/hawaiian-words";
 
 export const Route = createFileRoute("/easter-egg")({
   head: () => ({
