@@ -873,7 +873,14 @@ export function MindfulMusic() {
           Stop sound
         </button>
       ) : null}
+
+      <p className="mt-6 font-body text-[0.62rem] leading-relaxed font-light text-shell/45">
+        Island Shoreline, Soft ʻUkulele and Two Guitars at Dusk are recorded
+        pieces by Kevin MacLeod (incompetech.com), used under Creative Commons
+        Attribution. The rest are generated live inside Pictaria.
+      </p>
     </div>
+
   );
 }
 
