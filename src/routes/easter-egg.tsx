@@ -51,7 +51,7 @@ function EasterEggPage() {
           alt="A Hawaiian farm with three hens eating feed and a mother hen walking with three chicks beneath lush mountains"
           width={1024}
           height={1408}
-          className="h-full w-full object-cover object-[center_78%]"
+          className="h-full w-full object-cover object-[center_86%]"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-deep/80 via-deep/35 to-deep" />
       </div>
