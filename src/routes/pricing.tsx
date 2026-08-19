@@ -17,7 +17,7 @@ import {
   Wand2,
 } from "lucide-react";
 
-import artistEasel from "@/assets/pricing-artist-easel.jpg";
+import artistBottom from "@/assets/pricing-artist-bottom.jpg";
 
 const planColumns = [
   { name: "Free", price: "FREE", period: "" },
