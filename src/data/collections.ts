@@ -288,8 +288,15 @@ export interface Puzzle {
   image: string;
   /** What the Hawaiian name means, shown as a little tagline under the title. */
   meaning?: string;
-  /** Optional recipe to show beneath the puzzle image. */
-  recipe?: string;
+  /** Optional recipe card to show beneath the puzzle image. */
+  recipe?: {
+    /** e.g. "Serves 1" or "Makes 2 tall glasses". */
+    yield?: string;
+    ingredients: string[];
+    steps: string[];
+    /** A closing line: a tip, or a bit of history. */
+    note?: string;
+  };
   /** Optional story/bio paragraphs to show beneath the puzzle image. */
   story?: string[];
 }
