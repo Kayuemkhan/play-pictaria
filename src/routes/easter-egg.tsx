@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
-import eggHomestead from "@/assets/easter-egg-homestead.jpg";
+import eggFarm from "@/assets/easter-egg-farm.jpg.asset.json";
 import palmLogo from "@/assets/logo-palms-only.png";
 import { hawaiianWords } from "@/data/hawaiian-words";
 
@@ -29,11 +29,11 @@ export const Route = createFileRoute("/easter-egg")({
 function EasterEggPage() {
   return (
     <main className="relative min-h-screen bg-deep">
-      {/* a Hawaiian homestead in full color up top, fading down into the words */}
+      {/* a Hawaiian farm at golden hour up top, fading down into the words */}
       <div className="absolute inset-x-0 top-0 h-[62vh] min-h-[380px]">
         <img
-          src={eggHomestead}
-          alt="An old Hawaiian homestead at golden hour with chickens and a rooster in the yard"
+          src={eggFarm.url}
+          alt="A beautiful Hawaiian farm at golden hour with chickens near a feed pile and lush mountains in the background"
           width={1024}
           height={1408}
           className="h-full w-full object-cover object-top"
