@@ -12,9 +12,12 @@ const config: CapacitorConfig = {
   },
   ios: {
     contentInset: "always",
+    // Let people pinch to zoom the whole app in the native shell.
+    zoomEnabled: true,
   },
   android: {
     allowMixedContent: false,
+    zoomEnabled: true,
   },
   plugins: {
     StatusBar: {
