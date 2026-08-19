@@ -481,6 +481,18 @@ function PricingPage() {
           </div>
         </section>
 
+        {/* artist at the bottom — a blonde painter on a Hawaiian beach */}
+        <div className="relative z-[1] mt-10 overflow-hidden rounded-2xl">
+          <div className="pointer-events-none absolute inset-x-0 top-0 z-[2] h-24 bg-gradient-to-b from-background to-transparent" />
+          <img
+            src={artistBottom}
+            alt="A blonde artist painting the ocean on a Hawaiian beach"
+            width={1536}
+            height={1024}
+            loading="lazy"
+            className="w-full object-cover opacity-90"
+          />
+        </div>
       </div>
     </main>
   );
