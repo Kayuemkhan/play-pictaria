@@ -488,21 +488,32 @@ function PricingPage() {
           <img
             src={artistBottom}
             alt="A blonde artist painting the ocean on a Hawaiian beach"
-            width={1536}
-            height={1024}
+            width={1152}
+            height={1536}
             loading="lazy"
-            className="w-full object-cover opacity-90"
+            className="aspect-[3/4] w-full object-cover opacity-90"
           />
           <HeroPuzzle
             src={artistBottom}
-            cols={7}
-            rows={5}
-            wedge={3}
-            depth={2}
+            cols={6}
+            rows={6}
+            wedge={4}
+            depth={3}
             inset={0}
             corner="bottom-right"
             animated={false}
-            maxPieces={4}
+            maxPieces={6}
+          />
+          <HeroPuzzle
+            src={artistBottom}
+            cols={6}
+            rows={6}
+            wedge={3}
+            depth={2}
+            inset={0}
+            corner="top-left"
+            animated={false}
+            maxPieces={3}
           />
         </div>
       </div>
