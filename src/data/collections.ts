@@ -1695,7 +1695,7 @@ export const collections: Collection[] = [
   {
     id: "pineapples-of-hawaii",
     title: "Pineapples of Hawaii",
-    tagline: "Thirteen golden island moments, from plantation house to palm-framed sunset",
+    tagline: "Twenty-one golden island moments, from plantation house to palm-framed sunset",
     cover: pineapple05,
     free: true,
     puzzles: [
