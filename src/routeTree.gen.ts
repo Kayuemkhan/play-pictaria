@@ -22,6 +22,7 @@ import { Route as McpRouteImport } from './routes/mcp'
 import { Route as MindfulnessRouteImport } from './routes/mindfulness'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as ShareRouteImport } from './routes/share'
+import { Route as VisionBoardRouteImport } from './routes/vision-board'
 import { Route as WorkLifeBalanceRouteImport } from './routes/work-life-balance'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
@@ -105,6 +106,11 @@ const PricingRoute = PricingRouteImport.update({
 const ShareRoute = ShareRouteImport.update({
   id: '/share',
   path: '/share',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VisionBoardRoute = VisionBoardRouteImport.update({
+  id: '/vision-board',
+  path: '/vision-board',
   getParentRoute: () => rootRouteImport,
 } as any)
 const WorkLifeBalanceRoute = WorkLifeBalanceRouteImport.update({
@@ -220,6 +226,7 @@ export interface FileRoutesByFullPath {
   '/mindfulness': typeof MindfulnessRoute
   '/pricing': typeof PricingRoute
   '/share': typeof ShareRoute
+  '/vision-board': typeof VisionBoardRoute
   '/work-life-balance': typeof WorkLifeBalanceRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
@@ -254,6 +261,7 @@ export interface FileRoutesByTo {
   '/mindfulness': typeof MindfulnessRoute
   '/pricing': typeof PricingRoute
   '/share': typeof ShareRoute
+  '/vision-board': typeof VisionBoardRoute
   '/work-life-balance': typeof WorkLifeBalanceRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
@@ -289,6 +297,7 @@ export interface FileRoutesById {
   '/mindfulness': typeof MindfulnessRoute
   '/pricing': typeof PricingRoute
   '/share': typeof ShareRoute
+  '/vision-board': typeof VisionBoardRoute
   '/work-life-balance': typeof WorkLifeBalanceRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
@@ -325,6 +334,7 @@ export interface FileRouteTypes {
     | '/mindfulness'
     | '/pricing'
     | '/share'
+    | '/vision-board'
     | '/work-life-balance'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
@@ -359,6 +369,7 @@ export interface FileRouteTypes {
     | '/mindfulness'
     | '/pricing'
     | '/share'
+    | '/vision-board'
     | '/work-life-balance'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
@@ -393,6 +404,7 @@ export interface FileRouteTypes {
     | '/mindfulness'
     | '/pricing'
     | '/share'
+    | '/vision-board'
     | '/work-life-balance'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
@@ -428,6 +440,7 @@ export interface RootRouteChildren {
   MindfulnessRoute: typeof MindfulnessRoute
   PricingRoute: typeof PricingRoute
   ShareRoute: typeof ShareRoute
+  VisionBoardRoute: typeof VisionBoardRoute
   WorkLifeBalanceRoute: typeof WorkLifeBalanceRoute
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
@@ -540,6 +553,13 @@ declare module '@tanstack/react-router' {
       path: '/share'
       fullPath: '/share'
       preLoaderRoute: typeof ShareRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/vision-board': {
+      id: '/vision-board'
+      path: '/vision-board'
+      fullPath: '/vision-board'
+      preLoaderRoute: typeof VisionBoardRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/work-life-balance': {
@@ -692,6 +712,7 @@ const rootRouteChildren: RootRouteChildren = {
   MindfulnessRoute: MindfulnessRoute,
   PricingRoute: PricingRoute,
   ShareRoute: ShareRoute,
+  VisionBoardRoute: VisionBoardRoute,
   WorkLifeBalanceRoute: WorkLifeBalanceRoute,
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
