@@ -42,6 +42,29 @@ export const TRACK_OPTIONS: { id: TrackId; name: string }[] = [
 
 const TRACKS: Track[] = [
   {
+    id: "island-ambient",
+    name: "Tropical ʻUkulele",
+    blurb:
+      "Bright ʻukulele and marimba dancing lightly over a gentle island breeze.",
+    benefit:
+      "A soft-but-upbeat major-key groove lifts energy without jarring the focus — like sunshine on the puzzle board.",
+  },
+  {
+    id: "island-ukulele",
+    name: "Soft ʻUkulele",
+    blurb: "Gentle ʻukulele with marimba and glockenspiel, light as trade wind.",
+    benefit:
+      "Warm plucked strings in a major key lift the mood without demanding attention — kind company while you play.",
+  },
+  {
+    id: "island-guitar",
+    name: "Two Guitars at Dusk",
+    blurb:
+      "Steel-string and classical guitar trading easy lines, slack-key calm.",
+    benefit:
+      "Sparse fingerpicked guitar at 68 beats a minute lets the breath lengthen and the shoulders drop.",
+  },
+  {
     id: "ocean",
     name: "Ocean & Seagulls",
     blurb: "Slow shore break with gulls calling over the water.",
@@ -111,29 +134,6 @@ const TRACKS: Track[] = [
     blurb: "7.83 Hz Schumann resonance over a 136.1 Hz Om carrier.",
     benefit:
       "7.83 Hz is the earth's own Schumann resonance — the frequency most associated with deep meditation, grounding, and the calm border between alpha and theta.",
-  },
-  {
-    id: "island-ambient",
-    name: "Tropical ʻUkulele",
-    blurb:
-      "Bright ʻukulele and marimba dancing lightly over a gentle island breeze.",
-    benefit:
-      "A soft-but-upbeat major-key groove lifts energy without jarring the focus — like sunshine on the puzzle board.",
-  },
-  {
-    id: "island-ukulele",
-    name: "Soft ʻUkulele",
-    blurb: "Gentle ʻukulele with marimba and glockenspiel, light as trade wind.",
-    benefit:
-      "Warm plucked strings in a major key lift the mood without demanding attention — kind company while you play.",
-  },
-  {
-    id: "island-guitar",
-    name: "Two Guitars at Dusk",
-    blurb:
-      "Steel-string and classical guitar trading easy lines, slack-key calm.",
-    benefit:
-      "Sparse fingerpicked guitar at 68 beats a minute lets the breath lengthen and the shoulders drop.",
   },
 ];
 
@@ -828,37 +828,34 @@ export function MindfulMusic() {
                     : "border-accent/30 bg-deep/70"
               }`}
             >
-              <div className="flex items-center justify-between gap-3">
-                <span className="font-body text-sm font-light tracking-[0.06em] text-shell">
-                  {track.name}
-                </span>
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0 flex-1">
+                  <span className="font-body text-sm font-light tracking-[0.06em] text-shell">
+                    {track.name}
+                  </span>
+                  <span className="mt-1.5 block font-body text-xs leading-relaxed font-light text-shell/70">
+                    {track.blurb}
+                  </span>
+                  <span className="mt-2 block font-body text-[0.7rem] leading-relaxed font-light text-accent/80">
+                    {track.benefit}
+                  </span>
+                </div>
                 <button
                   type="button"
                   onClick={() => void playMindfulTrack(track.id)}
                   aria-pressed={active}
                   aria-label={`${active ? "Turn off" : "Turn on"} ${track.name}`}
-                  className={`flex h-6 w-12 shrink-0 items-center rounded-full border px-0.5 transition-colors ${
+                  className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-[4px] border transition-colors ${
                     active
-                      ? "justify-end border-accent bg-accent/40"
-                      : "justify-start border-accent/40 bg-deep"
+                      ? "border-accent bg-accent text-deep"
+                      : "border-accent/40 bg-deep text-accent/70"
                   }`}
                 >
-                  <span
-                    className={`h-4.5 w-4.5 rounded-full transition-colors ${
-                      active ? "bg-accent" : "bg-accent/40"
-                    }`}
-                  />
+                  <span className="font-body text-[0.55rem] font-medium tracking-[0.04em] uppercase">
+                    {active ? "On" : "Off"}
+                  </span>
                 </button>
               </div>
-              <span className="mt-1 block font-body text-[0.6rem] tracking-[0.18em] text-accent uppercase">
-                {active ? "On" : "Off"}
-              </span>
-              <span className="mt-1.5 block font-body text-xs leading-relaxed font-light text-shell/70">
-                {track.blurb}
-              </span>
-              <span className="mt-2 block font-body text-[0.7rem] leading-relaxed font-light text-accent/80">
-                {track.benefit}
-              </span>
             </div>
           );
         })}
