@@ -119,7 +119,7 @@ function DailyPage() {
   return (
     <main className="relative min-h-screen bg-deep pb-16">
       {/* hero picture — the pups at the window, up at the top */}
-      <div className="relative h-[46vh] min-h-[300px] w-full sm:h-[50vh]">
+      <div className="relative h-[58vh] min-h-[360px] w-full sm:h-[62vh]">
         <img
           src={dailyDogsWindow}
           alt="A chihuahua and a Maltese puppy at a window, looking out toward palm trees and the ocean, waiting for the mailman"
@@ -127,22 +127,28 @@ function DailyPage() {
           height={1408}
           className="absolute inset-0 h-full w-full object-cover object-top"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-deep/40 via-deep/20 to-deep" />
+        <div className="absolute inset-0 bg-gradient-to-b from-deep/50 via-deep/10 to-deep" />
+
+        {/* palm trees at the very top */}
+        <Link
+          to="/"
+          aria-label="Home"
+          className="absolute left-1/2 top-3 z-20 block -translate-x-1/2"
+        >
+          <img
+            src={palmLogoOnly}
+            alt="Pictaria"
+            width={1024}
+            height={1024}
+            className="h-14 w-auto rounded-[6px] drop-shadow-[0_4px_18px_oklch(0.15_0.04_230/0.65)] transition-transform hover:scale-[1.04] sm:h-16"
+          />
+        </Link>
       </div>
 
-      {/* logo + wordmark */}
-      <section className="relative z-10 -mt-24 px-6 pb-10 text-center sm:-mt-28">
+      {/* wordmark */}
+      <section className="relative z-10 -mt-20 px-6 pb-10 text-center sm:-mt-24">
         <div className="relative mx-auto max-w-2xl">
-          <Link to="/" aria-label="Home" className="mx-auto block w-fit">
-            <img
-              src={palmLogoOnly}
-              alt="Pictaria"
-              width={1024}
-              height={1024}
-              className="mx-auto h-24 w-auto rounded-[8px] drop-shadow-[0_4px_18px_oklch(0.15_0.04_230/0.65)] transition-transform hover:scale-[1.04] sm:h-32"
-            />
-          </Link>
-          <h1 className="mt-6 font-display text-[1.6rem] leading-snug text-shell sm:text-[2rem]">
+          <h1 className="font-display text-[1.6rem] leading-snug text-shell sm:text-[2rem]">
             Pictaria Daily
           </h1>
         </div>
