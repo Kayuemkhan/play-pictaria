@@ -95,6 +95,11 @@ function PuzzlePage() {
           </p>
         )
       )}
+      {collection.storyFooter && (
+        <p className="mt-2 text-left text-[0.68rem] tracking-wide text-muted-foreground/70 italic">
+          {collection.storyFooter}
+        </p>
+      )}
       {puzzle.recipe && (
         <div className="mt-4 rounded-[6px] border border-accent/50 bg-card/70 px-4 py-4 text-left shadow-soft">
           {/* recipe card header */}
