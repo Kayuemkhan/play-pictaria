@@ -1,8 +1,9 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useRef, useState } from "react";
-import { Menu } from "lucide-react";
+import { Menu, Music } from "lucide-react";
 import { visibleCollections } from "@/data/collections";
 import { HeroPuzzle } from "@/components/HeroPuzzle";
+import { playMindfulTrack, type TrackId } from "@/components/MindfulMusic";
 
 import heroImage from "@/assets/hero-sunset.jpg";
 import palmLogo from "@/assets/logo-palms-only.png";
