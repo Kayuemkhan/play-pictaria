@@ -42,6 +42,29 @@ export const TRACK_OPTIONS: { id: TrackId; name: string }[] = [
 
 const TRACKS: Track[] = [
   {
+    id: "island-ambient",
+    name: "Tropical ʻUkulele",
+    blurb:
+      "Bright ʻukulele and marimba dancing lightly over a gentle island breeze.",
+    benefit:
+      "A soft-but-upbeat major-key groove lifts energy without jarring the focus — like sunshine on the puzzle board.",
+  },
+  {
+    id: "island-ukulele",
+    name: "Soft ʻUkulele",
+    blurb: "Gentle ʻukulele with marimba and glockenspiel, light as trade wind.",
+    benefit:
+      "Warm plucked strings in a major key lift the mood without demanding attention — kind company while you play.",
+  },
+  {
+    id: "island-guitar",
+    name: "Two Guitars at Dusk",
+    blurb:
+      "Steel-string and classical guitar trading easy lines, slack-key calm.",
+    benefit:
+      "Sparse fingerpicked guitar at 68 beats a minute lets the breath lengthen and the shoulders drop.",
+  },
+  {
     id: "ocean",
     name: "Ocean & Seagulls",
     blurb: "Slow shore break with gulls calling over the water.",
@@ -111,29 +134,6 @@ const TRACKS: Track[] = [
     blurb: "7.83 Hz Schumann resonance over a 136.1 Hz Om carrier.",
     benefit:
       "7.83 Hz is the earth's own Schumann resonance — the frequency most associated with deep meditation, grounding, and the calm border between alpha and theta.",
-  },
-  {
-    id: "island-ambient",
-    name: "Tropical ʻUkulele",
-    blurb:
-      "Bright ʻukulele and marimba dancing lightly over a gentle island breeze.",
-    benefit:
-      "A soft-but-upbeat major-key groove lifts energy without jarring the focus — like sunshine on the puzzle board.",
-  },
-  {
-    id: "island-ukulele",
-    name: "Soft ʻUkulele",
-    blurb: "Gentle ʻukulele with marimba and glockenspiel, light as trade wind.",
-    benefit:
-      "Warm plucked strings in a major key lift the mood without demanding attention — kind company while you play.",
-  },
-  {
-    id: "island-guitar",
-    name: "Two Guitars at Dusk",
-    blurb:
-      "Steel-string and classical guitar trading easy lines, slack-key calm.",
-    benefit:
-      "Sparse fingerpicked guitar at 68 beats a minute lets the breath lengthen and the shoulders drop.",
   },
 ];
 
