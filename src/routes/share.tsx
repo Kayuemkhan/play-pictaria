@@ -31,6 +31,7 @@ export const Route = createFileRoute("/share")({
 
 function SharePage() {
   const [qr, setQr] = useState("");
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     let alive = true;
@@ -48,6 +49,16 @@ function SharePage() {
       alive = false;
     };
   }, []);
+
+  const copyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(SHARE_URL);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // Clipboard not available — do nothing so the button stays usable.
+    }
+  };
 
   return (
     <main className="relative flex min-h-screen flex-col items-center bg-deep pb-16 text-center">
@@ -108,13 +119,23 @@ function SharePage() {
         </div>
 
         <div className="mt-6 flex w-full max-w-[19rem] flex-col items-center gap-2">
-          <a
-            href={SHARE_URL}
-            className="inline-flex items-center justify-center gap-1.5 rounded-full border border-accent/50 px-4 py-2 text-[0.6rem] tracking-[0.18em] text-accent uppercase transition-colors hover:bg-accent/15"
+          <button
+            type="button"
+            onClick={copyLink}
+            className="inline-flex cursor-pointer items-center justify-center gap-1.5 rounded-full border border-accent/50 px-4 py-2 text-[0.6rem] tracking-[0.18em] text-accent uppercase transition-colors hover:bg-accent/15"
           >
-            link play-pictaria.com
-            <span aria-hidden>›</span>
-          </a>
+            {copied ? (
+              <>
+                copied!
+                <span aria-hidden>✓</span>
+              </>
+            ) : (
+              <>
+                link play-pictaria.com
+                <span aria-hidden>›</span>
+              </>
+            )}
+          </button>
         </div>
       </div>
     </main>
