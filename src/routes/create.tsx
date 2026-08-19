@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { StudioComposer } from "@/components/StudioComposer";
@@ -102,13 +102,15 @@ function CreatePage() {
           </div>
           <div className="p-6">
 
-          <img
-            src={palmLogo}
-            alt="Pictaria"
-            width={1024}
-            height={1024}
-            className="mx-auto h-16 w-auto rounded-[6px] drop-shadow-[0_2px_8px_oklch(0.15_0.04_230/0.5)]"
-          />
+          <Link to="/" aria-label="Home" className="mx-auto block w-fit">
+            <img
+              src={palmLogo}
+              alt="Pictaria"
+              width={1024}
+              height={1024}
+              className="mx-auto h-16 w-auto rounded-[6px] drop-shadow-[0_2px_8px_oklch(0.15_0.04_230/0.5)] transition-transform hover:scale-[1.04]"
+            />
+          </Link>
           <h1 className="mt-3 font-display text-[1.35rem] text-foreground">
             Send a free Pictaria
           </h1>

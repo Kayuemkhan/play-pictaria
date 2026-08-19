@@ -202,13 +202,15 @@ function DailyWaitingArea() {
   return (
     <main className="min-h-screen bg-deep px-4 pt-12 pb-24">
       <header className="mx-auto max-w-md text-center">
-        <img
-          src={palmLogo}
-          alt=""
-          width={1024}
-          height={1024}
-          className="mx-auto h-12 w-auto"
-        />
+        <Link to="/" aria-label="Home" className="mx-auto block w-fit">
+          <img
+            src={palmLogo}
+            alt="Pictaria"
+            width={1024}
+            height={1024}
+            className="mx-auto h-12 w-auto transition-transform hover:scale-[1.04]"
+          />
+        </Link>
         <h1 className="mt-3 font-display text-[1.5rem] text-shell">
           Today&apos;s Pictaria
         </h1>

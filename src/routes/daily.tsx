@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 
-import mindfulnessHero from "@/assets/mindfulness-hero.jpg";
+import dailyDogsWindow from "@/assets/daily-dogs-window.jpg";
 
 import palmLogoOnly from "@/assets/logo-palms-only.png";
 
@@ -117,28 +117,29 @@ function DailyPage() {
   };
 
   return (
-    <main className="min-h-screen bg-deep">
-      <div className="relative h-[46vh] min-h-[300px] w-full sm:h-[50vh]">
-        <img
-          src={mindfulnessHero}
-          alt="A calm Hawaiian tide pool with a floating plumeria flower at sunset"
-          className="absolute inset-0 h-full w-full object-cover grayscale"
-          width={1344}
-          height={896}
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-deep/40 via-deep/20 to-deep" />
-      </div>
+    <main className="relative min-h-screen bg-deep">
+      {/* the whole picture, muted and grayed back behind the card */}
+      <img
+        src={dailyDogsWindow}
+        alt="Two excited dogs at a window waiting for the mailman"
+        width={1024}
+        height={1408}
+        className="absolute inset-0 h-full w-full object-cover object-top opacity-40 grayscale-[0.65]"
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-deep/35 via-deep/55 to-deep/85" />
 
-      <div className="relative z-10 -mt-24 px-5 pb-12 sm:-mt-28 sm:px-8">
+      <div className="relative z-10 px-5 pt-[38vh] pb-12 sm:px-8">
         <div className="mx-auto max-w-sm">
           <div className="relative overflow-hidden rounded-lg border border-accent/60 bg-shell p-6 text-center shadow-soft">
-            <img
-              src={palmLogoOnly}
-              alt="Pictaria"
-              width={1024}
-              height={1024}
-              className="mx-auto h-16 w-auto rounded-[6px] drop-shadow-[0_2px_8px_oklch(0.15_0.04_230/0.5)]"
-            />
+            <Link to="/" aria-label="Home" className="mx-auto block w-fit">
+              <img
+                src={palmLogoOnly}
+                alt="Pictaria"
+                width={1024}
+                height={1024}
+                className="mx-auto h-16 w-auto rounded-[6px] drop-shadow-[0_2px_8px_oklch(0.15_0.04_230/0.5)] transition-transform hover:scale-[1.04]"
+              />
+            </Link>
             <h1 className="mt-3 font-display text-[1.35rem] text-foreground">
               Pictaria Daily
             </h1>

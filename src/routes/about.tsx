@@ -49,13 +49,15 @@ function AboutPage() {
         <div className="absolute inset-0 bg-gradient-to-b from-seafoam/10 via-transparent to-deep/20" />
 
         <div className="relative mx-auto max-w-2xl">
-          <img
-            src={palmLogo}
-            alt="Pictaria"
-            width={1024}
-            height={1024}
-            className="mx-auto h-32 w-auto rounded-[8px] drop-shadow-[0_4px_18px_oklch(0.15_0.04_230/0.65)] sm:h-40"
-          />
+          <Link to="/" aria-label="Home" className="mx-auto block w-fit">
+            <img
+              src={palmLogo}
+              alt="Pictaria"
+              width={1024}
+              height={1024}
+              className="mx-auto h-32 w-auto rounded-[8px] drop-shadow-[0_4px_18px_oklch(0.15_0.04_230/0.65)] transition-transform hover:scale-[1.04] sm:h-40"
+            />
+          </Link>
           <h1 className="mt-6 font-display text-[1.6rem] leading-snug text-shell sm:text-[2rem]">
             Travel to Pictaria
           </h1>
