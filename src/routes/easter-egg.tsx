@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 
 import eggPalms from "@/assets/easter-egg-palms.jpg";
 import palmLogo from "@/assets/logo-palms-only.png";
+import { hawaiianWords } from "@/data/hawaiian-words";
 
 export const Route = createFileRoute("/easter-egg")({
   head: () => ({
@@ -70,7 +71,36 @@ function EasterEggPage() {
             <span aria-hidden>›</span>
           </Link>
         </div>
+
+        {/* the little Hawaiian dictionary */}
+        <div className="mt-10 w-full max-w-sm rounded-[6px] border border-accent/50 bg-deep/70 px-6 py-7 text-left shadow-lift backdrop-blur-sm">
+          <h2 className="font-display text-[0.7rem] tracking-[0.2em] text-accent uppercase">
+            A Little Hawaiian Dictionary
+          </h2>
+          <p className="mt-3 font-display text-[0.95rem] leading-relaxed text-deep-foreground">
+            Another quiet discovery hidden in Pictaria is the beauty of the
+            Hawaiian language. Scattered through the photographs and their
+            stories are words worth keeping — names for flowers, waves, weather
+            and the way people care for one another. Here they all are in one
+            place, in case you'd like to let a few of them into your own
+            vocabulary.
+          </p>
+
+          <dl className="mt-6 space-y-4">
+            {hawaiianWords.map((entry) => (
+              <div key={entry.word}>
+                <dt className="font-display text-[1rem] text-accent">
+                  {entry.word}
+                </dt>
+                <dd className="mt-0.5 text-[0.82rem] leading-relaxed text-deep-foreground/85">
+                  {entry.meaning}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
       </div>
     </main>
   );
 }
+
