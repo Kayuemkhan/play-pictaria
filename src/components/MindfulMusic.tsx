@@ -35,7 +35,7 @@ export const TRACK_OPTIONS: { id: TrackId; name: string }[] = [
   { id: "binaural-528", name: "Repair · 528 Hz" },
   { id: "didgeridoo", name: "Didgeridoo & Drum" },
   { id: "meditation", name: "Meditation · 7.83 Hz" },
-  { id: "island-ambient", name: "Island Shoreline" },
+  { id: "island-ambient", name: "Tropical ʻUkulele" },
   { id: "island-ukulele", name: "Soft ʻUkulele" },
   { id: "island-guitar", name: "Two Guitars at Dusk" },
 ];
@@ -114,11 +114,11 @@ const TRACKS: Track[] = [
   },
   {
     id: "island-ambient",
-    name: "Island Shoreline",
+    name: "Tropical ʻUkulele",
     blurb:
-      "Soft vibraphone and brushed guitar drifting along a warm tropical shore.",
+      "Bright ʻukulele and marimba dancing lightly over a gentle island breeze.",
     benefit:
-      "A slow 72-beat pulse with no vocals keeps the mind unhurried — easy background for a long, quiet puzzle.",
+      "A soft-but-upbeat major-key groove lifts energy without jarring the focus — like sunshine on the puzzle board.",
   },
   {
     id: "island-ukulele",
@@ -691,7 +691,7 @@ const STARTERS: Record<TrackId, (ctx: AudioContext, out: GainNode) => Engine> = 
       level: 0.14,
     }),
 
-  "island-ambient": startRecording("/audio/port-horizon.mp3", 0.5),
+  "island-ambient": startRecording("/audio/island-meet-and-greet.mp3", 0.45),
   "island-ukulele": startRecording("/audio/carefree.mp3", 0.45),
   "island-guitar": startRecording("/audio/clear-air.mp3", 0.55),
 };
@@ -875,7 +875,7 @@ export function MindfulMusic() {
       ) : null}
 
       <p className="mt-6 font-body text-[0.62rem] leading-relaxed font-light text-shell/45">
-        Island Shoreline, Soft ʻUkulele and Two Guitars at Dusk are recorded
+        Tropical ʻUkulele, Soft ʻUkulele and Two Guitars at Dusk are recorded
         pieces by Kevin MacLeod (incompetech.com), used under Creative Commons
         Attribution. The rest are generated live inside Pictaria.
       </p>
