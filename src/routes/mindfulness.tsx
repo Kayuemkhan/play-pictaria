@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { Music } from "lucide-react";
 import mindfulnessHero from "@/assets/mindfulness-hero.jpg";
-import { MindfulMusic } from "@/components/MindfulMusic";
+import { MindfulMusic, playMindfulTrack, type TrackId } from "@/components/MindfulMusic";
 
 export const Route = createFileRoute("/mindfulness")({
   head: () => ({
