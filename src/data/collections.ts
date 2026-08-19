@@ -138,6 +138,14 @@ import pineapple10 from "@/assets/pineapple-10.jpg";
 import pineapple11 from "@/assets/pineapple-11.jpg";
 import pineapple12 from "@/assets/pineapple-12.jpg";
 import pineapple13 from "@/assets/pineapple-13.jpg";
+import pineapple14 from "@/assets/pineapple-14.jpg";
+import pineapple15 from "@/assets/pineapple-15.jpg";
+import pineapple16 from "@/assets/pineapple-16.jpg";
+import pineapple17 from "@/assets/pineapple-17.jpg";
+import pineapple18 from "@/assets/pineapple-18.jpg";
+import pineapple19 from "@/assets/pineapple-19.jpg";
+import pineapple20 from "@/assets/pineapple-20.jpg";
+import pineapple21 from "@/assets/pineapple-21.jpg";
 import fruit01 from "@/assets/fruit-01.jpg";
 import fruit02 from "@/assets/fruit-02.jpg";
 import fruit03 from "@/assets/fruit-03.jpg";
@@ -1687,7 +1695,7 @@ export const collections: Collection[] = [
   {
     id: "pineapples-of-hawaii",
     title: "Pineapples of Hawaii",
-    tagline: "Thirteen golden island moments, from plantation house to palm-framed sunset",
+    tagline: "Twenty-one golden island moments, from plantation house to palm-framed sunset",
     cover: pineapple05,
     free: true,
     puzzles: [
@@ -1772,6 +1780,54 @@ export const collections: Collection[] = [
         title: "Bamboo Forest",
         caption: "Sunlight through tall stalks and a golden visitor",
         image: pineapple13,
+      },
+      {
+        id: "pineapple-14",
+        title: "Lava Shore",
+        caption: "Sea foam curling over black rock",
+        image: pineapple14,
+      },
+      {
+        id: "pineapple-15",
+        title: "Bobbing in the Blue",
+        caption: "Half above, half below the turquoise",
+        image: pineapple15,
+      },
+      {
+        id: "pineapple-16",
+        title: "Cabin ʻUkulele",
+        caption: "Rattan stool, koa strings, louvered light",
+        image: pineapple16,
+      },
+      {
+        id: "pineapple-17",
+        title: "Surfboard Porch",
+        caption: "Longboard leaning on pastel walls",
+        image: pineapple17,
+      },
+      {
+        id: "pineapple-18",
+        title: "Roadside Stand",
+        caption: "Crates of gold beneath green ridges",
+        image: pineapple18,
+      },
+      {
+        id: "pineapple-19",
+        title: "Lanai Morning",
+        caption: "Plumeria on a lauhala mat, bay beyond",
+        image: pineapple19,
+      },
+      {
+        id: "pineapple-20",
+        title: "Dock Post Sunrise",
+        caption: "Still water and a pastel sky",
+        image: pineapple20,
+      },
+      {
+        id: "pineapple-21",
+        title: "Cabin Kitchen",
+        caption: "Halved fruit, ginger blooms, a hanging ʻukulele",
+        image: pineapple21,
       },
     ],
   },

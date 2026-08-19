@@ -1,7 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Music } from "lucide-react";
 import mindfulnessHero from "@/assets/mindfulness-hero.jpg";
-import { MindfulMusic, playMindfulTrack, type TrackId } from "@/components/MindfulMusic";
+import { MindfulMusic } from "@/components/MindfulMusic";
 
 export const Route = createFileRoute("/mindfulness")({
   head: () => ({
@@ -49,23 +48,6 @@ function MindfulnessPage() {
             Mindful Music
           </h1>
 
-          <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-3">
-            {[
-              { id: "island-ambient" as TrackId, label: "Tropical ʻUkulele" },
-              { id: "island-ukulele" as TrackId, label: "Soft ʻUkulele" },
-              { id: "island-guitar" as TrackId, label: "Two Guitars at Dusk" },
-            ].map((track) => (
-              <button
-                key={track.id}
-                type="button"
-                onClick={() => void playMindfulTrack(track.id)}
-                className="flex items-center justify-center gap-2 rounded-[6px] border border-accent/40 bg-deep/80 p-3 text-[0.65rem] tracking-[0.18em] text-shell uppercase shadow-soft backdrop-blur-sm transition-colors hover:bg-accent/15 hover:text-accent"
-              >
-                <Music className="h-4 w-4 text-accent" strokeWidth={1.5} />
-                {track.label}
-              </button>
-            ))}
-          </div>
 
           <div className="mt-5 rounded-[6px] border border-accent/40 bg-deep/90 p-6 shadow-soft backdrop-blur-md sm:p-8">
             <p className="font-body text-base leading-relaxed font-light text-shell/90 sm:text-lg">
