@@ -114,7 +114,12 @@ function Home() {
 
         {/* wordmark */}
         <div className="absolute inset-x-0 top-16 flex flex-col items-center px-6 text-center sm:top-10">
-          <Link to="/portal/new" aria-label="Pictaria Project's" className="relative z-10">
+          <button
+            type="button"
+            onClick={handleLogoTap}
+            aria-label="Pictaria"
+            className="relative z-10"
+          >
             <img
               src={palmLogo}
               alt="Pictaria"
@@ -122,7 +127,7 @@ function Home() {
               height={1024}
               className="h-[3.25rem] w-auto cursor-pointer drop-shadow-[0_4px_18px_oklch(0.15_0.04_230/0.55)] transition-transform duration-500 ease-[var(--ease-calm)] hover:scale-[1.06] sm:h-[4.25rem]"
             />
-          </Link>
+          </button>
           <span className="mt-5 cursor-pointer bg-gradient-to-br from-[oklch(0.99_0.03_90)] via-[oklch(0.96_0.05_88)] to-[oklch(0.88_0.09_80)] bg-clip-text font-display text-3xl leading-none tracking-[0.14em] text-transparent uppercase drop-shadow-[0_3px_14px_oklch(0.15_0.04_230/0.5)] transition-transform duration-500 ease-[var(--ease-calm)] hover:scale-[1.04] sm:mt-6 sm:text-4xl">
             Pictaria
           </span>
