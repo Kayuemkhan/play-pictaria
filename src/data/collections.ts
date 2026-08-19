@@ -146,6 +146,13 @@ import pineapple18 from "@/assets/pineapple-18.jpg";
 import pineapple19 from "@/assets/pineapple-19.jpg";
 import pineapple20 from "@/assets/pineapple-20.jpg";
 import pineapple21 from "@/assets/pineapple-21.jpg";
+import drink01 from "@/assets/drink-01.jpg";
+import drink02 from "@/assets/drink-02.jpg";
+import drink03 from "@/assets/drink-03.jpg";
+import drink04 from "@/assets/drink-04.jpg";
+import drink05 from "@/assets/drink-05.jpg";
+import drink06 from "@/assets/drink-06.jpg";
+import drink07 from "@/assets/drink-07.jpg";
 import fruit01 from "@/assets/fruit-01.jpg";
 import fruit02 from "@/assets/fruit-02.jpg";
 import fruit03 from "@/assets/fruit-03.jpg";
@@ -1828,6 +1835,92 @@ export const collections: Collection[] = [
         title: "Cabin Kitchen",
         caption: "Halved fruit, ginger blooms, a hanging ʻukulele",
         image: pineapple21,
+      },
+    ],
+  },
+  {
+    id: "happy-hour",
+    title: "Happy Hour",
+    tagline: "Seven island drinks, sweating in the sun — recipe under every one",
+    cover: drink01,
+    free: true,
+    puzzles: [
+      {
+        id: "drink-01",
+        title: "Mai Tai",
+        caption: "Amber rum float on the lava rock",
+        image: drink01,
+        story: [
+          "1 oz aged dark rum, 1 oz light rum, 1/2 oz orange curacao, 1/2 oz orgeat (almond syrup), 3/4 oz fresh lime juice.",
+          "Shake everything but the dark rum with crushed ice, pour into a tall glass, then float the dark rum on top. Garnish with a spent lime shell, mint, and an orchid.",
+          "Trader Vic mixed the first one in 1944 and a Tahitian friend tasted it and said \u201cMai tai roa ae\u201d \u2014 out of this world. The name stuck.",
+        ],
+      },
+      {
+        id: "drink-02",
+        title: "Pi\u00f1a Colada",
+        caption: "Frosty and creamy at the pool's edge",
+        image: drink02,
+        story: [
+          "2 oz white rum, 3 oz pineapple juice, 1 1/2 oz cream of coconut, 1 cup ice.",
+          "Blend until thick and snowy, pour into a chilled hurricane glass, and top with toasted coconut, a pineapple wedge, and a cherry.",
+          "For a virgin version, drop the rum and add a splash of coconut milk \u2014 nobody will notice.",
+        ],
+      },
+      {
+        id: "drink-03",
+        title: "Blue Hawaii",
+        caption: "Electric blue on white sand",
+        image: drink03,
+        story: [
+          "3/4 oz light rum, 3/4 oz vodka, 1/2 oz blue curacao, 3 oz pineapple juice, 1 oz sweet and sour mix.",
+          "Shake with ice, pour over crushed ice in a tall glass, and garnish with pineapple, a cherry, and a paper umbrella.",
+          "Harry Yee created it at the Hilton Hawaiian Village in 1957 when a liqueur company asked him to build something around their blue curacao.",
+        ],
+      },
+      {
+        id: "drink-04",
+        title: "Lava Flow",
+        caption: "Strawberry erupting through coconut",
+        image: drink04,
+        story: [
+          "Blend 1 oz light rum, 1 oz coconut rum, 2 oz pineapple juice, and 2 oz cream of coconut with ice. Separately blend 1/2 cup frozen strawberries with a splash of juice.",
+          "Pour the strawberry puree into the bottom of the glass, then pour the white blend slowly down the middle \u2014 the red climbs the sides like lava.",
+          "Garnish with a pineapple wedge and serve immediately, before the flow settles.",
+        ],
+      },
+      {
+        id: "drink-05",
+        title: "POG Sunset",
+        caption: "Passion, orange, guava at golden hour",
+        image: drink05,
+        story: [
+          "2 oz POG juice (passion fruit, orange, and guava in equal parts), 1 oz vodka or sparkling wine, 1/2 oz lime juice.",
+          "Shake the juice, spirit, and lime, strain into a chilled coupe, and top with bubbles. Garnish with a guava slice and a passionflower.",
+          "POG has been the everyday juice of Hawaii since the 1970s, when a Maui dairy first blended the three fruits for school lunches.",
+        ],
+      },
+      {
+        id: "drink-06",
+        title: "Liliko\u02bbi Margarita",
+        caption: "Salt rim above a tide pool",
+        image: drink06,
+        story: [
+          "2 oz blanco tequila, 1 oz fresh lilikoi (passion fruit) pulp, 3/4 oz lime juice, 1/2 oz agave or honey syrup.",
+          "Salt half the rim, shake everything hard with ice, and pour over fresh cubes. Garnish with half a passion fruit and a lime wheel.",
+          "Liliko\u02bbi vines grow wild along Hawaii's back roads \u2014 the fruit is ripe when it wrinkles and falls on its own.",
+        ],
+      },
+      {
+        id: "drink-07",
+        title: "Coconut Cooler",
+        caption: "Straight from the shell, poolside",
+        image: drink07,
+        story: [
+          "Open a young green coconut, add ice, 1 1/2 oz dark rum, 1/2 oz lime juice, and a teaspoon of honey syrup. Stir gently in the shell.",
+          "Sip through a bamboo straw, then spoon out the soft jelly meat inside when the drink is gone.",
+          "Coconut water is naturally full of potassium, which is why it has been the islands' after-surf drink for generations.",
+        ],
       },
     ],
   },
