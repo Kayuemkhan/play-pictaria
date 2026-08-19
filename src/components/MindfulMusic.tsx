@@ -691,7 +691,7 @@ const STARTERS: Record<TrackId, (ctx: AudioContext, out: GainNode) => Engine> = 
       level: 0.14,
     }),
 
-  "island-ambient": startRecording("/audio/port-horizon.mp3", 0.5),
+  "island-ambient": startRecording("/audio/island-meet-and-greet.mp3", 0.45),
   "island-ukulele": startRecording("/audio/carefree.mp3", 0.45),
   "island-guitar": startRecording("/audio/clear-air.mp3", 0.55),
 };
