@@ -28,7 +28,7 @@ export const Route = createFileRoute("/studio/brand")({
       maxPhotos={10}
       editing
       logoPlacement
-      description="What if your customers looked forward to hearing from you every day? With Brand Studio, every message becomes a moment your customers can enjoy. Transform your own photos into interactive Pictarias that invite them to slow down, solve, discover, and smile. It's a refreshing new way to build meaningful connections, strengthen your brand, and create the kind of engagement people genuinely anticipate."
+      description="What if your customers looked forward to hearing from you every day or every week? This is a social media team's dream! With Brand Studio, every message becomes a moment your customers can enjoy. Transform your own photos into interactive puzzles that invite them to slow down, solve, discover, and smile. It's a refreshing new way to build meaningful connections, strengthen your brand, and create the kind of engagement people genuinely anticipate."
       highlights={[]}
     />
   ),
