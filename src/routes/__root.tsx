@@ -269,9 +269,11 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <BackGuard />
       <GlobalChrome />
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
-      <GlobalBottomChrome />
+      <div className="relative min-h-screen">
+        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+        <Outlet />
+        <GlobalBottomChrome />
+      </div>
     </QueryClientProvider>
   );
 }
