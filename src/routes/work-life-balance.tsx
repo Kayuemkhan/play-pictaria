@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import palmLogo from "@/assets/logo-palms-only.png";
 import kittenAtWork from "@/assets/work-life-kitten.jpg";
@@ -101,13 +101,15 @@ function WorkLifeBalancePage() {
       {/* hero */}
       <section className="relative z-10 -mt-24 px-6 pb-10 text-center sm:-mt-28">
         <div className="relative mx-auto max-w-2xl">
-          <img
-            src={palmLogo}
-            alt="Pictaria"
-            width={1024}
-            height={1024}
-            className="mx-auto h-24 w-auto rounded-[8px] drop-shadow-[0_4px_18px_oklch(0.15_0.04_230/0.65)] sm:h-32"
-          />
+          <Link to="/" aria-label="Home" className="mx-auto block w-fit">
+            <img
+              src={palmLogo}
+              alt="Pictaria"
+              width={1024}
+              height={1024}
+              className="mx-auto h-24 w-auto rounded-[8px] drop-shadow-[0_4px_18px_oklch(0.15_0.04_230/0.65)] transition-transform hover:scale-[1.04] sm:h-32"
+            />
+          </Link>
           <h1 className="mt-6 font-display text-[1.6rem] leading-snug text-shell sm:text-[2rem]">
             Work Life Balance
           </h1>

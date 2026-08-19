@@ -66,12 +66,14 @@ function BetaRedeem() {
   return (
     <main className="flex min-h-screen flex-col bg-deep px-4 pt-12 pb-16">
       <div className="mx-auto w-full max-w-md flex-1">
-        <img
-          src={palmLogo}
-          alt="Pictaria"
-          className="mx-auto h-20 w-auto"
-          loading="lazy"
-        />
+        <Link to="/" aria-label="Home" className="mx-auto block w-fit">
+          <img
+            src={palmLogo}
+            alt="Pictaria"
+            className="mx-auto h-20 w-auto transition-transform hover:scale-[1.04]"
+            loading="lazy"
+          />
+        </Link>
 
         <section className="mt-6 rounded-lg bg-shell/95 p-6 text-center shadow-soft">
           {done ? (
