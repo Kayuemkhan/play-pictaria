@@ -487,3 +487,9 @@
 @utility animate-mermaid-wiggle {
   animation: mermaid-wiggle 0.7s ease-in-out infinite;
 }
+
+/* The gold palm trees step aside while the pull-down menu is open. */
+body.menu-open [data-top-home] {
+  opacity: 0;
+  pointer-events: none;
+}
