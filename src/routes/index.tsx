@@ -85,7 +85,7 @@ function Home() {
         />
         <div className="absolute inset-0 bg-gradient-to-b from-deep/40 via-transparent to-deep/28" />
 
-        <div className="absolute top-5 right-5 left-5 z-[6] flex items-start justify-between">
+        <div className="absolute top-5 right-5 left-5 z-20 flex items-start justify-between">
           <div className="relative">
             <button
               type="button"
