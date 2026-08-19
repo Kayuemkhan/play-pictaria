@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 
 import artistBottom from "@/assets/pricing-artist-bottom.jpg";
+import { HeroPuzzle } from "@/components/HeroPuzzle";
 
 const planColumns = [
   { name: "Free", price: "FREE", period: "" },
@@ -491,6 +492,17 @@ function PricingPage() {
             height={1024}
             loading="lazy"
             className="w-full object-cover opacity-90"
+          />
+          <HeroPuzzle
+            src={artistBottom}
+            cols={7}
+            rows={5}
+            wedge={3}
+            depth={2}
+            inset={0}
+            corner="bottom-right"
+            animated={false}
+            maxPieces={4}
           />
         </div>
       </div>
