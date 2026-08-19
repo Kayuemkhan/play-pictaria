@@ -183,19 +183,19 @@ const business = [
 function PricingPage() {
   return (
     <main className="relative min-h-dvh bg-background pb-16">
-      {/* a very faint artist-at-her-easel scene behind the whole page */}
-      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+      {/* a faint artist-at-her-easel scene behind the whole page, top to bottom */}
+      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
         <img
           src={artistEasel}
           alt=""
           aria-hidden
-          loading="lazy"
-          width={1280}
+          width={768}
           height={1920}
-          className="h-full w-full object-cover opacity-[0.09] grayscale"
+          className="h-full w-full object-cover opacity-[0.28] grayscale"
         />
-        <div className="absolute inset-0 bg-background/55" />
+        <div className="absolute inset-0 bg-background/35" />
       </div>
+
 
       <header className="relative z-[1] mx-auto w-full max-w-5xl px-4 pt-8 text-center sm:px-8">
         <h1 className="font-display text-lg tracking-[0.2em] uppercase">
@@ -296,10 +296,11 @@ function PricingPage() {
             like, and come back whenever you need a little piece of paradise.
           </p>
           <div className="mt-4 flex items-baseline gap-2">
-            <span className="font-display text-3xl tracking-[0.08em] text-foreground uppercase">
+            <span className="font-display text-lg font-semibold tracking-[0.18em] text-foreground uppercase">
               FREE
             </span>
           </div>
+
           <div className="mt-4 grid gap-3 sm:grid-cols-2">
             <div className="flex gap-3 rounded-none border border-accent/50 bg-card/70 p-4">
               <Sparkles
