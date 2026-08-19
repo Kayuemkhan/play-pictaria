@@ -17,6 +17,8 @@ import {
   Wand2,
 } from "lucide-react";
 
+import artistEasel from "@/assets/pricing-artist-easel.jpg";
+
 const planColumns = [
   { name: "Free", price: "FREE", period: "" },
   { name: "Personal", price: "$5.95", period: "/ month" },
@@ -180,14 +182,28 @@ const business = [
 
 function PricingPage() {
   return (
-    <main className="min-h-dvh bg-background pb-16">
-      <header className="mx-auto w-full max-w-5xl px-4 pt-8 text-center sm:px-8">
+    <main className="relative min-h-dvh bg-background pb-16">
+      {/* a very faint artist-at-her-easel scene behind the whole page */}
+      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+        <img
+          src={artistEasel}
+          alt=""
+          aria-hidden
+          loading="lazy"
+          width={1280}
+          height={1920}
+          className="h-full w-full object-cover opacity-[0.09] grayscale"
+        />
+        <div className="absolute inset-0 bg-background/55" />
+      </div>
+
+      <header className="relative z-[1] mx-auto w-full max-w-5xl px-4 pt-8 text-center sm:px-8">
         <h1 className="font-display text-lg tracking-[0.2em] uppercase">
           Pictaria Pricing
         </h1>
       </header>
 
-      <div className="mx-auto mt-10 w-full max-w-5xl px-4 sm:px-8">
+      <div className="relative z-[1] mx-auto mt-10 w-full max-w-5xl px-4 sm:px-8">
 
         {/* plan comparison chart */}
         <section className="mb-8">
@@ -280,11 +296,8 @@ function PricingPage() {
             like, and come back whenever you need a little piece of paradise.
           </p>
           <div className="mt-4 flex items-baseline gap-2">
-            <span className="font-display text-3xl tracking-[0.08em] text-foreground">
-              free
-            </span>
-            <span className="text-[0.7rem] tracking-[0.18em] text-muted-foreground uppercase">
-              / every day
+            <span className="font-display text-3xl tracking-[0.08em] text-foreground uppercase">
+              FREE
             </span>
           </div>
           <div className="mt-4 grid gap-3 sm:grid-cols-2">
@@ -476,13 +489,6 @@ function PricingPage() {
               className="inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-[0.6rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
             >
               Start your Brand Studio
-              <span aria-hidden>›</span>
-            </Link>
-            <Link
-              to="/collections"
-              className="inline-flex items-center gap-1.5 rounded-full border border-primary/40 bg-primary/10 px-4 py-2 text-[0.6rem] tracking-[0.2em] text-primary uppercase transition-colors hover:bg-primary hover:text-primary-foreground"
-            >
-              See it in play
               <span aria-hidden>›</span>
             </Link>
           </div>
