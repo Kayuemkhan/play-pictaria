@@ -44,6 +44,7 @@ const menuLinks = [
   { to: "/daily", label: "Daily Pictaria" },
   { to: "/mindfulness", label: "Mindful Music" },
   { to: "/work-life-balance", label: "Work Life Balance" },
+  { to: "/easter-egg", label: "Easter Egg" },
   { to: "/share", label: "Share Pictaria" },
 ] as const;
 
