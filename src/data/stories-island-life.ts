@@ -95,6 +95,24 @@ export const islandLifeStories: Record<string, string[]> = {
   "amy-01": [
     "Apatite carries the blue of shallow water, tourmaline the deep. Set together in a half-moon, they became a gratitude piece — mahalo not as a thank-you note, but as a practice.",
   ],
+  "amy-15": [
+    "Honu are the Hawaiian green sea turtles, quiet navigators who return to the same beach their whole lives. Laid on white coral with the ocean behind it, this shell was made to catch exactly that morning light.",
+  ],
+  "amy-16": [
+    "Every strand here is a little different, the way an ohana is. Green tourmaline, amethyst and glass shells stacked together — meant to be worn all at once, and to make a soft sound when you move.",
+  ],
+  "amy-17": [
+    "Po is the Hawaiian night, the deep dark that everything comes out of. Black spinel and a midnight shell shot through with green fire: a piece for the hours when the water goes still.",
+  ],
+  "amy-18": [
+    "Tiny glass blossoms were laid into the shell one at a time, then closed in clear glass so they float. Violet over gold on a tourmaline strand — the colors of a lilikoi sky just after sunset.",
+  ],
+  "amy-19": [
+    "A stone of intuition and of possibilities. Small enough to sit in the palm of a hand, which is exactly how it should be met the first time — held, turned, and looked into.",
+  ],
+  "amy-20": [
+    "Malama means to care for and to protect. The ember at the base of this indigo shell was pulled from the heat of the torch and kept there: a sunrise held inside the night.",
+  ],
 
   // Four Seasons Maui
   "fsm-01": [
