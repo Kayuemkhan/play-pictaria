@@ -162,13 +162,12 @@ function DailyPage() {
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-[0.9rem] leading-relaxed text-shell/80">
               Just imagine how lovely it would be to get just a little peek of
-              paradise in your mailbox every day. A free puzzle of Paradise,
-              delivered every single day — sign up and today's Pictaria will
-              arrive in your inbox.
+              paradise in your mailbox every day. Sign up and today's Pictaria
+              will arrive in your inbox.
             </p>
           </div>
 
-          <div className="rounded-[6px] border border-accent/40 bg-deep/50 p-6 backdrop-blur-sm sm:p-10">
+          <div>
             {signedUp || status === "done" ? (
               <div className="text-center">
                 <p className="font-display text-[1.15rem] leading-snug text-shell">
@@ -219,7 +218,7 @@ function DailyPage() {
             ) : (
               <form onSubmit={submit} className="mx-auto max-w-sm text-left">
                 <h2 className="font-display text-lg text-shell">
-                  Send me today's Pictaria
+                  Send me a daily Pictaria
                 </h2>
                 <Label
                   htmlFor="email"
