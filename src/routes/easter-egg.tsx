@@ -7,17 +7,17 @@ import { hawaiianWords } from "@/data/hawaiian-words";
 export const Route = createFileRoute("/easter-egg")({
   head: () => ({
     meta: [
-      { title: "Easter Egg — Pictaria" },
+      { title: "Easter Eggs — Pictaria" },
       {
         name: "description",
         content:
-          "A little Easter egg hides behind the palm trees in Pictaria — press them and they carry you home.",
+          "We built in some Easter eggs — gold palm trees that carry you home, and a little Hawaiian dictionary.",
       },
-      { property: "og:title", content: "Easter Egg — Pictaria" },
+      { property: "og:title", content: "Easter Eggs — Pictaria" },
       {
         property: "og:description",
         content:
-          "A little Easter egg hides behind the palm trees in Pictaria — press them and they carry you home.",
+          "We built in some Easter eggs — gold palm trees that carry you home, and a little Hawaiian dictionary.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
