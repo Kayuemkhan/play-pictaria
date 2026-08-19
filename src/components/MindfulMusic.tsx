@@ -842,18 +842,23 @@ export function MindfulMusic() {
                 </div>
                 <button
                   type="button"
+                  role="switch"
                   onClick={() => void playMindfulTrack(track.id)}
-                  aria-pressed={active}
+                  aria-checked={active}
                   aria-label={`${active ? "Turn off" : "Turn on"} ${track.name}`}
-                  className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-[4px] border transition-colors ${
+                  className={`relative flex h-5 w-9 shrink-0 items-center rounded-full border transition-colors ${
                     active
-                      ? "border-accent bg-accent text-deep"
-                      : "border-accent/40 bg-deep text-accent/70"
+                      ? "border-accent bg-accent"
+                      : "border-accent/40 bg-deep"
                   }`}
                 >
-                  <span className="font-body text-[0.55rem] font-medium tracking-[0.04em] uppercase">
-                    {active ? "On" : "Off"}
-                  </span>
+                  <span
+                    className={`absolute top-[2px] h-3.5 w-3.5 rounded-full transition-all ${
+                      active
+                        ? "left-[calc(100%-1.125rem)] bg-deep"
+                        : "left-[2px] bg-accent/60"
+                    }`}
+                  />
                 </button>
               </div>
             </div>
