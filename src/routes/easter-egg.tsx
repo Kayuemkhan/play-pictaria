@@ -61,7 +61,8 @@ function EasterEggPage() {
             ruby slippers to bring you home.
           </p>
           <Link
-            to="/"
+            to="/puzzle/$puzzleId"
+            params={{ puzzleId: "dog-02" }}
             className="mt-6 inline-flex items-center gap-1.5 rounded-full border border-accent/50 px-4 py-2 text-[0.6rem] tracking-[0.18em] text-accent uppercase transition-colors hover:bg-accent/15"
           >
             Try the palm trees
