@@ -10,7 +10,8 @@ export function TopHomeButton() {
     <Link
       to="/"
       aria-label="Home"
-      className="pointer-events-auto fixed top-4 left-1/2 z-50 flex -translate-x-1/2 flex-col items-center gap-0 transition-transform hover:scale-105 active:scale-95"
+      data-top-home
+      className="pointer-events-auto fixed top-4 left-1/2 z-50 flex -translate-x-1/2 flex-col items-center gap-0 transition-[transform,opacity] hover:scale-105 active:scale-95"
     >
       <img
         src={palmLogo}
