@@ -183,20 +183,6 @@ const business = [
 function PricingPage() {
   return (
     <main className="relative min-h-dvh bg-background pb-16">
-      {/* a faint artist-at-her-easel scene behind the whole page, top to bottom */}
-      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
-        <img
-          src={artistEasel}
-          alt=""
-          aria-hidden
-          width={768}
-          height={1920}
-          className="h-full w-full object-cover opacity-[0.28] grayscale"
-        />
-        <div className="absolute inset-0 bg-background/35" />
-      </div>
-
-
       <header className="relative z-[1] mx-auto w-full max-w-5xl px-4 pt-8 text-center sm:px-8">
         <h1 className="font-display text-lg tracking-[0.2em] uppercase">
           Pictaria Pricing
