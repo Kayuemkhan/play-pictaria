@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Menu } from "lucide-react";
 import { visibleCollections } from "@/data/collections";
 import { HeroPuzzle } from "@/components/HeroPuzzle";
@@ -54,6 +54,12 @@ function Home() {
   const navigate = useNavigate();
   const taps = useRef<{ count: number; last: number }>({ count: 0, last: 0 });
 
+  // Tuck the fixed gold palms away while the pull-down menu is open.
+  useEffect(() => {
+    document.body.classList.toggle("menu-open", openPanel === "menu");
+    return () => document.body.classList.remove("menu-open");
+  }, [openPanel]);
+
   // The hidden admin page opens only after three quick taps on the palm logo.
   const handleLogoTap = () => {
     const now = Date.now();
@@ -79,7 +85,7 @@ function Home() {
         />
         <div className="absolute inset-0 bg-gradient-to-b from-deep/40 via-transparent to-deep/28" />
 
-        <div className="absolute top-5 right-5 left-5 z-[6] flex items-start justify-between">
+        <div className="absolute top-5 right-5 left-5 z-20 flex items-start justify-between">
           <div className="relative">
             <button
               type="button"
@@ -93,7 +99,7 @@ function Home() {
               <Menu className="h-5 w-5" strokeWidth={1.5} />
             </button>
             {openPanel === "menu" && (
-              <div className="absolute top-13 left-0 w-56 overflow-hidden rounded-[6px] border border-accent/40 bg-deep/95 py-1 shadow-lift backdrop-blur-sm">
+              <div className="absolute top-13 left-0 z-[60] w-56 overflow-hidden rounded-[6px] border border-accent/40 bg-deep py-1 shadow-lift">
                 {menuLinks.map((item) => (
                   <Link
                     key={item.label}
