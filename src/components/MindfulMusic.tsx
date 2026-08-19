@@ -11,7 +11,10 @@ type TrackId =
   | "binaural-20"
   | "binaural-528"
   | "didgeridoo"
-  | "meditation";
+  | "meditation"
+  | "island-ambient"
+  | "island-ukulele"
+  | "island-guitar";
 
 type Track = {
   id: TrackId;
@@ -32,6 +35,9 @@ export const TRACK_OPTIONS: { id: TrackId; name: string }[] = [
   { id: "binaural-528", name: "Repair · 528 Hz" },
   { id: "didgeridoo", name: "Didgeridoo & Drum" },
   { id: "meditation", name: "Meditation · 7.83 Hz" },
+  { id: "island-ambient", name: "Island Shoreline" },
+  { id: "island-ukulele", name: "Soft ʻUkulele" },
+  { id: "island-guitar", name: "Two Guitars at Dusk" },
 ];
 
 const TRACKS: Track[] = [
@@ -105,6 +111,29 @@ const TRACKS: Track[] = [
     blurb: "7.83 Hz Schumann resonance over a 136.1 Hz Om carrier.",
     benefit:
       "7.83 Hz is the earth's own Schumann resonance — the frequency most associated with deep meditation, grounding, and the calm border between alpha and theta.",
+  },
+  {
+    id: "island-ambient",
+    name: "Island Shoreline",
+    blurb:
+      "Soft vibraphone and brushed guitar drifting along a warm tropical shore.",
+    benefit:
+      "A slow 72-beat pulse with no vocals keeps the mind unhurried — easy background for a long, quiet puzzle.",
+  },
+  {
+    id: "island-ukulele",
+    name: "Soft ʻUkulele",
+    blurb: "Gentle ʻukulele with marimba and glockenspiel, light as trade wind.",
+    benefit:
+      "Warm plucked strings in a major key lift the mood without demanding attention — kind company while you play.",
+  },
+  {
+    id: "island-guitar",
+    name: "Two Guitars at Dusk",
+    blurb:
+      "Steel-string and classical guitar trading easy lines, slack-key calm.",
+    benefit:
+      "Sparse fingerpicked guitar at 68 beats a minute lets the breath lengthen and the shoulders drop.",
   },
 ];
 
@@ -538,6 +567,37 @@ function startDidgeridoo(ctx: AudioContext, out: GainNode): Engine {
   };
 }
 
+/**
+ * Recorded pieces (Kevin MacLeod, incompetech.com — CC BY). Looped quietly
+ * through the same master gain as the generated soundscapes.
+ */
+function startRecording(src: string, level = 0.55) {
+  return (ctx: AudioContext, out: GainNode): Engine => {
+    const el = new Audio(src);
+    el.loop = true;
+    el.crossOrigin = "anonymous";
+    el.preload = "auto";
+    const gain = ctx.createGain();
+    gain.gain.value = level;
+    const node = ctx.createMediaElementSource(el);
+    node.connect(gain).connect(out);
+    void el.play().catch(() => {
+      /* blocked until a gesture; the toggle itself is a gesture */
+    });
+    return {
+      stop: () => {
+        try {
+          el.pause();
+          el.currentTime = 0;
+          node.disconnect();
+          gain.disconnect();
+        } catch {
+          /* already stopped */
+        }
+      },
+    };
+  };
+}
 
 const STARTERS: Record<TrackId, (ctx: AudioContext, out: GainNode) => Engine> = {
   ocean: startOcean,
