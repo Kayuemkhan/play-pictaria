@@ -39,13 +39,12 @@ const menuLinks = [
   { to: "/collections", label: "Gallery" },
   { to: "/about", label: "Travel to Pictaria" },
   { to: "/create", label: "Send a free Pictaria" },
-
-  { to: "/pricing", label: "Pricing" },
   { to: "/daily", label: "Daily Pictaria" },
   { to: "/mindfulness", label: "Mindful Music" },
   { to: "/work-life-balance", label: "Work Life Balance" },
-  { to: "/easter-egg", label: "Easter Egg" },
+  { to: "/easter-egg", label: "Easter Eggs" },
   { to: "/share", label: "Share Pictaria" },
+  { to: "/pricing", label: "Pricing" },
 ] as const;
 
 
