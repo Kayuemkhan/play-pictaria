@@ -80,6 +80,11 @@ import lei11 from "@/assets/lei-11.jpg";
 import lei12 from "@/assets/lei-12.jpg";
 import lei13 from "@/assets/lei-13.jpg";
 import lei14 from "@/assets/lei-14.jpg";
+import lei15 from "@/assets/lei-15.jpg";
+import lei16 from "@/assets/lei-16.jpg";
+import lei17 from "@/assets/lei-17.jpg";
+import lei18 from "@/assets/lei-18.jpg";
+import lei19 from "@/assets/lei-19.jpg";
 import waterfall01 from "@/assets/waterfall-01.jpg";
 import waterfall02 from "@/assets/waterfall-02.jpg";
 import waterfall03 from "@/assets/waterfall-03.jpg";
@@ -1192,7 +1197,7 @@ export const collections: Collection[] = [
   {
     id: "exotic-leis",
     title: "Exotic Leis",
-    tagline: "Fourteen contest-winning Hawaiian leis",
+    tagline: "Nineteen contest-winning Hawaiian leis",
     cover: lei01,
     free: true,
     puzzles: [
@@ -1293,6 +1298,41 @@ export const collections: Collection[] = [
         meaning: "“Lei hulu makua” — the master weaver’s lei",
         caption: "A harmonious bloom symphony",
         image: lei14,
+      },
+      {
+        id: "lei-15",
+        title: "ʻIlima Coils",
+        meaning: "“Lei ʻilima” — the lei of aliʻi, Hawaiian royalty",
+        caption: "A thousand tissue-thin blossoms",
+        image: lei15,
+      },
+      {
+        id: "lei-16",
+        title: "Lei Poʻo",
+        meaning: "“Lei poʻo” — a lei worn upon the head",
+        caption: "Crown flower, pikake and maile",
+        image: lei16,
+      },
+      {
+        id: "lei-17",
+        title: "Carnation & Tuberose",
+        meaning: "“Lei pōniu” — a lei wound double",
+        caption: "Deep pink twined with cream",
+        image: lei17,
+      },
+      {
+        id: "lei-18",
+        title: "Rainbow Shower",
+        meaning: "“Lei ʻōhai” — a lei of shower blossoms",
+        caption: "Coral and gold on warm stone",
+        image: lei18,
+      },
+      {
+        id: "lei-19",
+        title: "Orchid Rope Lei",
+        meaning: "“Lei wili” — a lei twisted strand over strand",
+        caption: "Lavender and white, braided thick",
+        image: lei19,
       },
     ],
   },

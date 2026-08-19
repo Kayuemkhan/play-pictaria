@@ -61,8 +61,9 @@ function EasterEggPage() {
         <div className="mt-8 w-full max-w-sm rounded-[6px] border border-accent/50 bg-deep/70 px-6 py-7 shadow-lift backdrop-blur-sm">
           <p className="font-display text-[0.95rem] leading-relaxed text-deep-foreground">
             We built in some Easter eggs. The first one is behind the palm trees
-            — press on the palm trees and you'll find that they work just like
-            clicking ruby slippers to bring you home.
+            — press on the palm trees anywhere you see them in the app, and
+            you'll find they work just like clicking ruby slippers to bring you
+            home.
           </p>
           <Link
             to="/puzzle/$puzzleId"
