@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Menu } from "lucide-react";
 import { visibleCollections } from "@/data/collections";
 import { HeroPuzzle } from "@/components/HeroPuzzle";
