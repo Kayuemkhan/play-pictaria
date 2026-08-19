@@ -36,7 +36,7 @@ export function GlobalMenu() {
         aria-label="Menu"
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
-        className="grid h-9 w-9 place-items-center text-accent/60 transition-[color,opacity,transform] duration-500 ease-[var(--ease-calm)] hover:text-accent active:scale-95"
+        className="grid h-9 w-9 place-items-center text-accent/85 transition-[color,opacity,transform] duration-500 ease-[var(--ease-calm)] hover:text-accent active:scale-95"
       >
         <Menu
           className="h-5 w-5 drop-shadow-[0_1px_6px_oklch(0.15_0.04_230/0.5)]"
