@@ -321,6 +321,8 @@ export interface Collection {
   comingSoon?: boolean;
   /** Secret collection: playable by direct link only, never listed anywhere. */
   hidden?: boolean;
+  /** A quiet line shown under every puzzle story in this collection. */
+  storyFooter?: string;
 
   /**
    * Set when the collection is a member's or brand's own storybook. Visitors
