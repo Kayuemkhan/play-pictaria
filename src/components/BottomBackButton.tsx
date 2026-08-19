@@ -10,7 +10,7 @@ export function BottomHomeButton() {
     <Link
       to="/"
       aria-label="Home"
-      className="pointer-events-auto relative z-50 mx-4 mt-8 mb-4 flex w-fit flex-col items-center gap-0 transition-transform hover:scale-105 active:scale-95"
+      className="pointer-events-auto absolute bottom-4 left-4 z-50 flex w-fit flex-col items-center gap-0 transition-transform hover:scale-105 active:scale-95"
     >
       <img
         src={palmLogo}
