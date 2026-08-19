@@ -54,6 +54,12 @@ function Home() {
   const navigate = useNavigate();
   const taps = useRef<{ count: number; last: number }>({ count: 0, last: 0 });
 
+  // Tuck the fixed gold palms away while the pull-down menu is open.
+  useEffect(() => {
+    document.body.classList.toggle("menu-open", openPanel === "menu");
+    return () => document.body.classList.remove("menu-open");
+  }, [openPanel]);
+
   // The hidden admin page opens only after three quick taps on the palm logo.
   const handleLogoTap = () => {
     const now = Date.now();
