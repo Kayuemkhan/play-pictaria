@@ -93,7 +93,7 @@ function Home() {
               <Menu className="h-5 w-5" strokeWidth={1.5} />
             </button>
             {openPanel === "menu" && (
-              <div className="absolute top-13 left-0 w-56 overflow-hidden rounded-[6px] border border-accent/40 bg-deep/95 py-1 shadow-lift backdrop-blur-sm">
+              <div className="absolute top-13 left-0 z-[60] w-56 overflow-hidden rounded-[6px] border border-accent/40 bg-deep py-1 shadow-lift">
                 {menuLinks.map((item) => (
                   <Link
                     key={item.label}
