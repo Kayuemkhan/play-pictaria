@@ -222,7 +222,7 @@ import amy10 from "@/assets/amy-art-10.jpg.asset.json";
 import amy15 from "@/assets/amy-art-15.jpg.asset.json";
 import amy16 from "@/assets/amy-art-16.jpg.asset.json";
 import amy17 from "@/assets/amy-art-17.jpg.asset.json";
-import amy18 from "@/assets/amy-art-18.jpg.asset.json";
+import amy18 from "@/assets/amy-art-18-v2.jpg.asset.json";
 import amy19 from "@/assets/amy-art-19.jpg.asset.json";
 import amy20 from "@/assets/amy-art-20.jpg.asset.json";
 
@@ -321,6 +321,8 @@ export interface Collection {
   comingSoon?: boolean;
   /** Secret collection: playable by direct link only, never listed anywhere. */
   hidden?: boolean;
+  /** A quiet line shown under every puzzle story in this collection. */
+  storyFooter?: string;
 
   /**
    * Set when the collection is a member's or brand's own storybook. Visitors
@@ -2319,6 +2321,7 @@ export const collections: Collection[] = [
     id: "amys-art",
     title: "Amy's Art",
     tagline: "Hand-blown glass sea turtles made in Maui",
+    storyFooter: "Each piece is signed and numbered by the artist.",
     cover: amy08Enhanced,
     coverZoom: 1.15,
     free: true,

@@ -106,6 +106,7 @@ export const islandLifeStories: Record<string, string[]> = {
   ],
   "amy-18": [
     "Tiny glass blossoms were laid into the shell one at a time, then closed in clear glass so they float. Violet over gold on a tourmaline strand — the colors of a lilikoi sky just after sunset.",
+    "Lilikoi Sky belongs to the Malama series, the pieces made around caring for what you love.",
   ],
   "amy-19": [
     "A stone of intuition and of possibilities. Small enough to sit in the palm of a hand, which is exactly how it should be met the first time — held, turned, and looked into.",
