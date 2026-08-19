@@ -2,32 +2,25 @@ import { Link } from "@tanstack/react-router";
 import palmLogo from "@/assets/logo-palms-only.png";
 
 /**
- * A subtle home button placed at the bottom of the page content.
- * It shows the two Pictaria palm trees, masked into the soft light-blue accent,
- * so it appears after the user scrolls to the end of the page.
+ * A little pair of gold Pictaria palm trees at the end of the page content —
+ * it appears at the bottom of each scroll and carries you home.
  */
 export function BottomHomeButton() {
   return (
     <Link
       to="/"
       aria-label="Home"
-      className="pointer-events-auto relative z-50 mx-4 mt-8 mb-4 flex w-fit flex-col items-center gap-0 text-accent/55 transition-transform hover:scale-105 active:scale-95"
+      className="pointer-events-auto relative z-50 mx-4 mt-8 mb-4 flex w-fit flex-col items-center gap-0 transition-transform hover:scale-105 active:scale-95"
     >
-      <span
+      <img
+        src={palmLogo}
+        alt=""
         aria-hidden
-        className="block h-10 w-10 bg-accent/55"
-        style={{
-          maskImage: `url(${palmLogo})`,
-          WebkitMaskImage: `url(${palmLogo})`,
-          maskSize: "contain",
-          WebkitMaskSize: "contain",
-          maskRepeat: "no-repeat",
-          WebkitMaskRepeat: "no-repeat",
-          maskPosition: "center",
-          WebkitMaskPosition: "center",
-        }}
+        width={1024}
+        height={1024}
+        className="h-11 w-11 object-contain drop-shadow-[0_2px_8px_oklch(0.15_0.04_230/0.45)]"
       />
-      <span className="text-[0.55rem] font-medium tracking-[0.14em] uppercase">
+      <span className="text-[0.55rem] font-medium tracking-[0.14em] text-[oklch(0.82_0.11_82)] uppercase">
         home
       </span>
     </Link>
