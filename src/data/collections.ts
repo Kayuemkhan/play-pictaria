@@ -222,7 +222,7 @@ import amy10 from "@/assets/amy-art-10.jpg.asset.json";
 import amy15 from "@/assets/amy-art-15.jpg.asset.json";
 import amy16 from "@/assets/amy-art-16.jpg.asset.json";
 import amy17 from "@/assets/amy-art-17.jpg.asset.json";
-import amy18 from "@/assets/amy-art-18.jpg.asset.json";
+import amy18 from "@/assets/amy-art-18-v2.jpg.asset.json";
 import amy19 from "@/assets/amy-art-19.jpg.asset.json";
 import amy20 from "@/assets/amy-art-20.jpg.asset.json";
 
