@@ -91,10 +91,7 @@ function AboutPage() {
               Pictaria makes vision boards active. As you build your vision piece by piece, the satisfaction of solving the puzzle connects a positive feeling to the image, bringing thought and emotion together with intention.
             </p>
             <p className="mx-auto mt-4 max-w-xl text-[0.9rem] leading-relaxed text-shell/80">
-              Years ago, when I had almost no money, I put a beautiful Maui property on my vision board. Within a year, an unexpected opportunity appeared, and I acquired that very property. I've been making vision boards ever since.
-            </p>
-            <p className="mx-auto mt-4 max-w-xl text-[0.9rem] leading-relaxed text-shell/80">
-              And I have been a believer in vision boards and living in my dream home in Maui ever since.
+              Years ago, when I had almost no money, I put a beautiful Maui property on my vision board. Within a year, an unexpected opportunity appeared, and I acquired that very property. And I have been a believer in vision boards and living in my dream home in Maui ever since.
             </p>
           </div>
           <div className="rounded-[6px] border border-accent/40 bg-deep/50 p-6 backdrop-blur-sm sm:p-10">
