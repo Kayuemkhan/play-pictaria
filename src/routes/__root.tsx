@@ -15,6 +15,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { TopBackButton } from "@/components/TopBackButton";
 import { TopHomeButton } from "@/components/TopHomeButton";
 import { BottomHomeButton } from "@/components/BottomBackButton";
+import { GlobalMenu } from "@/components/GlobalMenu";
 
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
@@ -268,6 +269,7 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <BackGuard />
+      <GlobalMenu />
       <GlobalChrome />
       <div className="relative min-h-screen">
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
