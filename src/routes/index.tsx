@@ -34,12 +34,6 @@ export const Route = createFileRoute("/")({
 
 const featured = visibleCollections;
 
-const musicLinks = [
-  { id: "island-ambient" as TrackId, label: "Tropical ʻUkulele" },
-  { id: "island-ukulele" as TrackId, label: "Soft ʻUkulele" },
-  { id: "island-guitar" as TrackId, label: "Two Guitars at Dusk" },
-] as const;
-
 const menuLinks = [
   { to: "/launch", label: "Launch" },
   { to: "/collections", label: "Gallery" },
