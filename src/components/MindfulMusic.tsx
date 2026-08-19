@@ -114,11 +114,11 @@ const TRACKS: Track[] = [
   },
   {
     id: "island-ambient",
-    name: "Island Shoreline",
+    name: "Tropical ʻUkulele",
     blurb:
-      "Soft vibraphone and brushed guitar drifting along a warm tropical shore.",
+      "Bright ʻukulele and marimba dancing lightly over a gentle island breeze.",
     benefit:
-      "A slow 72-beat pulse with no vocals keeps the mind unhurried — easy background for a long, quiet puzzle.",
+      "A soft-but-upbeat major-key groove lifts energy without jarring the focus — like sunshine on the puzzle board.",
   },
   {
     id: "island-ukulele",
