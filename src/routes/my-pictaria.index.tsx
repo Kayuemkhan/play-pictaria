@@ -188,9 +188,22 @@ function MyPictaria() {
             ))}
           </div>
 
+          {galleries.length < maxGalleries && (
+            <button
+              type="button"
+              onClick={addGallery}
+              className="mt-4 flex h-10 w-full items-center justify-center gap-1.5 rounded-full border border-teal-600/40 bg-transparent px-4 text-[0.68rem] tracking-[0.14em] text-teal-700 uppercase transition hover:border-teal-600"
+            >
+              <Plus className="h-3.5 w-3.5" strokeWidth={1.5} /> Add another gallery
+            </button>
+          )}
+
           <p className="mt-6 text-center text-xs leading-relaxed text-foreground/50">
             Tap a gallery name to rename it — Water Park, Ohana Reunion, whatever this
             chapter is called.
+            {maxGalleries !== Infinity
+              ? ` You have room for ${maxGalleries} galleries.`
+              : " Add as many galleries as you like."}
           </p>
         </>
       )}
