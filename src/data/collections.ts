@@ -24,6 +24,8 @@ import turtle07 from "@/assets/turtle-07.jpg";
 import turtle08 from "@/assets/turtle-08.jpg";
 import turtle09 from "@/assets/turtle-09.jpg.asset.json";
 import turtle10 from "@/assets/turtle-10.jpg";
+import visionReef from "@/assets/vision-board-reef.jpg";
+
 import flowerHibiscus from "@/assets/flower-hibiscus.jpg";
 import flowerHibiscusPink from "@/assets/flower-hibiscus-pink.jpg";
 import flowerPlumeria from "@/assets/flower-plumeria.jpg";
@@ -1374,11 +1376,18 @@ export const collections: Collection[] = [
     free: true,
     puzzles: [
       {
+        id: "turtle-11",
+        title: "Light Beams",
+        caption: "A reef full of fish and a turtle coming closer",
+        image: visionReef,
+      },
+      {
         id: "turtle-01",
         title: "Sunbeams",
         caption: "Gliding through morning light",
         image: turtle01,
       },
+
 
       {
         id: "turtle-02",

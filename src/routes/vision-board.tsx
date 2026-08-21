@@ -50,16 +50,17 @@ function VisionBoardPage() {
       </div>
 
       {/* hero */}
-      <section className="relative overflow-hidden px-6 pt-40 pb-16 text-center sm:pt-52 sm:pb-20">
+      <section className="relative overflow-hidden px-6 pt-[72vh] pb-0 text-center">
         <div className="relative mx-auto max-w-2xl">
           <h1 className="font-display text-[1.6rem] leading-snug text-shell drop-shadow-[0_2px_12px_oklch(0.15_0.04_230/0.75)] sm:text-[2rem]">
-            Vision Board
+            Vision Boards
           </h1>
         </div>
       </section>
 
 
-      <section className="mt-10 px-4 sm:px-8">
+
+      <section className="mt-6 px-4 sm:px-8">
         <div className="mx-auto max-w-2xl space-y-6">
           <div className="rounded-[6px] border border-accent/40 bg-deep/50 p-6 backdrop-blur-sm sm:p-10">
             <h2 className="font-display text-lg text-shell">Why It Works</h2>
