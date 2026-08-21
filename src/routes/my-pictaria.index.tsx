@@ -43,7 +43,7 @@ const ARTIST_STARTER: Gallery[] = [
   { id: "a8", name: "Live Music on the Lawn", pictures: [] },
 ];
 
-const STORE_KEY = "pictaria.my-world.preview";
+const STORE_KEY_PREFIX = "pictaria.my-world.preview";
 const MAX_PER_GALLERY = 5;
 
 function MyPictaria() {
@@ -51,6 +51,7 @@ function MyPictaria() {
   const tier = search.tier === "artist" ? "artist" : "personal";
   const starter = tier === "artist" ? ARTIST_STARTER : PERSONAL_STARTER;
   const studioLink = tier === "artist" ? "/studio/artist" : "/studio/personal";
+  const storeKey = `${STORE_KEY_PREFIX}.${tier}`;
 
   const [galleries, setGalleries] = useState<Gallery[]>(starter);
   const [openId, setOpenId] = useState<string | null>(null);
@@ -58,8 +59,9 @@ function MyPictaria() {
 
   /* names persist locally so the preview feels like your own space */
   useEffect(() => {
+    setGalleries(starter);
     try {
-      const raw = localStorage.getItem(STORE_KEY);
+      const raw = localStorage.getItem(storeKey);
       if (!raw) return;
       const saved = JSON.parse(raw) as { id: string; name: string }[];
       setGalleries((prev) =>
@@ -68,7 +70,7 @@ function MyPictaria() {
     } catch {
       /* ignore */
     }
-  }, []);
+  }, [tier, starter, storeKey]);
 
   const saveNames = (next: Gallery[]) => {
     try {
