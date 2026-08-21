@@ -14,7 +14,16 @@ type Picture = {
   url: string;
   title: string;
   share: Share;
+  emails?: string;
 };
+
+function countEmails(value?: string) {
+  return (value ?? "")
+    .split(/[,\s;]+/)
+    .map((s) => s.trim())
+    .filter((s) => s.includes("@")).length;
+}
+
 
 type Gallery = {
   id: string;
