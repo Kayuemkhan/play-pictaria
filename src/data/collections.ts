@@ -2382,9 +2382,9 @@ export const collections: Collection[] = [
         caption: "The artist at work in her studio",
         image: amy11Retouched,
         story: [
-          "Pictaria is where memories become magical and pictures become play. It turns the photographs you love into calm, beautiful puzzles you can share, solve, and remember.",
-          "At the torch, every image becomes an invitation: a moment caught in light, waiting to be pieced back together. Pictaria was made for this — to slow down, to notice, and to play with the pictures that mean the most.",
-          "Whether it's a sea turtle at sunrise, a flower in the rain, or a memory you want to hold a little longer, Pictaria brings it to life one piece at a time.",
+          "Here's Amy in her studio, probably dreaming up her next idea.",
+          "Amy Wakingwolf is a Maui artist, jewelry designer, ocean lover, and lifelong creative who has spent more than 20 years making beautiful things and finding new ways to bring a little magic into the world. She's best known for her hand-sculpted glass Honu and her love of sea turtles, and most recently, she's the creator of Pictaria, a playful new world where photographs become puzzles, stories, and little moments of escape.",
+          "Amy believes life is simply better with more beauty, curiosity, connection, and a little bit of wonder.",
         ],
       },
       { id: "amy-01", title: "Mahalo: Gratitude", caption: "Apatite and tourmaline half moon necklace", image: amy01.url },
