@@ -512,9 +512,110 @@ export function PuzzleBoard({
         return false;
       };
 
-      if (!place(0)) return null;
+      if (!place(0)) {
+        /**
+         * Nothing may ever bounce back. If a displaced cluster cannot be
+         * relocated rigidly, it gives way piece by piece: each tile of it
+         * slides to the nearest open space. The cluster stops counting as
+         * assembled (it is re-derived from geometry on commit), which is
+         * exactly the "knocked out of the way" behaviour the player expects.
+         */
+        if (!allowRelocate) return null;
+
+        // reset anything a failed backtrack left behind
+        for (const cluster of conflicting) {
+          for (const piece of cluster) {
+            if (next[piece] !== positions[piece]) {
+              free.add(next[piece]!);
+              next[piece] = positions[piece]!;
+            }
+          }
+        }
+        for (const cluster of conflicting)
+          for (const piece of cluster) free.add(positions[piece]!);
+        for (const cluster of conflicting) for (const piece of cluster) {
+          // keep the freed cells honest: a cluster's own cells are open now
+          void piece;
+        }
+
+        const nearestFree = (fromCell: number) => {
+          const fr = Math.floor(fromCell / grid);
+          const fc = fromCell % grid;
+          let best = -1;
+          let bestD = Infinity;
+          for (const cell of free) {
+            if (newCells.has(cell)) continue;
+            const d =
+              Math.abs(Math.floor(cell / grid) - fr) +
+              Math.abs((cell % grid) - fc);
+            if (d < bestD) {
+              bestD = d;
+              best = cell;
+            }
+          }
+          return best;
+        };
+
+        const pending = conflicting.flat();
+        // biggest first so shapes that can still stay together do
+        for (const cluster of [...conflicting].sort((a, b) => b.length - a.length)) {
+          // try to keep it whole first
+          const anchor = positions[cluster[0]!]!;
+          const anchorRow = Math.floor(anchor / grid);
+          const anchorCol = anchor % grid;
+          let placedWhole = false;
+          const targets = [...free].sort((a, b) => {
+            const da =
+              Math.abs(Math.floor(a / grid) - anchorRow) +
+              Math.abs((a % grid) - anchorCol);
+            const db =
+              Math.abs(Math.floor(b / grid) - anchorRow) +
+              Math.abs((b % grid) - anchorCol);
+            return da - db;
+          });
+          for (const target of targets) {
+            const deltaRow = Math.floor(target / grid) - anchorRow;
+            const deltaCol = (target % grid) - anchorCol;
+            const dest: number[] = [];
+            let fits = true;
+            for (const piece of cluster) {
+              const cell = positions[piece]!;
+              const row = Math.floor(cell / grid) + deltaRow;
+              const col = (cell % grid) + deltaCol;
+              if (row < 0 || row >= grid || col < 0 || col >= grid) {
+                fits = false;
+                break;
+              }
+              const destination = row * grid + col;
+              if (!free.has(destination) || newCells.has(destination)) {
+                fits = false;
+                break;
+              }
+              dest.push(destination);
+            }
+            if (!fits) continue;
+            cluster.forEach((piece, i) => {
+              next[piece] = dest[i]!;
+              free.delete(dest[i]!);
+              pending.splice(pending.indexOf(piece), 1);
+            });
+            placedWhole = true;
+            break;
+          }
+          if (placedWhole) continue;
+        }
+
+        // whatever is still homeless takes the nearest open cell on its own
+        for (const piece of [...pending]) {
+          const cell = nearestFree(positions[piece]!);
+          if (cell < 0) return null;
+          next[piece] = cell;
+          free.delete(cell);
+        }
+      }
       if (new Set(next).size !== next.length) return null;
       return next;
+
     },
     [grid],
   );
