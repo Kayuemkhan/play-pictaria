@@ -47,7 +47,12 @@ const STORE_KEY = "pictaria.my-world.preview";
 const MAX_PER_GALLERY = 5;
 
 function MyPictaria() {
-  const [galleries, setGalleries] = useState<Gallery[]>(STARTER);
+  const search = useSearch({ from: "/my-pictaria/" }) as { tier?: string };
+  const tier = search.tier === "artist" ? "artist" : "personal";
+  const starter = tier === "artist" ? ARTIST_STARTER : PERSONAL_STARTER;
+  const studioLink = tier === "artist" ? "/studio/artist" : "/studio/personal";
+
+  const [galleries, setGalleries] = useState<Gallery[]>(starter);
   const [openId, setOpenId] = useState<string | null>(null);
   const [renaming, setRenaming] = useState<string | null>(null);
 
