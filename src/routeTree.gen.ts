@@ -28,6 +28,7 @@ import { Route as WorkLifeBalanceRouteImport } from './routes/work-life-balance'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as CollectionCollectionIdRouteImport } from './routes/collection.$collectionId'
+import { Route as MyPictariaSubmittedRouteImport } from './routes/my-pictaria.submitted'
 import { Route as PCodeRouteImport } from './routes/p.$code'
 import { Route as PortalIndexRouteImport } from './routes/portal.index'
 import { Route as PortalIdRouteImport } from './routes/portal.$id'
@@ -141,6 +142,11 @@ const CollectionCollectionIdRoute = CollectionCollectionIdRouteImport.update({
   path: '/collection/$collectionId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MyPictariaSubmittedRoute = MyPictariaSubmittedRouteImport.update({
+  id: '/submitted',
+  path: '/submitted',
+  getParentRoute: () => MyPictariaRoute,
+} as any)
 const PCodeRoute = PCodeRouteImport.update({
   id: '/p/$code',
   path: '/p/$code',
@@ -230,7 +236,7 @@ export interface FileRoutesByFullPath {
   '/launch': typeof LaunchRoute
   '/mcp': typeof McpRoute
   '/mindfulness': typeof MindfulnessRoute
-  '/my-pictaria': typeof MyPictariaRoute
+  '/my-pictaria': typeof MyPictariaRouteWithChildren
   '/pricing': typeof PricingRoute
   '/share': typeof ShareRoute
   '/vision-board': typeof VisionBoardRoute
@@ -238,6 +244,7 @@ export interface FileRoutesByFullPath {
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/collection/$collectionId': typeof CollectionCollectionIdRoute
+  '/my-pictaria/submitted': typeof MyPictariaSubmittedRoute
   '/p/$code': typeof PCodeRoute
   '/portal/$id': typeof PortalIdRoute
   '/portal/beta': typeof PortalBetaRoute
@@ -266,7 +273,7 @@ export interface FileRoutesByTo {
   '/launch': typeof LaunchRoute
   '/mcp': typeof McpRoute
   '/mindfulness': typeof MindfulnessRoute
-  '/my-pictaria': typeof MyPictariaRoute
+  '/my-pictaria': typeof MyPictariaRouteWithChildren
   '/pricing': typeof PricingRoute
   '/share': typeof ShareRoute
   '/vision-board': typeof VisionBoardRoute
@@ -274,6 +281,7 @@ export interface FileRoutesByTo {
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/collection/$collectionId': typeof CollectionCollectionIdRoute
+  '/my-pictaria/submitted': typeof MyPictariaSubmittedRoute
   '/p/$code': typeof PCodeRoute
   '/portal/$id': typeof PortalIdRoute
   '/portal/beta': typeof PortalBetaRoute
@@ -303,7 +311,7 @@ export interface FileRoutesById {
   '/launch': typeof LaunchRoute
   '/mcp': typeof McpRoute
   '/mindfulness': typeof MindfulnessRoute
-  '/my-pictaria': typeof MyPictariaRoute
+  '/my-pictaria': typeof MyPictariaRouteWithChildren
   '/pricing': typeof PricingRoute
   '/share': typeof ShareRoute
   '/vision-board': typeof VisionBoardRoute
@@ -311,6 +319,7 @@ export interface FileRoutesById {
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/collection/$collectionId': typeof CollectionCollectionIdRoute
+  '/my-pictaria/submitted': typeof MyPictariaSubmittedRoute
   '/p/$code': typeof PCodeRoute
   '/portal/$id': typeof PortalIdRoute
   '/portal/beta': typeof PortalBetaRoute
@@ -349,6 +358,7 @@ export interface FileRouteTypes {
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/collection/$collectionId'
+    | '/my-pictaria/submitted'
     | '/p/$code'
     | '/portal/$id'
     | '/portal/beta'
@@ -385,6 +395,7 @@ export interface FileRouteTypes {
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/collection/$collectionId'
+    | '/my-pictaria/submitted'
     | '/p/$code'
     | '/portal/$id'
     | '/portal/beta'
@@ -421,6 +432,7 @@ export interface FileRouteTypes {
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/collection/$collectionId'
+    | '/my-pictaria/submitted'
     | '/p/$code'
     | '/portal/$id'
     | '/portal/beta'
@@ -450,7 +462,7 @@ export interface RootRouteChildren {
   LaunchRoute: typeof LaunchRoute
   McpRoute: typeof McpRoute
   MindfulnessRoute: typeof MindfulnessRoute
-  MyPictariaRoute: typeof MyPictariaRoute
+  MyPictariaRoute: typeof MyPictariaRouteWithChildren
   PricingRoute: typeof PricingRoute
   ShareRoute: typeof ShareRoute
   VisionBoardRoute: typeof VisionBoardRoute
@@ -610,6 +622,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CollectionCollectionIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/my-pictaria/submitted': {
+      id: '/my-pictaria/submitted'
+      path: '/submitted'
+      fullPath: '/my-pictaria/submitted'
+      preLoaderRoute: typeof MyPictariaSubmittedRouteImport
+      parentRoute: typeof MyPictariaRoute
+    }
     '/p/$code': {
       id: '/p/$code'
       path: '/p/$code'
@@ -718,6 +737,18 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface MyPictariaRouteChildren {
+  MyPictariaSubmittedRoute: typeof MyPictariaSubmittedRoute
+}
+
+const MyPictariaRouteChildren: MyPictariaRouteChildren = {
+  MyPictariaSubmittedRoute: MyPictariaSubmittedRoute,
+}
+
+const MyPictariaRouteWithChildren = MyPictariaRoute._addFileChildren(
+  MyPictariaRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   SplatRoute: SplatRoute,
@@ -730,7 +761,7 @@ const rootRouteChildren: RootRouteChildren = {
   LaunchRoute: LaunchRoute,
   McpRoute: McpRoute,
   MindfulnessRoute: MindfulnessRoute,
-  MyPictariaRoute: MyPictariaRoute,
+  MyPictariaRoute: MyPictariaRouteWithChildren,
   PricingRoute: PricingRoute,
   ShareRoute: ShareRoute,
   VisionBoardRoute: VisionBoardRoute,
