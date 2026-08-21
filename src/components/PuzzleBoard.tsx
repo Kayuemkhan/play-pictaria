@@ -731,7 +731,9 @@ export function PuzzleBoard({
       const maxRow = Math.max(...rows);
       // Let a dragged cluster travel a little past the board edge so it never
       // feels pinned or "stuck" to the sides while the finger keeps moving.
-      const slack = Math.min(cellW, cellH) * scale * 0.85;
+      // A dragged tile or clump roams freely: it may travel well past the board
+      // edges so it never feels pinned or trapped against a wall.
+      const slack = Math.min(cellW, cellH) * scale * 2.5;
       const minDx = -slack - (offX + minCol * cellW * scale);
       const maxDx =
         size.w + slack - (offX + (maxCol + 1) * cellW * scale);
