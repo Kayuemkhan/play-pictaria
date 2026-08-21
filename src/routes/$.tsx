@@ -3,7 +3,8 @@ import { createFileRoute, notFound, redirect } from "@tanstack/react-router";
 const LEGACY_REDIRECTS: Record<string, string> = {
   index: "/",
   home: "/",
-  album: "/collections",
+  albums: "/collections",
+  gallery: "/collections",
   collection: "/collections",
   folders: "/collections",
 };

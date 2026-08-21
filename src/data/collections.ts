@@ -285,7 +285,7 @@ import visionCountyBlessing from "@/assets/vision-county-blessing.jpg";
 import visionKitchen from "@/assets/vision-kitchen.jpg";
 import visionSurfer from "@/assets/vision-surfer.jpg";
 import visionPool from "@/assets/vision-pool.jpg";
-import visionGallery from "@/assets/vision-album.jpg";
+import visionGallery from "@/assets/vision-gallery.jpg";
 import visionAmyCooking from "@/assets/vision-amy-cooking.jpg";
 import visionMatriarchitect from "@/assets/vision-matriarchitect.jpg";
 
