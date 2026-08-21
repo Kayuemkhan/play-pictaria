@@ -533,10 +533,8 @@ export function PuzzleBoard({
         }
         for (const cluster of conflicting)
           for (const piece of cluster) free.add(positions[piece]!);
-        for (const cluster of conflicting) for (const piece of cluster) {
-          // keep the freed cells honest: a cluster's own cells are open now
-          void piece;
-        }
+
+
 
         const nearestFree = (fromCell: number) => {
           const fr = Math.floor(fromCell / grid);
