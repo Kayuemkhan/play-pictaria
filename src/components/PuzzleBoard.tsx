@@ -57,6 +57,8 @@ export interface PuzzleBoardProps {
   unbranded?: boolean;
   /** Story about this picture, shown under the board. */
   info?: ReactNode;
+  /** The collection this puzzle came from, shown subtly under the board. */
+  collectionName?: string;
 }
 
 function formatTime(total: number) {
@@ -118,6 +120,7 @@ export function PuzzleBoard({
   nextTitle,
   unbranded = false,
   info,
+  collectionName,
 }: PuzzleBoardProps) {
   const viewportRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
@@ -1416,6 +1419,13 @@ export function PuzzleBoard({
         >
           <Sparkles size={18} strokeWidth={1.25} />
         </button>
+        {collectionName ? (
+          <span className="max-w-[45%] truncate px-2 text-center font-display text-[0.7rem] tracking-[0.18em] text-muted-foreground/80 uppercase">
+            {collectionName}
+          </span>
+        ) : (
+          <span aria-hidden className="px-2" />
+        )}
         <button
           type="button"
           aria-pressed={showReference}
