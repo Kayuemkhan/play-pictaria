@@ -953,6 +953,8 @@ export function PuzzleBoard({
   const endPointer = (e: React.PointerEvent) => {
     const s = dragStart.current;
     setDrag(null);
+    setPreviewCells([]);
+    previewKey.current = "";
     if (!s || !s.moved) {
       dragStart.current = null;
       return;
