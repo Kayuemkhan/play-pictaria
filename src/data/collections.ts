@@ -287,6 +287,7 @@ import visionSurfer from "@/assets/vision-surfer.jpg";
 import visionPool from "@/assets/vision-pool.jpg";
 import visionGallery from "@/assets/vision-gallery.jpg";
 import visionAmyCooking from "@/assets/vision-amy-cooking.jpg";
+import visionMatriarchitect from "@/assets/vision-matriarchitect.jpg";
 
 
 import { natureStories } from "./stories-nature";
