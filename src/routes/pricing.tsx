@@ -6,7 +6,6 @@ import {
   Contrast,
   Crop,
   Droplets,
-  Flower2,
   Heart,
   Images,
   Minus,
@@ -78,12 +77,7 @@ export const Route = createFileRoute("/pricing")({
 const personal = [
   {
     icon: Images,
-    title: "Three storybooks a month",
-    copy: "Ten pictures in each one — thirty pictures turned into play, every month.",
-  },
-  {
-    icon: Flower2,
-    title: "Your Gallery 🌺",
+    title: "Your Galleries",
     copy: "Five private galleries to organize your favorite stories. Name them anything — Water Park, Sunset Hike, Our Wedding, Baby's First Year, The Puppy — and fill each one with the five hero shots you love most. They become beautiful little collections you can find at a glance, turn into puzzles, and share with the people you love.",
   },
   {
