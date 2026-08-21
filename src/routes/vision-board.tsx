@@ -64,18 +64,8 @@ function VisionBoardPage() {
         <div className="mx-auto max-w-2xl space-y-6">
           <div className="rounded-[6px] border border-accent/40 bg-deep/50 p-6 backdrop-blur-sm sm:p-10">
             <h2 className="font-display text-lg text-shell">
-              Vision Boards, Made Active
+              Why People Love Vision Boards
             </h2>
-            <p className="mx-auto mt-4 max-w-xl text-[0.9rem] leading-relaxed text-shell/80">
-              Pictaria makes vision boards active. As you build your vision
-              piece by piece, the satisfaction of solving the puzzle connects a
-              positive feeling to the image, bringing thought and emotion
-              together with intention.
-            </p>
-          </div>
-
-          <div className="rounded-[6px] border border-accent/40 bg-deep/50 p-6 backdrop-blur-sm sm:p-10">
-            <h2 className="font-display text-lg text-shell">Why It Works</h2>
             <p className="mx-auto mt-4 max-w-xl text-[0.9rem] leading-relaxed text-shell/80">
               There's a reason so many people use vision boards, including
               millionaires and CEOs. Your brain's Reticular Activating System
