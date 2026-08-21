@@ -270,7 +270,7 @@ function Home() {
                   Today's free Pictaria
                 </span>
                 <Link
-                  to="/daily"
+                  {...dailyLink}
                   className="inline-flex items-center gap-1.5 rounded-full bg-primary px-2.5 py-1 text-[0.55rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
                 >
                   Play today's Pictaria
