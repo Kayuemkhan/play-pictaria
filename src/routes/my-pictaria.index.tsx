@@ -250,8 +250,8 @@ function MyPictaria() {
                     )}
 
                     <div className="mt-3 border-t border-foreground/10 pt-3">
-                      <p className="text-center text-[0.6rem] tracking-[0.18em] text-foreground/50 uppercase">
-                        Send to (up to 50)
+                      <p className="text-center text-[0.6rem] tracking-[0.18em] text-teal-700/70 uppercase">
+                        Send to friends (up to 50)
                       </p>
                       <textarea
                         value={p.emails ?? ""}
@@ -265,14 +265,11 @@ function MyPictaria() {
                         }
                         rows={2}
                         placeholder="friend@email.com, ohana@email.com…"
-                        className="mt-2 w-full resize-none rounded-2xl border border-foreground/15 bg-white px-4 py-2 text-center text-sm text-foreground outline-none placeholder:text-foreground/35 focus:border-accent/50"
+                        className="mt-2 w-full resize-none rounded-2xl border border-foreground/15 bg-white px-4 py-2 text-center text-sm text-foreground outline-none placeholder:text-foreground/35 focus:border-teal-600/50"
                       />
-                      <p className="mt-1.5 text-center text-[0.62rem] text-foreground/50">
-                        {countEmails(p.emails)} of 50 invitations
-                      </p>
                       <button
                         type="button"
-                        className="mx-auto mt-2 block rounded-full border border-accent/50 bg-transparent px-6 py-2 text-[0.68rem] tracking-[0.14em] text-accent uppercase"
+                        className="mx-auto mt-3 flex h-10 items-center rounded-full border border-teal-600/40 bg-transparent px-6 text-[0.68rem] tracking-[0.14em] text-teal-700/80 uppercase"
                       >
                         Send this puzzle
                       </button>
