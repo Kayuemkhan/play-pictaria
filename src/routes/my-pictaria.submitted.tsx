@@ -25,14 +25,14 @@ export const Route = createFileRoute("/my-pictaria/submitted")({
 
 function SubmittedPage() {
   return (
-    <main className="mx-auto flex min-h-dvh w-full max-w-2xl flex-col items-center justify-center px-6 pb-24 pt-6 text-center">
+    <section className="flex flex-col items-center justify-center py-16 text-center">
       <span className="flex h-16 w-16 items-center justify-center rounded-full bg-accent/15 text-accent">
         <CheckCircle2 className="h-8 w-8" strokeWidth={1.5} />
       </span>
 
-      <h1 className="mt-6 font-display text-3xl leading-tight text-foreground">
+      <h2 className="mt-6 font-display text-3xl leading-tight text-foreground">
         Your picture has been submitted
-      </h1>
+      </h2>
 
       <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-foreground/70">
         Thank you for offering it to the community. It is now pending approval.
@@ -54,6 +54,6 @@ function SubmittedPage() {
           Explore the public gallery
         </Link>
       </div>
-    </main>
+    </section>
   );
 }
