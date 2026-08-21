@@ -120,6 +120,7 @@ export function PuzzleBoard({
   nextTitle,
   unbranded = false,
   info,
+  collectionName,
 }: PuzzleBoardProps) {
   const viewportRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
