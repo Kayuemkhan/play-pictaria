@@ -1161,8 +1161,9 @@ export const collections: Collection[] = [
         image: visionCountyBlessing,
         story: [
           "Isn't it wonderful that everything with the county worked out better and faster than I could have ever imagined possible.",
+          "Neville Goddard's \"Isn't it wonderful?\" technique is the purest expression of his philosophy of living in the end — occupying the feeling of your wish already fulfilled. By simply repeating \"Isn't it wonderful?\" and allowing genuine gratitude and relief to wash over you, you bypass the need to figure out how your desire will manifest. Instead, you are experiencing the present-tense reality of having it already, trusting that your outer world must reflect this inner state. It's not about attracting a future event, but about being the person who already has it now.",
         ],
-      },
+      }
       {
         id: "vision-01",
         title: "The Puppy Litter",
