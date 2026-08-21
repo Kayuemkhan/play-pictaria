@@ -1265,6 +1265,16 @@ export const collections: Collection[] = [
           "I am becoming a joyful, confident cook.",
         ],
       },
+      {
+        id: "vision-15",
+        title: "Matriarchitect",
+        caption: "Learning to be a matriarchitect",
+        image: visionMatriarchitect,
+        story: [
+          "Learning to be a matriarchitect.",
+          "I am actively and lovingly creating community that is built around the concept of safety, sovereignty, and support.",
+        ],
+      },
 
     ],
   },
