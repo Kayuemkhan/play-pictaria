@@ -1132,9 +1132,27 @@ export const collections: Collection[] = [
     id: "vision-board",
     title: "My vision board",
     tagline: "The life we are calling in, one peace at a time",
-    cover: visionPuppies,
+    cover: visionAtriumPool,
     free: true,
     puzzles: [
+      {
+        id: "vision-11",
+        title: "The Atrium Pool",
+        caption: "A small glass-roofed pool with flowers and a corner hot tub",
+        image: visionAtriumPool,
+        story: [
+          "I would love a small, beautiful pool right inside a sunlit atrium at home — glass overhead, flowers and ferns crowding the edges, and a little hot tub bubbling in the corner. Warm light, quiet water, and paradise a few steps from my own kitchen.",
+        ],
+      },
+      {
+        id: "vision-12",
+        title: "Isn't It Wonderful",
+        caption: "A little house, a little garden, and everything working out",
+        image: visionCountyBlessing,
+        story: [
+          "Isn't it wonderful that everything with the county worked out better and faster than I could have ever imagined possible.",
+        ],
+      },
       {
         id: "vision-01",
         title: "The Puppy Litter",
