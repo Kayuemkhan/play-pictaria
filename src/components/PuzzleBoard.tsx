@@ -143,6 +143,8 @@ export function PuzzleBoard({
   /** groupOf[piece] = group id */
   const [groupOf, setGroupOf] = useState<number[]>([]);
   const [floating, setFloating] = useState<number[]>([]);
+  /** tiles that just accepted a slot — they give a brief settle */
+  const [settling, setSettling] = useState<number[]>([]);
   const [moves, setMoves] = useState(0);
   const [seconds, setSeconds] = useState(0);
   const [solved, setSolved] = useState(false);
@@ -157,6 +159,9 @@ export function PuzzleBoard({
     dx: number;
     dy: number;
   } | null>(null);
+  /** slots the held tile/clump will lock into on release (ghost highlight) */
+  const [previewCells, setPreviewCells] = useState<number[]>([]);
+  const previewKey = useRef("");
 
   const total = grid * grid;
   const worldH = (WORLD_W * 4) / 3;
@@ -556,6 +561,8 @@ export function PuzzleBoard({
         .filter((p) => p >= 0);
       setFloating(movedPieces);
       window.setTimeout(() => setFloating([]), 880);
+      setSettling(movedPieces);
+      window.setTimeout(() => setSettling([]), 280);
       setPos(next);
       setGroupOf(groups);
       setMoves((m) => m + 1);
@@ -761,13 +768,31 @@ export function PuzzleBoard({
     s.moved = true;
 
     /**
-     * The piece floats freely with the fingertip anywhere over the board. We
-     * deliberately do NOT preview grid snapping or validity while the finger is
-     * down — that makes the tile feel like it is deciding where to go. The
-     * landing decision is made only on release.
+     * The piece follows the fingertip exactly. Alongside it we show a quiet
+     * ghost of the slots it will lock into on release, so the player can trust
+     * the placement before letting go.
      */
     const bounded = clampDrag(s.group, dx, dy);
     setDrag({ group: s.group, ...bounded });
+
+    const key = `${Math.round(bounded.dx / 6)},${Math.round(bounded.dy / 6)}`;
+    if (key === previewKey.current) return;
+    previewKey.current = key;
+    const plan = snapMove(bounded.dx, bounded.dy, s.group, s.pointerType);
+    if (!plan) {
+      setPreviewCells([]);
+      return;
+    }
+    const cells: number[] = [];
+    for (let piece = 0; piece < pos.length; piece++) {
+      if (groupOf[piece] !== s.group) continue;
+      const cell = pos[piece]!;
+      const row = Math.floor(cell / grid) + plan.dRow;
+      const col = (cell % grid) + plan.dCol;
+      if (row < 0 || row >= grid || col < 0 || col >= grid) continue;
+      cells.push(row * grid + col);
+    }
+    setPreviewCells(cells);
   };
 
 
@@ -788,21 +813,16 @@ export function PuzzleBoard({
     (dx: number, dy: number, group: number, pointerType: string) => {
       const unitsX = dx / (cellW * scale);
       const unitsY = dy / (cellH * scale);
-      const touchPointer = pointerType === "touch" || pointerType === "pen";
+      void pointerType;
       /**
-       * Two forgiveness radii. The magnet radius is generous: if a drop is
-       * anywhere near a spot where the cluster would click onto its picture
-       * neighbour (or land home) it is pulled there. The settle radius stays
-       * tight so a tile never slides off to a far cell or hugs the board edge.
+       * Forgiveness measured in tiles, from the tile's CENTRE. A drop is
+       * accepted by the slot whose centre is within half a tile — which is
+       * simply the nearest slot, so aiming at a slot can never be rejected.
+       * The magnet reaches a little further when the landing would actually
+       * click the cluster onto a picture neighbour.
        */
-      const magnetPx = touchPointer ? 84 : 58;
-      const settlePx = touchPointer ? 36 : 22;
-      const tol = (px: number) => ({
-        x: Math.min(0.95, px / (cellW * scale)),
-        y: Math.min(0.95, px / (cellH * scale)),
-      });
-      const magnet = tol(magnetPx);
-      const settle = tol(settlePx);
+      const settle = { x: 0.5, y: 0.5 };
+      const magnet = { x: 0.85, y: 0.85 };
 
       const isNear = (
         dCol: number,
@@ -914,14 +934,20 @@ export function PuzzleBoard({
         if (merges(next) || landsHome(next)) return candidate;
       }
 
-      // 3: settle on the cell under the finger, but only if the drop really is
-      // there — otherwise the cluster stays where it was instead of drifting to
-      // a far cell or sticking to the edge of the board.
+      // 3: the slot the tile's centre is actually sitting over — the nearest
+      // slot is always inside half a tile, so a deliberate aim always lands.
       for (const candidate of candidates) {
         if (!isNear(candidate.dCol, candidate.dRow, settle)) continue;
         if (attemptMove(group, candidate.dCol, candidate.dRow)) return candidate;
       }
 
+      // 4: the nearest slot was blocked (an assembled block cannot be pushed
+      // aside) — take the closest legal slot still under the magnet instead of
+      // springing all the way back to where the drag began.
+      for (const candidate of candidates) {
+        if (!isNear(candidate.dCol, candidate.dRow, magnet)) continue;
+        if (attemptMove(group, candidate.dCol, candidate.dRow)) return candidate;
+      }
 
       return null;
     },
@@ -931,6 +957,8 @@ export function PuzzleBoard({
   const endPointer = (e: React.PointerEvent) => {
     const s = dragStart.current;
     setDrag(null);
+    setPreviewCells([]);
+    previewKey.current = "";
     if (!s || !s.moved) {
       dragStart.current = null;
       return;
@@ -1201,7 +1229,34 @@ export function PuzzleBoard({
               transform: `translate(${offX}px, ${offY}px) scale(${scale})`,
             }}
           >
-
+          {/* ghost of the slots the held tile/clump will lock into on release */}
+          {drag &&
+            previewCells.map((cell) => {
+              const row = Math.floor(cell / grid);
+              const col = cell % grid;
+              const left = Math.round((col * WORLD_W) / grid);
+              const top = Math.round((row * worldH) / grid);
+              const width = Math.round(((col + 1) * WORLD_W) / grid) - left;
+              const height = Math.round(((row + 1) * worldH) / grid) - top;
+              return (
+                <div
+                  key={`ghost-${cell}`}
+                  aria-hidden
+                  className="pointer-events-none absolute z-[5]"
+                  style={{
+                    left,
+                    top,
+                    width,
+                    height,
+                    boxSizing: "border-box",
+                    border: `${edge.width * 2}px solid color-mix(in oklch, var(--accent) 70%, white)`,
+                    borderRadius: edge.radius,
+                    background:
+                      "color-mix(in oklch, var(--accent) 22%, transparent)",
+                  }}
+                />
+              );
+            })}
 
 
           {pos.map((cell, piece) => {
@@ -1212,6 +1267,7 @@ export function PuzzleBoard({
             const group = groupOf[piece]!;
             const isDragged = drag?.group === group;
             const isFloating = floating.includes(piece);
+            const isSettling = settling.includes(piece);
 
             const joinedAt = (checkRow: number, checkCol: number) => {
               if (
@@ -1265,14 +1321,15 @@ export function PuzzleBoard({
                   cursor: "grab",
                   transition: isDragged
                     ? "none"
-                    : isFloating
-                      ? "transform 620ms var(--ease-organic)"
-                      : "transform 620ms var(--ease-organic)",
+                    : "transform 200ms var(--ease-organic)",
                 }}
               >
                 <span
                   aria-hidden
-                  className="pointer-events-none absolute"
+                  className={cn(
+                    "pointer-events-none absolute",
+                    isSettling && "animate-tile-settle",
+                  )}
                   style={{
                     boxSizing: "border-box",
                     top: joinedTop ? 0 : edge.inset,
