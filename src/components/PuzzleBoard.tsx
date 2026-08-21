@@ -731,7 +731,9 @@ export function PuzzleBoard({
       const maxRow = Math.max(...rows);
       // Let a dragged cluster travel a little past the board edge so it never
       // feels pinned or "stuck" to the sides while the finger keeps moving.
-      const slack = Math.min(cellW, cellH) * scale * 0.85;
+      // A dragged tile or clump roams freely: it may travel well past the board
+      // edges so it never feels pinned or trapped against a wall.
+      const slack = Math.min(cellW, cellH) * scale * 2.5;
       const minDx = -slack - (offX + minCol * cellW * scale);
       const maxDx =
         size.w + slack - (offX + (maxCol + 1) * cellW * scale);
@@ -1001,38 +1003,22 @@ export function PuzzleBoard({
 
 
 
-  const groupSizes = useMemo(() => {
-    const m = new Map<number, number>();
-    groupOf.forEach((g) => m.set(g, (m.get(g) ?? 0) + 1));
-    return m;
-  }, [groupOf]);
-
   /**
-   * A piece locks for good the moment it sits in its own home cell — alone or
-   * as part of a cluster. Locked pieces can't be picked up again, and other
-   * clusters are routed around them.
+   * One set of edge tokens for every tile, at every grid size. Values are
+   * screen pixels converted into world units, so a 3×3 and a 6×6 show exactly
+   * the same line weight, inset and corner radius.
    */
-  const lockedPieces = useMemo(() => {
-    const locked = new Set<number>();
-    if (!pos.length) return locked;
-    pos.forEach((cell, piece) => {
-      if (cell === piece) locked.add(piece);
-    });
-    const members = new Map<number, number[]>();
-    groupOf.forEach((g, piece) => {
-      const list = members.get(g);
-      if (list) list.push(piece);
-      else members.set(g, [piece]);
-    });
-    for (const list of members.values()) {
-      if (list.every((piece) => pos[piece] === piece))
-        list.forEach((piece) => locked.add(piece));
-    }
-    return locked;
-  }, [pos, groupOf]);
+  const edge = useMemo(() => {
+    const s = scale || 1;
+    return {
+      inset: 3 / s,
+      width: 1.5 / s,
+      radius: 6 / s,
+    };
+  }, [scale]);
 
+  
 
-  const clusters = groupSizes.size;
 
 
   return (
@@ -1225,8 +1211,6 @@ export function PuzzleBoard({
             const pr = Math.floor(piece / grid);
             const pc = piece % grid;
             const group = groupOf[piece]!;
-            const inCluster = (groupSizes.get(group) ?? 1) > 1;
-            const isLocked = lockedPieces.has(piece);
             const isDragged = drag?.group === group;
             const isFloating = floating.includes(piece);
 
@@ -1246,74 +1230,73 @@ export function PuzzleBoard({
             const joinedBottom = joinedAt(row + 1, col);
             const joinedLeft = joinedAt(row, col - 1);
 
-            const seam = isLocked || inCluster ? 2 : 0;
+            /** exact cell geometry — rounded once, so tiles tile perfectly */
+            const left = Math.round((col * WORLD_W) / grid);
+            const top = Math.round((row * worldH) / grid);
+            const width = Math.round(((col + 1) * WORLD_W) / grid) - left;
+            const height = Math.round(((row + 1) * worldH) / grid) - top;
+            const srcX = Math.round((pc * WORLD_W) / grid);
+            const srcY = Math.round((pr * worldH) / grid);
+
+            const line = (joined: boolean) =>
+              joined ? "0 solid transparent" : `${edge.width}px solid var(--piece-outline)`;
+            const corner = (a: boolean, b: boolean) =>
+              a || b ? 0 : edge.radius;
+
             return (
               <div
                 key={piece}
                 data-cell={cell}
                 style={{
                   position: "absolute",
-                  left: col * cellW - seam,
-                  top: row * cellH - seam,
-                  width: cellW + seam * 2,
-                  height: cellH + seam * 2,
+                  left: 0,
+                  top: 0,
+                  width,
+                  height,
                   backgroundImage: `url(${src})`,
                   backgroundSize: `${bg.w}px ${bg.h}px`,
-                  backgroundPosition: `${bg.x - pc * cellW + seam}px ${bg.y - pr * cellH + seam}px`,
-                  backgroundRepeat: seam > 0 ? "no-repeat" : "repeat",
-                  borderRadius:
-                    isFloating && !inCluster ? 28 : isLocked || inCluster ? 0 : 28,
-                  boxShadow: isDragged
-                    ? "var(--shadow-piece)"
-                    : isFloating
-                      ? inCluster
-                        ? "var(--shadow-piece)"
-                        : "var(--shadow-piece)"
-                      : isLocked || inCluster
-                        ? "none"
-                        : "none",
-
+                  backgroundPosition: `${bg.x - srcX}px ${bg.y - srcY}px`,
+                  backgroundRepeat: "no-repeat",
+                  imageRendering: "auto",
                   transform: isDragged
-                    ? `translate(${drag!.dx / scale}px, ${drag!.dy / scale}px) scale(1.006)`
-                    : "scale(1)",
-                  zIndex: isDragged ? 4 : isFloating ? 3 : 1,
+                    ? `translate(${left + drag!.dx / scale}px, ${top + drag!.dy / scale}px)`
+                    : `translate(${left}px, ${top}px)`,
+                  willChange: "transform",
+                  zIndex: isDragged ? 6 : isFloating ? 3 : 1,
                   cursor: "grab",
                   transition: isDragged
                     ? "none"
                     : isFloating
-                      ? "transform 880ms var(--ease-organic), left 880ms var(--ease-organic), top 880ms var(--ease-organic)"
-                      : "box-shadow 320ms var(--ease-organic), border-radius 320ms var(--ease-organic), left 880ms var(--ease-organic), top 880ms var(--ease-organic)",
+                      ? "transform 620ms var(--ease-organic)"
+                      : "transform 620ms var(--ease-organic)",
                 }}
               >
-                {!isLocked && (
-                  <span
-                    aria-hidden
-                    className="pointer-events-none absolute inset-0"
-                    style={{
-                      boxSizing: "border-box",
-                      borderTop: joinedTop
-                        ? "0 solid transparent"
-                        : "8px solid var(--piece-outline)",
-                      borderRight: joinedRight
-                        ? "0 solid transparent"
-                        : "8px solid var(--piece-outline)",
-                      borderBottom: joinedBottom
-                        ? "0 solid transparent"
-                        : "8px solid var(--piece-outline)",
-                      borderLeft: joinedLeft
-                        ? "0 solid transparent"
-                        : "8px solid var(--piece-outline)",
-                      borderRadius: inCluster ? 0 : 28,
-                    }}
-                  />
-                )}
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute"
+                  style={{
+                    boxSizing: "border-box",
+                    top: joinedTop ? 0 : edge.inset,
+                    right: joinedRight ? 0 : edge.inset,
+                    bottom: joinedBottom ? 0 : edge.inset,
+                    left: joinedLeft ? 0 : edge.inset,
+                    borderTop: line(joinedTop),
+                    borderRight: line(joinedRight),
+                    borderBottom: line(joinedBottom),
+                    borderLeft: line(joinedLeft),
+                    borderTopLeftRadius: corner(joinedTop, joinedLeft),
+                    borderTopRightRadius: corner(joinedTop, joinedRight),
+                    borderBottomRightRadius: corner(joinedBottom, joinedRight),
+                    borderBottomLeftRadius: corner(joinedBottom, joinedLeft),
+                    opacity: solved ? 0 : 1,
+                    transition: "opacity 500ms var(--ease-organic)",
+                  }}
+                />
               </div>
             );
-
-
           })}
 
-          {/* Solved overlay: one continuous image so locked tiles never show seams */}
+          {/* Solved: one continuous image, plus only the outer rounded border */}
           <div
             className={cn(
               "pointer-events-none absolute top-0 left-0 z-[2] origin-top-left transition-opacity duration-700",
@@ -1325,9 +1308,21 @@ export function PuzzleBoard({
               backgroundImage: `url(${src})`,
               backgroundSize: `${bg.w}px ${bg.h}px`,
               backgroundPosition: `${bg.x}px ${bg.y}px`,
-              borderRadius: showReference ? 0 : 18,
             }}
           />
+          <div
+            aria-hidden
+            className={cn(
+              "pointer-events-none absolute z-[3] transition-opacity duration-700",
+              solved && !showReference ? "opacity-100" : "opacity-0",
+            )}
+            style={{
+              inset: edge.inset,
+              border: `${edge.width}px solid var(--piece-outline)`,
+              borderRadius: edge.radius,
+            }}
+          />
+
 
         </div>
 
