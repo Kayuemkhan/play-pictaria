@@ -96,6 +96,72 @@ function VisionBoardPage() {
         </div>
       </section>
 
+      <section className="mt-3 px-4 sm:px-8">
+        <div className="mx-auto max-w-2xl">
+          <div className="rounded-[6px] border border-accent/40 bg-deep/50 p-6 backdrop-blur-sm sm:p-10">
+            <h2 className="font-display text-lg text-shell">
+              Words That Shape Reality
+            </h2>
+            <div className="mt-6 space-y-6 text-left">
+              <QuoteBlock
+                author="Neville Goddard"
+                quotes={[
+                  "Assume the feeling of your wish fulfilled and observe the route that your attention follows.",
+                  "Imagination is the only reality.",
+                ]}
+              />
+              <QuoteBlock
+                author="Abraham Hicks"
+                quotes={[
+                  "You don't attract what you want. You attract what you are.",
+                  "The only reason you want anything is because you think you'll feel better when you have it.",
+                ]}
+              />
+              <QuoteBlock
+                author="Wayne Dyer"
+                quotes={[
+                  "You are not a human being with a spiritual experience. You are a spiritual being with a human experience.",
+                  "When you change the way you look at things, the things you look at change.",
+                ]}
+              />
+              <QuoteBlock
+                author="Bashar"
+                quotes={[
+                  "Follow your highest excitement, moment to moment, with no insistence on the outcome.",
+                ]}
+              />
+              <QuoteBlock
+                author="Bob Proctor"
+                quotes={[
+                  "You don't attract what you want. You attract what you are.",
+                ]}
+              />
+              <QuoteBlock
+                author="Byron Katie"
+                quotes={[
+                  "I am a lover of what is, not because I'm a spiritual person, but because it hurts when I argue with reality.",
+                  "When you argue with reality, you lose—but only 100% of the time.",
+                ]}
+              />
+              <QuoteBlock
+                author="Mel Robbins"
+                quotes={[
+                  "You are one decision away from a completely different life.",
+                  "Confidence is built through action, not thinking.",
+                ]}
+              />
+              <QuoteBlock
+                author="Buddha"
+                quotes={[
+                  "You yourself, as much as anybody in the entire universe, deserve your love and affection.",
+                  "Do not dwell in the past, do not dream of the future, concentrate the mind on the present moment.",
+                ]}
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="mt-10 px-4 text-center sm:px-8">
         <Link
           to="/collection/$collectionId"
