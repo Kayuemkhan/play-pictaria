@@ -17,7 +17,7 @@ export const PORTAL_CATEGORIES = [
   "Photographer",
   "Retail",
   "Attraction",
-  "Gallery",
+  "Album",
   "Other",
 ] as const;
 

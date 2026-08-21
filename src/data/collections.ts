@@ -285,7 +285,7 @@ import visionCountyBlessing from "@/assets/vision-county-blessing.jpg";
 import visionKitchen from "@/assets/vision-kitchen.jpg";
 import visionSurfer from "@/assets/vision-surfer.jpg";
 import visionPool from "@/assets/vision-pool.jpg";
-import visionGallery from "@/assets/vision-gallery.jpg";
+import visionAlbum from "@/assets/vision-gallery.jpg";
 import visionAmyCooking from "@/assets/vision-amy-cooking.jpg";
 import visionMatriarchitect from "@/assets/vision-matriarchitect.jpg";
 
@@ -1249,9 +1249,9 @@ export const collections: Collection[] = [
       },
       {
         id: "vision-10",
-        title: "The Gallery",
+        title: "The Album",
         caption: "My art, my heart, in the hands of people on vacation",
-        image: visionGallery,
+        image: visionAlbum,
         story: [
           "I would love for everyone who has a special experience with a sea turtle while they are on Maui to know about my album, to experience my art, and if they connect with it, to bring it home as a wonderful reminder of that magical day.",
         ],

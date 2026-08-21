@@ -18,13 +18,13 @@ type Picture = {
   emails?: string;
 };
 
-type Gallery = {
+type Album = {
   id: string;
   name: string;
   pictures: Picture[];
 };
 
-const PERSONAL_STARTER: Gallery[] = [
+const PERSONAL_STARTER: Album[] = [
   { id: "g1", name: "Our Wedding", pictures: [] },
   { id: "g2", name: "Baby's First Year", pictures: [] },
   { id: "g3", name: "Sunset Hike", pictures: [] },
@@ -32,7 +32,7 @@ const PERSONAL_STARTER: Gallery[] = [
   { id: "g5", name: "Water Park", pictures: [] },
 ];
 
-const ARTIST_STARTER: Gallery[] = [
+const ARTIST_STARTER: Album[] = [
   { id: "a1", name: "Food Truck", pictures: [] },
   { id: "a2", name: "Date Night", pictures: [] },
   { id: "a3", name: "Coconuts Restaurant", pictures: [] },
@@ -44,7 +44,7 @@ const ARTIST_STARTER: Gallery[] = [
   { id: "a9", name: "Live Music on the Lawn", pictures: [] },
 ];
 
-const BRAND_STARTER: Gallery[] = [
+const BRAND_STARTER: Album[] = [
   { id: "b1", name: "Welcome to the Resort", pictures: [] },
   { id: "b2", name: "Today's Special", pictures: [] },
   { id: "b3", name: "Behind the Bar", pictures: [] },
@@ -56,7 +56,7 @@ const BRAND_STARTER: Gallery[] = [
 ];
 
 const STORE_KEY_PREFIX = "pictaria.my-world.preview";
-const MAX_PER_GALLERY = 5;
+const MAX_PER_ALBUM = 5;
 
 function MyPictaria() {
   const search = useSearch({ from: "/my-pictaria/" }) as { tier?: string };
@@ -66,21 +66,21 @@ function MyPictaria() {
     tier === "artist" ? ARTIST_STARTER : tier === "brand" ? BRAND_STARTER : PERSONAL_STARTER;
   const studioLink =
     tier === "artist" ? "/studio/artist" : tier === "brand" ? "/studio/brand" : "/studio/personal";
-  const maxGalleries = tier === "personal" ? 5 : tier === "artist" ? 20 : Infinity;
+  const maxAlbums = tier === "personal" ? 5 : tier === "artist" ? 20 : Infinity;
   const storeKey = `${STORE_KEY_PREFIX}.${tier}`;
 
-  const [albums, setGalleries] = useState<Gallery[]>(starter);
+  const [albums, setAlbums] = useState<Album[]>(starter);
   const [openId, setOpenId] = useState<string | null>(null);
   const [renaming, setRenaming] = useState<string | null>(null);
 
   /* names persist locally so the preview feels like your own space */
   useEffect(() => {
-    setGalleries(starter);
+    setAlbums(starter);
     try {
       const raw = localStorage.getItem(storeKey);
       if (!raw) return;
       const saved = JSON.parse(raw) as { id: string; name: string }[];
-      setGalleries((prev) =>
+      setAlbums((prev) =>
         prev.map((g) => ({ ...g, name: saved.find((s) => s.id === g.id)?.name ?? g.name })),
       );
     } catch {
@@ -88,10 +88,10 @@ function MyPictaria() {
     }
   }, [tier, starter, storeKey]);
 
-  const addGallery = () => {
-    const fresh: Gallery = { id: `${tier}-${Date.now()}`, name: "", pictures: [] };
-    setGalleries((prev) => {
-      if (prev.length >= maxGalleries) return prev;
+  const addAlbum = () => {
+    const fresh: Album = { id: `${tier}-${Date.now()}`, name: "", pictures: [] };
+    setAlbums((prev) => {
+      if (prev.length >= maxAlbums) return prev;
       const next = [...prev, fresh];
       saveNames(next);
       setRenaming(fresh.id);
@@ -99,7 +99,7 @@ function MyPictaria() {
     });
   };
 
-  const saveNames = (next: Gallery[]) => {
+  const saveNames = (next: Album[]) => {
     try {
       localStorage.setItem(
         storeKey,
@@ -110,8 +110,8 @@ function MyPictaria() {
     }
   };
 
-  const update = (id: string, patch: (g: Gallery) => Gallery) => {
-    setGalleries((prev) => {
+  const update = (id: string, patch: (g: Album) => Album) => {
+    setAlbums((prev) => {
       const next = prev.map((g) => (g.id === id ? patch(g) : g));
       saveNames(next);
       return next;
@@ -120,9 +120,9 @@ function MyPictaria() {
 
   const open = albums.find((g) => g.id === openId) ?? null;
 
-  const addPhotos = (album: Gallery, files: FileList | null) => {
+  const addPhotos = (album: Album, files: FileList | null) => {
     if (!files?.length) return;
-    const room = MAX_PER_GALLERY - album.pictures.length;
+    const room = MAX_PER_ALBUM - album.pictures.length;
     const incoming = Array.from(files)
       .slice(0, Math.max(room, 0))
       .map((file, i) => ({
@@ -174,7 +174,7 @@ function MyPictaria() {
                     </button>
                   )}
                   <p className="mt-0.5 text-[0.65rem] tracking-[0.14em] text-foreground/45 uppercase">
-                    {g.pictures.length} of {MAX_PER_GALLERY} pictures
+                    {g.pictures.length} of {MAX_PER_ALBUM} pictures
                   </p>
                 </div>
 
@@ -189,10 +189,10 @@ function MyPictaria() {
             ))}
           </div>
 
-          {albums.length < maxGalleries && (
+          {albums.length < maxAlbums && (
             <button
               type="button"
-              onClick={addGallery}
+              onClick={addAlbum}
               className="mt-4 flex h-10 w-full items-center justify-center gap-1.5 rounded-full border border-teal-600/40 bg-transparent px-4 text-[0.68rem] tracking-[0.14em] text-teal-700 uppercase transition hover:border-teal-600"
             >
               <Plus className="h-3.5 w-3.5" strokeWidth={1.5} /> Add another album
@@ -202,8 +202,8 @@ function MyPictaria() {
           <p className="mt-6 text-center text-xs leading-relaxed text-foreground/50">
             Tap a album name to rename it — Water Park, Ohana Reunion, whatever this
             chapter is called.
-            {maxGalleries !== Infinity
-              ? ` You have room for ${maxGalleries} albums.`
+            {maxAlbums !== Infinity
+              ? ` You have room for ${maxAlbums} albums.`
               : " Add as many albums as you like."}
           </p>
         </>
@@ -221,7 +221,7 @@ function MyPictaria() {
 
           <h2 className="mt-4 font-display text-3xl text-foreground">{open.name}</h2>
           <p className="mt-1 text-[0.65rem] tracking-[0.14em] text-foreground/45 uppercase">
-            {open.pictures.length} of {MAX_PER_GALLERY} pictures
+            {open.pictures.length} of {MAX_PER_ALBUM} pictures
           </p>
 
           <div className="mt-5 space-y-5">
@@ -346,7 +346,7 @@ function MyPictaria() {
               </div>
             ))}
 
-            {open.pictures.length < MAX_PER_GALLERY && (
+            {open.pictures.length < MAX_PER_ALBUM && (
               <div className="overflow-hidden rounded-3xl border border-foreground/10 bg-white/60">
                 <PhotoPick
                   label="Add your photograph"
@@ -359,7 +359,7 @@ function MyPictaria() {
                     <PhotoPlaceholder
                       tone="light"
                       title="Add your photograph"
-                      hint={`Room for ${MAX_PER_GALLERY - open.pictures.length} more in ${open.name}`}
+                      hint={`Room for ${MAX_PER_ALBUM - open.pictures.length} more in ${open.name}`}
                     />
                   </span>
                 </PhotoPick>

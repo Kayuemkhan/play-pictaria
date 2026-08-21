@@ -22,15 +22,15 @@ export const Route = createFileRoute("/portal/daily")({
   component: GuardedDailyWaitingArea,
 });
 
-interface GalleryItem {
+interface AlbumItem {
   id: string;
   title: string;
   image: string;
   collection: string;
 }
 
-function allPuzzles(): GalleryItem[] {
-  const items: GalleryItem[] = [];
+function allPuzzles(): AlbumItem[] {
+  const items: AlbumItem[] = [];
   for (const collection of collections) {
     for (const puzzle of collection.puzzles) {
       items.push({

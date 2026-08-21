@@ -3,7 +3,7 @@ import { createFileRoute, Outlet, useSearch } from "@tanstack/react-router";
 export const Route = createFileRoute("/my-pictaria")({
   head: () => ({
     meta: [
-      { title: "Your Private Pictaria — Five Galleries, Your Pictures" },
+      { title: "Your Private Pictaria — Five Albums, Your Pictures" },
       {
         name: "description",
         content:

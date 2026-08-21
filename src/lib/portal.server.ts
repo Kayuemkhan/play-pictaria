@@ -161,7 +161,7 @@ Rules:
   album/restaurant name exactly as spoken, whether it is introduced
   ("the company is...", "business name is...", "this is...", "I'm at...",
   "we're with...") or simply said as a name near the start of the note.
-  Keep any suffix such as LLC, Inc, Gallery, Studio, Farms, Co.
+  Keep any suffix such as LLC, Inc, Album, Studio, Farms, Co.
 - Never put the business name into contact_person; contact_person is a person's
   name only. If only one name is mentioned and it sounds like a business, it is
   the company_name.

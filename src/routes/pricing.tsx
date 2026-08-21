@@ -29,7 +29,7 @@ const planColumns = [
 
 const planRows: { label: string; values: (boolean | string)[] }[] = [
   { label: "A fresh Pictaria every day", values: [true, true, true, true] },
-  { label: "The whole public album", values: [true, true, true, true] },
+  { label: "All public albums", values: [true, true, true, true] },
   { label: "Every difficulty, 3×3 to 6×6", values: [true, true, true, true] },
   { label: "No ads, ever", values: [true, true, true, true] },
   { label: "Turn your own photos into puzzles", values: [false, true, true, true] },
@@ -77,7 +77,7 @@ export const Route = createFileRoute("/pricing")({
 const personal = [
   {
     icon: Images,
-    title: "Your Galleries",
+    title: "Your Albums",
     copy: "Five private albums to organize your favorite stories. Name them anything — Water Park, Sunset Hike, Our Wedding, Baby's First Year, The Puppy — and fill each one with the five hero shots you love most. They become beautiful little collections you can find at a glance, turn into puzzles, and share with the people you love.",
   },
   {
@@ -305,7 +305,7 @@ function PricingPage() {
               />
               <div className="min-w-0">
                 <p className="font-display text-sm tracking-[0.14em] uppercase">
-                  Wander the public album
+                  Wander the public albums
                 </p>
                 <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
                   Play as many public puzzles as you like, stay as long as you like, and come back anytime.
