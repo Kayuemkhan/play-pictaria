@@ -653,7 +653,18 @@ export function PuzzleBoard({
       const next = attemptMove(group, dCol, dRow);
 
       if (!next) return;
-      const { groups, merged } = mergePass(next, groupOf);
+      // Clusters are re-derived purely from where tiles now sit, so anything
+      // knocked apart (even a block that was correctly placed) un-locks and
+      // becomes loose again until it is re-joined.
+      const identityGroups = Array.from({ length: next.length }, (_, i) => i);
+      const { groups } = mergePass(next, identityGroups);
+      const before = mergePass(pos, Array.from({ length: pos.length }, (_, i) => i)).groups;
+      const sizeOf = (gs: number[], piece: number) =>
+        gs.filter((g) => g === gs[piece]).length;
+      const merged = next.some(
+        (_, piece) => sizeOf(groups, piece) > sizeOf(before, piece),
+      );
+
       // pieces that changed cells "float" over to their new home
       const movedPieces = next
         .map((cell, piece) => (cell !== pos[piece] ? piece : -1))
