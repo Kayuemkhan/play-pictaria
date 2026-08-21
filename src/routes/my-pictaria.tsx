@@ -1,4 +1,4 @@
-import { createFileRoute, Outlet } from "@tanstack/react-router";
+import { createFileRoute, Outlet, useSearch } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/my-pictaria")({
   head: () => ({
@@ -23,10 +23,13 @@ export const Route = createFileRoute("/my-pictaria")({
 });
 
 function MyPictariaLayout() {
+  const search = useSearch({ from: "/my-pictaria" }) as { tier?: string };
+  const tier = search.tier === "artist" ? "artist" : "personal";
+
   return (
     <main className="mx-auto w-full max-w-2xl px-5 pb-24 pt-6">
       <p className="text-center text-[0.6rem] tracking-[0.28em] text-foreground/45 uppercase">
-        Personal Studio · Preview
+        {tier === "artist" ? "Artist Studio · Preview" : "Personal Studio · Preview"}
       </p>
       <h1 className="mt-2 text-center font-display text-4xl leading-tight text-foreground">
         Your Private Pictaria
