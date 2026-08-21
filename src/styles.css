@@ -441,6 +441,23 @@
   animation: snap-pop 0.9s var(--ease-organic) both;
 }
 
+/* the moment a tile accepts its slot — a brief, satisfying settle */
+@keyframes tile-settle {
+  0% {
+    transform: scale(0.965);
+  }
+  60% {
+    transform: scale(1.012);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@utility animate-tile-settle {
+  animation: tile-settle 220ms var(--ease-organic) both;
+}
+
 
 @layer base {
   * {
