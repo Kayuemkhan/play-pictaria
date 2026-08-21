@@ -60,7 +60,7 @@ function VisionBoardPage() {
 
 
 
-      <section className="mt-10 px-4 sm:px-8">
+      <section className="mt-6 px-4 sm:px-8">
         <div className="mx-auto max-w-2xl space-y-6">
           <div className="rounded-[6px] border border-accent/40 bg-deep/50 p-6 backdrop-blur-sm sm:p-10">
             <h2 className="font-display text-lg text-shell">Why It Works</h2>
