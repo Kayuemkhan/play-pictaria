@@ -561,6 +561,8 @@ export function PuzzleBoard({
         .filter((p) => p >= 0);
       setFloating(movedPieces);
       window.setTimeout(() => setFloating([]), 880);
+      setSettling(movedPieces);
+      window.setTimeout(() => setSettling([]), 280);
       setPos(next);
       setGroupOf(groups);
       setMoves((m) => m + 1);
