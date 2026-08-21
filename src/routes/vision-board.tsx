@@ -46,11 +46,11 @@ function VisionBoardPage() {
           aria-hidden="true"
           className="h-full w-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent from-[42%] via-deep/78 via-[56%] to-deep/94" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent from-[46%] via-deep/78 via-[60%] to-deep/94" />
       </div>
 
       {/* hero */}
-      <section className="relative overflow-hidden px-6 pt-[52vh] pb-0 text-center">
+      <section className="relative overflow-hidden px-6 pt-[48vh] pb-0 text-center">
         <div className="relative mx-auto max-w-2xl">
           <h1 className="font-display text-[1.6rem] leading-snug text-shell drop-shadow-[0_2px_12px_oklch(0.15_0.04_230/0.75)] sm:text-[2rem]">
             Vision Boards
