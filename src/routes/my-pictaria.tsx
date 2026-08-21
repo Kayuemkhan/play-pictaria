@@ -24,20 +24,27 @@ export const Route = createFileRoute("/my-pictaria")({
 
 function MyPictariaLayout() {
   const search = useSearch({ from: "/my-pictaria" }) as { tier?: string };
-  const tier = search.tier === "artist" ? "artist" : "personal";
+  const tier =
+    search.tier === "artist" ? "artist" : search.tier === "brand" ? "brand" : "personal";
 
   return (
     <main className="mx-auto w-full max-w-2xl px-5 pb-24 pt-6">
       <p className="text-center text-[0.6rem] tracking-[0.28em] text-foreground/45 uppercase">
-        {tier === "artist" ? "Artist Studio · Preview" : "Personal Studio · Preview"}
+        {tier === "artist"
+          ? "Artist Studio · Preview"
+          : tier === "brand"
+            ? "Brand Studio · Preview"
+            : "Personal Studio · Preview"}
       </p>
       <h1 className="mt-2 text-center font-display text-4xl leading-tight text-foreground">
         Your Private Pictaria
       </h1>
       <p className="mx-auto mt-3 max-w-md text-center text-sm leading-relaxed text-foreground/65">
         {tier === "artist"
-          ? "Unlimited galleries, yours to name. Fill each one with the “Hero Shots” — the very best of those magical moments you don't want to lose in the thousands of photos in your phone or your memory."
-          : "Five galleries, yours to name. Fill each one with the “Hero Shots” — the very best of those magical moments you don't want to lose in the thousands of photos in your phone or your memory."}
+          ? "Twenty galleries, yours to name. Fill each one with the “Hero Shots” — the very best of those magical moments you don't want to lose in the thousands of photos in your phone or your memory."
+          : tier === "brand"
+            ? "Unlimited galleries, yours to name. Fill each one with the “Hero Shots” — the very best of those moments you want your customers to look forward to every day."
+            : "Five galleries, yours to name. Fill each one with the “Hero Shots” — the very best of those magical moments you don't want to lose in the thousands of photos in your phone or your memory."}
       </p>
 
 
