@@ -371,8 +371,10 @@ function MyPictaria() {
       <div className="mt-10 rounded-3xl border border-accent/25 bg-white/60 p-5 text-center backdrop-blur">
         <p className="text-sm leading-relaxed text-foreground/70">
           {tier === "artist"
-            ? "This is a preview of the Artist Studio world. Everything you see here comes with the $9.95 tier — unlimited galleries, full photo editing, and the choice to keep each picture private or share it with the community."
-            : "This is a preview of the Personal Studio world. Everything you see here comes with the $5.95 tier — five named galleries, your own pictures, and the choice to keep each one private or offer it to the community."}
+            ? "This is a preview of the Artist Studio world. Everything you see here comes with the $9.95 tier — up to 20 galleries, full photo editing, and the choice to keep each picture private or share it with the community."
+            : tier === "brand"
+              ? "This is a preview of the Brand Studio world. Everything you see here comes with the $195 tier — unlimited branded galleries, your logo and action buttons, tracked links, and the choice to keep each picture private or share it publicly."
+              : "This is a preview of the Personal Studio world. Everything you see here comes with the $5.95 tier — five named galleries, your own pictures, and the choice to keep each one private or offer it to the community."}
         </p>
         <div className="mt-4 flex flex-col items-center gap-2">
           <Link
