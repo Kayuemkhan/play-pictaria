@@ -175,3 +175,27 @@ function VisionBoardPage() {
     </main>
   );
 }
+
+function QuoteBlock({
+  author,
+  quotes,
+}: {
+  author: string;
+  quotes: string[];
+}) {
+  return (
+    <div>
+      <h3 className="font-display text-[0.95rem] text-accent">{author}</h3>
+      <ul className="mt-2 space-y-2">
+        {quotes.map((quote, i) => (
+          <li
+            key={i}
+            className="pl-4 text-[0.85rem] leading-relaxed text-shell/80 relative before:absolute before:left-0 before:top-[0.55em] before:h-1 before:w-1 before:rounded-full before:bg-accent/70"
+          >
+            {quote}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
