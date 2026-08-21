@@ -17,14 +17,6 @@ type Picture = {
   emails?: string;
 };
 
-function countEmails(value?: string) {
-  return (value ?? "")
-    .split(/[,\s;]+/)
-    .map((s) => s.trim())
-    .filter((s) => s.includes("@")).length;
-}
-
-
 type Gallery = {
   id: string;
   name: string;
@@ -202,10 +194,7 @@ function MyPictaria() {
                   />
 
                   <div className="rounded-2xl bg-accent/8 p-3">
-                    <p className="text-center text-[0.6rem] tracking-[0.18em] text-foreground/50 uppercase">
-                      Who can see this picture
-                    </p>
-                    <div className="mt-2 grid grid-cols-2 gap-2">
+                    <div className="grid grid-cols-2 gap-2">
                       <button
                         type="button"
                         onClick={() =>
@@ -216,10 +205,10 @@ function MyPictaria() {
                             ),
                           }))
                         }
-                        className={`flex items-center justify-center gap-1.5 rounded-full border bg-transparent px-3 py-2 text-[0.68rem] tracking-[0.1em] uppercase transition ${
+                        className={`flex h-10 items-center justify-center gap-1.5 rounded-full border bg-transparent px-3 text-[0.68rem] tracking-[0.1em] uppercase transition ${
                           p.share === "private"
-                            ? "border-accent/70 text-accent"
-                            : "border-foreground/15 text-foreground/60"
+                            ? "border-teal-600 text-teal-700"
+                            : "border-teal-600/40 text-teal-700/70"
                         }`}
                       >
                         <Lock className="h-3.5 w-3.5" strokeWidth={1.5} /> Keep private
@@ -234,31 +223,27 @@ function MyPictaria() {
                             ),
                           }))
                         }
-                        className={`flex items-center justify-center gap-1.5 rounded-full border bg-transparent px-3 py-2 text-[0.68rem] tracking-[0.1em] uppercase transition ${
+                        className={`flex h-10 items-center justify-center gap-1.5 rounded-full border bg-transparent px-3 text-[0.68rem] tracking-[0.1em] uppercase transition ${
                           p.share === "submitted"
-                            ? "border-accent/70 text-accent"
-                            : "border-foreground/15 text-foreground/60"
+                            ? "border-teal-600 text-teal-700"
+                            : "border-teal-600/40 text-teal-700/70"
                         }`}
                       >
                         <Send className="h-3.5 w-3.5" strokeWidth={1.5} /> Make public
                       </button>
                     </div>
-                    {p.share === "submitted" ? (
+                    {p.share === "submitted" && (
                       <Link
                         to="/my-pictaria/submitted"
-                        className="mt-2 block text-center text-[0.68rem] leading-relaxed text-accent underline underline-offset-2"
+                        className="mt-2 block text-center text-[0.68rem] leading-relaxed text-teal-700 underline underline-offset-2"
                       >
                         Your picture has been submitted for approval to be viewed by other Pictarians in Pictaria
                       </Link>
-                    ) : (
-                      <p className="mt-2 text-center text-[0.68rem] leading-relaxed text-foreground/55">
-                        Private to you and anyone you send the puzzle to.
-                      </p>
                     )}
 
                     <div className="mt-3 border-t border-foreground/10 pt-3">
-                      <p className="text-center text-[0.6rem] tracking-[0.18em] text-foreground/50 uppercase">
-                        Send to (up to 50)
+                      <p className="text-center text-[0.6rem] tracking-[0.18em] text-teal-700/70 uppercase">
+                        Send to friends (up to 50)
                       </p>
                       <textarea
                         value={p.emails ?? ""}
@@ -272,14 +257,11 @@ function MyPictaria() {
                         }
                         rows={2}
                         placeholder="friend@email.com, ohana@email.com…"
-                        className="mt-2 w-full resize-none rounded-2xl border border-foreground/15 bg-white px-4 py-2 text-center text-sm text-foreground outline-none placeholder:text-foreground/35 focus:border-accent/50"
+                        className="mt-2 w-full resize-none rounded-2xl border border-foreground/15 bg-white px-4 py-2 text-center text-sm text-foreground outline-none placeholder:text-foreground/35 focus:border-teal-600/50"
                       />
-                      <p className="mt-1.5 text-center text-[0.62rem] text-foreground/50">
-                        {countEmails(p.emails)} of 50 invitations
-                      </p>
                       <button
                         type="button"
-                        className="mx-auto mt-2 block rounded-full border border-accent/50 bg-transparent px-6 py-2 text-[0.68rem] tracking-[0.14em] text-accent uppercase"
+                        className="mx-auto mt-3 flex h-10 items-center rounded-full border border-teal-600/40 bg-transparent px-6 text-[0.68rem] tracking-[0.14em] text-teal-700/80 uppercase"
                       >
                         Send this puzzle
                       </button>
@@ -330,7 +312,7 @@ function MyPictaria() {
             to="/studio/personal"
             className="flex items-center gap-1.5 text-xs tracking-[0.16em] text-foreground/55 uppercase"
           >
-            Make a gallery
+            Start a gallery
           </Link>
 
         </div>
