@@ -14,7 +14,16 @@ type Picture = {
   url: string;
   title: string;
   share: Share;
+  emails?: string;
 };
+
+function countEmails(value?: string) {
+  return (value ?? "")
+    .split(/[,\s;]+/)
+    .map((s) => s.trim())
+    .filter((s) => s.includes("@")).length;
+}
+
 
 type Gallery = {
   id: string;
@@ -207,10 +216,10 @@ function MyPictaria() {
                             ),
                           }))
                         }
-                        className={`flex items-center justify-center gap-1.5 rounded-full px-3 py-2 text-[0.68rem] tracking-[0.1em] uppercase transition ${
+                        className={`flex items-center justify-center gap-1.5 rounded-full border bg-transparent px-3 py-2 text-[0.68rem] tracking-[0.1em] uppercase transition ${
                           p.share === "private"
-                            ? "bg-accent text-accent-foreground"
-                            : "border border-foreground/15 text-foreground/60"
+                            ? "border-accent/70 text-accent"
+                            : "border-foreground/15 text-foreground/60"
                         }`}
                       >
                         <Lock className="h-3.5 w-3.5" strokeWidth={1.5} /> Keep private
@@ -225,10 +234,10 @@ function MyPictaria() {
                             ),
                           }))
                         }
-                        className={`flex items-center justify-center gap-1.5 rounded-full px-3 py-2 text-[0.68rem] tracking-[0.1em] uppercase transition ${
+                        className={`flex items-center justify-center gap-1.5 rounded-full border bg-transparent px-3 py-2 text-[0.68rem] tracking-[0.1em] uppercase transition ${
                           p.share === "submitted"
-                            ? "bg-accent text-accent-foreground"
-                            : "border border-foreground/15 text-foreground/60"
+                            ? "border-accent/70 text-accent"
+                            : "border-foreground/15 text-foreground/60"
                         }`}
                       >
                         <Send className="h-3.5 w-3.5" strokeWidth={1.5} /> Make public
@@ -246,7 +255,37 @@ function MyPictaria() {
                         Private to you and anyone you send the puzzle to.
                       </p>
                     )}
+
+                    <div className="mt-3 border-t border-foreground/10 pt-3">
+                      <p className="text-center text-[0.6rem] tracking-[0.18em] text-foreground/50 uppercase">
+                        Send to (up to 50)
+                      </p>
+                      <textarea
+                        value={p.emails ?? ""}
+                        onChange={(e) =>
+                          update(open.id, (g) => ({
+                            ...g,
+                            pictures: g.pictures.map((x) =>
+                              x.id === p.id ? { ...x, emails: e.target.value } : x,
+                            ),
+                          }))
+                        }
+                        rows={2}
+                        placeholder="friend@email.com, ohana@email.com…"
+                        className="mt-2 w-full resize-none rounded-2xl border border-foreground/15 bg-white px-4 py-2 text-center text-sm text-foreground outline-none placeholder:text-foreground/35 focus:border-accent/50"
+                      />
+                      <p className="mt-1.5 text-center text-[0.62rem] text-foreground/50">
+                        {countEmails(p.emails)} of 50 invitations
+                      </p>
+                      <button
+                        type="button"
+                        className="mx-auto mt-2 block rounded-full border border-accent/50 bg-transparent px-6 py-2 text-[0.68rem] tracking-[0.14em] text-accent uppercase"
+                      >
+                        Send this puzzle
+                      </button>
+                    </div>
                   </div>
+
                 </div>
               </div>
             ))}
