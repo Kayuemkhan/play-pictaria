@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useSearch } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { ChevronLeft, Folder, Lock, Pencil, Send } from "lucide-react";
+import { ChevronLeft, Folder, Lock, Pencil, Plus, Send } from "lucide-react";
 import { PhotoPick, PhotoPlaceholder } from "@/components/PhotoField";
 
 export const Route = createFileRoute("/my-pictaria/")({
@@ -43,14 +43,29 @@ const ARTIST_STARTER: Gallery[] = [
   { id: "a8", name: "Live Music on the Lawn", pictures: [] },
 ];
 
+const BRAND_STARTER: Gallery[] = [
+  { id: "b1", name: "Welcome to the Resort", pictures: [] },
+  { id: "b2", name: "Today's Special", pictures: [] },
+  { id: "b3", name: "Behind the Bar", pictures: [] },
+  { id: "b4", name: "Our Team", pictures: [] },
+  { id: "b5", name: "Sunset at the Property", pictures: [] },
+  { id: "b6", name: "Guest Favorites", pictures: [] },
+  { id: "b7", name: "New This Season", pictures: [] },
+  { id: "b8", name: "Thank You Notes", pictures: [] },
+];
+
 const STORE_KEY_PREFIX = "pictaria.my-world.preview";
 const MAX_PER_GALLERY = 5;
 
 function MyPictaria() {
   const search = useSearch({ from: "/my-pictaria/" }) as { tier?: string };
-  const tier = search.tier === "artist" ? "artist" : "personal";
-  const starter = tier === "artist" ? ARTIST_STARTER : PERSONAL_STARTER;
-  const studioLink = tier === "artist" ? "/studio/artist" : "/studio/personal";
+  const tier =
+    search.tier === "artist" ? "artist" : search.tier === "brand" ? "brand" : "personal";
+  const starter =
+    tier === "artist" ? ARTIST_STARTER : tier === "brand" ? BRAND_STARTER : PERSONAL_STARTER;
+  const studioLink =
+    tier === "artist" ? "/studio/artist" : tier === "brand" ? "/studio/brand" : "/studio/personal";
+  const maxGalleries = tier === "personal" ? 5 : tier === "artist" ? 20 : Infinity;
   const storeKey = `${STORE_KEY_PREFIX}.${tier}`;
 
   const [galleries, setGalleries] = useState<Gallery[]>(starter);
@@ -71,6 +86,17 @@ function MyPictaria() {
       /* ignore */
     }
   }, [tier, starter, storeKey]);
+
+  const addGallery = () => {
+    const fresh: Gallery = { id: `${tier}-${Date.now()}`, name: "", pictures: [] };
+    setGalleries((prev) => {
+      if (prev.length >= maxGalleries) return prev;
+      const next = [...prev, fresh];
+      saveNames(next);
+      setRenaming(fresh.id);
+      return next;
+    });
+  };
 
   const saveNames = (next: Gallery[]) => {
     try {
@@ -162,9 +188,22 @@ function MyPictaria() {
             ))}
           </div>
 
+          {galleries.length < maxGalleries && (
+            <button
+              type="button"
+              onClick={addGallery}
+              className="mt-4 flex h-10 w-full items-center justify-center gap-1.5 rounded-full border border-teal-600/40 bg-transparent px-4 text-[0.68rem] tracking-[0.14em] text-teal-700 uppercase transition hover:border-teal-600"
+            >
+              <Plus className="h-3.5 w-3.5" strokeWidth={1.5} /> Add another gallery
+            </button>
+          )}
+
           <p className="mt-6 text-center text-xs leading-relaxed text-foreground/50">
             Tap a gallery name to rename it — Water Park, Ohana Reunion, whatever this
             chapter is called.
+            {maxGalleries !== Infinity
+              ? ` You have room for ${maxGalleries} galleries.`
+              : " Add as many galleries as you like."}
           </p>
         </>
       )}
@@ -332,8 +371,10 @@ function MyPictaria() {
       <div className="mt-10 rounded-3xl border border-accent/25 bg-white/60 p-5 text-center backdrop-blur">
         <p className="text-sm leading-relaxed text-foreground/70">
           {tier === "artist"
-            ? "This is a preview of the Artist Studio world. Everything you see here comes with the $9.95 tier — unlimited galleries, full photo editing, and the choice to keep each picture private or share it with the community."
-            : "This is a preview of the Personal Studio world. Everything you see here comes with the $5.95 tier — five named galleries, your own pictures, and the choice to keep each one private or offer it to the community."}
+            ? "This is a preview of the Artist Studio world. Everything you see here comes with the $9.95 tier — up to 20 galleries, full photo editing, and the choice to keep each picture private or share it with the community."
+            : tier === "brand"
+              ? "This is a preview of the Brand Studio world. Everything you see here comes with the $195 tier — unlimited branded galleries, your logo and action buttons, tracked links, and the choice to keep each picture private or share it publicly."
+              : "This is a preview of the Personal Studio world. Everything you see here comes with the $5.95 tier — five named galleries, your own pictures, and the choice to keep each one private or offer it to the community."}
         </p>
         <div className="mt-4 flex flex-col items-center gap-2">
           <Link
