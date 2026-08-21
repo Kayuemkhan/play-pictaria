@@ -1015,7 +1015,7 @@ export function PuzzleBoard({
     };
   }, [scale]);
 
-  void lockedPiecesUnused;
+  
 
 
 
