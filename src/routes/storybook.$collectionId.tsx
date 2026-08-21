@@ -13,7 +13,7 @@ export const Route = createFileRoute("/storybook/$collectionId")({
       {
         name: "description",
         content:
-          "This storybook has more photographs waiting inside Pictaria. Step into the gallery of booklets and keep playing.",
+          "This storybook has more photographs waiting inside Pictaria. Step into the album of booklets and keep playing.",
       },
       { property: "og:title", content: "More puzzles are waiting — Pictaria" },
       {
@@ -40,7 +40,7 @@ function StorybookGatePage() {
           to="/"
           className="mt-6 rounded-full bg-primary px-6 py-3 text-sm text-primary-foreground"
         >
-          Back to gallery
+          Back to album
         </Link>
       </main>
     );
@@ -74,7 +74,7 @@ function StorybookGatePage() {
           <p className="mt-4 text-sm text-muted-foreground">
             {waiting > 0
               ? "Do you want to go?"
-              : "There is a whole gallery of booklets waiting inside Pictaria. Do you want to go?"}
+              : "There is a whole album of booklets waiting inside Pictaria. Do you want to go?"}
           </p>
 
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">

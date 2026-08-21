@@ -29,7 +29,7 @@ const planColumns = [
 
 const planRows: { label: string; values: (boolean | string)[] }[] = [
   { label: "A fresh Pictaria every day", values: [true, true, true, true] },
-  { label: "The whole public gallery", values: [true, true, true, true] },
+  { label: "All public albums", values: [true, true, true, true] },
   { label: "Every difficulty, 3×3 to 6×6", values: [true, true, true, true] },
   { label: "No ads, ever", values: [true, true, true, true] },
   { label: "Turn your own photos into puzzles", values: [false, true, true, true] },
@@ -77,8 +77,8 @@ export const Route = createFileRoute("/pricing")({
 const personal = [
   {
     icon: Images,
-    title: "Your Galleries",
-    copy: "Five private galleries to organize your favorite stories. Name them anything — Water Park, Sunset Hike, Our Wedding, Baby's First Year, The Puppy — and fill each one with the five hero shots you love most. They become beautiful little collections you can find at a glance, turn into puzzles, and share with the people you love.",
+    title: "Your Albums",
+    copy: "Five private albums to organize your favorite stories. Name them anything — Water Park, Sunset Hike, Our Wedding, Baby's First Year, The Puppy — and fill each one with the five hero shots you love most. They become beautiful little collections you can find at a glance, turn into puzzles, and share with the people you love.",
   },
   {
     icon: Heart,
@@ -273,7 +273,7 @@ function PricingPage() {
             Pictaria is a magical place you can visit whenever you need a little
             escape. Start your day with a little adventure, and a fresh mystery
             waiting to be solved, a tiny moment of relaxation that costs nothing.
-            Wander through galleries of sea turtles, Hawaiian flowers, golden
+            Wander through albums of sea turtles, Hawaiian flowers, golden
             beaches, and more. Play as many as you like, stay as long as you
             like, and come back whenever you need a little piece of paradise.
           </p>
@@ -305,7 +305,7 @@ function PricingPage() {
               />
               <div className="min-w-0">
                 <p className="font-display text-sm tracking-[0.14em] uppercase">
-                  Wander the public gallery
+                  Wander the public albums
                 </p>
                 <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
                   Play as many public puzzles as you like, stay as long as you like, and come back anytime.
@@ -366,7 +366,7 @@ function PricingPage() {
               to="/studio/personal"
               className="inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-[0.6rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
             >
-              Start a personal gallery
+              Start a personal album
               <span aria-hidden>›</span>
             </Link>
 
@@ -374,7 +374,7 @@ function PricingPage() {
               to="/my-pictaria"
               className="inline-flex items-center gap-1.5 rounded-full border border-accent/60 px-4 py-2 text-[0.6rem] tracking-[0.2em] text-accent uppercase"
             >
-              Peek inside your galleries
+              Peek inside your albums
               <span aria-hidden>›</span>
             </Link>
           </div>
@@ -430,7 +430,7 @@ function PricingPage() {
             search={{ tier: "artist" }}
             className="mt-4 inline-flex items-center gap-1.5 rounded-full border border-teal-600/40 px-4 py-2 text-[0.6rem] tracking-[0.2em] text-teal-700 uppercase transition hover:border-teal-600"
           >
-            Start my gallery
+            Start my album
             <span aria-hidden>›</span>
           </Link>
         </section>

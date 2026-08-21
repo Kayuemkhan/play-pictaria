@@ -11,7 +11,7 @@ export default defineMcp({
   title: "Pictaria",
   version: "0.1.0",
   instructions:
-    "Browse Pictaria's public puzzle catalog. Use `list_collections` for the galleries, `list_puzzles` for the puzzles inside one gallery, `search_puzzles` to find a puzzle by words, `get_puzzle` for one puzzle's details and play URL, and `list_difficulties` for the grid sizes. Read-only: no personal or subscriber data is available.",
+    "Browse Pictaria's public puzzle catalog. Use `list_collections` for the albums, `list_puzzles` for the puzzles inside one album, `search_puzzles` to find a puzzle by words, `get_puzzle` for one puzzle's details and play URL, and `list_difficulties` for the grid sizes. Read-only: no personal or subscriber data is available.",
   tools: [
     listCollectionsTool,
     listPuzzlesTool,
