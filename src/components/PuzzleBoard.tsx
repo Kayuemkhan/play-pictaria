@@ -1420,12 +1420,23 @@ export function PuzzleBoard({
           <Sparkles size={18} strokeWidth={1.25} />
         </button>
         {collectionName ? (
-          <span className="max-w-[45%] truncate px-2 text-center font-display text-[0.7rem] tracking-[0.18em] text-muted-foreground/80 uppercase">
-            {collectionName}
-          </span>
+          collectionId ? (
+            <Link
+              to="/collection/$collectionId"
+              params={{ collectionId }}
+              className="flex-1 px-1 text-center font-display text-[0.7rem] leading-tight tracking-[0.16em] text-muted-foreground/80 uppercase transition-colors hover:text-accent-foreground"
+            >
+              {collectionName}
+            </Link>
+          ) : (
+            <span className="flex-1 px-1 text-center font-display text-[0.7rem] leading-tight tracking-[0.16em] text-muted-foreground/80 uppercase">
+              {collectionName}
+            </span>
+          )
         ) : (
           <span aria-hidden className="px-2" />
         )}
+
         <button
           type="button"
           aria-pressed={showReference}
