@@ -279,6 +279,8 @@ import visionGarden from "@/assets/vision-garden.jpg";
 import visionHarvest from "@/assets/vision-harvest.jpg";
 import visionSnorkeler from "@/assets/vision-snorkeler.jpg";
 import visionMillion from "@/assets/vision-million.jpg";
+import visionAtriumPool from "@/assets/vision-atrium-pool.jpg";
+import visionCountyBlessing from "@/assets/vision-county-blessing.jpg";
 import visionKitchen from "@/assets/vision-kitchen.jpg";
 import visionSurfer from "@/assets/vision-surfer.jpg";
 import visionPool from "@/assets/vision-pool.jpg";
