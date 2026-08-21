@@ -788,21 +788,16 @@ export function PuzzleBoard({
     (dx: number, dy: number, group: number, pointerType: string) => {
       const unitsX = dx / (cellW * scale);
       const unitsY = dy / (cellH * scale);
-      const touchPointer = pointerType === "touch" || pointerType === "pen";
+      void pointerType;
       /**
-       * Two forgiveness radii. The magnet radius is generous: if a drop is
-       * anywhere near a spot where the cluster would click onto its picture
-       * neighbour (or land home) it is pulled there. The settle radius stays
-       * tight so a tile never slides off to a far cell or hugs the board edge.
+       * Forgiveness measured in tiles, from the tile's CENTRE. A drop is
+       * accepted by the slot whose centre is within half a tile — which is
+       * simply the nearest slot, so aiming at a slot can never be rejected.
+       * The magnet reaches a little further when the landing would actually
+       * click the cluster onto a picture neighbour.
        */
-      const magnetPx = touchPointer ? 84 : 58;
-      const settlePx = touchPointer ? 36 : 22;
-      const tol = (px: number) => ({
-        x: Math.min(0.95, px / (cellW * scale)),
-        y: Math.min(0.95, px / (cellH * scale)),
-      });
-      const magnet = tol(magnetPx);
-      const settle = tol(settlePx);
+      const settle = { x: 0.5, y: 0.5 };
+      const magnet = { x: 0.85, y: 0.85 };
 
       const isNear = (
         dCol: number,
