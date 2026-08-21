@@ -1001,38 +1001,22 @@ export function PuzzleBoard({
 
 
 
-  const groupSizes = useMemo(() => {
-    const m = new Map<number, number>();
-    groupOf.forEach((g) => m.set(g, (m.get(g) ?? 0) + 1));
-    return m;
-  }, [groupOf]);
-
   /**
-   * A piece locks for good the moment it sits in its own home cell — alone or
-   * as part of a cluster. Locked pieces can't be picked up again, and other
-   * clusters are routed around them.
+   * One set of edge tokens for every tile, at every grid size. Values are
+   * screen pixels converted into world units, so a 3×3 and a 6×6 show exactly
+   * the same line weight, inset and corner radius.
    */
-  const lockedPieces = useMemo(() => {
-    const locked = new Set<number>();
-    if (!pos.length) return locked;
-    pos.forEach((cell, piece) => {
-      if (cell === piece) locked.add(piece);
-    });
-    const members = new Map<number, number[]>();
-    groupOf.forEach((g, piece) => {
-      const list = members.get(g);
-      if (list) list.push(piece);
-      else members.set(g, [piece]);
-    });
-    for (const list of members.values()) {
-      if (list.every((piece) => pos[piece] === piece))
-        list.forEach((piece) => locked.add(piece));
-    }
-    return locked;
-  }, [pos, groupOf]);
+  const edge = useMemo(() => {
+    const s = scale || 1;
+    return {
+      inset: 3 / s,
+      width: 1.5 / s,
+      radius: 6 / s,
+    };
+  }, [scale]);
 
+  void lockedPiecesUnused;
 
-  const clusters = groupSizes.size;
 
 
   return (
