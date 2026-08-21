@@ -13,6 +13,7 @@ type Picture = {
   id: string;
   url: string;
   title: string;
+  story?: string;
   share: Share;
   emails?: string;
 };
@@ -193,6 +194,21 @@ function MyPictaria() {
                     className="w-full rounded-full border border-foreground/15 bg-white px-4 py-2 text-center font-display text-lg text-foreground outline-none placeholder:text-foreground/35 focus:border-accent/50"
                   />
 
+                  <textarea
+                    value={p.story ?? ""}
+                    onChange={(e) =>
+                      update(open.id, (g) => ({
+                        ...g,
+                        pictures: g.pictures.map((x) =>
+                          x.id === p.id ? { ...x, story: e.target.value } : x,
+                        ),
+                      }))
+                    }
+                    rows={2}
+                    placeholder="Tell the story of this photo…"
+                    className="w-full resize-none rounded-2xl border border-foreground/15 bg-white px-4 py-2 text-center text-sm text-foreground outline-none placeholder:text-foreground/35 focus:border-teal-600/50"
+                  />
+
                   <div className="rounded-2xl bg-accent/8 p-3">
                     <div className="grid grid-cols-2 gap-2">
                       <button
@@ -261,7 +277,7 @@ function MyPictaria() {
                       />
                       <button
                         type="button"
-                        className="mx-auto mt-3 flex h-10 items-center rounded-full border border-teal-600/40 bg-transparent px-6 text-[0.68rem] tracking-[0.14em] text-teal-700/80 uppercase"
+                        className="mt-3 flex h-10 w-full items-center justify-center rounded-full border border-teal-600/40 bg-transparent px-3 text-[0.68rem] tracking-[0.1em] text-teal-700 uppercase transition"
                       >
                         Send this puzzle
                       </button>
