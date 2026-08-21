@@ -158,7 +158,7 @@ visited a local Hawaii business. Sort what was said into the given fields.
 Rules:
 - Use only what the speaker actually said. Never invent details.
 - company_name is the most important field. Capture the business/company/shop/
-  gallery/restaurant name exactly as spoken, whether it is introduced
+  album/restaurant name exactly as spoken, whether it is introduced
   ("the company is...", "business name is...", "this is...", "I'm at...",
   "we're with...") or simply said as a name near the start of the note.
   Keep any suffix such as LLC, Inc, Gallery, Studio, Farms, Co.
@@ -173,7 +173,7 @@ Rules:
   Always write it as 808-555-1212 (or 555-1212 when no area code was given).
 - Tidy spoken phone numbers, emails and websites into normal written form
   (e.g. "eight zero eight five five five one two one two" -> "808-555-1212",
-  "amy at kai gallery dot com" -> "amy@kaigallery.com").
+  "amy at kai album dot com" -> "amy@kaigallery.com").
 - Choose the closest business category; use "Other" when unclear.
 - product_service is required whenever the speaker describes the business at
   all. Write two or three warm sentences describing what this business offers
@@ -285,7 +285,7 @@ function guessCompanyName(transcript: string) {
   const text = (transcript ?? "").replace(/\s+/g, " ").trim();
   if (!text) return "";
   const patterns = [
-    /(?:company|business|shop|store|restaurant|gallery|studio)(?:\s+name)?(?:\s+is|\s+is called|\s*[:,])\s+([^.,;!?]{2,80})/i,
+    /(?:company|business|shop|store|restaurant|album|studio)(?:\s+name)?(?:\s+is|\s+is called|\s*[:,])\s+([^.,;!?]{2,80})/i,
     /(?:the name of (?:the|this) (?:company|business)\s+is)\s+([^.,;!?]{2,80})/i,
     /(?:i(?:'m| am) (?:at|with|visiting)|we(?:'re| are) (?:at|with))\s+([^.,;!?]{2,80})/i,
   ];

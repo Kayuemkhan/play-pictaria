@@ -7,13 +7,13 @@ export const Route = createFileRoute("/my-pictaria")({
       {
         name: "description",
         content:
-          "A preview of your own private Pictaria world: five galleries you name yourself, your pictures inside, and a gentle option to share a favorite with the Pictaria community.",
+          "A preview of your own private Pictaria world: five albums you name yourself, your pictures inside, and a gentle option to share a favorite with the Pictaria community.",
       },
       { property: "og:title", content: "Your Private Pictaria" },
       {
         property: "og:description",
         content:
-          "Name five galleries, upload your hero shots, caption them, and choose which ones to submit for the community collection.",
+          "Name five albums, upload your hero shots, caption them, and choose which ones to submit for the community collection.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -41,10 +41,10 @@ function MyPictariaLayout() {
       </h1>
       <p className="mx-auto mt-3 max-w-md text-center text-sm leading-relaxed text-foreground/65">
         {tier === "artist"
-          ? "Twenty galleries, yours to name. Fill each one with the “Hero Shots” — the very best of those magical moments you don't want to lose in the thousands of photos in your phone or your memory."
+          ? "Twenty albums, yours to name. Fill each one with the “Hero Shots” — the very best of those magical moments you don't want to lose in the thousands of photos in your phone or your memory."
           : tier === "brand"
-            ? "Unlimited galleries, yours to name. Fill each one with the “Hero Shots” — the very best of those moments you want your customers to look forward to every day."
-            : "Five galleries, yours to name. Fill each one with the “Hero Shots” — the very best of those magical moments you don't want to lose in the thousands of photos in your phone or your memory."}
+            ? "Unlimited albums, yours to name. Fill each one with the “Hero Shots” — the very best of those moments you want your customers to look forward to every day."
+            : "Five albums, yours to name. Fill each one with the “Hero Shots” — the very best of those magical moments you don't want to lose in the thousands of photos in your phone or your memory."}
       </p>
 
 

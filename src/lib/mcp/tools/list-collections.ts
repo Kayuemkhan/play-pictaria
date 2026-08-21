@@ -6,7 +6,7 @@ export default defineTool({
   name: "list_collections",
   title: "List collections",
   description:
-    "List every Pictaria puzzle collection (gallery) with its tagline, puzzle count and play URL.",
+    "List every Pictaria puzzle collection (album) with its tagline, puzzle count and play URL.",
   inputSchema: {},
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
   handler: () => {

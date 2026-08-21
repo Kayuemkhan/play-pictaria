@@ -47,7 +47,7 @@ export interface PuzzleBoardProps {
   onChangeDifficulty?: () => void;
   /** Change grid from inside the puzzle without leaving the screen. */
   onChangeGrid?: (grid: number) => void;
-  /** Move on to the next photograph in this gallery, at the same grid. */
+  /** Move on to the next photograph in this album, at the same grid. */
   onNext?: () => void;
   /** Move to the next photograph in this same collection. */
   onNextInSeries?: () => void;
@@ -59,7 +59,7 @@ export interface PuzzleBoardProps {
   info?: ReactNode;
   /** The collection this puzzle came from, shown subtly under the board. */
   collectionName?: string;
-  /** Collection id so the label can link back to that gallery. */
+  /** Collection id so the label can link back to that album. */
   collectionId?: string;
 }
 
@@ -278,7 +278,7 @@ export function PuzzleBoard({
 
   /* celebration: the congratulations drifts in and back out, then the finished
      picture is left alone to be admired — with a quiet "Next →" beside it. Only
-     the last puzzle in a gallery falls through to the summary card. */
+     the last puzzle in a album falls through to the summary card. */
   const nextRef = useRef(onNext);
   nextRef.current = onNext;
   const hasNext = Boolean(onNext);
@@ -1706,7 +1706,7 @@ export function PuzzleBoard({
                 onClick={onExit}
                 className="py-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
               >
-                Back to gallery
+                Back to album
               </button>
             </div>
           </div>

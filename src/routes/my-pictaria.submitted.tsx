@@ -45,13 +45,13 @@ function SubmittedPage() {
           to="/my-pictaria"
           className="inline-flex items-center gap-1.5 rounded-full bg-primary px-6 py-2.5 text-xs tracking-[0.18em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
         >
-          Back to your galleries
+          Back to your albums
         </Link>
         <Link
           to="/collections"
           className="text-xs tracking-[0.16em] text-foreground/55 uppercase underline underline-offset-2"
         >
-          Explore the public gallery
+          Explore the public album
         </Link>
       </div>
     </section>

@@ -69,7 +69,7 @@ function MyPictaria() {
   const maxGalleries = tier === "personal" ? 5 : tier === "artist" ? 20 : Infinity;
   const storeKey = `${STORE_KEY_PREFIX}.${tier}`;
 
-  const [galleries, setGalleries] = useState<Gallery[]>(starter);
+  const [albums, setGalleries] = useState<Gallery[]>(starter);
   const [openId, setOpenId] = useState<string | null>(null);
   const [renaming, setRenaming] = useState<string | null>(null);
 
@@ -118,11 +118,11 @@ function MyPictaria() {
     });
   };
 
-  const open = galleries.find((g) => g.id === openId) ?? null;
+  const open = albums.find((g) => g.id === openId) ?? null;
 
-  const addPhotos = (gallery: Gallery, files: FileList | null) => {
+  const addPhotos = (album: Gallery, files: FileList | null) => {
     if (!files?.length) return;
-    const room = MAX_PER_GALLERY - gallery.pictures.length;
+    const room = MAX_PER_GALLERY - album.pictures.length;
     const incoming = Array.from(files)
       .slice(0, Math.max(room, 0))
       .map((file, i) => ({
@@ -131,7 +131,7 @@ function MyPictaria() {
         title: "",
         share: "private" as Share,
       }));
-    update(gallery.id, (g) => ({ ...g, pictures: [...g.pictures, ...incoming] }));
+    update(album.id, (g) => ({ ...g, pictures: [...g.pictures, ...incoming] }));
   };
 
   return (
@@ -139,7 +139,7 @@ function MyPictaria() {
       {!open && (
         <>
           <div className="mt-8 space-y-3">
-            {galleries.map((g) => (
+            {albums.map((g) => (
               <div
                 key={g.id}
                 className="flex items-center gap-3 rounded-3xl border border-foreground/10 bg-white/70 px-4 py-3 shadow-sm backdrop-blur"
@@ -159,7 +159,7 @@ function MyPictaria() {
                       onBlur={() => setRenaming(null)}
                       onKeyDown={(e) => e.key === "Enter" && setRenaming(null)}
                       className="w-full rounded-full border border-accent/40 bg-white px-3 py-1 font-display text-lg text-foreground outline-none"
-                      placeholder="Name this gallery"
+                      placeholder="Name this album"
                     />
                   ) : (
                     <button
@@ -168,7 +168,7 @@ function MyPictaria() {
                       className="flex items-center gap-2 text-left"
                     >
                       <span className="truncate font-display text-xl text-foreground">
-                        {g.name || "Untitled gallery"}
+                        {g.name || "Untitled album"}
                       </span>
                       <Pencil className="h-3.5 w-3.5 shrink-0 text-foreground/35" strokeWidth={1.5} />
                     </button>
@@ -189,22 +189,22 @@ function MyPictaria() {
             ))}
           </div>
 
-          {galleries.length < maxGalleries && (
+          {albums.length < maxGalleries && (
             <button
               type="button"
               onClick={addGallery}
               className="mt-4 flex h-10 w-full items-center justify-center gap-1.5 rounded-full border border-teal-600/40 bg-transparent px-4 text-[0.68rem] tracking-[0.14em] text-teal-700 uppercase transition hover:border-teal-600"
             >
-              <Plus className="h-3.5 w-3.5" strokeWidth={1.5} /> Add another gallery
+              <Plus className="h-3.5 w-3.5" strokeWidth={1.5} /> Add another album
             </button>
           )}
 
           <p className="mt-6 text-center text-xs leading-relaxed text-foreground/50">
-            Tap a gallery name to rename it — Water Park, Ohana Reunion, whatever this
+            Tap a album name to rename it — Water Park, Ohana Reunion, whatever this
             chapter is called.
             {maxGalleries !== Infinity
-              ? ` You have room for ${maxGalleries} galleries.`
-              : " Add as many galleries as you like."}
+              ? ` You have room for ${maxGalleries} albums.`
+              : " Add as many albums as you like."}
           </p>
         </>
       )}
@@ -216,7 +216,7 @@ function MyPictaria() {
             onClick={() => setOpenId(null)}
             className="flex items-center gap-1 text-xs tracking-[0.16em] text-foreground/55 uppercase"
           >
-            <ChevronLeft className="h-4 w-4" strokeWidth={1.5} /> All galleries
+            <ChevronLeft className="h-4 w-4" strokeWidth={1.5} /> All albums
           </button>
 
           <h2 className="mt-4 font-display text-3xl text-foreground">{open.name}</h2>
@@ -372,17 +372,17 @@ function MyPictaria() {
       <div className="mt-10 rounded-3xl border border-accent/25 bg-white/60 p-5 text-center backdrop-blur">
         <p className="text-sm leading-relaxed text-foreground/70">
           {tier === "artist"
-            ? "This is a preview of the Artist Studio world. Everything you see here comes with the $9.95 tier — up to 20 galleries, full photo editing, and the choice to keep each picture private or share it with the community."
+            ? "This is a preview of the Artist Studio world. Everything you see here comes with the $9.95 tier — up to 20 albums, full photo editing, and the choice to keep each picture private or share it with the community."
             : tier === "brand"
-              ? "This is a preview of the Brand Studio world. Everything you see here comes with the $195 tier — unlimited branded galleries, your logo and action buttons, tracked links, and the choice to keep each picture private or share it publicly."
-              : "This is a preview of the Personal Studio world. Everything you see here comes with the $5.95 tier — five named galleries, your own pictures, and the choice to keep each one private or offer it to the community."}
+              ? "This is a preview of the Brand Studio world. Everything you see here comes with the $195 tier — unlimited branded albums, your logo and action buttons, tracked links, and the choice to keep each picture private or share it publicly."
+              : "This is a preview of the Personal Studio world. Everything you see here comes with the $5.95 tier — five named albums, your own pictures, and the choice to keep each one private or offer it to the community."}
         </p>
         <div className="mt-4 flex flex-col items-center gap-2">
           <Link
             to={studioLink}
             className="inline-flex items-center gap-1.5 rounded-full border border-teal-600/40 bg-transparent px-6 py-2 text-xs tracking-[0.16em] text-teal-700 uppercase transition hover:border-teal-600"
           >
-            Start my gallery
+            Start my album
             <span aria-hidden>›</span>
           </Link>
         </div>

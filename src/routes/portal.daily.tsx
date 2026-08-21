@@ -449,7 +449,7 @@ function DailyWaitingArea() {
           )}
         </section>
 
-        {/* Waiting gallery */}
+        {/* Waiting album */}
         <section>
           <p className="text-center text-[10px] tracking-[0.2em] text-shell/60 uppercase">
             Waiting to be chosen · {waiting.length}

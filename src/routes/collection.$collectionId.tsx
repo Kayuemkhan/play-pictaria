@@ -48,7 +48,7 @@ function CollectionPage() {
           to="/"
           className="mt-6 rounded-full bg-primary px-6 py-3 text-sm text-primary-foreground"
         >
-          Back to gallery
+          Back to album
         </Link>
       </main>
     );

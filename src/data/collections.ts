@@ -285,7 +285,7 @@ import visionCountyBlessing from "@/assets/vision-county-blessing.jpg";
 import visionKitchen from "@/assets/vision-kitchen.jpg";
 import visionSurfer from "@/assets/vision-surfer.jpg";
 import visionPool from "@/assets/vision-pool.jpg";
-import visionGallery from "@/assets/vision-gallery.jpg";
+import visionGallery from "@/assets/vision-album.jpg";
 import visionAmyCooking from "@/assets/vision-amy-cooking.jpg";
 import visionMatriarchitect from "@/assets/vision-matriarchitect.jpg";
 
@@ -1253,7 +1253,7 @@ export const collections: Collection[] = [
         caption: "My art, my heart, in the hands of people on vacation",
         image: visionGallery,
         story: [
-          "I would love for everyone who has a special experience with a sea turtle while they are on Maui to know about my gallery, to experience my art, and if they connect with it, to bring it home as a wonderful reminder of that magical day.",
+          "I would love for everyone who has a special experience with a sea turtle while they are on Maui to know about my album, to experience my art, and if they connect with it, to bring it home as a wonderful reminder of that magical day.",
         ],
       },
       {
@@ -2792,7 +2792,7 @@ for (const collection of collections) {
   }
 }
 
-/** Collections shown in the gallery and on the home screen (secret ones excluded). */
+/** Collections shown in the album and on the home screen (secret ones excluded). */
 export const visibleCollections = collections.filter((c) => !c.hidden);
 
 export const freeCollection = collections[0]!;
