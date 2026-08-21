@@ -33,14 +33,15 @@ const PERSONAL_STARTER: Gallery[] = [
 ];
 
 const ARTIST_STARTER: Gallery[] = [
-  { id: "a1", name: "Food Truck Date Night", pictures: [] },
-  { id: "a2", name: "Famous Restaurant", pictures: [] },
-  { id: "a3", name: "Girls' Night", pictures: [] },
-  { id: "a4", name: "Baby's Birthday", pictures: [] },
-  { id: "a5", name: "Reggae Night", pictures: [] },
-  { id: "a6", name: "Brewery Tour", pictures: [] },
-  { id: "a7", name: "Sunset Picnic", pictures: [] },
-  { id: "a8", name: "Live Music on the Lawn", pictures: [] },
+  { id: "a1", name: "Food Truck", pictures: [] },
+  { id: "a2", name: "Date Night", pictures: [] },
+  { id: "a3", name: "Coconuts Restaurant", pictures: [] },
+  { id: "a4", name: "Girls' Night", pictures: [] },
+  { id: "a5", name: "Baby's Birthday", pictures: [] },
+  { id: "a6", name: "Reggae Night", pictures: [] },
+  { id: "a7", name: "Brewery Tour", pictures: [] },
+  { id: "a8", name: "Sunset Picnic", pictures: [] },
+  { id: "a9", name: "Live Music on the Lawn", pictures: [] },
 ];
 
 const BRAND_STARTER: Gallery[] = [
