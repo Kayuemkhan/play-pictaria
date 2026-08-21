@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
-import palmLogo from "@/assets/logo-palms-only.png";
+
 import reefBackdrop from "@/assets/vision-board-reef.jpg";
 
 export const Route = createFileRoute("/vision-board")({
@@ -38,7 +38,7 @@ export const Route = createFileRoute("/vision-board")({
 function VisionBoardPage() {
   return (
     <main className="relative min-h-screen pb-12">
-      {/* muted reef backdrop */}
+      {/* reef backdrop — bright at the top, fading gently into deep blue */}
       <div className="pointer-events-none fixed inset-0 -z-10">
         <img
           src={reefBackdrop}
@@ -46,28 +46,18 @@ function VisionBoardPage() {
           aria-hidden="true"
           className="h-full w-full object-cover"
         />
-        <div className="absolute inset-0 bg-deep/65" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent from-[22%] via-deep/70 via-[52%] to-deep/92" />
       </div>
 
       {/* hero */}
-      <section className="relative overflow-hidden px-6 pt-10 pb-16 text-center sm:pt-16 sm:pb-20">
-        <div className="absolute inset-0 bg-gradient-to-b from-seafoam/10 via-transparent to-deep/20" />
-
+      <section className="relative overflow-hidden px-6 pt-40 pb-16 text-center sm:pt-52 sm:pb-20">
         <div className="relative mx-auto max-w-2xl">
-          <Link to="/" aria-label="Home" className="mx-auto block w-fit">
-            <img
-              src={palmLogo}
-              alt="Pictaria"
-              width={1024}
-              height={1024}
-              className="mx-auto h-32 w-auto rounded-[8px] drop-shadow-[0_4px_18px_oklch(0.15_0.04_230/0.65)] transition-transform hover:scale-[1.04] sm:h-40"
-            />
-          </Link>
-          <h1 className="mt-6 font-display text-[1.6rem] leading-snug text-shell sm:text-[2rem]">
+          <h1 className="font-display text-[1.6rem] leading-snug text-shell drop-shadow-[0_2px_12px_oklch(0.15_0.04_230/0.75)] sm:text-[2rem]">
             Vision Board
           </h1>
         </div>
       </section>
+
 
       <section className="mt-10 px-4 sm:px-8">
         <div className="mx-auto max-w-2xl space-y-6">
