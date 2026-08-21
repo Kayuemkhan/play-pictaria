@@ -261,14 +261,21 @@ function MyPictaria() {
                             : "border border-foreground/15 text-foreground/60"
                         }`}
                       >
-                        <Send className="h-3.5 w-3.5" strokeWidth={1.5} /> Submit for approval
+                        <Send className="h-3.5 w-3.5" strokeWidth={1.5} /> Make public
                       </button>
                     </div>
-                    <p className="mt-2 text-center text-[0.68rem] leading-relaxed text-foreground/55">
-                      {p.share === "submitted"
-                        ? "Pending review — if it's approved it joins the public Pictaria collection with your name on it."
-                        : "Private to you and anyone you send the puzzle to."}
-                    </p>
+                    {p.share === "submitted" ? (
+                      <Link
+                        to="/my-pictaria/submitted"
+                        className="mt-2 block text-center text-[0.68rem] leading-relaxed text-accent underline underline-offset-2"
+                      >
+                        Your picture has been submitted for approval to be viewed by other Pictarians in Pictaria
+                      </Link>
+                    ) : (
+                      <p className="mt-2 text-center text-[0.68rem] leading-relaxed text-foreground/55">
+                        Private to you and anyone you send the puzzle to.
+                      </p>
+                    )}
                   </div>
                 </div>
               </div>
