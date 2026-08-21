@@ -173,7 +173,7 @@ Rules:
   Always write it as 808-555-1212 (or 555-1212 when no area code was given).
 - Tidy spoken phone numbers, emails and websites into normal written form
   (e.g. "eight zero eight five five five one two one two" -> "808-555-1212",
-  "amy at kai album dot com" -> "amy@kaigallery.com").
+  "amy at kai album dot com" -> "amy@kaialbum.com").
 - Choose the closest business category; use "Other" when unclear.
 - product_service is required whenever the speaker describes the business at
   all. Write two or three warm sentences describing what this business offers
