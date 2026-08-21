@@ -287,6 +287,7 @@ import visionSurfer from "@/assets/vision-surfer.jpg";
 import visionPool from "@/assets/vision-pool.jpg";
 import visionGallery from "@/assets/vision-gallery.jpg";
 import visionAmyCooking from "@/assets/vision-amy-cooking.jpg";
+import visionMatriarchitect from "@/assets/vision-matriarchitect.jpg";
 
 
 import { natureStories } from "./stories-nature";
@@ -1262,6 +1263,16 @@ export const collections: Collection[] = [
         image: visionAmyCooking,
         story: [
           "I am becoming a joyful, confident cook.",
+        ],
+      },
+      {
+        id: "vision-15",
+        title: "Matriarchitect",
+        caption: "Learning to be a matriarchitect",
+        image: visionMatriarchitect,
+        story: [
+          "Learning to be a matriarchitect.",
+          "I am actively and lovingly creating community that is built around the concept of safety, sovereignty, and support.",
         ],
       },
 
