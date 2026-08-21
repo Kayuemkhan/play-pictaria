@@ -1,6 +1,10 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
 import { visibleCollections } from "@/data/collections";
+import { getDailyPicks } from "@/lib/daily-pick.functions";
+import { isPortalPick, portalPickCode } from "@/lib/daily-display";
+import { supabase } from "@/integrations/supabase/client";
 import { HeroPuzzle } from "@/components/HeroPuzzle";
 
 import heroImage from "@/assets/hero-sunset.jpg";
@@ -39,6 +43,36 @@ const featured = visibleCollections;
 function Home() {
   const navigate = useNavigate();
   const taps = useRef<{ count: number; last: number }>({ count: 0, last: 0 });
+  const [signedUp, setSignedUp] = useState(false);
+  const [todaysPuzzleId, setTodaysPuzzleId] = useState("turtle-09");
+  const loadPicks = useServerFn(getDailyPicks);
+
+  useEffect(() => {
+    const check = async () => {
+      const { data } = await supabase.auth.getSession();
+      if (data.session?.user?.email) {
+        setSignedUp(true);
+        return;
+      }
+      if (localStorage.getItem("pictaria_daily_signed_up") === "1") {
+        setSignedUp(true);
+      }
+    };
+    check();
+  }, []);
+
+  useEffect(() => {
+    const loadToday = async () => {
+      try {
+        const result = await loadPicks({});
+        if (result.current?.puzzle_id) setTodaysPuzzleId(result.current.puzzle_id);
+      } catch {
+        // Keep the fallback puzzle if the pick can't be read.
+      }
+    };
+    void loadToday();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // The hidden admin page opens only after three quick taps on the palm logo.
   const handleLogoTap = () => {
@@ -51,6 +85,16 @@ function Home() {
       navigate({ to: "/portal/new" });
     }
   };
+
+  const dailyLink = signedUp
+    ? isPortalPick(todaysPuzzleId)
+      ? ({ to: "/p/$code", params: { code: portalPickCode(todaysPuzzleId) } } as const)
+      : ({
+          to: "/puzzle/$puzzleId",
+          params: { puzzleId: todaysPuzzleId },
+          search: { grid: undefined },
+        } as const)
+    : ({ to: "/daily" } as const);
 
   return (
     <main className="flex min-h-screen flex-col bg-deep">
@@ -226,7 +270,7 @@ function Home() {
                   Today's free Pictaria
                 </span>
                 <Link
-                  to="/daily"
+                  {...dailyLink}
                   className="inline-flex items-center gap-1.5 rounded-full bg-primary px-2.5 py-1 text-[0.55rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
                 >
                   Play today's Pictaria
