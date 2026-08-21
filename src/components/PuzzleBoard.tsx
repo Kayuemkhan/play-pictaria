@@ -701,10 +701,9 @@ export function PuzzleBoard({
     if (piece < 0) return;
     const group = groupOf[piece];
     if (group === undefined) return;
-    const groupIsHome = groupOf.every(
-      (pieceGroup, member) => pieceGroup !== group || pos[member] === member,
-    );
-    if (groupIsHome) return; // only a whole cluster anchored in its final place stays put
+    // every cluster stays draggable — even one already in its final place, so
+    // the player can always move a merged batch around to check it
+
 
     viewportRef.current?.setPointerCapture(e.pointerId);
     dragStart.current = {
