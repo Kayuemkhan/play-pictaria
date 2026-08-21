@@ -330,8 +330,9 @@ function MyPictaria() {
             to="/studio/personal"
             className="flex items-center gap-1.5 text-xs tracking-[0.16em] text-foreground/55 uppercase"
           >
-            Make a storybook
+            Make a gallery
           </Link>
+
         </div>
       </div>
     </>
