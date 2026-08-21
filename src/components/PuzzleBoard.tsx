@@ -909,14 +909,20 @@ export function PuzzleBoard({
         if (merges(next) || landsHome(next)) return candidate;
       }
 
-      // 3: settle on the cell under the finger, but only if the drop really is
-      // there — otherwise the cluster stays where it was instead of drifting to
-      // a far cell or sticking to the edge of the board.
+      // 3: the slot the tile's centre is actually sitting over — the nearest
+      // slot is always inside half a tile, so a deliberate aim always lands.
       for (const candidate of candidates) {
         if (!isNear(candidate.dCol, candidate.dRow, settle)) continue;
         if (attemptMove(group, candidate.dCol, candidate.dRow)) return candidate;
       }
 
+      // 4: the nearest slot was blocked (an assembled block cannot be pushed
+      // aside) — take the closest legal slot still under the magnet instead of
+      // springing all the way back to where the drag began.
+      for (const candidate of candidates) {
+        if (!isNear(candidate.dCol, candidate.dRow, magnet)) continue;
+        if (attemptMove(group, candidate.dCol, candidate.dRow)) return candidate;
+      }
 
       return null;
     },
