@@ -32,10 +32,11 @@ function MyPictariaLayout() {
         Your Private Pictaria
       </h1>
       <p className="mx-auto mt-3 max-w-md text-center text-sm leading-relaxed text-foreground/65">
-        Five galleries, yours to name. Fill each one with the pictures you love
-        most, turn them into puzzles, and — only if you'd like to — send one to
-        Pictaria to be considered for the community collection.
+        Five galleries, yours to name. Fill each one with the “Hero Shots” — the
+        very best of those magical moments you don't want to lose in the
+        thousands of photos in your phone or your memory.
       </p>
+
 
       <Outlet />
     </main>
