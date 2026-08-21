@@ -1419,6 +1419,13 @@ export function PuzzleBoard({
         >
           <Sparkles size={18} strokeWidth={1.25} />
         </button>
+        {collectionName ? (
+          <span className="max-w-[45%] truncate px-2 text-center font-display text-[0.7rem] tracking-[0.18em] text-muted-foreground/80 uppercase">
+            {collectionName}
+          </span>
+        ) : (
+          <span aria-hidden className="px-2" />
+        )}
         <button
           type="button"
           aria-pressed={showReference}
