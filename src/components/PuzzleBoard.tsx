@@ -381,10 +381,9 @@ export function PuzzleBoard({
 
       for (const cluster of clusters.values()) {
         if (cluster.some((piece) => newCells.has(positions[piece]!))) {
-          // any piece already sitting at home is locked — route around it
-          const locked = cluster.every((piece) => positions[piece] === piece);
-          // a cluster sitting exactly at home is locked — never disturb it
-          if (locked) return null;
+          // clusters are never frozen: a block sitting in its final place can
+          // still be nudged aside, because the player has no way of knowing it
+          // was already right
           void protectLocked;
 
           conflicting.push(cluster);
@@ -392,6 +391,7 @@ export function PuzzleBoard({
           for (const piece of cluster) free.delete(positions[piece]!);
         }
       }
+
 
 
       const next = [...positions];
@@ -701,10 +701,9 @@ export function PuzzleBoard({
     if (piece < 0) return;
     const group = groupOf[piece];
     if (group === undefined) return;
-    const groupIsHome = groupOf.every(
-      (pieceGroup, member) => pieceGroup !== group || pos[member] === member,
-    );
-    if (groupIsHome) return; // only a whole cluster anchored in its final place stays put
+    // every cluster stays draggable — even one already in its final place, so
+    // the player can always move a merged batch around to check it
+
 
     viewportRef.current?.setPointerCapture(e.pointerId);
     dragStart.current = {
