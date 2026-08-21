@@ -1261,7 +1261,6 @@ export const collections: Collection[] = [
         caption: "Good food, good company, and a brand new recipe",
         image: visionAmyCooking,
         story: [
-          "I see so many cool recipes on TikTok and I really want to learn how to cook them.",
           "I am becoming a joyful, confident cook.",
         ],
       },
