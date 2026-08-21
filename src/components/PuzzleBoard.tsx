@@ -157,6 +157,9 @@ export function PuzzleBoard({
     dx: number;
     dy: number;
   } | null>(null);
+  /** slots the held tile/clump will lock into on release (ghost highlight) */
+  const [previewCells, setPreviewCells] = useState<number[]>([]);
+  const previewKey = useRef("");
 
   const total = grid * grid;
   const worldH = (WORLD_W * 4) / 3;
