@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useSearch } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { ChevronLeft, Folder, Lock, Pencil, Send } from "lucide-react";
+import { ChevronLeft, Folder, Lock, Pencil, Plus, Send } from "lucide-react";
 import { PhotoPick, PhotoPlaceholder } from "@/components/PhotoField";
 
 export const Route = createFileRoute("/my-pictaria/")({
