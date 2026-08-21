@@ -59,6 +59,8 @@ export interface PuzzleBoardProps {
   info?: ReactNode;
   /** The collection this puzzle came from, shown subtly under the board. */
   collectionName?: string;
+  /** Collection id so the label can link back to that gallery. */
+  collectionId?: string;
 }
 
 function formatTime(total: number) {
@@ -121,6 +123,7 @@ export function PuzzleBoard({
   unbranded = false,
   info,
   collectionName,
+  collectionId,
 }: PuzzleBoardProps) {
   const viewportRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
@@ -1408,7 +1411,7 @@ export function PuzzleBoard({
       </div>
 
       {/* under-board controls — auto complete and the reference twinkle */}
-      <div className="z-20 flex w-full shrink-0 items-center justify-between px-14 pb-0.5 sm:px-24">
+      <div className="z-20 flex w-full shrink-0 items-center justify-between px-6 pb-0.5 sm:px-10">
         <button
           type="button"
           onClick={autoSolve}
