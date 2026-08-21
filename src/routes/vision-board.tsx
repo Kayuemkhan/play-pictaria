@@ -63,16 +63,6 @@ function VisionBoardPage() {
       <section className="mt-6 px-4 sm:px-8">
         <div className="mx-auto max-w-2xl space-y-6">
           <div className="rounded-[6px] border border-accent/40 bg-deep/50 p-6 backdrop-blur-sm sm:p-10">
-            <h2 className="font-display text-lg text-shell">Why It Works</h2>
-            <p className="mx-auto mt-4 max-w-xl text-[0.9rem] leading-relaxed text-shell/80">
-              There's a reason so many people use vision boards, including
-              millionaires and CEOs. Your brain's Reticular Activating System
-              (RAS) helps focus your attention on your goals and notice
-              opportunities that might otherwise pass you by.
-            </p>
-          </div>
-
-          <div className="rounded-[6px] border border-accent/40 bg-deep/50 p-6 backdrop-blur-sm sm:p-10">
             <h2 className="font-display text-lg text-shell">
               Vision Boards, Made Active
             </h2>
@@ -81,6 +71,16 @@ function VisionBoardPage() {
               piece by piece, the satisfaction of solving the puzzle connects a
               positive feeling to the image, bringing thought and emotion
               together with intention.
+            </p>
+          </div>
+
+          <div className="rounded-[6px] border border-accent/40 bg-deep/50 p-6 backdrop-blur-sm sm:p-10">
+            <h2 className="font-display text-lg text-shell">Why It Works</h2>
+            <p className="mx-auto mt-4 max-w-xl text-[0.9rem] leading-relaxed text-shell/80">
+              There's a reason so many people use vision boards, including
+              millionaires and CEOs. Your brain's Reticular Activating System
+              (RAS) helps focus your attention on your goals and notice
+              opportunities that might otherwise pass you by.
             </p>
           </div>
 
