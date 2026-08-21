@@ -1229,7 +1229,34 @@ export function PuzzleBoard({
               transform: `translate(${offX}px, ${offY}px) scale(${scale})`,
             }}
           >
-
+          {/* ghost of the slots the held tile/clump will lock into on release */}
+          {drag &&
+            previewCells.map((cell) => {
+              const row = Math.floor(cell / grid);
+              const col = cell % grid;
+              const left = Math.round((col * WORLD_W) / grid);
+              const top = Math.round((row * worldH) / grid);
+              const width = Math.round(((col + 1) * WORLD_W) / grid) - left;
+              const height = Math.round(((row + 1) * worldH) / grid) - top;
+              return (
+                <div
+                  key={`ghost-${cell}`}
+                  aria-hidden
+                  className="pointer-events-none absolute z-[5]"
+                  style={{
+                    left,
+                    top,
+                    width,
+                    height,
+                    boxSizing: "border-box",
+                    border: `${edge.width * 2}px solid color-mix(in oklch, var(--accent) 70%, white)`,
+                    borderRadius: edge.radius,
+                    background:
+                      "color-mix(in oklch, var(--accent) 22%, transparent)",
+                  }}
+                />
+              );
+            })}
 
 
           {pos.map((cell, piece) => {
