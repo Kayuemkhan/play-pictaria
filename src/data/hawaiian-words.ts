@@ -1,3 +1,5 @@
+import { collections } from "./collections";
+
 /** Little dictionary of the Hawaiian words that appear across Pictaria. */
 export type HawaiianWord = { word: string; meaning: string };
 
@@ -74,3 +76,34 @@ export const hawaiianWords: HawaiianWord[] = [
   { word: "waʻa", meaning: "Canoe — the voyaging vessel that carried Polynesians across the Pacific." },
   { word: "wiliwili", meaning: "A native dryland tree with light wood once used for surfboards and fishing floats." },
 ];
+
+/** Strip Hawaiian diacritics so "ʻōhiʻa" and "ohia" match the same puzzle. */
+function normalize(text: string) {
+  return text
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[ʻ'’`]/g, "");
+}
+
+/**
+ * Find the puzzle that best carries a Hawaiian word — first a title match,
+ * then its meaning, then the story or caption text.
+ */
+export function findPuzzleForWord(word: string) {
+  const needle = normalize(word);
+  let fallback: { puzzleId: string; puzzleTitle: string } | undefined;
+
+  for (const collection of collections) {
+    if (collection.hidden) continue;
+    for (const puzzle of collection.puzzles) {
+      const hit = { puzzleId: puzzle.id, puzzleTitle: puzzle.title };
+      if (normalize(puzzle.title).includes(needle)) return hit;
+      const rest = normalize(
+        [puzzle.meaning ?? "", puzzle.caption ?? "", ...(puzzle.story ?? [])].join(" "),
+      );
+      if (!fallback && new RegExp(`\\b${needle}\\b`).test(rest)) fallback = hit;
+    }
+  }
+  return fallback;
+}
