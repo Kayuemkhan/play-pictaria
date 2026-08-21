@@ -88,14 +88,12 @@ function MyPictaria() {
   }, [tier, starter, storeKey]);
 
   const addGallery = () => {
+    const fresh: Gallery = { id: `${tier}-${Date.now()}`, name: "", pictures: [] };
     setGalleries((prev) => {
       if (prev.length >= maxGalleries) return prev;
-      const next = [
-        ...prev,
-        { id: `${tier}-${Date.now()}`, name: "", pictures: [] as Picture[] },
-      ];
+      const next = [...prev, fresh];
       saveNames(next);
-      setRenaming(next[next.length - 1].id);
+      setRenaming(fresh.id);
       return next;
     });
   };
