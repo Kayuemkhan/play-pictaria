@@ -1240,6 +1240,7 @@ export function PuzzleBoard({
             const group = groupOf[piece]!;
             const isDragged = drag?.group === group;
             const isFloating = floating.includes(piece);
+            const isSettling = settling.includes(piece);
 
             const joinedAt = (checkRow: number, checkCol: number) => {
               if (
