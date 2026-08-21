@@ -202,10 +202,7 @@ function MyPictaria() {
                   />
 
                   <div className="rounded-2xl bg-accent/8 p-3">
-                    <p className="text-center text-[0.6rem] tracking-[0.18em] text-foreground/50 uppercase">
-                      Who can see this picture
-                    </p>
-                    <div className="mt-2 grid grid-cols-2 gap-2">
+                    <div className="grid grid-cols-2 gap-2">
                       <button
                         type="button"
                         onClick={() =>
@@ -216,10 +213,10 @@ function MyPictaria() {
                             ),
                           }))
                         }
-                        className={`flex items-center justify-center gap-1.5 rounded-full border bg-transparent px-3 py-2 text-[0.68rem] tracking-[0.1em] uppercase transition ${
+                        className={`flex h-10 items-center justify-center gap-1.5 rounded-full border bg-transparent px-3 text-[0.68rem] tracking-[0.1em] uppercase transition ${
                           p.share === "private"
-                            ? "border-accent/70 text-accent"
-                            : "border-foreground/15 text-foreground/60"
+                            ? "border-teal-600 text-teal-700"
+                            : "border-teal-600/40 text-teal-700/70"
                         }`}
                       >
                         <Lock className="h-3.5 w-3.5" strokeWidth={1.5} /> Keep private
@@ -234,26 +231,22 @@ function MyPictaria() {
                             ),
                           }))
                         }
-                        className={`flex items-center justify-center gap-1.5 rounded-full border bg-transparent px-3 py-2 text-[0.68rem] tracking-[0.1em] uppercase transition ${
+                        className={`flex h-10 items-center justify-center gap-1.5 rounded-full border bg-transparent px-3 text-[0.68rem] tracking-[0.1em] uppercase transition ${
                           p.share === "submitted"
-                            ? "border-accent/70 text-accent"
-                            : "border-foreground/15 text-foreground/60"
+                            ? "border-teal-600 text-teal-700"
+                            : "border-teal-600/40 text-teal-700/70"
                         }`}
                       >
                         <Send className="h-3.5 w-3.5" strokeWidth={1.5} /> Make public
                       </button>
                     </div>
-                    {p.share === "submitted" ? (
+                    {p.share === "submitted" && (
                       <Link
                         to="/my-pictaria/submitted"
-                        className="mt-2 block text-center text-[0.68rem] leading-relaxed text-accent underline underline-offset-2"
+                        className="mt-2 block text-center text-[0.68rem] leading-relaxed text-teal-700 underline underline-offset-2"
                       >
                         Your picture has been submitted for approval to be viewed by other Pictarians in Pictaria
                       </Link>
-                    ) : (
-                      <p className="mt-2 text-center text-[0.68rem] leading-relaxed text-foreground/55">
-                        Private to you and anyone you send the puzzle to.
-                      </p>
                     )}
 
                     <div className="mt-3 border-t border-foreground/10 pt-3">
