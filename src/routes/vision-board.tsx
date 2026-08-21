@@ -82,6 +82,13 @@ function VisionBoardPage() {
               (RAS) helps focus your attention on your goals and notice
               opportunities that might otherwise pass you by.
             </p>
+            <p className="mx-auto mt-4 max-w-xl text-[0.9rem] leading-relaxed text-shell/80">
+              Pictaria adds another layer: the physical act of moving tiles to
+              solve a puzzle triggers effortful processing, bringing action into
+              the passive. That satisfying dopamine hit when the final piece
+              snaps into place helps hardwire the vision into your memory,
+              making it much stronger than simply looking at a picture.
+            </p>
           </div>
 
           <div className="rounded-[6px] border border-accent/40 bg-deep/50 p-6 backdrop-blur-sm sm:p-10">
