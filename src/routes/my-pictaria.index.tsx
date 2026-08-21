@@ -43,14 +43,29 @@ const ARTIST_STARTER: Gallery[] = [
   { id: "a8", name: "Live Music on the Lawn", pictures: [] },
 ];
 
+const BRAND_STARTER: Gallery[] = [
+  { id: "b1", name: "Welcome to the Resort", pictures: [] },
+  { id: "b2", name: "Today's Special", pictures: [] },
+  { id: "b3", name: "Behind the Bar", pictures: [] },
+  { id: "b4", name: "Our Team", pictures: [] },
+  { id: "b5", name: "Sunset at the Property", pictures: [] },
+  { id: "b6", name: "Guest Favorites", pictures: [] },
+  { id: "b7", name: "New This Season", pictures: [] },
+  { id: "b8", name: "Thank You Notes", pictures: [] },
+];
+
 const STORE_KEY_PREFIX = "pictaria.my-world.preview";
 const MAX_PER_GALLERY = 5;
 
 function MyPictaria() {
   const search = useSearch({ from: "/my-pictaria/" }) as { tier?: string };
-  const tier = search.tier === "artist" ? "artist" : "personal";
-  const starter = tier === "artist" ? ARTIST_STARTER : PERSONAL_STARTER;
-  const studioLink = tier === "artist" ? "/studio/artist" : "/studio/personal";
+  const tier =
+    search.tier === "artist" ? "artist" : search.tier === "brand" ? "brand" : "personal";
+  const starter =
+    tier === "artist" ? ARTIST_STARTER : tier === "brand" ? BRAND_STARTER : PERSONAL_STARTER;
+  const studioLink =
+    tier === "artist" ? "/studio/artist" : tier === "brand" ? "/studio/brand" : "/studio/personal";
+  const maxGalleries = tier === "personal" ? 5 : tier === "artist" ? 20 : Infinity;
   const storeKey = `${STORE_KEY_PREFIX}.${tier}`;
 
   const [galleries, setGalleries] = useState<Gallery[]>(starter);
@@ -71,6 +86,19 @@ function MyPictaria() {
       /* ignore */
     }
   }, [tier, starter, storeKey]);
+
+  const addGallery = () => {
+    setGalleries((prev) => {
+      if (prev.length >= maxGalleries) return prev;
+      const next = [
+        ...prev,
+        { id: `${tier}-${Date.now()}`, name: "", pictures: [] as Picture[] },
+      ];
+      saveNames(next);
+      setRenaming(next[next.length - 1].id);
+      return next;
+    });
+  };
 
   const saveNames = (next: Gallery[]) => {
     try {
