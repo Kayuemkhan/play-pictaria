@@ -17,14 +17,6 @@ type Picture = {
   emails?: string;
 };
 
-function countEmails(value?: string) {
-  return (value ?? "")
-    .split(/[,\s;]+/)
-    .map((s) => s.trim())
-    .filter((s) => s.includes("@")).length;
-}
-
-
 type Gallery = {
   id: string;
   name: string;
