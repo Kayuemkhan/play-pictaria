@@ -20,6 +20,7 @@ import { Route as EasterEggRouteImport } from './routes/easter-egg'
 import { Route as LaunchRouteImport } from './routes/launch'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as MindfulnessRouteImport } from './routes/mindfulness'
+import { Route as MyPictariaRouteImport } from './routes/my-pictaria'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as ShareRouteImport } from './routes/share'
 import { Route as VisionBoardRouteImport } from './routes/vision-board'
@@ -96,6 +97,11 @@ const McpRoute = McpRouteImport.update({
 const MindfulnessRoute = MindfulnessRouteImport.update({
   id: '/mindfulness',
   path: '/mindfulness',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MyPictariaRoute = MyPictariaRouteImport.update({
+  id: '/my-pictaria',
+  path: '/my-pictaria',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PricingRoute = PricingRouteImport.update({
@@ -224,6 +230,7 @@ export interface FileRoutesByFullPath {
   '/launch': typeof LaunchRoute
   '/mcp': typeof McpRoute
   '/mindfulness': typeof MindfulnessRoute
+  '/my-pictaria': typeof MyPictariaRoute
   '/pricing': typeof PricingRoute
   '/share': typeof ShareRoute
   '/vision-board': typeof VisionBoardRoute
@@ -259,6 +266,7 @@ export interface FileRoutesByTo {
   '/launch': typeof LaunchRoute
   '/mcp': typeof McpRoute
   '/mindfulness': typeof MindfulnessRoute
+  '/my-pictaria': typeof MyPictariaRoute
   '/pricing': typeof PricingRoute
   '/share': typeof ShareRoute
   '/vision-board': typeof VisionBoardRoute
@@ -295,6 +303,7 @@ export interface FileRoutesById {
   '/launch': typeof LaunchRoute
   '/mcp': typeof McpRoute
   '/mindfulness': typeof MindfulnessRoute
+  '/my-pictaria': typeof MyPictariaRoute
   '/pricing': typeof PricingRoute
   '/share': typeof ShareRoute
   '/vision-board': typeof VisionBoardRoute
@@ -332,6 +341,7 @@ export interface FileRouteTypes {
     | '/launch'
     | '/mcp'
     | '/mindfulness'
+    | '/my-pictaria'
     | '/pricing'
     | '/share'
     | '/vision-board'
@@ -367,6 +377,7 @@ export interface FileRouteTypes {
     | '/launch'
     | '/mcp'
     | '/mindfulness'
+    | '/my-pictaria'
     | '/pricing'
     | '/share'
     | '/vision-board'
@@ -402,6 +413,7 @@ export interface FileRouteTypes {
     | '/launch'
     | '/mcp'
     | '/mindfulness'
+    | '/my-pictaria'
     | '/pricing'
     | '/share'
     | '/vision-board'
@@ -438,6 +450,7 @@ export interface RootRouteChildren {
   LaunchRoute: typeof LaunchRoute
   McpRoute: typeof McpRoute
   MindfulnessRoute: typeof MindfulnessRoute
+  MyPictariaRoute: typeof MyPictariaRoute
   PricingRoute: typeof PricingRoute
   ShareRoute: typeof ShareRoute
   VisionBoardRoute: typeof VisionBoardRoute
@@ -539,6 +552,13 @@ declare module '@tanstack/react-router' {
       path: '/mindfulness'
       fullPath: '/mindfulness'
       preLoaderRoute: typeof MindfulnessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/my-pictaria': {
+      id: '/my-pictaria'
+      path: '/my-pictaria'
+      fullPath: '/my-pictaria'
+      preLoaderRoute: typeof MyPictariaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/pricing': {
@@ -710,6 +730,7 @@ const rootRouteChildren: RootRouteChildren = {
   LaunchRoute: LaunchRoute,
   McpRoute: McpRoute,
   MindfulnessRoute: MindfulnessRoute,
+  MyPictariaRoute: MyPictariaRoute,
   PricingRoute: PricingRoute,
   ShareRoute: ShareRoute,
   VisionBoardRoute: VisionBoardRoute,
