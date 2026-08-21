@@ -143,6 +143,8 @@ export function PuzzleBoard({
   /** groupOf[piece] = group id */
   const [groupOf, setGroupOf] = useState<number[]>([]);
   const [floating, setFloating] = useState<number[]>([]);
+  /** tiles that just accepted a slot — they give a brief settle */
+  const [settling, setSettling] = useState<number[]>([]);
   const [moves, setMoves] = useState(0);
   const [seconds, setSeconds] = useState(0);
   const [solved, setSolved] = useState(false);
