@@ -438,53 +438,38 @@ function PricingPage() {
         {/* business */}
         <section className="mt-10">
           <h2 className="font-display text-lg font-semibold tracking-[0.18em] uppercase">
-            Brand Studio
+            Brand — $195 / month
           </h2>
           <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-            What if your customers looked forward to hearing from you every day?
-            With Brand Studio, every message becomes a moment your customers can
-            enjoy. Transform your own photos into interactive Pictarias that invite
-            them to slow down, solve, discover, and smile. It's a refreshing new
-            way to build meaningful connections, strengthen your brand, and
-            create the kind of engagement people genuinely anticipate.
+            What if your customers looked forward to hearing from you every day? With Brand Studio, every message becomes a moment your customers can enjoy. Transform your own photos into interactive Pictarias that invite them to slow down, solve, discover, and smile. It's a refreshing new way to build meaningful connections, strengthen your brand, and create the kind of engagement people genuinely anticipate.
           </p>
-
-          <div className="mt-4 flex items-baseline gap-2">
-            <span className="font-display text-3xl tracking-[0.08em] text-foreground">
-              $195
-            </span>
-            <span className="text-[0.7rem] tracking-[0.18em] text-muted-foreground uppercase">
-              / month
-            </span>
-          </div>
-          <div className="mt-4 grid gap-3 sm:grid-cols-2">
-            {business.map((f) => (
-              <div
-                key={f.title}
-                className="flex gap-3 rounded-none border border-accent/50 bg-card/70 p-4"
-              >
-                <f.icon
-                  className="mt-0.5 h-5 w-5 shrink-0 text-primary"
-                  strokeWidth={1.5}
-                />
-                <div className="min-w-0">
-                  <p className="font-display text-sm tracking-[0.14em] uppercase">
-                    {f.title}
-                  </p>
-                  <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-                    {f.copy}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
+          <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
+            You will send them a Pictaria every day, every week, or every month — and they decide which. Because it's their choice, it tells you exactly how much enthusiasm there is for your brand: a customer who asks for one every day is telling you something a survey never could.
+          </p>
+          <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
+            Base plan — $195 per month: Your branded Daily, Weekly, or Monthly Pictaria, logo placement, full analytics, action buttons for booking, payments, and calendar, QR codes, and the full Artist photo studio. Your first 1,000 delivered Pictarias are included.
+          </p>
+          <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
+            Delivery — per 1,000 Pictarias delivered (after your first 1,000, with the rate easing as you reach more people; volume resets each month):
+          </p>
+          <ul className="mt-2 space-y-1 pl-4 text-xs leading-relaxed text-muted-foreground">
+            <li>1,001 – 10,000 …… $100 per 1,000</li>
+            <li>10,001 – 50,000 …… $80 per 1,000</li>
+            <li>50,001 and beyond …… $60 per 1,000</li>
+          </ul>
+          <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
+            All-You-Can-Send — $995 per month: For the months you would rather not watch the meter, unlimited delivered Pictarias for a flat rate.
+          </p>
+          <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
+            Full analytics, included at no additional cost — opens, plays, completions, clicks, bookings, appointments, and purchases, so you always know exactly how your customers are engaging with your brand.
+          </p>
           <div className="mt-4 flex flex-wrap items-center gap-3">
             <Link
               to="/my-pictaria"
               search={{ tier: "brand" }}
               className="inline-flex items-center gap-1.5 rounded-full border border-teal-600/40 px-4 py-2 text-[0.6rem] tracking-[0.2em] text-teal-700 uppercase transition hover:border-teal-600"
             >
-              Start my gallery
+              Start your Brand Studio
               <span aria-hidden>›</span>
             </Link>
           </div>
