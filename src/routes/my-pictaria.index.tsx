@@ -75,7 +75,7 @@ function MyPictaria() {
   const saveNames = (next: Gallery[]) => {
     try {
       localStorage.setItem(
-        STORE_KEY,
+        storeKey,
         JSON.stringify(next.map(({ id, name }) => ({ id, name }))),
       );
     } catch {
