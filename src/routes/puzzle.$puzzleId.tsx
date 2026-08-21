@@ -177,6 +177,7 @@ function PuzzlePage() {
       grid={grid}
       info={info}
       collectionName={collection.title}
+      collectionId={collection.id}
       onNext={() => surpriseMe(grid)}
       {...(collection.puzzles.length > 1
         ? {
