@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useSearch } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { ChevronLeft, Folder, Lock, Pencil, Send } from "lucide-react";
 import { PhotoPick, PhotoPlaceholder } from "@/components/PhotoField";
@@ -24,7 +24,7 @@ type Gallery = {
   pictures: Picture[];
 };
 
-const STARTER: Gallery[] = [
+const PERSONAL_STARTER: Gallery[] = [
   { id: "g1", name: "Our Wedding", pictures: [] },
   { id: "g2", name: "Baby's First Year", pictures: [] },
   { id: "g3", name: "Sunset Hike", pictures: [] },
@@ -32,18 +32,36 @@ const STARTER: Gallery[] = [
   { id: "g5", name: "Water Park", pictures: [] },
 ];
 
-const STORE_KEY = "pictaria.my-world.preview";
+const ARTIST_STARTER: Gallery[] = [
+  { id: "a1", name: "Food Truck Date Night", pictures: [] },
+  { id: "a2", name: "Famous Restaurant", pictures: [] },
+  { id: "a3", name: "Girls' Night", pictures: [] },
+  { id: "a4", name: "Baby's Birthday", pictures: [] },
+  { id: "a5", name: "Reggae Night", pictures: [] },
+  { id: "a6", name: "Brewery Tour", pictures: [] },
+  { id: "a7", name: "Sunset Picnic", pictures: [] },
+  { id: "a8", name: "Live Music on the Lawn", pictures: [] },
+];
+
+const STORE_KEY_PREFIX = "pictaria.my-world.preview";
 const MAX_PER_GALLERY = 5;
 
 function MyPictaria() {
-  const [galleries, setGalleries] = useState<Gallery[]>(STARTER);
+  const search = useSearch({ from: "/my-pictaria/" }) as { tier?: string };
+  const tier = search.tier === "artist" ? "artist" : "personal";
+  const starter = tier === "artist" ? ARTIST_STARTER : PERSONAL_STARTER;
+  const studioLink = tier === "artist" ? "/studio/artist" : "/studio/personal";
+  const storeKey = `${STORE_KEY_PREFIX}.${tier}`;
+
+  const [galleries, setGalleries] = useState<Gallery[]>(starter);
   const [openId, setOpenId] = useState<string | null>(null);
   const [renaming, setRenaming] = useState<string | null>(null);
 
   /* names persist locally so the preview feels like your own space */
   useEffect(() => {
+    setGalleries(starter);
     try {
-      const raw = localStorage.getItem(STORE_KEY);
+      const raw = localStorage.getItem(storeKey);
       if (!raw) return;
       const saved = JSON.parse(raw) as { id: string; name: string }[];
       setGalleries((prev) =>
@@ -52,12 +70,12 @@ function MyPictaria() {
     } catch {
       /* ignore */
     }
-  }, []);
+  }, [tier, starter, storeKey]);
 
   const saveNames = (next: Gallery[]) => {
     try {
       localStorage.setItem(
-        STORE_KEY,
+        storeKey,
         JSON.stringify(next.map(({ id, name }) => ({ id, name }))),
       );
     } catch {
@@ -313,24 +331,18 @@ function MyPictaria() {
 
       <div className="mt-10 rounded-3xl border border-accent/25 bg-white/60 p-5 text-center backdrop-blur">
         <p className="text-sm leading-relaxed text-foreground/70">
-          This is a preview of the Personal Studio world. Everything you see here comes
-          with the $5.95 tier — five named galleries, your own pictures, and the choice
-          to keep each one private or offer it to the community.
+          {tier === "artist"
+            ? "This is a preview of the Artist Studio world. Everything you see here comes with the $9.95 tier — unlimited galleries, full photo editing, and the choice to keep each picture private or share it with the community."
+            : "This is a preview of the Personal Studio world. Everything you see here comes with the $5.95 tier — five named galleries, your own pictures, and the choice to keep each one private or offer it to the community."}
         </p>
         <div className="mt-4 flex flex-col items-center gap-2">
           <Link
-            to="/pricing"
-            className="rounded-full border border-accent/50 px-6 py-2 text-xs tracking-[0.16em] text-accent uppercase"
+            to={studioLink}
+            className="inline-flex items-center gap-1.5 rounded-full border border-teal-600/40 bg-transparent px-6 py-2 text-xs tracking-[0.16em] text-teal-700 uppercase transition hover:border-teal-600"
           >
-            See pricing
+            Start my gallery
+            <span aria-hidden>›</span>
           </Link>
-          <Link
-            to="/studio/personal"
-            className="flex items-center gap-1.5 text-xs tracking-[0.16em] text-foreground/55 uppercase"
-          >
-            Start a gallery
-          </Link>
-
         </div>
       </div>
     </>

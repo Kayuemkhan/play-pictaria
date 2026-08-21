@@ -1,4 +1,4 @@
-import { createFileRoute, Outlet } from "@tanstack/react-router";
+import { createFileRoute, Outlet, useSearch } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/my-pictaria")({
   head: () => ({
@@ -23,18 +23,21 @@ export const Route = createFileRoute("/my-pictaria")({
 });
 
 function MyPictariaLayout() {
+  const search = useSearch({ from: "/my-pictaria" }) as { tier?: string };
+  const tier = search.tier === "artist" ? "artist" : "personal";
+
   return (
     <main className="mx-auto w-full max-w-2xl px-5 pb-24 pt-6">
       <p className="text-center text-[0.6rem] tracking-[0.28em] text-foreground/45 uppercase">
-        Personal Studio · Preview
+        {tier === "artist" ? "Artist Studio · Preview" : "Personal Studio · Preview"}
       </p>
       <h1 className="mt-2 text-center font-display text-4xl leading-tight text-foreground">
         Your Private Pictaria
       </h1>
       <p className="mx-auto mt-3 max-w-md text-center text-sm leading-relaxed text-foreground/65">
-        Five galleries, yours to name. Fill each one with the “Hero Shots” — the
-        very best of those magical moments you don't want to lose in the
-        thousands of photos in your phone or your memory.
+        {tier === "artist"
+          ? "Unlimited galleries, yours to name. Fill each one with the “Hero Shots” — the very best of those magical moments you don't want to lose in the thousands of photos in your phone or your memory."
+          : "Five galleries, yours to name. Fill each one with the “Hero Shots” — the very best of those magical moments you don't want to lose in the thousands of photos in your phone or your memory."}
       </p>
 
 

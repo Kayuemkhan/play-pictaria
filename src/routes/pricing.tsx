@@ -426,10 +426,11 @@ function PricingPage() {
             ))}
           </div>
           <Link
-            to="/studio/artist"
-            className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-[0.6rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
+            to="/my-pictaria"
+            search={{ tier: "artist" }}
+            className="mt-4 inline-flex items-center gap-1.5 rounded-full border border-teal-600/40 px-4 py-2 text-[0.6rem] tracking-[0.2em] text-teal-700 uppercase transition hover:border-teal-600"
           >
-            Go artistic
+            Start my gallery
             <span aria-hidden>›</span>
           </Link>
         </section>
