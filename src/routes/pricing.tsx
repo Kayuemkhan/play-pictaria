@@ -6,6 +6,7 @@ import {
   Contrast,
   Crop,
   Droplets,
+  Flower2,
   Heart,
   Images,
   Minus,
