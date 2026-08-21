@@ -441,7 +441,10 @@ function PricingPage() {
             Brand — $195 / month
           </h2>
           <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-            What if your customers looked forward to hearing from you every day? With Brand Studio, every message becomes a moment your customers can enjoy. Transform your own photos into interactive Pictarias that invite them to slow down, solve, discover, and smile. It's a refreshing new way to build meaningful connections, strengthen your brand, and create the kind of engagement people genuinely anticipate.
+            What if your customers looked forward to hearing from you every day? With Brand Studio, every message becomes a moment your customers can enjoy. Transform your own photos, the ones you have meaningfully invested into over the years with models photographers and editors, into interactive Pictarias that invite them to slow down, solve, discover, and smile.
+          </p>
+          <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
+            It's a refreshing new way to build meaningful connections, strengthen your brand, get more value to your existing catalog, and create the kind of engagement people genuinely anticipate.
           </p>
           <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
             You will send them a Pictaria every day, every week, or every month — and they decide which. Because it's their choice, it tells you exactly how much enthusiasm there is for your brand: a customer who asks for one every day is telling you something a survey never could.
