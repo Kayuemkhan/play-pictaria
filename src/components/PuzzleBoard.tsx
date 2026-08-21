@@ -1294,14 +1294,15 @@ export function PuzzleBoard({
                   cursor: "grab",
                   transition: isDragged
                     ? "none"
-                    : isFloating
-                      ? "transform 620ms var(--ease-organic)"
-                      : "transform 620ms var(--ease-organic)",
+                    : "transform 200ms var(--ease-organic)",
                 }}
               >
                 <span
                   aria-hidden
-                  className="pointer-events-none absolute"
+                  className={cn(
+                    "pointer-events-none absolute",
+                    isSettling && "animate-tile-settle",
+                  )}
                   style={{
                     boxSizing: "border-box",
                     top: joinedTop ? 0 : edge.inset,
