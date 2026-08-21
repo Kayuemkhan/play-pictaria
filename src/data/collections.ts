@@ -286,6 +286,7 @@ import visionKitchen from "@/assets/vision-kitchen.jpg";
 import visionSurfer from "@/assets/vision-surfer.jpg";
 import visionPool from "@/assets/vision-pool.jpg";
 import visionGallery from "@/assets/vision-gallery.jpg";
+import visionAmyCooking from "@/assets/vision-amy-cooking.jpg";
 
 
 import { natureStories } from "./stories-nature";
@@ -1252,6 +1253,16 @@ export const collections: Collection[] = [
         image: visionGallery,
         story: [
           "I would love for everyone who has a special experience with a sea turtle while they are on Maui to know about my gallery, to experience my art, and if they connect with it, to bring it home as a wonderful reminder of that magical day.",
+        ],
+      },
+      {
+        id: "vision-14",
+        title: "Learning to Cook",
+        caption: "Good food, good company, and a brand new recipe",
+        image: visionAmyCooking,
+        story: [
+          "I see so many cool recipes on TikTok and I really want to learn how to cook them.",
+          "I am becoming a joyful, confident cook.",
         ],
       },
 
