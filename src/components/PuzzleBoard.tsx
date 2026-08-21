@@ -795,11 +795,11 @@ export function PuzzleBoard({
        * neighbour (or land home) it is pulled there. The settle radius stays
        * tight so a tile never slides off to a far cell or hugs the board edge.
        */
-      const magnetPx = touchPointer ? 52 : 34;
-      const settlePx = touchPointer ? 24 : 14;
+      const magnetPx = touchPointer ? 84 : 58;
+      const settlePx = touchPointer ? 36 : 22;
       const tol = (px: number) => ({
-        x: Math.min(0.72, px / (cellW * scale)),
-        y: Math.min(0.72, px / (cellH * scale)),
+        x: Math.min(0.95, px / (cellW * scale)),
+        y: Math.min(0.95, px / (cellH * scale)),
       });
       const magnet = tol(magnetPx);
       const settle = tol(settlePx);
