@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useSearch } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { ChevronLeft, Folder, Lock, Pencil, Send } from "lucide-react";
 import { PhotoPick, PhotoPlaceholder } from "@/components/PhotoField";
@@ -24,12 +24,23 @@ type Gallery = {
   pictures: Picture[];
 };
 
-const STARTER: Gallery[] = [
+const PERSONAL_STARTER: Gallery[] = [
   { id: "g1", name: "Our Wedding", pictures: [] },
   { id: "g2", name: "Baby's First Year", pictures: [] },
   { id: "g3", name: "Sunset Hike", pictures: [] },
   { id: "g4", name: "The Puppy", pictures: [] },
   { id: "g5", name: "Water Park", pictures: [] },
+];
+
+const ARTIST_STARTER: Gallery[] = [
+  { id: "a1", name: "Food Truck Date Night", pictures: [] },
+  { id: "a2", name: "Famous Restaurant", pictures: [] },
+  { id: "a3", name: "Girls' Night", pictures: [] },
+  { id: "a4", name: "Baby's Birthday", pictures: [] },
+  { id: "a5", name: "Reggae Night", pictures: [] },
+  { id: "a6", name: "Brewery Tour", pictures: [] },
+  { id: "a7", name: "Sunset Picnic", pictures: [] },
+  { id: "a8", name: "Live Music on the Lawn", pictures: [] },
 ];
 
 const STORE_KEY = "pictaria.my-world.preview";
