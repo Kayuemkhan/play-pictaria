@@ -57,6 +57,8 @@ export interface PuzzleBoardProps {
   unbranded?: boolean;
   /** Story about this picture, shown under the board. */
   info?: ReactNode;
+  /** The collection this puzzle came from, shown subtly under the board. */
+  collectionName?: string;
 }
 
 function formatTime(total: number) {
