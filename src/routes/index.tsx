@@ -1,6 +1,10 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
 import { visibleCollections } from "@/data/collections";
+import { getDailyPicks } from "@/lib/daily-pick.functions";
+import { isPortalPick, portalPickCode } from "@/lib/daily-display";
+import { supabase } from "@/integrations/supabase/client";
 import { HeroPuzzle } from "@/components/HeroPuzzle";
 
 import heroImage from "@/assets/hero-sunset.jpg";
