@@ -58,7 +58,7 @@ export function GlobalMenu() {
             onClick={() => setOpen(false)}
             aria-hidden
           />
-          <div className="absolute top-11 right-0 w-56 overflow-hidden rounded-[6px] border border-accent/40 bg-deep py-1 shadow-lift">
+          <div className="absolute top-14 right-3 w-56 overflow-hidden rounded-[6px] border border-accent/40 bg-deep py-1 shadow-lift">
             {menuLinks.map((item) => (
               <Link
                 key={item.label}
