@@ -31,19 +31,25 @@ export function GlobalMenu() {
   }, [open]);
 
   return (
-    <div className="fixed top-4 right-4 z-[70]">
+    <div className="fixed top-1 right-1 z-[100]">
       <button
         type="button"
         aria-label="Menu"
         aria-expanded={open}
-        onClick={() => setOpen((v) => !v)}
-        className="grid h-9 w-9 place-items-center text-accent/85 transition-[color,opacity,transform] duration-500 ease-[var(--ease-calm)] hover:text-accent active:scale-95"
+        onPointerDown={(e) => {
+          e.preventDefault();
+          setOpen((v) => !v);
+        }}
+        onClick={(e) => e.preventDefault()}
+        style={{ touchAction: "manipulation", WebkitTapHighlightColor: "transparent" }}
+        className="grid h-14 w-14 cursor-pointer place-items-center text-accent/90 transition-[color,opacity,transform] duration-500 ease-[var(--ease-calm)] hover:text-accent active:scale-95"
       >
         <Menu
-          className="h-5 w-5 drop-shadow-[0_1px_6px_oklch(0.15_0.04_230/0.5)]"
-          strokeWidth={1.25}
+          className="h-6 w-6 drop-shadow-[0_1px_6px_oklch(0.15_0.04_230/0.5)]"
+          strokeWidth={1.4}
         />
       </button>
+
 
       {open && (
         <>
@@ -52,7 +58,7 @@ export function GlobalMenu() {
             onClick={() => setOpen(false)}
             aria-hidden
           />
-          <div className="absolute top-11 right-0 w-56 overflow-hidden rounded-[6px] border border-accent/40 bg-deep py-1 shadow-lift">
+          <div className="absolute top-14 right-3 w-56 overflow-hidden rounded-[6px] border border-accent/40 bg-deep py-1 shadow-lift">
             {menuLinks.map((item) => (
               <Link
                 key={item.label}
