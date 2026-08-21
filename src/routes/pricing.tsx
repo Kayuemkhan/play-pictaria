@@ -82,9 +82,9 @@ const personal = [
     copy: "Ten pictures in each one — thirty pictures turned into play, every month.",
   },
   {
-    icon: Sparkles,
-    title: "Every difficulty, every picture",
-    copy: "Relaxing 3×3 through Challenging 6×6, so the same photo plays differently for a little one and for grandma.",
+    icon: Flower2,
+    title: "Your Gallery 🌺",
+    copy: "Five private galleries to organize your favorite stories. Name them anything — Water Park, Sunset Hike, Our Wedding, Baby's First Year, The Puppy — and fill each one with the five hero shots you love most. They become beautiful little collections you can find at a glance, turn into puzzles, and share with the people you love.",
   },
   {
     icon: Heart,
