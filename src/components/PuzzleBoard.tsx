@@ -764,13 +764,31 @@ export function PuzzleBoard({
     s.moved = true;
 
     /**
-     * The piece floats freely with the fingertip anywhere over the board. We
-     * deliberately do NOT preview grid snapping or validity while the finger is
-     * down — that makes the tile feel like it is deciding where to go. The
-     * landing decision is made only on release.
+     * The piece follows the fingertip exactly. Alongside it we show a quiet
+     * ghost of the slots it will lock into on release, so the player can trust
+     * the placement before letting go.
      */
     const bounded = clampDrag(s.group, dx, dy);
     setDrag({ group: s.group, ...bounded });
+
+    const key = `${Math.round(bounded.dx / 6)},${Math.round(bounded.dy / 6)}`;
+    if (key === previewKey.current) return;
+    previewKey.current = key;
+    const plan = snapMove(bounded.dx, bounded.dy, s.group, s.pointerType);
+    if (!plan) {
+      setPreviewCells([]);
+      return;
+    }
+    const cells: number[] = [];
+    for (let piece = 0; piece < pos.length; piece++) {
+      if (groupOf[piece] !== s.group) continue;
+      const cell = pos[piece]!;
+      const row = Math.floor(cell / grid) + plan.dRow;
+      const col = (cell % grid) + plan.dCol;
+      if (row < 0 || row >= grid || col < 0 || col >= grid) continue;
+      cells.push(row * grid + col);
+    }
+    setPreviewCells(cells);
   };
 
 
