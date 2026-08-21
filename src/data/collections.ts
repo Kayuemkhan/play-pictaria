@@ -280,6 +280,7 @@ import visionHarvest from "@/assets/vision-harvest.jpg";
 import visionSnorkeler from "@/assets/vision-snorkeler.jpg";
 import visionMillion from "@/assets/vision-million.jpg";
 import visionAtriumPool from "@/assets/vision-atrium-pool.jpg";
+import visionAtriumPoolWood from "@/assets/vision-atrium-pool-wood.jpg";
 import visionCountyBlessing from "@/assets/vision-county-blessing.jpg";
 import visionKitchen from "@/assets/vision-kitchen.jpg";
 import visionSurfer from "@/assets/vision-surfer.jpg";
@@ -1142,6 +1143,15 @@ export const collections: Collection[] = [
         image: visionAtriumPool,
         story: [
           "I would love a small, beautiful pool right inside a sunlit atrium at home — glass overhead, flowers and ferns crowding the edges, and a little hot tub bubbling in the corner. Warm light, quiet water, and paradise a few steps from my own kitchen.",
+        ],
+      },
+      {
+        id: "vision-13",
+        title: "The Wood Atrium",
+        caption: "An older wooden atrium with vegetables, ferns, and a quiet bench",
+        image: visionAtriumPoolWood,
+        story: [
+          "I would love a small indoor atrium built from warm wood instead of stone — an older, soulful space with a narrow pool under a glass roof. Tomato vines and leafy greens grow along one wall, ferns spill from hanging planters, and a simple wooden bench with a cushion is just enough seating to sit and listen to the water.",
         ],
       },
       {
