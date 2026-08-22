@@ -1450,12 +1450,13 @@ export function PuzzleBoard({
                   )}
                   style={{
                     boxSizing: "border-box",
-                    // joined sides bleed slightly past the tile edge so no
-                    // anti-aliased whisper of the old line survives the snap
-                    top: joinedTop ? -edge.width : edge.inset,
-                    right: joinedRight ? -edge.width : edge.inset,
-                    bottom: joinedBottom ? -edge.width : edge.inset,
-                    left: joinedLeft ? -edge.width : edge.inset,
+                    // joined sides bleed all the way across the seam and into
+                    // the neighbour's inset, so the perpendicular lines of two
+                    // joined tiles meet and read as one continuous outline
+                    top: joinedTop ? -(edge.inset + edge.width) : edge.inset,
+                    right: joinedRight ? -(edge.inset + edge.width) : edge.inset,
+                    bottom: joinedBottom ? -(edge.inset + edge.width) : edge.inset,
+                    left: joinedLeft ? -(edge.inset + edge.width) : edge.inset,
                     borderTop: line(joinedTop),
                     borderRight: line(joinedRight),
                     borderBottom: line(joinedBottom),
