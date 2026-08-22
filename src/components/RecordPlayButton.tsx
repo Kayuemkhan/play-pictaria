@@ -2,11 +2,12 @@ import { useEffect, useRef, useState } from "react";
 import { Video, Download, Loader2 } from "lucide-react";
 
 /**
- * Records the auto-complete of this Pictaria as a shareable video clip.
+ * Records this Pictaria coming together as a shareable video clip.
  *
  * Nothing is captured from the screen — the tiles are re-drawn onto a canvas and
  * that canvas is recorded, so there is no browser permission dialog and the clip
- * is always clean, square-on and social-ready.
+ * is always clean, square-on and social-ready. The canvas is shown while it
+ * records, so the player watches the replay happen.
  */
 export interface RecordPlayButtonProps {
   /** The photograph being puzzled. */
@@ -78,9 +79,12 @@ export function RecordPlayButton({
   solved = false,
   getHistory,
 }: RecordPlayButtonProps) {
-  const [state, setState] = useState<"idle" | "working" | "ready">("idle");
+  const [state, setState] = useState<"idle" | "info" | "working" | "ready">(
+    "idle",
+  );
   const [note, setNote] = useState<string | null>(null);
   const [clip, setClip] = useState<string | null>(null);
+  const stageRef = useRef<HTMLDivElement | null>(null);
   const fileName = useRef("pictaria-solve.webm");
 
   useEffect(() => {
@@ -98,6 +102,35 @@ export function RecordPlayButton({
     },
     [clip],
   );
+
+  const saveClip = async (url: string, viaGesture: boolean) => {
+    try {
+      const blob = await (await fetch(url)).blob();
+      const file = new File([blob], fileName.current, { type: blob.type });
+      const nav = navigator as Navigator & {
+        canShare?: (d: { files: File[] }) => boolean;
+      };
+      if (viaGesture && nav.canShare?.({ files: [file] })) {
+        await navigator.share({
+          files: [file],
+          title: "My Pictaria",
+          text: solved
+            ? "Watch me solve this Pictaria 🌺"
+            : "Watch this Pictaria come together 🌺",
+        });
+        return;
+      }
+    } catch {
+      /* fall through to download */
+    }
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = fileName.current;
+    a.rel = "noopener";
+    document.body.appendChild(a);
+    a.click();
+    window.setTimeout(() => a.remove(), 0);
+  };
 
   const record = async () => {
     setNote(null);
@@ -118,6 +151,8 @@ export function RecordPlayButton({
       const canvas = document.createElement("canvas");
       canvas.width = OUT_W;
       canvas.height = OUT_H;
+      canvas.className = "h-full w-full object-contain";
+      stageRef.current?.appendChild(canvas);
       const ctx = canvas.getContext("2d")!;
       const stream = canvas.captureStream(30);
       const mime = ["video/mp4", "video/webm;codecs=vp9", "video/webm"].find(
@@ -263,39 +298,16 @@ export function RecordPlayButton({
       rec.stop();
       const blob = await done;
       stream.getTracks().forEach((t) => t.stop());
-      setClip(URL.createObjectURL(blob));
+      canvas.remove();
+      const url = URL.createObjectURL(blob);
+      setClip(url);
       setState("ready");
+      // download straight away so the clip lands in their photos/files
+      await saveClip(url, false);
     } catch {
       setNote("Sorry — that clip couldn’t be made. Please try again.");
       setState("idle");
     }
-  };
-
-  const share = async () => {
-    if (!clip) return;
-    try {
-      const blob = await (await fetch(clip)).blob();
-      const file = new File([blob], fileName.current, { type: blob.type });
-      const nav = navigator as Navigator & {
-        canShare?: (d: { files: File[] }) => boolean;
-      };
-      if (nav.canShare?.({ files: [file] })) {
-        await navigator.share({
-          files: [file],
-          title: "My Pictaria",
-          text: solved
-            ? "Watch me solve this Pictaria 🌺"
-            : "Watch this Pictaria come together 🌺",
-        });
-        return;
-      }
-    } catch {
-      /* fall through to download */
-    }
-    const a = document.createElement("a");
-    a.href = clip;
-    a.download = fileName.current;
-    a.click();
   };
 
   return (
@@ -307,7 +319,7 @@ export function RecordPlayButton({
       ) : state === "ready" ? (
         <button
           type="button"
-          onClick={share}
+          onClick={() => clip && void saveClip(clip, true)}
           aria-label="Save or share your video"
           title="Save or share your video"
           className="flex h-8 items-center px-0.5 text-primary"
@@ -317,18 +329,38 @@ export function RecordPlayButton({
       ) : (
         <button
           type="button"
-          onClick={() => void record()}
-          aria-label={solved ? "Watch me solve it — make a video" : "Record this auto complete"}
-          title={solved ? "Watch me solve it" : "Record this auto complete"}
+          onClick={() => setState(state === "info" ? "idle" : "info")}
+          aria-label="Make a video of your gameplay"
+          title="Make a video of your gameplay"
           className="flex h-8 items-center gap-1 px-0.5 text-muted-foreground/50 transition-colors hover:text-primary"
         >
           <Video size={16} />
-          {solved && (
-            <span className="text-[0.55rem] tracking-[0.14em] uppercase">
-              Watch me solve it
-            </span>
-          )}
         </button>
+      )}
+
+      {state === "info" && (
+        <div className="absolute top-9 right-0 z-50 w-60 rounded-[8px] border border-border bg-card px-3 py-2.5 text-left text-[0.62rem] leading-relaxed text-muted-foreground shadow-soft">
+          Pictaria remembers your gameplay. If you would like to post this on
+          social media and share your moves as the picture comes together, just
+          press this button after the game — you will watch it play back, and it
+          will download.
+          <div className="mt-2 flex items-center gap-3">
+            <button
+              type="button"
+              onClick={() => void record()}
+              className="text-[0.55rem] tracking-[0.16em] text-primary uppercase"
+            >
+              Make my video
+            </button>
+            <button
+              type="button"
+              onClick={() => setState("idle")}
+              className="text-[0.55rem] tracking-[0.16em] text-muted-foreground/70 uppercase"
+            >
+              Not now
+            </button>
+          </div>
+        </div>
       )}
 
       {note && (
@@ -343,6 +375,23 @@ export function RecordPlayButton({
           </button>
         </div>
       )}
+
+      {/* live view of the clip while it records */}
+      <div
+        className={
+          state === "working"
+            ? "fixed inset-0 z-[120] flex flex-col items-center justify-center gap-3 bg-black/85 px-6"
+            : "hidden"
+        }
+      >
+        <div
+          ref={stageRef}
+          className="aspect-[3/4] max-h-[74vh] w-full max-w-sm overflow-hidden rounded-[10px] bg-white"
+        />
+        <p className="text-[0.6rem] tracking-[0.18em] text-white/80 uppercase">
+          Making your video…
+        </p>
+      </div>
     </div>
   );
 }
