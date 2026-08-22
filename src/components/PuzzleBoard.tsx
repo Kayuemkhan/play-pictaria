@@ -1155,7 +1155,7 @@ export function PuzzleBoard({
     const s = scale || 1;
     return {
       inset: 3 / s,
-      width: 1.5 / s,
+      width: 1.1 / s,
       radius: 6 / s,
     };
   }, [scale]);
