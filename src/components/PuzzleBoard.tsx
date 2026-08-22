@@ -1309,7 +1309,13 @@ export function PuzzleBoard({
             </SelectContent>
           </Select>
 
-          <RecordPlayButton src={src} grid={grid} />
+          <RecordPlayButton
+            src={src}
+            grid={grid}
+            solved={solved}
+            getHistory={getHistory}
+          />
+
 
 
           <span className="hidden rounded-full bg-secondary px-2 py-1 text-secondary-foreground sm:inline sm:text-sm">
