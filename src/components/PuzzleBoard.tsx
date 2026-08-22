@@ -1290,6 +1290,9 @@ export function PuzzleBoard({
             </SelectContent>
           </Select>
 
+          <RecordPlayButton />
+
+
           <span className="hidden rounded-full bg-secondary px-2 py-1 text-secondary-foreground sm:inline sm:text-sm">
             {moves} moves
           </span>
