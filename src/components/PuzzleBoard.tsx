@@ -271,12 +271,29 @@ export function PuzzleBoard({
     setDrag(null);
   }, [aspect, total, round, mergePass]);
 
+  /* Pictaria remembers the solve: every committed board state, in order, so the
+     finished puzzle can be replayed back as a "watch me solve it" video. */
+  const historyRef = useRef<number[][]>([]);
+  useEffect(() => {
+    if (!pos.length) return;
+    const last = historyRef.current[historyRef.current.length - 1];
+    if (last && last.length === pos.length && last.every((c, i) => c === pos[i])) return;
+    if (!last || last.length !== pos.length) historyRef.current = [];
+    historyRef.current.push([...pos]);
+    if (historyRef.current.length > 400) historyRef.current.shift();
+  }, [pos]);
+  useEffect(() => {
+    historyRef.current = [];
+  }, [round, src]);
+  const getHistory = useCallback(() => historyRef.current.map((f) => [...f]), []);
+
   /* timer */
   useEffect(() => {
     if (solved || !pos.length) return;
     const t = window.setInterval(() => setSeconds((v) => v + 1), 1000);
     return () => window.clearInterval(t);
   }, [solved, pos.length]);
+
 
   /* celebration: the congratulations drifts in and back out, then the finished
      picture is left alone to be admired — with a quiet "Next →" beside it. Only
