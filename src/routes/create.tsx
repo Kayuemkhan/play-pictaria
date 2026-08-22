@@ -96,7 +96,7 @@ function CreatePage() {
               aria-hidden
               width={1024}
               height={768}
-              className="h-full w-full object-cover opacity-80"
+              className="h-full w-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-b from-transparent via-shell/25 to-shell" />
           </div>
