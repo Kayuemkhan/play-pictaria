@@ -83,7 +83,7 @@ export function RecordPlayButton({
   hasMoves = false,
   getHistory,
 }: RecordPlayButtonProps) {
-  const [state, setState] = useState<"idle" | "info" | "working" | "ready">(
+  const [state, setState] = useState<"idle" | "info" | "working" | "ready" | "playing">(
     "idle",
   );
   const [note, setNote] = useState<string | null>(null);
@@ -310,8 +310,8 @@ export function RecordPlayButton({
       canvas.remove();
       const url = URL.createObjectURL(blob);
       setClip(url);
-      setState("ready");
-      // download straight away so the clip lands in their photos/files
+      // replay it full screen for them, then save it
+      setState("playing");
       await saveClip(url, false);
     } catch {
       setNote("Sorry — that clip couldn’t be made. Please try again.");
@@ -328,9 +328,9 @@ export function RecordPlayButton({
       ) : state === "ready" ? (
         <button
           type="button"
-          onClick={() => clip && void saveClip(clip, true)}
-          aria-label="Save or share your video"
-          title="Save or share your video"
+          onClick={() => setState("playing")}
+          aria-label="Watch your gameplay again"
+          title="Watch your gameplay again"
           className="flex h-8 items-center px-0.5 text-primary"
         >
           <Download size={16} />
