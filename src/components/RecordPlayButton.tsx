@@ -79,6 +79,7 @@ export function RecordPlayButton({
   src,
   grid,
   solved = false,
+  hasMoves = false,
   getHistory,
 }: RecordPlayButtonProps) {
   const [state, setState] = useState<"idle" | "info" | "working" | "ready">(
