@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { createPortal } from "react-dom";
 import { Video, Download, Loader2 } from "lucide-react";
 
 /**
@@ -109,11 +108,8 @@ export function RecordPlayButton({
   >("idle");
   const [note, setNote] = useState<string | null>(null);
   const [clip, setClip] = useState<string | null>(null);
-  const [mounted, setMounted] = useState(false);
   const stageRef = useRef<HTMLDivElement | null>(null);
   const fileName = useRef("pictaria-solve.webm");
-
-  useEffect(() => setMounted(true), []);
 
   useEffect(() => {
     if (clip) {
@@ -479,59 +475,55 @@ export function RecordPlayButton({
         </div>
       )}
 
-      {/* Full-screen replay: rendered into the body so it fills the main screen
+      {/* Full-screen replay: fixed overlay so it fills the main screen
           rather than being trapped inside the puzzle toolbar. */}
-      {mounted &&
-        createPortal(
-          <div
-            className={
-              state === "working" || state === "playing"
-                ? "fixed inset-0 z-[200] flex flex-col items-center justify-center gap-4 bg-black/90 px-4 py-6"
-                : "pointer-events-none fixed -z-50 h-0 w-0 overflow-hidden opacity-0"
-            }
-          >
-            <div
-              ref={stageRef}
-              className={
-                state === "playing"
-                  ? "hidden"
-                  : "aspect-[3/5] max-h-[82vh] w-full max-w-md overflow-hidden rounded-[10px] bg-white"
-              }
-            />
-            {state === "playing" && clip && (
-              <video
-                src={clip}
-                autoPlay
-                loop
-                playsInline
-                controls
-                className="max-h-[80vh] w-full max-w-md rounded-[10px] bg-white object-contain"
-              />
-            )}
-            <p className="text-[0.6rem] tracking-[0.18em] text-white/80 uppercase">
-              {state === "playing" ? "Your gameplay" : "Making your video…"}
-            </p>
-            {state === "playing" && (
-              <div className="flex items-center gap-5">
-                <button
-                  type="button"
-                  onClick={() => clip && void saveClip(clip, true)}
-                  className="text-[0.58rem] tracking-[0.18em] text-white uppercase"
-                >
-                  Save / share
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setState("ready")}
-                  className="text-[0.58rem] tracking-[0.18em] text-white/60 uppercase"
-                >
-                  Close
-                </button>
-              </div>
-            )}
-          </div>,
-          document.body,
+      <div
+        className={
+          state === "working" || state === "playing"
+            ? "fixed inset-0 z-[200] flex flex-col items-center justify-center gap-4 bg-black/90 px-4 py-6"
+            : "pointer-events-none fixed -z-50 h-0 w-0 overflow-hidden opacity-0"
+        }
+      >
+        <div
+          ref={stageRef}
+          className={
+            state === "playing"
+              ? "hidden"
+              : "aspect-[3/5] max-h-[82vh] w-full max-w-md overflow-hidden rounded-[10px] bg-white"
+          }
+        />
+        {state === "playing" && clip && (
+          <video
+            src={clip}
+            autoPlay
+            loop
+            playsInline
+            controls
+            className="max-h-[80vh] w-full max-w-md rounded-[10px] bg-white object-contain"
+          />
         )}
+        <p className="text-[0.6rem] tracking-[0.18em] text-white/80 uppercase">
+          {state === "playing" ? "Your gameplay" : "Making your video…"}
+        </p>
+        {state === "playing" && (
+          <div className="flex items-center gap-5">
+            <button
+              type="button"
+              onClick={() => clip && void saveClip(clip, true)}
+              className="text-[0.58rem] tracking-[0.18em] text-white uppercase"
+            >
+              Save / share
+            </button>
+            <button
+              type="button"
+              onClick={() => setState("ready")}
+              className="text-[0.58rem] tracking-[0.18em] text-white/60 uppercase"
+            >
+              Close
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
