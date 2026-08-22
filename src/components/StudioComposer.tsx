@@ -375,7 +375,7 @@ export function StudioComposer({
             aria-hidden
             width={1024}
             height={768}
-            className="h-full w-full object-cover opacity-45"
+            className="h-full w-full object-cover opacity-75"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-shell/40 to-shell" />
         </div>
@@ -406,7 +406,7 @@ export function StudioComposer({
       <div className="mx-auto mt-6 grid w-full max-w-5xl gap-6 px-4 sm:px-8 lg:grid-cols-[minmax(0,360px)_minmax(0,1fr)]">
         {/* the lab: the picture, then the studio controls right beneath it */}
         <section>
-          <div className="relative overflow-hidden rounded-[26px] bg-deep shadow-lift">
+          <div className="relative overflow-hidden rounded-[10px] bg-deep shadow-lift">
             <div className={`relative w-full ${active ? "aspect-[3/4]" : "h-44 sm:h-52"}`}>
               {active ? (
                 <>
@@ -514,7 +514,7 @@ export function StudioComposer({
                       <button
                         type="button"
                         onClick={() => setActiveIndex(i)}
-                        className={`block w-full overflow-hidden rounded-xl transition-shadow ${
+                        className={`block w-full overflow-hidden rounded-[6px] transition-shadow ${
                           i === activeIndex
                             ? "ring-2 ring-accent"
                             : "shadow-soft hover:shadow-lift"
@@ -689,7 +689,7 @@ export function StudioComposer({
         </section>
 
         {/* controls */}
-        <section className="rounded-[26px] border border-border bg-card/70 p-5">
+        <section className="rounded-[10px] border border-border bg-card/70 p-5">
           <h2 className="font-display text-base tracking-[0.2em] uppercase">
             Compose
           </h2>
@@ -749,7 +749,7 @@ export function StudioComposer({
                     type="button"
                     onClick={() => setHeroIndex(i)}
                     aria-label={`Make picture ${i + 1} the hero`}
-                    className={`block w-full overflow-hidden rounded-xl transition-shadow ${
+                    className={`block w-full overflow-hidden rounded-[6px] transition-shadow ${
                       i === heroIndex
                         ? "ring-2 ring-accent"
                         : "shadow-soft hover:shadow-lift"

@@ -6,15 +6,16 @@ export const menuLinks = [
   { to: "/launch", label: "Launch" },
   { to: "/collections", label: "Galleries" },
   { to: "/about", label: "Travel to Pictaria" },
-  { to: "/vision-board", label: "Vision Board" },
   { to: "/create", label: "Send a free Pictaria" },
   { to: "/daily", label: "Daily Pictaria" },
   { to: "/mindfulness", label: "Mindful Music" },
   { to: "/work-life-balance", label: "Work Life Balance" },
   { to: "/easter-egg", label: "Easter Eggs" },
   { to: "/share", label: "Share Pictaria" },
+  { to: "/vision-board", label: "Vision Board" },
   { to: "/pricing", label: "Pricing" },
 ] as const;
+
 
 /**
  * The three-line pull-down navigation, fixed to the top-right corner of every
