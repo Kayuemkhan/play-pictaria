@@ -13,6 +13,10 @@ export interface RecordPlayButtonProps {
   src: string;
   /** Tiles per side. */
   grid: number;
+  /** True once the player has finished this Pictaria. */
+  solved?: boolean;
+  /** Every board state the player passed through, in order. */
+  getHistory?: () => number[][];
 }
 
 const OUT_W = 720;
@@ -68,11 +72,16 @@ function clumpOrder(pos: number[], grid: number) {
   return order;
 }
 
-export function RecordPlayButton({ src, grid }: RecordPlayButtonProps) {
+export function RecordPlayButton({
+  src,
+  grid,
+  solved = false,
+  getHistory,
+}: RecordPlayButtonProps) {
   const [state, setState] = useState<"idle" | "working" | "ready">("idle");
   const [note, setNote] = useState<string | null>(null);
   const [clip, setClip] = useState<string | null>(null);
-  const fileName = useRef("pictaria-autocomplete.webm");
+  const fileName = useRef("pictaria-solve.webm");
 
   useEffect(() => {
     if (clip) {
@@ -115,8 +124,8 @@ export function RecordPlayButton({ src, grid }: RecordPlayButtonProps) {
         (m) => MediaRecorder.isTypeSupported(m),
       );
       fileName.current = mime?.startsWith("video/mp4")
-        ? "pictaria-autocomplete.mp4"
-        : "pictaria-autocomplete.webm";
+        ? "pictaria-solve.mp4"
+        : "pictaria-solve.webm";
       const rec = new MediaRecorder(stream, mime ? { mimeType: mime } : undefined);
       const chunks: Blob[] = [];
       rec.ondataavailable = (e) => {
@@ -142,8 +151,12 @@ export function RecordPlayButton({ src, grid }: RecordPlayButtonProps) {
       const stW = sw / grid;
       const stH = sh / grid;
 
-      let pos = shuffle(total);
-      const queue = clumpOrder(pos, grid);
+      /* If the player solved it themselves, replay their real moves. Otherwise
+         fall back to a clumpy auto-complete. */
+      const history = (getHistory?.() ?? []).filter((f) => f.length === total);
+      const replay = solved && history.length > 1;
+      let pos = replay ? [...history[0]!] : shuffle(total);
+      const queue = replay ? [] : clumpOrder(pos, grid);
 
       const cellXY = (cell: number) => ({
         x: (cell % grid) * tileW,
@@ -192,17 +205,45 @@ export function RecordPlayButton({ src, grid }: RecordPlayButtonProps) {
       rec.start();
       drawFrame([], 0);
 
-      const animate = (moving: { piece: number; from: number; to: number }[]) =>
+      const animate = (
+        moving: { piece: number; from: number; to: number }[],
+        stepMs = STEP_MS,
+      ) =>
         new Promise<void>((resolve) => {
           const t0 = performance.now();
           const tick = () => {
-            const t = Math.min(1, (performance.now() - t0) / STEP_MS);
+            const t = Math.min(1, (performance.now() - t0) / stepMs);
             drawFrame(moving, t);
             if (t < 1) requestAnimationFrame(tick);
             else resolve();
           };
           requestAnimationFrame(tick);
         });
+
+      if (replay) {
+        // keep the clip social-length: sample long solves down to ~90 steps
+        const stride = Math.max(1, Math.ceil((history.length - 1) / 90));
+        const stepMs = Math.max(120, Math.min(STEP_MS, 9000 / (history.length / stride)));
+        for (let i = stride; i < history.length; i += stride) {
+          const next = history[Math.min(i, history.length - 1)]!;
+          const moving = [] as { piece: number; from: number; to: number }[];
+          for (let piece = 0; piece < total; piece++) {
+            if (next[piece] !== pos[piece]) {
+              moving.push({ piece, from: pos[piece]!, to: next[piece]! });
+            }
+          }
+          if (moving.length) await animate(moving, stepMs);
+          pos = [...next];
+        }
+        const last = history[history.length - 1]!;
+        if (last.some((c, i) => c !== pos[i])) {
+          const moving = last
+            .map((to, piece) => ({ piece, from: pos[piece]!, to }))
+            .filter((m) => m.from !== m.to);
+          if (moving.length) await animate(moving, stepMs);
+          pos = [...last];
+        }
+      }
 
       for (const piece of queue) {
         if (pos[piece] === piece) continue;
@@ -242,7 +283,9 @@ export function RecordPlayButton({ src, grid }: RecordPlayButtonProps) {
         await navigator.share({
           files: [file],
           title: "My Pictaria",
-          text: "Watch this Pictaria come together 🌺",
+          text: solved
+            ? "Watch me solve this Pictaria 🌺"
+            : "Watch this Pictaria come together 🌺",
         });
         return;
       }
@@ -265,8 +308,8 @@ export function RecordPlayButton({ src, grid }: RecordPlayButtonProps) {
         <button
           type="button"
           onClick={share}
-          aria-label="Save or share your auto-complete video"
-          title="Save or share your auto-complete video"
+          aria-label="Save or share your video"
+          title="Save or share your video"
           className="flex h-8 items-center px-0.5 text-primary"
         >
           <Download size={16} />
@@ -275,8 +318,8 @@ export function RecordPlayButton({ src, grid }: RecordPlayButtonProps) {
         <button
           type="button"
           onClick={() => void record()}
-          aria-label="Record this auto complete"
-          title="Record this auto complete"
+          aria-label={solved ? "Watch me solve it — make a video" : "Record this auto complete"}
+          title={solved ? "Watch me solve it" : "Record this auto complete"}
           className="flex h-8 items-center px-0.5 text-muted-foreground/50 transition-colors hover:text-primary"
         >
           <Video size={16} />
