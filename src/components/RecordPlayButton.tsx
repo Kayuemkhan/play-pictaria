@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { Video, Download, Loader2 } from "lucide-react";
 
 /**
@@ -82,7 +83,7 @@ export function RecordPlayButton({
   hasMoves = false,
   getHistory,
 }: RecordPlayButtonProps) {
-  const [state, setState] = useState<"idle" | "info" | "working" | "ready">(
+  const [state, setState] = useState<"idle" | "info" | "working" | "ready" | "playing">(
     "idle",
   );
   const [note, setNote] = useState<string | null>(null);
@@ -106,10 +107,10 @@ export function RecordPlayButton({
     [clip],
   );
 
-  // Don't offer the video option until the player has actually played.
-  if (!hasMoves && !solved) {
-    return <span className="inline-block h-8 w-8" aria-hidden />;
-  }
+  // The camera stays visible the whole time; the video itself needs a played game.
+  const played = hasMoves || solved;
+
+
 
   const saveClip = async (url: string, viaGesture: boolean) => {
     try {
@@ -309,8 +310,8 @@ export function RecordPlayButton({
       canvas.remove();
       const url = URL.createObjectURL(blob);
       setClip(url);
-      setState("ready");
-      // download straight away so the clip lands in their photos/files
+      // replay it full screen for them, then save it
+      setState("playing");
       await saveClip(url, false);
     } catch {
       setNote("Sorry — that clip couldn’t be made. Please try again.");
@@ -324,12 +325,12 @@ export function RecordPlayButton({
         <span className="flex h-8 items-center px-0.5 text-primary">
           <Loader2 size={16} className="animate-spin" />
         </span>
-      ) : state === "ready" ? (
+      ) : state === "ready" || state === "playing" ? (
         <button
           type="button"
-          onClick={() => clip && void saveClip(clip, true)}
-          aria-label="Save or share your video"
-          title="Save or share your video"
+          onClick={() => setState("playing")}
+          aria-label="Watch your gameplay again"
+          title="Watch your gameplay again"
           className="flex h-8 items-center px-0.5 text-primary"
         >
           <Download size={16} />
@@ -350,16 +351,22 @@ export function RecordPlayButton({
         <div className="absolute top-9 right-0 z-50 w-60 rounded-[8px] border border-border bg-card px-3 py-2.5 text-left text-[0.62rem] leading-relaxed text-muted-foreground shadow-soft">
           Pictaria remembers your gameplay. If you would like to post this on
           social media and share your moves as the picture comes together, just
-          press this button after the game — you will watch it play back, and it
-          will download.
+          press this button after the game — you will watch it play back full
+          screen, and it will save to your photos.
           <div className="mt-2 flex items-center gap-3">
-            <button
-              type="button"
-              onClick={() => void record()}
-              className="text-[0.55rem] tracking-[0.16em] text-primary uppercase"
-            >
-              Make my video
-            </button>
+            {played ? (
+              <button
+                type="button"
+                onClick={() => void record()}
+                className="text-[0.55rem] tracking-[0.16em] text-primary uppercase"
+              >
+                Make my video
+              </button>
+            ) : (
+              <span className="text-[0.55rem] tracking-[0.16em] text-muted-foreground/60 uppercase">
+                Play the puzzle first
+              </span>
+            )}
             <button
               type="button"
               onClick={() => setState("idle")}
@@ -370,6 +377,7 @@ export function RecordPlayButton({
           </div>
         </div>
       )}
+
 
       {note && (
         <div className="absolute top-9 right-0 z-50 w-52 rounded-[8px] border border-border bg-card px-3 py-2 text-left text-[0.62rem] leading-snug text-muted-foreground shadow-soft">
@@ -384,22 +392,59 @@ export function RecordPlayButton({
         </div>
       )}
 
-      {/* live view of the clip while it records */}
-      <div
-        className={
-          state === "working"
-            ? "fixed inset-0 z-[120] flex flex-col items-center justify-center gap-3 bg-black/85 px-6"
-            : "hidden"
-        }
-      >
-        <div
-          ref={stageRef}
-          className="aspect-[3/4] max-h-[74vh] w-full max-w-sm overflow-hidden rounded-[10px] bg-white"
-        />
-        <p className="text-[0.6rem] tracking-[0.18em] text-white/80 uppercase">
-          Making your video…
-        </p>
-      </div>
+      {/* Full-screen replay: rendered into the body so it fills the main screen
+          rather than being trapped inside the puzzle toolbar. */}
+      {typeof document !== "undefined" &&
+        createPortal(
+          <div
+            className={
+              state === "working" || state === "playing"
+                ? "fixed inset-0 z-[200] flex flex-col items-center justify-center gap-4 bg-black/90 px-4 py-6"
+                : "pointer-events-none fixed -z-50 h-0 w-0 overflow-hidden opacity-0"
+            }
+          >
+            <div
+              ref={stageRef}
+              className={
+                state === "playing"
+                  ? "hidden"
+                  : "aspect-[3/4] max-h-[80vh] w-full max-w-md overflow-hidden rounded-[10px] bg-white"
+              }
+            />
+            {state === "playing" && clip && (
+              <video
+                src={clip}
+                autoPlay
+                loop
+                playsInline
+                controls
+                className="aspect-[3/4] max-h-[80vh] w-full max-w-md rounded-[10px] bg-white object-contain"
+              />
+            )}
+            <p className="text-[0.6rem] tracking-[0.18em] text-white/80 uppercase">
+              {state === "playing" ? "Your gameplay" : "Making your video…"}
+            </p>
+            {state === "playing" && (
+              <div className="flex items-center gap-5">
+                <button
+                  type="button"
+                  onClick={() => clip && void saveClip(clip, true)}
+                  className="text-[0.58rem] tracking-[0.18em] text-white uppercase"
+                >
+                  Save / share
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setState("ready")}
+                  className="text-[0.58rem] tracking-[0.18em] text-white/60 uppercase"
+                >
+                  Close
+                </button>
+              </div>
+            )}
+          </div>,
+          document.body,
+        )}
     </div>
   );
 }
