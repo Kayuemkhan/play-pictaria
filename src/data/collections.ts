@@ -1969,7 +1969,7 @@ export const collections: Collection[] = [
   {
     id: "happy-hour",
     title: "Happy Hour",
-    tagline: "Seven island drinks, sweating in the sun — recipe under every one",
+    tagline: "Seventeen island drinks, sweating in the sun — recipe under every one",
     cover: drink01,
     free: true,
     puzzles: [
