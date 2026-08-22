@@ -320,9 +320,14 @@ export function RecordPlayButton({
           onClick={() => void record()}
           aria-label={solved ? "Watch me solve it — make a video" : "Record this auto complete"}
           title={solved ? "Watch me solve it" : "Record this auto complete"}
-          className="flex h-8 items-center px-0.5 text-muted-foreground/50 transition-colors hover:text-primary"
+          className="flex h-8 items-center gap-1 px-0.5 text-muted-foreground/50 transition-colors hover:text-primary"
         >
           <Video size={16} />
+          {solved && (
+            <span className="text-[0.55rem] tracking-[0.14em] uppercase">
+              Watch me solve it
+            </span>
+          )}
         </button>
       )}
 
