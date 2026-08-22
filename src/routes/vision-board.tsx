@@ -38,16 +38,17 @@ export const Route = createFileRoute("/vision-board")({
 function VisionBoardPage() {
   return (
     <main className="relative min-h-screen pb-12">
-      {/* reef backdrop — spans the whole scroll, bright up top, graying where the boxes begin */}
-      <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+      {/* underwater header image — sits at the top and fades into the deep background */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[52vh] overflow-hidden bg-deep">
         <img
-          src={reefBackdrop}
-          alt="A Hawaiian coral reef full of tropical fish"
+          src={underwaterAsset.url}
+          alt="Sunlight beaming down through calm ocean water"
           aria-hidden="true"
           className="h-full w-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent from-[46%] via-deep/78 via-[60%] to-deep/94" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent from-[45%] via-deep/70 via-[75%] to-deep" />
       </div>
+      <div className="pointer-events-none absolute inset-0 -z-20 bg-deep" />
 
       {/* hero */}
       <section className="relative overflow-hidden px-6 pt-[38vh] pb-0 text-center">
