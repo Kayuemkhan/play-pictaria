@@ -351,16 +351,22 @@ export function RecordPlayButton({
         <div className="absolute top-9 right-0 z-50 w-60 rounded-[8px] border border-border bg-card px-3 py-2.5 text-left text-[0.62rem] leading-relaxed text-muted-foreground shadow-soft">
           Pictaria remembers your gameplay. If you would like to post this on
           social media and share your moves as the picture comes together, just
-          press this button after the game — you will watch it play back, and it
-          will download.
+          press this button after the game — you will watch it play back full
+          screen, and it will save to your photos.
           <div className="mt-2 flex items-center gap-3">
-            <button
-              type="button"
-              onClick={() => void record()}
-              className="text-[0.55rem] tracking-[0.16em] text-primary uppercase"
-            >
-              Make my video
-            </button>
+            {played ? (
+              <button
+                type="button"
+                onClick={() => void record()}
+                className="text-[0.55rem] tracking-[0.16em] text-primary uppercase"
+              >
+                Make my video
+              </button>
+            ) : (
+              <span className="text-[0.55rem] tracking-[0.16em] text-muted-foreground/60 uppercase">
+                Play the puzzle first
+              </span>
+            )}
             <button
               type="button"
               onClick={() => setState("idle")}
@@ -371,6 +377,7 @@ export function RecordPlayButton({
           </div>
         </div>
       )}
+
 
       {note && (
         <div className="absolute top-9 right-0 z-50 w-52 rounded-[8px] border border-border bg-card px-3 py-2 text-left text-[0.62rem] leading-snug text-muted-foreground shadow-soft">
