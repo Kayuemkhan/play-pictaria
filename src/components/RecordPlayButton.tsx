@@ -28,9 +28,9 @@ export interface RecordPlayButtonProps {
   /** Every board state the player passed through, with its timestamp. */
   getHistory?: () => SolveFrame[];
   /** Name of the picture, drawn at the top of the clip. */
-  photoTitle?: string;
+  photoTitle?: string | undefined;
   /** Collection the picture came from, drawn under the board. */
-  collectionName?: string;
+  collectionName?: string | undefined;
 }
 
 const OUT_W = 720;
