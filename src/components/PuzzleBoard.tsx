@@ -273,19 +273,27 @@ export function PuzzleBoard({
 
   /* Pictaria remembers the solve: every committed board state, in order, so the
      finished puzzle can be replayed back as a "watch me solve it" video. */
-  const historyRef = useRef<number[][]>([]);
+  const historyRef = useRef<{ pos: number[]; at: number }[]>([]);
   useEffect(() => {
     if (!pos.length) return;
     const last = historyRef.current[historyRef.current.length - 1];
-    if (last && last.length === pos.length && last.every((c, i) => c === pos[i])) return;
-    if (!last || last.length !== pos.length) historyRef.current = [];
-    historyRef.current.push([...pos]);
+    if (
+      last &&
+      last.pos.length === pos.length &&
+      last.pos.every((c, i) => c === pos[i])
+    )
+      return;
+    if (!last || last.pos.length !== pos.length) historyRef.current = [];
+    historyRef.current.push({ pos: [...pos], at: Date.now() });
     if (historyRef.current.length > 400) historyRef.current.shift();
   }, [pos]);
   useEffect(() => {
     historyRef.current = [];
   }, [round, src]);
-  const getHistory = useCallback(() => historyRef.current.map((f) => [...f]), []);
+  const getHistory = useCallback(
+    () => historyRef.current.map((f) => ({ pos: [...f.pos], at: f.at })),
+    [],
+  );
 
   /* timer */
   useEffect(() => {
