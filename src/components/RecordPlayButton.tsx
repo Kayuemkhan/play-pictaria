@@ -106,6 +106,11 @@ export function RecordPlayButton({
     [clip],
   );
 
+  // Don't offer the video option until the player has actually played.
+  if (!hasMoves && !solved) {
+    return <span className="inline-block h-8 w-8" aria-hidden />;
+  }
+
   const saveClip = async (url: string, viaGesture: boolean) => {
     try {
       const blob = await (await fetch(url)).blob();
