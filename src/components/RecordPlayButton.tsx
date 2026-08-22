@@ -495,7 +495,7 @@ export function RecordPlayButton({
               className={
                 state === "playing"
                   ? "hidden"
-                  : "aspect-[3/4] max-h-[80vh] w-full max-w-md overflow-hidden rounded-[10px] bg-white"
+                  : "aspect-[3/5] max-h-[82vh] w-full max-w-md overflow-hidden rounded-[10px] bg-white"
               }
             />
             {state === "playing" && clip && (

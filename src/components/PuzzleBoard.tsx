@@ -1323,6 +1323,8 @@ export function PuzzleBoard({
             solved={solved}
             hasMoves={moves > 0}
             getHistory={getHistory}
+            photoTitle={title}
+            collectionName={collectionName}
           />
 
 
@@ -1335,15 +1337,6 @@ export function PuzzleBoard({
 
       {/* stage */}
       <div className="relative mx-auto aspect-[3/4] max-h-[88vh] w-full shrink-0 p-1 sm:p-2">
-        {solved && congratsOut && (
-          <button
-            type="button"
-            onClick={goSurprise}
-            className="absolute top-7 left-1/2 z-40 -translate-x-1/2 rounded-full border border-primary/70 bg-card/85 px-3 py-1 text-[0.6rem] tracking-[0.16em] text-primary uppercase shadow-soft backdrop-blur-sm transition-colors hover:bg-card sm:top-10"
-          >
-            Surprise me
-          </button>
-        )}
 
         {onNextInSeries && solved && congratsOut && (
           <button
