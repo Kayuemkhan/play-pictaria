@@ -299,8 +299,24 @@ import visionAlbum from "@/assets/vision-gallery.jpg";
 import visionAmyCooking from "@/assets/vision-amy-cooking.jpg";
 import visionMatriarchitect from "@/assets/vision-matriarchitect.jpg";
 
+import aquarium01 from "@/assets/aquarium-01.jpg";
+import aquarium02 from "@/assets/aquarium-02.jpg";
+import aquarium03 from "@/assets/aquarium-03.jpg";
+import aquarium04 from "@/assets/aquarium-04.jpg";
+import aquarium05 from "@/assets/aquarium-05.jpg";
+import aquarium06 from "@/assets/aquarium-06.jpg";
+import aquarium07 from "@/assets/aquarium-07.jpg";
+import aquarium08 from "@/assets/aquarium-08.jpg";
+import aquarium09 from "@/assets/aquarium-09.jpg";
+import aquarium10 from "@/assets/aquarium-10.jpg";
+import aquarium11 from "@/assets/aquarium-11.jpg";
+import aquarium12 from "@/assets/aquarium-12.jpg";
+import aquarium13 from "@/assets/aquarium-13.jpg";
+import aquarium14 from "@/assets/aquarium-14.jpg";
+import aquarium15 from "@/assets/aquarium-15.jpg";
 
-import { natureStories } from "./stories-nature";
+
+import { natureStories, aquariumStories } from "./stories-nature";
 import { cultureStories } from "./stories-culture";
 import { islandLifeStories } from "./stories-island-life";
 
@@ -3018,7 +3034,122 @@ export const collections: Collection[] = [
       },
     ],
   },
+  {
+    id: "oceanic-aquarium",
+    title: "Oceanic Aquarium",
+    tagline: "Fifteen residents of Hawaiʻi's reef, up close",
+    cover: aquarium08,
+    free: true,
+    puzzles: [
+      {
+        id: "aquarium-01",
+        title: "Spinner Dolphins",
+        meaning: "Naiʻa — the dolphin",
+        caption: "A pod drifting through morning light",
+        image: aquarium01,
+      },
+      {
+        id: "aquarium-02",
+        title: "Manta Ray",
+        meaning: "Hāhālua — “two breaths”",
+        caption: "Wings against the sunlit surface",
+        image: aquarium02,
+      },
+      {
+        id: "aquarium-03",
+        title: "School of Akule",
+        meaning: "Akule — bigeye scad",
+        caption: "Silver spiraling under sunbeams",
+        image: aquarium03,
+      },
+      {
+        id: "aquarium-04",
+        title: "Potter's Angelfish",
+        meaning: "Found only in Hawaiian waters",
+        caption: "Orange and midnight blue on the ledge",
+        image: aquarium04,
+      },
+      {
+        id: "aquarium-05",
+        title: "Moray Eel",
+        meaning: "Puhi — the eel",
+        caption: "A speckled face in the coral",
+        image: aquarium05,
+      },
+      {
+        id: "aquarium-06",
+        title: "Spiny Lobster",
+        meaning: "Ula — the Hawaiian lobster",
+        caption: "Antennae in the torchlight",
+        image: aquarium06,
+      },
+      {
+        id: "aquarium-07",
+        title: "Day Octopus",
+        meaning: "Heʻe — the octopus",
+        caption: "Eight arms and a thousand colors",
+        image: aquarium07,
+      },
+      {
+        id: "aquarium-08",
+        title: "Clownfish & Anemone",
+        meaning: "The reef's most famous friendship",
+        caption: "Two little fish in a pink garden",
+        image: aquarium08,
+      },
+      {
+        id: "aquarium-09",
+        title: "Anemone Garden",
+        meaning: "ʻOkole emiemi — the sea anemone",
+        caption: "Glass tentacles in the current",
+        image: aquarium09,
+      },
+      {
+        id: "aquarium-10",
+        title: "Yellow Tang",
+        meaning: "Lauʻīpala — “yellowed ti leaf”",
+        caption: "Lemon light over golden coral",
+        image: aquarium10,
+      },
+      {
+        id: "aquarium-11",
+        title: "Humuhumunukunukuāpuaʻa",
+        meaning: "“Trigger fish with a snout like a pig”",
+        caption: "Hawaiʻi's state fish, close up",
+        image: aquarium11,
+      },
+      {
+        id: "aquarium-12",
+        title: "Raccoon Butterflyfish",
+        meaning: "Kīkākapu — “strongly forbidden”",
+        caption: "A masked pair over lavender coral",
+        image: aquarium12,
+      },
+      {
+        id: "aquarium-13",
+        title: "Hawaiian Monk Seal",
+        meaning: "ʻĪlioholoikauaua — “dog that runs in rough water”",
+        caption: "A curious face in the shallows",
+        image: aquarium13,
+      },
+      {
+        id: "aquarium-14",
+        title: "Moorish Idol",
+        meaning: "Kihikihi — “zigzag,” for its angles",
+        caption: "A white pennant along the wall",
+        image: aquarium14,
+      },
+      {
+        id: "aquarium-15",
+        title: "Cathedral of Light",
+        meaning: "Kai — the sea",
+        caption: "Sunbeams falling on the coral garden",
+        image: aquarium15,
+      },
+    ],
+  },
 ];
+
 
 
 
@@ -3030,6 +3161,7 @@ const storyById: Record<string, string[]> = {
   ...natureStories,
   ...cultureStories,
   ...islandLifeStories,
+  ...aquariumStories,
 };
 
 for (const collection of collections) {
