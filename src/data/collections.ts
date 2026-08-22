@@ -316,7 +316,7 @@ import aquarium14 from "@/assets/aquarium-14.jpg";
 import aquarium15 from "@/assets/aquarium-15.jpg";
 
 
-import { natureStories } from "./stories-nature";
+import { natureStories, aquariumStories } from "./stories-nature";
 import { cultureStories } from "./stories-culture";
 import { islandLifeStories } from "./stories-island-life";
 
@@ -3161,6 +3161,7 @@ const storyById: Record<string, string[]> = {
   ...natureStories,
   ...cultureStories,
   ...islandLifeStories,
+  ...aquariumStories,
 };
 
 for (const collection of collections) {
