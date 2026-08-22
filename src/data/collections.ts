@@ -24,7 +24,7 @@ import turtle07 from "@/assets/turtle-07.jpg";
 import turtle08 from "@/assets/turtle-08.jpg";
 import turtle09 from "@/assets/turtle-09.jpg.asset.json";
 import turtle10 from "@/assets/turtle-10.jpg";
-import visionReef from "@/assets/vision-board-reef.jpg";
+
 
 import flowerHibiscus from "@/assets/flower-hibiscus.jpg";
 import flowerHibiscusPink from "@/assets/flower-hibiscus-pink.jpg";
