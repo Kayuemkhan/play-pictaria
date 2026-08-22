@@ -5,11 +5,17 @@ import { Video, Download, Loader2 } from "lucide-react";
 /**
  * Records this Pictaria coming together as a shareable video clip.
  *
- * Nothing is captured from the screen — the tiles are re-drawn onto a canvas and
- * that canvas is recorded, so there is no browser permission dialog and the clip
- * is always clean, square-on and social-ready. The canvas is shown while it
- * records, so the player watches the replay happen.
+ * Nothing is captured from the screen — the tiles are re-drawn onto a canvas
+ * (framed like the actual puzzle page, with the title, the collection and the
+ * counters) and that canvas is recorded, so there is no browser permission
+ * dialog and the clip is always clean and social-ready. The replay runs full
+ * screen at the same tempo the player actually played.
  */
+export interface SolveFrame {
+  pos: number[];
+  at: number;
+}
+
 export interface RecordPlayButtonProps {
   /** The photograph being puzzled. */
   src: string;
@@ -19,14 +25,24 @@ export interface RecordPlayButtonProps {
   solved?: boolean;
   /** True once the player has made at least one move. */
   hasMoves?: boolean;
-  /** Every board state the player passed through, in order. */
-  getHistory?: () => number[][];
+  /** Every board state the player passed through, with its timestamp. */
+  getHistory?: () => SolveFrame[];
+  /** Name of the picture, drawn at the top of the clip. */
+  photoTitle?: string;
+  /** Collection the picture came from, drawn under the board. */
+  collectionName?: string;
 }
 
 const OUT_W = 720;
-const OUT_H = 960;
+const BOARD_H = 960;
+const HEAD_H = 118;
+const FOOT_H = 122;
+const OUT_H = HEAD_H + BOARD_H + FOOT_H;
+const PAD = 22;
 const STEP_MS = 320;
-const HOLD_MS = 1400;
+const HOLD_MS = 1600;
+/** the whole clip stays inside this, however long the real solve took */
+const MAX_CLIP_MS = 60000;
 
 const easeInOut = (t: number) =>
   t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
@@ -76,20 +92,28 @@ function clumpOrder(pos: number[], grid: number) {
   return order;
 }
 
+const clock = (s: number) =>
+  `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, "0")}`;
+
 export function RecordPlayButton({
   src,
   grid,
   solved = false,
   hasMoves = false,
   getHistory,
+  photoTitle,
+  collectionName,
 }: RecordPlayButtonProps) {
-  const [state, setState] = useState<"idle" | "info" | "working" | "ready" | "playing">(
-    "idle",
-  );
+  const [state, setState] = useState<
+    "idle" | "info" | "working" | "ready" | "playing"
+  >("idle");
   const [note, setNote] = useState<string | null>(null);
   const [clip, setClip] = useState<string | null>(null);
+  const [mounted, setMounted] = useState(false);
   const stageRef = useRef<HTMLDivElement | null>(null);
   const fileName = useRef("pictaria-solve.webm");
+
+  useEffect(() => setMounted(true), []);
 
   useEffect(() => {
     if (clip) {
@@ -107,10 +131,8 @@ export function RecordPlayButton({
     [clip],
   );
 
-  // The camera stays visible the whole time; the video itself needs a played game.
+  // The camera stays visible the whole time; the video needs a played game.
   const played = hasMoves || solved;
-
-
 
   const saveClip = async (url: string, viaGesture: boolean) => {
     try {
@@ -179,9 +201,15 @@ export function RecordPlayButton({
         rec.onstop = () => resolve(new Blob(chunks, { type: mime || "video/webm" }));
       });
 
+      // board sits inside the page frame
+      const boardW = OUT_W - PAD * 2;
+      const boardH = BOARD_H - PAD * 2;
+      const boardX = PAD;
+      const boardY = HEAD_H + PAD;
+
       // source crop keeps the picture at 3:4 like the board
       const srcAspect = img.width / img.height;
-      const outAspect = OUT_W / OUT_H;
+      const outAspect = boardW / boardH;
       let sw = img.width;
       let sh = img.height;
       if (srcAspect > outAspect) sw = img.height * outAspect;
@@ -190,29 +218,65 @@ export function RecordPlayButton({
       const sy = (img.height - sh) / 2;
 
       const total = grid * grid;
-      const tileW = OUT_W / grid;
-      const tileH = OUT_H / grid;
+      const tileW = boardW / grid;
+      const tileH = boardH / grid;
       const stW = sw / grid;
       const stH = sh / grid;
 
-      /* If the player solved it themselves, replay their real moves. Otherwise
-         fall back to a clumpy auto-complete. */
-      const history = (getHistory?.() ?? []).filter((f) => f.length === total);
-      const replay = solved && history.length > 1;
-      let pos = replay ? [...history[0]!] : shuffle(total);
+      const history = (getHistory?.() ?? []).filter(
+        (f) => f.pos.length === total,
+      );
+      const replay = history.length > 1;
+      let pos = replay ? [...history[0]!.pos] : shuffle(total);
       const queue = replay ? [] : clumpOrder(pos, grid);
 
+      const startedAt = replay ? history[0]!.at : Date.now();
+      let movesShown = 0;
+      let elapsedMs = 0;
+
       const cellXY = (cell: number) => ({
-        x: (cell % grid) * tileW,
-        y: Math.floor(cell / grid) * tileH,
+        x: boardX + (cell % grid) * tileW,
+        y: boardY + Math.floor(cell / grid) * tileH,
       });
+
+      const drawChrome = () => {
+        // page background
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(0, 0, OUT_W, OUT_H);
+
+        ctx.textAlign = "center";
+        // size label + title, like the puzzle header
+        ctx.fillStyle = "rgba(15,42,54,0.45)";
+        ctx.font = "500 22px 'Inter', system-ui, sans-serif";
+        ctx.fillText(`${grid} × ${grid}`, OUT_W / 2, 40);
+        ctx.fillStyle = "#0f2a36";
+        ctx.font = "400 46px 'Cormorant Garamond', Georgia, serif";
+        ctx.fillText(photoTitle || "Pictaria", OUT_W / 2, 92);
+
+        // footer: collection + counters
+        const fy = HEAD_H + BOARD_H;
+        if (collectionName) {
+          ctx.fillStyle = "rgba(15,42,54,0.4)";
+          ctx.font = "500 19px 'Inter', system-ui, sans-serif";
+          ctx.fillText("COLLECTION", OUT_W / 2, fy + 30);
+          ctx.fillStyle = "#0f7f8c";
+          ctx.font = "400 34px 'Cormorant Garamond', Georgia, serif";
+          ctx.fillText(collectionName, OUT_W / 2, fy + 66);
+        }
+        ctx.fillStyle = "rgba(15,42,54,0.5)";
+        ctx.font = "500 21px 'Inter', system-ui, sans-serif";
+        ctx.fillText(
+          `${clock(elapsedMs / 1000)}   ·   ${movesShown} moves`,
+          OUT_W / 2,
+          fy + (collectionName ? 102 : 56),
+        );
+      };
 
       const drawFrame = (
         moving: { piece: number; from: number; to: number }[],
         t: number,
       ) => {
-        ctx.fillStyle = "#ffffff";
-        ctx.fillRect(0, 0, OUT_W, OUT_H);
+        drawChrome();
         const glide = easeInOut(t);
         for (let piece = 0; piece < total; piece++) {
           const m = moving.find((x) => x.piece === piece);
@@ -264,28 +328,50 @@ export function RecordPlayButton({
           requestAnimationFrame(tick);
         });
 
+      /** hold the finished frame for a beat, like a real pause in play */
+      const linger = (ms: number) =>
+        new Promise<void>((resolve) => {
+          if (ms <= 16) return resolve();
+          const t0 = performance.now();
+          const tick = () => {
+            const done2 = performance.now() - t0 >= ms;
+            drawFrame([], 1);
+            if (!done2) requestAnimationFrame(tick);
+            else resolve();
+          };
+          requestAnimationFrame(tick);
+        });
+
       if (replay) {
-        // keep the clip social-length: sample long solves down to ~90 steps
-        const stride = Math.max(1, Math.ceil((history.length - 1) / 90));
-        const stepMs = Math.max(120, Math.min(STEP_MS, 9000 / (history.length / stride)));
-        for (let i = stride; i < history.length; i += stride) {
-          const next = history[Math.min(i, history.length - 1)]!;
+        /* Play it back at the tempo the player actually played: each gap between
+           two remembered board states is the real gap between their moves. Long
+           pauses are trimmed, and the whole clip is scaled to stay shareable. */
+        const gaps: number[] = [];
+        for (let i = 1; i < history.length; i++) {
+          gaps.push(
+            Math.min(4000, Math.max(90, history[i]!.at - history[i - 1]!.at)),
+          );
+        }
+        const realTotal = gaps.reduce((a, b) => a + b, 0);
+        const scale = realTotal > MAX_CLIP_MS ? MAX_CLIP_MS / realTotal : 1;
+
+        for (let i = 1; i < history.length; i++) {
+          const next = history[i]!.pos;
+          const gap = gaps[i - 1]! * scale;
           const moving = [] as { piece: number; from: number; to: number }[];
           for (let piece = 0; piece < total; piece++) {
             if (next[piece] !== pos[piece]) {
               moving.push({ piece, from: pos[piece]!, to: next[piece]! });
             }
           }
-          if (moving.length) await animate(moving, stepMs);
+          const glideMs = Math.max(90, Math.min(gap, 420));
+          if (moving.length) {
+            movesShown++;
+            elapsedMs = history[i]!.at - startedAt;
+            await animate(moving, glideMs);
+          }
           pos = [...next];
-        }
-        const last = history[history.length - 1]!;
-        if (last.some((c, i) => c !== pos[i])) {
-          const moving = last
-            .map((to, piece) => ({ piece, from: pos[piece]!, to }))
-            .filter((m) => m.from !== m.to);
-          if (moving.length) await animate(moving, stepMs);
-          pos = [...last];
+          await linger(gap - glideMs);
         }
       }
 
@@ -295,6 +381,8 @@ export function RecordPlayButton({
         const from = pos[piece]!;
         const moving = [{ piece, from, to: piece }];
         if (other >= 0) moving.push({ piece: other, from: piece, to: from });
+        movesShown++;
+        elapsedMs += STEP_MS;
         await animate(moving);
         const next = [...pos];
         next[piece] = piece;
@@ -364,7 +452,7 @@ export function RecordPlayButton({
               </button>
             ) : (
               <span className="text-[0.55rem] tracking-[0.16em] text-muted-foreground/60 uppercase">
-                Play the puzzle first
+                Play this puzzle
               </span>
             )}
             <button
@@ -377,7 +465,6 @@ export function RecordPlayButton({
           </div>
         </div>
       )}
-
 
       {note && (
         <div className="absolute top-9 right-0 z-50 w-52 rounded-[8px] border border-border bg-card px-3 py-2 text-left text-[0.62rem] leading-snug text-muted-foreground shadow-soft">
@@ -394,7 +481,7 @@ export function RecordPlayButton({
 
       {/* Full-screen replay: rendered into the body so it fills the main screen
           rather than being trapped inside the puzzle toolbar. */}
-      {typeof document !== "undefined" &&
+      {mounted &&
         createPortal(
           <div
             className={
@@ -418,7 +505,7 @@ export function RecordPlayButton({
                 loop
                 playsInline
                 controls
-                className="aspect-[3/4] max-h-[80vh] w-full max-w-md rounded-[10px] bg-white object-contain"
+                className="max-h-[80vh] w-full max-w-md rounded-[10px] bg-white object-contain"
               />
             )}
             <p className="text-[0.6rem] tracking-[0.18em] text-white/80 uppercase">
