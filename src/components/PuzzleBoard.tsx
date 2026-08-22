@@ -273,19 +273,27 @@ export function PuzzleBoard({
 
   /* Pictaria remembers the solve: every committed board state, in order, so the
      finished puzzle can be replayed back as a "watch me solve it" video. */
-  const historyRef = useRef<number[][]>([]);
+  const historyRef = useRef<{ pos: number[]; at: number }[]>([]);
   useEffect(() => {
     if (!pos.length) return;
     const last = historyRef.current[historyRef.current.length - 1];
-    if (last && last.length === pos.length && last.every((c, i) => c === pos[i])) return;
-    if (!last || last.length !== pos.length) historyRef.current = [];
-    historyRef.current.push([...pos]);
+    if (
+      last &&
+      last.pos.length === pos.length &&
+      last.pos.every((c, i) => c === pos[i])
+    )
+      return;
+    if (!last || last.pos.length !== pos.length) historyRef.current = [];
+    historyRef.current.push({ pos: [...pos], at: Date.now() });
     if (historyRef.current.length > 400) historyRef.current.shift();
   }, [pos]);
   useEffect(() => {
     historyRef.current = [];
   }, [round, src]);
-  const getHistory = useCallback(() => historyRef.current.map((f) => [...f]), []);
+  const getHistory = useCallback(
+    () => historyRef.current.map((f) => ({ pos: [...f.pos], at: f.at })),
+    [],
+  );
 
   /* timer */
   useEffect(() => {
@@ -1315,6 +1323,8 @@ export function PuzzleBoard({
             solved={solved}
             hasMoves={moves > 0}
             getHistory={getHistory}
+            photoTitle={title}
+            collectionName={collectionName}
           />
 
 
@@ -1327,15 +1337,6 @@ export function PuzzleBoard({
 
       {/* stage */}
       <div className="relative mx-auto aspect-[3/4] max-h-[88vh] w-full shrink-0 p-1 sm:p-2">
-        {solved && congratsOut && (
-          <button
-            type="button"
-            onClick={goSurprise}
-            className="absolute top-7 left-1/2 z-40 -translate-x-1/2 rounded-full border border-primary/70 bg-card/85 px-3 py-1 text-[0.6rem] tracking-[0.16em] text-primary uppercase shadow-soft backdrop-blur-sm transition-colors hover:bg-card sm:top-10"
-          >
-            Surprise me
-          </button>
-        )}
 
         {onNextInSeries && solved && congratsOut && (
           <button
@@ -1601,6 +1602,19 @@ export function PuzzleBoard({
           <Sparkle size={18} strokeWidth={1.25} />
         </button>
       </div>
+
+      {/* Surprise me lives under the board now, so it never sits over the picture */}
+      {solved && (
+        <div className="z-20 flex w-full shrink-0 justify-center px-6 pt-1 pb-1">
+          <button
+            type="button"
+            onClick={goSurprise}
+            className="rounded-full border border-primary/70 px-4 py-1 text-[0.6rem] tracking-[0.16em] text-primary uppercase transition-colors hover:bg-secondary"
+          >
+            Surprise me
+          </button>
+        </div>
+      )}
 
       {info ? (
         <div className="z-20 px-4 pb-24 text-center sm:px-5">
