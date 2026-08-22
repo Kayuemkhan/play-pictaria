@@ -9,6 +9,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { RecordPlayButton } from "@/components/RecordPlayButton";
+
 import { collections, difficulties } from "@/data/collections";
 import palmLogo from "@/assets/logo-palms-only.png";
 import tropicalIslandBg from "@/assets/pinup-08.jpg";
@@ -1263,10 +1265,11 @@ export function PuzzleBoard({
                   ? `${musicTitle} — ${musicOn ? "on" : "off"}`
                   : "Mindful sound"
               }
-              className="h-8 w-fit min-w-0 border-0 bg-transparent p-0 text-[10px] tracking-[0.14em] uppercase text-muted-foreground shadow-none hover:text-primary focus:ring-0 [&>svg]:h-4 [&>svg]:w-4"
+              className="h-8 w-fit min-w-0 border-0 bg-transparent p-0 text-[10px] tracking-[0.14em] text-muted-foreground/50 uppercase shadow-none hover:text-primary focus:ring-0 [&>span[data-radix-select-icon]]:hidden [&>svg]:h-4 [&>svg]:w-4 [&>svg:last-child]:hidden"
             >
               {musicOn ? <Music size={16} /> : <VolumeX size={16} />}
             </SelectTrigger>
+
             <SelectContent align="end" className="min-w-[12rem]">
               <SelectItem value="off">
                 <span className="flex items-center gap-2">
@@ -1288,6 +1291,9 @@ export function PuzzleBoard({
               ))}
             </SelectContent>
           </Select>
+
+          <RecordPlayButton />
+
 
           <span className="hidden rounded-full bg-secondary px-2 py-1 text-secondary-foreground sm:inline sm:text-sm">
             {moves} moves
