@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { createPortal } from "react-dom";
 import { Video, Download, Loader2 } from "lucide-react";
 
 /**
