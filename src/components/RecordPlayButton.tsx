@@ -392,22 +392,59 @@ export function RecordPlayButton({
         </div>
       )}
 
-      {/* live view of the clip while it records */}
-      <div
-        className={
-          state === "working"
-            ? "fixed inset-0 z-[120] flex flex-col items-center justify-center gap-3 bg-black/85 px-6"
-            : "hidden"
-        }
-      >
-        <div
-          ref={stageRef}
-          className="aspect-[3/4] max-h-[74vh] w-full max-w-sm overflow-hidden rounded-[10px] bg-white"
-        />
-        <p className="text-[0.6rem] tracking-[0.18em] text-white/80 uppercase">
-          Making your video…
-        </p>
-      </div>
+      {/* Full-screen replay: rendered into the body so it fills the main screen
+          rather than being trapped inside the puzzle toolbar. */}
+      {typeof document !== "undefined" &&
+        createPortal(
+          <div
+            className={
+              state === "working" || state === "playing"
+                ? "fixed inset-0 z-[200] flex flex-col items-center justify-center gap-4 bg-black/90 px-4 py-6"
+                : "pointer-events-none fixed -z-50 h-0 w-0 overflow-hidden opacity-0"
+            }
+          >
+            <div
+              ref={stageRef}
+              className={
+                state === "playing"
+                  ? "hidden"
+                  : "aspect-[3/4] max-h-[80vh] w-full max-w-md overflow-hidden rounded-[10px] bg-white"
+              }
+            />
+            {state === "playing" && clip && (
+              <video
+                src={clip}
+                autoPlay
+                loop
+                playsInline
+                controls
+                className="aspect-[3/4] max-h-[80vh] w-full max-w-md rounded-[10px] bg-white object-contain"
+              />
+            )}
+            <p className="text-[0.6rem] tracking-[0.18em] text-white/80 uppercase">
+              {state === "playing" ? "Your gameplay" : "Making your video…"}
+            </p>
+            {state === "playing" && (
+              <div className="flex items-center gap-5">
+                <button
+                  type="button"
+                  onClick={() => clip && void saveClip(clip, true)}
+                  className="text-[0.58rem] tracking-[0.18em] text-white uppercase"
+                >
+                  Save / share
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setState("ready")}
+                  className="text-[0.58rem] tracking-[0.18em] text-white/60 uppercase"
+                >
+                  Close
+                </button>
+              </div>
+            )}
+          </div>,
+          document.body,
+        )}
     </div>
   );
 }
