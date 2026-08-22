@@ -1430,7 +1430,9 @@ export function PuzzleBoard({
                   backgroundRepeat: "no-repeat",
                   imageRendering: "auto",
                   transform: isDragged
-                    ? `translate(${left + drag!.dx / scale}px, ${top + drag!.dy / scale}px)`
+                    ? // one shared, whole-pixel offset for the entire cluster, so
+                      // neighbouring tiles never drift apart into a hairline seam
+                      `translate(${left + Math.round(drag!.dx / scale)}px, ${top + Math.round(drag!.dy / scale)}px)`
                     : `translate(${left}px, ${top}px)`,
                   willChange: "transform",
                   zIndex: isDragged ? 6 : isFloating ? 3 : 1,
