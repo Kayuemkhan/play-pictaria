@@ -4,7 +4,7 @@ import { Menu } from "lucide-react";
 
 export const menuLinks = [
   { to: "/launch", label: "Launch" },
-  { to: "/collections", label: "Albums" },
+  { to: "/collections", label: "Galleries" },
   { to: "/about", label: "Travel to Pictaria" },
   { to: "/vision-board", label: "Vision Board" },
   { to: "/create", label: "Send a free Pictaria" },
