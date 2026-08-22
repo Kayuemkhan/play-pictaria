@@ -16,6 +16,8 @@ export interface RecordPlayButtonProps {
   grid: number;
   /** True once the player has finished this Pictaria. */
   solved?: boolean;
+  /** True once the player has made at least one move. */
+  hasMoves?: boolean;
   /** Every board state the player passed through, in order. */
   getHistory?: () => number[][];
 }
@@ -77,6 +79,7 @@ export function RecordPlayButton({
   src,
   grid,
   solved = false,
+  hasMoves = false,
   getHistory,
 }: RecordPlayButtonProps) {
   const [state, setState] = useState<"idle" | "info" | "working" | "ready">(
@@ -102,6 +105,11 @@ export function RecordPlayButton({
     },
     [clip],
   );
+
+  // Don't offer the video option until the player has actually played.
+  if (!hasMoves && !solved) {
+    return <span className="inline-block h-8 w-8" aria-hidden />;
+  }
 
   const saveClip = async (url: string, viaGesture: boolean) => {
     try {
