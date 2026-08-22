@@ -71,7 +71,7 @@ function PuzzlePage() {
   };
 
   const info = (
-    <div className="mx-auto max-w-2xl">
+    <div className="mx-auto max-w-2xl text-center">
       <h1 className="font-display text-2xl leading-tight sm:text-3xl">
         {puzzle.title}
       </h1>
@@ -81,7 +81,7 @@ function PuzzlePage() {
         </p>
       )}
       {puzzle.story ? (
-        <div className="mt-2 space-y-1.5 text-left">
+        <div className="mt-2 space-y-1.5">
           {puzzle.story.map((para, i) => (
             <p key={i} className="text-[0.8rem] leading-relaxed text-foreground">
               {para}
@@ -96,14 +96,14 @@ function PuzzlePage() {
         )
       )}
       {collection.storyFooter && (
-        <p className="mt-2 text-left text-[0.68rem] tracking-wide text-muted-foreground/70 italic">
+        <p className="mt-2 text-[0.68rem] tracking-wide text-muted-foreground/70 italic">
           {collection.storyFooter}
         </p>
       )}
       {puzzle.recipe && (
-        <div className="mt-4 rounded-[6px] border border-accent/50 bg-card/70 px-4 py-4 text-left shadow-soft">
+        <div className="mt-4 rounded-[6px] border border-accent/50 bg-card/70 px-4 py-4 text-center shadow-soft">
           {/* recipe card header */}
-          <div className="border-b border-accent/40 pb-2 text-center">
+          <div className="border-b border-accent/40 pb-2">
             <p className="text-[9px] tracking-[0.34em] text-primary uppercase">
               Recipe
             </p>
@@ -121,7 +121,7 @@ function PuzzlePage() {
             <p className="text-[9px] tracking-[0.28em] text-primary uppercase">
               Ingredients
             </p>
-            <ul className="mt-1.5 space-y-1">
+            <ul className="mt-1.5 inline-block list-inside space-y-1 text-left">
               {puzzle.recipe.ingredients.map((item, i) => (
                 <li
                   key={i}
@@ -140,7 +140,7 @@ function PuzzlePage() {
             <p className="text-[9px] tracking-[0.28em] text-primary uppercase">
               Directions
             </p>
-            <ol className="mt-1.5 space-y-1.5">
+            <ol className="mt-1.5 inline-block list-inside space-y-1.5 text-left">
               {puzzle.recipe.steps.map((step, i) => (
                 <li
                   key={i}
