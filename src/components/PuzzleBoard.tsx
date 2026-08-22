@@ -1450,10 +1450,12 @@ export function PuzzleBoard({
                   )}
                   style={{
                     boxSizing: "border-box",
-                    top: joinedTop ? 0 : edge.inset,
-                    right: joinedRight ? 0 : edge.inset,
-                    bottom: joinedBottom ? 0 : edge.inset,
-                    left: joinedLeft ? 0 : edge.inset,
+                    // joined sides bleed slightly past the tile edge so no
+                    // anti-aliased whisper of the old line survives the snap
+                    top: joinedTop ? -edge.width : edge.inset,
+                    right: joinedRight ? -edge.width : edge.inset,
+                    bottom: joinedBottom ? -edge.width : edge.inset,
+                    left: joinedLeft ? -edge.width : edge.inset,
                     borderTop: line(joinedTop),
                     borderRight: line(joinedRight),
                     borderBottom: line(joinedBottom),
