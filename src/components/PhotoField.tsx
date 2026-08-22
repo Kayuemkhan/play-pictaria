@@ -148,20 +148,37 @@ export function PhotoPlaceholder({
   hint?: string;
   tone?: "light" | "dark";
 }) {
+  const dark = tone === "dark";
   return (
     <>
       <img
         src={resortCove.url}
         alt=""
-        className="absolute inset-0 h-full w-full object-cover opacity-15 grayscale-[35%]"
+        className={`absolute inset-0 h-full w-full object-cover ${
+          dark ? "opacity-40 grayscale-[70%]" : "opacity-30 grayscale-[60%]"
+        }`}
       />
-      <span className="absolute inset-0 bg-accent/12" />
-      <span className="absolute inset-0 bg-shell/70" />
-      <span className="relative flex h-full w-full flex-col items-center justify-center gap-2 px-4 text-accent">
-        <Camera className="h-9 w-9" strokeWidth={1.25} />
-        <span className="text-[10px] tracking-[0.2em] uppercase">{title}</span>
+      <span
+        className={`absolute inset-0 ${dark ? "bg-deep/55" : "bg-shell/45"}`}
+      />
+      <span
+        className={`relative flex h-full w-full flex-col items-center justify-center gap-2 px-4 ${
+          dark ? "text-shell" : "text-foreground"
+        }`}
+      >
+        <Camera
+          className="h-10 w-10 drop-shadow-[0_1px_6px_oklch(0.15_0.04_230/0.65)]"
+          strokeWidth={1.6}
+        />
+        <span className="text-[10px] tracking-[0.2em] uppercase drop-shadow-[0_1px_6px_oklch(0.15_0.04_230/0.6)]">
+          {title}
+        </span>
         {hint && (
-          <span className="max-w-52 text-center text-[11px] leading-relaxed text-accent/70">
+          <span
+            className={`max-w-52 text-center text-[11px] leading-relaxed ${
+              dark ? "text-shell/85" : "text-foreground/75"
+            }`}
+          >
             {hint}
           </span>
         )}
@@ -169,3 +186,4 @@ export function PhotoPlaceholder({
     </>
   );
 }
+
