@@ -1438,12 +1438,6 @@ export const collections: Collection[] = [
     free: true,
     puzzles: [
       {
-        id: "turtle-11",
-        title: "Light Beams",
-        caption: "A reef full of fish and a turtle coming closer",
-        image: visionReef,
-      },
-      {
         id: "turtle-01",
         title: "Sunbeams",
         caption: "Gliding through morning light",
