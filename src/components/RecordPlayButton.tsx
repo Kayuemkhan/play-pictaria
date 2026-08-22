@@ -108,11 +108,8 @@ export function RecordPlayButton({
   >("idle");
   const [note, setNote] = useState<string | null>(null);
   const [clip, setClip] = useState<string | null>(null);
-  const [mounted, setMounted] = useState(false);
   const stageRef = useRef<HTMLDivElement | null>(null);
   const fileName = useRef("pictaria-solve.webm");
-
-  useEffect(() => setMounted(true), []);
 
   useEffect(() => {
     if (clip) {
