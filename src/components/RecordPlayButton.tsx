@@ -16,6 +16,8 @@ export interface RecordPlayButtonProps {
   grid: number;
   /** True once the player has finished this Pictaria. */
   solved?: boolean;
+  /** True once the player has made at least one move. */
+  hasMoves?: boolean;
   /** Every board state the player passed through, in order. */
   getHistory?: () => number[][];
 }
