@@ -1313,6 +1313,7 @@ export function PuzzleBoard({
             src={src}
             grid={grid}
             solved={solved}
+            hasMoves={moves > 0}
             getHistory={getHistory}
           />
 
