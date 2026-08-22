@@ -107,10 +107,10 @@ export function RecordPlayButton({
     [clip],
   );
 
-  // Don't offer the video option until the player has actually played.
-  if (!hasMoves && !solved) {
-    return <span className="inline-block h-8 w-8" aria-hidden />;
-  }
+  // The camera stays visible the whole time; the video itself needs a played game.
+  const played = hasMoves || solved;
+
+
 
   const saveClip = async (url: string, viaGesture: boolean) => {
     try {
