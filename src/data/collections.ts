@@ -299,6 +299,22 @@ import visionAlbum from "@/assets/vision-gallery.jpg";
 import visionAmyCooking from "@/assets/vision-amy-cooking.jpg";
 import visionMatriarchitect from "@/assets/vision-matriarchitect.jpg";
 
+import aquarium01 from "@/assets/aquarium-01.jpg";
+import aquarium02 from "@/assets/aquarium-02.jpg";
+import aquarium03 from "@/assets/aquarium-03.jpg";
+import aquarium04 from "@/assets/aquarium-04.jpg";
+import aquarium05 from "@/assets/aquarium-05.jpg";
+import aquarium06 from "@/assets/aquarium-06.jpg";
+import aquarium07 from "@/assets/aquarium-07.jpg";
+import aquarium08 from "@/assets/aquarium-08.jpg";
+import aquarium09 from "@/assets/aquarium-09.jpg";
+import aquarium10 from "@/assets/aquarium-10.jpg";
+import aquarium11 from "@/assets/aquarium-11.jpg";
+import aquarium12 from "@/assets/aquarium-12.jpg";
+import aquarium13 from "@/assets/aquarium-13.jpg";
+import aquarium14 from "@/assets/aquarium-14.jpg";
+import aquarium15 from "@/assets/aquarium-15.jpg";
+
 
 import { natureStories } from "./stories-nature";
 import { cultureStories } from "./stories-culture";
