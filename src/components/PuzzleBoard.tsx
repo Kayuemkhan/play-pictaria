@@ -1155,7 +1155,7 @@ export function PuzzleBoard({
     const s = scale || 1;
     return {
       inset: 3 / s,
-      width: 1.5 / s,
+      width: 1.1 / s,
       radius: 6 / s,
     };
   }, [scale]);
@@ -1430,7 +1430,9 @@ export function PuzzleBoard({
                   backgroundRepeat: "no-repeat",
                   imageRendering: "auto",
                   transform: isDragged
-                    ? `translate(${left + drag!.dx / scale}px, ${top + drag!.dy / scale}px)`
+                    ? // one shared, whole-pixel offset for the entire cluster, so
+                      // neighbouring tiles never drift apart into a hairline seam
+                      `translate(${left + Math.round(drag!.dx / scale)}px, ${top + Math.round(drag!.dy / scale)}px)`
                     : `translate(${left}px, ${top}px)`,
                   willChange: "transform",
                   zIndex: isDragged ? 6 : isFloating ? 3 : 1,
@@ -1448,10 +1450,12 @@ export function PuzzleBoard({
                   )}
                   style={{
                     boxSizing: "border-box",
-                    top: joinedTop ? 0 : edge.inset,
-                    right: joinedRight ? 0 : edge.inset,
-                    bottom: joinedBottom ? 0 : edge.inset,
-                    left: joinedLeft ? 0 : edge.inset,
+                    // joined sides bleed slightly past the tile edge so no
+                    // anti-aliased whisper of the old line survives the snap
+                    top: joinedTop ? -edge.width : edge.inset,
+                    right: joinedRight ? -edge.width : edge.inset,
+                    bottom: joinedBottom ? -edge.width : edge.inset,
+                    left: joinedLeft ? -edge.width : edge.inset,
                     borderTop: line(joinedTop),
                     borderRight: line(joinedRight),
                     borderBottom: line(joinedBottom),
