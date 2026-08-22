@@ -161,3 +161,52 @@ export const natureStories: Record<string, string[]> = {
     "By spring the whales turn north again, calves swimming beside their mothers on a first journey of thousands of miles. Their return each November is one of the surest rhythms in island life.",
   ],
 };
+
+/** Little paragraphs shown beneath each photograph — Oceanic Aquarium. */
+export const aquariumStories: Record<string, string[]> = {
+  "aquarium-01": [
+    "Hawaiian spinner dolphins — naiʻa — hunt in the deep all night and spend their days resting in shallow sandy bays, where the pale bottom helps them spot sharks. They sleep half a brain at a time, always half awake, and earn their name by leaping and spinning up to four times in a single jump.",
+  ],
+  "aquarium-02": [
+    "The manta ray is hāhālua, “two breaths,” for the pair of cephalic fins that funnel plankton into its mouth. Hawaiʻi's mantas can span fourteen feet, have the largest brain of any fish, and glide the same coastlines their whole lives — divers here recognize individuals by the spot pattern on their pale bellies.",
+  ],
+  "aquarium-03": [
+    "Akule — bigeye scad — gather in shimmering thousands inside Hawaiian bays, and a school this dense moves as one animal, folding and spiraling to confuse anything hunting it. Their enormous eyes are built for feeding at night, and generations of island families have watched for the dark cloud of them from shore.",
+  ],
+  "aquarium-04": [
+    "Potter's angelfish lives nowhere on earth but Hawaiʻi. Shy and territorial, it darts between coral heads on the outer reef, its burnt-orange front fading into deep iridescent blue — one of the loveliest of the roughly quarter of Hawaiʻi's reef fish found only in this archipelago.",
+  ],
+  "aquarium-05": [
+    "Puhi, the moray eel, breathes by opening and closing its mouth, which is why it always looks menacing when it is simply resting. Some Hawaiian families kept the puhi as an ʻaumakua, a guardian spirit, and cleaner shrimp will walk right into those jaws to pick the teeth clean.",
+  ],
+  "aquarium-06": [
+    "The Hawaiian spiny lobster, ula, has no claws — its defense is a set of long spined antennae and a startling rasp it makes by rubbing them together. It hides in lava ledges by day and walks the reef at night, and its shell can be a painted mix of violet, rust and gold.",
+  ],
+  "aquarium-07": [
+    "Heʻe, the day octopus, changes color and texture in under a second, reading its surroundings through skin that senses light. It has three hearts, blue blood, and problem-solving intelligence that would embarrass most pets — and it is the reef's most beloved escape artist.",
+  ],
+  "aquarium-08": [
+    "Clownfish coat themselves in a mucus layer that lets them live untouched among stinging anemone tentacles, safe from anything that would eat them; in exchange they chase off the anemone's predators and fan it clean. They are visitors here — Hawaiʻi's reef has no native clownfish — but few sights on earth are prettier.",
+  ],
+  "aquarium-09": [
+    "Sea anemones are animals, not flowers, and each waving tentacle is loaded with microscopic harpoons that fire on contact. Anchored to the reef for years at a time, they sway with every surge, and tiny shrimp and crabs shelter inside them as if in a garden.",
+  ],
+  "aquarium-10": [
+    "Lauʻīpala means “yellowed ti leaf,” which is exactly what a yellow tang looks like drifting over coral. They graze algae all day long, keeping the reef from being smothered, and at night their brilliant yellow fades to a dull grey with a pale stripe so predators pass them by.",
+  ],
+  "aquarium-11": [
+    "Humuhumunukunukuāpuaʻa — “trigger fish with a snout like a pig” — is Hawaiʻi's state fish, named for the grunting sound it makes when caught. It wedges itself into a crevice and locks a spine on its back like a trigger, so nothing can pull it out.",
+  ],
+  "aquarium-12": [
+    "Raccoon butterflyfish are called kīkākapu, “strongly forbidden,” a name given to fish once reserved or set apart by kapu. They pair for life, swimming side by side over the same stretch of reef for years, and their black eye mask hides the real eye from anything hunting them.",
+  ],
+  "aquarium-13": [
+    "ʻĪlioholoikauaua — “the dog that runs in rough water” — is the Hawaiian monk seal, found nowhere else and one of the rarest seals on earth, with only about fifteen hundred left. They dive hundreds of feet for octopus and eel, then haul out to sleep on warm sand.",
+  ],
+  "aquarium-14": [
+    "Kihikihi means “zigzag,” for the bold angled bands of the Moorish idol. That long white dorsal filament trails behind it like a pennant, and the species is old enough and distinct enough to have its own branch on the fish family tree.",
+  ],
+  "aquarium-15": [
+    "Sunbeams reach the reef because clear ocean water scatters very little light, and the shafts you see are that light catching plankton and fine sand suspended in the water. Coral itself is an animal farming sunlight — algae living inside its tissue feed it, which is why the loveliest reefs grow where the light comes down like this.",
+  ],
+};
