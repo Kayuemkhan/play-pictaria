@@ -325,7 +325,7 @@ export function RecordPlayButton({
         <span className="flex h-8 items-center px-0.5 text-primary">
           <Loader2 size={16} className="animate-spin" />
         </span>
-      ) : state === "ready" ? (
+      ) : state === "ready" || state === "playing" ? (
         <button
           type="button"
           onClick={() => setState("playing")}
