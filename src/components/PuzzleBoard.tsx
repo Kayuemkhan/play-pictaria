@@ -1341,11 +1341,12 @@ export function PuzzleBoard({
         className="relative mx-auto aspect-[3/4] max-h-[88vh] w-full shrink-0 p-1 sm:p-2"
       >
 
-        {/* Surprise me lives back on the board, where it always has been */}
+        {/* Surprise me rides at the top of the board; the summary box simply
+            covers it for a moment and it is back as soon as that clears. */}
         <button
           type="button"
           onClick={goSurprise}
-          className="absolute bottom-2 left-1/2 z-30 -translate-x-1/2 rounded-full border border-primary/70 bg-card/85 px-4 py-1 text-[0.6rem] tracking-[0.16em] text-primary uppercase shadow-soft backdrop-blur-sm transition-colors hover:bg-card"
+          className="absolute top-2 left-1/2 z-30 -translate-x-1/2 rounded-full border border-primary/70 bg-card/85 px-4 py-1 text-[0.6rem] tracking-[0.16em] text-primary uppercase shadow-soft backdrop-blur-sm transition-colors hover:bg-card"
         >
           Surprise me
         </button>
@@ -1354,11 +1355,12 @@ export function PuzzleBoard({
           <button
             type="button"
             onClick={onNextInSeries}
-            className="absolute bottom-7 left-1/2 z-40 -translate-x-1/2 rounded-full border border-primary/70 bg-card/85 px-3 py-1 text-[0.6rem] tracking-[0.16em] text-primary uppercase shadow-soft backdrop-blur-sm transition-colors hover:bg-card sm:bottom-10"
+            className="absolute bottom-3 left-1/2 z-40 -translate-x-1/2 rounded-full border border-primary/70 bg-card/85 px-3 py-1 text-[0.6rem] tracking-[0.16em] text-primary uppercase shadow-soft backdrop-blur-sm transition-colors hover:bg-card"
           >
             Next
           </button>
         )}
+
 
 
 
