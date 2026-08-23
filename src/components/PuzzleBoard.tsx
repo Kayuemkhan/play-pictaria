@@ -1612,16 +1612,8 @@ export function PuzzleBoard({
         </button>
       </div>
 
-      {/* Surprise me lives under the board now, so it never sits over the picture and stays put even when other overlays come and go */}
-      <div className="z-20 flex w-full shrink-0 justify-center px-6 pt-1 pb-1">
-        <button
-          type="button"
-          onClick={goSurprise}
-          className="rounded-full border border-primary/70 px-4 py-1 text-[0.6rem] tracking-[0.16em] text-primary uppercase transition-colors hover:bg-secondary"
-        >
-          Surprise me
-        </button>
-      </div>
+
+
 
       {info ? (
         <div className="z-20 px-4 pb-24 text-center sm:px-5">
