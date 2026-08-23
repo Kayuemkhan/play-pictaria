@@ -880,7 +880,7 @@ export function PuzzleBoard({
 
 
   const onPointerDown = (e: React.PointerEvent) => {
-    if (solved || autoRunning) return;
+    if (solved || autoRunning || replayingRef.current) return;
 
     const cellEl = (e.target as Element).closest("[data-cell]");
     if (!cellEl) return;
