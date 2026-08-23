@@ -31,6 +31,8 @@ export const Route = createFileRoute("/collection/$collectionId")({
 function CollectionPage() {
   const { collectionId } = Route.useParams();
   const collection = collections.find((c) => c.id === collectionId);
+  const notes = usePuzzleNotes();
+
   const isArchive = collectionId === "yesterdailys";
 
   const loadArchive = useServerFn(getYesterdailys);
