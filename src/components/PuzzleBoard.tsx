@@ -23,7 +23,8 @@ import {
   trackName,
   useMindfulPlayer,
 } from "@/components/MindfulMusic";
-import { ReplayModal, type ReplayFrame } from "@/components/ReplayModal";
+import { ReplaySaveModal } from "@/components/ReplaySaveModal";
+import { recordReplay, type ReplayClip, type ReplayFrame } from "@/lib/replay-video";
 
 type SoundscapeId = (typeof TRACK_OPTIONS)[number]["id"];
 
@@ -157,7 +158,11 @@ export function PuzzleBoard({
   const [solved, setSolved] = useState(false);
   const [showSummary, setShowSummary] = useState(false);
   const [showReference, setShowReference] = useState(false);
-  const [showReplay, setShowReplay] = useState(false);
+  /** the replay is running on the real board right now */
+  const [replaying, setReplaying] = useState(false);
+  const replayingRef = useRef(false);
+  const [clip, setClip] = useState<ReplayClip | null>(null);
+  const [replayNote, setReplayNote] = useState<string | null>(null);
   /** every board state the player produced, timed for an exact replay */
   const timeline = useRef<ReplayFrame[]>([]);
   const timelineStart = useRef(0);
@@ -278,13 +283,56 @@ export function PuzzleBoard({
 
   /* remember every board state, at the tempo it happened */
   useEffect(() => {
-    if (!pos.length) return;
+    if (!pos.length || replayingRef.current) return;
     if (!timeline.current.length) timelineStart.current = performance.now();
     timeline.current.push({
       t: performance.now() - timelineStart.current,
       pos: [...pos],
     });
   }, [pos]);
+
+  /**
+   * Replay on the real playing board: the player's own tiles move again at
+   * their tempo while the same replay is quietly recorded, then a small popup
+   * hands them the finished video to save.
+   */
+  const startReplay = useCallback(async () => {
+    if (replayingRef.current) return;
+    if (!timeline.current.length) {
+      setReplayNote("No moves recorded yet — play a little first.");
+      return;
+    }
+    const finalPos = [...pos];
+    const finalGroups = [...groupOf];
+    replayingRef.current = true;
+    setReplaying(true);
+    setReplayNote(null);
+    setDrag(null);
+    setClip(null);
+
+    const result = await recordReplay({
+      src,
+      grid,
+      title,
+      frames: timeline.current,
+      onBeat: (next) => {
+        setPos([...next]);
+        setGroupOf(
+          mergePass(
+            next,
+            Array.from({ length: next.length }, (_, i) => i),
+          ).groups,
+        );
+      },
+    });
+
+    setPos(finalPos);
+    setGroupOf(finalGroups);
+    replayingRef.current = false;
+    setReplaying(false);
+    if (result.clip) setClip(result.clip);
+    else setReplayNote(result.error ?? "That replay didn't finish. Please try again.");
+  }, [pos, groupOf, src, grid, title, mergePass]);
 
   /* timer */
   useEffect(() => {
@@ -832,7 +880,7 @@ export function PuzzleBoard({
 
 
   const onPointerDown = (e: React.PointerEvent) => {
-    if (solved || autoRunning) return;
+    if (solved || autoRunning || replayingRef.current) return;
 
     const cellEl = (e.target as Element).closest("[data-cell]");
     if (!cellEl) return;
@@ -1308,9 +1356,10 @@ export function PuzzleBoard({
 
           <button
             type="button"
-            aria-label="Record"
-            onClick={() => setShowReplay(true)}
-            className="flex h-8 w-8 items-center justify-center text-neutral-400 transition-colors hover:text-neutral-600"
+            aria-label="Replay"
+            onClick={() => void startReplay()}
+            disabled={replaying}
+            className="flex h-8 w-8 items-center justify-center text-neutral-400 transition-colors hover:text-neutral-600 disabled:opacity-40"
           >
             <Video size={18} strokeWidth={1.6} />
           </button>
@@ -1746,19 +1795,24 @@ export function PuzzleBoard({
 
       {breakOver && <BreakOverBanner onClose={() => setBreakOver(false)} />}
 
-      {showReplay && (
-        <ReplayModal
-          src={src}
-          grid={grid}
-          title={title}
-          frames={timeline.current}
-          onClose={() => setShowReplay(false)}
-          onShare={() => {
-            const url = window.location.href;
-            if (navigator.share) void navigator.share({ title, url }).catch(() => {});
-            else void navigator.clipboard?.writeText(url).catch(() => {});
-          }}
-        />
+      {replaying && (
+        <div className="pointer-events-none absolute top-2 left-1/2 z-40 -translate-x-1/2 rounded-full bg-card/85 px-3 py-1 text-[0.58rem] tracking-[0.16em] text-primary uppercase shadow-soft backdrop-blur-sm">
+          Replaying your solve…
+        </div>
+      )}
+
+      {replayNote && !replaying && (
+        <button
+          type="button"
+          onClick={() => setReplayNote(null)}
+          className="absolute top-2 left-1/2 z-40 -translate-x-1/2 rounded-full bg-card/90 px-3 py-1 text-[0.58rem] tracking-[0.12em] text-foreground/70 shadow-soft backdrop-blur-sm"
+        >
+          {replayNote}
+        </button>
+      )}
+
+      {clip && (
+        <ReplaySaveModal clip={clip} title={title} onClose={() => setClip(null)} />
       )}
 
       {unbranded && (
