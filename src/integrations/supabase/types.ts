@@ -277,6 +277,7 @@ export type Database = {
       }
       push_job_state: {
         Row: {
+          cron_token: string
           id: string
           last_medley_at: string | null
           last_run_at: string | null
@@ -286,6 +287,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          cron_token?: string
           id: string
           last_medley_at?: string | null
           last_run_at?: string | null
@@ -295,6 +297,7 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          cron_token?: string
           id?: string
           last_medley_at?: string | null
           last_run_at?: string | null
@@ -379,7 +382,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      trigger_push_medley: { Args: never; Returns: undefined }
     }
     Enums: {
       [_ in never]: never
