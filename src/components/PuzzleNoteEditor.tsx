@@ -4,6 +4,7 @@ import {
   clearPuzzleNote,
   getPuzzleNote,
   savePuzzleNote,
+  usePuzzleNote,
 } from "@/lib/puzzle-notes";
 
 type Props = {
