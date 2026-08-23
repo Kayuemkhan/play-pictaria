@@ -118,6 +118,7 @@ function CollectionPage() {
             );
           })}
           {collection.puzzles.map((puzzle) => {
+            const tileTitle = notes[puzzle.id]?.title ?? puzzle.title;
             return (
               <Link
                 key={puzzle.id}
@@ -129,7 +130,7 @@ function CollectionPage() {
                 <div className="overflow-hidden rounded-[4px] border border-accent/60 shadow-soft transition-shadow duration-500 group-hover:shadow-lift">
                   <img
                     src={puzzle.image}
-                    alt={puzzle.title}
+                    alt={tileTitle}
                     loading="lazy"
                     width={1024}
                     height={768}
@@ -138,12 +139,13 @@ function CollectionPage() {
                 </div>
                 <div className="px-1 pt-2 text-center">
                   <p className="font-display text-base leading-tight text-foreground">
-                    {puzzle.title}
+                    {tileTitle}
                   </p>
                 </div>
               </Link>
             );
           })}
+
         </div>
 
       </div>
