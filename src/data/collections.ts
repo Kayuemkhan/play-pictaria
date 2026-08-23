@@ -3163,39 +3163,57 @@ export const collections: Collection[] = [
     puzzles: [
       {
         id: "larissa-01",
-        title: "Beach Chairs",
-        caption: "Sunshine, snorkels and a spot on the grass",
+        title: "McKenna Landing",
+        caption: "A gentler stretch of water on a swelly week",
         image: larissa01,
+        story: [
+          "We tried and we tried and we tried to get some snorkeling in and every place we went was so rough because there were some swells and some storms and there just was no snorkeling while she was here however this beach was definitely a gentler more peaceful water experience so we were able to get into the ocean and hang out and play and it was just a really terrific day!",
+        ],
       },
       {
         id: "larissa-02",
-        title: "Under the Exit Sign",
-        caption: "Laughing before the door swings open",
+        title: "Paia fish market",
+        caption: "Too packed to sit, so we found the secret one",
         image: larissa02.url,
+        story: [
+          "This was an incredible memory we got so much delicious food but we looked around and the place was absolutely jam-packed and there wasn't any place to sit down and enjoy each other as well as hear each other so I told my sister about the secret Cafe which is one of my favorite places to go because you literally have to go into a bikini store and out the back to find it but it's totally worth it cuz it's like a garden that is covered which was really pleasant because it was raining but it was raining on corrugated roofing so it was just kind of a cozy quiet delicious Cafe experience.",
+        ],
       },
       {
         id: "larissa-03",
         title: "Paia Fishmarket",
-        caption: "Two sisters, one plate of fish",
+        caption: "Worth every second in the rain",
         image: larissa03,
+        story: [
+          "Every time I go past the Paia fish market I'm always shocked that that line is around the corner not because the food isn't delicious because it totally is but just that so many people know about it and we stood out in the rain for quite the while before we got our food but it was worth every second....",
+        ],
       },
       {
         id: "larissa-04",
-        title: "Flags and Fairy Lights",
-        caption: "Grinning under the pergola",
+        title: "Secret Cafe",
+        caption: "Through the bikini store, out into paradise",
         image: larissa04.url,
+        story: [
+          "I'm not sure what the real name is for this Cafe but I always call it the secret Cafe because you have to go through a bikini store to go all the way in the back. And when you get back there it's just a little Hawaiian Paradise it's beachy and spacious the food is really good the drinks are even better but they also let you take food in from other places and that's what we did and it was so delicious....",
+        ],
       },
       {
         id: "larissa-05",
-        title: "Palms Behind Us",
-        caption: "A cloudy sky and the best kind of company",
+        title: "Ocean vodka",
+        caption: "Both coasts of the island from one dinner table",
         image: larissa05.url,
+        story: [
+          "We were not expecting the food to be so good we had this delicious pizza and this amazing purple drink and orange drink and it was just lovely.... we were able to see both coasts of the island from our dinner table and the tour of all of their liqueurs was absolutely delicious.",
+        ],
       },
       {
         id: "larissa-06",
-        title: "A Kiss on the Cheek",
-        caption: "Green field, blue sky, one sister's kiss",
+        title: "Ocean Vodka tasting tour!",
+        caption: "Sugarcane, stories and little shot glasses to take home",
         image: larissa06.url,
+        story: [
+          "This was actually pretty fascinating from the moment you get there you learn about sugarcane and all the different varieties and then you learn about the difference distillery options and how they make vodka and why they make it and then we learned about rum and some really great information and then we got to sit at a outdoor bar stool and all of the offerings at Ocean vodka makes were served to us in little shot glasses that we got to take home. I was the designated driver so I just had a little bit of each thing but boy it was so delicious!",
+        ],
       },
     ],
   },
