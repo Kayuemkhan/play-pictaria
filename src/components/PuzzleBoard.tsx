@@ -1356,9 +1356,10 @@ export function PuzzleBoard({
 
           <button
             type="button"
-            aria-label="Record"
-            onClick={() => setShowReplay(true)}
-            className="flex h-8 w-8 items-center justify-center text-neutral-400 transition-colors hover:text-neutral-600"
+            aria-label="Replay"
+            onClick={() => void startReplay()}
+            disabled={replaying}
+            className="flex h-8 w-8 items-center justify-center text-neutral-400 transition-colors hover:text-neutral-600 disabled:opacity-40"
           >
             <Video size={18} strokeWidth={1.6} />
           </button>
