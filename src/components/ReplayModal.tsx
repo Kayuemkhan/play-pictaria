@@ -47,7 +47,7 @@ export function ReplayModal({
   }, [src]);
 
   const drawFrame = useCallback(
-    (pos: number[]) => {
+    (pos: number[], from?: number[], k = 1) => {
       const canvas = canvasRef.current;
       const img = imgRef.current;
       if (!canvas || !img) return;
@@ -69,8 +69,6 @@ export function ReplayModal({
       const ch = CANVAS_H / grid;
 
       pos.forEach((cell, piece) => {
-        const row = Math.floor(cell / grid);
-        const col = cell % grid;
         const pr = Math.floor(piece / grid);
         const pc = piece % grid;
 
@@ -80,13 +78,16 @@ export function ReplayModal({
         const sw = cw * (img.naturalWidth / bw);
         const sh = ch * (img.naturalHeight / bh);
 
-        const dx = col * cw;
-        const dy = row * ch;
+        // slide from the previous cell to this one, so a move reads as a move
+        const prev = from?.[piece] ?? cell;
+        const lerp = (x: number, y: number) => x + (y - x) * k;
+        const dx = lerp((prev % grid) * cw, (cell % grid) * cw);
+        const dy = lerp(Math.floor(prev / grid) * ch, Math.floor(cell / grid) * ch);
+        const moving = prev !== cell && k < 1;
 
         ctx.drawImage(img, sx, sy, sw, sh, dx, dy, cw, ch);
 
-        const home = cell === piece;
-        if (!home) {
+        if (cell !== piece || moving) {
           ctx.strokeStyle = "#ffffff";
           ctx.lineWidth = BORDER;
           ctx.strokeRect(
@@ -101,38 +102,57 @@ export function ReplayModal({
     [grid],
   );
 
-  /** run the timeline, calling back on every animation frame */
+  /**
+   * The player's own rhythm, trimmed: the pause before each move is kept but
+   * capped, so a long thoughtful solve still plays back as a watchable clip.
+   */
+  const beats = useRef<{ pos: number[]; at: number; glide: number }[]>([]);
+  if (!beats.current.length && frames.length) {
+    const MAX_PAUSE = 900;
+    const GLIDE = 300;
+    let clock = 0;
+    beats.current = frames.map((f, i) => {
+      if (i > 0) {
+        const gap = f.t - frames[i - 1]!.t;
+        clock += Math.min(Math.max(gap, 90), MAX_PAUSE);
+      }
+      return { pos: f.pos, at: clock, glide: i === 0 ? 0 : GLIDE };
+    });
+  }
+
+  /** run the timeline, calling back when the replay reaches its end */
   const runTimeline = useCallback(
     (onDone: () => void) => {
-      if (!frames.length) {
+      const list = beats.current;
+      if (!list.length) {
         onDone();
         return () => {};
       }
       const start = performance.now();
-      const span = frames[frames.length - 1]!.t;
+      const span = list[list.length - 1]!.at;
       let raf = 0;
-      let index = -1;
       const step = () => {
         const elapsed = performance.now() - start;
-        let next = 0;
-        for (let i = 0; i < frames.length; i++) {
-          if (frames[i]!.t <= elapsed) next = i;
-        }
-        if (next !== index) {
-          index = next;
-          drawFrame(frames[index]!.pos);
-        }
-        if (elapsed < span + 1400) {
+        let index = 0;
+        for (let i = 0; i < list.length; i++) if (list[i]!.at <= elapsed) index = i;
+        const beat = list[index]!;
+        const prev = list[index - 1];
+        const k = beat.glide
+          ? Math.min(1, (elapsed - beat.at) / beat.glide)
+          : 1;
+        const eased = 1 - Math.pow(1 - k, 3);
+        drawFrame(beat.pos, prev?.pos, eased);
+        if (elapsed < span + 1600) {
           raf = requestAnimationFrame(step);
         } else {
           onDone();
         }
       };
-      drawFrame(frames[0]!.pos);
+      drawFrame(list[0]!.pos);
       raf = requestAnimationFrame(step);
       return () => cancelAnimationFrame(raf);
     },
-    [frames, drawFrame],
+    [drawFrame],
   );
 
   /* looping preview */
@@ -142,6 +162,7 @@ export function ReplayModal({
     const stop = runTimeline(() => setLoop((v) => v + 1));
     return stop;
   }, [ready, saving, loop, runTimeline]);
+
 
   const download = useCallback(async () => {
     const canvas = canvasRef.current;
