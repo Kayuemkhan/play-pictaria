@@ -197,7 +197,7 @@ function Home() {
                   <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-deep via-deep/70 to-transparent px-2 pt-8 pb-3">
                     <p className={`leading-snug text-deep-foreground uppercase ${
                       collection.title.length > 10
-                        ? "text-[9px] tracking-[0.01em]"
+                        ? "text-[10px] tracking-[0.03em]"
                         : "text-[11px] tracking-[0.1em]"
                     }`}>
                       {collection.title}
