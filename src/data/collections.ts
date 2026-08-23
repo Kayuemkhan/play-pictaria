@@ -16,7 +16,7 @@ import portalPanda from "@/assets/portal-panda.jpg";
 import portalTurtle from "@/assets/portal-turtle.jpg";
 import larissa01 from "@/assets/larissa-vacay-01-sarong.jpg";
 import larissa02 from "@/assets/larissa-vacay-02.jpg.asset.json";
-import larissa03 from "@/assets/larissa-vacay-03.jpg.asset.json";
+import larissa03 from "@/assets/larissa-vacay-03-retouch.jpg";
 import larissa04 from "@/assets/larissa-vacay-04.jpg.asset.json";
 import larissa05 from "@/assets/larissa-vacay-05.jpg.asset.json";
 import larissa06 from "@/assets/larissa-vacay-06.jpg.asset.json";
@@ -3177,7 +3177,7 @@ export const collections: Collection[] = [
         id: "larissa-03",
         title: "Paia Fishmarket",
         caption: "Two sisters, one plate of fish",
-        image: larissa03.url,
+        image: larissa03,
       },
       {
         id: "larissa-04",
