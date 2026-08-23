@@ -14,6 +14,12 @@ import pinup10 from "@/assets/pinup-10.jpg";
 import portalShark from "@/assets/portal-shark.jpg";
 import portalPanda from "@/assets/portal-panda.jpg";
 import portalTurtle from "@/assets/portal-turtle.jpg";
+import larissa01 from "@/assets/larissa-vacay-01.jpg.asset.json";
+import larissa02 from "@/assets/larissa-vacay-02.jpg.asset.json";
+import larissa03 from "@/assets/larissa-vacay-03.jpg.asset.json";
+import larissa04 from "@/assets/larissa-vacay-04.jpg.asset.json";
+import larissa05 from "@/assets/larissa-vacay-05.jpg.asset.json";
+import larissa06 from "@/assets/larissa-vacay-06.jpg.asset.json";
 import turtle01 from "@/assets/turtle-01.jpg";
 import turtle02 from "@/assets/turtle-02.jpg";
 import turtle03 from "@/assets/turtle-03.jpg";
@@ -3145,6 +3151,51 @@ export const collections: Collection[] = [
         meaning: "Kai — the sea",
         caption: "Sunbeams falling on the coral garden",
         image: aquarium15,
+      },
+    ],
+  },
+  {
+    id: "larissa-vacay",
+    title: "Larissa Vacay",
+    tagline: "Six days of sisters, sunshine and Maui",
+    cover: larissa03.url,
+    free: true,
+    puzzles: [
+      {
+        id: "larissa-01",
+        title: "Under the Exit Sign",
+        caption: "Laughing before the door swings open",
+        image: larissa03.url,
+      },
+      {
+        id: "larissa-02",
+        title: "Paia Fishmarket",
+        caption: "Two sisters, one plate of fish",
+        image: larissa01.url,
+      },
+      {
+        id: "larissa-03",
+        title: "Flags and Fairy Lights",
+        caption: "Grinning under the pergola",
+        image: larissa04.url,
+      },
+      {
+        id: "larissa-04",
+        title: "Beach Chairs",
+        caption: "Sunshine, snorkels and a spot on the grass",
+        image: larissa02.url,
+      },
+      {
+        id: "larissa-05",
+        title: "Palms Behind Us",
+        caption: "A cloudy sky and the best kind of company",
+        image: larissa05.url,
+      },
+      {
+        id: "larissa-06",
+        title: "A Kiss on the Cheek",
+        caption: "Green field, blue sky, one sister's kiss",
+        image: larissa06.url,
       },
     ],
   },
