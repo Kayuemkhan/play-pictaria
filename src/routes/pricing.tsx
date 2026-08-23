@@ -180,6 +180,18 @@ const business = [
 function PricingPage() {
   return (
     <main className="relative min-h-dvh bg-deep pb-16 text-deep-foreground">
+      {/* E Komo Mai backdrop */}
+      <div className="pointer-events-none fixed inset-0 -z-10">
+        <img
+          src={eKomoMai}
+          alt="E Komo Mai — a cat gazing out a window at the ocean"
+          aria-hidden="true"
+          className="h-full w-full object-cover grayscale-[40%]"
+          style={{ opacity: 0.35 }}
+        />
+        <div className="absolute inset-0 bg-deep/75" />
+      </div>
+
       <header className="relative z-[1] mx-auto w-full max-w-5xl px-4 pt-8 text-center sm:px-8">
         <h1 className="font-display text-lg tracking-[0.2em] uppercase">
           Pictaria Pricing
