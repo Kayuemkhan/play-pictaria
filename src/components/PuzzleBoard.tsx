@@ -158,7 +158,11 @@ export function PuzzleBoard({
   const [solved, setSolved] = useState(false);
   const [showSummary, setShowSummary] = useState(false);
   const [showReference, setShowReference] = useState(false);
-  const [showReplay, setShowReplay] = useState(false);
+  /** the replay is running on the real board right now */
+  const [replaying, setReplaying] = useState(false);
+  const replayingRef = useRef(false);
+  const [clip, setClip] = useState<ReplayClip | null>(null);
+  const [replayNote, setReplayNote] = useState<string | null>(null);
   /** every board state the player produced, timed for an exact replay */
   const timeline = useRef<ReplayFrame[]>([]);
   const timelineStart = useRef(0);
