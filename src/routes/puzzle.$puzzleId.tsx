@@ -105,17 +105,8 @@ function PuzzlePage() {
           </p>
         )
       )}
-      {collection.allowUserNotes !== false && (
-        <PuzzleNoteEditor
-          puzzleId={puzzle.id}
-          defaultTitle={puzzle.title}
-          {...(puzzle.story?.length
-            ? { defaultStory: puzzle.story.join("\n\n") }
-            : puzzle.caption
-              ? { defaultStory: puzzle.caption }
-              : {})}
-        />
-      )}
+
+
 
       {collection.storyFooter && (
         <p className="mt-2 text-[0.68rem] tracking-wide text-muted-foreground/70 italic">
