@@ -1759,6 +1759,21 @@ export function PuzzleBoard({
 
       {breakOver && <BreakOverBanner onClose={() => setBreakOver(false)} />}
 
+      {showReplay && (
+        <ReplayModal
+          src={src}
+          grid={grid}
+          title={title}
+          frames={timeline.current}
+          onClose={() => setShowReplay(false)}
+          onShare={() => {
+            const url = window.location.href;
+            if (navigator.share) void navigator.share({ title, url }).catch(() => {});
+            else void navigator.clipboard?.writeText(url).catch(() => {});
+          }}
+        />
+      )}
+
       {unbranded && (
         <Link
           to="/"
