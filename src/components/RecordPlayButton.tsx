@@ -111,6 +111,13 @@ export function RecordPlayButton({
   const [clip, setClip] = useState<string | null>(null);
   const stageRef = useRef<HTMLDivElement | null>(null);
   const fileName = useRef("pictaria-solve.webm");
+  /** the puzzle board itself hosts the replay, so it plays in the main frame */
+  const [host, setHost] = useState<HTMLElement | null>(null);
+
+  useEffect(() => {
+    setHost(document.getElementById("pictaria-stage"));
+  }, []);
+
 
   useEffect(() => {
     if (clip) {
