@@ -229,7 +229,7 @@ export function ReplayModal({
 
         <p className="mt-4 text-center text-[0.72rem] leading-relaxed text-neutral-600">
           Pictaria remembers how you played. When your picture comes together,
-          tap record to keep the replay and share it anywhere.
+          tap record to keep the replay and share it on any of your socials as a video.
         </p>
 
         <div className="mt-4 flex flex-col items-center gap-2">
