@@ -50,10 +50,17 @@ function CollectionsPage() {
                 height={1024}
                 className="aspect-[3/4] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
               />
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-deep via-deep/70 to-transparent px-3 pt-8 pb-3">
-                <p className="text-[10px] leading-snug tracking-[0.06em] text-deep-foreground uppercase">
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-deep via-deep/70 to-transparent px-2 pt-8 pb-2.5">
+                <p
+                  className={`leading-tight text-deep-foreground uppercase ${
+                    collection.title.length > 10
+                      ? "text-[9px] tracking-[0.01em]"
+                      : "text-[10px] tracking-[0.06em]"
+                  }`}
+                >
                   {collection.title}
                 </p>
+
                 <p className="mt-1 text-[10px] tracking-[0.14em] text-accent uppercase">
                   {collection.puzzles.length} puzzles
                 </p>

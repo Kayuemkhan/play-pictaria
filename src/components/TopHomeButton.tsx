@@ -2,8 +2,8 @@ import { Link } from "@tanstack/react-router";
 import palmLogo from "@/assets/logo-palms-only.png";
 
 /**
- * The gold Pictaria palm trees, fixed to the top-center of every page.
- * Tapping them returns home, so the home screen is always one tap away.
+ * The gold Pictaria palm trees, sitting at the very top of the page content.
+ * They scroll away with the page instead of floating over it.
  */
 export function TopHomeButton() {
   return (
@@ -11,8 +11,9 @@ export function TopHomeButton() {
       to="/"
       aria-label="Home"
       data-top-home
-      className="pointer-events-auto fixed top-4 left-1/2 z-50 flex -translate-x-1/2 flex-col items-center gap-0 transition-[transform,opacity] hover:scale-105 active:scale-95"
+      className="pointer-events-auto absolute top-4 left-1/2 z-50 flex -translate-x-1/2 flex-col items-center gap-0 transition-[transform,opacity] hover:scale-105 active:scale-95"
     >
+
       <img
         src={palmLogo}
         alt=""
