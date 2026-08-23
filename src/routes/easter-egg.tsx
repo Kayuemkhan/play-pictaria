@@ -7,17 +7,17 @@ import { findPuzzleForWord, hawaiianWords } from "@/data/hawaiian-words";
 export const Route = createFileRoute("/easter-egg")({
   head: () => ({
     meta: [
-      { title: "Discover the Hawaiian Language — Pictaria" },
+      { title: "Easter Eggs — Pictaria" },
       {
         name: "description",
         content:
-          "Discover the Hawaiian language through Pictaria — words for flowers, waves, weather, and the way people care for one another.",
+          "Hidden surprises and discoveries inside Pictaria — starting with the Hawaiian language.",
       },
-      { property: "og:title", content: "Discover the Hawaiian Language — Pictaria" },
+      { property: "og:title", content: "Easter Eggs — Pictaria" },
       {
         property: "og:description",
         content:
-          "Discover the Hawaiian language through Pictaria — words for flowers, waves, weather, and the way people care for one another.",
+          "Hidden surprises and discoveries inside Pictaria — starting with the Hawaiian language.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -59,7 +59,7 @@ function EasterEggPage() {
       <div className="relative z-[2] flex min-h-screen flex-col items-center px-6 pt-[52vh] pb-20 text-center">
 
         <h1 className="mt-2 bg-gradient-to-br from-[oklch(0.99_0.03_90)] via-[oklch(0.96_0.05_88)] to-[oklch(0.88_0.09_80)] bg-clip-text font-display text-3xl leading-none tracking-[0.14em] text-transparent uppercase drop-shadow-[0_3px_14px_oklch(0.15_0.04_230/0.5)] sm:text-4xl">
-          Discover the Hawaiian Language
+          Easter eggs
         </h1>
 
         {/* the box */}
@@ -84,7 +84,7 @@ function EasterEggPage() {
         {/* the little Hawaiian dictionary */}
         <div className="mt-10 w-full max-w-sm rounded-[6px] border border-accent/50 bg-deep/70 px-6 py-7 text-left shadow-lift backdrop-blur-sm">
           <h2 className="font-display text-[0.7rem] tracking-[0.2em] text-accent uppercase">
-            The Hawaiian Language — Language Discovery
+            Discover the Hawaiian Language
           </h2>
           <p className="mt-3 font-display text-[0.95rem] leading-relaxed text-deep-foreground">
             Another quiet discovery hidden in Pictaria is the beauty of the
