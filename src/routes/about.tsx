@@ -61,21 +61,19 @@ function AboutPage() {
           <h1 className="mt-5 font-display text-[1.6rem] leading-snug text-shell sm:text-[2rem]">
             Travel to Pictaria
           </h1>
-          <div className="mx-auto mt-4 max-w-md rounded-[6px] border border-seafoam/40 bg-seafoam/15 p-5 backdrop-blur-sm">
-            <p className="text-[0.95rem] leading-relaxed text-shell">
-              We like to think of Pictaria as more of a place than a puzzle. It’s a quiet invitation to linger with the moments that mean the most — a peaceful way to reconnect with what matters.
-            </p>
-          </div>
-          <p className="mx-auto mt-4 max-w-xs text-center font-display text-[0.9rem] italic leading-relaxed text-shell/85">
-            “Life is made of moments. The best ones are worth returning to.”
-          </p>
-
         </div>
       </section>
 
       {/* Science of Play sections */}
-      <section className="mt-6 px-4 sm:px-8">
+      <section className="px-4 sm:px-8">
         <div className="mx-auto max-w-2xl space-y-6">
+          <div className="rounded-[6px] border border-accent/40 bg-deep/50 p-6 backdrop-blur-sm sm:p-10">
+            <p className="mx-auto max-w-xl text-[0.9rem] leading-relaxed text-shell/80">
+              We like to think of Pictaria as more of a place than a puzzle. It’s a quiet invitation to linger with the moments that mean the most — a peaceful way to reconnect with what matters.
+            </p>
+          </div>
+
+
           <div className="rounded-[6px] border border-accent/40 bg-deep/50 p-6 backdrop-blur-sm sm:p-10">
             <h2 className="font-display text-lg text-shell">The Science of Play</h2>
             <p className="mx-auto mt-4 max-w-xl text-[0.9rem] leading-relaxed text-shell/80">
