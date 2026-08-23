@@ -2776,7 +2776,7 @@ export const collections: Collection[] = [
   {
     id: "healing-plants-of-hawaii",
     title: "Healing Plants of Hawaii",
-    tagline: "Ten island plants of la'au lapa'au, and the old ways they were used",
+    tagline: "Twenty island plants of la'au lapa'au, and the old ways they were used",
     cover: healHau,
     free: true,
     puzzles: [
