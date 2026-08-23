@@ -2,6 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { collections, findPuzzle } from "@/data/collections";
+import { usePuzzleNotes } from "@/lib/puzzle-notes";
+
 import palmLogo from "@/assets/logo-palms-only.png";
 import { getYesterdailys } from "@/lib/yesterdailys.functions";
 import type { YesterdailyItem } from "@/lib/yesterdailys.functions";
@@ -29,6 +31,8 @@ export const Route = createFileRoute("/collection/$collectionId")({
 function CollectionPage() {
   const { collectionId } = Route.useParams();
   const collection = collections.find((c) => c.id === collectionId);
+  const notes = usePuzzleNotes();
+
   const isArchive = collectionId === "yesterdailys";
 
   const loadArchive = useServerFn(getYesterdailys);
@@ -118,6 +122,7 @@ function CollectionPage() {
             );
           })}
           {collection.puzzles.map((puzzle) => {
+            const tileTitle = notes[puzzle.id]?.title ?? puzzle.title;
             return (
               <Link
                 key={puzzle.id}
@@ -129,7 +134,7 @@ function CollectionPage() {
                 <div className="overflow-hidden rounded-[4px] border border-accent/60 shadow-soft transition-shadow duration-500 group-hover:shadow-lift">
                   <img
                     src={puzzle.image}
-                    alt={puzzle.title}
+                    alt={tileTitle}
                     loading="lazy"
                     width={1024}
                     height={768}
@@ -138,12 +143,13 @@ function CollectionPage() {
                 </div>
                 <div className="px-1 pt-2 text-center">
                   <p className="font-display text-base leading-tight text-foreground">
-                    {puzzle.title}
+                    {tileTitle}
                   </p>
                 </div>
               </Link>
             );
           })}
+
         </div>
 
       </div>

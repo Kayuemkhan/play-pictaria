@@ -1,9 +1,12 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { PuzzleBoard } from "@/components/PuzzleBoard";
+import { PuzzleNoteEditor } from "@/components/PuzzleNoteEditor";
+import { noteParagraphs, usePuzzleNote } from "@/lib/puzzle-notes";
 
 
 import { collections, findPuzzle } from "@/data/collections";
+
 
 export const Route = createFileRoute("/puzzle/$puzzleId")({
   validateSearch: (search: Record<string, unknown>) => ({
@@ -33,7 +36,9 @@ function PuzzlePage() {
   const { grid: initialGrid } = Route.useSearch();
   const navigate = useNavigate();
   const [grid, setGrid] = useState<number>(initialGrid ?? 4);
+  const note = usePuzzleNote(puzzleId);
   const found = findPuzzle(puzzleId);
+
 
   if (!found) {
     return (
@@ -70,19 +75,24 @@ function PuzzlePage() {
     });
   };
 
+  const displayTitle = note.title ?? puzzle.title;
+  const displayParagraphs = note.story
+    ? noteParagraphs(note.story)
+    : (puzzle.story ?? null);
+
   const info = (
     <div className="mx-auto max-w-2xl text-center">
       <h1 className="font-display text-2xl leading-tight sm:text-3xl">
-        {puzzle.title}
+        {displayTitle}
       </h1>
-      {puzzle.meaning && (
+      {puzzle.meaning && !note.title && (
         <p className="mt-0.5 text-xs text-muted-foreground italic">
           {puzzle.meaning}
         </p>
       )}
-      {puzzle.story ? (
+      {displayParagraphs ? (
         <div className="mt-2 space-y-1.5">
-          {puzzle.story.map((para, i) => (
+          {displayParagraphs.map((para, i) => (
             <p key={i} className="text-[0.8rem] leading-relaxed text-foreground">
               {para}
             </p>
@@ -95,6 +105,16 @@ function PuzzlePage() {
           </p>
         )
       )}
+      <PuzzleNoteEditor
+        puzzleId={puzzle.id}
+        defaultTitle={puzzle.title}
+        {...(puzzle.story?.length
+          ? { defaultStory: puzzle.story.join("\n\n") }
+          : puzzle.caption
+            ? { defaultStory: puzzle.caption }
+            : {})}
+      />
+
       {collection.storyFooter && (
         <p className="mt-2 text-[0.68rem] tracking-wide text-muted-foreground/70 italic">
           {collection.storyFooter}
@@ -173,7 +193,7 @@ function PuzzlePage() {
     <PuzzleBoard
       key={`${puzzle.id}-${grid}`}
       src={puzzle.image}
-      title={puzzle.title}
+      title={displayTitle}
       grid={grid}
       info={info}
       collectionName={collection.title}
