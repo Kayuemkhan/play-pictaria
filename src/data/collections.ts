@@ -3162,7 +3162,7 @@ export const collections: Collection[] = [
   {
     id: "larissa-vacay",
     title: "Larissa Vacay",
-    tagline: "Six days of sisters, sunshine and Maui",
+    tagline: "sisters sunshine and sea turtles",
     cover: larissa05.url,
     free: true,
     allowUserNotes: false,
@@ -3178,7 +3178,7 @@ export const collections: Collection[] = [
       },
       {
         id: "larissa-02",
-        title: "Paia fish market",
+        title: "Paia Fish Market",
         caption: "Too packed to sit, so we found the secret one",
         image: larissa02.url,
         story: [
@@ -3205,7 +3205,7 @@ export const collections: Collection[] = [
       },
       {
         id: "larissa-05",
-        title: "Ocean vodka",
+        title: "Ocean Vodka",
         caption: "Both coasts of the island from one dinner table",
         image: larissa05.url,
         story: [
@@ -3214,7 +3214,7 @@ export const collections: Collection[] = [
       },
       {
         id: "larissa-06",
-        title: "Ocean Vodka tasting tour!",
+        title: "Ocean Vodka Tasting Tour!",
         caption: "Sugarcane, stories and little shot glasses to take home",
         image: larissa06.url,
         story: [
