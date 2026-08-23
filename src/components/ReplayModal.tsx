@@ -199,7 +199,25 @@ export function ReplayModal({
     const blob = await finished;
 
     const ext = (recorder.mimeType || "").includes("mp4") ? "mp4" : "webm";
+    const type = ext === "mp4" ? "video/mp4" : "video/webm";
     const name = `pictaria-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "replay"}.${ext}`;
+
+    // 1) Native share sheet — lets the user tap "Save Video" so it lands in Photos.
+    try {
+      const file = new File([blob], name, { type });
+      const nav = navigator as Navigator & {
+        canShare?: (data: { files?: File[] }) => boolean;
+      };
+      if (nav.canShare?.({ files: [file] }) && nav.share) {
+        await nav.share({ files: [file], title: `Pictaria — ${title}` });
+        setSaving(false);
+        return;
+      }
+    } catch {
+      /* user cancelled or share unavailable — fall through to download */
+    }
+
+    // 2) Fallback: plain file download (desktop browsers).
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
