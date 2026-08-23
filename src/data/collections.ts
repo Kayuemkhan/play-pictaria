@@ -1470,7 +1470,7 @@ export const collections: Collection[] = [
   {
     id: "sea-turtles",
     title: "Sea Turtles",
-    tagline: "Ten quiet moments beneath the surface",
+    tagline: "Twenty quiet moments beneath the surface",
     cover: turtle01,
     free: true,
     puzzles: [
