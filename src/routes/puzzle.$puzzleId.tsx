@@ -36,7 +36,9 @@ function PuzzlePage() {
   const { grid: initialGrid } = Route.useSearch();
   const navigate = useNavigate();
   const [grid, setGrid] = useState<number>(initialGrid ?? 4);
+  const note = usePuzzleNote(puzzleId);
   const found = findPuzzle(puzzleId);
+
 
   if (!found) {
     return (
