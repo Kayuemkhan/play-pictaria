@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 
 import artistBottom from "@/assets/pricing-artist-bottom.jpg";
+import eKomoMai from "@/assets/cat-08.jpg";
 import { HeroPuzzle } from "@/components/HeroPuzzle";
 
 const planColumns = [
