@@ -362,6 +362,11 @@ export interface Collection {
   hidden?: boolean;
   /** A quiet line shown under every puzzle story in this collection. */
   storyFooter?: string;
+  /**
+   * When false, the "Make it yours" note editor is hidden because the
+   * collection's own titles and write-ups are permanent. Defaults to true.
+   */
+  allowUserNotes?: boolean;
 
   /**
    * Set when the collection is a member's or brand's own storybook. Visitors
