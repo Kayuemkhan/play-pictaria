@@ -256,11 +256,30 @@ function PricingPage() {
         {/* no ads, ever */}
         <section className="rounded-none border border-accent/50 bg-deep/40 p-5 text-center">
           <h2 className="font-display text-sm font-semibold tracking-[0.18em] uppercase">
-            There will never be any ads in Pictaria
+            There will never be any ads in the land of Pictaria
           </h2>
           <p className="mx-auto mt-2 max-w-2xl text-xs leading-relaxed text-deep-foreground/85">
             Not even ads for Pictaria. No pop-ups, no banners, no
             "watch this to keep playing." We're not that kind of app.
+          </p>
+        </section>
+
+        {/* the science of play */}
+        <section className="mt-6 rounded-none border border-accent/50 bg-deep/40 p-5">
+          <h2 className="font-display text-sm font-semibold tracking-[0.18em] uppercase">
+            Why play works
+          </h2>
+          <p className="mt-2 text-xs leading-relaxed text-deep-foreground/85">
+            There is a reason vision boards are used by athletes, CEOs, and anyone
+            chasing a big goal: when you focus on an image, your reticular activating
+            system starts spotting opportunities that were already there. Pictaria
+            takes that same idea and turns looking into doing.
+          </p>
+          <p className="mt-3 text-xs leading-relaxed text-deep-foreground/85">
+            Every tile that slides home gives a small dopamine reward, while the quiet
+            rhythm of solving nudges serotonin along — the calm, contented feeling
+            that comes from being fully absorbed in something beautiful. It is a
+            tiny daily retreat that happens to be good for your brain.
           </p>
         </section>
 
