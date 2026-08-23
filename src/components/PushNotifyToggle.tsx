@@ -134,11 +134,11 @@ export function PushNotifyToggle() {
 
   return (
     <div className="rounded-[6px] border border-accent/40 bg-deep/50 p-6 text-center backdrop-blur-sm">
-      <h2 className="font-display text-lg text-shell">A gentle knock on your phone</h2>
+      <h2 className="font-display text-lg text-shell">A telegram from Pictaria</h2>
       <p className="mx-auto mt-3 max-w-md text-[0.85rem] leading-relaxed text-shell/80">
-        Every so often a medley of new peaces arrives — “A new Pictaria from
-        Oceanic Aquarium has arrived.” It shows up at the top of your phone
-        screen, and nowhere else.
+        Every so often word arrives from Pictaria — “Telegram from Pictaria ·
+        From Oceanic Aquarium.” It appears at the top of your phone screen, and
+        nowhere else.
       </p>
 
       {status === "add-to-home" && (
