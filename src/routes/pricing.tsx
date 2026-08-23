@@ -179,7 +179,7 @@ const business = [
 
 function PricingPage() {
   return (
-    <main className="relative min-h-dvh bg-deep pb-16 text-deep-foreground">
+    <main className="relative min-h-dvh pb-16 text-deep-foreground">
       {/* E Komo Mai backdrop */}
       <div className="pointer-events-none fixed inset-0 -z-10">
         <img
