@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 
-import underwaterAsset from "@/assets/vision-board-underwater.jpg.asset.json";
+import underwaterAsset from "@/assets/vision-board-underwater.jpg";
 
 export const Route = createFileRoute("/vision-board")({
   head: () => ({
@@ -41,7 +41,7 @@ function VisionBoardPage() {
       {/* underwater header image — sits at the top and fades into the deep background */}
       <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[52vh] overflow-hidden bg-deep">
         <img
-          src={underwaterAsset.url}
+          src={underwaterAsset}
           alt="Sunlight beaming down through calm ocean water"
           aria-hidden="true"
           className="h-full w-full object-cover"
