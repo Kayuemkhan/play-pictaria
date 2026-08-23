@@ -30,6 +30,16 @@ import turtle07 from "@/assets/turtle-07.jpg";
 import turtle08 from "@/assets/turtle-08.jpg";
 import turtle09 from "@/assets/turtle-09.jpg.asset.json";
 import turtle10 from "@/assets/turtle-10.jpg";
+import turtle11 from "@/assets/turtle-11.jpg";
+import turtle12 from "@/assets/turtle-12.jpg";
+import turtle13 from "@/assets/turtle-13.jpg";
+import turtle14 from "@/assets/turtle-14.jpg";
+import turtle15 from "@/assets/turtle-15.jpg";
+import turtle16 from "@/assets/turtle-16.jpg";
+import turtle17 from "@/assets/turtle-17.jpg";
+import turtle18 from "@/assets/turtle-18.jpg";
+import turtle19 from "@/assets/turtle-19.jpg";
+import turtle20 from "@/assets/turtle-20.jpg";
 
 
 import flowerHibiscus from "@/assets/flower-hibiscus.jpg";
@@ -1460,7 +1470,7 @@ export const collections: Collection[] = [
   {
     id: "sea-turtles",
     title: "Sea Turtles",
-    tagline: "Ten quiet moments beneath the surface",
+    tagline: "Twenty quiet moments beneath the surface",
     cover: turtle01,
     free: true,
     puzzles: [
@@ -1525,6 +1535,66 @@ export const collections: Collection[] = [
         title: "Open Blue",
         caption: "Weightless in deep water",
         image: turtle10,
+      },
+      {
+        id: "turtle-11",
+        title: "Dancing Light",
+        caption: "Sunbeams shimmering across a shell",
+        image: turtle11,
+      },
+      {
+        id: "turtle-12",
+        title: "First Breath",
+        caption: "A head lifting into the sparkle",
+        image: turtle12,
+      },
+      {
+        id: "turtle-13",
+        title: "Blue Cathedral",
+        caption: "Rising through a shaft of sun",
+        image: turtle13,
+      },
+      {
+        id: "turtle-14",
+        title: "Emerald Mosaic",
+        caption: "Light netting over green scutes",
+        image: turtle14,
+      },
+      {
+        id: "turtle-15",
+        title: "Reef Parade",
+        caption: "Yellow tangs and endless blue",
+        image: turtle15,
+      },
+      {
+        id: "turtle-16",
+        title: "Two Worlds",
+        caption: "Half sky, half sea",
+        image: turtle16,
+      },
+      {
+        id: "turtle-17",
+        title: "Golden Hour",
+        caption: "Sunlight scattered like diamonds",
+        image: turtle17,
+      },
+      {
+        id: "turtle-18",
+        title: "Sunburst",
+        caption: "A silhouette against the light",
+        image: turtle18,
+      },
+      {
+        id: "turtle-19",
+        title: "White Sand Nap",
+        caption: "Caustics drifting over the shallows",
+        image: turtle19,
+      },
+      {
+        id: "turtle-20",
+        title: "Close Enough To Know",
+        caption: "A gentle eye in cool blue",
+        image: turtle20,
       },
     ],
   },
