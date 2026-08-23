@@ -17,7 +17,7 @@ self.addEventListener("push", (event) => {
     payload = { title: "Pictaria", body: event.data ? event.data.text() : "" };
   }
 
-  const title = payload.title || "A new Pictaria has arrived";
+  const title = payload.title || "Telegram from Pictaria";
   const options = {
     body: payload.body || "Tap to play today's peace of paradise.",
     icon: payload.icon || "/icon-192.png",

@@ -123,13 +123,18 @@ export function pickAlbums(count = 3, seed = Date.now()) {
 
 function fallbackText(albums: { title: string }[]) {
   const names = albums.map((album) => album.title);
-  const list =
-    names.length <= 1
-      ? (names[0] ?? "Pictaria")
-      : `${names.slice(0, -1).join(", ")} and ${names[names.length - 1]}`;
+  const rest = names.slice(1);
+  const restList =
+    rest.length === 0
+      ? ""
+      : rest.length === 1
+        ? rest[0]!
+        : `${rest.slice(0, -1).join(", ")} and ${rest[rest.length - 1]}`;
   return {
-    title: `A new Pictaria from ${names[0] ?? "Pictaria"} has arrived`,
-    body: `Fresh peaces waiting in ${list}. Tap for a little peace of paradise.`,
+    title: "Telegram from Pictaria",
+    body: restList
+      ? `From ${names[0] ?? "Pictaria"} — and word arrives from ${restList} as well.`
+      : `From ${names[0] ?? "Pictaria"} — a new peace of paradise is waiting.`,
   };
 }
 
@@ -138,16 +143,18 @@ async function writeMedley(albums: { title: string; tagline: string }[]) {
   const key = process.env["LOVABLE_API_KEY"];
   if (!key) return { ...fallbackText(albums), degraded: null as string | null };
 
-  const prompt = `Write a phone push notification for Pictaria, a calm Hawaiian
-photo-puzzle app. It announces that new puzzles ("Pictarias") have arrived in
-these albums:
+  const prompt = `Write a phone notification for Pictaria, a calm Hawaiian
+photo-puzzle app. The notification is styled as an old-fashioned telegram
+arriving from Pictaria, a slightly mystical faraway place. It announces that
+new puzzles ("Pictarias") have arrived in these albums:
 ${albums.map((album) => `- ${album.title} — ${album.tagline}`).join("\n")}
 
 Return JSON only: {"title": string, "body": string}
-- title: under 55 characters, must name at least one album, in the shape
-  "A new Pictaria from <Album> has arrived" (you may vary it gently).
-- body: under 110 characters, mentions the other album names, warm, calm,
-  never salesy, no emoji, no exclamation marks.`;
+- title: exactly "Telegram from Pictaria" — do not change it.
+- body: under 110 characters, begins with "From <first album name>", then
+  gently mentions the other album names. Word it like a vintage telegram:
+  clipped, unhurried, a little mysterious. Warm and calm, never salesy,
+  no emoji, no exclamation marks. Do not mention the Telegram messaging app.`;
 
   const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
     method: "POST",
