@@ -6,7 +6,7 @@ import { StudioComposer } from "@/components/StudioComposer";
 import { saveDailySubscriber } from "@/lib/daily.functions";
 import { supabase } from "@/integrations/supabase/client";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+
 import { Label } from "@/components/ui/label";
 import palmLogo from "@/assets/logo-palms-only.png";
 import puppyLetter from "@/assets/create-puppy-letter.jpg";
@@ -87,82 +87,96 @@ function CreatePage() {
 
   if (!unlocked) {
     return (
-      <main className="flex min-h-screen flex-col items-center justify-center bg-deep px-6 py-12">
-        <div className="w-full max-w-sm overflow-hidden rounded-lg border border-accent/60 bg-shell text-center shadow-soft">
-          <div className="relative h-36 w-full overflow-hidden">
-            <img
-              src={puppyLetter}
-              alt=""
-              aria-hidden
-              width={1024}
-              height={768}
-              className="h-full w-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-shell/25 to-shell" />
-          </div>
-          <div className="p-6">
-
-          <Link to="/" aria-label="Home" className="mx-auto block w-fit">
-            <img
-              src={palmLogo}
-              alt="Pictaria"
-              width={1024}
-              height={1024}
-              className="mx-auto h-16 w-auto rounded-[6px] drop-shadow-[0_2px_8px_oklch(0.15_0.04_230/0.5)] transition-transform hover:scale-[1.04]"
-            />
-          </Link>
-          <h1 className="mt-3 font-display text-[1.35rem] text-foreground">
-            Send a free Pictaria
-          </h1>
-          <p className="mt-2 text-[13px] leading-relaxed text-muted-foreground">
-            Send a free Pictaria with one photo. If you want more, a
-            subscription is $5.95 a month.
-          </p>
-
-          <form onSubmit={submitGate} className="mt-6 text-left">
-            <Label
-              htmlFor="creator-email"
-              className="text-[0.55rem] tracking-[0.18em] text-muted-foreground uppercase"
-            >
-              Email address
-            </Label>
-            <Input
-              id="creator-email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="you@example.com"
-              required
-              maxLength={255}
-              className="mt-1.5"
-            />
-
-            <label className="mt-4 flex cursor-pointer items-start gap-3">
-              <input
-                type="checkbox"
-                checked={wantsDaily}
-                onChange={(e) => setWantsDaily(e.target.checked)}
-                className="mt-0.5 h-4 w-4 accent-primary"
-              />
-              <span className="text-[12px] leading-snug text-foreground">
-                Would you like a free Pictaria everyday?
-              </span>
-            </label>
-
-            {gateStatus === "error" && (
-              <p className="mt-2 text-[11px] text-destructive">{gateError}</p>
-            )}
-            <Button
-              type="submit"
-              disabled={gateStatus === "saving" || !gateChecked}
-              className="mt-4 w-full rounded-full bg-primary text-[0.55rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03] disabled:opacity-60"
-            >
-              {gateStatus === "saving" ? "Saving..." : "Start here"}
-            </Button>
-          </form>
-          </div>
+      <main className="relative min-h-screen bg-deep pb-16">
+        {/* hero picture — the puppy with the letter, in colour but softly muted */}
+        <div className="relative h-[46vh] min-h-[300px] w-full sm:h-[50vh]">
+          <img
+            src={puppyLetter}
+            alt="A puppy running along the beach with a letter in its teeth"
+            width={1024}
+            height={768}
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-deep/40 via-deep/20 to-deep" />
         </div>
 
+        <section className="relative z-10 -mt-24 px-6 pb-10 text-center sm:-mt-28">
+          <div className="relative mx-auto max-w-2xl">
+            <Link to="/" aria-label="Home" className="mx-auto block w-fit">
+              <img
+                src={palmLogo}
+                alt="Pictaria"
+                width={1024}
+                height={1024}
+                className="mx-auto h-24 w-auto rounded-[8px] drop-shadow-[0_4px_18px_oklch(0.15_0.04_230/0.65)] transition-transform hover:scale-[1.04] sm:h-32"
+              />
+            </Link>
+            <h1 className="mt-6 font-display text-[1.6rem] leading-snug text-shell sm:text-[2rem]">
+              Send a free Pictaria
+            </h1>
+          </div>
+        </section>
+
+        <section className="px-4 sm:px-8">
+          <div className="mx-auto max-w-2xl space-y-6">
+            <div className="rounded-[6px] border border-accent/40 bg-deep/50 p-6 backdrop-blur-sm sm:p-10">
+              <h2 className="font-display text-lg text-shell">
+                One photograph, one instant link
+              </h2>
+              <p className="mx-auto mt-4 max-w-xl text-[0.9rem] leading-relaxed text-shell/80">
+                Send a free Pictaria with one photo. If you want more, a
+                subscription is $5.95 a month.
+              </p>
+            </div>
+
+            <div className="rounded-[6px] border border-accent/40 bg-deep/50 p-6 backdrop-blur-sm sm:p-10">
+              <form onSubmit={submitGate} className="mx-auto max-w-sm text-left">
+                <Label
+                  htmlFor="creator-email"
+                  className="text-[0.55rem] tracking-[0.18em] text-shell/75 uppercase"
+                >
+                  Email address
+                </Label>
+                <Input
+                  id="creator-email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="you@example.com"
+                  required
+                  maxLength={255}
+                  className="mt-1.5"
+                />
+
+                <label className="mt-4 flex cursor-pointer items-start gap-3">
+                  <input
+                    type="checkbox"
+                    checked={wantsDaily}
+                    onChange={(e) => setWantsDaily(e.target.checked)}
+                    className="mt-0.5 h-4 w-4 accent-primary"
+                  />
+                  <span className="text-[12px] leading-snug text-shell/85">
+                    Would you like a free Pictaria everyday?
+                  </span>
+                </label>
+
+                {gateStatus === "error" && (
+                  <p className="mt-2 text-[11px] text-destructive">{gateError}</p>
+                )}
+                <div className="mt-6 flex justify-center">
+                  <button
+                    type="submit"
+                    disabled={gateStatus === "saving" || !gateChecked}
+                    className="inline-flex items-center gap-1.5 rounded-full border border-accent/60 bg-accent/15 px-6 py-3 text-[0.6rem] tracking-[0.2em] text-accent uppercase transition-transform hover:scale-[1.03] disabled:opacity-60"
+                  >
+                    {gateStatus === "saving" ? "Saving..." : "Start here"}
+                    <span aria-hidden>›</span>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </section>
       </main>
     );
   }

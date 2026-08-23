@@ -366,7 +366,7 @@ export function StudioComposer({
   };
 
   return (
-    <main className="min-h-screen bg-shell pb-16">
+    <main className="min-h-screen bg-deep pb-16">
       {heroImage && (
         <div className="relative h-40 w-full overflow-hidden sm:h-52">
           <img
@@ -375,9 +375,9 @@ export function StudioComposer({
             aria-hidden
             width={1024}
             height={768}
-            className="h-full w-full object-cover opacity-75"
+            className="h-full w-full object-cover opacity-90"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-shell/40 to-shell" />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-deep/20 to-deep" />
         </div>
       )}
       <header className="px-4 pt-5 sm:px-8">
@@ -385,16 +385,16 @@ export function StudioComposer({
         <div className="flex items-center gap-3">
 
           <div className="min-w-0">
-            <h1 className="font-display text-lg tracking-[0.2em] uppercase">
+            <h1 className="font-display text-lg tracking-[0.2em] uppercase text-shell">
               {heading}
             </h1>
-            <p className="text-[10px] tracking-[0.22em] text-muted-foreground uppercase">
+            <p className="text-[10px] tracking-[0.22em] text-shell/70 uppercase">
               {kicker}
             </p>
           </div>
         </div>
         {description && (
-          <p className="mt-4 max-w-3xl text-xs leading-relaxed text-muted-foreground">
+          <p className="mt-4 max-w-3xl text-xs leading-relaxed text-shell/70">
             {description}
           </p>
         )}
@@ -476,7 +476,7 @@ export function StudioComposer({
           {/* pictures */}
           <div className="mt-4">
             <div className="mb-3 flex items-center justify-between gap-3">
-              <p className="text-[10px] tracking-[0.18em] text-muted-foreground uppercase">
+              <p className="text-[10px] tracking-[0.18em] text-shell/70 uppercase">
                 {photos.length > 0
                   ? `${photos.length} of ${maxPhotos} — tap one to work on it`
                   : maxPhotos > 1
@@ -503,7 +503,7 @@ export function StudioComposer({
 
             {photos.length > 0 && (
               <>
-                <p className="mb-2 text-[10px] leading-relaxed tracking-[0.08em] text-muted-foreground">
+                <p className="mb-2 text-[10px] leading-relaxed tracking-[0.08em] text-shell/70">
                   Your folder is private. Beneath each picture, choose whether
                   that one picture may also be shared with the Pictaria
                   community.
@@ -536,7 +536,7 @@ export function StudioComposer({
                         <X className="h-3 w-3" strokeWidth={2} />
                       </button>
                       <div className="mt-1.5">
-                        <p className="text-[0.5rem] leading-tight tracking-[0.12em] text-muted-foreground uppercase">
+                        <p className="text-[0.5rem] leading-tight tracking-[0.12em] text-shell/70 uppercase">
                           Offer to the community
                         </p>
                         <div
@@ -553,7 +553,7 @@ export function StudioComposer({
                               className={`px-2 py-0.5 text-[0.5rem] tracking-[0.14em] uppercase transition-colors ${
                                 photo.share === yes
                                   ? "bg-primary text-primary-foreground"
-                                  : "bg-transparent text-muted-foreground hover:text-foreground"
+                                  : "bg-transparent text-shell/70 hover:text-accent"
                               }`}
                             >
                               {yes ? "Yes" : "No"}
@@ -586,7 +586,7 @@ export function StudioComposer({
                       className={`grid h-10 w-10 place-items-center rounded-full transition-all ${
                         isActive
                           ? "bg-primary text-primary-foreground shadow-lift"
-                          : "bg-muted/80 text-foreground shadow-soft hover:bg-muted hover:shadow-lift"
+                          : "bg-deep/60 text-shell shadow-soft hover:bg-deep/80 hover:shadow-lift"
                       }`}
                     >
                       <Icon className="h-4 w-4" strokeWidth={1.5} />
@@ -601,7 +601,7 @@ export function StudioComposer({
                     .filter((t) => t.key === activeRetouch)
                     .map(({ key, label, min, max }) => (
                       <label key={key} className="grid gap-2">
-                        <span className="flex justify-between text-[10px] tracking-[0.18em] text-muted-foreground uppercase">
+                        <span className="flex justify-between text-[10px] tracking-[0.18em] text-shell/70 uppercase">
                           {label}
                           <span>{edits[key]}</span>
                         </span>
@@ -629,7 +629,7 @@ export function StudioComposer({
                   setEdits(NO_EDITS);
                   setActiveRetouch(null);
                 }}
-                className="mt-3 text-[0.55rem] tracking-[0.18em] text-muted-foreground uppercase hover:text-foreground"
+                className="mt-3 text-[0.55rem] tracking-[0.18em] text-shell/70 uppercase hover:text-accent"
               >
                 Reset retouching
               </button>
@@ -638,11 +638,11 @@ export function StudioComposer({
 
           {/* brand logo */}
           {logoPlacement && (
-            <div className="mt-4 rounded-[4px] border border-accent/60 bg-card/70 p-4">
-              <h2 className="font-display text-base tracking-[0.2em] uppercase">
+            <div className="mt-4 rounded-[4px] border border-accent/60 bg-deep/50 backdrop-blur-sm p-4">
+              <h2 className="font-display text-base tracking-[0.2em] uppercase text-shell">
                 Your logo
               </h2>
-              <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground">
+              <p className="mt-1 text-[11px] leading-relaxed text-shell/70">
                 Upload your mark, then drag it anywhere on the photograph.
               </p>
               <div className="mt-3 flex flex-wrap items-center gap-3">
@@ -665,7 +665,7 @@ export function StudioComposer({
                 </PhotoPick>
                 {logoUrl && (
                   <label className="grid flex-1 gap-1">
-                    <span className="text-[10px] tracking-[0.18em] text-muted-foreground uppercase">
+                    <span className="text-[10px] tracking-[0.18em] text-shell/70 uppercase">
                       Size
                     </span>
                     <input
@@ -689,37 +689,37 @@ export function StudioComposer({
         </section>
 
         {/* controls */}
-        <section className="rounded-[10px] border border-border bg-card/70 p-5">
-          <h2 className="font-display text-base tracking-[0.2em] uppercase">
+        <section className="rounded-[10px] border border-accent/40 bg-deep/50 backdrop-blur-sm p-5">
+          <h2 className="font-display text-base tracking-[0.2em] uppercase text-shell">
             Compose
           </h2>
           <div className="mt-4 grid gap-4">
             <label className="grid gap-1.5">
-              <span className="text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
+              <span className="text-[10px] tracking-[0.2em] text-shell/70 uppercase">
                 Pictaria
               </span>
               <input
                 value={brand}
                 onChange={(e) => setBrand(e.target.value)}
                 placeholder="Road to Hana"
-                className="rounded-xl border border-border bg-background px-3 py-2 text-sm outline-none placeholder:text-muted-foreground/40 focus:border-accent"
+                className="rounded-xl border border-accent/40 bg-deep/60 px-3 py-2 text-sm text-shell outline-none placeholder:text-shell/35 focus:border-accent"
               />
             </label>
 
             <label className="grid gap-1.5">
-              <span className="text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
+              <span className="text-[10px] tracking-[0.2em] text-shell/70 uppercase">
                 Tagline
               </span>
               <input
                 value={headline}
                 onChange={(e) => setHeadline(e.target.value)}
                 placeholder="A little puzzle note"
-                className="rounded-xl border border-border bg-background px-3 py-2 text-sm outline-none placeholder:text-muted-foreground/40 focus:border-accent"
+                className="rounded-xl border border-accent/40 bg-deep/60 px-3 py-2 text-sm text-shell outline-none placeholder:text-shell/35 focus:border-accent"
               />
             </label>
 
             <label className="grid gap-1.5">
-              <span className="text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
+              <span className="text-[10px] tracking-[0.2em] text-shell/70 uppercase">
                 Story note (optional)
               </span>
               <textarea
@@ -727,18 +727,18 @@ export function StudioComposer({
                 onChange={(e) => setCaption(e.target.value)}
                 rows={4}
                 placeholder="A recipe, the location, a memory — anything you'd like to share beneath the picture."
-                className="resize-y rounded-xl border border-border bg-background px-3 py-2 text-sm leading-relaxed outline-none placeholder:text-muted-foreground/40 focus:border-accent"
+                className="resize-y rounded-xl border border-accent/40 bg-deep/60 px-3 py-2 text-sm text-shell leading-relaxed outline-none placeholder:text-shell/35 focus:border-accent"
               />
             </label>
           </div>
 
           {/* hero picture — decided last */}
           {photos.length > 1 && (
-            <div className="mt-7 rounded-[4px] border border-accent/60 bg-card/70 p-4">
-              <h2 className="font-display text-base tracking-[0.2em] uppercase">
+            <div className="mt-7 rounded-[4px] border border-accent/60 bg-deep/50 backdrop-blur-sm p-4">
+              <h2 className="font-display text-base tracking-[0.2em] uppercase text-shell">
                 Your hero picture
               </h2>
-              <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground">
+              <p className="mt-1 text-[11px] leading-relaxed text-shell/70">
                 Finished in the lab? Choose the one picture that opens your
                 Pictaria.
               </p>
@@ -768,11 +768,11 @@ export function StudioComposer({
           )}
 
           {/* share link */}
-          <div className="mt-7 rounded-[4px] border border-accent/60 bg-card/70 p-4">
-            <h2 className="font-display text-base tracking-[0.2em] uppercase">
+          <div className="mt-7 rounded-[4px] border border-accent/60 bg-deep/50 backdrop-blur-sm p-4">
+            <h2 className="font-display text-base tracking-[0.2em] uppercase text-shell">
               Get your link
             </h2>
-            <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground">
+            <p className="mt-1 text-[11px] leading-relaxed text-shell/70">
               We publish your Pictaria and hand you a link anyone can open and
               play — text it, post it, or send it below.
             </p>
@@ -790,7 +790,7 @@ export function StudioComposer({
                 type="button"
                 onClick={() => void previewIt()}
                 disabled={!photos.length || publishState === "working"}
-                className="inline-flex items-center gap-1.5 rounded-full border border-accent/60 bg-transparent px-4 py-2 text-[0.6rem] tracking-[0.2em] uppercase transition-transform hover:scale-[1.03] disabled:opacity-50"
+                className="inline-flex items-center gap-1.5 rounded-full border border-accent/60 bg-accent/15 px-4 py-2 text-[0.6rem] tracking-[0.2em] uppercase text-accent transition-transform hover:scale-[1.03] disabled:opacity-50"
               >
                 Preview it
                 <span aria-hidden>›</span>
@@ -801,8 +801,8 @@ export function StudioComposer({
               <p className="mt-2 text-[11px] text-destructive">{publishError}</p>
             )}
             {shareUrl && (
-              <div className="mt-3 flex items-center gap-2 rounded-xl border border-border bg-background px-3 py-2">
-                <span className="min-w-0 flex-1 truncate text-xs">
+              <div className="mt-3 flex items-center gap-2 rounded-xl border border-accent/40 bg-background px-3 py-2">
+                <span className="min-w-0 flex-1 truncate text-xs text-shell">
                   {shareUrl}
                 </span>
                 <button
@@ -826,28 +826,28 @@ export function StudioComposer({
 
           {/* send */}
 
-          <div className="mt-4 rounded-[4px] border border-accent/60 bg-card/70 p-4">
-            <h2 className="font-display text-base tracking-[0.2em] uppercase">
+          <div className="mt-4 rounded-[4px] border border-accent/60 bg-deep/50 backdrop-blur-sm p-4">
+            <h2 className="font-display text-base tracking-[0.2em] uppercase text-shell">
               Send it
             </h2>
-            <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground">
+            <p className="mt-1 text-[11px] leading-relaxed text-shell/70">
               Add one email or a whole group, separated by commas — we open your
               mail with the Pictaria invitation ready to go. Up to{" "}
               {maxRecipients.toLocaleString()} addresses per send; beyond that,
               copy the play link above into your own email list.
             </p>
             <label className="mt-3 grid gap-1.5">
-              <span className="text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
+              <span className="text-[10px] tracking-[0.2em] text-shell/70 uppercase">
                 Send to
               </span>
               <input
                 value={recipients}
                 onChange={(e) => setRecipients(e.target.value)}
                 placeholder="mom@example.com, ohana@example.com"
-                className="rounded-xl border border-border bg-background px-3 py-2 text-sm outline-none placeholder:text-muted-foreground/40 focus:border-accent"
+                className="rounded-xl border border-accent/40 bg-deep/60 px-3 py-2 text-sm text-shell outline-none placeholder:text-shell/35 focus:border-accent"
               />
               <span
-                className={`text-[10px] tracking-[0.12em] uppercase ${overLimit ? "text-destructive" : "text-muted-foreground"}`}
+                className={`text-[10px] tracking-[0.12em] uppercase ${overLimit ? "text-destructive" : "text-shell/70"}`}
               >
                 {recipientList.length} of {maxRecipients.toLocaleString()}
                 {overLimit
@@ -874,13 +874,13 @@ export function StudioComposer({
 
           {/* CTAs — never link a studio back to itself */}
           {tier !== "personal" && tier !== "brand" && (
-            <div className="relative mt-6 overflow-hidden rounded-[4px] border border-accent/60 bg-card/70 p-4">
+            <div className="relative mt-6 overflow-hidden rounded-[4px] border border-accent/60 bg-deep/50 backdrop-blur-sm p-4">
               <div className="relative grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4">
-                <p className="min-w-0 font-display text-[0.85rem] leading-snug [color:color-mix(in_oklch,var(--foreground)_92%,black)]">
+                <p className="min-w-0 font-display text-[0.85rem] leading-snug text-shell">
                   I love puzzles — I would love to send Pictaria&rsquo;s!
                 </p>
                 <div className="flex shrink-0 flex-col items-end gap-1">
-                  <span className="text-[0.55rem] tracking-[0.18em] text-muted-foreground uppercase">
+                  <span className="text-[0.55rem] tracking-[0.18em] text-shell/70 uppercase">
                     Storybooks for your ohana
                   </span>
                   <Link
@@ -896,13 +896,13 @@ export function StudioComposer({
           )}
 
           {tier !== "artist" && tier !== "brand" && (
-            <div className="relative mt-4 overflow-hidden rounded-[4px] border border-accent/60 bg-card/70 p-4">
+            <div className="relative mt-4 overflow-hidden rounded-[4px] border border-accent/60 bg-deep/50 backdrop-blur-sm p-4">
               <div className="relative grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4">
-                <p className="min-w-0 font-display text-[0.85rem] leading-snug [color:color-mix(in_oklch,var(--foreground)_92%,black)]">
+                <p className="min-w-0 font-display text-[0.85rem] leading-snug text-shell">
                   I love photographs — I would love to retouch them first!
                 </p>
                 <div className="flex shrink-0 flex-col items-end gap-1">
-                  <span className="text-[0.55rem] tracking-[0.18em] text-muted-foreground uppercase">
+                  <span className="text-[0.55rem] tracking-[0.18em] text-shell/70 uppercase">
                     Full photo editing
                   </span>
                   <Link
@@ -918,13 +918,13 @@ export function StudioComposer({
           )}
 
           {tier !== "brand" && (
-            <div className="relative mt-4 overflow-hidden rounded-[4px] border border-accent/60 bg-card/70 p-4">
+            <div className="relative mt-4 overflow-hidden rounded-[4px] border border-accent/60 bg-deep/50 backdrop-blur-sm p-4">
               <div className="relative grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4">
-                <p className="min-w-0 font-display text-[0.85rem] leading-snug [color:color-mix(in_oklch,var(--foreground)_92%,black)]">
+                <p className="min-w-0 font-display text-[0.85rem] leading-snug text-shell">
                   I&rsquo;m a business — I would love to send Pictaria&rsquo;s!
                 </p>
                 <div className="flex shrink-0 flex-col items-end gap-1">
-                  <span className="text-[0.55rem] tracking-[0.18em] text-muted-foreground uppercase">
+                  <span className="text-[0.55rem] tracking-[0.18em] text-shell/70 uppercase">
                     Analytics &amp; action buttons
                   </span>
                   <Link
@@ -947,7 +947,7 @@ export function StudioComposer({
               {highlights.map((h) => (
                 <li
                   key={h}
-                  className="text-[11px] leading-relaxed text-muted-foreground"
+                  className="text-[11px] leading-relaxed text-shell/70"
                 >
                   {h}
                 </li>
