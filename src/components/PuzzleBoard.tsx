@@ -320,17 +320,13 @@ export function PuzzleBoard({
     }
     const fade = window.setTimeout(() => setCongratsOut(true), 2800);
     const gone = window.setTimeout(() => setLinger(true), 4100);
-    if (hasNext) {
-      return () => {
-        window.clearTimeout(fade);
-        window.clearTimeout(gone);
-      };
-    }
-    const t = window.setTimeout(() => setShowSummary(true), 6800);
+    const t = hasNext
+      ? undefined
+      : window.setTimeout(() => setShowSummary(true), 6800);
     return () => {
       window.clearTimeout(fade);
       window.clearTimeout(gone);
-      window.clearTimeout(t);
+      if (t) window.clearTimeout(t);
     };
   }, [solved, hasNext]);
   void nextRef;
