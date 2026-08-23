@@ -45,7 +45,7 @@ function AboutPage() {
       </div>
 
       {/* hero */}
-      <section className="relative overflow-hidden px-6 pt-10 pb-16 text-center sm:pt-16 sm:pb-20">
+      <section className="relative overflow-hidden px-6 pt-6 pb-10 text-center sm:pt-8 sm:pb-12">
         <div className="absolute inset-0 bg-gradient-to-b from-seafoam/10 via-transparent to-deep/20" />
 
         <div className="relative mx-auto max-w-2xl">
@@ -55,14 +55,19 @@ function AboutPage() {
               alt="Pictaria"
               width={1024}
               height={1024}
-              className="mx-auto h-32 w-auto rounded-[8px] drop-shadow-[0_4px_18px_oklch(0.15_0.04_230/0.65)] transition-transform hover:scale-[1.04] sm:h-40"
+              className="mx-auto h-11 w-auto rounded-[8px] drop-shadow-[0_4px_18px_oklch(0.15_0.04_230/0.65)] transition-transform hover:scale-[1.04] sm:h-14"
             />
           </Link>
-          <h1 className="mt-6 font-display text-[1.6rem] leading-snug text-shell sm:text-[2rem]">
+          <h1 className="mt-5 font-display text-[1.6rem] leading-snug text-shell sm:text-[2rem]">
             Travel to Pictaria
           </h1>
-          <p className="mx-auto mt-4 max-w-md text-[0.95rem] leading-relaxed text-shell/85">
-            Pictaria is more than a puzzle — it's a quiet invitation to linger with the moments that matter. Every photo you took holds a memory, a feeling, a small piece of your story. Here, play becomes a gentle way to reconnect with what means the most.
+          <div className="mx-auto mt-4 max-w-md rounded-[6px] border border-seafoam/40 bg-seafoam/15 p-5 backdrop-blur-sm">
+            <p className="text-[0.95rem] leading-relaxed text-shell">
+              We like to think of Pictaria as more of a place than a puzzle. It’s a quiet invitation to linger with the moments that mean the most — a peaceful way to reconnect with what matters.
+            </p>
+          </div>
+          <p className="mx-auto mt-4 max-w-xs text-center font-display text-[0.9rem] italic leading-relaxed text-shell/85">
+            “Life is made of moments. The best ones are worth returning to.”
           </p>
 
         </div>
