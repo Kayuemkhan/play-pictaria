@@ -88,46 +88,44 @@ function CreatePage() {
   if (!unlocked) {
     return (
       <main className="relative min-h-screen bg-deep pb-16">
-        {/* hero picture — the puppy with the letter, in colour but softly muted */}
-        <div className="relative h-[46vh] min-h-[300px] w-full sm:h-[50vh]">
+        {/* hero picture — the golden retriever puppy delivering your letter */}
+        <div className="relative h-[38vh] min-h-[240px] w-full sm:h-[42vh]">
           <img
             src={puppyLetter}
-            alt="A puppy running along the beach with a letter in its teeth"
+            alt="A golden retriever puppy running along a Hawaiian beach with a letter in its mouth"
             width={1024}
             height={768}
             className="absolute inset-0 h-full w-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-deep/40 via-deep/20 to-deep" />
+          <div className="absolute inset-0 bg-gradient-to-t from-deep via-deep/45 to-transparent" />
         </div>
 
-        <section className="relative z-10 -mt-24 px-6 pb-10 text-center sm:-mt-28">
-          <div className="relative mx-auto max-w-2xl">
-            <Link to="/" aria-label="Home" className="mx-auto block w-fit">
-              <img
-                src={palmLogo}
-                alt="Pictaria"
-                width={1024}
-                height={1024}
-                className="mx-auto h-24 w-auto rounded-[8px] drop-shadow-[0_4px_18px_oklch(0.15_0.04_230/0.65)] transition-transform hover:scale-[1.04] sm:h-32"
-              />
-            </Link>
-            <h1 className="mt-6 font-display text-[1.6rem] leading-snug text-shell sm:text-[2rem]">
-              Send a free Pictaria
-            </h1>
-          </div>
+        <section className="relative z-10 -mt-10 px-6 pb-4 text-center">
+          <h1 className="font-display text-[1.6rem] leading-snug text-shell sm:text-[2rem]">
+            Send a free Pictaria
+          </h1>
         </section>
 
         <section className="px-4 sm:px-8">
-          <div className="mx-auto max-w-2xl space-y-6">
-            <div className="rounded-[6px] border border-accent/40 bg-deep/50 p-6 backdrop-blur-sm sm:p-10">
+          <div className="mx-auto max-w-2xl space-y-4">
+            <div className="rounded-[6px] border border-accent/40 bg-deep/50 p-5 backdrop-blur-sm sm:p-8">
               <h2 className="font-display text-lg text-shell">
-                One photograph, one instant link
+                Share your vacation as a puzzle
               </h2>
-              <p className="mx-auto mt-4 max-w-xl text-[0.9rem] leading-relaxed text-shell/80">
-                Send a free Pictaria with one photo. If you want more, a
-                subscription is $5.95 a month.
+              <p className="mx-auto mt-3 max-w-xl text-[0.9rem] leading-relaxed text-shell/80">
+                Pick one favorite photograph — the beach, the sunset, the whole
+                family squinting into the light — give it a title and a little
+                note, and Pictaria turns it into a playable puzzle with its own
+                link. Text it or email it to anyone you love: they tap the link,
+                see your picture whole, then watch it break into tiles they get
+                to put back together.
+              </p>
+              <p className="mx-auto mt-3 max-w-xl text-[0.9rem] leading-relaxed text-shell/70">
+                Your first one is free. If you'd like your own studio for
+                storybooks full of them, a subscription is $5.95 a month.
               </p>
             </div>
+
 
             <div className="rounded-[6px] border border-accent/40 bg-deep/50 p-6 backdrop-blur-sm sm:p-10">
               <form onSubmit={submitGate} className="mx-auto max-w-sm text-left">
