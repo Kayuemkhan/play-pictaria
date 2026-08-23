@@ -275,6 +275,105 @@ export type Database = {
         }
         Relationships: []
       }
+      push_job_state: {
+        Row: {
+          id: string
+          last_medley_at: string | null
+          last_run_at: string | null
+          lease_until: string | null
+          paused: boolean
+          paused_reason: string | null
+          updated_at: string
+        }
+        Insert: {
+          id: string
+          last_medley_at?: string | null
+          last_run_at?: string | null
+          lease_until?: string | null
+          paused?: boolean
+          paused_reason?: string | null
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          last_medley_at?: string | null
+          last_run_at?: string | null
+          lease_until?: string | null
+          paused?: boolean
+          paused_reason?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      push_medleys: {
+        Row: {
+          albums: string[]
+          body: string
+          created_at: string
+          failed_count: number
+          id: string
+          sent_at: string | null
+          sent_count: number
+          title: string
+          url: string
+        }
+        Insert: {
+          albums?: string[]
+          body: string
+          created_at?: string
+          failed_count?: number
+          id?: string
+          sent_at?: string | null
+          sent_count?: number
+          title: string
+          url?: string
+        }
+        Update: {
+          albums?: string[]
+          body?: string
+          created_at?: string
+          failed_count?: number
+          id?: string
+          sent_at?: string | null
+          sent_count?: number
+          title?: string
+          url?: string
+        }
+        Relationships: []
+      }
+      push_subscriptions: {
+        Row: {
+          active: boolean
+          auth: string
+          created_at: string
+          endpoint: string
+          id: string
+          last_sent_at: string | null
+          p256dh: string
+          user_agent: string | null
+        }
+        Insert: {
+          active?: boolean
+          auth: string
+          created_at?: string
+          endpoint: string
+          id?: string
+          last_sent_at?: string | null
+          p256dh: string
+          user_agent?: string | null
+        }
+        Update: {
+          active?: boolean
+          auth?: string
+          created_at?: string
+          endpoint?: string
+          id?: string
+          last_sent_at?: string | null
+          p256dh?: string
+          user_agent?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
