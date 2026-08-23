@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 
-import underwaterAsset from "@/assets/vision-board-underwater.jpg.asset.json";
+import underwaterAsset from "@/assets/vision-board-underwater.jpg";
 
 export const Route = createFileRoute("/vision-board")({
   head: () => ({
