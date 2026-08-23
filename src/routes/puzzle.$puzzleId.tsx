@@ -1,9 +1,12 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { PuzzleBoard } from "@/components/PuzzleBoard";
+import { PuzzleNoteEditor } from "@/components/PuzzleNoteEditor";
+import { noteParagraphs, usePuzzleNote } from "@/lib/puzzle-notes";
 
 
 import { collections, findPuzzle } from "@/data/collections";
+
 
 export const Route = createFileRoute("/puzzle/$puzzleId")({
   validateSearch: (search: Record<string, unknown>) => ({
