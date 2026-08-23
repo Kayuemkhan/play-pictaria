@@ -121,7 +121,7 @@ function CollectionPage() {
               </Link>
             );
           })}
-          {collection.puzzles.map((puzzle) => {
+          {[...collection.puzzles].reverse().map((puzzle) => {
             const tileTitle = notes[puzzle.id]?.title ?? puzzle.title;
             return (
               <Link
