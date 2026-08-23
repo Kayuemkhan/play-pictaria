@@ -1584,15 +1584,8 @@ export function PuzzleBoard({
               </span>
             )
           ) : null}
-          {/* Surprise me sits right here under the board, always in view */}
-          <button
-            type="button"
-            onClick={goSurprise}
-            className="rounded-full border border-primary/70 px-4 py-1 text-[0.6rem] tracking-[0.16em] text-primary uppercase transition-colors hover:bg-secondary"
-          >
-            Surprise me
-          </button>
         </div>
+
 
 
         <button
