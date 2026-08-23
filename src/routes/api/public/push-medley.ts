@@ -12,11 +12,20 @@ export const Route = createFileRoute("/api/public/push-medley")({
   server: {
     handlers: {
       POST: async ({ request }) => {
-        const secret = process.env["PUSH_CRON_SECRET"];
-        if (!secret) return Response.json({ error: "not configured" }, { status: 503 });
-        if (request.headers.get("x-pictaria-cron") !== secret) {
+        const presented = request.headers.get("x-pictaria-cron") ?? "";
+        const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+        const { data: tokenRow } = await supabaseAdmin
+          .from("push_job_state")
+          .select("cron_token")
+          .eq("id", "medley")
+          .maybeSingle();
+        const expected =
+          (tokenRow?.cron_token as string | undefined) ?? process.env["PUSH_CRON_SECRET"];
+        if (!expected) return Response.json({ error: "not configured" }, { status: 503 });
+        if (presented.length !== expected.length || presented !== expected) {
           return new Response("Unauthorized", { status: 401 });
         }
+
 
         const {
           readJobState,
