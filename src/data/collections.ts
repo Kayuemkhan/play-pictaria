@@ -14,7 +14,7 @@ import pinup10 from "@/assets/pinup-10.jpg";
 import portalShark from "@/assets/portal-shark.jpg";
 import portalPanda from "@/assets/portal-panda.jpg";
 import portalTurtle from "@/assets/portal-turtle.jpg";
-import larissa01 from "@/assets/larissa-vacay-01.jpg.asset.json";
+import larissa01 from "@/assets/larissa-vacay-01-sarong.jpg";
 import larissa02 from "@/assets/larissa-vacay-02.jpg.asset.json";
 import larissa03 from "@/assets/larissa-vacay-03.jpg.asset.json";
 import larissa04 from "@/assets/larissa-vacay-04.jpg.asset.json";
@@ -3165,7 +3165,7 @@ export const collections: Collection[] = [
         id: "larissa-01",
         title: "Beach Chairs",
         caption: "Sunshine, snorkels and a spot on the grass",
-        image: larissa01.url,
+        image: larissa01,
       },
       {
         id: "larissa-02",
