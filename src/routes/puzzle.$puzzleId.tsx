@@ -193,7 +193,7 @@ function PuzzlePage() {
     <PuzzleBoard
       key={`${puzzle.id}-${grid}`}
       src={puzzle.image}
-      title={puzzle.title}
+      title={displayTitle}
       grid={grid}
       info={info}
       collectionName={collection.title}
