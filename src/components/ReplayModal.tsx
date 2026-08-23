@@ -34,17 +34,52 @@ export function ReplayModal({
   const imgRef = useRef<HTMLImageElement | null>(null);
   const [ready, setReady] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [note, setNote] = useState<string | null>(null);
 
-  /* load the picture once */
+  /**
+   * Load the picture once. The photo is fetched as a blob first: drawing a
+   * remote image straight onto the canvas taints it, and a tainted canvas makes
+   * captureStream() throw — which is why the recording silently never appeared.
+   */
   useEffect(() => {
-    const img = new Image();
-    img.crossOrigin = "anonymous";
-    img.onload = () => {
+    let objectUrl = "";
+    let cancelled = false;
+
+    const load = (url: string, cors: boolean) =>
+      new Promise<HTMLImageElement>((resolve, reject) => {
+        const img = new Image();
+        if (cors) img.crossOrigin = "anonymous";
+        img.onload = () => resolve(img);
+        img.onerror = () => reject(new Error("image failed"));
+        img.src = url;
+      });
+
+    (async () => {
+      let img: HTMLImageElement | null = null;
+      try {
+        const response = await fetch(src, { mode: "cors" });
+        const blob = await response.blob();
+        objectUrl = URL.createObjectURL(blob);
+        img = await load(objectUrl, false);
+      } catch {
+        try {
+          img = await load(src, true);
+        } catch {
+          img = null;
+        }
+      }
+      if (cancelled || !img) return;
       imgRef.current = img;
       setReady(true);
+    })();
+
+    return () => {
+      cancelled = true;
+      if (objectUrl) URL.revokeObjectURL(objectUrl);
     };
-    img.src = src;
   }, [src]);
+
+
 
   const drawFrame = useCallback(
     (pos: number[], from?: number[], k = 1) => {
@@ -164,70 +199,111 @@ export function ReplayModal({
   }, [ready, saving, loop, runTimeline]);
 
 
+  /** Blob URL of the finished clip, kept so the player can save it by hand. */
+  const [clip, setClip] = useState<{ url: string; name: string } | null>(null);
+
   const download = useCallback(async () => {
     const canvas = canvasRef.current;
     if (!canvas || saving) return;
+
+    if (!beats.current.length) {
+      setNote("No moves were recorded for this picture yet.");
+      return;
+    }
+    if (typeof MediaRecorder === "undefined" || !canvas.captureStream) {
+      setNote("This browser can't record video. Try Chrome or Safari.");
+      return;
+    }
+
+    setNote(null);
     setSaving(true);
 
-    const mime = [
-      "video/mp4;codecs=avc1",
-      "video/mp4",
-      "video/webm;codecs=vp9",
-      "video/webm",
-    ].find((m) => MediaRecorder.isTypeSupported?.(m));
-
-    const stream = canvas.captureStream(30);
-    const recorder = new MediaRecorder(
-      stream,
-      mime ? { mimeType: mime, videoBitsPerSecond: 5_000_000 } : undefined,
-    );
-    const chunks: Blob[] = [];
-    recorder.ondataavailable = (e) => {
-      if (e.data.size) chunks.push(e.data);
-    };
-
-    const finished = new Promise<Blob>((resolve) => {
-      recorder.onstop = () =>
-        resolve(new Blob(chunks, { type: recorder.mimeType || "video/webm" }));
-    });
-
-    recorder.start(100);
-    await new Promise<void>((resolve) => {
-      runTimeline(() => resolve());
-    });
-    recorder.stop();
-    const blob = await finished;
-
-    const ext = (recorder.mimeType || "").includes("mp4") ? "mp4" : "webm";
-    const type = ext === "mp4" ? "video/mp4" : "video/webm";
-    const name = `pictaria-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "replay"}.${ext}`;
-
-    // 1) Native share sheet — lets the user tap "Save Video" so it lands in Photos.
     try {
-      const file = new File([blob], name, { type });
-      const nav = navigator as Navigator & {
-        canShare?: (data: { files?: File[] }) => boolean;
+      const mime = [
+        "video/mp4;codecs=avc1",
+        "video/mp4",
+        "video/webm;codecs=vp9",
+        "video/webm",
+      ].find((m) => MediaRecorder.isTypeSupported?.(m));
+
+      const stream = canvas.captureStream(30);
+      const recorder = new MediaRecorder(
+        stream,
+        mime ? { mimeType: mime, videoBitsPerSecond: 5_000_000 } : undefined,
+      );
+      const chunks: Blob[] = [];
+      recorder.ondataavailable = (e) => {
+        if (e.data.size) chunks.push(e.data);
       };
-      if (nav.canShare?.({ files: [file] }) && nav.share) {
-        await nav.share({ files: [file], title: `Pictaria — ${title}` });
+
+      const finished = new Promise<Blob>((resolve) => {
+        recorder.onstop = () =>
+          resolve(new Blob(chunks, { type: recorder.mimeType || "video/webm" }));
+      });
+
+      recorder.start(100);
+      await new Promise<void>((resolve) => {
+        runTimeline(() => resolve());
+      });
+      // Give the encoder a beat to flush the final frames.
+      await new Promise((resolve) => window.setTimeout(resolve, 250));
+      recorder.stop();
+      stream.getTracks().forEach((track) => track.stop());
+      const blob = await finished;
+
+      if (!blob.size) {
+        setNote("The recording came out empty — please try once more.");
         setSaving(false);
         return;
       }
-    } catch {
-      /* user cancelled or share unavailable — fall through to download */
-    }
 
-    // 2) Fallback: plain file download (desktop browsers).
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = name;
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    window.setTimeout(() => URL.revokeObjectURL(url), 4000);
+      const ext = (recorder.mimeType || "").includes("mp4") ? "mp4" : "webm";
+      const type = ext === "mp4" ? "video/mp4" : "video/webm";
+      const name = `pictaria-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "replay"}.${ext}`;
+
+      // 1) Native share sheet — lets the user tap "Save Video" so it lands in Photos.
+      let shared = false;
+      try {
+        const file = new File([blob], name, { type });
+        const nav = navigator as Navigator & {
+          canShare?: (data: { files?: File[] }) => boolean;
+        };
+        if (nav.canShare?.({ files: [file] }) && nav.share) {
+          await nav.share({ files: [file], title: `Pictaria — ${title}` });
+          shared = true;
+        }
+      } catch {
+        /* user cancelled or share unavailable — fall through to download */
+      }
+
+      // 2) Plain file download (desktop browsers).
+      const url = URL.createObjectURL(blob);
+      if (!shared) {
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = name;
+        link.rel = "noopener";
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+      }
+
+      // 3) Always leave the clip on screen: some in-app browsers ignore both
+      //    the share sheet and the download attribute, and this is the only
+      //    way the player can press and hold to save it to Photos.
+      setClip({ url, name });
+      setNote(
+        shared
+          ? "Saved through your share sheet. The clip is below too."
+          : "Your clip is ready below — press and hold it to save to Photos.",
+      );
+    } catch (error) {
+      console.error("replay recording failed", error);
+      setNote("That recording didn't finish. Please try again.");
+    }
     setSaving(false);
   }, [runTimeline, saving, title]);
+
 
   return (
     <div className="fixed inset-0 z-[200] flex items-center justify-center bg-deep/70 px-4 py-6">
@@ -245,9 +321,18 @@ export function ReplayModal({
           className="w-full rounded-[14px] bg-white"
         />
 
+        {clip && (
+          <video
+            src={clip.url}
+            controls
+            playsInline
+            className="mt-3 w-full rounded-[14px] bg-black"
+          />
+        )}
+
         <p className="mt-4 text-center text-[0.72rem] leading-relaxed text-neutral-600">
-          Pictaria remembers how you played. When your picture comes together,
-          tap record to keep the replay and share it on any of your socials as a video.
+          {note ??
+            "Pictaria remembers how you played. When your picture comes together, tap record to keep the replay and share it on any of your socials as a video."}
         </p>
 
         <div className="mt-4 flex flex-col items-center gap-2">
@@ -257,8 +342,18 @@ export function ReplayModal({
             disabled={saving || !ready}
             className="w-full rounded-full border border-neutral-400 px-6 py-2 text-[0.62rem] tracking-[0.18em] text-neutral-700 uppercase transition-colors hover:bg-neutral-100 disabled:opacity-50"
           >
-            {saving ? "…" : "Download"}
+            {saving ? "Recording…" : clip ? "Record again" : "Download"}
           </button>
+          {clip && (
+            <a
+              href={clip.url}
+              download={clip.name}
+              className="w-full rounded-full border border-neutral-300 px-6 py-2 text-center text-[0.62rem] tracking-[0.18em] text-neutral-500 uppercase transition-colors hover:bg-neutral-100"
+            >
+              Save the video
+            </a>
+          )}
+
           {onShare && (
             <button
               type="button"
