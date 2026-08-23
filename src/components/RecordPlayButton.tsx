@@ -403,6 +403,62 @@ export function RecordPlayButton({
     }
   };
 
+  const active = state === "working" || state === "playing";
+
+  const panel = (
+    <div
+      className={
+        active
+          ? "absolute inset-0 z-[60] flex flex-col items-center justify-center gap-3 rounded-[10px] bg-background/95 px-2 py-3"
+          : "pointer-events-none absolute h-0 w-0 overflow-hidden opacity-0"
+      }
+    >
+      <div
+        ref={stageRef}
+        className={
+          state === "playing"
+            ? "hidden"
+            : "min-h-0 w-full flex-1 overflow-hidden rounded-[10px] bg-white"
+        }
+      />
+      {state === "playing" && clip && (
+        <video
+          src={clip}
+          autoPlay
+          loop
+          playsInline
+          controls
+          className="min-h-0 w-full flex-1 rounded-[10px] bg-white object-contain"
+        />
+      )}
+      <p className="text-[0.6rem] tracking-[0.18em] text-muted-foreground uppercase">
+        {state === "playing" ? "Your gameplay" : "Making your video…"}
+      </p>
+      {state === "playing" && (
+        <div className="flex items-center gap-5">
+          <button
+            type="button"
+            onClick={() => clip && void saveClip(clip, true)}
+            className="text-[0.58rem] tracking-[0.18em] text-primary uppercase"
+          >
+            Save to photos
+          </button>
+          <button
+            type="button"
+            onClick={() => setState("ready")}
+            className="text-[0.58rem] tracking-[0.18em] text-muted-foreground uppercase"
+          >
+            Close
+          </button>
+        </div>
+      )}
+    </div>
+  );
+
+  const overlay = host ? createPortal(panel, host) : panel;
+
+
+
   return (
     <div className="relative flex items-center">
       {state === "working" ? (
