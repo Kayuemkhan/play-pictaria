@@ -34,17 +34,52 @@ export function ReplayModal({
   const imgRef = useRef<HTMLImageElement | null>(null);
   const [ready, setReady] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [note, setNote] = useState<string | null>(null);
 
-  /* load the picture once */
+  /**
+   * Load the picture once. The photo is fetched as a blob first: drawing a
+   * remote image straight onto the canvas taints it, and a tainted canvas makes
+   * captureStream() throw — which is why the recording silently never appeared.
+   */
   useEffect(() => {
-    const img = new Image();
-    img.crossOrigin = "anonymous";
-    img.onload = () => {
+    let objectUrl = "";
+    let cancelled = false;
+
+    const load = (url: string, cors: boolean) =>
+      new Promise<HTMLImageElement>((resolve, reject) => {
+        const img = new Image();
+        if (cors) img.crossOrigin = "anonymous";
+        img.onload = () => resolve(img);
+        img.onerror = () => reject(new Error("image failed"));
+        img.src = url;
+      });
+
+    (async () => {
+      let img: HTMLImageElement | null = null;
+      try {
+        const response = await fetch(src, { mode: "cors" });
+        const blob = await response.blob();
+        objectUrl = URL.createObjectURL(blob);
+        img = await load(objectUrl, false);
+      } catch {
+        try {
+          img = await load(src, true);
+        } catch {
+          img = null;
+        }
+      }
+      if (cancelled || !img) return;
       imgRef.current = img;
       setReady(true);
+    })();
+
+    return () => {
+      cancelled = true;
+      if (objectUrl) URL.revokeObjectURL(objectUrl);
     };
-    img.src = src;
   }, [src]);
+
+
 
   const drawFrame = useCallback(
     (pos: number[], from?: number[], k = 1) => {
