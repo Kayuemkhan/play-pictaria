@@ -117,7 +117,7 @@ function AboutPage() {
               “In the end, life isn’t made of years. It’s made of moments.”
             </p>
             <p className="mt-2 text-center font-display text-[0.95rem] text-shell/85">
-              🌺 Amy Wakingwolf
+              <span className="text-[0.75rem]">🌺</span> Amy Wakingwolf
             </p>
           </div>
         </div>
@@ -126,18 +126,9 @@ function AboutPage() {
 
       {/* final CTA */}
       <section className="mt-6 px-4 text-center sm:px-8">
-        <p className="mx-auto max-w-md text-center font-display text-[1.1rem] leading-relaxed text-shell">
-          <span className="block">“Pictures are worth a thousand words</span>
-          <span className="block">puzzles make them fun”</span>
-          <span className="mt-2 block text-[1rem] text-shell/85">
-            🌺 Amy Wakingwolf
-          </span>
-        </p>
-
-
         <Link
           to="/collections"
-          className="mt-6 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-[0.7rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
+          className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-[0.7rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
         >
           Start playing
           <ArrowRight className="h-3.5 w-3.5" strokeWidth={2} />
