@@ -283,13 +283,56 @@ export function PuzzleBoard({
 
   /* remember every board state, at the tempo it happened */
   useEffect(() => {
-    if (!pos.length) return;
+    if (!pos.length || replayingRef.current) return;
     if (!timeline.current.length) timelineStart.current = performance.now();
     timeline.current.push({
       t: performance.now() - timelineStart.current,
       pos: [...pos],
     });
   }, [pos]);
+
+  /**
+   * Replay on the real playing board: the player's own tiles move again at
+   * their tempo while the same replay is quietly recorded, then a small popup
+   * hands them the finished video to save.
+   */
+  const startReplay = useCallback(async () => {
+    if (replayingRef.current) return;
+    if (!timeline.current.length) {
+      setReplayNote("No moves recorded yet — play a little first.");
+      return;
+    }
+    const finalPos = [...pos];
+    const finalGroups = [...groupOf];
+    replayingRef.current = true;
+    setReplaying(true);
+    setReplayNote(null);
+    setDrag(null);
+    setClip(null);
+
+    const result = await recordReplay({
+      src,
+      grid,
+      title,
+      frames: timeline.current,
+      onBeat: (next) => {
+        setPos([...next]);
+        setGroupOf(
+          mergePass(
+            next,
+            Array.from({ length: next.length }, (_, i) => i),
+          ).groups,
+        );
+      },
+    });
+
+    setPos(finalPos);
+    setGroupOf(finalGroups);
+    replayingRef.current = false;
+    setReplaying(false);
+    if (result.clip) setClip(result.clip);
+    else setReplayNote(result.error ?? "That replay didn't finish. Please try again.");
+  }, [pos, groupOf, src, grid, title, mergePass]);
 
   /* timer */
   useEffect(() => {
