@@ -68,7 +68,8 @@ function AboutPage() {
       <section className="px-4 sm:px-8">
         <div className="mx-auto max-w-2xl space-y-6">
           <div className="rounded-[6px] border border-accent/40 bg-deep/50 p-6 backdrop-blur-sm sm:p-10">
-            <p className="mx-auto max-w-xl text-[0.9rem] leading-relaxed text-shell/80">
+            <h2 className="font-display text-lg text-shell">Welcome to a little peace of paradise</h2>
+            <p className="mx-auto mt-4 max-w-xl text-[0.9rem] leading-relaxed text-shell/80">
               We like to think of Pictaria as more of a place than a puzzle. It’s a quiet invitation to linger with the moments that mean the most — a peaceful way to reconnect with what matters.
             </p>
           </div>
