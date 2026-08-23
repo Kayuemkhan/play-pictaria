@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { StudioComposer } from "@/components/StudioComposer";
@@ -8,7 +8,6 @@ import { supabase } from "@/integrations/supabase/client";
 import { Input } from "@/components/ui/input";
 
 import { Label } from "@/components/ui/label";
-import palmLogo from "@/assets/logo-palms-only.png";
 import puppyLetter from "@/assets/create-puppy-letter.jpg";
 
 
