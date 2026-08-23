@@ -110,7 +110,16 @@ function AboutPage() {
             </p>
           </div>
 
+          <div className="rounded-[6px] border border-accent/40 bg-deep/50 p-6 backdrop-blur-sm sm:p-10">
+            <p className="mx-auto max-w-xl text-center font-display text-[1.05rem] leading-relaxed text-shell">
+              “In the end, life isn’t made of years. It’s made of moments.”
+            </p>
+            <p className="mt-2 text-center font-display text-[0.95rem] text-shell/85">
+              🌺 Amy Wakingwolf
+            </p>
+          </div>
         </div>
+
       </section>
 
       {/* final CTA */}
