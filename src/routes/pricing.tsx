@@ -196,21 +196,21 @@ function PricingPage() {
             <table className="w-full min-w-[34rem] border-collapse text-left">
               <thead>
                 <tr>
-                  <th className="border border-accent/50 bg-card/70 p-3 text-[0.6rem] tracking-[0.18em] text-muted-foreground uppercase">
+                  <th className="border border-accent/50 bg-deep/40 p-3 text-[0.6rem] tracking-[0.18em] text-deep-foreground/85 uppercase">
                     What you get
                   </th>
                   {planColumns.map((p) => (
                     <th
                       key={p.name}
-                      className="border border-accent/50 bg-card/70 p-3 text-center"
+                      className="border border-accent/50 bg-deep/40 p-3 text-center"
                     >
                       <span className="block font-display text-[0.7rem] tracking-[0.16em] uppercase">
                         {p.name}
                       </span>
-                      <span className="mt-1 block font-display text-base tracking-[0.06em] text-foreground">
+                      <span className="mt-1 block font-display text-base tracking-[0.06em] text-deep-foreground">
                         {p.price}
                       </span>
-                      <span className="block text-[0.55rem] tracking-[0.18em] text-muted-foreground uppercase">
+                      <span className="block text-[0.55rem] tracking-[0.18em] text-deep-foreground/85 uppercase">
                         {p.period}
                       </span>
                     </th>
@@ -220,7 +220,7 @@ function PricingPage() {
               <tbody>
                 {planRows.map((row) => (
                   <tr key={row.label}>
-                    <td className="border border-accent/50 p-3 text-xs leading-relaxed text-muted-foreground">
+                    <td className="border border-accent/50 p-3 text-xs leading-relaxed text-deep-foreground/85">
                       {row.label}
                     </td>
                     {row.values.map((v, i) => (
@@ -236,12 +236,12 @@ function PricingPage() {
                           />
                         ) : v === false ? (
                           <Minus
-                            className="mx-auto h-4 w-4 text-muted-foreground/50"
+                            className="mx-auto h-4 w-4 text-deep-foreground/85/50"
                             strokeWidth={2}
                             aria-label="not included"
                           />
                         ) : (
-                          <span className="text-xs text-foreground">{v}</span>
+                          <span className="text-xs text-deep-foreground">{v}</span>
                         )}
                       </td>
                     ))}
@@ -254,11 +254,11 @@ function PricingPage() {
 
 
         {/* no ads, ever */}
-        <section className="rounded-none border border-accent/50 bg-card/70 p-5 text-center">
+        <section className="rounded-none border border-accent/50 bg-deep/40 p-5 text-center">
           <h2 className="font-display text-sm font-semibold tracking-[0.18em] uppercase">
             There will never be any ads in Pictaria
           </h2>
-          <p className="mx-auto mt-2 max-w-2xl text-xs leading-relaxed text-muted-foreground">
+          <p className="mx-auto mt-2 max-w-2xl text-xs leading-relaxed text-deep-foreground/85">
             Not even ads for Pictaria. No pop-ups, no banners, no
             "watch this to keep playing." We're not that kind of app.
           </p>
@@ -269,7 +269,7 @@ function PricingPage() {
           <h2 className="font-display text-sm font-semibold tracking-[0.18em] uppercase">
             a little vacay everyday
           </h2>
-          <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+          <p className="mt-1 text-xs leading-relaxed text-deep-foreground/85">
             Pictaria is a magical place you can visit whenever you need a little
             escape. Start your day with a little adventure, and a fresh mystery
             waiting to be solved, a tiny moment of relaxation that costs nothing.
@@ -278,13 +278,13 @@ function PricingPage() {
             like, and come back whenever you need a little piece of paradise.
           </p>
           <div className="mt-4 flex items-baseline gap-2">
-            <span className="font-display text-lg font-semibold tracking-[0.18em] text-foreground uppercase">
+            <span className="font-display text-lg font-semibold tracking-[0.18em] text-deep-foreground uppercase">
               FREE
             </span>
           </div>
 
           <div className="mt-4 grid gap-3 sm:grid-cols-2">
-            <div className="flex gap-3 rounded-none border border-accent/50 bg-card/70 p-4">
+            <div className="flex gap-3 rounded-none border border-accent/50 bg-deep/40 p-4">
               <Sparkles
                 className="mt-0.5 h-5 w-5 shrink-0 text-primary"
                 strokeWidth={1.5}
@@ -293,12 +293,12 @@ function PricingPage() {
                 <p className="font-display text-sm tracking-[0.14em] uppercase">
                   A fresh Pictaria every morning
                 </p>
-                <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                <p className="mt-1 text-xs leading-relaxed text-deep-foreground/85">
                   Wake up to a new picture waiting to be solved — a little daily escape that costs nothing.
                 </p>
               </div>
             </div>
-            <div className="flex gap-3 rounded-none border border-accent/50 bg-card/70 p-4">
+            <div className="flex gap-3 rounded-none border border-accent/50 bg-deep/40 p-4">
               <Images
                 className="mt-0.5 h-5 w-5 shrink-0 text-primary"
                 strokeWidth={1.5}
@@ -307,7 +307,7 @@ function PricingPage() {
                 <p className="font-display text-sm tracking-[0.14em] uppercase">
                   Wander the public albums
                 </p>
-                <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                <p className="mt-1 text-xs leading-relaxed text-deep-foreground/85">
                   Play as many public puzzles as you like, stay as long as you like, and come back anytime.
                 </p>
               </div>
@@ -327,16 +327,16 @@ function PricingPage() {
           <h2 className="font-display text-lg font-semibold tracking-[0.18em] uppercase">
             Personal Studio
           </h2>
-          <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+          <p className="mt-2 text-xs leading-relaxed text-deep-foreground/85">
             Celebrate your weddings, vacations, birthdays, anniversaries,
             adventures, pets and so much more — your own photos, turned into fun
             for friends and family.
           </p>
           <div className="mt-4 flex items-baseline gap-2">
-            <span className="font-display text-3xl tracking-[0.08em] text-foreground">
+            <span className="font-display text-3xl tracking-[0.08em] text-deep-foreground">
               $5.95
             </span>
-            <span className="text-[0.7rem] tracking-[0.18em] text-muted-foreground uppercase">
+            <span className="text-[0.7rem] tracking-[0.18em] text-deep-foreground/85 uppercase">
               / month
             </span>
           </div>
@@ -344,7 +344,7 @@ function PricingPage() {
             {personal.map((f) => (
               <div
                 key={f.title}
-                className="flex gap-3 rounded-none border border-accent/50 bg-card/70 p-4"
+                className="flex gap-3 rounded-none border border-accent/50 bg-deep/40 p-4"
               >
                 <f.icon
                   className="mt-0.5 h-5 w-5 shrink-0 text-primary"
@@ -354,7 +354,7 @@ function PricingPage() {
                   <p className="font-display text-sm tracking-[0.14em] uppercase">
                     {f.title}
                   </p>
-                  <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                  <p className="mt-1 text-xs leading-relaxed text-deep-foreground/85">
                     {f.copy}
                   </p>
                 </div>
@@ -391,16 +391,16 @@ function PricingPage() {
               Most loved
             </span>
           </div>
-          <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+          <p className="mt-2 text-xs leading-relaxed text-deep-foreground/85">
             Everything in Personal Studio, plus the whole photo studio. Crop it,
             light it, warm it, glow it — make an ordinary phone snapshot look
             like something framed on a wall before it ever becomes a puzzle.
           </p>
           <div className="mt-4 flex items-baseline gap-2">
-            <span className="font-display text-3xl tracking-[0.08em] text-foreground">
+            <span className="font-display text-3xl tracking-[0.08em] text-deep-foreground">
               $9.95
             </span>
-            <span className="text-[0.7rem] tracking-[0.18em] text-muted-foreground uppercase">
+            <span className="text-[0.7rem] tracking-[0.18em] text-deep-foreground/85 uppercase">
               / month
             </span>
           </div>
@@ -408,7 +408,7 @@ function PricingPage() {
             {bougie.map((f) => (
               <div
                 key={f.title}
-                className="flex gap-3 rounded-none border border-accent/50 bg-card/70 p-4"
+                className="flex gap-3 rounded-none border border-accent/50 bg-deep/40 p-4"
               >
                 <f.icon
                   className="mt-0.5 h-5 w-5 shrink-0 text-primary"
@@ -418,7 +418,7 @@ function PricingPage() {
                   <p className="font-display text-sm tracking-[0.14em] uppercase">
                     {f.title}
                   </p>
-                  <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                  <p className="mt-1 text-xs leading-relaxed text-deep-foreground/85">
                     {f.copy}
                   </p>
                 </div>
@@ -440,30 +440,30 @@ function PricingPage() {
           <h2 className="font-display text-lg font-semibold tracking-[0.18em] uppercase">
             Brand — $195 / month
           </h2>
-          <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+          <p className="mt-2 text-xs leading-relaxed text-deep-foreground/85">
             What if your customers looked forward to hearing from you every day? With Brand Studio, every message becomes a moment your customers can enjoy. Transform your own photos, the ones you have meaningfully invested into over the years with models photographers and editors, into interactive Pictarias that invite them to slow down, solve, discover, and smile.
           </p>
-          <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
+          <p className="mt-3 text-xs leading-relaxed text-deep-foreground/85">
             It's a refreshing new way to build meaningful connections, strengthen your brand, get more value to your existing catalog, and create the kind of engagement people genuinely anticipate.
           </p>
-          <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
+          <p className="mt-3 text-xs leading-relaxed text-deep-foreground/85">
             You will send them a Pictaria every day, every week, or every month — and they decide which. Because it's their choice, it tells you exactly how much enthusiasm there is for your brand: a customer who asks for one every day is telling you something a survey never could.
           </p>
-          <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
+          <p className="mt-3 text-xs leading-relaxed text-deep-foreground/85">
             Base plan — $195 per month: Your branded Daily, Weekly, or Monthly Pictaria, logo placement, full analytics, action buttons for booking, payments, and calendar, QR codes, and the full Artist photo studio. Your first 1,000 delivered Pictarias are included.
           </p>
-          <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
+          <p className="mt-3 text-xs leading-relaxed text-deep-foreground/85">
             Delivery — per 1,000 Pictarias delivered (after your first 1,000, with the rate easing as you reach more people; volume resets each month):
           </p>
-          <ul className="mt-2 space-y-1 pl-4 text-xs leading-relaxed text-muted-foreground">
+          <ul className="mt-2 space-y-1 pl-4 text-xs leading-relaxed text-deep-foreground/85">
             <li>1,001 – 10,000 …… $100 per 1,000</li>
             <li>10,001 – 50,000 …… $80 per 1,000</li>
             <li>50,001 and beyond …… $60 per 1,000</li>
           </ul>
-          <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
+          <p className="mt-3 text-xs leading-relaxed text-deep-foreground/85">
             All-You-Can-Send — $995 per month: For the months you would rather not watch the meter, unlimited delivered Pictarias for a flat rate.
           </p>
-          <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
+          <p className="mt-3 text-xs leading-relaxed text-deep-foreground/85">
             Full analytics, included at no additional cost — opens, plays, completions, clicks, bookings, appointments, and purchases, so you always know exactly how your customers are engaging with your brand.
           </p>
           <div className="mt-4 flex flex-wrap items-center gap-3">
@@ -480,7 +480,7 @@ function PricingPage() {
 
         {/* artist at the bottom — a blonde painter on a Hawaiian beach */}
         <div className="relative z-[1] mt-10 overflow-hidden rounded-[4px]">
-          <div className="pointer-events-none absolute inset-x-0 top-0 z-[2] h-24 bg-gradient-to-b from-background to-transparent" />
+          <div className="pointer-events-none absolute inset-x-0 top-0 z-[2] h-24 bg-gradient-to-b from-deep to-transparent" />
           <img
             src={artistBottom}
             alt="A blonde artist painting the ocean on a Hawaiian beach"
