@@ -28,7 +28,7 @@ function CollectionsPage() {
       <div className="mx-auto w-full max-w-5xl">
         <div className="pt-24 text-center">
           <p className="text-[10px] tracking-[0.28em] text-muted-foreground uppercase">
-            The Pictaria album
+            The Pictaria albums
           </p>
           <h1 className="mt-1 font-display text-3xl sm:text-4xl">All Collections</h1>
         </div>
