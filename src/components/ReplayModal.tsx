@@ -321,9 +321,18 @@ export function ReplayModal({
           className="w-full rounded-[14px] bg-white"
         />
 
+        {clip && (
+          <video
+            src={clip.url}
+            controls
+            playsInline
+            className="mt-3 w-full rounded-[14px] bg-black"
+          />
+        )}
+
         <p className="mt-4 text-center text-[0.72rem] leading-relaxed text-neutral-600">
-          Pictaria remembers how you played. When your picture comes together,
-          tap record to keep the replay and share it on any of your socials as a video.
+          {note ??
+            "Pictaria remembers how you played. When your picture comes together, tap record to keep the replay and share it on any of your socials as a video."}
         </p>
 
         <div className="mt-4 flex flex-col items-center gap-2">
@@ -333,8 +342,18 @@ export function ReplayModal({
             disabled={saving || !ready}
             className="w-full rounded-full border border-neutral-400 px-6 py-2 text-[0.62rem] tracking-[0.18em] text-neutral-700 uppercase transition-colors hover:bg-neutral-100 disabled:opacity-50"
           >
-            {saving ? "…" : "Download"}
+            {saving ? "Recording…" : clip ? "Record again" : "Download"}
           </button>
+          {clip && (
+            <a
+              href={clip.url}
+              download={clip.name}
+              className="w-full rounded-full border border-neutral-300 px-6 py-2 text-center text-[0.62rem] tracking-[0.18em] text-neutral-500 uppercase transition-colors hover:bg-neutral-100"
+            >
+              Save the video
+            </a>
+          )}
+
           {onShare && (
             <button
               type="button"
