@@ -83,7 +83,7 @@ export function ReplaySaveModal({
         />
 
         <p className="mt-3 text-center text-[0.7rem] leading-relaxed text-neutral-600">
-          {note ?? "Your replay, exactly as you played it. Press and hold the video to save it to Photos."}
+          {note ?? "Your replay, exactly as you played it. Save it to your Photos so you can share it with all your socials."}
         </p>
 
         <div className="mt-4 flex flex-col items-center gap-2">
@@ -92,7 +92,7 @@ export function ReplaySaveModal({
             onClick={() => void save()}
             className="w-full rounded-full border border-neutral-400 px-6 py-2 text-[0.62rem] tracking-[0.18em] text-neutral-700 uppercase transition-colors hover:bg-neutral-100"
           >
-            Save video
+            Save to Photos
           </button>
           <button
             type="button"
