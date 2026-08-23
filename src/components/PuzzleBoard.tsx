@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
-import { ChevronLeft, Music, Sparkle, Sparkles, VolumeX } from "lucide-react";
+import { ChevronLeft, Circle, Music, Sparkle, Sparkles, VolumeX } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -23,6 +23,20 @@ import {
   trackName,
   useMindfulPlayer,
 } from "@/components/MindfulMusic";
+import { ReplayModal, type ReplayFrame } from "@/components/ReplayModal";
+
+/** music notes with a soft line through them — sound is off */
+function Music4Off() {
+  return (
+    <span className="relative inline-flex">
+      <Music size={17} />
+      <span
+        aria-hidden
+        className="pointer-events-none absolute top-1/2 left-1/2 h-[1.5px] w-[22px] -translate-x-1/2 -translate-y-1/2 -rotate-45 rounded-full bg-current"
+      />
+    </span>
+  );
+}
 
 type SoundscapeId = (typeof TRACK_OPTIONS)[number]["id"];
 
@@ -156,6 +170,10 @@ export function PuzzleBoard({
   const [solved, setSolved] = useState(false);
   const [showSummary, setShowSummary] = useState(false);
   const [showReference, setShowReference] = useState(false);
+  const [showReplay, setShowReplay] = useState(false);
+  /** every board state the player produced, timed for an exact replay */
+  const timeline = useRef<ReplayFrame[]>([]);
+  const timelineStart = useRef(0);
   const { playing: musicPlaying, selected: musicSelected } = useMindfulPlayer();
   const musicOn = musicPlaying !== null;
   const musicTitle = trackName(musicPlaying ?? musicSelected);
@@ -267,7 +285,19 @@ export function PuzzleBoard({
     setSeconds(0);
     setSolved(false);
     setDrag(null);
+    timeline.current = [];
+    timelineStart.current = 0;
   }, [aspect, total, round, mergePass]);
+
+  /* remember every board state, at the tempo it happened */
+  useEffect(() => {
+    if (!pos.length) return;
+    if (!timeline.current.length) timelineStart.current = performance.now();
+    timeline.current.push({
+      t: performance.now() - timelineStart.current,
+      pos: [...pos],
+    });
+  }, [pos]);
 
   /* timer */
   useEffect(() => {
