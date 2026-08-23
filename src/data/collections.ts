@@ -3187,7 +3187,7 @@ export const collections: Collection[] = [
       },
       {
         id: "larissa-03",
-        title: "Paia Fishmarket",
+        title: "Paia Fish Market",
         caption: "Worth every second in the rain",
         image: larissa03,
         story: [
