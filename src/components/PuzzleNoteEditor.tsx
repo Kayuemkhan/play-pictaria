@@ -27,6 +27,8 @@ export function PuzzleNoteEditor({
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [story, setStory] = useState("");
+  const saved = usePuzzleNote(puzzleId);
+  const hasSaved = Boolean(saved.title?.trim() || saved.story?.trim());
 
   useEffect(() => {
     if (!open) return;
@@ -34,6 +36,10 @@ export function PuzzleNoteEditor({
     setTitle(note.title ?? "");
     setStory(note.story ?? "");
   }, [open, puzzleId]);
+
+  if (hasSaved) {
+    return null;
+  }
 
   if (!open) {
     return (
