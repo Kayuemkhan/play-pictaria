@@ -1794,19 +1794,24 @@ export function PuzzleBoard({
 
       {breakOver && <BreakOverBanner onClose={() => setBreakOver(false)} />}
 
-      {showReplay && (
-        <ReplayModal
-          src={src}
-          grid={grid}
-          title={title}
-          frames={timeline.current}
-          onClose={() => setShowReplay(false)}
-          onShare={() => {
-            const url = window.location.href;
-            if (navigator.share) void navigator.share({ title, url }).catch(() => {});
-            else void navigator.clipboard?.writeText(url).catch(() => {});
-          }}
-        />
+      {replaying && (
+        <div className="pointer-events-none absolute top-2 left-1/2 z-40 -translate-x-1/2 rounded-full bg-card/85 px-3 py-1 text-[0.58rem] tracking-[0.16em] text-primary uppercase shadow-soft backdrop-blur-sm">
+          Replaying your solve…
+        </div>
+      )}
+
+      {replayNote && !replaying && (
+        <button
+          type="button"
+          onClick={() => setReplayNote(null)}
+          className="absolute top-2 left-1/2 z-40 -translate-x-1/2 rounded-full bg-card/90 px-3 py-1 text-[0.58rem] tracking-[0.12em] text-foreground/70 shadow-soft backdrop-blur-sm"
+        >
+          {replayNote}
+        </button>
+      )}
+
+      {clip && (
+        <ReplaySaveModal clip={clip} title={title} onClose={() => setClip(null)} />
       )}
 
       {unbranded && (
