@@ -2,6 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { saveDailySubscriber } from "@/lib/daily.functions";
+import { PushNotifyToggle } from "@/components/PushNotifyToggle";
 import { getDailyPicks } from "@/lib/daily-pick.functions";
 import { isPortalPick, portalPickCode } from "@/lib/daily-display";
 import { supabase } from "@/integrations/supabase/client";
@@ -250,8 +251,11 @@ function DailyPage() {
               </form>
             )}
           </div>
+
+          <PushNotifyToggle />
         </div>
       </section>
+
     </main>
   );
 }

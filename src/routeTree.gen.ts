@@ -38,6 +38,7 @@ import { Route as PortalCommunityRouteImport } from './routes/portal.community'
 import { Route as PortalDailyRouteImport } from './routes/portal.daily'
 import { Route as PortalDailyPastRouteImport } from './routes/portal.daily-past'
 import { Route as PortalNewRouteImport } from './routes/portal.new'
+import { Route as PortalPushRouteImport } from './routes/portal.push'
 import { Route as PortalSubscribersRouteImport } from './routes/portal.subscribers'
 import { Route as PuzzlePuzzleIdRouteImport } from './routes/puzzle.$puzzleId'
 import { Route as StorybookCollectionIdRouteImport } from './routes/storybook.$collectionId'
@@ -45,6 +46,7 @@ import { Route as StudioArtistRouteImport } from './routes/studio.artist'
 import { Route as StudioBrandRouteImport } from './routes/studio.brand'
 import { Route as StudioPersonalRouteImport } from './routes/studio.personal'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
+import { Route as ApiPublicPushMedleyRouteImport } from './routes/api/public/push-medley'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -193,6 +195,11 @@ const PortalNewRoute = PortalNewRouteImport.update({
   path: '/portal/new',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PortalPushRoute = PortalPushRouteImport.update({
+  id: '/portal/push',
+  path: '/portal/push',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PortalSubscribersRoute = PortalSubscribersRouteImport.update({
   id: '/portal/subscribers',
   path: '/portal/subscribers',
@@ -229,6 +236,11 @@ const Char91DotmcpChar93InvokeToolToolRoute =
     path: '/.mcp/invoke-tool/$tool',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicPushMedleyRoute = ApiPublicPushMedleyRouteImport.update({
+  id: '/api/public/push-medley',
+  path: '/api/public/push-medley',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -258,6 +270,7 @@ export interface FileRoutesByFullPath {
   '/portal/daily': typeof PortalDailyRoute
   '/portal/daily-past': typeof PortalDailyPastRoute
   '/portal/new': typeof PortalNewRoute
+  '/portal/push': typeof PortalPushRoute
   '/portal/subscribers': typeof PortalSubscribersRoute
   '/puzzle/$puzzleId': typeof PuzzlePuzzleIdRoute
   '/storybook/$collectionId': typeof StorybookCollectionIdRoute
@@ -267,6 +280,7 @@ export interface FileRoutesByFullPath {
   '/my-pictaria/': typeof MyPictariaIndexRoute
   '/portal/': typeof PortalIndexRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
+  '/api/public/push-medley': typeof ApiPublicPushMedleyRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -295,6 +309,7 @@ export interface FileRoutesByTo {
   '/portal/daily': typeof PortalDailyRoute
   '/portal/daily-past': typeof PortalDailyPastRoute
   '/portal/new': typeof PortalNewRoute
+  '/portal/push': typeof PortalPushRoute
   '/portal/subscribers': typeof PortalSubscribersRoute
   '/puzzle/$puzzleId': typeof PuzzlePuzzleIdRoute
   '/storybook/$collectionId': typeof StorybookCollectionIdRoute
@@ -304,6 +319,7 @@ export interface FileRoutesByTo {
   '/my-pictaria': typeof MyPictariaIndexRoute
   '/portal': typeof PortalIndexRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
+  '/api/public/push-medley': typeof ApiPublicPushMedleyRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -334,6 +350,7 @@ export interface FileRoutesById {
   '/portal/daily': typeof PortalDailyRoute
   '/portal/daily-past': typeof PortalDailyPastRoute
   '/portal/new': typeof PortalNewRoute
+  '/portal/push': typeof PortalPushRoute
   '/portal/subscribers': typeof PortalSubscribersRoute
   '/puzzle/$puzzleId': typeof PuzzlePuzzleIdRoute
   '/storybook/$collectionId': typeof StorybookCollectionIdRoute
@@ -343,6 +360,7 @@ export interface FileRoutesById {
   '/my-pictaria/': typeof MyPictariaIndexRoute
   '/portal/': typeof PortalIndexRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
+  '/api/public/push-medley': typeof ApiPublicPushMedleyRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -374,6 +392,7 @@ export interface FileRouteTypes {
     | '/portal/daily'
     | '/portal/daily-past'
     | '/portal/new'
+    | '/portal/push'
     | '/portal/subscribers'
     | '/puzzle/$puzzleId'
     | '/storybook/$collectionId'
@@ -383,6 +402,7 @@ export interface FileRouteTypes {
     | '/my-pictaria/'
     | '/portal/'
     | '/.mcp/invoke-tool/$tool'
+    | '/api/public/push-medley'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -411,6 +431,7 @@ export interface FileRouteTypes {
     | '/portal/daily'
     | '/portal/daily-past'
     | '/portal/new'
+    | '/portal/push'
     | '/portal/subscribers'
     | '/puzzle/$puzzleId'
     | '/storybook/$collectionId'
@@ -420,6 +441,7 @@ export interface FileRouteTypes {
     | '/my-pictaria'
     | '/portal'
     | '/.mcp/invoke-tool/$tool'
+    | '/api/public/push-medley'
   id:
     | '__root__'
     | '/'
@@ -449,6 +471,7 @@ export interface FileRouteTypes {
     | '/portal/daily'
     | '/portal/daily-past'
     | '/portal/new'
+    | '/portal/push'
     | '/portal/subscribers'
     | '/puzzle/$puzzleId'
     | '/storybook/$collectionId'
@@ -458,6 +481,7 @@ export interface FileRouteTypes {
     | '/my-pictaria/'
     | '/portal/'
     | '/.mcp/invoke-tool/$tool'
+    | '/api/public/push-medley'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -487,6 +511,7 @@ export interface RootRouteChildren {
   PortalDailyRoute: typeof PortalDailyRoute
   PortalDailyPastRoute: typeof PortalDailyPastRoute
   PortalNewRoute: typeof PortalNewRoute
+  PortalPushRoute: typeof PortalPushRoute
   PortalSubscribersRoute: typeof PortalSubscribersRoute
   PuzzlePuzzleIdRoute: typeof PuzzlePuzzleIdRoute
   StorybookCollectionIdRoute: typeof StorybookCollectionIdRoute
@@ -495,6 +520,7 @@ export interface RootRouteChildren {
   StudioPersonalRoute: typeof StudioPersonalRoute
   PortalIndexRoute: typeof PortalIndexRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
+  ApiPublicPushMedleyRoute: typeof ApiPublicPushMedleyRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -702,6 +728,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PortalNewRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/portal/push': {
+      id: '/portal/push'
+      path: '/portal/push'
+      fullPath: '/portal/push'
+      preLoaderRoute: typeof PortalPushRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/portal/subscribers': {
       id: '/portal/subscribers'
       path: '/portal/subscribers'
@@ -751,6 +784,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char91DotmcpChar93InvokeToolToolRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/push-medley': {
+      id: '/api/public/push-medley'
+      path: '/api/public/push-medley'
+      fullPath: '/api/public/push-medley'
+      preLoaderRoute: typeof ApiPublicPushMedleyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -796,6 +836,7 @@ const rootRouteChildren: RootRouteChildren = {
   PortalDailyRoute: PortalDailyRoute,
   PortalDailyPastRoute: PortalDailyPastRoute,
   PortalNewRoute: PortalNewRoute,
+  PortalPushRoute: PortalPushRoute,
   PortalSubscribersRoute: PortalSubscribersRoute,
   PuzzlePuzzleIdRoute: PuzzlePuzzleIdRoute,
   StorybookCollectionIdRoute: StorybookCollectionIdRoute,
@@ -804,6 +845,7 @@ const rootRouteChildren: RootRouteChildren = {
   StudioPersonalRoute: StudioPersonalRoute,
   PortalIndexRoute: PortalIndexRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
+  ApiPublicPushMedleyRoute: ApiPublicPushMedleyRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
