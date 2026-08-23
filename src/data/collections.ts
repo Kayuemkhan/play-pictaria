@@ -3165,6 +3165,7 @@ export const collections: Collection[] = [
     tagline: "Six days of sisters, sunshine and Maui",
     cover: larissa05.url,
     free: true,
+    allowUserNotes: false,
     puzzles: [
       {
         id: "larissa-01",
