@@ -276,6 +276,15 @@ import healNiu from "@/assets/heal-08-niu.jpg";
 import healMamaki from "@/assets/heal-09-mamaki.jpg";
 import healIlima from "@/assets/heal-10-ilima.jpg";
 import healHau from "@/assets/heal-11-hau.jpg";
+import healUhaloa from "@/assets/heal-12-uhaloa.jpg";
+import healPopolo from "@/assets/heal-13-popolo.jpg";
+import healKookoolau from "@/assets/heal-14-kookoolau.jpg";
+import healAwa from "@/assets/heal-15-awa.jpg";
+import healKo from "@/assets/heal-16-ko.jpg";
+import healMaia from "@/assets/heal-17-maia.jpg";
+import healLaukahi from "@/assets/heal-18-laukahi.jpg";
+import healAlaala from "@/assets/heal-19-alaalawainui.jpg";
+import healKoali from "@/assets/heal-20-koali.jpg";
 import beach01 from "@/assets/beach-01.jpg";
 import beach02 from "@/assets/beach-02.jpg";
 import beach03 from "@/assets/beach-03.jpg";
@@ -2767,7 +2776,7 @@ export const collections: Collection[] = [
   {
     id: "healing-plants-of-hawaii",
     title: "Healing Plants of Hawaii",
-    tagline: "Ten island plants of la'au lapa'au, and the old ways they were used",
+    tagline: "Twenty island plants of la'au lapa'au, and the old ways they were used",
     cover: healHau,
     free: true,
     puzzles: [
@@ -2869,6 +2878,106 @@ export const collections: Collection[] = [
         story: [
           "Used for: gentle relief of constipation — including for babies — mouth sores, and asthma-tight breathing. The flower of O'ahu, and the lei of ali'i.",
           "How to use: the fresh flowers are chewed, or a handful is steeped into a mild yellow tea. Traditionally a few blossoms were given to a fussy infant as the gentlest possible remedy. The sap of the buds was used on sore gums.",
+        ],
+      },
+      {
+        id: "heal-11",
+        title: "Hau",
+        caption: "Yellow hibiscus blossoms fading to sunset red",
+        image: healHau,
+        story: [
+          "Used for: constipation, dry cough and chest tightness, and easing childbirth. Its light wood made canoe floats and its bast made cordage.",
+          "How to use: the inner bark and the sticky flower buds are steeped in warm water into a slippery, mild drink taken a little at a time. A blossom or two was given to children as the gentlest laxative there is.",
+        ],
+      },
+      {
+        id: "heal-12",
+        title: "'Uhaloa",
+        caption: "Fuzzy gray-green leaves in dry red soil",
+        image: healUhaloa,
+        story: [
+          "Used for: sore throats, hoarse voice, coughs and chest colds. A roadside weed that island families treat as a medicine cabinet.",
+          "How to use: scrape and chew a piece of the fresh root and hold the bitter juice in the throat — it numbs and loosens quickly. The root and leaves can also be simmered into a strong tea and sipped warm through the day.",
+        ],
+      },
+      {
+        id: "heal-13",
+        title: "Popolo",
+        caption: "Black berries and small white star flowers",
+        image: healPopolo,
+        story: [
+          "Used for: respiratory trouble, cuts and skin sores, and general strengthening. One of the great la'au lapa'au plants, often paired with 'uhaloa.",
+          "How to use: the ripe leaves are cooked like greens or steeped as a tea for the lungs; crushed leaves are laid on a cut or a boil. Only the fully ripe black berries were eaten — the green ones never were.",
+        ],
+      },
+      {
+        id: "heal-14",
+        title: "Ko'oko'olau",
+        caption: "Small yellow blossoms on a windward slope",
+        image: healKookoolau,
+        story: [
+          "Used for: appetite, digestion, blood sugar and general tonic — the old Hawaiian everyday tea.",
+          "How to use: gather leaves and flowering tops, dry them in the shade, then steep in hot water for ten minutes. Drunk plain, morning and evening, often blended with mamaki.",
+        ],
+      },
+      {
+        id: "heal-15",
+        title: "'Awa",
+        caption: "Heart-shaped kava leaves in forest mist",
+        image: healAwa,
+        story: [
+          "Used for: sleeplessness, anxious nerves, sore muscles and cramping. Sacred as well as medicinal, offered in ceremony and shared at day's end.",
+          "How to use: the root is pounded and strained through water into a cool, earthy drink taken in small cups in the evening. Treated with real respect — a little, occasionally, never with alcohol.",
+        ],
+      },
+      {
+        id: "heal-16",
+        title: "Ko",
+        caption: "Purple-red sugarcane in the afternoon light",
+        image: healKo,
+        story: [
+          "Used for: sweetening bitter la'au so children would take it, soothing coughs and dry throats, and quick energy.",
+          "How to use: a length of cane is split and chewed for its juice, or the juice pressed out and stirred into a bitter tea. Certain varieties were reserved for particular remedies, chosen by color and stripe.",
+        ],
+      },
+      {
+        id: "heal-17",
+        title: "Mai'a",
+        caption: "Green bananas hanging in a wet valley",
+        image: healMaia,
+        story: [
+          "Used for: upset stomach and diarrhea, mouth sores, and nourishment for the very young and the recovering.",
+          "How to use: cooked green banana is eaten to settle the gut; the sap of the trunk was dabbed on a sore in the mouth or a small wound. The soft leaves were used to wrap food and to line steaming imu.",
+        ],
+      },
+      {
+        id: "heal-18",
+        title: "Laukahi",
+        caption: "A rosette of ribbed leaves in wet grass",
+        image: healLaukahi,
+        story: [
+          "Used for: drawing out splinters, thorns and infection, plus insect bites, boils and small wounds. Its name means 'single leaf.'",
+          "How to use: warm or bruise a fresh leaf, lay it over the spot, and bind it with cloth or a ti leaf overnight — it pulls what is under the skin to the surface. A tea of the leaves was taken for the stomach.",
+        ],
+      },
+      {
+        id: "heal-19",
+        title: "'Ala'ala Wai Nui",
+        caption: "Succulent leaves on mossy stream rock",
+        image: healAlaala,
+        story: [
+          "Used for: thrush and mouth sores in babies, sore eyes, headaches, and skin trouble. A cool, watery plant for hot conditions.",
+          "How to use: the juice pressed from the fleshy leaves and stems is dabbed inside a baby's mouth or used as a cool wash for irritated skin and eyes. Crushed leaves are laid on the temples for a headache.",
+        ],
+      },
+      {
+        id: "heal-20",
+        title: "Koali 'Awa",
+        caption: "Lavender morning glory over a lava wall",
+        image: healKoali,
+        story: [
+          "Used for: sprains, broken bones and deep bruises, and swollen joints — the old bonesetter's plant.",
+          "How to use: leaves and stems are pounded with a little salt into a green mash, warmed, and bound over the injury with ti leaves, then changed daily until the swelling goes down.",
         ],
       },
     ],
