@@ -272,7 +272,7 @@ export async function dispatchMedley(medleyId: string) {
         subscription,
         keys,
       );
-      const response = await fetch(subscription.endpoint, payload);
+      const response = await fetch(subscription.endpoint, payload as RequestInit);
       if (response.status === 404 || response.status === 410) {
         retired.push(sub.id as string);
         failed += 1;
