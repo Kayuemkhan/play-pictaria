@@ -17,6 +17,8 @@ export function ReplaySaveModal({
   const [note, setNote] = useState<string | null>(null);
 
   const save = useCallback(async () => {
+    const isWebm = clip.type.includes("webm");
+
     // 1) Native share sheet — the tap that lands it in Photos on a phone.
     try {
       const file = new File([clip.blob], clip.name, { type: clip.type });
@@ -25,14 +27,15 @@ export function ReplaySaveModal({
       };
       if (nav.canShare?.({ files: [file] }) && nav.share) {
         await nav.share({ files: [file], title: `Pictaria — ${title}` });
-        setNote("Saved. Your replay is in Photos.");
+        setNote("Saved. Choose “Save Video” in the share sheet to put it in Photos.");
         return;
       }
     } catch {
-      /* cancelled or unavailable — fall through to a plain download */
+      /* cancelled or unavailable — fall through */
     }
 
-    // 2) Plain file download (desktop browsers).
+    // 2) Plain file download (desktop browsers, and phones outside the preview).
+    let downloaded = false;
     try {
       const link = document.createElement("a");
       link.href = clip.url;
@@ -41,11 +44,29 @@ export function ReplaySaveModal({
       document.body.appendChild(link);
       link.click();
       link.remove();
-      setNote("Saved to your downloads.");
+      downloaded = true;
     } catch {
-      setNote("Press and hold the video to save it to Photos.");
+      /* blocked inside the editor preview iframe */
     }
+
+    // 3) Last resort: open the clip on its own so it can be held and saved.
+    if (!downloaded) {
+      const opened = window.open(clip.url, "_blank");
+      setNote(
+        opened
+          ? "Opened the video in a new tab — press and hold it there to save to Photos."
+          : "Your browser blocked saving here. Press and hold the video above to save it to Photos, or open Pictaria outside the editor preview.",
+      );
+      return;
+    }
+
+    setNote(
+      isWebm
+        ? "Saved to your downloads as a .webm file. Photos only accepts .mp4, so open Pictaria in Safari or Chrome on your phone to get an mp4."
+        : "Saved to your downloads. On a phone it lands in Photos.",
+    );
   }, [clip, title]);
+
 
   return (
     <div className="fixed inset-0 z-[200] flex items-center justify-center bg-deep/70 px-4 py-6">
