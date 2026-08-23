@@ -30,6 +30,16 @@ import turtle07 from "@/assets/turtle-07.jpg";
 import turtle08 from "@/assets/turtle-08.jpg";
 import turtle09 from "@/assets/turtle-09.jpg.asset.json";
 import turtle10 from "@/assets/turtle-10.jpg";
+import turtle11 from "@/assets/turtle-11.jpg";
+import turtle12 from "@/assets/turtle-12.jpg";
+import turtle13 from "@/assets/turtle-13.jpg";
+import turtle14 from "@/assets/turtle-14.jpg";
+import turtle15 from "@/assets/turtle-15.jpg";
+import turtle16 from "@/assets/turtle-16.jpg";
+import turtle17 from "@/assets/turtle-17.jpg";
+import turtle18 from "@/assets/turtle-18.jpg";
+import turtle19 from "@/assets/turtle-19.jpg";
+import turtle20 from "@/assets/turtle-20.jpg";
 
 
 import flowerHibiscus from "@/assets/flower-hibiscus.jpg";
