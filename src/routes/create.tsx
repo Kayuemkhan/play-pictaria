@@ -6,7 +6,7 @@ import { StudioComposer } from "@/components/StudioComposer";
 import { saveDailySubscriber } from "@/lib/daily.functions";
 import { supabase } from "@/integrations/supabase/client";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+
 import { Label } from "@/components/ui/label";
 import palmLogo from "@/assets/logo-palms-only.png";
 import puppyLetter from "@/assets/create-puppy-letter.jpg";
