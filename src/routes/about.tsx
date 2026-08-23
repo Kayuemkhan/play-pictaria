@@ -74,7 +74,7 @@ function AboutPage() {
       </section>
 
       {/* Science of Play sections */}
-      <section className="mt-10 px-4 sm:px-8">
+      <section className="mt-6 px-4 sm:px-8">
         <div className="mx-auto max-w-2xl space-y-6">
           <div className="rounded-[6px] border border-accent/40 bg-deep/50 p-6 backdrop-blur-sm sm:p-10">
             <h2 className="font-display text-lg text-shell">The Science of Play</h2>
@@ -116,7 +116,7 @@ function AboutPage() {
       </section>
 
       {/* final CTA */}
-      <section className="mt-10 px-4 text-center sm:px-8">
+      <section className="mt-6 px-4 text-center sm:px-8">
         <p className="mx-auto max-w-md text-center font-display text-[1.1rem] leading-relaxed text-shell">
           <span className="block">“Pictures are worth a thousand words</span>
           <span className="block">puzzles make them fun”</span>
