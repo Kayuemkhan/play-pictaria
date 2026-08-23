@@ -1243,7 +1243,7 @@ export function PuzzleBoard({
           </p>
         </div>
 
-        <div className="flex items-center gap-1.5 text-xs tabular-nums sm:gap-3 sm:text-sm">
+        <div className="flex items-center gap-2 text-xs tabular-nums sm:gap-3 sm:text-sm">
           <Select
             value={musicOn ? (musicPlaying as string) : "off"}
             onValueChange={(v) => {
@@ -1263,9 +1263,9 @@ export function PuzzleBoard({
                   ? `${musicTitle} — ${musicOn ? "on" : "off"}`
                   : "Mindful sound"
               }
-              className="h-8 w-fit min-w-0 border-0 bg-transparent p-0 text-[10px] tracking-[0.14em] uppercase text-muted-foreground shadow-none hover:text-primary focus:ring-0 [&>svg]:h-4 [&>svg]:w-4"
+              className="h-8 w-fit min-w-0 border-0 bg-transparent p-0 text-[10px] tracking-[0.14em] uppercase text-neutral-400 shadow-none hover:text-neutral-600 focus:ring-0 [&>svg:last-child]:hidden"
             >
-              {musicOn ? <Music size={16} /> : <VolumeX size={16} />}
+              {musicOn ? <Music size={17} /> : <Music4Off />}
             </SelectTrigger>
             <SelectContent align="end" className="min-w-[12rem]">
               <SelectItem value="off">
@@ -1288,6 +1288,15 @@ export function PuzzleBoard({
               ))}
             </SelectContent>
           </Select>
+
+          <button
+            type="button"
+            aria-label="Record"
+            onClick={() => setShowReplay(true)}
+            className="flex h-8 w-8 items-center justify-center text-neutral-400 transition-colors hover:text-neutral-600"
+          >
+            <Circle size={16} strokeWidth={1.6} fill="currentColor" />
+          </button>
 
           <span className="hidden rounded-full bg-secondary px-2 py-1 text-secondary-foreground sm:inline sm:text-sm">
             {moves} moves
