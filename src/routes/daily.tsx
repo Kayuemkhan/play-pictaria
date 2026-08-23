@@ -250,8 +250,11 @@ function DailyPage() {
               </form>
             )}
           </div>
+
+          <PushNotifyToggle />
         </div>
       </section>
+
     </main>
   );
 }
