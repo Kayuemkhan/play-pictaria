@@ -394,9 +394,8 @@ export function RecordPlayButton({
       canvas.remove();
       const url = URL.createObjectURL(blob);
       setClip(url);
-      // replay it full screen for them, then save it
+      // replay it full screen for them; the download waits for their tap
       setState("playing");
-      await saveClip(url, false);
     } catch {
       setNote("Sorry — that clip couldn’t be made. Please try again.");
       setState("idle");
@@ -423,8 +422,8 @@ export function RecordPlayButton({
         <button
           type="button"
           onClick={() => setState(state === "info" ? "idle" : "info")}
-          aria-label="Make a video of your gameplay"
-          title="Make a video of your gameplay"
+          aria-label="Record my gameplay"
+          title="Record my gameplay"
           className="flex h-8 items-center gap-1 px-0.5 text-muted-foreground/50 transition-colors hover:text-primary"
         >
           <Video size={16} />
@@ -436,7 +435,7 @@ export function RecordPlayButton({
           Pictaria remembers your gameplay. If you would like to post this on
           social media and share your moves as the picture comes together, just
           press this button after the game — you will watch it play back full
-          screen, and it will save to your photos.
+          screen, then you can download it to your photos.
           <div className="mt-2 flex items-center gap-3">
             {played ? (
               <button
@@ -444,7 +443,7 @@ export function RecordPlayButton({
                 onClick={() => void record()}
                 className="text-[0.55rem] tracking-[0.16em] text-primary uppercase"
               >
-                Make my video
+                Record my gameplay
               </button>
             ) : (
               <span className="text-[0.55rem] tracking-[0.16em] text-muted-foreground/60 uppercase">
@@ -512,7 +511,7 @@ export function RecordPlayButton({
               onClick={() => clip && void saveClip(clip, true)}
               className="text-[0.58rem] tracking-[0.18em] text-white uppercase"
             >
-              Save / share
+              Download / share
             </button>
             <button
               type="button"
