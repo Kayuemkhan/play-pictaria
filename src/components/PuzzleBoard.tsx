@@ -1568,23 +1568,32 @@ export function PuzzleBoard({
         >
           <Sparkles size={18} strokeWidth={1.25} />
         </button>
-        {collectionName ? (
-          collectionId ? (
-            <Link
-              to="/collection/$collectionId"
-              params={{ collectionId }}
-              className="flex-1 px-1 text-center font-display text-[0.7rem] leading-tight tracking-[0.16em] text-muted-foreground/80 uppercase transition-colors hover:text-accent-foreground"
-            >
-              {collectionName}
-            </Link>
-          ) : (
-            <span className="flex-1 px-1 text-center font-display text-[0.7rem] leading-tight tracking-[0.16em] text-muted-foreground/80 uppercase">
-              {collectionName}
-            </span>
-          )
-        ) : (
-          <span aria-hidden className="px-2" />
-        )}
+        <div className="flex min-w-0 flex-1 flex-col items-center gap-1 px-1">
+          {collectionName ? (
+            collectionId ? (
+              <Link
+                to="/collection/$collectionId"
+                params={{ collectionId }}
+                className="max-w-full text-center font-display text-[0.7rem] leading-tight tracking-[0.16em] text-muted-foreground/80 uppercase transition-colors hover:text-accent-foreground"
+              >
+                {collectionName}
+              </Link>
+            ) : (
+              <span className="max-w-full text-center font-display text-[0.7rem] leading-tight tracking-[0.16em] text-muted-foreground/80 uppercase">
+                {collectionName}
+              </span>
+            )
+          ) : null}
+          {/* Surprise me sits right here under the board, always in view */}
+          <button
+            type="button"
+            onClick={goSurprise}
+            className="rounded-full border border-primary/70 px-4 py-1 text-[0.6rem] tracking-[0.16em] text-primary uppercase transition-colors hover:bg-secondary"
+          >
+            Surprise me
+          </button>
+        </div>
+
 
         <button
           type="button"
@@ -1603,16 +1612,8 @@ export function PuzzleBoard({
         </button>
       </div>
 
-      {/* Surprise me lives under the board now, so it never sits over the picture and stays put even when other overlays come and go */}
-      <div className="z-20 flex w-full shrink-0 justify-center px-6 pt-1 pb-1">
-        <button
-          type="button"
-          onClick={goSurprise}
-          className="rounded-full border border-primary/70 px-4 py-1 text-[0.6rem] tracking-[0.16em] text-primary uppercase transition-colors hover:bg-secondary"
-        >
-          Surprise me
-        </button>
-      </div>
+
+
 
       {info ? (
         <div className="z-20 px-4 pb-24 text-center sm:px-5">
