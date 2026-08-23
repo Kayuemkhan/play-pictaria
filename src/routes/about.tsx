@@ -39,9 +39,10 @@ function AboutPage() {
           src={eKomoMai}
           alt="E Komo Mai — a cat gazing out a window at the ocean"
           aria-hidden="true"
-          className="h-full w-full object-cover"
+          className="h-full w-full object-cover grayscale-[40%]"
+          style={{ opacity: 0.35 }}
         />
-        <div className="absolute inset-0 bg-deep/65" />
+        <div className="absolute inset-0 bg-deep/75" />
       </div>
 
       {/* hero */}
