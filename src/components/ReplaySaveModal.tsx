@@ -27,7 +27,7 @@ export function ReplaySaveModal({
       };
       if (nav.canShare?.({ files: [file] }) && nav.share) {
         await nav.share({ files: [file], title: `Pictaria — ${title}` });
-        setNote("Saved. Choose “Save Video” in the share sheet to put it in Photos.");
+        setNote("Saved. Choose “Save Video” in the share sheet to put it in Photos, then share it with all your socials.");
         return;
       }
     } catch {
@@ -54,7 +54,7 @@ export function ReplaySaveModal({
       const opened = window.open(clip.url, "_blank");
       setNote(
         opened
-          ? "Opened the video in a new tab — press and hold it there to save to Photos."
+          ? "Opened the video in a new tab — press and hold it there to save to Photos, then share it with all your socials."
           : "Your browser blocked saving here. Press and hold the video above to save it to Photos, or open Pictaria outside the editor preview.",
       );
       return;
@@ -62,8 +62,8 @@ export function ReplaySaveModal({
 
     setNote(
       isWebm
-        ? "Saved to your downloads as a .webm file. Photos only accepts .mp4, so open Pictaria in Safari or Chrome on your phone to get an mp4."
-        : "Saved to your downloads. On a phone it lands in Photos.",
+        ? "Saved to your downloads as a .webm file. Photos only accepts .mp4, so open Pictaria in Safari or Chrome on your phone to get an mp4 you can share with all your socials."
+        : "Saved to your downloads. On a phone it lands in Photos, ready to share with all your socials.",
     );
   }, [clip, title]);
 
