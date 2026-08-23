@@ -200,6 +200,7 @@ const OWN_PALM_BRANDING = new Set([
   "/share",
   "/easter-egg",
   "/create",
+  "/pricing",
 ]);
 
 function hasOwnPalmBranding(path: string) {
