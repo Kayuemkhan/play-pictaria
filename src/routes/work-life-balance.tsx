@@ -36,7 +36,7 @@ export const Route = createFileRoute("/work-life-balance")({
   component: WorkLifeBalancePage,
 });
 
-const BREAK_CHOICES = [1, 2, 3, 5] as const;
+const BREAK_CHOICES = [1, 2, 3, 4, 5] as const;
 
 const BENEFITS: { title: string; body: string }[] = [
   {
@@ -76,11 +76,12 @@ function randomPuzzlePath() {
 }
 
 function WorkLifeBalancePage() {
-  const [goal, setGoal] = useState<number>(2);
+  const [goal, setGoal] = useState<number | null>(null);
   const navigate = useNavigate();
 
   const beginBreak = () => {
-    startBreak(goal);
+    const chosen = goal ?? 3;
+    startBreak(chosen);
     navigate({ to: randomPuzzlePath() });
   };
 
@@ -131,40 +132,31 @@ function WorkLifeBalancePage() {
           </div>
 
 
-          <div className="rounded-[6px] border border-accent/40 bg-deep/50 p-6 backdrop-blur-sm sm:p-10">
-            <h2 className="font-display text-lg text-shell">
+          <div className="rounded-[6px] border border-accent/40 bg-deep/50 p-4 backdrop-blur-sm sm:p-5">
+            <h2 className="font-display text-base text-shell">
               How long is your break?
             </h2>
-            <div className="mt-6 flex flex-wrap justify-center gap-3">
-              {BREAK_CHOICES.map((n) => {
-                const active = goal === n;
-                return (
-                  <button
-                    key={n}
-                    type="button"
-                    onClick={() => setGoal(n)}
-                    aria-pressed={active}
-                    className={`rounded-full border px-5 py-3 text-[0.6rem] tracking-[0.2em] uppercase transition-all ${
-                      active
-                        ? "border-accent bg-accent text-deep shadow-lift"
-                        : "border-accent/40 bg-deep/40 text-shell/80 hover:border-accent hover:text-accent"
-                    }`}
-                  >
-                    {n} {n === 1 ? "puzzle" : "puzzles"}
-                  </button>
-                );
-              })}
+            <div className="mt-4 flex flex-wrap justify-center gap-3">
+              {BREAK_CHOICES.map((n) => (
+                <button
+                  key={n}
+                  type="button"
+                  onClick={() => setGoal(n)}
+                  aria-pressed={goal === n}
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-yellow-200/60 bg-yellow-200 text-[0.75rem] font-medium text-deep shadow-sm transition-transform hover:scale-105 active:scale-95"
+                >
+                  {n}
+                </button>
+              ))}
             </div>
-            <p className="mt-6 text-center text-[0.8rem] leading-relaxed text-shell/70">
-              {goal === 1
-                ? "One puzzle — a quick breath before the next thing."
-                : `${goal} puzzles — a proper little vacay, then back to work.`}
+            <p className="mt-4 text-center text-[0.8rem] leading-relaxed text-shell/80">
+              3 puzzles is a proper little vacay.
             </p>
-            <div className="mt-6 flex justify-center">
+            <div className="mt-4 flex justify-center">
               <button
                 type="button"
                 onClick={beginBreak}
-                className="inline-flex items-center gap-1.5 rounded-full border border-accent/60 bg-accent/15 px-6 py-3 text-[0.6rem] tracking-[0.2em] text-accent uppercase transition-transform hover:scale-[1.03]"
+                className="inline-flex items-center gap-1.5 rounded-full border border-accent/60 bg-accent/15 px-5 py-2.5 text-[0.6rem] tracking-[0.2em] text-accent uppercase transition-transform hover:scale-[1.03]"
               >
                 Start my break
                 <span aria-hidden>›</span>

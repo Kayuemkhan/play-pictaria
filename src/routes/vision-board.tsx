@@ -51,7 +51,7 @@ function VisionBoardPage() {
       <div className="pointer-events-none absolute inset-0 -z-20 bg-deep" />
 
       {/* hero */}
-      <section className="relative overflow-hidden px-6 pt-[38vh] pb-0 text-center">
+      <section className="relative overflow-hidden px-6 pt-[22vh] pb-0 text-center">
         <div className="relative mx-auto max-w-2xl">
           <h1 className="font-display text-[1.6rem] leading-snug text-shell drop-shadow-[0_2px_12px_oklch(0.15_0.04_230/0.75)] sm:text-[2rem]">
             Vision Boards
