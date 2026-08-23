@@ -61,6 +61,9 @@ function AboutPage() {
           <h1 className="mt-6 font-display text-[1.6rem] leading-snug text-shell sm:text-[2rem]">
             Travel to Pictaria
           </h1>
+          <p className="mx-auto mt-4 max-w-md text-[0.95rem] leading-relaxed text-shell/85">
+            Pictaria is more than a puzzle — it's a quiet invitation to linger with the moments that matter. Every photo you took holds a memory, a feeling, a small piece of your story. Here, play becomes a gentle way to reconnect with what means the most.
+          </p>
 
         </div>
       </section>
