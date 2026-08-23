@@ -495,32 +495,42 @@ export function RecordPlayButton({
       )}
 
       {state === "info" && (
-        <div className="absolute top-9 right-0 z-50 w-60 rounded-[8px] border border-border bg-card px-3 py-2.5 text-left text-[0.62rem] leading-relaxed text-muted-foreground shadow-soft">
-          Pictaria remembers your gameplay. If you would like to post this on
-          social media and share your moves as the picture comes together, just
-          press this button after the game — you will watch it play back full
-          screen, then you can download it to your photos.
-          <div className="mt-2 flex items-center gap-3">
-            {played ? (
+        <div
+          className="fixed inset-0 z-[70] flex items-center justify-center bg-background/55 p-4"
+          onClick={() => setState("idle")}
+        >
+          <div
+            className="w-full max-w-[16rem] rounded-[12px] border border-border bg-card px-5 py-4 text-center shadow-lift"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <p className="text-[0.68rem] leading-relaxed text-muted-foreground">
+              Pictaria remembers your gameplay. If you would like to post this on
+              social media and share your moves as the picture comes together,
+              just press this button after the game — you will watch it play back
+              full screen, then you can download it to your photos.
+            </p>
+            <div className="mt-4 flex items-center justify-center gap-4">
+              {played ? (
+                <button
+                  type="button"
+                  onClick={() => void record()}
+                  className="text-[0.6rem] tracking-[0.16em] text-primary uppercase"
+                >
+                  Record my gameplay
+                </button>
+              ) : (
+                <span className="text-[0.6rem] tracking-[0.16em] text-muted-foreground/60 uppercase">
+                  Play this puzzle
+                </span>
+              )}
               <button
                 type="button"
-                onClick={() => void record()}
-                className="text-[0.55rem] tracking-[0.16em] text-primary uppercase"
+                onClick={() => setState("idle")}
+                className="text-[0.6rem] tracking-[0.16em] text-muted-foreground/70 uppercase"
               >
-                Record my gameplay
+                Not now
               </button>
-            ) : (
-              <span className="text-[0.55rem] tracking-[0.16em] text-muted-foreground/60 uppercase">
-                Play this puzzle
-              </span>
-            )}
-            <button
-              type="button"
-              onClick={() => setState("idle")}
-              className="text-[0.55rem] tracking-[0.16em] text-muted-foreground/70 uppercase"
-            >
-              Not now
-            </button>
+            </div>
           </div>
         </div>
       )}
