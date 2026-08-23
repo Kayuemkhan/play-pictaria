@@ -1470,7 +1470,7 @@ export const collections: Collection[] = [
   {
     id: "sea-turtles",
     title: "Sea Turtles",
-    tagline: "Twenty quiet moments beneath the surface",
+    tagline: "Sea turtle serenity",
     cover: turtle01,
     free: true,
     puzzles: [
@@ -3319,7 +3319,9 @@ for (const collection of collections) {
 }
 
 /** Collections shown in the album and on the home screen (secret ones excluded). */
-export const visibleCollections = collections.filter((c) => !c.hidden);
+export const visibleCollections = collections
+  .filter((c) => !c.hidden)
+  .reverse();
 
 export const freeCollection = collections[0]!;
 
