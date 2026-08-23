@@ -178,9 +178,9 @@ const business = [
 
 function PricingPage() {
   return (
-    <main className="relative min-h-dvh bg-background pb-16">
+    <main className="relative min-h-dvh bg-deep pb-16">
       <header className="relative z-[1] mx-auto w-full max-w-5xl px-4 pt-8 text-center sm:px-8">
-        <h1 className="font-display text-lg tracking-[0.2em] uppercase">
+        <h1 className="font-display text-lg tracking-[0.2em] text-deep-foreground uppercase">
           Pictaria Pricing
         </h1>
       </header>
