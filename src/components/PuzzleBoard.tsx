@@ -320,17 +320,13 @@ export function PuzzleBoard({
     }
     const fade = window.setTimeout(() => setCongratsOut(true), 2800);
     const gone = window.setTimeout(() => setLinger(true), 4100);
-    if (hasNext) {
-      return () => {
-        window.clearTimeout(fade);
-        window.clearTimeout(gone);
-      };
-    }
-    const t = window.setTimeout(() => setShowSummary(true), 6800);
+    const t = hasNext
+      ? undefined
+      : window.setTimeout(() => setShowSummary(true), 6800);
     return () => {
       window.clearTimeout(fade);
       window.clearTimeout(gone);
-      window.clearTimeout(t);
+      if (t) window.clearTimeout(t);
     };
   }, [solved, hasNext]);
   void nextRef;
@@ -1341,9 +1337,9 @@ export function PuzzleBoard({
         className="relative mx-auto aspect-[3/4] max-h-[88vh] w-full shrink-0 p-1 sm:p-2"
       >
 
-        {/* Surprise me sits near the top of the board and simply steps aside
-            while the white summary box is up, then comes right back. */}
-        {!(solved && showSummary) && (
+        {/* Surprise me only appears once the star celebration has finished,
+            sitting at the top of the board where it always lived. */}
+        {solved && linger && !showSummary && (
           <button
             type="button"
             onClick={goSurprise}
@@ -1353,7 +1349,7 @@ export function PuzzleBoard({
           </button>
         )}
 
-        {onNextInSeries && solved && !showSummary && (
+        {onNextInSeries && solved && linger && !showSummary && (
           <button
             type="button"
             onClick={onNextInSeries}
