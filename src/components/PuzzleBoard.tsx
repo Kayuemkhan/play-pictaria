@@ -1336,7 +1336,19 @@ export function PuzzleBoard({
       </header>
 
       {/* stage */}
-      <div className="relative mx-auto aspect-[3/4] max-h-[88vh] w-full shrink-0 p-1 sm:p-2">
+      <div
+        id="pictaria-stage"
+        className="relative mx-auto aspect-[3/4] max-h-[88vh] w-full shrink-0 p-1 sm:p-2"
+      >
+
+        {/* Surprise me lives back on the board, where it always has been */}
+        <button
+          type="button"
+          onClick={goSurprise}
+          className="absolute bottom-2 left-1/2 z-30 -translate-x-1/2 rounded-full border border-primary/70 bg-card/85 px-4 py-1 text-[0.6rem] tracking-[0.16em] text-primary uppercase shadow-soft backdrop-blur-sm transition-colors hover:bg-card"
+        >
+          Surprise me
+        </button>
 
         {onNextInSeries && solved && congratsOut && (
           <button
@@ -1347,6 +1359,7 @@ export function PuzzleBoard({
             Next
           </button>
         )}
+
 
 
 
