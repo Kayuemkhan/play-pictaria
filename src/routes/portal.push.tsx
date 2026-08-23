@@ -75,11 +75,11 @@ function PushAdmin() {
 
       <div className="mx-auto mt-6 max-w-md space-y-4">
         <section className="rounded-[6px] border border-accent/30 bg-deep/50 p-5 backdrop-blur-sm">
-          <h2 className="font-display text-[1.05rem] text-shell">The 30-day medley</h2>
+          <h2 className="font-display text-[1.05rem] text-shell">The 30-day telegram</h2>
           <p className="mt-2 text-[0.8rem] leading-relaxed text-shell/75">
-            Every 30 days Pictaria writes one notification that names a few
-            albums — “from Oceanic Aquarium, from Healing Plants of Hawaiʻi” —
-            and sends it to every phone that asked for it.
+            Every 30 days a telegram arrives from Pictaria — “Telegram from
+            Pictaria · From Oceanic Aquarium” — naming a few albums with new
+            peaces, sent to every phone that asked for it.
           </p>
           <dl className="mt-4 space-y-1 text-[0.75rem] text-shell/70">
             <div className="flex justify-between">
