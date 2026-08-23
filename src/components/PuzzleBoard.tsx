@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
-import { ChevronLeft, Music, Sparkle, Sparkles, VolumeX } from "lucide-react";
+import { ChevronLeft, Circle, Music, Sparkle, Sparkles, VolumeX } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -23,6 +23,20 @@ import {
   trackName,
   useMindfulPlayer,
 } from "@/components/MindfulMusic";
+import { ReplayModal, type ReplayFrame } from "@/components/ReplayModal";
+
+/** music notes with a soft line through them — sound is off */
+function Music4Off() {
+  return (
+    <span className="relative inline-flex">
+      <Music size={17} />
+      <span
+        aria-hidden
+        className="pointer-events-none absolute top-1/2 left-1/2 h-[1.5px] w-[22px] -translate-x-1/2 -translate-y-1/2 -rotate-45 rounded-full bg-current"
+      />
+    </span>
+  );
+}
 
 type SoundscapeId = (typeof TRACK_OPTIONS)[number]["id"];
 
@@ -156,6 +170,10 @@ export function PuzzleBoard({
   const [solved, setSolved] = useState(false);
   const [showSummary, setShowSummary] = useState(false);
   const [showReference, setShowReference] = useState(false);
+  const [showReplay, setShowReplay] = useState(false);
+  /** every board state the player produced, timed for an exact replay */
+  const timeline = useRef<ReplayFrame[]>([]);
+  const timelineStart = useRef(0);
   const { playing: musicPlaying, selected: musicSelected } = useMindfulPlayer();
   const musicOn = musicPlaying !== null;
   const musicTitle = trackName(musicPlaying ?? musicSelected);
@@ -267,7 +285,19 @@ export function PuzzleBoard({
     setSeconds(0);
     setSolved(false);
     setDrag(null);
+    timeline.current = [];
+    timelineStart.current = 0;
   }, [aspect, total, round, mergePass]);
+
+  /* remember every board state, at the tempo it happened */
+  useEffect(() => {
+    if (!pos.length) return;
+    if (!timeline.current.length) timelineStart.current = performance.now();
+    timeline.current.push({
+      t: performance.now() - timelineStart.current,
+      pos: [...pos],
+    });
+  }, [pos]);
 
   /* timer */
   useEffect(() => {
@@ -1243,7 +1273,7 @@ export function PuzzleBoard({
           </p>
         </div>
 
-        <div className="flex items-center gap-1.5 text-xs tabular-nums sm:gap-3 sm:text-sm">
+        <div className="flex items-center gap-2 text-xs tabular-nums sm:gap-3 sm:text-sm">
           <Select
             value={musicOn ? (musicPlaying as string) : "off"}
             onValueChange={(v) => {
@@ -1263,9 +1293,9 @@ export function PuzzleBoard({
                   ? `${musicTitle} — ${musicOn ? "on" : "off"}`
                   : "Mindful sound"
               }
-              className="h-8 w-fit min-w-0 border-0 bg-transparent p-0 text-[10px] tracking-[0.14em] uppercase text-muted-foreground shadow-none hover:text-primary focus:ring-0 [&>svg]:h-4 [&>svg]:w-4"
+              className="h-8 w-fit min-w-0 border-0 bg-transparent p-0 text-[10px] tracking-[0.14em] uppercase text-neutral-400 shadow-none hover:text-neutral-600 focus:ring-0 [&>svg:last-child]:hidden"
             >
-              {musicOn ? <Music size={16} /> : <VolumeX size={16} />}
+              {musicOn ? <Music size={17} /> : <Music4Off />}
             </SelectTrigger>
             <SelectContent align="end" className="min-w-[12rem]">
               <SelectItem value="off">
@@ -1288,6 +1318,15 @@ export function PuzzleBoard({
               ))}
             </SelectContent>
           </Select>
+
+          <button
+            type="button"
+            aria-label="Record"
+            onClick={() => setShowReplay(true)}
+            className="flex h-8 w-8 items-center justify-center text-neutral-400 transition-colors hover:text-neutral-600"
+          >
+            <Circle size={16} strokeWidth={1.6} fill="currentColor" />
+          </button>
 
           <span className="hidden rounded-full bg-secondary px-2 py-1 text-secondary-foreground sm:inline sm:text-sm">
             {moves} moves
@@ -1719,6 +1758,21 @@ export function PuzzleBoard({
       )}
 
       {breakOver && <BreakOverBanner onClose={() => setBreakOver(false)} />}
+
+      {showReplay && (
+        <ReplayModal
+          src={src}
+          grid={grid}
+          title={title}
+          frames={timeline.current}
+          onClose={() => setShowReplay(false)}
+          onShare={() => {
+            const url = window.location.href;
+            if (navigator.share) void navigator.share({ title, url }).catch(() => {});
+            else void navigator.clipboard?.writeText(url).catch(() => {});
+          }}
+        />
+      )}
 
       {unbranded && (
         <Link
