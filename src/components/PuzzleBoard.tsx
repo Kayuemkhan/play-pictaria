@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
-import { ChevronLeft, Circle, Music, Sparkle, Sparkles, VolumeX } from "lucide-react";
+import { ChevronLeft, Music, Sparkle, Sparkles, Video, VolumeX } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -24,19 +24,6 @@ import {
   useMindfulPlayer,
 } from "@/components/MindfulMusic";
 import { ReplayModal, type ReplayFrame } from "@/components/ReplayModal";
-
-/** music notes with a soft line through them — sound is off */
-function Music4Off() {
-  return (
-    <span className="relative inline-flex">
-      <Music size={17} />
-      <span
-        aria-hidden
-        className="pointer-events-none absolute top-1/2 left-1/2 h-[1.5px] w-[22px] -translate-x-1/2 -translate-y-1/2 -rotate-45 rounded-full bg-current"
-      />
-    </span>
-  );
-}
 
 type SoundscapeId = (typeof TRACK_OPTIONS)[number]["id"];
 
@@ -1295,7 +1282,7 @@ export function PuzzleBoard({
               }
               className="h-8 w-fit min-w-0 border-0 bg-transparent p-0 text-[10px] tracking-[0.14em] uppercase text-neutral-400 shadow-none hover:text-neutral-600 focus:ring-0 [&>svg:last-child]:hidden"
             >
-              {musicOn ? <Music size={17} /> : <Music4Off />}
+              <Music size={17} />
             </SelectTrigger>
             <SelectContent align="end" className="min-w-[12rem]">
               <SelectItem value="off">
@@ -1325,7 +1312,7 @@ export function PuzzleBoard({
             onClick={() => setShowReplay(true)}
             className="flex h-8 w-8 items-center justify-center text-neutral-400 transition-colors hover:text-neutral-600"
           >
-            <Circle size={16} strokeWidth={1.6} fill="currentColor" />
+            <Video size={18} strokeWidth={1.6} />
           </button>
 
           <span className="hidden rounded-full bg-secondary px-2 py-1 text-secondary-foreground sm:inline sm:text-sm">
