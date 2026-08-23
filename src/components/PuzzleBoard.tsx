@@ -9,8 +9,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { RecordPlayButton } from "@/components/RecordPlayButton";
-
 import { collections, difficulties } from "@/data/collections";
 import palmLogo from "@/assets/logo-palms-only.png";
 import tropicalIslandBg from "@/assets/pinup-08.jpg";
@@ -271,37 +269,12 @@ export function PuzzleBoard({
     setDrag(null);
   }, [aspect, total, round, mergePass]);
 
-  /* Pictaria remembers the solve: every committed board state, in order, so the
-     finished puzzle can be replayed back as a "watch me solve it" video. */
-  const historyRef = useRef<{ pos: number[]; at: number }[]>([]);
-  useEffect(() => {
-    if (!pos.length) return;
-    const last = historyRef.current[historyRef.current.length - 1];
-    if (
-      last &&
-      last.pos.length === pos.length &&
-      last.pos.every((c, i) => c === pos[i])
-    )
-      return;
-    if (!last || last.pos.length !== pos.length) historyRef.current = [];
-    historyRef.current.push({ pos: [...pos], at: Date.now() });
-    if (historyRef.current.length > 400) historyRef.current.shift();
-  }, [pos]);
-  useEffect(() => {
-    historyRef.current = [];
-  }, [round, src]);
-  const getHistory = useCallback(
-    () => historyRef.current.map((f) => ({ pos: [...f.pos], at: f.at })),
-    [],
-  );
-
   /* timer */
   useEffect(() => {
     if (solved || !pos.length) return;
     const t = window.setInterval(() => setSeconds((v) => v + 1), 1000);
     return () => window.clearInterval(t);
   }, [solved, pos.length]);
-
 
   /* celebration: the congratulations drifts in and back out, then the finished
      picture is left alone to be admired — with a quiet "Next →" beside it. Only
@@ -320,13 +293,17 @@ export function PuzzleBoard({
     }
     const fade = window.setTimeout(() => setCongratsOut(true), 2800);
     const gone = window.setTimeout(() => setLinger(true), 4100);
-    const t = hasNext
-      ? undefined
-      : window.setTimeout(() => setShowSummary(true), 6800);
+    if (hasNext) {
+      return () => {
+        window.clearTimeout(fade);
+        window.clearTimeout(gone);
+      };
+    }
+    const t = window.setTimeout(() => setShowSummary(true), 6800);
     return () => {
       window.clearTimeout(fade);
       window.clearTimeout(gone);
-      if (t) window.clearTimeout(t);
+      window.clearTimeout(t);
     };
   }, [solved, hasNext]);
   void nextRef;
@@ -1286,11 +1263,10 @@ export function PuzzleBoard({
                   ? `${musicTitle} — ${musicOn ? "on" : "off"}`
                   : "Mindful sound"
               }
-              className="h-8 w-fit min-w-0 border-0 bg-transparent p-0 text-[10px] tracking-[0.14em] text-muted-foreground/50 uppercase shadow-none hover:text-primary focus:ring-0 [&>span[data-radix-select-icon]]:hidden [&>svg]:h-4 [&>svg]:w-4 [&>svg:last-child]:hidden"
+              className="h-8 w-fit min-w-0 border-0 bg-transparent p-0 text-[10px] tracking-[0.14em] uppercase text-muted-foreground shadow-none hover:text-primary focus:ring-0 [&>svg]:h-4 [&>svg]:w-4"
             >
               {musicOn ? <Music size={16} /> : <VolumeX size={16} />}
             </SelectTrigger>
-
             <SelectContent align="end" className="min-w-[12rem]">
               <SelectItem value="off">
                 <span className="flex items-center gap-2">
@@ -1313,18 +1289,6 @@ export function PuzzleBoard({
             </SelectContent>
           </Select>
 
-          <RecordPlayButton
-            src={src}
-            grid={grid}
-            solved={solved}
-            hasMoves={moves > 0}
-            getHistory={getHistory}
-            photoTitle={title}
-            collectionName={collectionName}
-          />
-
-
-
           <span className="hidden rounded-full bg-secondary px-2 py-1 text-secondary-foreground sm:inline sm:text-sm">
             {moves} moves
           </span>
@@ -1332,35 +1296,26 @@ export function PuzzleBoard({
       </header>
 
       {/* stage */}
-      <div
-        id="pictaria-stage"
-        className="relative mx-auto aspect-[3/4] max-h-[88vh] w-full shrink-0 p-1 sm:p-2"
-      >
-
-        {/* Surprise me only appears once the star celebration has finished,
-            sitting at the top of the board where it always lived. */}
-        {solved && linger && !showSummary && (
+      <div className="relative mx-auto aspect-[3/4] max-h-[88vh] w-full shrink-0 p-1 sm:p-2">
+        {solved && congratsOut && (
           <button
             type="button"
             onClick={goSurprise}
-            className="absolute top-9 left-1/2 z-20 -translate-x-1/2 rounded-full border border-primary/70 bg-card/85 px-4 py-1 text-[0.6rem] tracking-[0.16em] text-primary uppercase shadow-soft backdrop-blur-sm transition-colors hover:bg-card"
+            className="absolute top-7 left-1/2 z-40 -translate-x-1/2 rounded-full border border-primary/70 bg-card/85 px-3 py-1 text-[0.6rem] tracking-[0.16em] text-primary uppercase shadow-soft backdrop-blur-sm transition-colors hover:bg-card sm:top-10"
           >
             Surprise me
           </button>
         )}
 
-        {onNextInSeries && solved && linger && !showSummary && (
+        {onNextInSeries && solved && congratsOut && (
           <button
             type="button"
             onClick={onNextInSeries}
-            className="absolute bottom-3 left-1/2 z-20 -translate-x-1/2 rounded-full border border-primary/70 bg-card/85 px-3 py-1 text-[0.6rem] tracking-[0.16em] text-primary uppercase shadow-soft backdrop-blur-sm transition-colors hover:bg-card"
+            className="absolute bottom-7 left-1/2 z-40 -translate-x-1/2 rounded-full border border-primary/70 bg-card/85 px-3 py-1 text-[0.6rem] tracking-[0.16em] text-primary uppercase shadow-soft backdrop-blur-sm transition-colors hover:bg-card sm:bottom-10"
           >
             Next
           </button>
         )}
-
-
-
 
 
 
@@ -1582,25 +1537,23 @@ export function PuzzleBoard({
         >
           <Sparkles size={18} strokeWidth={1.25} />
         </button>
-        <div className="flex min-w-0 flex-1 flex-col items-center gap-1 px-1">
-          {collectionName ? (
-            collectionId ? (
-              <Link
-                to="/collection/$collectionId"
-                params={{ collectionId }}
-                className="max-w-full text-center font-display text-[0.7rem] leading-tight tracking-[0.16em] text-muted-foreground/80 uppercase transition-colors hover:text-accent-foreground"
-              >
-                {collectionName}
-              </Link>
-            ) : (
-              <span className="max-w-full text-center font-display text-[0.7rem] leading-tight tracking-[0.16em] text-muted-foreground/80 uppercase">
-                {collectionName}
-              </span>
-            )
-          ) : null}
-        </div>
-
-
+        {collectionName ? (
+          collectionId ? (
+            <Link
+              to="/collection/$collectionId"
+              params={{ collectionId }}
+              className="flex-1 px-1 text-center font-display text-[0.7rem] leading-tight tracking-[0.16em] text-muted-foreground/80 uppercase transition-colors hover:text-accent-foreground"
+            >
+              {collectionName}
+            </Link>
+          ) : (
+            <span className="flex-1 px-1 text-center font-display text-[0.7rem] leading-tight tracking-[0.16em] text-muted-foreground/80 uppercase">
+              {collectionName}
+            </span>
+          )
+        ) : (
+          <span aria-hidden className="px-2" />
+        )}
 
         <button
           type="button"
@@ -1618,9 +1571,6 @@ export function PuzzleBoard({
           <Sparkle size={18} strokeWidth={1.25} />
         </button>
       </div>
-
-
-
 
       {info ? (
         <div className="z-20 px-4 pb-24 text-center sm:px-5">
