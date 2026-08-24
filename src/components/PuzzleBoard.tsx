@@ -1493,6 +1493,17 @@ export function PuzzleBoard({
             const srcX = Math.round((pc * WORLD_W) / grid);
             const srcY = Math.round((pr * worldH) / grid);
 
+            /**
+             * The board is drawn at a fractional scale, so a cell boundary can
+             * land mid-device-pixel and antialias into a hairline. Joined tiles
+             * therefore bleed one screen pixel over their right/bottom seam —
+             * same photo, same offset, so the overlap is invisible but the seam
+             * is fully painted.
+             */
+            const bleed = 1 / (scale || 1);
+            const drawW = width + (joinedRight ? bleed : 0);
+            const drawH = height + (joinedBottom ? bleed : 0);
+
             const line = (joined: boolean) =>
               joined ? "0 solid transparent" : `${edge.width}px solid var(--piece-outline)`;
             const corner = (a: boolean, b: boolean) =>
@@ -1506,8 +1517,8 @@ export function PuzzleBoard({
                   position: "absolute",
                   left: 0,
                   top: 0,
-                  width,
-                  height,
+                  width: drawW,
+                  height: drawH,
                   backgroundImage: `url(${src})`,
                   backgroundSize: `${bg.w}px ${bg.h}px`,
                   backgroundPosition: `${bg.x - srcX}px ${bg.y - srcY}px`,
