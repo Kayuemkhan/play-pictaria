@@ -20,13 +20,13 @@ const BORDER = 4;
  * capped, so a long thoughtful solve still plays back as a watchable clip.
  */
 export function toBeats(frames: ReplayFrame[]): ReplayBeat[] {
-  const MAX_PAUSE = 900;
-  const GLIDE = 300;
+  const MAX_PAUSE = 260;
+  const GLIDE = 130;
   let clock = 0;
   return frames.map((f, i) => {
     if (i > 0) {
       const gap = f.t - frames[i - 1]!.t;
-      clock += Math.min(Math.max(gap, 90), MAX_PAUSE);
+      clock += Math.min(Math.max(gap * 0.35, 45), MAX_PAUSE);
     }
     return { pos: f.pos, at: clock, glide: i === 0 ? 0 : GLIDE };
   });
@@ -187,7 +187,7 @@ export async function recordReplay({
       const k = beat.glide ? Math.min(1, (elapsed - beat.at) / beat.glide) : 1;
       const eased = 1 - Math.pow(1 - k, 3);
       if (img && ctx) drawFrame(ctx, img, grid, beat.pos, prev?.pos, eased);
-      if (elapsed < span + 1400) requestAnimationFrame(step);
+      if (elapsed < span + 600) requestAnimationFrame(step);
       else resolve();
     };
     requestAnimationFrame(step);
