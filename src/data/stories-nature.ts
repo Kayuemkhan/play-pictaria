@@ -296,6 +296,12 @@ export const aquariumStories: Record<string, string[]> = {
   "aquarium-44": [
     "The Portuguese man o' war is not one animal but a colony of specialized individuals — a float, feeders, stingers, breeders — living as a single organism. It cannot swim; that pink crest is a sail, and it goes wherever the trade winds send it, which some days is straight onto the beach.",
   ],
+  "aquarium-46": [
+    "Spinner dolphins play for the sake of playing. They blow rings of air, chase them, swim through them, and hand them off to each other — and researchers who watch the same pods year after year see the same friendships repeating, the same two animals seeking each other out to do nothing useful at all.",
+  ],
+  "aquarium-47": [
+    "A plumeria blossom that has fallen into the sea rides the surface like a little boat, still perfuming the water. Dolphins, turtles and even fish have been filmed carrying floating leaves and flowers to one another — passing an object back and forth with no reward but the game itself.",
+  ],
   "aquarium-45": [
     "The upside-down jellyfish flips over and rests on its bell so the algae living in its tissue can catch the sun, then lives largely on the sugars those algae make. A jellyfish that gardens — the same trick coral uses, in an animal that could simply have drifted.",
   ],
