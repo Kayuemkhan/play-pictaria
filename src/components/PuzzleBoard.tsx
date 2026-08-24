@@ -311,6 +311,7 @@ export function PuzzleBoard({
     setReplayNote(null);
     setDrag(null);
     setClip(null);
+    setShowReplayResult(false);
 
     // Give the player a few seconds to read the message before the tiles move.
     await new Promise((resolve) => window.setTimeout(resolve, 3000));
