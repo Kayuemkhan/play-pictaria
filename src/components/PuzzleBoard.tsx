@@ -1802,10 +1802,12 @@ export function PuzzleBoard({
       {breakOver && <BreakOverBanner onClose={() => setBreakOver(false)} />}
 
       {replaying && (
-        <div className="pointer-events-none absolute top-2 left-1/2 z-40 -translate-x-1/2 rounded-full bg-card/85 px-3 py-1 text-[0.58rem] tracking-[0.16em] text-primary uppercase shadow-soft backdrop-blur-sm">
-          Replaying your solve…
+        <div className="pointer-events-none fixed top-1/2 left-1/2 z-40 w-[min(20rem,85vw)] -translate-x-1/2 -translate-y-1/2 rounded-[18px] bg-card/92 px-5 py-4 text-center text-[0.68rem] leading-relaxed tracking-[0.1em] text-primary shadow-lift backdrop-blur-sm">
+          Replaying your solve… This will only take a second and then you can
+          share to friends, family and social media.
         </div>
       )}
+
 
       {replayNote && !replaying && (
         <button
