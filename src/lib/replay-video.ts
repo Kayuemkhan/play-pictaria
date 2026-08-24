@@ -187,7 +187,7 @@ export async function recordReplay({
       const k = beat.glide ? Math.min(1, (elapsed - beat.at) / beat.glide) : 1;
       const eased = 1 - Math.pow(1 - k, 3);
       if (img && ctx) drawFrame(ctx, img, grid, beat.pos, prev?.pos, eased);
-      if (elapsed < span + 1400) requestAnimationFrame(step);
+      if (elapsed < span + 600) requestAnimationFrame(step);
       else resolve();
     };
     requestAnimationFrame(step);
