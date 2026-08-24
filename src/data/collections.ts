@@ -349,6 +349,36 @@ import aquarium12 from "@/assets/aquarium-12.jpg";
 import aquarium13 from "@/assets/aquarium-13.jpg";
 import aquarium14 from "@/assets/aquarium-14.jpg";
 import aquarium15 from "@/assets/aquarium-15.jpg";
+import aquarium16 from "@/assets/aquarium-16.jpg";
+import aquarium17 from "@/assets/aquarium-17.jpg";
+import aquarium18 from "@/assets/aquarium-18.jpg";
+import aquarium19 from "@/assets/aquarium-19.jpg";
+import aquarium20 from "@/assets/aquarium-20.jpg";
+import aquarium21 from "@/assets/aquarium-21.jpg";
+import aquarium22 from "@/assets/aquarium-22.jpg";
+import aquarium23 from "@/assets/aquarium-23.jpg";
+import aquarium24 from "@/assets/aquarium-24.jpg";
+import aquarium25 from "@/assets/aquarium-25.jpg";
+import aquarium26 from "@/assets/aquarium-26.jpg";
+import aquarium27 from "@/assets/aquarium-27.jpg";
+import aquarium28 from "@/assets/aquarium-28.jpg";
+import aquarium29 from "@/assets/aquarium-29.jpg";
+import aquarium30 from "@/assets/aquarium-30.jpg";
+import aquarium31 from "@/assets/aquarium-31.jpg";
+import aquarium32 from "@/assets/aquarium-32.jpg";
+import aquarium33 from "@/assets/aquarium-33.jpg";
+import aquarium34 from "@/assets/aquarium-34.jpg";
+import aquarium35 from "@/assets/aquarium-35.jpg";
+import aquarium36 from "@/assets/aquarium-36.jpg";
+import aquarium37 from "@/assets/aquarium-37.jpg";
+import aquarium38 from "@/assets/aquarium-38.jpg";
+import aquarium39 from "@/assets/aquarium-39.jpg";
+import aquarium40 from "@/assets/aquarium-40.jpg";
+import aquarium41 from "@/assets/aquarium-41.jpg";
+import aquarium42 from "@/assets/aquarium-42.jpg";
+import aquarium43 from "@/assets/aquarium-43.jpg";
+import aquarium44 from "@/assets/aquarium-44.jpg";
+import aquarium45 from "@/assets/aquarium-45.jpg";
 
 
 import { natureStories, aquariumStories } from "./stories-nature";
@@ -3346,8 +3376,8 @@ export const collections: Collection[] = [
   },
   {
     id: "oceanic-aquarium",
-    title: "Oceanic Aquarium",
-    tagline: "Fifteen residents of Hawaiʻi's reef, up close",
+    title: "Oceanic Aquaria",
+    tagline: "Forty-five residents of Hawaiʻi's reef, up close",
     cover: aquarium08,
     free: true,
     puzzles: [
@@ -3455,6 +3485,216 @@ export const collections: Collection[] = [
         meaning: "Kai — the sea",
         caption: "Sunbeams falling on the coral garden",
         image: aquarium15,
+      },
+      {
+        id: "aquarium-16",
+        title: "Tiger Shark",
+        meaning: "Manō — the shark, an ʻaumakua to many families",
+        caption: "A slow pass over the sand flats",
+        image: aquarium16,
+      },
+      {
+        id: "aquarium-17",
+        title: "Whitetip Reef Shark",
+        meaning: "Manō lālākea — “white-branched shark”",
+        caption: "Resting in the shade of a ledge",
+        image: aquarium17,
+      },
+      {
+        id: "aquarium-18",
+        title: "Hammerhead Shark",
+        meaning: "Manō kihikihi — “zigzag shark”",
+        caption: "A silhouette in the open blue",
+        image: aquarium18,
+      },
+      {
+        id: "aquarium-19",
+        title: "Spotted Eagle Ray",
+        meaning: "Hihimanu — “magnificent, elegant”",
+        caption: "White stars over pale sand",
+        image: aquarium19,
+      },
+      {
+        id: "aquarium-20",
+        title: "Whale Shark",
+        meaning: "The largest fish in the sea",
+        caption: "A checkerboard the size of a bus",
+        image: aquarium20,
+      },
+      {
+        id: "aquarium-21",
+        title: "Blacktip Reef Shark",
+        meaning: "Manō pāʻele — the dark-tipped shark",
+        caption: "Sunlight rippling down its back",
+        image: aquarium21,
+      },
+      {
+        id: "aquarium-22",
+        title: "Manta at Night",
+        meaning: "Hāhālua — “two breaths”",
+        caption: "Feeding in a cone of light",
+        image: aquarium22,
+      },
+      {
+        id: "aquarium-23",
+        title: "Stingray in the Sand",
+        meaning: "Hīhīmanu — the ray",
+        caption: "Only two eyes give her away",
+        image: aquarium23,
+      },
+      {
+        id: "aquarium-24",
+        title: "Parrotfish",
+        meaning: "Uhu — the parrotfish",
+        caption: "Blue and green, sculpting the reef",
+        image: aquarium24,
+      },
+      {
+        id: "aquarium-25",
+        title: "Convict Tang",
+        meaning: "Manini — “stingy,” for its small share",
+        caption: "A striped crowd over the rock",
+        image: aquarium25,
+      },
+      {
+        id: "aquarium-26",
+        title: "Achilles Tang",
+        meaning: "Pākuʻikuʻi — “to strike repeatedly”",
+        caption: "One orange teardrop in the surge",
+        image: aquarium26,
+      },
+      {
+        id: "aquarium-27",
+        title: "Bluestripe Snapper",
+        meaning: "Taʻape — the introduced snapper",
+        caption: "Yellow crowding a shady ledge",
+        image: aquarium27,
+      },
+      {
+        id: "aquarium-28",
+        title: "Unicornfish",
+        meaning: "Kala — “to loosen, to forgive”",
+        caption: "A horn on a gentle grazer",
+        image: aquarium28,
+      },
+      {
+        id: "aquarium-29",
+        title: "Saddle Wrasse",
+        meaning: "Hīnālea lauwili — “leaf-turning wrasse”",
+        caption: "Orange collar over the coral",
+        image: aquarium29,
+      },
+      {
+        id: "aquarium-30",
+        title: "Peacock Grouper",
+        meaning: "Roi — the introduced grouper",
+        caption: "A hundred electric blue spots",
+        image: aquarium30,
+      },
+      {
+        id: "aquarium-31",
+        title: "Flame Angelfish",
+        meaning: "ʻĀʻā — flame, fire",
+        caption: "Red fire inside coral branches",
+        image: aquarium31,
+      },
+      {
+        id: "aquarium-32",
+        title: "Frogfish",
+        meaning: "A master of disappearing",
+        caption: "Hiding in plain sight on a sponge",
+        image: aquarium32,
+      },
+      {
+        id: "aquarium-33",
+        title: "Trumpetfish",
+        meaning: "Nūnū — the trumpetfish",
+        caption: "Yellow needles above the antler coral",
+        image: aquarium33,
+      },
+      {
+        id: "aquarium-34",
+        title: "Spanish Dancer",
+        meaning: "The reef's great red skirt",
+        caption: "A slug that swims like silk",
+        image: aquarium34,
+      },
+      {
+        id: "aquarium-35",
+        title: "Gold-Lace Nudibranch",
+        meaning: "Lace drawn in gold on black",
+        caption: "Every line hand-painted",
+        image: aquarium35,
+      },
+      {
+        id: "aquarium-36",
+        title: "Varicose Wart Slug",
+        meaning: "A pastry with a blue hem",
+        caption: "Warts, ruffles and a slow crawl",
+        image: aquarium36,
+      },
+      {
+        id: "aquarium-37",
+        title: "Blue Dragon",
+        meaning: "Lavender plumes on a tiny back",
+        caption: "A dragon two inches long",
+        image: aquarium37,
+      },
+      {
+        id: "aquarium-38",
+        title: "Imperial Nudibranch",
+        meaning: "Pink and orange on new snow",
+        caption: "Royalty the size of a thumb",
+        image: aquarium38,
+      },
+      {
+        id: "aquarium-39",
+        title: "Pikachu Nudibranch",
+        meaning: "Black velvet with yellow tips",
+        caption: "Two little horns in the algae",
+        image: aquarium39,
+      },
+      {
+        id: "aquarium-40",
+        title: "Moon Jellyfish",
+        meaning: "Pololia — the jellyfish",
+        caption: "Four pale clovers adrift",
+        image: aquarium40,
+      },
+      {
+        id: "aquarium-41",
+        title: "Box Jellyfish",
+        meaning: "Pololia — small, clear, and serious",
+        caption: "Four threads in the dark",
+        image: aquarium41,
+      },
+      {
+        id: "aquarium-42",
+        title: "Crown Jellyfish",
+        meaning: "A deep red bell, grooved like a crown",
+        caption: "Velvet in the black water",
+        image: aquarium42,
+      },
+      {
+        id: "aquarium-43",
+        title: "Comb Jelly",
+        meaning: "Rainbows made of moving hairs",
+        caption: "Light running down its rows",
+        image: aquarium43,
+      },
+      {
+        id: "aquarium-44",
+        title: "Portuguese Man o' War",
+        meaning: "Palu-huna — the sailor on the wind",
+        caption: "A sail the color of a bruise",
+        image: aquarium44,
+      },
+      {
+        id: "aquarium-45",
+        title: "Upside-Down Jellyfish",
+        meaning: "The jellyfish that sunbathes",
+        caption: "Bell down, tentacles reaching up",
+        image: aquarium45,
       },
     ],
   },
