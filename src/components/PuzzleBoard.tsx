@@ -310,6 +310,9 @@ export function PuzzleBoard({
     setDrag(null);
     setClip(null);
 
+    // Give the player a few seconds to read the message before the tiles move.
+    await new Promise((resolve) => window.setTimeout(resolve, 3000));
+
     const result = await recordReplay({
       src,
       grid,
