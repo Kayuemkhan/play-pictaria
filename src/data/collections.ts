@@ -3375,7 +3375,7 @@ export const collections: Collection[] = [
     ],
   },
   {
-    id: "oceanic-aquarium",
+    id: "oceanic-aquaria",
     title: "Oceanic Aquaria",
     tagline: "Forty-five residents of Hawaiʻi's reef, up close",
     cover: aquarium08,
