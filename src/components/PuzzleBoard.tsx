@@ -335,6 +335,7 @@ export function PuzzleBoard({
     setReplaying(false);
     if (result.clip) setClip(result.clip);
     else setReplayNote(result.error ?? "That replay didn't finish. Please try again.");
+    setShowReplayResult(true);
   }, [pos, groupOf, src, grid, title, mergePass]);
 
   /* timer */
