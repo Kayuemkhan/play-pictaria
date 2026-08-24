@@ -137,7 +137,7 @@ export function PushNotifyToggle() {
       <h2 className="font-display text-lg text-shell">A telegram from Pictaria</h2>
       <p className="mx-auto mt-3 max-w-md text-[0.85rem] leading-relaxed text-shell/80">
         Every so often word arrives from Pictaria — “Telegram from Pictaria ·
-        From Oceanic Aquarium.” It appears at the top of your phone screen, and
+        From Oceanic Aquaria.” It appears at the top of your phone screen, and
         nowhere else.
       </p>
 

@@ -3,7 +3,7 @@
  *
  * A "medley" is the every-30-days notification: AI stitches together a short
  * line that names a few of the albums that have new peaces waiting, e.g.
- * "New Pictarias from Oceanic Aquarium and Healing Plants of Hawaiʻi".
+ * "New Pictarias from Oceanic Aquaria and Healing Plants of Hawaiʻi".
  */
 import {
   buildPushPayload,
