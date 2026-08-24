@@ -141,9 +141,10 @@ function WorkLifeBalancePage() {
                 <button
                   key={n}
                   type="button"
+                  onPointerDown={() => setGoal(n)}
                   onClick={() => setGoal(n)}
                   aria-pressed={goal === n}
-                  className={`flex h-10 w-10 items-center justify-center rounded-full border text-[0.75rem] font-medium shadow-sm transition-transform hover:scale-105 active:scale-95 ${
+                  className={`relative z-10 flex h-12 w-12 touch-manipulation items-center justify-center rounded-full border text-[0.85rem] font-medium shadow-sm transition-transform active:scale-95 ${
                     goal === n
                       ? "border-accent bg-accent text-deep"
                       : "border-accent/60 bg-accent/15 text-accent"
@@ -154,13 +155,15 @@ function WorkLifeBalancePage() {
               ))}
             </div>
             <p className="mt-4 text-center text-[0.8rem] leading-relaxed text-shell/80">
-              3 puzzles is a proper little vacay.
+              {goal
+                ? `Your break: ${goal} ${goal === 1 ? "puzzle" : "puzzles"}.`
+                : "3 puzzles is a proper little vacay."}
             </p>
             <div className="mt-4 flex justify-center">
               <button
                 type="button"
                 onClick={beginBreak}
-                className="inline-flex items-center gap-1.5 rounded-full border border-accent/60 bg-accent/15 px-5 py-2.5 text-[0.6rem] tracking-[0.2em] text-accent uppercase transition-transform hover:scale-[1.03]"
+                className="relative z-10 inline-flex touch-manipulation items-center gap-1.5 rounded-full border border-accent/60 bg-accent/15 px-6 py-3 text-[0.6rem] tracking-[0.2em] text-accent uppercase transition-transform active:scale-95"
               >
                 Start my break
                 <span aria-hidden>›</span>
