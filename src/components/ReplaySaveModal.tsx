@@ -7,16 +7,19 @@ import type { ReplayClip } from "@/lib/replay-video";
  */
 export function ReplaySaveModal({
   clip,
+  error,
   title,
   onClose,
 }: {
-  clip: ReplayClip;
+  clip: ReplayClip | null;
+  error?: string | null;
   title: string;
   onClose: () => void;
 }) {
   const [note, setNote] = useState<string | null>(null);
 
   const save = useCallback(async () => {
+    if (!clip) return;
     const isWebm = clip.type.includes("webm");
 
     // 1) Native share sheet — the tap that lands it in Photos on a phone.
