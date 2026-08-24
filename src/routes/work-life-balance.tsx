@@ -143,7 +143,11 @@ function WorkLifeBalancePage() {
                   type="button"
                   onClick={() => setGoal(n)}
                   aria-pressed={goal === n}
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-yellow-200/60 bg-yellow-200 text-[0.75rem] font-medium text-deep shadow-sm transition-transform hover:scale-105 active:scale-95"
+                  className={`flex h-10 w-10 items-center justify-center rounded-full border text-[0.75rem] font-medium shadow-sm transition-transform hover:scale-105 active:scale-95 ${
+                    goal === n
+                      ? "border-accent bg-accent text-deep"
+                      : "border-accent/60 bg-accent/15 text-accent"
+                  }`}
                 >
                   {n}
                 </button>
