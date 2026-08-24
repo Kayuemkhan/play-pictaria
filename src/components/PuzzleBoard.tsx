@@ -1828,18 +1828,17 @@ export function PuzzleBoard({
       )}
 
 
-      {replayNote && !replaying && (
-        <button
-          type="button"
-          onClick={() => setReplayNote(null)}
-          className="absolute top-2 left-1/2 z-40 -translate-x-1/2 rounded-full bg-card/90 px-3 py-1 text-[0.58rem] tracking-[0.12em] text-foreground/70 shadow-soft backdrop-blur-sm"
-        >
-          {replayNote}
-        </button>
-      )}
-
-      {clip && (
-        <ReplaySaveModal clip={clip} title={title} onClose={() => setClip(null)} />
+      {showReplayResult && !replaying && (
+        <ReplaySaveModal
+          clip={clip}
+          error={clip ? null : replayNote}
+          title={title}
+          onClose={() => {
+            setShowReplayResult(false);
+            setClip(null);
+            setReplayNote(null);
+          }}
+        />
       )}
 
       {unbranded && (
