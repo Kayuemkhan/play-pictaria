@@ -163,6 +163,8 @@ export function PuzzleBoard({
   const replayingRef = useRef(false);
   const [clip, setClip] = useState<ReplayClip | null>(null);
   const [replayNote, setReplayNote] = useState<string | null>(null);
+  /** the save-your-video page appears as soon as the replay finishes */
+  const [showReplayResult, setShowReplayResult] = useState(false);
   /** every board state the player produced, timed for an exact replay */
   const timeline = useRef<ReplayFrame[]>([]);
   const timelineStart = useRef(0);
