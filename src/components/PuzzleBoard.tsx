@@ -1219,11 +1219,14 @@ export function PuzzleBoard({
   const edge = useMemo(() => {
     const s = scale || 1;
     return {
-      inset: 3 / s,
-      width: 1.1 / s,
+      // no inset: every line sits exactly on the tile boundary, so the lines of
+      // two neighbouring tiles land on the same pixel and read as one grid
+      inset: 0,
+      width: 2.2 / s,
       radius: 6 / s,
     };
   }, [scale]);
+
 
   
 
@@ -1309,8 +1312,19 @@ export function PuzzleBoard({
         </div>
 
         <div className="flex items-center gap-2 text-xs tabular-nums sm:gap-3 sm:text-sm">
+          <button
+            type="button"
+            aria-label="Replay"
+            onClick={() => void startReplay()}
+            disabled={replaying}
+            className="flex h-8 w-8 items-center justify-center text-neutral-400 transition-colors hover:text-neutral-600 disabled:opacity-40"
+          >
+            <Video size={18} strokeWidth={1.6} />
+          </button>
+
           <Select
             value={musicOn ? (musicPlaying as string) : "off"}
+
             onValueChange={(v) => {
               if (v === "off") {
                 stopMindfulTrack();
@@ -1354,15 +1368,7 @@ export function PuzzleBoard({
             </SelectContent>
           </Select>
 
-          <button
-            type="button"
-            aria-label="Replay"
-            onClick={() => void startReplay()}
-            disabled={replaying}
-            className="flex h-8 w-8 items-center justify-center text-neutral-400 transition-colors hover:text-neutral-600 disabled:opacity-40"
-          >
-            <Video size={18} strokeWidth={1.6} />
-          </button>
+
 
           <span className="hidden rounded-full bg-secondary px-2 py-1 text-secondary-foreground sm:inline sm:text-sm">
             {moves} moves
@@ -1796,10 +1802,12 @@ export function PuzzleBoard({
       {breakOver && <BreakOverBanner onClose={() => setBreakOver(false)} />}
 
       {replaying && (
-        <div className="pointer-events-none absolute top-2 left-1/2 z-40 -translate-x-1/2 rounded-full bg-card/85 px-3 py-1 text-[0.58rem] tracking-[0.16em] text-primary uppercase shadow-soft backdrop-blur-sm">
-          Replaying your solve…
+        <div className="pointer-events-none fixed top-1/2 left-1/2 z-40 w-[min(20rem,85vw)] -translate-x-1/2 -translate-y-1/2 rounded-[18px] bg-card/92 px-5 py-4 text-center text-[0.68rem] leading-relaxed tracking-[0.1em] text-primary shadow-lift backdrop-blur-sm">
+          Replaying your solve… This will only take a second and then you can
+          share to friends, family and social media.
         </div>
       )}
+
 
       {replayNote && !replaying && (
         <button
