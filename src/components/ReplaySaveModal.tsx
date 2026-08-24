@@ -82,7 +82,7 @@ export function ReplaySaveModal({
         />
 
         <p className="mt-3 text-center text-[0.7rem] leading-relaxed text-neutral-600">
-          {note ?? "Your replay, exactly as you played it. Save it to your Photos so you can share it with all your socials."}
+          {note ?? "Your replay, exactly as you played it. Tap Save to Photos — or press and hold the video above and choose “Save to Photos” / “Download video”."}
         </p>
 
         <div className="mt-4 flex flex-col items-center gap-2">
