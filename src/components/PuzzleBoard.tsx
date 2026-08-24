@@ -1219,11 +1219,14 @@ export function PuzzleBoard({
   const edge = useMemo(() => {
     const s = scale || 1;
     return {
-      inset: 3 / s,
-      width: 1.1 / s,
+      // no inset: every line sits exactly on the tile boundary, so the lines of
+      // two neighbouring tiles land on the same pixel and read as one grid
+      inset: 0,
+      width: 2.2 / s,
       radius: 6 / s,
     };
   }, [scale]);
+
 
   
 
