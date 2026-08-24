@@ -162,7 +162,7 @@ export const natureStories: Record<string, string[]> = {
   ],
 };
 
-/** Little paragraphs shown beneath each photograph — Oceanic Aquarium. */
+/** Little paragraphs shown beneath each photograph — Oceanic Aquaria. */
 export const aquariumStories: Record<string, string[]> = {
   "aquarium-01": [
     "Hawaiian spinner dolphins — naiʻa — hunt in the deep all night and spend their days resting in shallow sandy bays, where the pale bottom helps them spot sharks. They sleep half a brain at a time, always half awake, and earn their name by leaping and spinning up to four times in a single jump.",
@@ -208,5 +208,95 @@ export const aquariumStories: Record<string, string[]> = {
   ],
   "aquarium-15": [
     "Sunbeams reach the reef because clear ocean water scatters very little light, and the shafts you see are that light catching plankton and fine sand suspended in the water. Coral itself is an animal farming sunlight — algae living inside its tissue feed it, which is why the loveliest reefs grow where the light comes down like this.",
+  ],
+  "aquarium-16": [
+    "Manō, the tiger shark, is the reef's great housekeeper — she eats what is sick and what is dead and keeps the whole system honest. Many Hawaiian families kept a shark as an ʻaumakua, a guardian ancestor, and to see one pass slowly like this was not a fright but a greeting.",
+  ],
+  "aquarium-17": [
+    "Manō lālākea, the whitetip reef shark, is one of very few sharks that can lie still and breathe, pumping water over its gills instead of swimming all night. Whole afternoons are spent stacked under one favorite ledge, and the same shark will return to the same cave for years.",
+  ],
+  "aquarium-18": [
+    "Manō kihikihi means “zigzag shark,” for the shape of that famous head. The widely set eyes give it almost complete vision, and the flat hammer is packed with sensors that read the faint electricity of living things — a scalloped hammerhead can find a fish buried in sand it cannot see.",
+  ],
+  "aquarium-19": [
+    "Hihimanu means “magnificent” or “elegant,” which is exactly right. Spotted eagle rays flap like slow birds over sand flats, sniffing out clams and crabs and crushing them with plated teeth, and each ray's arrangement of white spots is as individual as a fingerprint.",
+  ],
+  "aquarium-20": [
+    "The whale shark is the largest fish on earth — up to forty feet — and eats almost nothing but plankton, straining tons of water through fine filter pads. Its spot pattern is unique to the animal, so researchers photograph flanks the way we photograph faces.",
+  ],
+  "aquarium-21": [
+    "Blacktip reef sharks stay in the shallows all their lives, often in water barely deep enough to cover them. They are shy of people, and the flicker you catch at the edge of your snorkel mask is usually a blacktip deciding you are not worth the trouble.",
+  ],
+  "aquarium-22": [
+    "At night the boat lights draw plankton, and the plankton draw hāhālua. A manta feeding will loop and barrel-roll through the cloud with its cephalic fins unfurled into a funnel, and it will do this for hours, quietly, an animal with a fourteen-foot wingspan behaving like a leaf in a current.",
+  ],
+  "aquarium-23": [
+    "A ray buries itself by shivering its wings until the sand settles over its back, leaving only eyes and a tail exposed. It breathes through spiracles behind those eyes so it never has to inhale sand — a design so good that rays have been doing it, largely unchanged, for a hundred million years.",
+  ],
+  "aquarium-24": [
+    "Uhu, the parrotfish, has teeth fused into a beak and a second set of grinding plates in its throat. It bites coral rock, digests the algae, and passes the rest as fine white sand — much of a Hawaiian beach is parrotfish sand, which means uhu quite literally built the place you sunbathe.",
+  ],
+  "aquarium-25": [
+    "Manini means “stingy,” and its striped crowds are the busiest thing on any Hawaiian reef, sweeping over rock in numbers big enough to overwhelm the territorial fish that would chase off a single grazer. There is safety, and also breakfast, in a mob.",
+  ],
+  "aquarium-26": [
+    "Pākuʻikuʻi, the Achilles tang, lives in the roughest water on the reef — the white surge zone where most fish will not go — and holds its ground there with a scalpel-sharp spine at the base of its tail. That single orange teardrop is the most recognizable mark in Hawaiian snorkeling.",
+  ],
+  "aquarium-27": [
+    "Kala, the unicornfish, carries a horn that grows longer with age and seems to be for display rather than fighting. Its Hawaiian name also means “to loosen” or “to forgive,” and kala was used in ceremonies of release — one of the loveliest overlaps of biology and language in the islands.",
+  ],
+  "aquarium-28": [
+    "Taʻape was introduced to Hawaiʻi in the 1950s and settled in so thoroughly that it now shelters in yellow crowds under nearly every ledge. Beautiful and complicated: fishers are encouraged to take them, because they compete with the native fish that belong here.",
+  ],
+  "aquarium-29": [
+    "Hīnālea lauwili, the saddle wrasse, is the most common fish in Hawaiʻi and nowhere else on earth. It is born female, and a dominant fish can change sex to male when the ranking male disappears — the whole social order rewrites itself in a matter of days.",
+  ],
+  "aquarium-30": [
+    "Roi, the peacock grouper, is dazzling and unwelcome: brought here for food in the 1950s, it turned out to carry ciguatera toxin and to eat a great many native reef fish. A gorgeous animal that is a good lesson in why we no longer move species between oceans.",
+  ],
+  "aquarium-31": [
+    "The flame angelfish is small, fierce and territorial, and defends a few square feet of coral rubble as if it were a kingdom. Its red is produced by carotenoid pigments it can only get by eating well, so the brightest fish on the reef is also the best-fed one.",
+  ],
+  "aquarium-32": [
+    "The frogfish does not chase anything. It sits, disguised as sponge or rock, waving a tiny built-in fishing lure above its mouth — and when a fish comes to look, it swallows in six milliseconds, one of the fastest movements in the animal kingdom. Waiting is a strategy.",
+  ],
+  "aquarium-33": [
+    "Nūnū, the trumpetfish, hunts by hanging motionless — sometimes vertically, nose-down among coral branches — until a small fish drifts within reach of that pipe of a mouth, which opens wide enough to inhale prey nearly its own length. Patience shaped like a straw.",
+  ],
+  "aquarium-34": [
+    "The Spanish dancer is the largest nudibranch in the world, up to sixteen inches of crimson ruffle, and it earns its name by unfurling its mantle and swimming with slow flamenco undulations when it is disturbed. Its bright red is a warning: it tastes terrible on purpose.",
+  ],
+  "aquarium-35": [
+    "The gold-lace nudibranch grazes on sponge and takes the sponge's chemical defenses for itself, which is why it can afford to be this conspicuous. Those feathery plumes on its back are gills, worn on the outside — nudibranch means “naked gills.”",
+  ],
+  "aquarium-36": [
+    "Sea slugs like the varicose wart slug are snails that gave up the shell somewhere back in evolutionary time and traded armor for chemistry. It moves at a pace measured in inches per hour, and the blue-black frill along its edge is a signal to any fish considering a bite.",
+  ],
+  "aquarium-37": [
+    "The blue dragon nudibranch eats hydroids and keeps their stinging cells alive in its own feathery plumes, borrowing a weapon it never had to grow. It also farms algae in its tissue, so a well-fed dragon can get part of its living from sunlight.",
+  ],
+  "aquarium-38": [
+    "The imperial nudibranch feeds on sponges and lays its eggs in a delicate coiled ribbon on the reef. Hermaphroditic like most sea slugs, any two adults that meet can mate — a practical arrangement for an animal that travels a few feet a day.",
+  ],
+  "aquarium-39": [
+    "Costasiella and Thecacera slugs like this one are the size of a grain of rice, which is why divers hunt them with magnifiers. Nicknamed the Pikachu nudibranch for its black body and yellow tips, it is proof that the reef keeps its best jokes very small.",
+  ],
+  "aquarium-40": [
+    "Moon jellyfish have no brain, no heart and no blood, and are about ninety-five percent water. Those four pale clover shapes in the bell are gonads. They have drifted the world's oceans in this form for more than five hundred million years, which is a long time to be this simple and this successful.",
+  ],
+  "aquarium-41": [
+    "Hawaiʻi's box jellyfish arrive in the leeward shallows about eight to ten days after a full moon, so reliably that lifeguards post the calendar. Small and nearly invisible, each of the four corners of that clear box carries a cluster of eyes — twenty-four in all, some with lenses and retinas.",
+  ],
+  "aquarium-42": [
+    "The crown jellyfish carries a bell grooved like a deep red diadem and lives in cooler, darker water. Many of its relatives produce light when jostled, flashing a burglar alarm meant to draw a bigger predator to whatever is bothering them.",
+  ],
+  "aquarium-43": [
+    "A comb jelly is not a jellyfish at all — it belongs to an entirely separate ancient branch of animal life. It swims with eight rows of fused hairs beating in waves, and the rainbows running along them are not pigment but light bending through those moving combs.",
+  ],
+  "aquarium-44": [
+    "The Portuguese man o' war is not one animal but a colony of specialized individuals — a float, feeders, stingers, breeders — living as a single organism. It cannot swim; that pink crest is a sail, and it goes wherever the trade winds send it, which some days is straight onto the beach.",
+  ],
+  "aquarium-45": [
+    "The upside-down jellyfish flips over and rests on its bell so the algae living in its tissue can catch the sun, then lives largely on the sugars those algae make. A jellyfish that gardens — the same trick coral uses, in an animal that could simply have drifted.",
   ],
 };

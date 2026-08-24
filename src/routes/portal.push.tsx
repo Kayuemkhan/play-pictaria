@@ -78,7 +78,7 @@ function PushAdmin() {
           <h2 className="font-display text-[1.05rem] text-shell">The 30-day telegram</h2>
           <p className="mt-2 text-[0.8rem] leading-relaxed text-shell/75">
             Every 30 days a telegram arrives from Pictaria — “Telegram from
-            Pictaria · From Oceanic Aquarium” — naming a few albums with new
+            Pictaria · From Oceanic Aquaria” — naming a few albums with new
             peaces, sent to every phone that asked for it.
           </p>
           <dl className="mt-4 space-y-1 text-[0.75rem] text-shell/70">
