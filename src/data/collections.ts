@@ -305,6 +305,16 @@ import dog07 from "@/assets/dog-07.jpg";
 import dog08 from "@/assets/dog-08.jpg";
 import dog09 from "@/assets/dog-09.jpg";
 import dog10 from "@/assets/dog-10.jpg";
+import dog14 from "@/assets/dog-14.jpg";
+import dog15 from "@/assets/dog-15.jpg";
+import dog16 from "@/assets/dog-16.jpg";
+import dog17 from "@/assets/dog-17.jpg";
+import dog18 from "@/assets/dog-18.jpg";
+import dog19 from "@/assets/dog-19.jpg";
+import dog20 from "@/assets/dog-20.jpg";
+import dog21 from "@/assets/dog-21.jpg";
+import dog22 from "@/assets/dog-22.jpg";
+import dog23 from "@/assets/dog-23.jpg";
 import dog11 from "@/assets/dog-11.jpg";
 import dog12 from "@/assets/dog-12.jpg";
 import dog13 from "@/assets/dog-13.jpg";
@@ -514,7 +524,7 @@ export const collections: Collection[] = [
   {
     id: "island-dogs",
     title: "Island Dogs",
-    tagline: "Thirteen island pups, from beach to jungle",
+    tagline: "Twenty-three island pups, from beach to jungle",
     cover: dog01,
     free: true,
     puzzles: [
@@ -659,6 +669,116 @@ export const collections: Collection[] = [
         story: [
           "Someone let him stand on the board once, and that was the end of the discussion. Now he paddles out with the family and waits in the shallows like he has a spot in the lineup.",
           "Wet fur, turquoise water, palms leaning in from the shore — this is a dog who has fully understood where he lives.",
+        ],
+      },
+      {
+        id: "dog-14",
+        title: "Pua Melia",
+        meaning: "“Plumeria blossom”",
+        caption: "A Pomeranian at golden hour",
+        image: dog14,
+        story: [
+          "All that fur and he still picks the hottest hour of the afternoon to run the waterline. Pomeranians were bred down from Arctic sled dogs, which explains both the coat and the confidence.",
+          "The tide has just gone out and left a mirror on the sand, so for a few minutes there are two of him.",
+        ],
+      },
+      {
+        id: "dog-15",
+        title: "Nalu Iki",
+        meaning: "“Little wave”",
+        caption: "A French Bulldog in the shallows",
+        image: dog15,
+        story: [
+          "Frenchies are famously bad swimmers, so the shallow reef flat is exactly his kind of ocean — waist deep, warm, and nothing that can knock him over.",
+          "He plants all four feet, waits for the water to come to him, and grins the entire time.",
+        ],
+      },
+      {
+        id: "dog-16",
+        title: "Kupukupu",
+        meaning: "“Sword fern”",
+        caption: "A Yorkie hidden in the ferns",
+        image: dog16,
+        story: [
+          "Yorkshire Terriers were bred to go down into places nobody else would fit, which makes a Hawaiian fern gully close to paradise for one.",
+          "He is barely bigger than the frond he is standing on, and he has been watching the trail for a while now.",
+        ],
+      },
+      {
+        id: "dog-17",
+        title: "ʻEli One",
+        meaning: "“Digging sand”",
+        caption: "A Corgi excavating the beach",
+        image: dog17,
+        story: [
+          "Corgis were built low to the ground for herding cattle, and every one of them eventually reroutes that job description into digging.",
+          "There is no treasure down there. He is going to keep going anyway, and the sand is going to keep flying.",
+        ],
+      },
+      {
+        id: "dog-18",
+        title: "Pōhaku Pele",
+        meaning: "“Stones of Pele”",
+        caption: "A Dachshund on the black rocks",
+        image: dog18,
+        story: [
+          "Black lava cobble is the newest ground on earth, cooled from Pele's own work, and it takes a careful set of legs to cross.",
+          "He picks his way over the stones with total seriousness, then breaks into a trot the second he sees the water.",
+        ],
+      },
+      {
+        id: "dog-19",
+        title: "Pua Kāhiko",
+        meaning: "“Flower worn behind the ear”",
+        caption: "A Shih Tzu with plumeria",
+        image: dog19,
+        story: [
+          "In Hawaiʻi a flower worn on the left means taken, on the right means available. Nobody asked him which he preferred.",
+          "Shih Tzu were bred as palace companions, so sitting on a shaded lanai being admired is well within his historical duties.",
+        ],
+      },
+      {
+        id: "dog-20",
+        title: "Lele",
+        meaning: "“To leap, to fly”",
+        caption: "A Jack Russell mid-air",
+        image: dog20,
+        story: [
+          "Jack Russells can jump five times their own height, and this one has clearly decided the ocean is a toy that throws itself.",
+          "He will land, shake once, and go straight back in. There is no version of this where he gets tired first.",
+        ],
+      },
+      {
+        id: "dog-21",
+        title: "Kahawai",
+        meaning: "“Stream”",
+        caption: "A Chihuahua at the falls",
+        image: dog21,
+        story: [
+          "The smallest dog breed in the world, standing on a mossy rock in front of a waterfall, entirely unbothered by the scale of it.",
+          "Heliconia burns orange behind him and the mist keeps the whole gully cool — the best seat in the valley, and he found it.",
+        ],
+      },
+      {
+        id: "dog-22",
+        title: "Ala Nahele",
+        meaning: "“Forest path”",
+        caption: "A Westie running the jungle trail",
+        image: dog22,
+        story: [
+          "Red ti lines both sides of the trail — planted around Hawaiian homes for protection — and he comes through the middle of it at full speed.",
+          "Westies were bred for rough Scottish hillsides. Red dirt and warm rain turn out to suit them just as well.",
+        ],
+      },
+      {
+        id: "dog-23",
+        title: "Papa Heʻe Nalu",
+        meaning: "“Surfboard”",
+        caption: "A Schnauzer claims the board",
+        image: dog23,
+        story: [
+          "The board came down to the sand and he sat on it before anyone else could, which is how ownership works on a beach day.",
+          "Miniature Schnauzers were farm ratters in Germany. Two generations in the islands and this is what the job looks like now.",
         ],
       },
     ],
