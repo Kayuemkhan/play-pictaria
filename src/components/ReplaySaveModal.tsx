@@ -76,7 +76,6 @@ export function ReplaySaveModal({
           src={clip.url}
           controls
           autoPlay
-          loop
           muted
           playsInline
           className="w-full rounded-[14px] bg-black"
