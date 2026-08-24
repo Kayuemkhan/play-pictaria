@@ -173,7 +173,7 @@ function MyPictaria() {
                       <Pencil className="h-3.5 w-3.5 shrink-0 text-foreground/35" strokeWidth={1.5} />
                     </button>
                   )}
-                  <p className="mt-0.5 text-[0.65rem] tracking-[0.14em] text-foreground/45 uppercase">
+                  <p className="mt-0.5 text-[0.65rem] tracking-[0.14em] text-foreground/60 uppercase">
                     {g.pictures.length} of {MAX_PER_ALBUM} pictures
                   </p>
                 </div>
@@ -220,7 +220,7 @@ function MyPictaria() {
           </button>
 
           <h2 className="mt-4 font-display text-3xl text-foreground">{open.name}</h2>
-          <p className="mt-1 text-[0.65rem] tracking-[0.14em] text-foreground/45 uppercase">
+          <p className="mt-1 text-[0.65rem] tracking-[0.14em] text-foreground/60 uppercase">
             {open.pictures.length} of {MAX_PER_ALBUM} pictures
           </p>
 
@@ -249,7 +249,7 @@ function MyPictaria() {
                       }))
                     }
                     placeholder="Name this picture…"
-                    className="w-full rounded-full border border-foreground/15 bg-white px-4 py-2 text-center font-display text-lg text-foreground outline-none placeholder:text-foreground/35 focus:border-accent/50"
+                    className="w-full rounded-full border border-foreground/15 bg-white px-4 py-2 text-center font-display text-lg text-foreground outline-none placeholder:text-foreground/55 focus:border-accent/50"
                   />
 
                   <textarea
@@ -264,7 +264,7 @@ function MyPictaria() {
                     }
                     rows={2}
                     placeholder="Tell the story of this photo…"
-                    className="w-full resize-none rounded-2xl border border-foreground/15 bg-white px-4 py-2 text-center text-sm text-foreground outline-none placeholder:text-foreground/35 focus:border-teal-600/50"
+                    className="w-full resize-none rounded-2xl border border-foreground/15 bg-white px-4 py-2 text-center text-sm text-foreground outline-none placeholder:text-foreground/55 focus:border-teal-600/50"
                   />
 
                   <div className="rounded-2xl bg-accent/8 p-3">
@@ -331,7 +331,7 @@ function MyPictaria() {
                         }
                         rows={2}
                         placeholder="friend@email.com, ohana@email.com…"
-                        className="mt-2 w-full resize-none rounded-2xl border border-foreground/15 bg-white px-4 py-2 text-center text-sm text-foreground outline-none placeholder:text-foreground/35 focus:border-teal-600/50"
+                        className="mt-2 w-full resize-none rounded-2xl border border-foreground/15 bg-white px-4 py-2 text-center text-sm text-foreground outline-none placeholder:text-foreground/55 focus:border-teal-600/50"
                       />
                       <button
                         type="button"

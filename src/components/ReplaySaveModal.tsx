@@ -7,16 +7,19 @@ import type { ReplayClip } from "@/lib/replay-video";
  */
 export function ReplaySaveModal({
   clip,
+  error,
   title,
   onClose,
 }: {
-  clip: ReplayClip;
+  clip: ReplayClip | null;
+  error?: string | null;
   title: string;
   onClose: () => void;
 }) {
   const [note, setNote] = useState<string | null>(null);
 
   const save = useCallback(async () => {
+    if (!clip) return;
     const isWebm = clip.type.includes("webm");
 
     // 1) Native share sheet — the tap that lands it in Photos on a phone.
@@ -72,27 +75,38 @@ export function ReplaySaveModal({
     <div className="fixed inset-0 z-[200] flex items-center justify-center bg-deep/70 px-4 py-6">
       <button type="button" aria-label="Close" onClick={onClose} className="absolute inset-0" />
       <div className="relative w-full max-w-xs rounded-[22px] bg-white p-4 shadow-lift">
-        <video
-          src={clip.url}
-          controls
-          autoPlay
-          muted
-          playsInline
-          className="w-full rounded-[14px] bg-black"
-        />
+        {clip ? (
+          <video
+            src={clip.url}
+            controls
+            autoPlay
+            muted
+            playsInline
+            className="w-full rounded-[14px] bg-black"
+          />
+        ) : (
+          <div className="flex aspect-[3/4] w-full items-center justify-center rounded-[14px] bg-neutral-100 px-5 text-center text-[0.7rem] leading-relaxed text-neutral-500">
+            Your video didn’t finish this time.
+          </div>
+        )}
 
         <p className="mt-3 text-center text-[0.7rem] leading-relaxed text-neutral-600">
-          {note ?? "Your replay, exactly as you played it. Tap Save to Photos — or press and hold the video above and choose “Save to Photos” / “Download video”."}
+          {note ??
+            (clip
+              ? "Your replay, exactly as you played it. Tap Save to Photos — or press and hold the video above and choose “Save to Photos” / “Download video”."
+              : (error ?? "Please try the replay once more."))}
         </p>
 
         <div className="mt-4 flex flex-col items-center gap-2">
-          <button
-            type="button"
-            onClick={() => void save()}
-            className="w-full rounded-full border border-neutral-400 px-6 py-2 text-[0.62rem] tracking-[0.18em] text-neutral-700 uppercase transition-colors hover:bg-neutral-100"
-          >
-            Save to Photos
-          </button>
+          {clip && (
+            <button
+              type="button"
+              onClick={() => void save()}
+              className="w-full rounded-full border border-neutral-400 px-6 py-2 text-[0.62rem] tracking-[0.18em] text-neutral-700 uppercase transition-colors hover:bg-neutral-100"
+            >
+              Save to Photos
+            </button>
+          )}
           <button
             type="button"
             onClick={onClose}

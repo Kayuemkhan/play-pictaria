@@ -163,6 +163,8 @@ export function PuzzleBoard({
   const replayingRef = useRef(false);
   const [clip, setClip] = useState<ReplayClip | null>(null);
   const [replayNote, setReplayNote] = useState<string | null>(null);
+  /** the save-your-video page appears as soon as the replay finishes */
+  const [showReplayResult, setShowReplayResult] = useState(false);
   /** every board state the player produced, timed for an exact replay */
   const timeline = useRef<ReplayFrame[]>([]);
   const timelineStart = useRef(0);
@@ -309,6 +311,7 @@ export function PuzzleBoard({
     setReplayNote(null);
     setDrag(null);
     setClip(null);
+    setShowReplayResult(false);
 
     // Give the player a few seconds to read the message before the tiles move.
     await new Promise((resolve) => window.setTimeout(resolve, 3000));
@@ -335,6 +338,7 @@ export function PuzzleBoard({
     setReplaying(false);
     if (result.clip) setClip(result.clip);
     else setReplayNote(result.error ?? "That replay didn't finish. Please try again.");
+    setShowReplayResult(true);
   }, [pos, groupOf, src, grid, title, mergePass]);
 
   /* timer */
@@ -1824,18 +1828,17 @@ export function PuzzleBoard({
       )}
 
 
-      {replayNote && !replaying && (
-        <button
-          type="button"
-          onClick={() => setReplayNote(null)}
-          className="absolute top-2 left-1/2 z-40 -translate-x-1/2 rounded-full bg-card/90 px-3 py-1 text-[0.58rem] tracking-[0.12em] text-foreground/70 shadow-soft backdrop-blur-sm"
-        >
-          {replayNote}
-        </button>
-      )}
-
-      {clip && (
-        <ReplaySaveModal clip={clip} title={title} onClose={() => setClip(null)} />
+      {showReplayResult && !replaying && (
+        <ReplaySaveModal
+          clip={clip}
+          error={clip ? null : replayNote}
+          title={title}
+          onClose={() => {
+            setShowReplayResult(false);
+            setClip(null);
+            setReplayNote(null);
+          }}
+        />
       )}
 
       {unbranded && (
