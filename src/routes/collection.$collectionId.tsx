@@ -28,9 +28,17 @@ export const Route = createFileRoute("/collection/$collectionId")({
   component: CollectionPage,
 });
 
+/** Older shared links used slightly different album ids — keep them working. */
+const legacyCollectionIds: Record<string, string> = {
+  "oceanic-aquarium": "oceanic-aquaria",
+  "oceanic-aquariums": "oceanic-aquaria",
+  aquarium: "oceanic-aquaria",
+};
+
 function CollectionPage() {
   const { collectionId } = Route.useParams();
-  const collection = collections.find((c) => c.id === collectionId);
+  const resolvedId = legacyCollectionIds[collectionId] ?? collectionId;
+  const collection = collections.find((c) => c.id === resolvedId);
   const notes = usePuzzleNotes();
 
   const isArchive = collectionId === "yesterdailys";
