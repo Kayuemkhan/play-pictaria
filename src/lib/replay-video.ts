@@ -16,17 +16,17 @@ const CANVAS_H = 1000;
 const BORDER = 4;
 
 /**
- * The player's own rhythm, trimmed: the pause before each move is kept but
- * capped, so a long thoughtful solve still plays back as a watchable clip.
+ * The player's own rhythm, kept at real tempo: each pause between moves plays
+ * back at the speed it was made, with only very long thinking pauses trimmed.
  */
 export function toBeats(frames: ReplayFrame[]): ReplayBeat[] {
-  const MAX_PAUSE = 260;
-  const GLIDE = 130;
+  const MAX_PAUSE = 2500;
+  const GLIDE = 320;
   let clock = 0;
   return frames.map((f, i) => {
     if (i > 0) {
       const gap = f.t - frames[i - 1]!.t;
-      clock += Math.min(Math.max(gap * 0.35, 45), MAX_PAUSE);
+      clock += Math.min(Math.max(gap, 120), MAX_PAUSE);
     }
     return { pos: f.pos, at: clock, glide: i === 0 ? 0 : GLIDE };
   });
