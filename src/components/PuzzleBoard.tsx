@@ -1312,8 +1312,19 @@ export function PuzzleBoard({
         </div>
 
         <div className="flex items-center gap-2 text-xs tabular-nums sm:gap-3 sm:text-sm">
+          <button
+            type="button"
+            aria-label="Replay"
+            onClick={() => void startReplay()}
+            disabled={replaying}
+            className="flex h-8 w-8 items-center justify-center text-neutral-400 transition-colors hover:text-neutral-600 disabled:opacity-40"
+          >
+            <Video size={18} strokeWidth={1.6} />
+          </button>
+
           <Select
             value={musicOn ? (musicPlaying as string) : "off"}
+
             onValueChange={(v) => {
               if (v === "off") {
                 stopMindfulTrack();
