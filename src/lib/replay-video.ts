@@ -20,13 +20,13 @@ const BORDER = 4;
  * capped, so a long thoughtful solve still plays back as a watchable clip.
  */
 export function toBeats(frames: ReplayFrame[]): ReplayBeat[] {
-  const MAX_PAUSE = 900;
-  const GLIDE = 300;
+  const MAX_PAUSE = 260;
+  const GLIDE = 130;
   let clock = 0;
   return frames.map((f, i) => {
     if (i > 0) {
       const gap = f.t - frames[i - 1]!.t;
-      clock += Math.min(Math.max(gap, 90), MAX_PAUSE);
+      clock += Math.min(Math.max(gap * 0.35, 45), MAX_PAUSE);
     }
     return { pos: f.pos, at: clock, glide: i === 0 ? 0 : GLIDE };
   });
