@@ -66,6 +66,8 @@ function SharePage() {
       <div className="relative w-full">
         <img
           src={waterRocks}
+          fetchPriority="high"
+          decoding="async"
           alt="Ocean waves splashing over volcanic rocks beside plumeria blossoms and palm fronds"
           width={1024}
           height={768}

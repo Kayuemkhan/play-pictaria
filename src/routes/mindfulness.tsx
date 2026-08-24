@@ -34,6 +34,8 @@ function MindfulnessPage() {
       <div className="relative h-[46vh] min-h-[300px] w-full sm:h-[50vh]">
         <img
           src={mindfulnessHero}
+          fetchPriority="high"
+          decoding="async"
           alt="A calm Hawaiian tide pool with a floating plumeria flower at sunset"
           className="absolute inset-0 h-full w-full object-cover"
           width={1344}
