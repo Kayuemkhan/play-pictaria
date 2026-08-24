@@ -1368,15 +1368,7 @@ export function PuzzleBoard({
             </SelectContent>
           </Select>
 
-          <button
-            type="button"
-            aria-label="Replay"
-            onClick={() => void startReplay()}
-            disabled={replaying}
-            className="flex h-8 w-8 items-center justify-center text-neutral-400 transition-colors hover:text-neutral-600 disabled:opacity-40"
-          >
-            <Video size={18} strokeWidth={1.6} />
-          </button>
+
 
           <span className="hidden rounded-full bg-secondary px-2 py-1 text-secondary-foreground sm:inline sm:text-sm">
             {moves} moves
