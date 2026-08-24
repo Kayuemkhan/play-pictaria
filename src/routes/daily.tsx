@@ -123,6 +123,8 @@ function DailyPage() {
       <div className="relative h-[58vh] min-h-[360px] w-full sm:h-[62vh]">
         <img
           src={dailyDogsWindow}
+          fetchPriority="high"
+          decoding="async"
           alt="A chihuahua and a Maltese puppy at a window, looking out toward palm trees and the ocean, waiting for the mailman"
           width={1024}
           height={1408}

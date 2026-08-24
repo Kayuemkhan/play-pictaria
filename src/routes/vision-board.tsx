@@ -42,6 +42,8 @@ function VisionBoardPage() {
       <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[52vh] overflow-hidden bg-deep">
         <img
           src={underwaterAsset}
+          fetchPriority="high"
+          decoding="async"
           alt="Sunlight beaming down through calm ocean water"
           aria-hidden="true"
           className="h-full w-full object-cover"

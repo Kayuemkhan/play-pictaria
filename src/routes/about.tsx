@@ -37,6 +37,8 @@ function AboutPage() {
       <div className="pointer-events-none fixed inset-0 -z-10">
         <img
           src={eKomoMai}
+          fetchPriority="high"
+          decoding="async"
           alt="E Komo Mai — a cat gazing out a window at the ocean"
           aria-hidden="true"
           className="h-full w-full object-cover grayscale-[40%]"

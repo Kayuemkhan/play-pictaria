@@ -48,6 +48,8 @@ function EasterEggPage() {
       <div className="absolute inset-x-0 top-0 h-[66vh] min-h-[420px]">
         <img
           src={eggFarm}
+          fetchPriority="high"
+          decoding="async"
           alt="A Hawaiian farm with three hens eating feed and a mother hen walking with three chicks beneath lush mountains"
           width={1024}
           height={1408}

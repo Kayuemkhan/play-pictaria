@@ -91,6 +91,8 @@ function CreatePage() {
         <div className="relative h-[38vh] min-h-[240px] w-full sm:h-[42vh]">
           <img
             src={puppyLetter}
+          fetchPriority="high"
+          decoding="async"
             alt="A golden retriever puppy running along a Hawaiian beach with a letter in its mouth"
             width={1024}
             height={768}

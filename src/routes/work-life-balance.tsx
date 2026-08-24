@@ -91,6 +91,8 @@ function WorkLifeBalancePage() {
       <div className="relative h-[46vh] min-h-[300px] w-full sm:h-[50vh]">
         <img
           src={kittenAtWork}
+          fetchPriority="high"
+          decoding="async"
           alt="A kitten in glasses beside a laptop surrounded by Hawaiian flowers, an ocean view out the window"
           className="absolute inset-0 h-full w-full object-cover"
           width={1344}
