@@ -213,11 +213,12 @@ export async function recordReplay({
     return { clip: null, error: "This browser can't record video. Try Chrome or Safari." };
   }
 
-  // Give the encoder a beat to flush the final frames.
+  // Give the encoder a beat to flush the final frames before closing it.
   await new Promise((resolve) => window.setTimeout(resolve, 250));
+  if (recorder.state === "recording") recorder.requestData();
   recorder.stop();
-  stream?.getTracks().forEach((track) => track.stop());
   const blob = await finished;
+  stream?.getTracks().forEach((track) => track.stop());
   if (!blob.size) {
     return { clip: null, error: "The recording came out empty — please try once more." };
   }
