@@ -160,6 +160,8 @@ export function PuzzleBoard({
   const [showReference, setShowReference] = useState(false);
   /** the replay is running on the real board right now */
   const [replaying, setReplaying] = useState(false);
+  /** the "making your video" note, shown for a few seconds only */
+  const [replayBanner, setReplayBanner] = useState(false);
   const replayingRef = useRef(false);
   const [clip, setClip] = useState<ReplayClip | null>(null);
   const [replayNote, setReplayNote] = useState<string | null>(null);
