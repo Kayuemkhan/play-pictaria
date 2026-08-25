@@ -5,7 +5,7 @@ import type { ReplayClip } from "@/lib/replay-video";
 
 /**
  * Two-step replay result:
- * 1. A "See my videos" prompt appears right after the replay finishes.
+ * 1. A "See my video" prompt appears right after the replay finishes.
  * 2. Tapping it reveals the clip with only a "Save to downloads" button.
  * The video's own play triangle handles replays, so no extra replay buttons are needed.
  */
@@ -73,7 +73,7 @@ export function ReplaySaveModal({
               onClick={() => setShowVideo(true)}
               className="mt-5 w-full rounded-full bg-primary px-6 py-3 text-[0.7rem] font-medium tracking-[0.12em] text-primary-foreground uppercase hover:bg-primary/90"
             >
-              See my videos
+              See my video
             </Button>
           </>
         ) : (
