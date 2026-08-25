@@ -1,6 +1,5 @@
 import { useCallback, useState } from "react";
-import type { MouseEvent } from "react";
-import { Download, Play } from "lucide-react";
+import { Check, Download, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { ReplayClip } from "@/lib/replay-video";
 
@@ -23,33 +22,56 @@ export function ReplaySaveModal({
 }) {
   const [showVideo, setShowVideo] = useState(false);
   const [note, setNote] = useState<string | null>(null);
+  const [saved, setSaved] = useState(false);
+  const [saving, setSaving] = useState(false);
 
-  const saveToDownloads = useCallback(async (event: MouseEvent<HTMLAnchorElement>) => {
+  const downloadWithBrowser = useCallback(() => {
     if (!clip) return;
+
+    const url = URL.createObjectURL(clip.blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = clip.name;
+    link.rel = "noopener noreferrer";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }, [clip]);
+
+  const saveToDownloads = useCallback(async () => {
+    if (!clip || saving) return;
+
+    setSaving(true);
+    setSaved(false);
     try {
       const file = new File([clip.blob], clip.name, { type: clip.type });
       if (
         navigator.canShare?.({ files: [file] }) &&
         typeof navigator.share === "function"
       ) {
-        event.preventDefault();
         setNote("Opening the save menu…");
         await navigator.share({ files: [file], title: "Pictaria replay" });
-        setNote("Choose Save Video or Save to Files from the menu.");
+        setSaved(true);
+        setNote("Saved.");
         return;
       }
 
-      setNote("Your download should appear in the browser downloads list.");
+      downloadWithBrowser();
+      setSaved(true);
+      setNote("Saved.");
     } catch (error) {
       if (error instanceof DOMException && error.name === "AbortError") {
-        setNote("The save menu closed. Tap Save to downloads again when you're ready.");
+        setNote("Save canceled.");
         return;
       }
-      setNote(
-        "If the browser blocks it, press and hold the video, then choose Save Video.",
-      );
+      downloadWithBrowser();
+      setSaved(true);
+      setNote("Saved.");
+    } finally {
+      setSaving(false);
     }
-  }, [clip]);
+  }, [clip, downloadWithBrowser, saving]);
 
   return (
     <div className="fixed inset-0 z-[200] flex items-center justify-center bg-deep/70 px-4 py-6">
@@ -102,26 +124,20 @@ export function ReplaySaveModal({
             <p className="mt-3 text-center text-[0.7rem] leading-relaxed text-muted-foreground">
               {note ??
                 (clip
-                  ? "Press the triangle to replay. Tap below to save to your downloads."
+                  ? "Tap below to save your video."
                   : (error ?? "Please try the replay once more."))}
             </p>
 
             <div className="mt-4 flex flex-col items-center gap-2">
               {clip && (
                 <Button
-                  asChild
+                  type="button"
+                  onClick={saveToDownloads}
+                  disabled={saving}
                   className="w-full rounded-full bg-primary px-6 py-3 text-[0.7rem] font-medium tracking-[0.12em] text-primary-foreground uppercase hover:bg-primary/90"
                 >
-                  <a
-                    href={clip.url}
-                    download={clip.name}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={saveToDownloads}
-                  >
-                    <Download aria-hidden="true" />
-                    Save to downloads
-                  </a>
+                  {saved ? <Check aria-hidden="true" /> : <Download aria-hidden="true" />}
+                  {saved ? "Saved" : saving ? "Saving…" : "Save to downloads"}
                 </Button>
               )}
             </div>
