@@ -18,9 +18,9 @@ const BORDER = 4;
 /** The finished clip lands at roughly this length, whatever the solve took. */
 const TARGET_MS = 9000;
 /** Keep the solved picture visible long enough for phones to capture it. */
-const FINAL_HOLD_MS = 2400;
-const RECORDER_WARMUP_MS = 220;
-const RECORDER_FLUSH_MS = 650;
+const FINAL_HOLD_MS = 1400;
+const RECORDER_WARMUP_MS = 150;
+const RECORDER_FLUSH_MS = 300;
 
 /**
  * The player's own rhythm, kept in proportion but stretched or squeezed so the
@@ -37,10 +37,11 @@ export function toBeats(frames: ReplayFrame[]): ReplayBeat[] {
     return { pos: f.pos, at: clock };
   });
 
-  const span = clock;
-  const scale = span > 0 ? TARGET_MS / span : 1;
   const steps = Math.max(1, raw.length - 1);
   const glide = Math.min(700, Math.max(220, (TARGET_MS / steps) * 0.7));
+  const span = clock;
+  const replayWindow = Math.max(1200, TARGET_MS - glide);
+  const scale = span > 0 ? replayWindow / span : 1;
 
   return raw.map((b, i) => ({
     pos: b.pos,
@@ -219,8 +220,8 @@ export async function recordReplay({
   // cannot cut off the last second of gameplay.
   await new Promise<void>((resolve) => {
     const start = performance.now();
-    const span = beats[beats.length - 1]!.at;
     const finalBeat = beats[beats.length - 1]!;
+    const animationEnd = finalBeat.at + finalBeat.glide;
     let lastIndex = -1;
       if (img && ctx) {
         drawFrame(ctx, img, grid, beats[0]!.pos, undefined, 1);
@@ -239,11 +240,11 @@ export async function recordReplay({
       const k = beat.glide ? Math.min(1, (elapsed - beat.at) / beat.glide) : 1;
       const eased = 1 - Math.pow(1 - k, 3);
       if (img && ctx) {
-        if (elapsed >= span) drawFrame(ctx, img, grid, finalBeat.pos, undefined, 1);
+        if (elapsed >= animationEnd) drawFrame(ctx, img, grid, finalBeat.pos, undefined, 1);
         else drawFrame(ctx, img, grid, beat.pos, prev?.pos, eased);
         requestCapturedFrame();
       }
-      if (elapsed < span + FINAL_HOLD_MS) requestAnimationFrame(step);
+      if (elapsed < animationEnd + FINAL_HOLD_MS) requestAnimationFrame(step);
       else resolve();
     };
     requestAnimationFrame(step);
@@ -257,9 +258,9 @@ export async function recordReplay({
   const finalBeat = beats[beats.length - 1];
   if (img && ctx && finalBeat) {
     drawFrame(ctx, img, grid, finalBeat.pos, undefined, 1);
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 3; i++) {
       requestCapturedFrame();
-      await wait(100);
+      await wait(80);
     }
   }
   await wait(RECORDER_FLUSH_MS);
