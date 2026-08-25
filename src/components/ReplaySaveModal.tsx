@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useState } from "react";
+import type { MouseEvent } from "react";
 import { Download, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { ReplayClip } from "@/lib/replay-video";
@@ -22,52 +23,30 @@ export function ReplaySaveModal({
 }) {
   const [showVideo, setShowVideo] = useState(false);
   const [note, setNote] = useState<string | null>(null);
-  const temporaryDownloadUrl = useRef<string | null>(null);
 
-  useEffect(() => {
-    return () => {
-      if (temporaryDownloadUrl.current) URL.revokeObjectURL(temporaryDownloadUrl.current);
-    };
-  }, []);
-
-  const saveToDownloads = useCallback(async () => {
+  const saveToDownloads = useCallback(async (event: MouseEvent<HTMLAnchorElement>) => {
     if (!clip) return;
     try {
-      setNote("Saving your video…");
       const file = new File([clip.blob], clip.name, { type: clip.type });
       if (
         navigator.canShare?.({ files: [file] }) &&
         typeof navigator.share === "function"
       ) {
-        try {
-          await navigator.share({ files: [file], title: "Pictaria replay" });
-          setNote("Choose Save to Files or Save Video from the menu.");
-        } catch {
-          setNote("If the menu closed, press Save to downloads again.");
-        }
+        event.preventDefault();
+        setNote("Opening the save menu…");
+        await navigator.share({ files: [file], title: "Pictaria replay" });
+        setNote("Choose Save Video or Save to Files from the menu.");
         return;
       }
 
-      if (temporaryDownloadUrl.current) URL.revokeObjectURL(temporaryDownloadUrl.current);
-      temporaryDownloadUrl.current = URL.createObjectURL(clip.blob);
-      const link = document.createElement("a");
-      link.href = temporaryDownloadUrl.current;
-      link.download = clip.name;
-      link.rel = "noopener";
-      link.target = "_blank";
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-      window.setTimeout(() => {
-        if (temporaryDownloadUrl.current) {
-          URL.revokeObjectURL(temporaryDownloadUrl.current);
-          temporaryDownloadUrl.current = null;
-        }
-      }, 30_000);
-      setNote("If nothing appears, press and hold the video, then choose Save Video.");
-    } catch {
+      setNote("Your download should appear in the browser downloads list.");
+    } catch (error) {
+      if (error instanceof DOMException && error.name === "AbortError") {
+        setNote("The save menu closed. Tap Save to downloads again when you're ready.");
+        return;
+      }
       setNote(
-        "The browser blocked the download. Press and hold the video, then choose Save.",
+        "If the browser blocks it, press and hold the video, then choose Save Video.",
       );
     }
   }, [clip]);
@@ -130,12 +109,19 @@ export function ReplaySaveModal({
             <div className="mt-4 flex flex-col items-center gap-2">
               {clip && (
                 <Button
-                  type="button"
-                  onClick={saveToDownloads}
+                  asChild
                   className="w-full rounded-full bg-primary px-6 py-3 text-[0.7rem] font-medium tracking-[0.12em] text-primary-foreground uppercase hover:bg-primary/90"
                 >
-                  <Download aria-hidden="true" />
-                  Save to downloads
+                  <a
+                    href={clip.url}
+                    download={clip.name}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={saveToDownloads}
+                  >
+                    <Download aria-hidden="true" />
+                    Save to downloads
+                  </a>
                 </Button>
               )}
             </div>
