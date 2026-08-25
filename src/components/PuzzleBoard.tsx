@@ -406,7 +406,7 @@ export function PuzzleBoard({
       return () => window.clearTimeout(t);
     }
     return;
-  }, [solved]);
+  }, [solved, src, grid, round]);
 
 
 
