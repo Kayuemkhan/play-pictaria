@@ -308,13 +308,15 @@ export function PuzzleBoard({
     const finalGroups = [...groupOf];
     replayingRef.current = true;
     setReplaying(true);
+    setReplayBanner(true);
     setReplayNote(null);
     setDrag(null);
     setClip(null);
     setShowReplayResult(false);
 
-    // Give the player a few seconds to read the message before the tiles move.
-    await new Promise((resolve) => window.setTimeout(resolve, 3000));
+    // The message reads for 7 seconds, then it steps aside and the tiles move.
+    await new Promise((resolve) => window.setTimeout(resolve, 7000));
+    setReplayBanner(false);
 
     const result = await recordReplay({
       src,
