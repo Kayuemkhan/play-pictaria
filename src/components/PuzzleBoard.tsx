@@ -160,6 +160,8 @@ export function PuzzleBoard({
   const [showReference, setShowReference] = useState(false);
   /** the replay is running on the real board right now */
   const [replaying, setReplaying] = useState(false);
+  /** the "making your video" note, shown for a few seconds only */
+  const [replayBanner, setReplayBanner] = useState(false);
   const replayingRef = useRef(false);
   const [clip, setClip] = useState<ReplayClip | null>(null);
   const [replayNote, setReplayNote] = useState<string | null>(null);
@@ -308,13 +310,15 @@ export function PuzzleBoard({
     const finalGroups = [...groupOf];
     replayingRef.current = true;
     setReplaying(true);
+    setReplayBanner(true);
     setReplayNote(null);
     setDrag(null);
     setClip(null);
     setShowReplayResult(false);
 
-    // Give the player a few seconds to read the message before the tiles move.
-    await new Promise((resolve) => window.setTimeout(resolve, 3000));
+    // The message reads for 7 seconds, then it steps aside and the tiles move.
+    await new Promise((resolve) => window.setTimeout(resolve, 7000));
+    setReplayBanner(false);
 
     const result = await recordReplay({
       src,
@@ -1819,7 +1823,7 @@ export function PuzzleBoard({
 
       {breakOver && <BreakOverBanner onClose={() => setBreakOver(false)} />}
 
-      {replaying && (
+      {replaying && replayBanner && (
         <div className="pointer-events-none fixed top-1/2 left-1/2 z-40 w-[min(20rem,85vw)] -translate-x-1/2 -translate-y-1/2 rounded-[18px] bg-card/92 px-5 py-4 text-center text-[0.68rem] leading-relaxed tracking-[0.1em] text-primary shadow-lift backdrop-blur-sm">
           Making your video… This will take less than a minute and then you can
           share to your friends, family and social media from your downloads or
