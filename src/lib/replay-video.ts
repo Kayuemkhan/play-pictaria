@@ -15,21 +15,34 @@ const CANVAS_W = 750;
 const CANVAS_H = 1000;
 const BORDER = 4;
 
+/** The finished clip lands at roughly this length, whatever the solve took. */
+const TARGET_MS = 9000;
+
 /**
- * The player's own rhythm, kept at real tempo: each pause between moves plays
- * back at the speed it was made, with only very long thinking pauses trimmed.
+ * The player's own rhythm, kept in proportion but stretched or squeezed so the
+ * whole replay lasts about nine seconds.
  */
 export function toBeats(frames: ReplayFrame[]): ReplayBeat[] {
   const MAX_PAUSE = 2500;
-  const GLIDE = 320;
   let clock = 0;
-  return frames.map((f, i) => {
+  const raw = frames.map((f, i) => {
     if (i > 0) {
       const gap = f.t - frames[i - 1]!.t;
       clock += Math.min(Math.max(gap, 120), MAX_PAUSE);
     }
-    return { pos: f.pos, at: clock, glide: i === 0 ? 0 : GLIDE };
+    return { pos: f.pos, at: clock };
   });
+
+  const span = clock;
+  const scale = span > 0 ? TARGET_MS / span : 1;
+  const steps = Math.max(1, raw.length - 1);
+  const glide = Math.min(700, Math.max(220, (TARGET_MS / steps) * 0.7));
+
+  return raw.map((b, i) => ({
+    pos: b.pos,
+    at: Math.round(b.at * scale),
+    glide: i === 0 ? 0 : glide,
+  }));
 }
 
 /** Load the picture as a blob first: a remote image taints the canvas, and a
