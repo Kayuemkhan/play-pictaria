@@ -26,6 +26,18 @@ export function ReplaySaveModal({
   const saveToDownloads = useCallback(() => {
     if (!clip) return;
     try {
+      const file = new File([clip.blob], clip.name, { type: clip.type });
+      if (
+        navigator.canShare?.({ files: [file] }) &&
+        typeof navigator.share === "function"
+      ) {
+        void navigator
+          .share({ files: [file], title: "Pictaria replay" })
+          .then(() => setNote("Choose Save to Files or Save Video from the menu."))
+          .catch(() => setNote("Press Save to downloads again, then choose Save to Files."));
+        return;
+      }
+
       const link = document.createElement("a");
       link.href = clip.url;
       link.download = clip.name;
@@ -33,11 +45,7 @@ export function ReplaySaveModal({
       document.body.appendChild(link);
       link.click();
       link.remove();
-      setNote(
-        clip.type.includes("webm")
-          ? "Downloaded as a .webm file. Check Files or Downloads."
-          : "Downloaded. Check your Photos, Files, or Downloads folder.",
-      );
+      setNote("Downloaded. Check your Files or Downloads folder.");
     } catch {
       setNote(
         "The browser blocked the download. Press and hold the video, then choose Save.",
