@@ -401,12 +401,12 @@ export function PuzzleBoard({
     }
     if (countedRef.current) return;
     countedRef.current = true;
-    if (completePuzzleInBreak()) {
+    if (completePuzzleInBreak(`${src}|${grid}|${round}`)) {
       const t = window.setTimeout(() => setBreakOver(true), 3200);
       return () => window.clearTimeout(t);
     }
     return;
-  }, [solved]);
+  }, [solved, src, grid, round]);
 
 
 
