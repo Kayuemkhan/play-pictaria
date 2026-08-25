@@ -37,7 +37,7 @@ export function ReplaySaveModal({
     } catch {
       setNote("The share sheet closed without saving. Try Download, or Open Video and press-and-hold the movie.");
     }
-  }, [clip, title]);
+  }, [clip]);
 
   const download = useCallback(() => {
     if (!clip) return;
