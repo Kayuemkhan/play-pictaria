@@ -317,7 +317,7 @@ export function PuzzleBoard({
     setShowReplayResult(false);
 
     // Record while the message is up so the handoff feels immediate: the note
-    // stays for 8 seconds, then the last second of replay shows before video.
+    // stays for 9 seconds, then any remaining final hold completes before video.
     const resultPromise = recordReplay({
       src,
       grid,
@@ -334,7 +334,7 @@ export function PuzzleBoard({
       },
     });
 
-    await new Promise((resolve) => window.setTimeout(resolve, 8000));
+    await new Promise((resolve) => window.setTimeout(resolve, 9000));
     setReplayBanner(false);
     const result = await resultPromise;
 
