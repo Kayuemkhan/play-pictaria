@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Check, Download, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { ReplayClip } from "@/lib/replay-video";
@@ -24,20 +24,36 @@ export function ReplaySaveModal({
   const [note, setNote] = useState<string | null>(null);
   const [saved, setSaved] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [downloadUrl, setDownloadUrl] = useState<string | null>(null);
 
-  const downloadWithBrowser = useCallback(() => {
-    if (!clip) return;
+  useEffect(() => {
+    if (!clip) {
+      setDownloadUrl(null);
+      return;
+    }
 
     const url = URL.createObjectURL(clip.blob);
+    setDownloadUrl(url);
+    return () => URL.revokeObjectURL(url);
+  }, [clip]);
+
+  const downloadWithBrowser = useCallback(() => {
+    if (!clip || !downloadUrl) return;
+
     const link = document.createElement("a");
-    link.href = url;
+    link.href = downloadUrl;
     link.download = clip.name;
     link.rel = "noopener noreferrer";
     document.body.appendChild(link);
     link.click();
     link.remove();
-    window.setTimeout(() => URL.revokeObjectURL(url), 1000);
-  }, [clip]);
+  }, [clip, downloadUrl]);
+
+  const markDownloadStarted = useCallback(() => {
+    setSaved(true);
+    setSaving(false);
+    setNote("Saved.");
+  }, []);
 
   const saveToDownloads = useCallback(async () => {
     if (!clip || saving) return;
@@ -131,13 +147,23 @@ export function ReplaySaveModal({
             <div className="mt-4 flex flex-col items-center gap-2">
               {clip && (
                 <Button
-                  type="button"
-                  onClick={saveToDownloads}
+                  asChild={!!downloadUrl}
+                  type={downloadUrl ? undefined : "button"}
+                  onClick={downloadUrl ? markDownloadStarted : saveToDownloads}
                   disabled={saving}
                   className="w-full rounded-full bg-primary px-6 py-3 text-[0.7rem] font-medium tracking-[0.12em] text-primary-foreground uppercase hover:bg-primary/90"
                 >
-                  {saved ? <Check aria-hidden="true" /> : <Download aria-hidden="true" />}
-                  {saved ? "Saved" : saving ? "Saving…" : "Save to downloads"}
+                  {downloadUrl ? (
+                    <a href={downloadUrl} download={clip.name} rel="noopener noreferrer">
+                      {saved ? <Check aria-hidden="true" /> : <Download aria-hidden="true" />}
+                      {saved ? "Saved" : "Save to downloads"}
+                    </a>
+                  ) : (
+                    <>
+                      {saved ? <Check aria-hidden="true" /> : <Download aria-hidden="true" />}
+                      {saved ? "Saved" : saving ? "Saving…" : "Save to downloads"}
+                    </>
+                  )}
                 </Button>
               )}
             </div>
