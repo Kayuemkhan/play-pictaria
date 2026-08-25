@@ -1,4 +1,6 @@
 import { useCallback, useState } from "react";
+import { Download, ExternalLink, Share2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import type { ReplayClip } from "@/lib/replay-video";
 
 /**
@@ -18,11 +20,9 @@ export function ReplaySaveModal({
 }) {
   const [note, setNote] = useState<string | null>(null);
 
-  const save = useCallback(async () => {
+  const shareOrSave = useCallback(async () => {
     if (!clip) return;
-    const isWebm = clip.type.includes("webm");
 
-    // 1) Native share sheet — the tap that lands it in Photos on a phone.
     try {
       const file = new File([clip.blob], clip.name, { type: clip.type });
       const nav = navigator as Navigator & {
@@ -30,15 +30,17 @@ export function ReplaySaveModal({
       };
       if (nav.canShare?.({ files: [file] }) && nav.share) {
         await nav.share({ files: [file], title: `Pictaria — ${title}` });
-        setNote("Saved. Choose “Save Video” in the share sheet to put it in Photos, then share it with all your socials.");
+        setNote("If the share sheet showed Save Video, it will land in Photos. If it only offered apps or Files, use Open Video and press-and-hold the movie.");
         return;
       }
+      setNote("This browser is not offering a video share sheet for this file. Try Download, or Open Video and press-and-hold the movie.");
     } catch {
-      /* cancelled or unavailable — fall through */
+      setNote("The share sheet closed without saving. Try Download, or Open Video and press-and-hold the movie.");
     }
+  }, [clip, title]);
 
-    // 2) Plain file download (desktop browsers, and phones outside the preview).
-    let downloaded = false;
+  const download = useCallback(() => {
+    if (!clip) return;
     try {
       const link = document.createElement("a");
       link.href = clip.url;
@@ -47,26 +49,23 @@ export function ReplaySaveModal({
       document.body.appendChild(link);
       link.click();
       link.remove();
-      downloaded = true;
-    } catch {
-      /* blocked inside the editor preview iframe */
-    }
-
-    // 3) Last resort: open the clip on its own so it can be held and saved.
-    if (!downloaded) {
-      const opened = window.open(clip.url, "_blank");
       setNote(
-        opened
-          ? "Opened the video in a new tab — press and hold it there to save to Photos, then share it with all your socials."
-          : "Your browser blocked saving here. Press and hold the video above to save it to Photos, or open Pictaria outside the editor preview.",
+        clip.type.includes("webm")
+          ? "Downloaded as a .webm file. Some iPhones save this to Files/Downloads instead of Photos."
+          : "Downloaded. If it did not appear in Photos, check Files or Downloads.",
       );
-      return;
+    } catch {
+      setNote("The browser blocked the download. Use Open Video and press-and-hold the movie.");
     }
+  }, [clip]);
 
+  const openVideo = useCallback(() => {
+    if (!clip) return;
+    const opened = window.open(clip.url, "_blank", "noopener,noreferrer");
     setNote(
-      isWebm
-        ? "Saved to your downloads as a .webm file. Photos only accepts .mp4, so open Pictaria in Safari or Chrome on your phone to get an mp4 you can share with all your socials."
-        : "Saved to your downloads. On a phone it lands in Photos, ready to share with all your socials.",
+      opened
+        ? "Opened the video by itself. Press and hold the movie, then choose Save Video, Save to Photos, or Download Video."
+        : "Your browser blocked the new tab. Press and hold the video above, then choose Save Video, Save to Photos, or Download Video.",
     );
   }, [clip, title]);
 
@@ -93,27 +92,50 @@ export function ReplaySaveModal({
         <p className="mt-3 text-center text-[0.7rem] leading-relaxed text-neutral-600">
           {note ??
             (clip
-              ? "Your replay, exactly as you played it. Tap Save to Photos — or press and hold the video above and choose “Save to Photos” / “Download video”."
+              ? "Your replay, exactly as you played it. Try Share / Save first. If Photos still does not appear, use Download or Open Video."
               : (error ?? "Please try the replay once more."))}
         </p>
 
         <div className="mt-4 flex flex-col items-center gap-2">
           {clip && (
-            <button
-              type="button"
-              onClick={() => void save()}
-              className="w-full rounded-full border border-neutral-400 px-6 py-2 text-[0.62rem] tracking-[0.18em] text-neutral-700 uppercase transition-colors hover:bg-neutral-100"
-            >
-              Save to Photos
-            </button>
+            <>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => void shareOrSave()}
+                className="w-full border-neutral-400 bg-white px-6 py-2 text-[0.62rem] tracking-[0.18em] text-neutral-700 uppercase hover:bg-neutral-100"
+              >
+                <Share2 aria-hidden="true" />
+                Share / Save
+              </Button>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={download}
+                className="w-full border-neutral-300 bg-white px-6 py-2 text-[0.62rem] tracking-[0.18em] text-neutral-600 uppercase hover:bg-neutral-100"
+              >
+                <Download aria-hidden="true" />
+                Download
+              </Button>
+              <Button
+                type="button"
+                variant="ghost"
+                onClick={openVideo}
+                className="w-full px-6 py-2 text-[0.62rem] tracking-[0.18em] text-neutral-500 uppercase hover:bg-neutral-100 hover:text-neutral-700"
+              >
+                <ExternalLink aria-hidden="true" />
+                Open Video
+              </Button>
+            </>
           )}
-          <button
+          <Button
             type="button"
+            variant="ghost"
             onClick={onClose}
-            className="w-full rounded-full px-6 py-2 text-[0.62rem] tracking-[0.18em] text-neutral-400 uppercase transition-colors hover:text-neutral-600"
+            className="w-full px-6 py-2 text-[0.62rem] tracking-[0.18em] text-neutral-400 uppercase hover:text-neutral-600"
           >
             Close
-          </button>
+          </Button>
         </div>
       </div>
     </div>
