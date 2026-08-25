@@ -306,6 +306,19 @@ export function PuzzleBoard({
       setReplayNote("No moves recorded yet — play a little first.");
       return;
     }
+    const framesForReplay = timeline.current.map((frame) => ({
+      t: frame.t,
+      pos: [...frame.pos],
+    }));
+    const latest = framesForReplay[framesForReplay.length - 1];
+    const latestMatchesBoard = latest?.pos.every((cell, piece) => cell === pos[piece]);
+    if (!latest || !latestMatchesBoard) {
+      framesForReplay.push({
+        t: Math.max(performance.now() - timelineStart.current, (latest?.t ?? 0) + 120),
+        pos: [...pos],
+      });
+    }
+
     const finalPos = [...pos];
     const finalGroups = [...groupOf];
     replayingRef.current = true;
@@ -322,16 +335,8 @@ export function PuzzleBoard({
       src,
       grid,
       title,
-      frames: timeline.current,
-      onBeat: (next) => {
-        setPos([...next]);
-        setGroupOf(
-          mergePass(
-            next,
-            Array.from({ length: next.length }, (_, i) => i),
-          ).groups,
-        );
-      },
+      frames: framesForReplay,
+      onBeat: () => {},
     });
 
     await new Promise((resolve) => window.setTimeout(resolve, 9000));
