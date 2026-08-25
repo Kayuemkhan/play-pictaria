@@ -13,7 +13,13 @@ const KEY = "pictaria:break";
  */
 const MAX_AGE_MS = 3 * 60 * 60 * 1000; // 3 hours
 
-export type BreakState = { goal: number; done: number; startedAt: number };
+export type BreakState = {
+  goal: number;
+  done: number;
+  startedAt: number;
+  /** Which puzzles already counted, so one puzzle can never count twice. */
+  ids: string[];
+};
 
 export function readBreak(): BreakState | null {
   if (typeof window === "undefined") return null;
@@ -30,10 +36,18 @@ export function readBreak(): BreakState | null {
       clearBreak();
       return null;
     }
+    const ids = Array.isArray(parsed.ids)
+      ? parsed.ids.filter((i): i is string => typeof i === "string")
+      : [];
     return {
-      goal: parsed.goal,
-      done: typeof parsed.done === "number" ? parsed.done : 0,
+      goal: Math.max(1, Math.round(parsed.goal)),
+      done: ids.length
+        ? ids.length
+        : typeof parsed.done === "number" && parsed.done > 0
+          ? parsed.done
+          : 0,
       startedAt: parsed.startedAt,
+      ids,
     };
   } catch {
     clearBreak();
@@ -45,7 +59,12 @@ export function startBreak(goal: number) {
   if (typeof window === "undefined") return;
   window.localStorage.setItem(
     KEY,
-    JSON.stringify({ goal, done: 0, startedAt: Date.now() } satisfies BreakState),
+    JSON.stringify({
+      goal: Math.max(1, Math.round(goal)),
+      done: 0,
+      startedAt: Date.now(),
+      ids: [],
+    } satisfies BreakState),
   );
 }
 
@@ -55,18 +74,24 @@ export function clearBreak() {
 }
 
 /**
- * Counts a finished puzzle toward an active break. Returns true only on the
- * puzzle that completes the goal — the break is then cleared, so later puzzles
- * played outside a Work Life Balance break never show the send-off again.
+ * Counts a finished puzzle toward an active break. `id` identifies that exact
+ * solve, so a re-render, replay, or remount of the same puzzle can never count
+ * twice. Returns true only on the solve that completes the goal — the break is
+ * then cleared, so later puzzles never show the send-off again.
  */
-export function completePuzzleInBreak(): boolean {
+export function completePuzzleInBreak(id: string): boolean {
   const state = readBreak();
   if (!state) return false;
-  const done = state.done + 1;
-  if (done >= state.goal) {
+  if (state.ids.includes(id)) return false;
+  const ids = [...state.ids, id];
+  if (ids.length >= state.goal) {
     clearBreak();
     return true;
   }
-  window.localStorage.setItem(KEY, JSON.stringify({ ...state, done }));
+  window.localStorage.setItem(
+    KEY,
+    JSON.stringify({ ...state, ids, done: ids.length } satisfies BreakState),
+  );
   return false;
 }
+
