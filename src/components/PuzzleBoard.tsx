@@ -316,11 +316,9 @@ export function PuzzleBoard({
     setClip(null);
     setShowReplayResult(false);
 
-    // The message reads for 7 seconds, then it steps aside and the tiles move.
-    await new Promise((resolve) => window.setTimeout(resolve, 7000));
-    setReplayBanner(false);
-
-    const result = await recordReplay({
+    // Record while the message is up so the handoff feels immediate: the note
+    // stays for 8 seconds, then the last second of replay shows before video.
+    const resultPromise = recordReplay({
       src,
       grid,
       title,
@@ -335,6 +333,10 @@ export function PuzzleBoard({
         );
       },
     });
+
+    await new Promise((resolve) => window.setTimeout(resolve, 8000));
+    setReplayBanner(false);
+    const result = await resultPromise;
 
     setPos(finalPos);
     setGroupOf(finalGroups);
