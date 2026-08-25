@@ -39,12 +39,8 @@ export function ReplaySaveModal({
         navigator.canShare?.({ files: [file] }) &&
         typeof navigator.share === "function"
       ) {
-        try {
-          await navigator.share({ files: [file], title: "Pictaria replay" });
-          setNote("Choose Save to Files or Save Video from the menu.");
-        } catch {
-          setNote("If the menu closed, press Save to downloads again.");
-        }
+        await navigator.share({ files: [file], title: "Pictaria replay" });
+        setNote("Choose Save Video or Save to Files from the menu.");
         return;
       }
 
@@ -58,16 +54,21 @@ export function ReplaySaveModal({
       document.body.appendChild(link);
       link.click();
       link.remove();
+      window.open(temporaryDownloadUrl.current, "_blank", "noopener,noreferrer");
       window.setTimeout(() => {
         if (temporaryDownloadUrl.current) {
           URL.revokeObjectURL(temporaryDownloadUrl.current);
           temporaryDownloadUrl.current = null;
         }
       }, 30_000);
-      setNote("If nothing appears, press and hold the video, then choose Save Video.");
-    } catch {
+      setNote("If it opens in a new tab, use your browser share button to save it.");
+    } catch (error) {
+      if (error instanceof DOMException && error.name === "AbortError") {
+        setNote("The save menu closed. Tap Save to downloads again when you're ready.");
+        return;
+      }
       setNote(
-        "The browser blocked the download. Press and hold the video, then choose Save.",
+        "If the browser blocks it, press and hold the video, then choose Save Video.",
       );
     }
   }, [clip]);
