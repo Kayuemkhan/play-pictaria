@@ -1823,7 +1823,7 @@ export function PuzzleBoard({
 
       {breakOver && <BreakOverBanner onClose={() => setBreakOver(false)} />}
 
-      {replaying && (
+      {replaying && replayBanner && (
         <div className="pointer-events-none fixed top-1/2 left-1/2 z-40 w-[min(20rem,85vw)] -translate-x-1/2 -translate-y-1/2 rounded-[18px] bg-card/92 px-5 py-4 text-center text-[0.68rem] leading-relaxed tracking-[0.1em] text-primary shadow-lift backdrop-blur-sm">
           Making your video… This will take less than a minute and then you can
           share to your friends, family and social media from your downloads or
