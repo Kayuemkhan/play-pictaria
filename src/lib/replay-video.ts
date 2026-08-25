@@ -17,8 +17,10 @@ const BORDER = 4;
 
 /** The finished clip lands at roughly this length, whatever the solve took. */
 const TARGET_MS = 9000;
-/** Keep the solved picture visible long enough for the recorder to capture it. */
-const FINAL_HOLD_MS = 1200;
+/** Keep the solved picture visible long enough for phones to capture it. */
+const FINAL_HOLD_MS = 2400;
+const RECORDER_WARMUP_MS = 220;
+const RECORDER_FLUSH_MS = 650;
 
 /**
  * The player's own rhythm, kept in proportion but stretched or squeezed so the
@@ -46,6 +48,9 @@ export function toBeats(frames: ReplayFrame[]): ReplayBeat[] {
     glide: i === 0 ? 0 : glide,
   }));
 }
+
+const wait = (ms: number) =>
+  new Promise<void>((resolve) => window.setTimeout(resolve, ms));
 
 /** Load the picture as a blob first: a remote image taints the canvas, and a
  *  tainted canvas makes captureStream() throw. */
@@ -157,8 +162,10 @@ export async function recordReplay({
 
   let recorder: MediaRecorder | null = null;
   let stream: MediaStream | null = null;
+  let requestCapturedFrame = () => {};
   const chunks: Blob[] = [];
   let finished: Promise<Blob> | null = null;
+  let started: Promise<void> | null = null;
 
   if (canRecord) {
     const mime = [
@@ -170,7 +177,14 @@ export async function recordReplay({
       "video/webm;codecs=vp8",
       "video/webm",
     ].find((m) => MediaRecorder.isTypeSupported?.(m));
+    if (img && ctx) drawFrame(ctx, img, grid, beats[0]!.pos, undefined, 1);
+
     stream = canvas.captureStream(30);
+    const [track] = stream.getVideoTracks();
+    if (track && "requestFrame" in track) {
+      const canvasTrack = track as CanvasCaptureMediaStreamTrack;
+      requestCapturedFrame = () => canvasTrack.requestFrame();
+    }
     recorder = new MediaRecorder(
       stream,
       mime ? { mimeType: mime, videoBitsPerSecond: 5_000_000 } : undefined,
@@ -178,11 +192,26 @@ export async function recordReplay({
     recorder.ondataavailable = (e) => {
       if (e.data.size) chunks.push(e.data);
     };
+    const activeRecorder = recorder;
     finished = new Promise<Blob>((resolve) => {
-      recorder!.onstop = () =>
-        resolve(new Blob(chunks, { type: recorder!.mimeType || "video/webm" }));
+      activeRecorder.onstop = () =>
+        resolve(new Blob(chunks, { type: activeRecorder.mimeType || "video/webm" }));
     });
-    recorder.start(100);
+    started = new Promise<void>((resolve) => {
+      let settled = false;
+      const done = () => {
+        if (settled) return;
+        settled = true;
+        resolve();
+      };
+      activeRecorder.onstart = done;
+      window.setTimeout(done, RECORDER_WARMUP_MS);
+    });
+    requestCapturedFrame();
+    activeRecorder.start();
+    await started;
+    requestCapturedFrame();
+    await wait(RECORDER_WARMUP_MS);
   }
 
   // Run the timeline: canvas gets smooth interpolation, the real board gets
@@ -193,7 +222,10 @@ export async function recordReplay({
     const span = beats[beats.length - 1]!.at;
     const finalBeat = beats[beats.length - 1]!;
     let lastIndex = -1;
-    if (img && ctx) drawFrame(ctx, img, grid, beats[0]!.pos, undefined, 1);
+      if (img && ctx) {
+        drawFrame(ctx, img, grid, beats[0]!.pos, undefined, 1);
+        requestCapturedFrame();
+      }
     const step = () => {
       const elapsed = performance.now() - start;
       let index = 0;
@@ -209,6 +241,7 @@ export async function recordReplay({
       if (img && ctx) {
         if (elapsed >= span) drawFrame(ctx, img, grid, finalBeat.pos, undefined, 1);
         else drawFrame(ctx, img, grid, beat.pos, prev?.pos, eased);
+        requestCapturedFrame();
       }
       if (elapsed < span + FINAL_HOLD_MS) requestAnimationFrame(step);
       else resolve();
@@ -220,17 +253,32 @@ export async function recordReplay({
     return { clip: null, error: "This browser can't record video. Try Chrome or Safari." };
   }
 
-  // Give the encoder a full beat to flush the final held frames before closing it.
-  await new Promise((resolve) => window.setTimeout(resolve, 250));
-  if (recorder.state === "recording") recorder.requestData();
-  recorder.stop();
+  // Give mobile encoders several explicit final frames before closing the file.
+  const finalBeat = beats[beats.length - 1];
+  if (img && ctx && finalBeat) {
+    drawFrame(ctx, img, grid, finalBeat.pos, undefined, 1);
+    for (let i = 0; i < 6; i++) {
+      requestCapturedFrame();
+      await wait(100);
+    }
+  }
+  await wait(RECORDER_FLUSH_MS);
+  if (recorder.state === "recording") {
+    try {
+      recorder.requestData();
+    } catch {
+      // Some mobile browsers only allow the final data request during stop().
+    }
+    recorder.stop();
+  }
   const blob = await finished;
   stream?.getTracks().forEach((track) => track.stop());
   if (!blob.size) {
     return { clip: null, error: "The recording came out empty — please try once more." };
   }
 
-  const ext = (recorder.mimeType || "").includes("mp4") ? "mp4" : "webm";
+  const recordedType = blob.type || recorder.mimeType || "";
+  const ext = recordedType.includes("mp4") ? "mp4" : "webm";
   const type = ext === "mp4" ? "video/mp4" : "video/webm";
   const slug =
     title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "replay";
