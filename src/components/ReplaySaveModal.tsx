@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Download, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { ReplayClip } from "@/lib/replay-video";
@@ -22,30 +22,49 @@ export function ReplaySaveModal({
 }) {
   const [showVideo, setShowVideo] = useState(false);
   const [note, setNote] = useState<string | null>(null);
+  const temporaryDownloadUrl = useRef<string | null>(null);
 
-  const saveToDownloads = useCallback(() => {
+  useEffect(() => {
+    return () => {
+      if (temporaryDownloadUrl.current) URL.revokeObjectURL(temporaryDownloadUrl.current);
+    };
+  }, []);
+
+  const saveToDownloads = useCallback(async () => {
     if (!clip) return;
     try {
+      setNote("Saving your video…");
       const file = new File([clip.blob], clip.name, { type: clip.type });
       if (
         navigator.canShare?.({ files: [file] }) &&
         typeof navigator.share === "function"
       ) {
-        void navigator
-          .share({ files: [file], title: "Pictaria replay" })
-          .then(() => setNote("Choose Save to Files or Save Video from the menu."))
-          .catch(() => setNote("Press Save to downloads again, then choose Save to Files."));
+        try {
+          await navigator.share({ files: [file], title: "Pictaria replay" });
+          setNote("Choose Save to Files or Save Video from the menu.");
+        } catch {
+          setNote("If the menu closed, press Save to downloads again.");
+        }
         return;
       }
 
+      if (temporaryDownloadUrl.current) URL.revokeObjectURL(temporaryDownloadUrl.current);
+      temporaryDownloadUrl.current = URL.createObjectURL(clip.blob);
       const link = document.createElement("a");
-      link.href = clip.url;
+      link.href = temporaryDownloadUrl.current;
       link.download = clip.name;
       link.rel = "noopener";
+      link.target = "_blank";
       document.body.appendChild(link);
       link.click();
       link.remove();
-      setNote("Downloaded. Check your Files or Downloads folder.");
+      window.setTimeout(() => {
+        if (temporaryDownloadUrl.current) {
+          URL.revokeObjectURL(temporaryDownloadUrl.current);
+          temporaryDownloadUrl.current = null;
+        }
+      }, 30_000);
+      setNote("If nothing appears, press and hold the video, then choose Save Video.");
     } catch {
       setNote(
         "The browser blocked the download. Press and hold the video, then choose Save.",

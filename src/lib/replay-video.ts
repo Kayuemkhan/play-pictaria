@@ -17,6 +17,8 @@ const BORDER = 4;
 
 /** The finished clip lands at roughly this length, whatever the solve took. */
 const TARGET_MS = 9000;
+/** Keep the solved picture visible long enough for the recorder to capture it. */
+const FINAL_HOLD_MS = 1200;
 
 /**
  * The player's own rhythm, kept in proportion but stretched or squeezed so the
@@ -184,10 +186,12 @@ export async function recordReplay({
   }
 
   // Run the timeline: canvas gets smooth interpolation, the real board gets
-  // each beat as it lands.
+  // each beat as it lands, then holds the final solved frame so the encoder
+  // cannot cut off the last second of gameplay.
   await new Promise<void>((resolve) => {
     const start = performance.now();
     const span = beats[beats.length - 1]!.at;
+    const finalBeat = beats[beats.length - 1]!;
     let lastIndex = -1;
     if (img && ctx) drawFrame(ctx, img, grid, beats[0]!.pos, undefined, 1);
     const step = () => {
@@ -202,8 +206,11 @@ export async function recordReplay({
       }
       const k = beat.glide ? Math.min(1, (elapsed - beat.at) / beat.glide) : 1;
       const eased = 1 - Math.pow(1 - k, 3);
-      if (img && ctx) drawFrame(ctx, img, grid, beat.pos, prev?.pos, eased);
-      if (elapsed < span + 80) requestAnimationFrame(step);
+      if (img && ctx) {
+        if (elapsed >= span) drawFrame(ctx, img, grid, finalBeat.pos, undefined, 1);
+        else drawFrame(ctx, img, grid, beat.pos, prev?.pos, eased);
+      }
+      if (elapsed < span + FINAL_HOLD_MS) requestAnimationFrame(step);
       else resolve();
     };
     requestAnimationFrame(step);
@@ -213,8 +220,8 @@ export async function recordReplay({
     return { clip: null, error: "This browser can't record video. Try Chrome or Safari." };
   }
 
-  // Give the encoder a tiny beat to flush the final frames before closing it.
-  await new Promise((resolve) => window.setTimeout(resolve, 80));
+  // Give the encoder a full beat to flush the final held frames before closing it.
+  await new Promise((resolve) => window.setTimeout(resolve, 250));
   if (recorder.state === "recording") recorder.requestData();
   recorder.stop();
   const blob = await finished;
