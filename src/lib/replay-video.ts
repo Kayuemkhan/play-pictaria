@@ -315,6 +315,7 @@ export async function recordReplay({
       if (img && ctx) {
         drawFrame(ctx, img, grid, beats[0]!.pos, undefined, 1);
         requestCapturedFrame();
+        hardware?.encodeFrame(0);
       }
     const step = () => {
       const elapsed = performance.now() - start;
@@ -332,6 +333,7 @@ export async function recordReplay({
         if (elapsed >= animationEnd) drawFrame(ctx, img, grid, finalBeat.pos, undefined, 1);
         else drawFrame(ctx, img, grid, beat.pos, prev?.pos, eased);
         requestCapturedFrame();
+        hardware?.encodeFrame(Math.round(elapsed * 1000));
       }
       if (elapsed < animationEnd + FINAL_HOLD_MS) requestAnimationFrame(step);
       else resolve();
