@@ -1,3 +1,5 @@
+import palmLogoUrl from "@/assets/logo-palms-only.png";
+
 export interface ReplayFrame {
   /** ms since the puzzle began */
   t: number;
@@ -19,8 +21,76 @@ const BORDER = 4;
 const TARGET_MS = 9000;
 /** Keep the solved picture visible long enough for phones to capture it. */
 const FINAL_HOLD_MS = 1400;
+/** Branded end card inviting the viewer to play. */
+const END_CARD_MS = 2000;
 const RECORDER_WARMUP_MS = 150;
 const RECORDER_FLUSH_MS = 300;
+
+/* Branded scene layout: header, then the 3:4 puzzle board, on an ocean wash. */
+const BOARD_X = 56;
+const BOARD_Y = 128;
+const BOARD_W = CANVAS_W - BOARD_X * 2;
+const BOARD_H = Math.round((BOARD_W * 4) / 3);
+const GOLD = "#d9b45c";
+const CREAM = "#f4f1e8";
+
+function paintScene(ctx: CanvasRenderingContext2D) {
+  const wash = ctx.createLinearGradient(0, 0, 0, CANVAS_H);
+  wash.addColorStop(0, "#0e3a44");
+  wash.addColorStop(0.55, "#16606c");
+  wash.addColorStop(1, "#0b2f36");
+  ctx.fillStyle = wash;
+  ctx.fillRect(0, 0, CANVAS_W, CANVAS_H);
+}
+
+function paintHeader(
+  ctx: CanvasRenderingContext2D,
+  logo: HTMLImageElement | null,
+  title: string,
+) {
+  ctx.textBaseline = "middle";
+  ctx.textAlign = "center";
+
+  const logoH = 44;
+  if (logo) {
+    const logoW = (logo.naturalWidth / logo.naturalHeight) * logoH;
+    ctx.drawImage(logo, CANVAS_W / 2 - logoW / 2, 20, logoW, logoH);
+  }
+
+  ctx.fillStyle = GOLD;
+  ctx.font = '600 40px "Cormorant Garamond", Georgia, serif';
+  ctx.fillText("Pictaria", CANVAS_W / 2, 88);
+
+  if (title) {
+    ctx.fillStyle = "rgba(244, 241, 232, 0.85)";
+    ctx.font = 'italic 400 24px "Cormorant Garamond", Georgia, serif';
+    ctx.fillText(title, CANVAS_W / 2, 116);
+  }
+}
+
+function paintEndCard(ctx: CanvasRenderingContext2D, logo: HTMLImageElement | null) {
+  paintScene(ctx);
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+
+  if (logo) {
+    const logoH = 130;
+    const logoW = (logo.naturalWidth / logo.naturalHeight) * logoH;
+    ctx.drawImage(logo, CANVAS_W / 2 - logoW / 2, 300, logoW, logoH);
+  }
+
+  ctx.fillStyle = GOLD;
+  ctx.font = '600 64px "Cormorant Garamond", Georgia, serif';
+  ctx.fillText("Pictaria", CANVAS_W / 2, 500);
+
+  ctx.fillStyle = CREAM;
+  ctx.font = 'italic 400 34px "Cormorant Garamond", Georgia, serif';
+  ctx.fillText("Play for yourself at", CANVAS_W / 2, 580);
+
+  ctx.fillStyle = "#8fd8ce";
+  ctx.font = "600 36px Georgia, serif";
+  ctx.fillText("play-pictaria.com", CANVAS_W / 2, 640);
+}
 
 /**
  * The player's own rhythm, kept in proportion but stretched or squeezed so the
@@ -84,32 +154,43 @@ function drawFrame(
   pos: number[],
   from: number[] | undefined,
   k: number,
+  logo: HTMLImageElement | null,
+  title: string,
 ) {
-  ctx.fillStyle = "#ffffff";
-  ctx.fillRect(0, 0, CANVAS_W, CANVAS_H);
+  paintScene(ctx);
 
   const a = img.naturalWidth / img.naturalHeight;
-  const boardAspect = CANVAS_W / CANVAS_H;
-  const bw = a > boardAspect ? CANVAS_H * a : CANVAS_W;
-  const bh = a > boardAspect ? CANVAS_H : CANVAS_W / a;
-  const bx = (CANVAS_W - bw) / 2;
-  const by = (CANVAS_H - bh) / 2;
+  const boardAspect = BOARD_W / BOARD_H;
+  const bw = a > boardAspect ? BOARD_H * a : BOARD_W;
+  const bh = a > boardAspect ? BOARD_H : BOARD_W / a;
+  const bx = (BOARD_W - bw) / 2;
+  const by = (BOARD_H - bh) / 2;
 
-  const cw = CANVAS_W / grid;
-  const ch = CANVAS_H / grid;
+  const cw = BOARD_W / grid;
+  const ch = BOARD_H / grid;
+
+  // Soft mat behind the board so the puzzle reads as a framed picture.
+  ctx.fillStyle = "rgba(255, 255, 255, 0.14)";
+  if (typeof ctx.roundRect === "function") {
+    ctx.beginPath();
+    ctx.roundRect(BOARD_X - 14, BOARD_Y - 14, BOARD_W + 28, BOARD_H + 28, 26);
+    ctx.fill();
+  } else {
+    ctx.fillRect(BOARD_X - 14, BOARD_Y - 14, BOARD_W + 28, BOARD_H + 28);
+  }
 
   pos.forEach((cell, piece) => {
     const pr = Math.floor(piece / grid);
     const pc = piece % grid;
-    const sx = ((pc * CANVAS_W) / grid - bx) * (img.naturalWidth / bw);
-    const sy = ((pr * CANVAS_H) / grid - by) * (img.naturalHeight / bh);
+    const sx = ((pc * BOARD_W) / grid - bx) * (img.naturalWidth / bw);
+    const sy = ((pr * BOARD_H) / grid - by) * (img.naturalHeight / bh);
     const sw = cw * (img.naturalWidth / bw);
     const sh = ch * (img.naturalHeight / bh);
 
     const prev = from?.[piece] ?? cell;
     const lerp = (x: number, y: number) => x + (y - x) * k;
-    const dx = lerp((prev % grid) * cw, (cell % grid) * cw);
-    const dy = lerp(Math.floor(prev / grid) * ch, Math.floor(cell / grid) * ch);
+    const dx = BOARD_X + lerp((prev % grid) * cw, (cell % grid) * cw);
+    const dy = BOARD_Y + lerp(Math.floor(prev / grid) * ch, Math.floor(cell / grid) * ch);
     const moving = prev !== cell && k < 1;
 
     ctx.drawImage(img, sx, sy, sw, sh, dx, dy, cw, ch);
@@ -120,6 +201,8 @@ function drawFrame(
       ctx.strokeRect(dx + BORDER / 2, dy + BORDER / 2, cw - BORDER, ch - BORDER);
     }
   });
+
+  paintHeader(ctx, logo, title);
 }
 
 export interface ReplayClip {
@@ -149,7 +232,16 @@ export async function recordReplay({
   const beats = toBeats(frames);
   if (!beats.length) return { clip: null, error: "No moves were recorded yet." };
 
-  const img = await loadImage(src);
+  // Make sure the brand fonts are ready before any canvas text is painted.
+  try {
+    await document.fonts?.ready;
+  } catch {
+    // Font loading is best-effort; serif fallbacks still look fine.
+  }
+  const [img, logo] = await Promise.all([
+    loadImage(src),
+    loadImage(palmLogoUrl).catch(() => null),
+  ]);
   const canvas = document.createElement("canvas");
   canvas.width = CANVAS_W;
   canvas.height = CANVAS_H;
@@ -178,7 +270,7 @@ export async function recordReplay({
       "video/webm;codecs=vp8",
       "video/webm",
     ].find((m) => MediaRecorder.isTypeSupported?.(m));
-    if (img && ctx) drawFrame(ctx, img, grid, beats[0]!.pos, undefined, 1);
+    if (img && ctx) drawFrame(ctx, img, grid, beats[0]!.pos, undefined, 1, logo, title);
 
     stream = canvas.captureStream(30);
     const [track] = stream.getVideoTracks();
@@ -222,9 +314,10 @@ export async function recordReplay({
     const start = performance.now();
     const finalBeat = beats[beats.length - 1]!;
     const animationEnd = finalBeat.at + finalBeat.glide;
+    const endCardStart = animationEnd + FINAL_HOLD_MS;
     let lastIndex = -1;
       if (img && ctx) {
-        drawFrame(ctx, img, grid, beats[0]!.pos, undefined, 1);
+        drawFrame(ctx, img, grid, beats[0]!.pos, undefined, 1, logo, title);
         requestCapturedFrame();
       }
     const step = () => {
@@ -233,18 +326,20 @@ export async function recordReplay({
       for (let i = 0; i < beats.length; i++) if (beats[i]!.at <= elapsed) index = i;
       const beat = beats[index]!;
       const prev = beats[index - 1];
-      if (index !== lastIndex) {
+      if (index !== lastIndex && elapsed < endCardStart) {
         lastIndex = index;
         onBeat(beat.pos);
       }
       const k = beat.glide ? Math.min(1, (elapsed - beat.at) / beat.glide) : 1;
       const eased = 1 - Math.pow(1 - k, 3);
-      if (img && ctx) {
-        if (elapsed >= animationEnd) drawFrame(ctx, img, grid, finalBeat.pos, undefined, 1);
-        else drawFrame(ctx, img, grid, beat.pos, prev?.pos, eased);
+      if (ctx) {
+        if (elapsed >= endCardStart) paintEndCard(ctx, logo);
+        else if (img && elapsed >= animationEnd)
+          drawFrame(ctx, img, grid, finalBeat.pos, undefined, 1, logo, title);
+        else if (img) drawFrame(ctx, img, grid, beat.pos, prev?.pos, eased, logo, title);
         requestCapturedFrame();
       }
-      if (elapsed < animationEnd + FINAL_HOLD_MS) requestAnimationFrame(step);
+      if (elapsed < endCardStart + END_CARD_MS) requestAnimationFrame(step);
       else resolve();
     };
     requestAnimationFrame(step);
@@ -255,9 +350,8 @@ export async function recordReplay({
   }
 
   // Give mobile encoders several explicit final frames before closing the file.
-  const finalBeat = beats[beats.length - 1];
-  if (img && ctx && finalBeat) {
-    drawFrame(ctx, img, grid, finalBeat.pos, undefined, 1);
+  if (ctx) {
+    paintEndCard(ctx, logo);
     for (let i = 0; i < 3; i++) {
       requestCapturedFrame();
       await wait(80);

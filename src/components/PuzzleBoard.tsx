@@ -339,9 +339,11 @@ export function PuzzleBoard({
       onBeat: () => {},
     });
 
+    // Keep the banner up for at least 9 seconds, and until the clip (which now
+    // includes a short branded end card) is fully recorded.
     await new Promise((resolve) => window.setTimeout(resolve, 9000));
-    setReplayBanner(false);
     const result = await resultPromise;
+    setReplayBanner(false);
 
     setPos(finalPos);
     setGroupOf(finalGroups);
@@ -1832,9 +1834,9 @@ export function PuzzleBoard({
 
       {replaying && replayBanner && (
         <div className="pointer-events-none fixed top-1/2 left-1/2 z-40 w-[min(20rem,85vw)] -translate-x-1/2 -translate-y-1/2 rounded-[18px] bg-card/92 px-5 py-4 text-center text-[0.68rem] leading-relaxed tracking-[0.1em] text-primary shadow-lift backdrop-blur-sm">
-          Making your video… This will only take 9 seconds and then you can
-          share to your friends, family and social media from your downloads or
-          your photos.
+          Making your video… This will only take a few seconds and then you
+          can share to your friends, family and social media from your
+          downloads or your photos.
         </div>
       )}
 
