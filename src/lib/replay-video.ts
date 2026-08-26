@@ -21,8 +21,76 @@ const BORDER = 4;
 const TARGET_MS = 9000;
 /** Keep the solved picture visible long enough for phones to capture it. */
 const FINAL_HOLD_MS = 1400;
+/** Branded end card inviting the viewer to play. */
+const END_CARD_MS = 2000;
 const RECORDER_WARMUP_MS = 150;
 const RECORDER_FLUSH_MS = 300;
+
+/* Branded scene layout: header, then the 3:4 puzzle board, on an ocean wash. */
+const BOARD_X = 56;
+const BOARD_Y = 128;
+const BOARD_W = CANVAS_W - BOARD_X * 2;
+const BOARD_H = Math.round((BOARD_W * 4) / 3);
+const GOLD = "#d9b45c";
+const CREAM = "#f4f1e8";
+
+function paintScene(ctx: CanvasRenderingContext2D) {
+  const wash = ctx.createLinearGradient(0, 0, 0, CANVAS_H);
+  wash.addColorStop(0, "#0e3a44");
+  wash.addColorStop(0.55, "#16606c");
+  wash.addColorStop(1, "#0b2f36");
+  ctx.fillStyle = wash;
+  ctx.fillRect(0, 0, CANVAS_W, CANVAS_H);
+}
+
+function paintHeader(
+  ctx: CanvasRenderingContext2D,
+  logo: HTMLImageElement | null,
+  title: string,
+) {
+  ctx.textBaseline = "middle";
+  ctx.textAlign = "center";
+
+  const logoH = 44;
+  if (logo) {
+    const logoW = (logo.naturalWidth / logo.naturalHeight) * logoH;
+    ctx.drawImage(logo, CANVAS_W / 2 - logoW / 2, 20, logoW, logoH);
+  }
+
+  ctx.fillStyle = GOLD;
+  ctx.font = '600 40px "Cormorant Garamond", Georgia, serif';
+  ctx.fillText("Pictaria", CANVAS_W / 2, 88);
+
+  if (title) {
+    ctx.fillStyle = "rgba(244, 241, 232, 0.85)";
+    ctx.font = 'italic 400 24px "Cormorant Garamond", Georgia, serif';
+    ctx.fillText(title, CANVAS_W / 2, 116);
+  }
+}
+
+function paintEndCard(ctx: CanvasRenderingContext2D, logo: HTMLImageElement | null) {
+  paintScene(ctx);
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+
+  if (logo) {
+    const logoH = 130;
+    const logoW = (logo.naturalWidth / logo.naturalHeight) * logoH;
+    ctx.drawImage(logo, CANVAS_W / 2 - logoW / 2, 300, logoW, logoH);
+  }
+
+  ctx.fillStyle = GOLD;
+  ctx.font = '600 64px "Cormorant Garamond", Georgia, serif';
+  ctx.fillText("Pictaria", CANVAS_W / 2, 500);
+
+  ctx.fillStyle = CREAM;
+  ctx.font = 'italic 400 34px "Cormorant Garamond", Georgia, serif';
+  ctx.fillText("Play for yourself at", CANVAS_W / 2, 580);
+
+  ctx.fillStyle = "#8fd8ce";
+  ctx.font = "600 36px Georgia, serif";
+  ctx.fillText("play-pictaria.com", CANVAS_W / 2, 640);
+}
 
 /**
  * The player's own rhythm, kept in proportion but stretched or squeezed so the
