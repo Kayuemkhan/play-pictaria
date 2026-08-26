@@ -1,3 +1,5 @@
+import palmLogoUrl from "@/assets/logo-palms-only.png";
+
 export interface ReplayFrame {
   /** ms since the puzzle began */
   t: number;
