@@ -1,3 +1,4 @@
+import { ArrayBufferTarget, Muxer } from "mp4-muxer";
 import palmLogoUrl from "@/assets/logo-palms-only.png";
 
 export interface ReplayFrame {
@@ -132,6 +133,86 @@ export interface ReplayClip {
 }
 
 /**
+ * iPhone Safari's MediaRecorder writes a streaming-style MP4 that the Photos
+ * app refuses to accept ("Save Video" never appears in the share sheet). When
+ * the device offers a hardware video encoder (WebCodecs), we instead write a
+ * standard MP4 — the exact format Photos accepts, like the plumeria clip.
+ */
+interface HardwareEncoder {
+  encodeFrame: (timestampUs: number) => void;
+  finish: () => Promise<Blob | null>;
+}
+
+async function createHardwareEncoder(
+  canvas: HTMLCanvasElement,
+): Promise<HardwareEncoder | null> {
+  if (
+    typeof VideoEncoder === "undefined" ||
+    typeof VideoFrame === "undefined"
+  ) {
+    return null;
+  }
+
+  const config: VideoEncoderConfig = {
+    codec: "avc1.4d0028",
+    width: CANVAS_W,
+    height: CANVAS_H,
+    bitrate: 5_000_000,
+    framerate: 60,
+  };
+
+  try {
+    const support = await VideoEncoder.isConfigSupported(config);
+    if (!support.supported) return null;
+  } catch {
+    return null;
+  }
+
+  const muxer = new Muxer({
+    target: new ArrayBufferTarget(),
+    video: { codec: "avc", width: CANVAS_W, height: CANVAS_H },
+    fastStart: "in-memory",
+    firstTimestampBehavior: "offset",
+  });
+
+  let failed = false;
+  const encoder = new VideoEncoder({
+    output: (chunk, meta) => muxer.addVideoChunk(chunk, meta ?? {}),
+    error: () => {
+      failed = true;
+    },
+  });
+  encoder.configure(config);
+
+  return {
+    encodeFrame: (timestampUs: number) => {
+      if (failed || encoder.state !== "configured") return;
+      const frame = new VideoFrame(canvas, { timestamp: timestampUs });
+      try {
+        encoder.encode(frame);
+      } catch {
+        failed = true;
+      }
+      frame.close();
+    },
+    finish: async () => {
+      if (failed) return null;
+      try {
+        await encoder.flush();
+        encoder.close();
+      } catch {
+        return null;
+      }
+      muxer.finalize();
+      const { buffer } = muxer.target as ArrayBufferTarget;
+      return buffer.byteLength
+        ? new Blob([buffer], { type: "video/mp4" })
+        : null;
+    },
+  };
+}
+
+/**
  * Replays the solve on the real board (through `onBeat`) while quietly
  * recording the same replay on an offscreen canvas, and hands back the clip.
  */
@@ -157,11 +238,17 @@ export async function recordReplay({
   canvas.height = CANVAS_H;
   const ctx = canvas.getContext("2d");
 
+  // Prefer the hardware encoder: it produces the standard MP4 that phones
+  // accept straight into Photos. MediaRecorder stays as the fallback.
+  const hardware =
+    img && ctx ? await createHardwareEncoder(canvas).catch(() => null) : null;
+
   const canRecord =
-    !!img &&
-    !!ctx &&
-    typeof MediaRecorder !== "undefined" &&
-    typeof canvas.captureStream === "function";
+    !!hardware ||
+    (!!img &&
+      !!ctx &&
+      typeof MediaRecorder !== "undefined" &&
+      typeof canvas.captureStream === "function");
 
   let recorder: MediaRecorder | null = null;
   let stream: MediaStream | null = null;
@@ -170,7 +257,7 @@ export async function recordReplay({
   let finished: Promise<Blob> | null = null;
   let started: Promise<void> | null = null;
 
-  if (canRecord) {
+  if (canRecord && !hardware) {
     const mime = [
       "video/mp4;codecs=h264",
       "video/mp4;codecs=avc1.42E01E",
@@ -228,6 +315,7 @@ export async function recordReplay({
       if (img && ctx) {
         drawFrame(ctx, img, grid, beats[0]!.pos, undefined, 1);
         requestCapturedFrame();
+        hardware?.encodeFrame(0);
       }
     const step = () => {
       const elapsed = performance.now() - start;
@@ -245,6 +333,7 @@ export async function recordReplay({
         if (elapsed >= animationEnd) drawFrame(ctx, img, grid, finalBeat.pos, undefined, 1);
         else drawFrame(ctx, img, grid, beat.pos, prev?.pos, eased);
         requestCapturedFrame();
+        hardware?.encodeFrame(Math.round(elapsed * 1000));
       }
       if (elapsed < animationEnd + FINAL_HOLD_MS) requestAnimationFrame(step);
       else resolve();
@@ -252,35 +341,43 @@ export async function recordReplay({
     requestAnimationFrame(step);
   });
 
-  if (!recorder || !finished) {
+  if (!hardware && (!recorder || !finished)) {
     return { clip: null, error: "This browser can't record video. Try Chrome or Safari." };
   }
 
   // Give mobile encoders several explicit final frames before closing the file.
   const finalBeat = beats[beats.length - 1];
+  const finalTimestamp = (finalBeat ? finalBeat.at + finalBeat.glide + FINAL_HOLD_MS : 0) * 1000;
   if (img && ctx && finalBeat) {
     drawFrame(ctx, img, grid, finalBeat.pos, undefined, 1);
     for (let i = 0; i < 3; i++) {
       requestCapturedFrame();
+      hardware?.encodeFrame(Math.round(finalTimestamp + i * 80_000));
       await wait(80);
     }
   }
-  await wait(RECORDER_FLUSH_MS);
-  if (recorder.state === "recording") {
-    try {
-      recorder.requestData();
-    } catch {
-      // Some mobile browsers only allow the final data request during stop().
+
+  let blob: Blob | null;
+  if (hardware) {
+    blob = await hardware.finish();
+  } else {
+    await wait(RECORDER_FLUSH_MS);
+    if (recorder!.state === "recording") {
+      try {
+        recorder!.requestData();
+      } catch {
+        // Some mobile browsers only allow the final data request during stop().
+      }
+      recorder!.stop();
     }
-    recorder.stop();
+    blob = await finished;
   }
-  const blob = await finished;
   stream?.getTracks().forEach((track) => track.stop());
-  if (!blob.size) {
+  if (!blob || !blob.size) {
     return { clip: null, error: "The recording came out empty — please try once more." };
   }
 
-  const recordedType = blob.type || recorder.mimeType || "";
+  const recordedType = blob.type || recorder?.mimeType || "";
   const ext = recordedType.includes("mp4") ? "mp4" : "webm";
   const type = ext === "mp4" ? "video/mp4" : "video/webm";
   const slug =
