@@ -143,7 +143,9 @@ interface HardwareEncoder {
   finish: () => Promise<Blob | null>;
 }
 
-async function createHardwareEncoder(): Promise<HardwareEncoder | null> {
+async function createHardwareEncoder(
+  canvas: HTMLCanvasElement,
+): Promise<HardwareEncoder | null> {
   if (
     typeof VideoEncoder === "undefined" ||
     typeof VideoFrame === "undefined"
@@ -185,7 +187,7 @@ async function createHardwareEncoder(): Promise<HardwareEncoder | null> {
   return {
     encodeFrame: (timestampUs: number) => {
       if (failed || encoder.state !== "configured") return;
-      const frame = new VideoFrame(encoderCanvas!, { timestamp: timestampUs });
+      const frame = new VideoFrame(canvas, { timestamp: timestampUs });
       try {
         encoder.encode(frame);
       } catch {
@@ -209,9 +211,6 @@ async function createHardwareEncoder(): Promise<HardwareEncoder | null> {
     },
   };
 }
-
-/** The offscreen canvas the hardware encoder reads frames from. */
-let encoderCanvas: HTMLCanvasElement | null = null;
 
 /**
  * Replays the solve on the real board (through `onBeat`) while quietly
