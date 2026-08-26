@@ -341,35 +341,43 @@ export async function recordReplay({
     requestAnimationFrame(step);
   });
 
-  if (!recorder || !finished) {
+  if (!hardware && (!recorder || !finished)) {
     return { clip: null, error: "This browser can't record video. Try Chrome or Safari." };
   }
 
   // Give mobile encoders several explicit final frames before closing the file.
   const finalBeat = beats[beats.length - 1];
+  const finalTimestamp = (finalBeat ? finalBeat.at + finalBeat.glide + FINAL_HOLD_MS : 0) * 1000;
   if (img && ctx && finalBeat) {
     drawFrame(ctx, img, grid, finalBeat.pos, undefined, 1);
     for (let i = 0; i < 3; i++) {
       requestCapturedFrame();
+      hardware?.encodeFrame(Math.round(finalTimestamp + i * 80_000));
       await wait(80);
     }
   }
-  await wait(RECORDER_FLUSH_MS);
-  if (recorder.state === "recording") {
-    try {
-      recorder.requestData();
-    } catch {
-      // Some mobile browsers only allow the final data request during stop().
+
+  let blob: Blob | null;
+  if (hardware) {
+    blob = await hardware.finish();
+  } else {
+    await wait(RECORDER_FLUSH_MS);
+    if (recorder!.state === "recording") {
+      try {
+        recorder!.requestData();
+      } catch {
+        // Some mobile browsers only allow the final data request during stop().
+      }
+      recorder!.stop();
     }
-    recorder.stop();
+    blob = await finished;
   }
-  const blob = await finished;
   stream?.getTracks().forEach((track) => track.stop());
-  if (!blob.size) {
+  if (!blob || !blob.size) {
     return { clip: null, error: "The recording came out empty — please try once more." };
   }
 
-  const recordedType = blob.type || recorder.mimeType || "";
+  const recordedType = blob.type || recorder?.mimeType || "";
   const ext = recordedType.includes("mp4") ? "mp4" : "webm";
   const type = ext === "mp4" ? "video/mp4" : "video/webm";
   const slug =
