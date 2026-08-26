@@ -346,9 +346,8 @@ export async function recordReplay({
   }
 
   // Give mobile encoders several explicit final frames before closing the file.
-  const finalBeat = beats[beats.length - 1];
-  if (img && ctx && finalBeat) {
-    drawFrame(ctx, img, grid, finalBeat.pos, undefined, 1);
+  if (ctx) {
+    paintEndCard(ctx, logo);
     for (let i = 0; i < 3; i++) {
       requestCapturedFrame();
       await wait(80);
