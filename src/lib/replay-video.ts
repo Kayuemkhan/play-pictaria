@@ -238,11 +238,17 @@ export async function recordReplay({
   canvas.height = CANVAS_H;
   const ctx = canvas.getContext("2d");
 
+  // Prefer the hardware encoder: it produces the standard MP4 that phones
+  // accept straight into Photos. MediaRecorder stays as the fallback.
+  const hardware =
+    img && ctx ? await createHardwareEncoder(canvas).catch(() => null) : null;
+
   const canRecord =
-    !!img &&
-    !!ctx &&
-    typeof MediaRecorder !== "undefined" &&
-    typeof canvas.captureStream === "function";
+    !!hardware ||
+    (!!img &&
+      !!ctx &&
+      typeof MediaRecorder !== "undefined" &&
+      typeof canvas.captureStream === "function");
 
   let recorder: MediaRecorder | null = null;
   let stream: MediaStream | null = null;
@@ -251,7 +257,7 @@ export async function recordReplay({
   let finished: Promise<Blob> | null = null;
   let started: Promise<void> | null = null;
 
-  if (canRecord) {
+  if (canRecord && !hardware) {
     const mime = [
       "video/mp4;codecs=h264",
       "video/mp4;codecs=avc1.42E01E",
