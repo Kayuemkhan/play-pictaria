@@ -339,9 +339,11 @@ export function PuzzleBoard({
       onBeat: () => {},
     });
 
+    // Keep the banner up for at least 9 seconds, and until the clip (which now
+    // includes a short branded end card) is fully recorded.
     await new Promise((resolve) => window.setTimeout(resolve, 9000));
-    setReplayBanner(false);
     const result = await resultPromise;
+    setReplayBanner(false);
 
     setPos(finalPos);
     setGroupOf(finalGroups);
