@@ -154,32 +154,39 @@ function drawFrame(
   pos: number[],
   from: number[] | undefined,
   k: number,
+  logo: HTMLImageElement | null,
+  title: string,
 ) {
-  ctx.fillStyle = "#ffffff";
-  ctx.fillRect(0, 0, CANVAS_W, CANVAS_H);
+  paintScene(ctx);
 
   const a = img.naturalWidth / img.naturalHeight;
-  const boardAspect = CANVAS_W / CANVAS_H;
-  const bw = a > boardAspect ? CANVAS_H * a : CANVAS_W;
-  const bh = a > boardAspect ? CANVAS_H : CANVAS_W / a;
-  const bx = (CANVAS_W - bw) / 2;
-  const by = (CANVAS_H - bh) / 2;
+  const boardAspect = BOARD_W / BOARD_H;
+  const bw = a > boardAspect ? BOARD_H * a : BOARD_W;
+  const bh = a > boardAspect ? BOARD_H : BOARD_W / a;
+  const bx = (BOARD_W - bw) / 2;
+  const by = (BOARD_H - bh) / 2;
 
-  const cw = CANVAS_W / grid;
-  const ch = CANVAS_H / grid;
+  const cw = BOARD_W / grid;
+  const ch = BOARD_H / grid;
+
+  // Soft mat behind the board so the puzzle reads as a framed picture.
+  ctx.fillStyle = "rgba(255, 255, 255, 0.14)";
+  ctx.beginPath();
+  ctx.roundRect(BOARD_X - 14, BOARD_Y - 14, BOARD_W + 28, BOARD_H + 28, 26);
+  ctx.fill();
 
   pos.forEach((cell, piece) => {
     const pr = Math.floor(piece / grid);
     const pc = piece % grid;
-    const sx = ((pc * CANVAS_W) / grid - bx) * (img.naturalWidth / bw);
-    const sy = ((pr * CANVAS_H) / grid - by) * (img.naturalHeight / bh);
+    const sx = ((pc * BOARD_W) / grid - bx) * (img.naturalWidth / bw);
+    const sy = ((pr * BOARD_H) / grid - by) * (img.naturalHeight / bh);
     const sw = cw * (img.naturalWidth / bw);
     const sh = ch * (img.naturalHeight / bh);
 
     const prev = from?.[piece] ?? cell;
     const lerp = (x: number, y: number) => x + (y - x) * k;
-    const dx = lerp((prev % grid) * cw, (cell % grid) * cw);
-    const dy = lerp(Math.floor(prev / grid) * ch, Math.floor(cell / grid) * ch);
+    const dx = BOARD_X + lerp((prev % grid) * cw, (cell % grid) * cw);
+    const dy = BOARD_Y + lerp(Math.floor(prev / grid) * ch, Math.floor(cell / grid) * ch);
     const moving = prev !== cell && k < 1;
 
     ctx.drawImage(img, sx, sy, sw, sh, dx, dy, cw, ch);
@@ -190,6 +197,8 @@ function drawFrame(
       ctx.strokeRect(dx + BORDER / 2, dy + BORDER / 2, cw - BORDER, ch - BORDER);
     }
   });
+
+  paintHeader(ctx, logo, title);
 }
 
 export interface ReplayClip {
