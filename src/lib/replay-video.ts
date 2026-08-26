@@ -310,9 +310,10 @@ export async function recordReplay({
     const start = performance.now();
     const finalBeat = beats[beats.length - 1]!;
     const animationEnd = finalBeat.at + finalBeat.glide;
+    const endCardStart = animationEnd + FINAL_HOLD_MS;
     let lastIndex = -1;
       if (img && ctx) {
-        drawFrame(ctx, img, grid, beats[0]!.pos, undefined, 1);
+        drawFrame(ctx, img, grid, beats[0]!.pos, undefined, 1, logo, title);
         requestCapturedFrame();
       }
     const step = () => {
@@ -321,18 +322,20 @@ export async function recordReplay({
       for (let i = 0; i < beats.length; i++) if (beats[i]!.at <= elapsed) index = i;
       const beat = beats[index]!;
       const prev = beats[index - 1];
-      if (index !== lastIndex) {
+      if (index !== lastIndex && elapsed < endCardStart) {
         lastIndex = index;
         onBeat(beat.pos);
       }
       const k = beat.glide ? Math.min(1, (elapsed - beat.at) / beat.glide) : 1;
       const eased = 1 - Math.pow(1 - k, 3);
-      if (img && ctx) {
-        if (elapsed >= animationEnd) drawFrame(ctx, img, grid, finalBeat.pos, undefined, 1);
-        else drawFrame(ctx, img, grid, beat.pos, prev?.pos, eased);
+      if (ctx) {
+        if (elapsed >= endCardStart) paintEndCard(ctx, logo);
+        else if (img && elapsed >= animationEnd)
+          drawFrame(ctx, img, grid, finalBeat.pos, undefined, 1, logo, title);
+        else if (img) drawFrame(ctx, img, grid, beat.pos, prev?.pos, eased, logo, title);
         requestCapturedFrame();
       }
-      if (elapsed < animationEnd + FINAL_HOLD_MS) requestAnimationFrame(step);
+      if (elapsed < endCardStart + END_CARD_MS) requestAnimationFrame(step);
       else resolve();
     };
     requestAnimationFrame(step);
