@@ -147,23 +147,13 @@ export function ReplaySaveModal({
             <div className="mt-4 flex flex-col items-center gap-2">
               {clip && (
                 <Button
-                  asChild={!!downloadUrl}
-                  type={downloadUrl ? undefined : "button"}
-                  onClick={downloadUrl ? markDownloadStarted : saveToDownloads}
+                  type="button"
+                  onClick={saveVideo}
                   disabled={saving}
                   className="w-full rounded-full bg-primary px-6 py-3 text-[0.7rem] font-medium tracking-[0.12em] text-primary-foreground uppercase hover:bg-primary/90"
                 >
-                  {downloadUrl ? (
-                    <a href={downloadUrl} download={clip.name} rel="noopener noreferrer">
-                      {saved ? <Check aria-hidden="true" /> : <Download aria-hidden="true" />}
-                      {saved ? "Saved" : "Save to downloads"}
-                    </a>
-                  ) : (
-                    <>
-                      {saved ? <Check aria-hidden="true" /> : <Download aria-hidden="true" />}
-                      {saved ? "Saved" : saving ? "Saving…" : "Save to downloads"}
-                    </>
-                  )}
+                  {saved ? <Check aria-hidden="true" /> : <Download aria-hidden="true" />}
+                  {saved ? "Saved" : saving ? "Saving…" : "Save my video"}
                 </Button>
               )}
             </div>
