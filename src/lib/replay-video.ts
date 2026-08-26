@@ -228,7 +228,16 @@ export async function recordReplay({
   const beats = toBeats(frames);
   if (!beats.length) return { clip: null, error: "No moves were recorded yet." };
 
-  const img = await loadImage(src);
+  // Make sure the brand fonts are ready before any canvas text is painted.
+  try {
+    await document.fonts?.ready;
+  } catch {
+    // Font loading is best-effort; serif fallbacks still look fine.
+  }
+  const [img, logo] = await Promise.all([
+    loadImage(src),
+    loadImage(palmLogoUrl).catch(() => null),
+  ]);
   const canvas = document.createElement("canvas");
   canvas.width = CANVAS_W;
   canvas.height = CANVAS_H;
@@ -257,7 +266,7 @@ export async function recordReplay({
       "video/webm;codecs=vp8",
       "video/webm",
     ].find((m) => MediaRecorder.isTypeSupported?.(m));
-    if (img && ctx) drawFrame(ctx, img, grid, beats[0]!.pos, undefined, 1);
+    if (img && ctx) drawFrame(ctx, img, grid, beats[0]!.pos, undefined, 1, logo, title);
 
     stream = canvas.captureStream(30);
     const [track] = stream.getVideoTracks();
