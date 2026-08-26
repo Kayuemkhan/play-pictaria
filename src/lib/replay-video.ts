@@ -133,6 +133,87 @@ export interface ReplayClip {
 }
 
 /**
+ * iPhone Safari's MediaRecorder writes a streaming-style MP4 that the Photos
+ * app refuses to accept ("Save Video" never appears in the share sheet). When
+ * the device offers a hardware video encoder (WebCodecs), we instead write a
+ * standard MP4 — the exact format Photos accepts, like the plumeria clip.
+ */
+interface HardwareEncoder {
+  encodeFrame: (timestampUs: number) => void;
+  finish: () => Promise<Blob | null>;
+}
+
+async function createHardwareEncoder(): Promise<HardwareEncoder | null> {
+  if (
+    typeof VideoEncoder === "undefined" ||
+    typeof VideoFrame === "undefined"
+  ) {
+    return null;
+  }
+
+  const config: VideoEncoderConfig = {
+    codec: "avc1.4d0028",
+    width: CANVAS_W,
+    height: CANVAS_H,
+    bitrate: 5_000_000,
+    framerate: 60,
+  };
+
+  try {
+    const support = await VideoEncoder.isConfigSupported(config);
+    if (!support.supported) return null;
+  } catch {
+    return null;
+  }
+
+  const muxer = new Muxer({
+    target: new ArrayBufferTarget(),
+    video: { codec: "avc", width: CANVAS_W, height: CANVAS_H },
+    fastStart: "in-memory",
+    firstTimestampBehavior: "offset",
+  });
+
+  let failed = false;
+  const encoder = new VideoEncoder({
+    output: (chunk, meta) => muxer.addVideoChunk(chunk, meta ?? {}),
+    error: () => {
+      failed = true;
+    },
+  });
+  encoder.configure(config);
+
+  return {
+    encodeFrame: (timestampUs: number) => {
+      if (failed || encoder.state !== "configured") return;
+      const frame = new VideoFrame(encoderCanvas!, { timestamp: timestampUs });
+      try {
+        encoder.encode(frame);
+      } catch {
+        failed = true;
+      }
+      frame.close();
+    },
+    finish: async () => {
+      if (failed) return null;
+      try {
+        await encoder.flush();
+        encoder.close();
+      } catch {
+        return null;
+      }
+      muxer.finalize();
+      const { buffer } = muxer.target as ArrayBufferTarget;
+      return buffer.byteLength
+        ? new Blob([buffer], { type: "video/mp4" })
+        : null;
+    },
+  };
+}
+
+/** The offscreen canvas the hardware encoder reads frames from. */
+let encoderCanvas: HTMLCanvasElement | null = null;
+
+/**
  * Replays the solve on the real board (through `onBeat`) while quietly
  * recording the same replay on an offscreen canvas, and hands back the clip.
  */
