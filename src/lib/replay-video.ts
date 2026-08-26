@@ -1,3 +1,4 @@
+import { ArrayBufferTarget, Muxer } from "mp4-muxer";
 import palmLogoUrl from "@/assets/logo-palms-only.png";
 
 export interface ReplayFrame {
