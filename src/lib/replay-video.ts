@@ -171,9 +171,13 @@ function drawFrame(
 
   // Soft mat behind the board so the puzzle reads as a framed picture.
   ctx.fillStyle = "rgba(255, 255, 255, 0.14)";
-  ctx.beginPath();
-  ctx.roundRect(BOARD_X - 14, BOARD_Y - 14, BOARD_W + 28, BOARD_H + 28, 26);
-  ctx.fill();
+  if (typeof ctx.roundRect === "function") {
+    ctx.beginPath();
+    ctx.roundRect(BOARD_X - 14, BOARD_Y - 14, BOARD_W + 28, BOARD_H + 28, 26);
+    ctx.fill();
+  } else {
+    ctx.fillRect(BOARD_X - 14, BOARD_Y - 14, BOARD_W + 28, BOARD_H + 28);
+  }
 
   pos.forEach((cell, piece) => {
     const pr = Math.floor(piece / grid);
