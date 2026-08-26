@@ -49,13 +49,12 @@ export function ReplaySaveModal({
     link.remove();
   }, [clip, downloadUrl]);
 
-  const markDownloadStarted = useCallback(() => {
-    setSaved(true);
-    setSaving(false);
-    setNote("Saved.");
-  }, []);
-
-  const saveToDownloads = useCallback(async () => {
+  /**
+   * Phones only put a video in Photos when it comes through the native share
+   * sheet ("Save Video"). So always try the share sheet first, and only fall
+   * back to a browser download when the device has no share support.
+   */
+  const saveVideo = useCallback(async () => {
     if (!clip || saving) return;
 
     setSaving(true);
@@ -66,7 +65,7 @@ export function ReplaySaveModal({
         navigator.canShare?.({ files: [file] }) &&
         typeof navigator.share === "function"
       ) {
-        setNote("Opening the save menu…");
+        setNote("Choose “Save Video” to keep it in your photos.");
         await navigator.share({ files: [file], title: "Pictaria replay" });
         setSaved(true);
         setNote("Saved.");
@@ -79,6 +78,7 @@ export function ReplaySaveModal({
     } catch (error) {
       if (error instanceof DOMException && error.name === "AbortError") {
         setNote("Save canceled.");
+        setSaving(false);
         return;
       }
       downloadWithBrowser();
