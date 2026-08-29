@@ -113,6 +113,16 @@ import waterfall07 from "@/assets/waterfall-07.jpg";
 import waterfall08 from "@/assets/waterfall-08.jpg";
 import waterfall09 from "@/assets/waterfall-09.jpg";
 import waterfall10 from "@/assets/waterfall-10.jpg";
+import pool01 from "@/assets/pool-01.jpg";
+import pool02 from "@/assets/pool-02.jpg";
+import pool03 from "@/assets/pool-03.jpg";
+import pool04 from "@/assets/pool-04.jpg";
+import pool05 from "@/assets/pool-05.jpg";
+import pool06 from "@/assets/pool-06.jpg";
+import pool07 from "@/assets/pool-07.jpg";
+import pool08 from "@/assets/pool-08.jpg";
+import pool09 from "@/assets/pool-09.jpg";
+import pool10 from "@/assets/pool-10.jpg";
 import sunset01 from "@/assets/sunset-01.jpg";
 import sunset02 from "@/assets/sunset-02.jpg";
 import sunset03 from "@/assets/sunset-03.jpg";
@@ -1825,6 +1835,75 @@ export const collections: Collection[] = [
         title: "Green Valley",
         caption: "Clouds drifting past the ridge",
         image: waterfall10,
+      },
+    ],
+  },
+  {
+    id: "hidden-pools",
+    title: "Hidden Pools",
+    tagline: "Ten clear-water pools and quiet cascades",
+    cover: pool01,
+    free: true,
+    puzzles: [
+      {
+        id: "pool-01",
+        title: "Stepping Water",
+        caption: "A two-tiered cascade into jade",
+        image: pool01,
+      },
+      {
+        id: "pool-02",
+        title: "Boulder Passage",
+        caption: "A stream threading giant stones",
+        image: pool02,
+      },
+      {
+        id: "pool-03",
+        title: "From Above",
+        caption: "Looking straight down into aquamarine",
+        image: pool03,
+      },
+      {
+        id: "pool-04",
+        title: "Stone Sheet",
+        caption: "Water sliding over curved granite",
+        image: pool04,
+      },
+      {
+        id: "pool-05",
+        title: "Fern Terraces",
+        caption: "Small falls stepping down basalt",
+        image: pool05,
+      },
+      {
+        id: "pool-06",
+        title: "Golden Canyon",
+        caption: "Late light on a pebbled stream",
+        image: pool06,
+      },
+      {
+        id: "pool-07",
+        title: "Grotto Light",
+        caption: "One sunbeam in a hidden chamber",
+        image: pool07,
+      },
+      {
+        id: "pool-08",
+        title: "Braided River",
+        caption: "Clear water around white boulders",
+        image: pool08,
+      },
+      {
+        id: "pool-09",
+        title: "The Edge",
+        caption: "A pool at the lip of the valley",
+        image: pool09,
+      },
+      {
+        id: "pool-10",
+        title: "Still Mirror",
+        caption: "Every stone visible beneath",
+        image: pool10,
       },
     ],
   },
