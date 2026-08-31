@@ -303,7 +303,7 @@ export const aquariumStories: Record<string, string[]> = {
     "A plumeria blossom that has fallen into the sea rides the surface like a little boat, still perfuming the water. Dolphins, turtles and even fish have been filmed carrying floating leaves and flowers to one another — passing an object back and forth with no reward but the game itself.",
   ],
   "aquarium-48": [
-    "Honu, the green sea turtle, is the only reef grazer that must come up to breathe, and it climbs toward the light in long unhurried strokes. Hawaiian families count the honu among their ʻaumakua, and a turtle rising through a curtain of sunbeams is the reef's oldest, calmest ritual.",
+    "With both front flippers stretched wide, a honu stops swimming and simply flies — the same underwater glide that carries these turtles thousands of miles of open ocean. Hawaiian families count the honu among their ʻaumakua, guardians of safe passage, and this is exactly the shape that earned them the name.",
   ],
   "aquarium-49": [
     "A thicket of pink cauliflower coral is thousands of animals sharing one skeleton, each polyp trading shelter for the sugars its algae make. The color you are looking at belongs to the algae — the coral is nearly clear, and this whole blushing garden is really borrowed light.",
