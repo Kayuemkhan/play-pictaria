@@ -3,6 +3,12 @@ import { useEffect, useState } from "react";
 import { Menu } from "lucide-react";
 
 export const menuLinks = [
+  // Temporary: quick access to the hidden "I Choose Me" collection.
+  {
+    to: "/collection/$collectionId",
+    params: { collectionId: "portal" },
+    label: "I Choose Me",
+  },
   { to: "/launch", label: "Launch" },
   { to: "/collections", label: "Galleries" },
   { to: "/about", label: "Travel to Pictaria" },
@@ -14,12 +20,6 @@ export const menuLinks = [
   { to: "/share", label: "Share Pictaria" },
   { to: "/vision-board", label: "Vision Board" },
   { to: "/pricing", label: "Pricing" },
-  // Temporary: quick access to the hidden "I Choose Me" collection.
-  {
-    to: "/collection/$collectionId",
-    params: { collectionId: "portal" },
-    label: "I Choose Me",
-  },
 ] as const;
 
 
