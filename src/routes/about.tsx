@@ -37,7 +37,7 @@ function AboutPage() {
       <div className="pointer-events-none fixed inset-0 -z-10 bg-deep" />
 
       {/* E Komo Mai — the cat gazing out into Pictaria, full color, fading into the blue */}
-      <div className="pointer-events-none fixed inset-x-0 top-0 -z-10 h-[62vh]">
+      <div className="pointer-events-none fixed inset-x-0 top-0 -z-10 h-[380px] sm:h-[480px]">
         <img
           src={eKomoMai}
           fetchPriority="high"
@@ -46,6 +46,7 @@ function AboutPage() {
           aria-hidden="true"
           className="h-full w-full object-cover"
           style={{
+            objectPosition: "50% 46%",
             maskImage:
               "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.95) 34%, rgba(0,0,0,0.6) 60%, rgba(0,0,0,0.25) 80%, rgba(0,0,0,0) 100%)",
             WebkitMaskImage:
@@ -78,7 +79,7 @@ function AboutPage() {
 
 
       {/* Science of Play sections */}
-      <section className="mt-8 px-4 sm:mt-12 sm:px-8">
+      <section className="mt-10 px-4 sm:mt-16 sm:px-8">
         <div className="mx-auto max-w-2xl space-y-5">
           <div className="rounded-[6px] border border-accent/40 bg-deep/50 p-5 backdrop-blur-sm sm:p-8">
             <h2 className="font-display text-lg text-gold-shimmer">Welcome Pictarians!</h2>
