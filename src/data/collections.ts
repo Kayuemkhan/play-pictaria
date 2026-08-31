@@ -410,6 +410,15 @@ import aquarium44 from "@/assets/aquarium-44.jpg";
 import aquarium45 from "@/assets/aquarium-45.jpg";
 import aquarium46 from "@/assets/aquarium-46.jpg";
 import aquarium47 from "@/assets/aquarium-47.jpg";
+import aquarium48 from "@/assets/aquarium-48.jpg";
+import aquarium49 from "@/assets/aquarium-49.jpg";
+import aquarium50 from "@/assets/aquarium-50.jpg";
+import aquarium51 from "@/assets/aquarium-51.jpg";
+import aquarium52 from "@/assets/aquarium-52.jpg";
+import aquarium53 from "@/assets/aquarium-53.jpg";
+import aquarium54 from "@/assets/aquarium-54.jpg";
+import aquarium55 from "@/assets/aquarium-55.jpg";
+import aquarium56 from "@/assets/aquarium-56.jpg";
 
 
 import { natureStories, aquariumStories } from "./stories-nature";
@@ -3986,6 +3995,69 @@ export const collections: Collection[] = [
         meaning: "Pua melia — the plumeria blossom",
         caption: "A flower found floating on the surface",
         image: aquarium47,
+      },
+      {
+        id: "aquarium-56",
+        title: "Lionfish",
+        meaning: "Beautiful and best admired from a distance",
+        caption: "Fins spread wide in the open blue",
+        image: aquarium56,
+      },
+      {
+        id: "aquarium-55",
+        title: "Hawksbill on the Ledge",
+        meaning: "ʻEa — the hawksbill turtle",
+        caption: "Resting where the reef drops away",
+        image: aquarium55,
+      },
+      {
+        id: "aquarium-54",
+        title: "Banded Coral Shrimp",
+        meaning: "The reef's smallest physician",
+        caption: "Red and white on a violet sponge",
+        image: aquarium54,
+      },
+      {
+        id: "aquarium-53",
+        title: "Silver Tornado",
+        meaning: "Hundreds moving as one",
+        caption: "A slow spiral under the surface",
+        image: aquarium53,
+      },
+      {
+        id: "aquarium-52",
+        title: "The Cleaning Station",
+        meaning: "A truce kept every morning",
+        caption: "A little wrasse tending a big grouper",
+        image: aquarium52,
+      },
+      {
+        id: "aquarium-51",
+        title: "Giant Clam",
+        meaning: "Electric velvet in a crevice",
+        caption: "Blue and gold, open to the light",
+        image: aquarium51,
+      },
+      {
+        id: "aquarium-50",
+        title: "Seahorse in the Seagrass",
+        meaning: "The father carries the eggs",
+        caption: "Anchored by a curl of tail",
+        image: aquarium50,
+      },
+      {
+        id: "aquarium-49",
+        title: "Pink Coral Garden",
+        meaning: "Koʻa — the coral",
+        caption: "A thicket blushing in borrowed light",
+        image: aquarium49,
+      },
+      {
+        id: "aquarium-48",
+        title: "Honu Rising",
+        meaning: "Honu — the green sea turtle",
+        caption: "Climbing a curtain of sunbeams",
+        image: aquarium48,
       },
     ],
   },

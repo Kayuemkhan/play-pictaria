@@ -302,6 +302,33 @@ export const aquariumStories: Record<string, string[]> = {
   "aquarium-47": [
     "A plumeria blossom that has fallen into the sea rides the surface like a little boat, still perfuming the water. Dolphins, turtles and even fish have been filmed carrying floating leaves and flowers to one another — passing an object back and forth with no reward but the game itself.",
   ],
+  "aquarium-48": [
+    "Honu, the green sea turtle, is the only reef grazer that must come up to breathe, and it climbs toward the light in long unhurried strokes. Hawaiian families count the honu among their ʻaumakua, and a turtle rising through a curtain of sunbeams is the reef's oldest, calmest ritual.",
+  ],
+  "aquarium-49": [
+    "A thicket of pink cauliflower coral is thousands of animals sharing one skeleton, each polyp trading shelter for the sugars its algae make. The color you are looking at belongs to the algae — the coral is nearly clear, and this whole blushing garden is really borrowed light.",
+  ],
+  "aquarium-50": [
+    "A seahorse anchors itself to a blade of seagrass with its tail and waits for the current to bring dinner past. It swims upright, changes color to match its perch, and it is the father who carries the eggs — a thousand of them — until they hatch.",
+  ],
+  "aquarium-51": [
+    "The giant clam wears its algae like a coat of electric velvet, and the pattern on that mantle belongs to that one animal alone. It can live more than a century in the same crevice, filtering the reef clean one breath of water at a time.",
+  ],
+  "aquarium-52": [
+    "At a cleaning station the reef keeps a truce: a grouper that could swallow a wrasse whole holds perfectly still, mouth open, while the little fish picks parasites from its gills. The same customers come back to the same cleaner day after day, and neither one cheats.",
+  ],
+  "aquarium-53": [
+    "A school this tight is a single decision made by hundreds of bodies, each fish reading the two or three neighbors closest to it. Spun into a slow silver tornado, they make it impossible for a hunter to choose — safety built entirely out of company.",
+  ],
+  "aquarium-54": [
+    "The banded coral shrimp waves its long white antennae like flags to advertise its services, and reef fish line up for them. It pairs for life, and the two of them tend their patch of coral together the way a couple tends a garden.",
+  ],
+  "aquarium-55": [
+    "ʻEa, the hawksbill turtle, is rarer than the honu and lives by the sponges no one else will eat. It rests on the edge of the drop-off where the reef ends and the open blue begins — a small ancient animal at the doorway of something enormous.",
+  ],
+  "aquarium-56": [
+    "The lionfish drifts with its fins spread wide, all warning and no hurry, every stripe a notice that those spines are venomous. It is stunning and it knows it, hovering in the open where nothing needs to chase it.",
+  ],
   "aquarium-45": [
     "The upside-down jellyfish flips over and rests on its bell so the algae living in its tissue can catch the sun, then lives largely on the sugars those algae make. A jellyfish that gardens — the same trick coral uses, in an animal that could simply have drifted.",
   ],
