@@ -233,6 +233,21 @@ import mindfulnessWaves from "@/assets/mindfulness-waves.jpg";
 import mindfulnessZenGarden from "@/assets/mindfulness-zengarden.jpg";
 import mindfulnessWaterfall from "@/assets/mindfulness-waterfall.jpg";
 import mindfulnessRockWall from "@/assets/mindfulness-rockwall.jpg";
+import mind12 from "@/assets/mind-12.jpg";
+import mind13 from "@/assets/mind-13.jpg";
+import mind14 from "@/assets/mind-14.jpg";
+import mind15 from "@/assets/mind-15.jpg";
+import mind16 from "@/assets/mind-16.jpg";
+import mind17 from "@/assets/mind-17.jpg";
+import mind18 from "@/assets/mind-18.jpg";
+import mind19 from "@/assets/mind-19.jpg";
+import mind20 from "@/assets/mind-20.jpg";
+import mind21 from "@/assets/mind-21.jpg";
+import mind22 from "@/assets/mind-22.jpg";
+import mind23 from "@/assets/mind-23.jpg";
+import mind24 from "@/assets/mind-24.jpg";
+import mind25 from "@/assets/mind-25.jpg";
+import mind26 from "@/assets/mind-26.jpg";
 
 
 
@@ -3264,7 +3279,7 @@ export const collections: Collection[] = [
   {
     id: "mindfulness",
     title: "Mindful Moments",
-    tagline: "Ten quiet places to slow down and settle in",
+    tagline: "Quiet places to slow down and settle in",
     cover: mindfulnessHero,
     free: true,
     puzzles: [
@@ -3376,6 +3391,156 @@ export const collections: Collection[] = [
         story: [
           "Hand-stacked walls were built stone by stone, with patience as the only tool that mattered.",
           "Solving a picture is the same craft in miniature — steady attention, and a quiet mind at the end of it.",
+        ],
+      },
+      {
+        id: "mind-12",
+        title: "Clear Pool",
+        caption: "A still pool so clear the stones lie open to the light",
+        image: mind12,
+        story: [
+          "Water this quiet stops hiding what is underneath. Every stone is simply itself, resting where the current left it.",
+          "“Muddy water is best cleared by leaving it alone.” — Alan Watts",
+        ],
+      },
+      {
+        id: "mind-13",
+        title: "Rain on Stone",
+        caption: "A wet stone Buddha in a warm bamboo rain",
+        image: mind13,
+        story: [
+          "The rain does not disturb him. It runs along the shoulders, gathers at the hands, and falls away, and the stone goes on being stone.",
+          "“Feelings come and go like clouds in a windy sky. Conscious breathing is my anchor.” — Thích Nhất Hạnh",
+        ],
+      },
+      {
+        id: "mind-14",
+        title: "Guanyin",
+        caption: "The goddess of mercy beside a lotus pond",
+        image: mind14,
+        story: [
+          "Guanyin is said to hear every cry in the world — she is the one who listens. Gardens place her near water so the listening feels close.",
+          "“Compassion is the ability to hear, and to stay.” — a temple saying",
+        ],
+      },
+      {
+        id: "mind-15",
+        title: "Koi Pond",
+        caption: "Bright koi drifting under green lily pads",
+        image: mind15,
+        story: [
+          "Koi swim without arriving anywhere. Watch one long enough and your own hurry begins to seem optional.",
+          "“Nature does not hurry, yet everything is accomplished.” — Lao Tzu",
+        ],
+      },
+      {
+        id: "mind-16",
+        title: "Bamboo Spout",
+        caption: "Water trickling from bamboo into a mossy basin",
+        image: mind16,
+        story: [
+          "A tsukubai is placed low on purpose, so that anyone drawing water must bow to reach it. Humility built out of stone and gravity.",
+          "“Drink your tea slowly and reverently.” — Thích Nhất Hạnh",
+        ],
+      },
+      {
+        id: "mind-17",
+        title: "Meandering Stream",
+        caption: "A stream stepping down through ferns and bamboo",
+        image: mind17,
+        story: [
+          "The stream takes the long way around every stone, and still it reaches the sea. Nothing here is wasted effort.",
+          "“In the midst of movement and chaos, keep stillness inside of you.” — Deepak Chopra",
+        ],
+      },
+      {
+        id: "mind-18",
+        title: "Light Through Bamboo",
+        caption: "A bronze Buddha in a grove full of golden light",
+        image: mind18,
+        story: [
+          "Bamboo grows straight because it grows slowly, one ring at a time. The statue seems to be waiting for nothing at all.",
+          "“Do not dwell in the past, do not dream of the future — concentrate the mind on the present moment.” — the Buddha",
+        ],
+      },
+      {
+        id: "mind-19",
+        title: "Resting Buddha",
+        caption: "A mossy reclining Buddha mirrored in still water",
+        image: mind19,
+        story: [
+          "Moss has softened the stone into the garden itself. Rest, it seems to say, is not the opposite of practice.",
+          "“Rest is not idleness — it is the ground everything else stands on.” — a Zen teaching",
+        ],
+      },
+      {
+        id: "mind-20",
+        title: "Garden Fountain",
+        caption: "A tiered fountain spilling into a mossy bowl",
+        image: mind20,
+        story: [
+          "The same water rises and falls all day and never tires of the circle. Some things are meant to be repeated, not finished.",
+          "“Be like water — soft enough to yield, strong enough to shape stone.” — Lao Tzu",
+        ],
+      },
+      {
+        id: "mind-21",
+        title: "Bamboo Path",
+        caption: "A green corridor of tall bamboo and moss",
+        image: mind21,
+        story: [
+          "The path narrows and the sound of everything else falls away. There is only the next few steps, which is usually all there ever is.",
+          "“Walk as if you are kissing the earth with your feet.” — Thích Nhất Hạnh",
+        ],
+      },
+      {
+        id: "mind-22",
+        title: "Mirror Pond",
+        caption: "A small Buddha and a sky doubled in the water",
+        image: mind22,
+        story: [
+          "When the water stops moving it holds the whole sky without effort. A quiet mind works the same way.",
+          "“The mind is like water. When it is calm, everything becomes clear.” — Prasad Mahes",
+        ],
+      },
+      {
+        id: "mind-23",
+        title: "Rain Rings",
+        caption: "Raindrops opening circles on a green pond",
+        image: mind23,
+        story: [
+          "Each drop makes a ring and then lets it go. Nothing is held onto, and nothing is lost.",
+          "“Let go, or be dragged.” — a Zen proverb",
+        ],
+      },
+      {
+        id: "mind-24",
+        title: "Stepping Stones",
+        caption: "A stone lantern beside a narrow garden stream",
+        image: mind24,
+        story: [
+          "Stepping stones are set slightly apart so you must slow down to cross. The garden is arranging your pace for you.",
+          "“Wherever you are, be there totally.” — Eckhart Tolle",
+        ],
+      },
+      {
+        id: "mind-25",
+        title: "Emerald Basin",
+        caption: "A soft waterfall filling a clear green pool",
+        image: mind25,
+        story: [
+          "The falling water is loud and the pool below stays calm. Both are the same river.",
+          "“You cannot stop the waves, but you can learn to surf.” — Jon Kabat-Zinn",
+        ],
+      },
+      {
+        id: "mind-26",
+        title: "Incense and Water",
+        caption: "A golden Buddha behind a small stone fountain",
+        image: mind26,
+        story: [
+          "Incense drifts up, water falls down, and between them somebody left a cushion and a little time.",
+          "“Smile, breathe, and go slowly.” — Thích Nhất Hạnh",
         ],
       },
     ],
