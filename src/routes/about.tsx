@@ -47,6 +47,25 @@ function AboutPage() {
         <div className="absolute inset-0 bg-deep/75" />
       </div>
 
+      {/* lush greenery — rich above the cards, fading softly downward */}
+      <div className="pointer-events-none fixed inset-x-0 top-0 -z-10 h-[78vh]">
+        <img
+          src={greenery}
+          alt=""
+          aria-hidden="true"
+          decoding="async"
+          className="h-full w-full object-cover"
+          style={{
+            opacity: 0.85,
+            maskImage:
+              "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.95) 30%, rgba(0,0,0,0.55) 55%, rgba(0,0,0,0.22) 75%, rgba(0,0,0,0) 100%)",
+            WebkitMaskImage:
+              "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.95) 30%, rgba(0,0,0,0.55) 55%, rgba(0,0,0,0.22) 75%, rgba(0,0,0,0) 100%)",
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-deep/25 via-deep/55 to-deep/85" />
+      </div>
+
       {/* hero */}
       <section className="relative overflow-hidden px-6 pt-6 pb-10 text-center sm:pt-8 sm:pb-12">
         <div className="absolute inset-0 bg-gradient-to-b from-seafoam/10 via-transparent to-deep/20" />
@@ -61,11 +80,12 @@ function AboutPage() {
               className="mx-auto h-11 w-auto rounded-[8px] drop-shadow-[0_4px_18px_oklch(0.15_0.04_230/0.65)] transition-transform hover:scale-[1.04] sm:h-14"
             />
           </Link>
-          <h1 className="mt-5 font-display text-[1.6rem] leading-snug text-shell sm:text-[2rem]">
+          <h1 className="mt-5 font-display text-[1.6rem] leading-snug text-shell">
             Travel to Pictaria
           </h1>
         </div>
       </section>
+
 
       {/* Science of Play sections */}
       <section className="px-4 sm:px-8">
