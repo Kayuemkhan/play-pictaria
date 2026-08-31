@@ -223,10 +223,7 @@ function DailyPage() {
                 <h2 className="font-display text-lg text-shell">
                   Send me a daily Pictaria
                 </h2>
-                <Label
-                  htmlFor="email"
-                  className="mt-6 block text-[0.55rem] tracking-[0.18em] text-shell/75 uppercase"
-                >
+                <Label htmlFor="email" className="sr-only">
                   Email address
                 </Label>
                 <Input
