@@ -37,7 +37,7 @@ function AboutPage() {
       <div className="pointer-events-none fixed inset-0 -z-10 bg-deep" />
 
       {/* E Komo Mai — the cat gazing out into Pictaria, full color, fading into the blue */}
-      <div className="pointer-events-none fixed inset-x-0 top-0 -z-10 h-[380px] sm:h-[480px]">
+      <div className="pointer-events-none fixed inset-x-0 top-0 -z-10 h-[320px] sm:h-[400px]">
         <img
           src={eKomoMai}
           fetchPriority="high"
@@ -46,7 +46,7 @@ function AboutPage() {
           aria-hidden="true"
           className="h-full w-full object-cover"
           style={{
-            objectPosition: "50% 46%",
+            objectPosition: "50% 74%",
             maskImage:
               "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.95) 34%, rgba(0,0,0,0.6) 60%, rgba(0,0,0,0.25) 80%, rgba(0,0,0,0) 100%)",
             WebkitMaskImage:
