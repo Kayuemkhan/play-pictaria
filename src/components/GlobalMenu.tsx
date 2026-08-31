@@ -14,6 +14,8 @@ export const menuLinks = [
   { to: "/share", label: "Share Pictaria" },
   { to: "/vision-board", label: "Vision Board" },
   { to: "/pricing", label: "Pricing" },
+  // Temporary: quick access to the hidden "I Choose Me" collection.
+  { to: "/collection/portal", label: "I Choose Me" },
 ] as const;
 
 
