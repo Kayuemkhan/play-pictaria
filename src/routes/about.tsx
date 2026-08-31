@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import palmLogo from "@/assets/logo-palms-only.png";
 import eKomoMai from "@/assets/cat-08.jpg";
+import greenery from "@/assets/pool-01.jpg";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
