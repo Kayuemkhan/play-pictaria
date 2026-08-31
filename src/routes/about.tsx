@@ -81,7 +81,7 @@ function AboutPage() {
               className="mx-auto h-11 w-auto rounded-[8px] drop-shadow-[0_4px_18px_oklch(0.15_0.04_230/0.65)] transition-transform hover:scale-[1.04] sm:h-14"
             />
           </Link>
-          <h1 className="mt-5 font-display text-[1.6rem] leading-snug text-shell">
+          <h1 className="mt-5 font-display text-[1.6rem] leading-snug text-shell sm:text-[2rem]">
             Travel to Pictaria
           </h1>
         </div>
@@ -89,7 +89,7 @@ function AboutPage() {
 
 
       {/* Science of Play sections */}
-      <section className="px-4 sm:px-8">
+      <section className="mt-16 px-4 sm:mt-24 sm:px-8">
         <div className="mx-auto max-w-2xl space-y-6">
           <div className="rounded-[6px] border border-accent/40 bg-deep/50 p-6 backdrop-blur-sm sm:p-10">
             <h2 className="font-display text-lg text-shell">Welcome Pictarians!</h2>
