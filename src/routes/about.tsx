@@ -93,7 +93,7 @@ function AboutPage() {
         <div className="mx-auto max-w-2xl space-y-6">
           <div className="rounded-[6px] border border-accent/40 bg-deep/50 p-6 backdrop-blur-sm sm:p-10">
             <h2 className="font-display text-lg text-gold-shimmer">Welcome Pictarians!</h2>
-            <p className="mx-auto mt-4 max-w-xl text-[0.9rem] leading-relaxed text-gold-shimmer/90">
+            <p className="mx-auto mt-4 max-w-xl text-[0.9rem] leading-relaxed text-gold-shimmer">
               We think of a Pictaria as more of a place than a puzzle. It’s a quiet invitation to linger with the moments that mean the most — a peaceful way to reconnect with what matters.
             </p>
           </div>
@@ -101,36 +101,36 @@ function AboutPage() {
 
           <div className="rounded-[6px] border border-accent/40 bg-deep/50 p-6 backdrop-blur-sm sm:p-10">
             <h2 className="font-display text-lg text-gold-shimmer">The Science of Play</h2>
-            <p className="mx-auto mt-4 max-w-xl text-[0.9rem] leading-relaxed text-gold-shimmer/90">
+            <p className="mx-auto mt-4 max-w-xl text-[0.9rem] leading-relaxed text-gold-shimmer">
               Research shows that puzzles do more than entertain. They engage memory, attention, processing speed, visual-spatial skills, and fine motor coordination. Mentally stimulating activities are also associated with healthier cognitive aging, while the focused nature of puzzling can encourage relaxation, mindfulness, and improved mood.
             </p>
           </div>
 
           <div className="rounded-[6px] border border-accent/40 bg-deep/50 p-6 backdrop-blur-sm sm:p-10">
             <h2 className="font-display text-lg text-gold-shimmer">There’s a Reason We Took That Photo</h2>
-            <p className="mx-auto mt-4 max-w-xl text-[0.9rem] leading-relaxed text-gold-shimmer/90">
+            <p className="mx-auto mt-4 max-w-xl text-[0.9rem] leading-relaxed text-gold-shimmer">
               We carry thousands of photos on our phones, yet rarely spend meaningful time with them. But there’s a reason we took each one. That person mattered. That place brought us joy. That moment was worth remembering. Pictaria lets you slow down and reconnect with those memories, piece by piece.
             </p>
           </div>
 
           <div className="rounded-[6px] border border-accent/40 bg-deep/50 p-6 backdrop-blur-sm sm:p-10">
             <h2 className="font-display text-lg text-gold-shimmer">Visualize</h2>
-            <p className="mx-auto mt-4 max-w-xl text-[0.9rem] leading-relaxed text-gold-shimmer/90">
+            <p className="mx-auto mt-4 max-w-xl text-[0.9rem] leading-relaxed text-gold-shimmer">
               There's a reason so many people use vision boards, including millionaires and CEOs. Your brain's Reticular Activating System (RAS) helps focus your attention on your goals and notice opportunities that might otherwise pass you by.
             </p>
-            <p className="mx-auto mt-4 max-w-xl text-[0.9rem] leading-relaxed text-gold-shimmer/90">
+            <p className="mx-auto mt-4 max-w-xl text-[0.9rem] leading-relaxed text-gold-shimmer">
               Pictaria makes vision boards active. As you build your vision piece by piece, the satisfaction of solving the puzzle connects a positive feeling to the image, bringing thought and emotion together with intention.
             </p>
-            <p className="mx-auto mt-4 max-w-xl text-[0.9rem] leading-relaxed text-gold-shimmer/90">
+            <p className="mx-auto mt-4 max-w-xl text-[0.9rem] leading-relaxed text-gold-shimmer">
               Years ago, when I had almost no money, I put a beautiful Maui property on my vision board. Within a year, an unexpected opportunity appeared, and I acquired that very property. And I have been a believer in vision boards and living in my dream home in Maui ever since.
             </p>
           </div>
           <div className="rounded-[6px] border border-accent/40 bg-deep/50 p-6 backdrop-blur-sm sm:p-10">
             <h2 className="font-display text-lg text-gold-shimmer">Find Your Frequency</h2>
-            <p className="mx-auto mt-4 max-w-xl text-[0.9rem] leading-relaxed text-gold-shimmer/90">
+            <p className="mx-auto mt-4 max-w-xl text-[0.9rem] leading-relaxed text-gold-shimmer">
               Sound is more than something we hear. It is a physical vibration, and scientists are discovering fascinating ways our brains and even our cells respond to it. Recent research has found that acoustic stimulation can influence gene activity and cellular behavior, while studies of entrainment explore how rhythmic sound may interact with the brain’s own electrical rhythms.
             </p>
-            <p className="mx-auto mt-4 max-w-xl text-[0.9rem] leading-relaxed text-gold-shimmer/90">
+            <p className="mx-auto mt-4 max-w-xl text-[0.9rem] leading-relaxed text-gold-shimmer">
               Research into music, sound, and binaural beats is showing promising possibilities for relaxation, focus, memory, mood, and stress reduction. The science is still unfolding, but the connection between sound, rhythm, and the human body is fascinating.
             </p>
           </div>
