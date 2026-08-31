@@ -233,6 +233,21 @@ import mindfulnessWaves from "@/assets/mindfulness-waves.jpg";
 import mindfulnessZenGarden from "@/assets/mindfulness-zengarden.jpg";
 import mindfulnessWaterfall from "@/assets/mindfulness-waterfall.jpg";
 import mindfulnessRockWall from "@/assets/mindfulness-rockwall.jpg";
+import mind12 from "@/assets/mind-12.jpg";
+import mind13 from "@/assets/mind-13.jpg";
+import mind14 from "@/assets/mind-14.jpg";
+import mind15 from "@/assets/mind-15.jpg";
+import mind16 from "@/assets/mind-16.jpg";
+import mind17 from "@/assets/mind-17.jpg";
+import mind18 from "@/assets/mind-18.jpg";
+import mind19 from "@/assets/mind-19.jpg";
+import mind20 from "@/assets/mind-20.jpg";
+import mind21 from "@/assets/mind-21.jpg";
+import mind22 from "@/assets/mind-22.jpg";
+import mind23 from "@/assets/mind-23.jpg";
+import mind24 from "@/assets/mind-24.jpg";
+import mind25 from "@/assets/mind-25.jpg";
+import mind26 from "@/assets/mind-26.jpg";
 
 
 
