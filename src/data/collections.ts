@@ -4054,9 +4054,9 @@ export const collections: Collection[] = [
       },
       {
         id: "aquarium-48",
-        title: "Honu Rising",
+        title: "Honu Flying",
         meaning: "Honu — the green sea turtle",
-        caption: "Climbing a curtain of sunbeams",
+        caption: "Flippers wide, gliding through open blue",
         image: aquarium48,
       },
     ],
