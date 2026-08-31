@@ -34,38 +34,28 @@ export const Route = createFileRoute("/about")({
 function AboutPage() {
   return (
     <main className="relative min-h-screen pb-12">
-      {/* E Komo Mai backdrop */}
-      <div className="pointer-events-none fixed inset-0 -z-10">
+      {/* deep blue base */}
+      <div className="pointer-events-none fixed inset-0 -z-10 bg-deep" />
+
+      {/* E Komo Mai — the cat gazing out into Pictaria, full color, fading into the blue */}
+      <div className="pointer-events-none fixed inset-x-0 top-0 -z-10 h-[62vh]">
         <img
           src={eKomoMai}
           fetchPriority="high"
           decoding="async"
-          alt="E Komo Mai — a cat gazing out a window at the ocean"
+          alt="E Komo Mai — a cat gazing out into Pictaria"
           aria-hidden="true"
-          className="h-full w-full object-cover grayscale-[40%]"
-          style={{ opacity: 0.35 }}
-        />
-        <div className="absolute inset-0 bg-deep/75" />
-      </div>
-
-      {/* cobblestone path to the sunset — rich above the cards, fading softly downward */}
-      <div className="pointer-events-none fixed inset-x-0 top-0 -z-10 h-[78vh]">
-        <img
-          src={pathSunset}
-          alt=""
-          aria-hidden="true"
-          decoding="async"
           className="h-full w-full object-cover"
           style={{
-            opacity: 0.85,
             maskImage:
-              "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.95) 30%, rgba(0,0,0,0.55) 55%, rgba(0,0,0,0.22) 75%, rgba(0,0,0,0) 100%)",
+              "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.95) 34%, rgba(0,0,0,0.6) 60%, rgba(0,0,0,0.25) 80%, rgba(0,0,0,0) 100%)",
             WebkitMaskImage:
-              "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.95) 30%, rgba(0,0,0,0.55) 55%, rgba(0,0,0,0.22) 75%, rgba(0,0,0,0) 100%)",
+              "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.95) 34%, rgba(0,0,0,0.6) 60%, rgba(0,0,0,0.25) 80%, rgba(0,0,0,0) 100%)",
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-deep/25 via-deep/55 to-deep/85" />
+        <div className="absolute inset-0 bg-gradient-to-b from-deep/10 via-deep/45 to-deep" />
       </div>
+
 
       {/* hero */}
       <section className="relative overflow-hidden px-6 pt-6 pb-10 text-center sm:pt-8 sm:pb-12">
