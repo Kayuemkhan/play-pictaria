@@ -3613,6 +3613,42 @@ export const collections: Collection[] = [
           "The honu always knows the way home, even across hundreds of miles of open ocean. Take her with you when you leave the portal — she is the quiet promise that you will always find your way back to the places you love.",
         ],
       },
+      {
+        id: "choose-me-01",
+        title: "Her Home, Her Peace",
+        caption: "The bear at the cottage gate",
+        image: chooseMe01Asset.url,
+        story: [
+          "She stands beside the bear on a path of broken eggshells, in front of the little house that was supposed to be safe. The sign says what she has not said out loud yet: her home, her peace.",
+        ],
+      },
+      {
+        id: "choose-me-02",
+        title: "That's Enough",
+        caption: "The roar, the reset, the eggshells",
+        image: chooseMe02Asset.url,
+        story: [
+          "No accountability. Reset. Lower expectations. Silence. Eggshells. She names the pattern out loud while the roar fills the room — and naming it is the first thing that has ever made it smaller.",
+        ],
+      },
+      {
+        id: "choose-me-03",
+        title: "I Choose Me",
+        caption: "The gate at sunset",
+        image: chooseMe03Asset.url,
+        story: [
+          "She closes the gate gently. The bear is still there, and the sun is going down over the whole open valley, and for the first time the words on the wood are hers: I choose me.",
+        ],
+      },
+      {
+        id: "choose-me-04",
+        title: "Today We Play",
+        caption: "The good day, in the flowers",
+        image: chooseMe04Asset.url,
+        story: [
+          "And then there are the good days — tea cups in the grass, the swing under the tree, the bear laughing with his paws in the air. Good days are for remembering. Today we play.",
+        ],
+      },
     ],
   },
   {
