@@ -1836,15 +1836,6 @@ export const collections: Collection[] = [
         caption: "Clouds drifting past the ridge",
         image: waterfall10,
       },
-    ],
-  },
-  {
-    id: "hidden-pools",
-    title: "Hidden Pools",
-    tagline: "Ten clear-water pools and quiet cascades",
-    cover: pool01,
-    free: true,
-    puzzles: [
       {
         id: "pool-01",
         title: "Stepping Water",
