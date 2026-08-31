@@ -37,7 +37,7 @@ function AboutPage() {
       <div className="pointer-events-none fixed inset-0 -z-10 bg-deep" />
 
       {/* E Komo Mai — the cat gazing out into Pictaria, full color, fading into the blue */}
-      <div className="pointer-events-none fixed inset-x-0 top-0 -z-10 h-[320px] sm:h-[400px]">
+      <div className="pointer-events-none fixed inset-x-0 top-0 -z-10 h-[392px] sm:h-[472px]">
         <img
           src={eKomoMai}
           fetchPriority="high"
@@ -58,7 +58,7 @@ function AboutPage() {
 
 
       {/* hero */}
-      <section className="relative overflow-hidden px-6 pt-5 pb-6 text-center sm:pt-6 sm:pb-8">
+      <section className="relative overflow-hidden px-6 pt-5 pb-2 text-center sm:pt-6 sm:pb-3">
         <div className="absolute inset-0 bg-gradient-to-b from-seafoam/10 via-transparent to-deep/20" />
 
         <div className="relative mx-auto max-w-2xl">
@@ -71,7 +71,7 @@ function AboutPage() {
               className="mx-auto h-11 w-auto rounded-[8px] drop-shadow-[0_4px_18px_oklch(0.15_0.04_230/0.65)] transition-transform hover:scale-[1.04] sm:h-14"
             />
           </Link>
-          <h1 className="mt-5 font-display text-[1.6rem] leading-snug text-gold-shimmer sm:text-[2rem]">
+          <h1 className="mt-8 font-display text-[1.6rem] leading-snug text-gold-shimmer sm:mt-12 sm:text-[2rem]">
             Travel to Pictaria
           </h1>
         </div>
@@ -79,7 +79,7 @@ function AboutPage() {
 
 
       {/* Science of Play sections */}
-      <section className="mt-10 px-4 sm:mt-16 sm:px-8">
+      <section className="mt-3 px-4 sm:mt-5 sm:px-8">
         <div className="mx-auto max-w-2xl space-y-5">
           <div className="rounded-[6px] border border-accent/40 bg-deep/50 p-5 backdrop-blur-sm sm:p-8">
             <h2 className="font-display text-lg text-gold-shimmer">Welcome Pictarians!</h2>
