@@ -410,6 +410,15 @@ import aquarium44 from "@/assets/aquarium-44.jpg";
 import aquarium45 from "@/assets/aquarium-45.jpg";
 import aquarium46 from "@/assets/aquarium-46.jpg";
 import aquarium47 from "@/assets/aquarium-47.jpg";
+import aquarium48 from "@/assets/aquarium-48.jpg";
+import aquarium49 from "@/assets/aquarium-49.jpg";
+import aquarium50 from "@/assets/aquarium-50.jpg";
+import aquarium51 from "@/assets/aquarium-51.jpg";
+import aquarium52 from "@/assets/aquarium-52.jpg";
+import aquarium53 from "@/assets/aquarium-53.jpg";
+import aquarium54 from "@/assets/aquarium-54.jpg";
+import aquarium55 from "@/assets/aquarium-55.jpg";
+import aquarium56 from "@/assets/aquarium-56.jpg";
 
 
 import { natureStories, aquariumStories } from "./stories-nature";
