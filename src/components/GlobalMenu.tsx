@@ -14,6 +14,12 @@ export const menuLinks = [
   { to: "/share", label: "Share Pictaria" },
   { to: "/vision-board", label: "Vision Board" },
   { to: "/pricing", label: "Pricing" },
+  // Temporary: quick access to the hidden "I Choose Me" collection.
+  {
+    to: "/collection/$collectionId",
+    params: { collectionId: "portal" },
+    label: "I Choose Me",
+  },
 ] as const;
 
 
@@ -64,6 +70,7 @@ export function GlobalMenu() {
               <Link
                 key={item.label}
                 to={item.to}
+                params={"params" in item ? item.params : {}}
                 onClick={() => setOpen(false)}
                 className="block px-4 py-2.5 text-[0.6rem] tracking-[0.2em] text-shell uppercase transition-colors hover:bg-accent/15 hover:text-accent"
               >
