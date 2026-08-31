@@ -15,7 +15,11 @@ export const menuLinks = [
   { to: "/vision-board", label: "Vision Board" },
   { to: "/pricing", label: "Pricing" },
   // Temporary: quick access to the hidden "I Choose Me" collection.
-  { to: "/collection/portal", label: "I Choose Me" },
+  {
+    to: "/collection/$collectionId",
+    params: { collectionId: "portal" },
+    label: "I Choose Me",
+  },
 ] as const;
 
 
