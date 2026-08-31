@@ -3279,7 +3279,7 @@ export const collections: Collection[] = [
   {
     id: "mindfulness",
     title: "Mindful Moments",
-    tagline: "Ten quiet places to slow down and settle in",
+    tagline: "Quiet places to slow down and settle in",
     cover: mindfulnessHero,
     free: true,
     puzzles: [
