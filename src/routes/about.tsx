@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import palmLogo from "@/assets/logo-palms-only.png";
 import eKomoMai from "@/assets/cat-08.jpg";
+import greenery from "@/assets/pool-01.jpg";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -47,6 +48,25 @@ function AboutPage() {
         <div className="absolute inset-0 bg-deep/75" />
       </div>
 
+      {/* lush greenery — rich above the cards, fading softly downward */}
+      <div className="pointer-events-none fixed inset-x-0 top-0 -z-10 h-[78vh]">
+        <img
+          src={greenery}
+          alt=""
+          aria-hidden="true"
+          decoding="async"
+          className="h-full w-full object-cover"
+          style={{
+            opacity: 0.85,
+            maskImage:
+              "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.95) 30%, rgba(0,0,0,0.55) 55%, rgba(0,0,0,0.22) 75%, rgba(0,0,0,0) 100%)",
+            WebkitMaskImage:
+              "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.95) 30%, rgba(0,0,0,0.55) 55%, rgba(0,0,0,0.22) 75%, rgba(0,0,0,0) 100%)",
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-deep/25 via-deep/55 to-deep/85" />
+      </div>
+
       {/* hero */}
       <section className="relative overflow-hidden px-6 pt-6 pb-10 text-center sm:pt-8 sm:pb-12">
         <div className="absolute inset-0 bg-gradient-to-b from-seafoam/10 via-transparent to-deep/20" />
@@ -67,8 +87,9 @@ function AboutPage() {
         </div>
       </section>
 
+
       {/* Science of Play sections */}
-      <section className="px-4 sm:px-8">
+      <section className="mt-16 px-4 sm:mt-24 sm:px-8">
         <div className="mx-auto max-w-2xl space-y-6">
           <div className="rounded-[6px] border border-accent/40 bg-deep/50 p-6 backdrop-blur-sm sm:p-10">
             <h2 className="font-display text-lg text-shell">Welcome Pictarians!</h2>
