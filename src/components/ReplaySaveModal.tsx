@@ -39,6 +39,7 @@ export function ReplaySaveModal({
   const [linkFailed, setLinkFailed] = useState(false);
   const [canShareFiles, setCanShareFiles] = useState(false);
   const startUpload = useServerFn(createReplayUpload);
+  const signDownload = useServerFn(signReplayDownload);
 
   useEffect(() => {
     if (!clip) {
