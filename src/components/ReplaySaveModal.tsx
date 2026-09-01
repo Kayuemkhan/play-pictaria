@@ -63,7 +63,7 @@ export function ReplaySaveModal({
     let active = true;
     void (async () => {
       try {
-        const { path, token, downloadUrl } = await startUpload({
+        const { path, token } = await startUpload({
           data: { name: clip.name },
         });
         const { error: uploadError } = await supabase.storage
@@ -72,6 +72,9 @@ export function ReplaySaveModal({
             contentType: clip.type,
           });
         if (uploadError) throw uploadError;
+        const { downloadUrl } = await signDownload({
+          data: { path, name: clip.name },
+        });
         if (active) setLinkUrl(downloadUrl);
       } catch {
         if (active) setLinkFailed(true);
@@ -80,7 +83,8 @@ export function ReplaySaveModal({
     return () => {
       active = false;
     };
-  }, [showVideo, clip, linkUrl, startUpload]);
+  }, [showVideo, clip, linkUrl, startUpload, signDownload]);
+
 
 
   const shareToPhotos = useCallback(async () => {
