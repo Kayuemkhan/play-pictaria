@@ -3,7 +3,11 @@ import { useServerFn } from "@tanstack/react-start";
 import { Check, Download, FolderDown, Loader2, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
-import { createReplayUpload } from "@/lib/replay-share.functions";
+import {
+  createReplayUpload,
+  signReplayDownload,
+} from "@/lib/replay-share.functions";
+
 import type { ReplayClip } from "@/lib/replay-video";
 
 /**
