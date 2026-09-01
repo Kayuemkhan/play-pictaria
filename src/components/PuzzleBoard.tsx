@@ -1299,12 +1299,13 @@ export function PuzzleBoard({
             >
               <SelectTrigger
                 aria-label="Change difficulty"
-                className="h-auto w-fit min-w-0 border-0 bg-transparent p-0 text-[11px] tracking-[0.18em] text-muted-foreground uppercase shadow-none hover:text-primary focus:ring-0 [&>svg]:ml-1 [&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-muted-foreground [&>span]:pr-1"
+                className="h-auto w-fit min-w-0 border-0 bg-transparent p-0 text-[15px] font-medium tracking-[0.1em] text-muted-foreground uppercase shadow-none hover:text-primary focus:ring-0 [&>svg]:ml-1 [&>svg]:h-4 [&>svg]:w-4 [&>svg]:opacity-100 [&>svg]:text-primary [&>span]:pr-0.5"
               >
                 <SelectValue>
                   {grid}×{grid}
                 </SelectValue>
               </SelectTrigger>
+
               <SelectContent className="min-w-[8rem]" align="start">
                 {difficulties.map((d) => (
                   <SelectItem key={d.grid} value={String(d.grid)}>
