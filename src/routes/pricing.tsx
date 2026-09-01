@@ -482,6 +482,18 @@ function PricingPage() {
           <p className="mt-3 text-xs leading-relaxed text-deep-foreground/85">
             Full analytics, included at no additional cost — opens, plays, completions, clicks, bookings, appointments, and purchases, so you always know exactly how your customers are engaging with your brand.
           </p>
+          <div className="mt-5 border border-accent/50 bg-deep/40 p-4">
+            <h3 className="font-display text-[0.7rem] font-semibold tracking-[0.18em] uppercase">
+              For hotels &amp; partners — a gift for every guest
+            </h3>
+            <p className="mt-2 text-xs leading-relaxed text-deep-foreground/85">
+              Give every guest a little more to take home than photographs. With
+              a complimentary Pictaria album, they can gather up to 10 favorite
+              images, moments, places, and feelings from Hawaiʻi in one private,
+              beautiful space they can revisit long after their stay.
+            </p>
+          </div>
+
           <div className="mt-4 flex flex-wrap items-center gap-3">
             <Link
               to="/my-pictaria"
