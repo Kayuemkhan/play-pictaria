@@ -1,6 +1,12 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 
+const nameSchema = z
+  .string()
+  .min(1)
+  .max(80)
+  .regex(/^[a-zA-Z0-9._-]+$/, "Invalid file name");
+
 /**
  * iOS Safari refuses to write `blob:` downloads to Files or Photos, so the clip
  * is parked in storage and handed back as a real https download link. The video
@@ -8,40 +14,37 @@ import { z } from "zod";
  * routing multi-megabyte base64 through a server function was far too slow.
  */
 export const createReplayUpload = createServerFn({ method: "POST" })
-  .inputValidator((data) =>
-    z
-      .object({
-        name: z
-          .string()
-          .min(1)
-          .max(80)
-          .regex(/^[a-zA-Z0-9._-]+$/, "Invalid file name"),
-      })
-      .parse(data),
-  )
+  .inputValidator((data) => z.object({ name: nameSchema }).parse(data))
   .handler(async ({ data }) => {
     const { supabaseAdmin } = await import(
       "@/integrations/supabase/client.server"
     );
     const path = `${crypto.randomUUID()}-${data.name}`;
 
-    const { data: upload, error: uploadError } = await supabaseAdmin.storage
+    const { data: upload, error } = await supabaseAdmin.storage
       .from("replays")
       .createSignedUploadUrl(path);
-    if (uploadError || !upload?.token) {
-      throw new Error(uploadError?.message ?? "That upload couldn't be started.");
+    if (error || !upload?.token) {
+      throw new Error(error?.message ?? "That upload couldn't be started.");
     }
 
-    const { data: signed, error: signError } = await supabaseAdmin.storage
+    return { path, token: upload.token };
+  });
+
+/** Signed download link, created once the clip is actually in storage. */
+export const signReplayDownload = createServerFn({ method: "POST" })
+  .inputValidator((data) =>
+    z.object({ path: z.string().min(1).max(200), name: nameSchema }).parse(data),
+  )
+  .handler(async ({ data }) => {
+    const { supabaseAdmin } = await import(
+      "@/integrations/supabase/client.server"
+    );
+    const { data: signed, error } = await supabaseAdmin.storage
       .from("replays")
-      .createSignedUrl(path, 60 * 60 * 24 * 7, { download: data.name });
-    if (signError || !signed?.signedUrl) {
-      throw new Error(signError?.message ?? "That link couldn't be created.");
+      .createSignedUrl(data.path, 60 * 60 * 24 * 7, { download: data.name });
+    if (error || !signed?.signedUrl) {
+      throw new Error(error?.message ?? "That link couldn't be created.");
     }
-
-    return {
-      path,
-      token: upload.token,
-      downloadUrl: signed.signedUrl,
-    };
+    return { downloadUrl: signed.signedUrl };
   });
