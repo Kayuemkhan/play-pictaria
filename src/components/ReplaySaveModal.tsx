@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
 import { Check, Download, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { uploadReplayClip } from "@/lib/replay-share.functions";
 import type { ReplayClip } from "@/lib/replay-video";
 
 /**
@@ -9,6 +11,18 @@ import type { ReplayClip } from "@/lib/replay-video";
  * 2. Tapping it reveals the clip with only a "Save to downloads" button.
  * The video's own play triangle handles replays, so no extra replay buttons are needed.
  */
+const toBase64 = (blob: Blob) =>
+  new Promise<string>((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const result = String(reader.result);
+      const comma = result.indexOf(",");
+      resolve(comma >= 0 ? result.slice(comma + 1) : result);
+    };
+    reader.onerror = () => reject(new Error("That clip couldn't be read."));
+    reader.readAsDataURL(blob);
+  });
+
 export function ReplaySaveModal({
   clip,
   error,
@@ -25,6 +39,8 @@ export function ReplaySaveModal({
   const [saved, setSaved] = useState(false);
   const [saving, setSaving] = useState(false);
   const [downloadUrl, setDownloadUrl] = useState<string | null>(null);
+  const [hostedUrl, setHostedUrl] = useState<string | null>(null);
+  const upload = useServerFn(uploadReplayClip);
 
   useEffect(() => {
     if (!clip) {
@@ -50,9 +66,35 @@ export function ReplaySaveModal({
   }, [clip, downloadUrl]);
 
   /**
+   * Blob downloads never reach Files or Photos on iOS Safari, so the clip is
+   * uploaded and handed back as a real https download link. Safari's download
+   * manager writes that to Downloads, and the link can be shared as-is.
+   */
+  const saveViaLink = useCallback(async () => {
+    if (!clip) return false;
+    try {
+      const base64 = await toBase64(clip.blob);
+      const { downloadUrl: hosted } = await upload({
+        data: {
+          base64,
+          name: clip.name,
+          type: clip.type === "video/mp4" ? "video/mp4" : "video/webm",
+        },
+      });
+      setHostedUrl(hosted);
+      window.location.href = hosted;
+      setSaved(true);
+      setNote("Saved to your downloads. Tap the link below if it didn't start.");
+      return true;
+    } catch {
+      return false;
+    }
+  }, [clip, upload]);
+
+  /**
    * Phones only put a video in Photos when it comes through the native share
-   * sheet ("Save Video"). So always try the share sheet first, and only fall
-   * back to a browser download when the device has no share support.
+   * sheet ("Save Video"). So always try the share sheet first, then fall back
+   * to a hosted download link, and finally to a plain browser download.
    */
   const saveVideo = useCallback(async () => {
     if (!clip || saving) return;
@@ -62,32 +104,36 @@ export function ReplaySaveModal({
     try {
       const file = new File([clip.blob], clip.name, { type: clip.type });
       if (
-        navigator.canShare?.({ files: [file] }) &&
-        typeof navigator.share === "function"
+        typeof navigator.share === "function" &&
+        navigator.canShare?.({ files: [file] })
       ) {
-        setNote("Choose “Save Video” to keep it in your photos.");
-        await navigator.share({ files: [file], title: "Pictaria replay" });
-        setSaved(true);
-        setNote("Saved.");
-        return;
+        try {
+          setNote("Choose “Save Video” to keep it in your photos.");
+          await navigator.share({ files: [file], title: "Pictaria replay" });
+          setSaved(true);
+          setNote("Saved.");
+          return;
+        } catch (shareError) {
+          if (
+            shareError instanceof DOMException &&
+            shareError.name === "AbortError"
+          ) {
+            setNote("Save canceled.");
+            return;
+          }
+        }
       }
 
-      downloadWithBrowser();
-      setSaved(true);
-      setNote("Saved.");
-    } catch (error) {
-      if (error instanceof DOMException && error.name === "AbortError") {
-        setNote("Save canceled.");
-        setSaving(false);
-        return;
-      }
+      setNote("Preparing your download…");
+      if (await saveViaLink()) return;
+
       downloadWithBrowser();
       setSaved(true);
       setNote("Saved.");
     } finally {
       setSaving(false);
     }
-  }, [clip, downloadWithBrowser, saving]);
+  }, [clip, downloadWithBrowser, saveViaLink, saving]);
 
   return (
     <div className="fixed inset-0 z-[200] flex items-center justify-center bg-deep/70 px-4 py-6">
@@ -155,6 +201,14 @@ export function ReplaySaveModal({
                   {saved ? <Check aria-hidden="true" /> : <Download aria-hidden="true" />}
                   {saved ? "Saved" : saving ? "Saving…" : "Save my video"}
                 </Button>
+              )}
+              {hostedUrl && (
+                <a
+                  href={hostedUrl}
+                  className="text-[0.7rem] leading-relaxed text-primary underline"
+                >
+                  Open my video link
+                </a>
               )}
             </div>
           </>
