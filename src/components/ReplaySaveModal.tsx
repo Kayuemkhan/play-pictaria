@@ -1,14 +1,25 @@
 import { useCallback, useEffect, useState } from "react";
-import { Check, Download, Play } from "lucide-react";
+import { useServerFn } from "@tanstack/react-start";
+import { Check, Download, FolderDown, Loader2, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { supabase } from "@/integrations/supabase/client";
+import {
+  createReplayUpload,
+  signReplayDownload,
+} from "@/lib/replay-share.functions";
+
 import type { ReplayClip } from "@/lib/replay-video";
 
 /**
  * Two-step replay result:
  * 1. A "See my video" prompt appears right after the replay finishes.
- * 2. Tapping it reveals the clip with only a "Save to downloads" button.
- * The video's own play triangle handles replays, so no extra replay buttons are needed.
+ * 2. Tapping it plays the clip and offers two clear iPhone-friendly saves:
+ *    "Save to Photos" goes through the share sheet, and "Save to Files" uses a
+ *    real https link (blob downloads never land anywhere on iOS Safari).
+ * The video's own play triangle handles replays, so no extra replay buttons.
  */
+
+
 export function ReplaySaveModal({
   clip,
   error,
@@ -23,71 +34,89 @@ export function ReplaySaveModal({
   const [showVideo, setShowVideo] = useState(false);
   const [note, setNote] = useState<string | null>(null);
   const [saved, setSaved] = useState(false);
-  const [saving, setSaving] = useState(false);
-  const [downloadUrl, setDownloadUrl] = useState<string | null>(null);
+  const [sharing, setSharing] = useState(false);
+  const [linkUrl, setLinkUrl] = useState<string | null>(null);
+  const [linkFailed, setLinkFailed] = useState(false);
+  const [canShareFiles, setCanShareFiles] = useState(false);
+  const startUpload = useServerFn(createReplayUpload);
+  const signDownload = useServerFn(signReplayDownload);
 
   useEffect(() => {
     if (!clip) {
-      setDownloadUrl(null);
+      setCanShareFiles(false);
       return;
     }
-
-    const url = URL.createObjectURL(clip.blob);
-    setDownloadUrl(url);
-    return () => URL.revokeObjectURL(url);
-  }, [clip]);
-
-  const downloadWithBrowser = useCallback(() => {
-    if (!clip || !downloadUrl) return;
-
-    const link = document.createElement("a");
-    link.href = downloadUrl;
-    link.download = clip.name;
-    link.rel = "noopener noreferrer";
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-  }, [clip, downloadUrl]);
-
-  /**
-   * Phones only put a video in Photos when it comes through the native share
-   * sheet ("Save Video"). So always try the share sheet first, and only fall
-   * back to a browser download when the device has no share support.
-   */
-  const saveVideo = useCallback(async () => {
-    if (!clip || saving) return;
-
-    setSaving(true);
-    setSaved(false);
     try {
       const file = new File([clip.blob], clip.name, { type: clip.type });
-      if (
-        navigator.canShare?.({ files: [file] }) &&
-        typeof navigator.share === "function"
-      ) {
-        setNote("Choose “Save Video” to keep it in your photos.");
-        await navigator.share({ files: [file], title: "Pictaria replay" });
-        setSaved(true);
-        setNote("Saved.");
-        return;
-      }
-
-      downloadWithBrowser();
-      setSaved(true);
-      setNote("Saved.");
-    } catch (error) {
-      if (error instanceof DOMException && error.name === "AbortError") {
-        setNote("Save canceled.");
-        setSaving(false);
-        return;
-      }
-      downloadWithBrowser();
-      setSaved(true);
-      setNote("Saved.");
-    } finally {
-      setSaving(false);
+      setCanShareFiles(
+        typeof navigator.share === "function" &&
+          Boolean(navigator.canShare?.({ files: [file] })),
+      );
+    } catch {
+      setCanShareFiles(false);
     }
-  }, [clip, downloadWithBrowser, saving]);
+  }, [clip]);
+
+  /**
+   * The hosted link is prepared as soon as the video is revealed, so tapping
+   * "Save to Files" is a direct user gesture on a real URL — Safari blocks
+   * downloads that start after an await. The clip goes straight from the phone
+   * to storage through a signed upload URL, which keeps the wait short.
+   */
+  useEffect(() => {
+    if (!showVideo || !clip || linkUrl) return;
+    let active = true;
+    void (async () => {
+      try {
+        const { path, token } = await startUpload({
+          data: { name: clip.name },
+        });
+        const { error: uploadError } = await supabase.storage
+          .from("replays")
+          .uploadToSignedUrl(path, token, clip.blob, {
+            contentType: clip.type,
+          });
+        if (uploadError) throw uploadError;
+        const { downloadUrl } = await signDownload({
+          data: { path, name: clip.name },
+        });
+        if (active) setLinkUrl(downloadUrl);
+      } catch {
+        if (active) setLinkFailed(true);
+      }
+    })();
+    return () => {
+      active = false;
+    };
+  }, [showVideo, clip, linkUrl, startUpload, signDownload]);
+
+
+
+  const shareToPhotos = useCallback(async () => {
+    if (!clip || sharing) return;
+    setSharing(true);
+    try {
+      const file = new File([clip.blob], clip.name, { type: clip.type });
+      setNote("Choose “Save Video” to keep it in your Photos.");
+      await navigator.share({ files: [file], title: "Pictaria replay" });
+      setSaved(true);
+      setNote("Saved to your Photos.");
+    } catch (shareError) {
+      if (shareError instanceof DOMException && shareError.name === "AbortError") {
+        setNote("Save canceled.");
+      } else {
+        setNote("Photos didn't accept it — try Save to Files instead.");
+      }
+    } finally {
+      setSharing(false);
+    }
+  }, [clip, sharing]);
+
+  const hint = clip
+    ? canShareFiles
+      ? "Save to Photos opens the share sheet — choose “Save Video”."
+      : "Save to Files downloads the video to your phone."
+    : (error ?? "Please try the replay once more.");
 
   return (
     <div className="fixed inset-0 z-[200] flex items-center justify-center bg-deep/70 px-4 py-6">
@@ -138,25 +167,56 @@ export function ReplaySaveModal({
             )}
 
             <p className="mt-3 text-center text-[0.7rem] leading-relaxed text-muted-foreground">
-              {note ??
-                (clip
-                  ? "Tap below to save your video."
-                  : (error ?? "Please try the replay once more."))}
+              {note ?? hint}
             </p>
 
-            <div className="mt-4 flex flex-col items-center gap-2">
-              {clip && (
-                <Button
-                  type="button"
-                  onClick={saveVideo}
-                  disabled={saving}
-                  className="w-full rounded-full bg-primary px-6 py-3 text-[0.7rem] font-medium tracking-[0.12em] text-primary-foreground uppercase hover:bg-primary/90"
-                >
-                  {saved ? <Check aria-hidden="true" /> : <Download aria-hidden="true" />}
-                  {saved ? "Saved" : saving ? "Saving…" : "Save my video"}
-                </Button>
-              )}
-            </div>
+            {clip && (
+              <div className="mt-4 flex flex-col items-center gap-2">
+                {canShareFiles && (
+                  <Button
+                    type="button"
+                    onClick={shareToPhotos}
+                    disabled={sharing}
+                    className="w-full rounded-full bg-primary px-6 py-3 text-[0.7rem] font-medium tracking-[0.12em] text-primary-foreground uppercase hover:bg-primary/90"
+                  >
+                    {saved ? (
+                      <Check aria-hidden="true" />
+                    ) : (
+                      <Download aria-hidden="true" />
+                    )}
+                    {saved ? "Saved" : sharing ? "Saving…" : "Save to Photos"}
+                  </Button>
+                )}
+
+                {linkUrl ? (
+                  <a
+                    href={linkUrl}
+                    download={clip.name}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={() => setNote("Saving to your Files…")}
+                    className={`flex w-full items-center justify-center gap-2 rounded-full px-6 py-3 text-[0.7rem] font-medium tracking-[0.12em] uppercase ${
+                      canShareFiles
+                        ? "border border-primary/40 text-primary"
+                        : "bg-primary text-primary-foreground"
+                    }`}
+                  >
+                    <FolderDown className="h-4 w-4" aria-hidden="true" />
+                    Save to Files
+                  </a>
+                ) : linkFailed ? (
+                  <p className="text-[0.65rem] leading-relaxed text-muted-foreground">
+                    The download link didn’t prepare this time. Please replay
+                    once more.
+                  </p>
+                ) : (
+                  <p className="flex items-center justify-center gap-2 text-[0.65rem] tracking-[0.12em] text-muted-foreground uppercase">
+                    <Loader2 className="h-3.5 w-3.5 animate-spin" aria-hidden="true" />
+                    Preparing download…
+                  </p>
+                )}
+              </div>
+            )}
           </>
         )}
       </div>
