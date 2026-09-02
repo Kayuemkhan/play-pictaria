@@ -1,6 +1,6 @@
 import { useEffect, useId, useState } from "react";
 import { Camera } from "lucide-react";
-import resortCove from "@/assets/fsm-resort-cove.jpg.asset.json";
+import resortCove from "@/assets/fsm-resort-cove.jpg";
 import { CameraCapture } from "@/components/CameraCapture";
 
 type PickProps = {
@@ -152,7 +152,7 @@ export function PhotoPlaceholder({
   return (
     <>
       <img
-        src={resortCove.url}
+        src={resortCove}
         alt=""
         className={`absolute inset-0 h-full w-full object-cover ${
           dark ? "opacity-40 grayscale-[70%]" : "opacity-30 grayscale-[60%]"

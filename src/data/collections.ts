@@ -14,16 +14,16 @@ import pinup10 from "@/assets/pinup-10.jpg";
 import portalShark from "@/assets/portal-shark.jpg";
 import portalPanda from "@/assets/portal-panda.jpg";
 import portalTurtle from "@/assets/portal-turtle.jpg";
-import chooseMe01Asset from "@/assets/choose-me-01.jpg.asset.json";
-import chooseMe02Asset from "@/assets/choose-me-02.jpg.asset.json";
-import chooseMe03Asset from "@/assets/choose-me-03.jpg.asset.json";
-import chooseMe04Asset from "@/assets/choose-me-04.jpg.asset.json";
+import chooseMe01Asset from "@/assets/choose-me-01.jpg";
+import chooseMe02Asset from "@/assets/choose-me-02.jpg";
+import chooseMe03Asset from "@/assets/choose-me-03.jpg";
+import chooseMe04Asset from "@/assets/choose-me-04.jpg";
 import larissa01 from "@/assets/larissa-vacay-01-sarong.jpg";
-import larissa02 from "@/assets/larissa-vacay-02.jpg.asset.json";
+import larissa02 from "@/assets/larissa-vacay-02.jpg";
 import larissa03 from "@/assets/larissa-vacay-03-retouch.jpg";
-import larissa04 from "@/assets/larissa-vacay-04.jpg.asset.json";
-import larissa05 from "@/assets/larissa-vacay-05.jpg.asset.json";
-import larissa06 from "@/assets/larissa-vacay-06.jpg.asset.json";
+import larissa04 from "@/assets/larissa-vacay-04.jpg";
+import larissa05 from "@/assets/larissa-vacay-05.jpg";
+import larissa06 from "@/assets/larissa-vacay-06.jpg";
 import turtle01 from "@/assets/turtle-01.jpg";
 import turtle02 from "@/assets/turtle-02.jpg";
 import turtle03 from "@/assets/turtle-03.jpg";
@@ -32,7 +32,7 @@ import turtle05 from "@/assets/turtle-05.jpg";
 import turtle06 from "@/assets/turtle-06.jpg";
 import turtle07 from "@/assets/turtle-07.jpg";
 import turtle08 from "@/assets/turtle-08.jpg";
-import turtle09 from "@/assets/turtle-09.jpg.asset.json";
+import turtle09 from "@/assets/turtle-09.jpg";
 import turtle10 from "@/assets/turtle-10.jpg";
 import turtle11 from "@/assets/turtle-11.jpg";
 import turtle12 from "@/assets/turtle-12.jpg";
@@ -258,41 +258,41 @@ import mind26 from "@/assets/mind-26.jpg";
 
 import coverWaterfalls from "@/assets/cover-waterfalls.jpg";
 import coverSunsets from "@/assets/cover-sunsets.jpg";
-import fsmResortCove from "@/assets/fsm-resort-cove.jpg.asset.json";
-import fsmInfinitySunset from "@/assets/fsm-infinity-sunset.jpg.asset.json";
-import fsmPoolCaviar from "@/assets/fsm-pool-caviar.jpg.asset.json";
-import fsmCanoeGirls from "@/assets/fsm-canoe-girls.jpg.asset.json";
-import fsmBeachYoga from "@/assets/fsm-beach-yoga.jpg.asset.json";
-import fsmSwimUpBar from "@/assets/fsm-swim-up-bar.jpg.asset.json";
-import fsmInfinitySwim from "@/assets/fsm-infinity-swim.jpg.asset.json";
+import fsmResortCove from "@/assets/fsm-resort-cove.jpg";
+import fsmInfinitySunset from "@/assets/fsm-infinity-sunset.jpg";
+import fsmPoolCaviar from "@/assets/fsm-pool-caviar.jpg";
+import fsmCanoeGirls from "@/assets/fsm-canoe-girls.jpg";
+import fsmBeachYoga from "@/assets/fsm-beach-yoga.jpg";
+import fsmSwimUpBar from "@/assets/fsm-swim-up-bar.jpg";
+import fsmInfinitySwim from "@/assets/fsm-infinity-swim.jpg";
 import fsmMissingPiece from "@/assets/fsm-missing-piece.jpg";
 import fsmPoiBread from "@/assets/fsm-poi-bread.jpg";
-import amy01 from "@/assets/amy-art-01.jpg.asset.json";
-import amy02 from "@/assets/amy-art-02.jpg.asset.json";
-import amy03 from "@/assets/amy-art-03.jpg.asset.json";
-import amy04 from "@/assets/amy-art-04.jpg.asset.json";
-import amy05 from "@/assets/amy-art-05.jpg.asset.json";
-import amy06 from "@/assets/amy-art-06.jpg.asset.json";
-import amy07 from "@/assets/amy-art-07.jpg.asset.json";
-import amy09 from "@/assets/amy-art-09.jpg.asset.json";
-import amy10 from "@/assets/amy-art-10.jpg.asset.json";
-import amy15 from "@/assets/amy-art-15.jpg.asset.json";
-import amy16 from "@/assets/amy-art-16.jpg.asset.json";
-import amy17 from "@/assets/amy-art-17.jpg.asset.json";
-import amy18 from "@/assets/amy-art-18-v2.jpg.asset.json";
-import amy19 from "@/assets/amy-art-19.jpg.asset.json";
-import amy20 from "@/assets/amy-art-20.jpg.asset.json";
+import amy01 from "@/assets/amy-art-01.jpg";
+import amy02 from "@/assets/amy-art-02.jpg";
+import amy03 from "@/assets/amy-art-03.jpg";
+import amy04 from "@/assets/amy-art-04.jpg";
+import amy05 from "@/assets/amy-art-05.jpg";
+import amy06 from "@/assets/amy-art-06.jpg";
+import amy07 from "@/assets/amy-art-07.jpg";
+import amy09 from "@/assets/amy-art-09.jpg";
+import amy10 from "@/assets/amy-art-10.jpg";
+import amy15 from "@/assets/amy-art-15.jpg";
+import amy16 from "@/assets/amy-art-16.jpg";
+import amy17 from "@/assets/amy-art-17.jpg";
+import amy18 from "@/assets/amy-art-18-v2.jpg";
+import amy19 from "@/assets/amy-art-19.jpg";
+import amy20 from "@/assets/amy-art-20.jpg";
 
 import amy11Retouched from "@/assets/amy-art-11-retouched-v2.jpg";
-import amy12 from "@/assets/amy-art-12.jpg.asset.json";
+import amy12 from "@/assets/amy-art-12.jpg";
 
 import amy06Enhanced from "@/assets/amy-art-06-enhanced.jpg";
 import amy03Enhanced from "@/assets/amy-art-03-enhanced.jpg";
 import amy05Enhanced from "@/assets/amy-art-05-enhanced.jpg";
 import amy08Enhanced from "@/assets/amy-art-08-enhanced.jpg";
 import amy13Enhanced from "@/assets/amy-art-13-enhanced.jpg";
-import hanaTurtlePendant from "@/assets/hana-turtle-pendant.jpg.asset.json";
-import earringBeachModel from "@/assets/earring-beach-model.jpg.asset.json";
+import hanaTurtlePendant from "@/assets/hana-turtle-pendant.jpg";
+import earringBeachModel from "@/assets/earring-beach-model.jpg";
 
 import healNoni from "@/assets/heal-01-noni.jpg";
 import healOlena from "@/assets/heal-02-olena.jpg";
@@ -1727,7 +1727,7 @@ export const collections: Collection[] = [
         id: "turtle-09",
         title: "Tide Pool",
         caption: "Sunlight through the swell",
-        image: turtle09.url,
+        image: turtle09,
       },
       {
         id: "turtle-10",
@@ -2853,7 +2853,7 @@ export const collections: Collection[] = [
     id: "four-seasons-maui",
     title: "Four Seasons Maui",
     tagline: "Wailea, as their photographers see it",
-    cover: fsmResortCove.url,
+    cover: fsmResortCove,
     free: true,
     storybook: { owner: "Four Seasons Maui", plan: "white-label" },
     puzzles: [
@@ -2861,13 +2861,13 @@ export const collections: Collection[] = [
         id: "fsm-01",
         title: "Wailea",
         caption: "Sunrise over the resort cove",
-        image: fsmResortCove.url,
+        image: fsmResortCove,
       },
       {
         id: "fsm-02",
         title: "Infinity",
         caption: "Palms and dusk at the edge pool",
-        image: fsmInfinitySunset.url,
+        image: fsmInfinitySunset,
       },
       {
         id: "fsm-06",
@@ -2879,25 +2879,25 @@ export const collections: Collection[] = [
         id: "fsm-05",
         title: "Warrior",
         caption: "Morning practice on the sand",
-        image: fsmBeachYoga.url,
+        image: fsmBeachYoga,
       },
       {
         id: "fsm-03",
         title: "Poolside",
         caption: "Umbrellas, salads, and open ocean",
-        image: fsmPoolCaviar.url,
+        image: fsmPoolCaviar,
       },
       {
         id: "fsm-04",
         title: "To the Break",
         caption: "Carrying the board to the shore break",
-        image: fsmCanoeGirls.url,
+        image: fsmCanoeGirls,
       },
       {
         id: "fsm-07",
         title: "Ka Pā Inu",
         caption: "The swim-up bar, stone seats under the water",
-        image: fsmSwimUpBar.url,
+        image: fsmSwimUpBar,
         story: [
           "Ka Pā Inu means \"the drinking place\" — and at Wailea it is a row of pale stone seats set just below the surface, where the water stays warm all afternoon.",
           "The pool's edge disappears into the channel between Maui and Kaho'olawe, so guests sip with their shoulders in the water and the West Maui mountains floating across the blue.",
@@ -2908,7 +2908,7 @@ export const collections: Collection[] = [
         id: "fsm-08",
         title: "Lana Wai",
         caption: "Floating at the infinity edge",
-        image: fsmInfinitySwim.url,
+        image: fsmInfinitySwim,
         story: [
           "Lana wai means \"to float on water\" — the whole point of an infinity pool, where the far wall drops away and the surface seems to spill straight into the sea.",
           "From this spot the silhouette of Kaho'olawe and the long shoulder of Haleakalā ring the horizon, and on a still morning the water goes so flat that pool and ocean become one sheet of blue.",
@@ -2993,14 +2993,14 @@ export const collections: Collection[] = [
     free: true,
     storybook: { owner: "Amy", plan: "personal" },
     puzzles: [
-      { id: "amy-14", title: "Nani Kai", caption: "A golden turtle earring against sunlit waves", image: earringBeachModel.url },
-      { id: "amy-06", title: "Kuipo", caption: "An affectionate term for a loved one", image: amy02.url },
-      { id: "amy-12", title: "Sweetheart", caption: "Pink embers dance in the light — this piece celebrates love", image: amy12.url },
+      { id: "amy-14", title: "Nani Kai", caption: "A golden turtle earring against sunlit waves", image: earringBeachModel },
+      { id: "amy-06", title: "Kuipo", caption: "An affectionate term for a loved one", image: amy02 },
+      { id: "amy-12", title: "Sweetheart", caption: "Pink embers dance in the light — this piece celebrates love", image: amy12 },
       { id: "amy-08", title: "Akoni in Coral", caption: "Akoni means worthy and reminds you of your worth", image: amy08Enhanced },
       { id: "amy-05", title: "Kalele", caption: "Trust your dreams, they know the way", image: amy05Enhanced },
-      { id: "amy-13", title: "Hana", caption: "Gold-plated glass turtle with a luminous blue shell", image: hanaTurtlePendant.url },
+      { id: "amy-13", title: "Hana", caption: "Gold-plated glass turtle with a luminous blue shell", image: hanaTurtlePendant },
       { id: "amy-03", title: "Akoni Friends", caption: "Reminding you of your worthiness — but if you can't see it, don't forget your friends can", image: amy03Enhanced },
-      { id: "amy-10", title: "Malama", caption: "Malama means protect what you love — your people, your planet and your peace", image: amy10.url },
+      { id: "amy-10", title: "Malama", caption: "Malama means protect what you love — your people, your planet and your peace", image: amy10 },
       { id: "amy-02", title: "Mahalo Moon", caption: "Turquoise accented with green and gold crystal", image: amy06Enhanced },
       {
         id: "amy-11",
@@ -3013,13 +3013,13 @@ export const collections: Collection[] = [
           "Amy believes life is simply better with more beauty, curiosity, connection, and a little bit of wonder.",
         ],
       },
-      { id: "amy-01", title: "Mahalo: Gratitude", caption: "Apatite and tourmaline half moon necklace", image: amy01.url },
-      { id: "amy-15", title: "Honu Kai", caption: "A gold and blue glass honu resting on white coral above the sea", image: amy15.url },
-      { id: "amy-16", title: "Ohana Stack", caption: "Beaded honu bracelets and a ring, gathered under a beach tree", image: amy16.url },
-      { id: "amy-17", title: "Po", caption: "A midnight shell on faceted black spinel, bright with green fire", image: amy17.url },
-      { id: "amy-18", title: "Lilikoi Sky", caption: "Violet and gold blossoms suspended in glass on a tourmaline strand", image: amy18.url },
-      { id: "amy-19", title: "Manao", caption: "A stone of intuition and of possibilities, held in the palm", image: amy19.url },
-      { id: "amy-20", title: "Malama Ember", caption: "Deep indigo shell with a sunrise ember burning at its heart", image: amy20.url },
+      { id: "amy-01", title: "Mahalo: Gratitude", caption: "Apatite and tourmaline half moon necklace", image: amy01 },
+      { id: "amy-15", title: "Honu Kai", caption: "A gold and blue glass honu resting on white coral above the sea", image: amy15 },
+      { id: "amy-16", title: "Ohana Stack", caption: "Beaded honu bracelets and a ring, gathered under a beach tree", image: amy16 },
+      { id: "amy-17", title: "Po", caption: "A midnight shell on faceted black spinel, bright with green fire", image: amy17 },
+      { id: "amy-18", title: "Lilikoi Sky", caption: "Violet and gold blossoms suspended in glass on a tourmaline strand", image: amy18 },
+      { id: "amy-19", title: "Manao", caption: "A stone of intuition and of possibilities, held in the palm", image: amy19 },
+      { id: "amy-20", title: "Malama Ember", caption: "Deep indigo shell with a sunrise ember burning at its heart", image: amy20 },
 
     ],
   },
@@ -3626,7 +3626,7 @@ export const collections: Collection[] = [
         id: "choose-me-01",
         title: "Her Home, Her Peace",
         caption: "The bear at the cottage gate",
-        image: chooseMe01Asset.url,
+        image: chooseMe01Asset,
         story: [
           "She stands beside the bear on a path of broken eggshells, in front of the little house that was supposed to be safe. The sign says what she has not said out loud yet: her home, her peace.",
         ],
@@ -3635,7 +3635,7 @@ export const collections: Collection[] = [
         id: "choose-me-02",
         title: "That's Enough",
         caption: "The roar, the reset, the eggshells",
-        image: chooseMe02Asset.url,
+        image: chooseMe02Asset,
         story: [
           "No accountability. Reset. Lower expectations. Silence. Eggshells. She names the pattern out loud while the roar fills the room — and naming it is the first thing that has ever made it smaller.",
         ],
@@ -3644,7 +3644,7 @@ export const collections: Collection[] = [
         id: "choose-me-03",
         title: "I Choose Me",
         caption: "The gate at sunset",
-        image: chooseMe03Asset.url,
+        image: chooseMe03Asset,
         story: [
           "She closes the gate gently. The bear is still there, and the sun is going down over the whole open valley, and for the first time the words on the wood are hers: I choose me.",
         ],
@@ -3653,7 +3653,7 @@ export const collections: Collection[] = [
         id: "choose-me-04",
         title: "Today We Play",
         caption: "The good day, in the flowers",
-        image: chooseMe04Asset.url,
+        image: chooseMe04Asset,
         story: [
           "And then there are the good days — tea cups in the grass, the swing under the tree, the bear laughing with his paws in the air. Good days are for remembering. Today we play.",
         ],
@@ -4065,7 +4065,7 @@ export const collections: Collection[] = [
     id: "larissa-vacay",
     title: "Larissa Vacay",
     tagline: "sisters sunshine and sea turtles",
-    cover: larissa05.url,
+    cover: larissa05,
     free: true,
     allowUserNotes: false,
     puzzles: [
@@ -4082,7 +4082,7 @@ export const collections: Collection[] = [
         id: "larissa-02",
         title: "Paia Fish Market",
         caption: "Too packed to sit, so we found the secret one",
-        image: larissa02.url,
+        image: larissa02,
         story: [
           "This was an incredible memory we got so much delicious food but we looked around and the place was absolutely jam-packed and there wasn't any place to sit down and enjoy each other as well as hear each other so I told my sister about the secret Cafe which is one of my favorite places to go because you literally have to go into a bikini store and out the back to find it but it's totally worth it cuz it's like a garden that is covered which was really pleasant because it was raining but it was raining on corrugated roofing so it was just kind of a cozy quiet delicious Cafe experience.",
         ],
@@ -4100,7 +4100,7 @@ export const collections: Collection[] = [
         id: "larissa-04",
         title: "Secret Cafe",
         caption: "Through the bikini store, out into paradise",
-        image: larissa04.url,
+        image: larissa04,
         story: [
           "I'm not sure what the real name is for this Cafe but I always call it the secret Cafe because you have to go through a bikini store to go all the way in the back. And when you get back there it's just a little Hawaiian Paradise it's beachy and spacious the food is really good the drinks are even better but they also let you take food in from other places and that's what we did and it was so delicious....",
         ],
@@ -4109,7 +4109,7 @@ export const collections: Collection[] = [
         id: "larissa-05",
         title: "Ocean Vodka",
         caption: "Both coasts of the island from one dinner table",
-        image: larissa05.url,
+        image: larissa05,
         story: [
           "We were not expecting the food to be so good we had this delicious pizza and this amazing purple drink and orange drink and it was just lovely.... we were able to see both coasts of the island from our dinner table and the tour of all of their liqueurs was absolutely delicious.",
         ],
@@ -4118,7 +4118,7 @@ export const collections: Collection[] = [
         id: "larissa-06",
         title: "Ocean Vodka Tasting Tour!",
         caption: "Sugarcane, stories and little shot glasses to take home",
-        image: larissa06.url,
+        image: larissa06,
         story: [
           "This was actually pretty fascinating from the moment you get there you learn about sugarcane and all the different varieties and then you learn about the difference distillery options and how they make vodka and why they make it and then we learned about rum and some really great information and then we got to sit at a outdoor bar stool and all of the offerings at Ocean vodka makes were served to us in little shot glasses that we got to take home. I was the designated driver so I just had a little bit of each thing but boy it was so delicious!",
         ],
