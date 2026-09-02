@@ -1242,7 +1242,7 @@ export function PuzzleBoard({
       // no inset: every line sits exactly on the tile boundary, so the lines of
       // two neighbouring tiles land on the same pixel and read as one grid
       inset: 0,
-      width: 2.2 / s,
+      width: 1.6 / s,
       radius: 6 / s,
     };
   }, [scale]);
