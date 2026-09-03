@@ -252,6 +252,7 @@ import mind23 from "@/assets/mind-23.jpg";
 import mind24 from "@/assets/mind-24.jpg";
 import mind25 from "@/assets/mind-25.jpg";
 import mind26 from "@/assets/mind-26.jpg";
+import mind27 from "@/assets/mind-27.jpg";
 
 
 
@@ -3544,6 +3545,16 @@ export const collections: Collection[] = [
         story: [
           "The falling water is loud and the pool below stays calm. Both are the same river.",
           "“You cannot stop the waves, but you can learn to surf.” — Jon Kabat-Zinn",
+        ],
+      },
+      {
+        id: "mind-27",
+        title: "Quiet Brook",
+        caption: "A clear brook slipping past mossy stones and one white flower",
+        image: mind27,
+        story: [
+          "The water asks nothing of the stones and still finds its way around every one of them.",
+          "“Adopt the pace of nature: her secret is patience.” — Ralph Waldo Emerson",
         ],
       },
       {
