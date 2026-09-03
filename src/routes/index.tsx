@@ -128,11 +128,19 @@ function Home() {
               className="h-[3.25rem] w-auto cursor-pointer drop-shadow-[0_4px_18px_oklch(0.15_0.04_230/0.55)] transition-transform duration-500 ease-[var(--ease-calm)] hover:scale-[1.06] sm:h-[4.25rem]"
             />
           </button>
-          <span className="mt-5 cursor-pointer bg-gradient-to-br from-[oklch(0.99_0.03_90)] via-[oklch(0.96_0.05_88)] to-[oklch(0.88_0.09_80)] bg-clip-text font-display text-3xl leading-none tracking-[0.14em] text-transparent uppercase drop-shadow-[0_2px_10px_oklch(0.18_0.05_235/0.7)] transition-transform duration-500 ease-[var(--ease-calm)] hover:scale-[1.04] sm:mt-6 sm:text-4xl">
+          <span
+            className="mt-5 cursor-pointer bg-clip-text font-display text-3xl leading-none font-normal tracking-[0.16em] text-transparent uppercase transition-transform duration-500 ease-[var(--ease-calm)] hover:scale-[1.04] sm:mt-6 sm:text-4xl"
+            style={{
+              backgroundImage:
+                "linear-gradient(168deg, oklch(0.97 0.012 230) 0%, oklch(0.86 0.028 232) 34%, oklch(0.68 0.038 235) 62%, oklch(0.9 0.02 228) 100%)",
+              filter:
+                "drop-shadow(0 1px 1px oklch(0.99 0.01 220 / 0.35)) drop-shadow(0 2px 12px oklch(0.18 0.05 235 / 0.75))",
+            }}
+          >
             Pictaria
           </span>
           <span
-            className="-mt-1 cursor-pointer font-display text-[0.81rem] tracking-[0.42em] uppercase transition-transform duration-500 ease-[var(--ease-calm)] hover:scale-[1.04] sm:text-[0.94rem]"
+            className="-mt-1 cursor-pointer font-display text-[0.81rem] tracking-[0.3em] uppercase transition-transform duration-500 ease-[var(--ease-calm)] hover:scale-[1.04] sm:text-[0.94rem]"
             style={{
               color: "oklch(0.98 0.025 85)",
               textShadow:
@@ -141,6 +149,7 @@ function Home() {
           >
             Turn pictures into play
           </span>
+
 
         </div>
 
