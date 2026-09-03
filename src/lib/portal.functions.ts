@@ -107,6 +107,30 @@ export const deletePortalBusiness = createServerFn({ method: "POST" })
     await requirePortal();
 
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+
+    // Take the share link and stored photograph with it, so nothing is left
+    // behind for visitors to stumble on.
+    const { data: row } = await supabaseAdmin
+      .from("portal_businesses")
+      .select("photo_path, share_code")
+      .eq("id", data.id)
+      .maybeSingle();
+
+    const shareCode = (row as { share_code?: string | null } | null)?.share_code;
+    if (shareCode) {
+      const { data: shared } = await supabaseAdmin
+        .from("pictarias")
+        .select("photo_paths")
+        .eq("share_code", shareCode)
+        .maybeSingle();
+      const paths = (shared as { photo_paths?: string[] } | null)?.photo_paths ?? [];
+      if (paths.length) await supabaseAdmin.storage.from("pictarias").remove(paths);
+      await supabaseAdmin.from("pictarias").delete().eq("share_code", shareCode);
+    }
+
+    const photoPath = (row as { photo_path?: string | null } | null)?.photo_path;
+    if (photoPath) await supabaseAdmin.storage.from("portal").remove([photoPath]);
+
     const { error } = await supabaseAdmin
       .from("portal_businesses")
       .delete()
