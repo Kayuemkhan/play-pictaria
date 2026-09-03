@@ -194,7 +194,12 @@ export function BusinessEditor({ record }: Props) {
 
   const destroy = async () => {
     if (!record) return;
-    if (!window.confirm("Delete this business record?")) return;
+    if (
+      !window.confirm(
+        "Delete this picture and its record for good? Any share link you made for it will stop working.",
+      )
+    )
+      return;
     await remove({ data: { id: record.id } });
     await navigate({ to: "/" });
   };
