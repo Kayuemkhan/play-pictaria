@@ -1255,7 +1255,7 @@ export function PuzzleBoard({
   return (
     <div className="relative flex min-h-[100dvh] w-full flex-col bg-mist-gradient">
       {/* Pictaria branding, centered over every branded puzzle */}
-      <div className="relative z-20 flex shrink-0 items-center justify-center pt-1 pb-0.5">
+      <div className="relative z-20 flex shrink-0 items-center justify-center pt-0.5 pb-0 sm:pt-1 sm:pb-0.5">
         <button
           type="button"
           onClick={onExit}
@@ -1276,12 +1276,12 @@ export function PuzzleBoard({
               alt="Pictaria"
               width={1024}
               height={1024}
-              className="h-8 w-auto transition-transform duration-500 ease-[var(--ease-calm)] group-hover:scale-[1.05] sm:h-10"
+              className="h-6 w-auto transition-transform duration-500 ease-[var(--ease-calm)] group-hover:scale-[1.05] sm:h-10"
             />
-            <span className="mt-1 font-display text-xl leading-none tracking-[0.34em] text-primary uppercase sm:text-2xl">
+            <span className="mt-0.5 font-display text-base leading-none tracking-[0.28em] text-primary uppercase sm:mt-1 sm:text-2xl sm:tracking-[0.34em]">
               Pictaria
             </span>
-            <span className="-mt-0.5 font-display text-[0.5rem] tracking-[0.42em] text-muted-foreground uppercase sm:text-[0.6rem]">
+            <span className="hidden font-display text-[0.5rem] tracking-[0.42em] text-muted-foreground uppercase sm:-mt-0.5 sm:block sm:text-[0.6rem]">
               Turn pictures into play
             </span>
           </Link>
@@ -1290,7 +1290,8 @@ export function PuzzleBoard({
 
 
       {/* top bar */}
-      <header className="glass-panel z-20 grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 px-3 py-2 sm:px-5">
+      <header className="glass-panel z-20 grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2 px-3 py-1 sm:gap-3 sm:px-5 sm:py-2">
+
         <div className="flex items-center gap-2">
           {onChangeGrid ? (
             <Select
