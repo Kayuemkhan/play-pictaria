@@ -33,7 +33,7 @@ export function GlobalMenu() {
   }, [open]);
 
   return (
-    <div className="fixed top-1 right-1 z-[100]">
+    <div className="fixed top-1 left-1 z-[100]">
       <button
         type="button"
         aria-label="Menu"
@@ -60,7 +60,7 @@ export function GlobalMenu() {
             onClick={() => setOpen(false)}
             aria-hidden
           />
-          <div className="absolute top-14 right-3 max-h-[70vh] w-56 overflow-y-auto rounded-[6px] border border-accent/40 bg-deep py-1 shadow-lift">
+          <div className="absolute top-14 left-3 max-h-[70vh] w-56 overflow-y-auto rounded-[6px] border border-accent/40 bg-deep py-1 shadow-lift">
             {menuLinks.map((item) => (
               <Link
                 key={item.label}

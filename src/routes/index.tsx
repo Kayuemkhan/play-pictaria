@@ -7,7 +7,7 @@ import { isPortalPick, portalPickCode } from "@/lib/daily-display";
 import { supabase } from "@/integrations/supabase/client";
 import { HeroPuzzle } from "@/components/HeroPuzzle";
 
-import heroImage from "@/assets/hero-pineapple.jpg";
+import heroImage from "@/assets/hero-tropical-magic.jpg";
 import palmLogo from "@/assets/logo-palms-only.png";
 
 
@@ -102,7 +102,7 @@ function Home() {
       <section className="relative overflow-hidden">
         <img
           src={heroImage}
-          alt="A quiet tropical brook winding past mossy stones and a single white flower"
+          alt="A hidden tropical garden cove at golden hour with a plump pineapple, plumeria and hibiscus beside a clear stream"
           width={1024}
           height={1408}
           className="h-[68svh] max-h-[760px] min-h-[420px] w-full object-cover sm:h-screen sm:min-h-[520px]"
