@@ -113,7 +113,7 @@ function Home() {
 
 
         {/* wordmark */}
-        <div className="absolute inset-x-0 top-16 flex flex-col items-center px-6 text-center sm:top-10">
+        <div className="absolute inset-x-0 top-6 flex flex-col items-center px-6 text-center sm:top-6">
           <button
             type="button"
             onClick={handleLogoTap}
