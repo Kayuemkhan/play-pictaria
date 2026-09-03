@@ -488,18 +488,21 @@ export function BusinessEditor({ record }: Props) {
         >
           {saving ? "Saving…" : record ? "Save changes" : "Save business"}
         </Button>
-        {record && (
+      </div>
+
+      {record && (
+        <div className="flex justify-center">
           <Button
             type="button"
             variant="ghost"
             onClick={destroy}
-            className="text-muted-foreground"
-            aria-label="Delete record"
+            className="rounded-full border border-destructive/30 px-5 text-[0.55rem] tracking-[0.2em] text-destructive uppercase"
           >
-            <Trash2 className="h-4 w-4" />
+            <Trash2 className="mr-2 h-4 w-4" />
+            Delete this picture
           </Button>
-        )}
-      </div>
+        </div>
+      )}
     </form>
   );
 }
