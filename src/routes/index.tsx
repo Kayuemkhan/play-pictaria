@@ -102,7 +102,7 @@ function Home() {
       <section className="relative overflow-hidden">
         <img
           src={heroImage}
-          alt="A golden pineapple with the Hawaiian ocean behind it"
+          alt="A quiet tropical brook winding past mossy stones and a single white flower"
           width={1024}
           height={1408}
           className="h-[68svh] max-h-[760px] min-h-[420px] w-full object-cover sm:h-screen sm:min-h-[520px]"
