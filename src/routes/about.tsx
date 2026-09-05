@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import palmLogo from "@/assets/logo-palms-only.png";
-import eKomoMai from "@/assets/cat-08.jpg";
+import eKomoMai from "@/assets/cat-08.webp";
 import { SITE_URL } from "@/lib/site";
 
 export const Route = createFileRoute("/about")({

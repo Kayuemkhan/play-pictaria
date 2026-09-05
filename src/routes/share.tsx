@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 
 
-import waterRocks from "@/assets/share-water-rocks.jpg";
+import waterRocks from "@/assets/share-water-rocks.webp";
 import palmLogo from "@/assets/logo-palms-only.png";
 import { SITE_URL } from "@/lib/site";
 

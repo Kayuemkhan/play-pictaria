@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
-import eggFarm from "@/assets/easter-egg-farm-chickens.jpg";
+import eggFarm from "@/assets/easter-egg-farm-chickens.webp";
 import palmLogo from "@/assets/logo-palms-only.png";
 import { findPuzzleForWord, hawaiianWords } from "@/data/hawaiian-words";
 

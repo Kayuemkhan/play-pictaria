@@ -10,7 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 
-import dailyDogsWindow from "@/assets/daily-dogs-window.jpg";
+import dailyDogsWindow from "@/assets/daily-dogs-window.webp";
 
 import palmLogoOnly from "@/assets/logo-palms-only.png";
 

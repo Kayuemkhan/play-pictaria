@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 
-import underwaterAsset from "@/assets/vision-board-underwater.jpg";
+import underwaterAsset from "@/assets/vision-board-underwater.webp";
 import { SITE_URL } from "@/lib/site";
 
 export const Route = createFileRoute("/vision-board")({

@@ -1,7 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import palmLogo from "@/assets/logo-palms-only.png";
-import kittenAtWork from "@/assets/work-life-kitten.jpg";
+import kittenAtWork from "@/assets/work-life-kitten.webp";
 import { visibleCollections } from "@/data/collections";
 import { startBreak } from "@/lib/break-session";
 import { SITE_URL } from "@/lib/site";

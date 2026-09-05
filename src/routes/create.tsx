@@ -8,7 +8,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Input } from "@/components/ui/input";
 
 import { Label } from "@/components/ui/label";
-import puppyLetter from "@/assets/create-puppy-letter.jpg";
+import puppyLetter from "@/assets/create-puppy-letter.webp";
 
 
 export const Route = createFileRoute("/create")({

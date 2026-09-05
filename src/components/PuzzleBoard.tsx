@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/select";
 import { collections, difficulties } from "@/data/collections";
 import palmLogo from "@/assets/logo-palms-only.png";
-import tropicalIslandBg from "@/assets/pinup-08.jpg";
+import tropicalIslandBg from "@/assets/pinup-08.webp";
 import { playLock, playPick, playSolved, setMuted } from "@/lib/feedback";
 import { completePuzzleInBreak } from "@/lib/break-session";
 import { BreakOverBanner } from "@/components/BreakOverBanner";

@@ -8,7 +8,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { HeroPuzzle } from "@/components/HeroPuzzle";
 import { SITE_URL } from "@/lib/site";
 
-import heroImage from "@/assets/hero-tropical-magic.jpg";
+import heroImage from "@/assets/hero-tropical-magic.webp";
 import palmLogo from "@/assets/logo-palms-only.png";
 
 

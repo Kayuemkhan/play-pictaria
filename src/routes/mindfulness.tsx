@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import mindfulnessHero from "@/assets/mindfulness-hero.jpg";
+import mindfulnessHero from "@/assets/mindfulness-hero.webp";
 import { MindfulMusic } from "@/components/MindfulMusic";
 
 export const Route = createFileRoute("/mindfulness")({

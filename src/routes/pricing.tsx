@@ -17,8 +17,8 @@ import {
   Wand2,
 } from "lucide-react";
 
-import artistBottom from "@/assets/pricing-artist-bottom.jpg";
-import eKomoMai from "@/assets/cat-08.jpg";
+import artistBottom from "@/assets/pricing-artist-bottom.webp";
+import eKomoMai from "@/assets/cat-08.webp";
 import { HeroPuzzle } from "@/components/HeroPuzzle";
 
 const planColumns = [

@@ -1,6 +1,6 @@
 import { useEffect, useId, useState } from "react";
 import { Camera } from "lucide-react";
-import resortCove from "@/assets/fsm-resort-cove.jpg";
+import resortCove from "@/assets/fsm-resort-cove.webp";
 import { CameraCapture } from "@/components/CameraCapture";
 
 type PickProps = {
