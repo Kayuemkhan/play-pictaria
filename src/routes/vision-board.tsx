@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 
 import underwaterAsset from "@/assets/vision-board-underwater.jpg";
+import { SITE_URL } from "@/lib/site";
 
 export const Route = createFileRoute("/vision-board")({
   head: () => ({
@@ -21,14 +22,14 @@ export const Route = createFileRoute("/vision-board")({
       { property: "og:type", content: "website" },
       {
         property: "og:url",
-        content: "https://play-pictaria.lovable.app/vision-board",
+        content: `${SITE_URL}/vision-board`,
       },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
       {
         rel: "canonical",
-        href: "https://play-pictaria.lovable.app/vision-board",
+        href: `${SITE_URL}/vision-board`,
       },
     ],
   }),

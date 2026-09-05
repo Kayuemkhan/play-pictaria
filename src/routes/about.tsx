@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import palmLogo from "@/assets/logo-palms-only.png";
 import eKomoMai from "@/assets/cat-08.jpg";
+import { SITE_URL } from "@/lib/site";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -22,10 +23,10 @@ export const Route = createFileRoute("/about")({
           "Discover beautiful photography one puzzle \"peace\" at a time. Pictaria turns your favorite photographs into calm, beautiful puzzles.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://play-pictaria.lovable.app/about" },
+      { property: "og:url", content: `${SITE_URL}/about` },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "https://play-pictaria.lovable.app/about" }],
+    links: [{ rel: "canonical", href: `${SITE_URL}/about` }],
   }),
   component: AboutPage,
 });

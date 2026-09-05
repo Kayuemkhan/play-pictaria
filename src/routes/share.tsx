@@ -4,8 +4,9 @@ import { useEffect, useState } from "react";
 
 import waterRocks from "@/assets/share-water-rocks.jpg";
 import palmLogo from "@/assets/logo-palms-only.png";
+import { SITE_URL } from "@/lib/site";
 
-const SHARE_URL = "https://play-pictaria.lovable.app/";
+const SHARE_URL = `${SITE_URL}/`;
 
 export const Route = createFileRoute("/share")({
   head: () => ({
@@ -133,7 +134,7 @@ function SharePage() {
               </>
             ) : (
               <>
-                link play-pictaria.com
+                link playpictaria.com
                 <span aria-hidden>›</span>
               </>
             )}

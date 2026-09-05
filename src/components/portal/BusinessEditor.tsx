@@ -18,6 +18,7 @@ import {
   savePortalBusiness,
 } from "@/lib/portal.functions";
 import type { WavRecorder } from "@/lib/wav-recorder";
+import { SITE_URL } from "@/lib/site";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -162,7 +163,7 @@ export function BusinessEditor({ record }: Props) {
   };
 
   const shareUrl = shareCode
-    ? `${typeof window === "undefined" ? "https://play-pictaria.lovable.app" : window.location.origin}/p/${shareCode}`
+    ? `${typeof window === "undefined" ? SITE_URL : window.location.origin}/p/${shareCode}`
     : "";
 
   const generateLink = async () => {

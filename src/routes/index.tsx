@@ -6,6 +6,7 @@ import { getDailyPicks } from "@/lib/daily-pick.functions";
 import { isPortalPick, portalPickCode } from "@/lib/daily-display";
 import { supabase } from "@/integrations/supabase/client";
 import { HeroPuzzle } from "@/components/HeroPuzzle";
+import { SITE_URL } from "@/lib/site";
 
 import heroImage from "@/assets/hero-tropical-magic.jpg";
 import palmLogo from "@/assets/logo-palms-only.png";
@@ -27,10 +28,10 @@ export const Route = createFileRoute("/")({
           "Discover beautiful photography one puzzle \"peace\" at a time.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://play-pictaria.lovable.app/" },
+      { property: "og:url", content: `${SITE_URL}/` },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "https://play-pictaria.lovable.app/" }],
+    links: [{ rel: "canonical", href: `${SITE_URL}/` }],
   }),
   component: Home,
 });

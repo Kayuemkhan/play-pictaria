@@ -1,6 +1,5 @@
 import { collections, difficulties } from "@/data/collections";
-
-const SITE_URL = "https://memory-tile-maker.lovable.app";
+import { SITE_URL } from "@/lib/site";
 
 export function puzzleUrl(puzzleId: string) {
   return `${SITE_URL}/puzzle/${puzzleId}`;

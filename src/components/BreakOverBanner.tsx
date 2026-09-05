@@ -4,6 +4,7 @@ import { ChevronLeft } from "lucide-react";
 import kittenLook from "@/assets/work-life-kitten-look.jpg";
 import palmLogo from "@/assets/logo-palms-only.png";
 import { clearBreak } from "@/lib/break-session";
+import { SITE_URL } from "@/lib/site";
 
 /**
  * Shown once the visitor finishes the number of puzzles they picked on the
@@ -24,7 +25,7 @@ export function BreakOverBanner({ onClose }: { onClose: () => void }) {
   };
 
   const shareThenExit = async () => {
-    const url = "https://play-pictaria.lovable.app";
+    const url = SITE_URL;
     const text = "Take a little brain break with me in Pictaria 🧩";
     try {
       if (navigator.share) {

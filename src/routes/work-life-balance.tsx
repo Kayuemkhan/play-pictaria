@@ -4,6 +4,7 @@ import palmLogo from "@/assets/logo-palms-only.png";
 import kittenAtWork from "@/assets/work-life-kitten.jpg";
 import { visibleCollections } from "@/data/collections";
 import { startBreak } from "@/lib/break-session";
+import { SITE_URL } from "@/lib/site";
 
 export const Route = createFileRoute("/work-life-balance")({
   head: () => ({
@@ -24,12 +25,13 @@ export const Route = createFileRoute("/work-life-balance")({
           "Choose your break: one, two, three or five puzzles, then back to work with a clearer head.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: `${SITE_URL}/work-life-balance` },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
       {
         rel: "canonical",
-        href: "https://play-pictaria.lovable.app/work-life-balance",
+        href: `${SITE_URL}/work-life-balance`,
       },
     ],
   }),

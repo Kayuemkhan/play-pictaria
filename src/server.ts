@@ -44,12 +44,43 @@ function isH3SwallowedErrorBody(body: string): boolean {
   }
 }
 
+// Routes with no server loader and no per-request personalization in their
+// SSR output — the HTML is byte-identical for every visitor, so it's safe
+// to let Cloudflare (or any CDN in front) cache it at the edge instead of
+// round-tripping to origin on every request. Anything with a loader, auth-
+// gated content, or per-id data (puzzle/collection/portal/my-pictaria/etc.)
+// is deliberately left out — don't add a route here without checking it
+// has no `loader`/`beforeLoad` and doesn't branch SSR output on cookies.
+const PUBLICLY_CACHEABLE_PATHS = new Set([
+  "/",
+  "/about",
+  "/vision-board",
+  "/work-life-balance",
+  "/share",
+  "/pricing",
+  "/mindfulness",
+]);
+
+function withCacheHeaders(request: Request, response: Response): Response {
+  if (request.method !== "GET" || response.status !== 200) return response;
+  const { pathname } = new URL(request.url);
+  if (!PUBLICLY_CACHEABLE_PATHS.has(pathname)) return response;
+  const contentType = response.headers.get("content-type") ?? "";
+  if (!contentType.includes("text/html")) return response;
+
+  // Short s-maxage keeps a deploy from being stale at the edge for long;
+  // stale-while-revalidate hides the origin round-trip behind a background
+  // refresh instead of making a visitor wait for it.
+  response.headers.set("cache-control", "public, s-maxage=300, stale-while-revalidate=86400");
+  return response;
+}
+
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
-      return await normalizeCatastrophicSsrResponse(response);
+      return withCacheHeaders(request, await normalizeCatastrophicSsrResponse(response));
     } catch (error) {
       console.error(error);
       return new Response(renderErrorPage(), {

@@ -20,6 +20,13 @@ dist-ssr
 .wrangler/
 .dev.vars
 
+# SSH keys — never commit these
+Mac_private_id_rsa.txt
+Mac_public_id_rsa.pub
+*_id_rsa*
+*_id_ed25519*
+*.pem
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
