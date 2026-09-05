@@ -1,5 +1,5 @@
 import { ArrayBufferTarget, Muxer } from "mp4-muxer";
-import palmLogoUrl from "@/assets/logo-palms-only.png";
+import palmLogoUrl from "@/assets/logo-palms-only.webp";
 
 export interface ReplayFrame {
   /** ms since the puzzle began */

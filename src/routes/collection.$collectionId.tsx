@@ -4,7 +4,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { collections, findPuzzle } from "@/data/collections";
 import { usePuzzleNotes } from "@/lib/puzzle-notes";
 
-import palmLogo from "@/assets/logo-palms-only.png";
+import palmLogo from "@/assets/logo-palms-only.webp";
 import { getYesterdailys } from "@/lib/yesterdailys.functions";
 import type { YesterdailyItem } from "@/lib/yesterdailys.functions";
 

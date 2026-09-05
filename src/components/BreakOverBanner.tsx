@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { ChevronLeft } from "lucide-react";
 
 import kittenLook from "@/assets/work-life-kitten-look.webp";
-import palmLogo from "@/assets/logo-palms-only.png";
+import palmLogo from "@/assets/logo-palms-only.webp";
 import { clearBreak } from "@/lib/break-session";
 import { SITE_URL } from "@/lib/site";
 

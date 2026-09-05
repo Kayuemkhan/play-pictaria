@@ -12,7 +12,7 @@ import { Label } from "@/components/ui/label";
 
 import dailyDogsWindow from "@/assets/daily-dogs-window.webp";
 
-import palmLogoOnly from "@/assets/logo-palms-only.png";
+import palmLogoOnly from "@/assets/logo-palms-only.webp";
 
 export const Route = createFileRoute("/daily")({
   head: () => ({

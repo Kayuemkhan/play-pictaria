@@ -2,6 +2,8 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { visibleCollections } from "@/data/collections";
+import type { Collection } from "@/data/collections";
+import { getLibraryCollections } from "@/lib/collection-catalog.functions";
 import { getDailyPicks } from "@/lib/daily-pick.functions";
 import { isPortalPick, portalPickCode } from "@/lib/daily-display";
 import { supabase } from "@/integrations/supabase/client";
@@ -9,7 +11,7 @@ import { HeroPuzzle } from "@/components/HeroPuzzle";
 import { SITE_URL } from "@/lib/site";
 
 import heroImage from "@/assets/hero-tropical-magic.webp";
-import palmLogo from "@/assets/logo-palms-only.png";
+import palmLogo from "@/assets/logo-palms-only.webp";
 
 
 export const Route = createFileRoute("/")({
@@ -36,7 +38,6 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
-const featured = visibleCollections;
 
 
 

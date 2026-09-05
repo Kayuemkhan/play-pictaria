@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 
 import waterRocks from "@/assets/share-water-rocks.webp";
-import palmLogo from "@/assets/logo-palms-only.png";
+import palmLogo from "@/assets/logo-palms-only.webp";
 import { SITE_URL } from "@/lib/site";
 
 const SHARE_URL = `${SITE_URL}/`;

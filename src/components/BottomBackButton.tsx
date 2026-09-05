@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import palmLogo from "@/assets/logo-palms-only.png";
+import palmLogo from "@/assets/logo-palms-only.webp";
 
 /**
  * A little pair of gold Pictaria palm trees at the end of the page content —

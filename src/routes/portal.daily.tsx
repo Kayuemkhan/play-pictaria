@@ -7,7 +7,7 @@ import { getDailyPicks, setDailyPick } from "@/lib/daily-pick.functions";
 import type { DailyPick } from "@/lib/daily-pick.functions";
 import { createPortalShareLink, listPortalBusinesses } from "@/lib/portal.functions";
 import { isPortalPick, portalPickCode, portalPickId } from "@/lib/daily-display";
-import palmLogo from "@/assets/logo-palms-only.png";
+import palmLogo from "@/assets/logo-palms-only.webp";
 
 import { PortalGuard } from "@/components/portal/PortalGuard";
 

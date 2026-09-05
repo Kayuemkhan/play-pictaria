@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 import eggFarm from "@/assets/easter-egg-farm-chickens.webp";
-import palmLogo from "@/assets/logo-palms-only.png";
+import palmLogo from "@/assets/logo-palms-only.webp";
 import { findPuzzleForWord, hawaiianWords } from "@/data/hawaiian-words";
 
 export const Route = createFileRoute("/easter-egg")({

@@ -6,7 +6,7 @@ import { PoemCTAs } from "@/components/PoemCTAs";
 
 import { getSharedPictaria } from "@/lib/pictarias.functions";
 import { reportPictaria } from "@/lib/reports.functions";
-import palmLogo from "@/assets/logo-palms-only.png";
+import palmLogo from "@/assets/logo-palms-only.webp";
 import samplePhoto from "@/assets/hero-pineapple.webp";
 
 /** A ready-made Pictaria so you can preview exactly what a recipient receives. */
