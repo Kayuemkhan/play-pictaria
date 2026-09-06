@@ -17,6 +17,7 @@ import { TopBackButton } from "@/components/TopBackButton";
 import { TopHomeButton } from "@/components/TopHomeButton";
 import { BottomHomeButton } from "@/components/BottomBackButton";
 import { GlobalMenu } from "@/components/GlobalMenu";
+import { NotFoundPictaria } from "@/components/NotFoundPictaria";
 import { recordPageView } from "@/lib/analytics.functions";
 
 import { reportLovableError } from "../lib/lovable-error-reporting";
