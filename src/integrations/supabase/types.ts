@@ -155,6 +155,30 @@ export type Database = {
         }
         Relationships: []
       }
+      page_views: {
+        Row: {
+          created_at: string
+          id: string
+          path: string
+          referrer: string | null
+          visitor_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          path: string
+          referrer?: string | null
+          visitor_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          path?: string
+          referrer?: string | null
+          visitor_id?: string
+        }
+        Relationships: []
+      }
       pictaria_reports: {
         Row: {
           created_at: string
@@ -376,6 +400,112 @@ export type Database = {
           user_agent?: string | null
         }
         Relationships: []
+      }
+      puzzle_categories: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+          slug: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+          slug: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+          slug?: string
+        }
+        Relationships: []
+      }
+      puzzle_collections: {
+        Row: {
+          category_id: string | null
+          cover_path: string
+          created_at: string
+          free: boolean
+          hidden: boolean
+          id: string
+          tagline: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          category_id?: string | null
+          cover_path?: string
+          created_at?: string
+          free?: boolean
+          hidden?: boolean
+          id?: string
+          tagline?: string
+          title?: string
+          updated_at?: string
+        }
+        Update: {
+          category_id?: string | null
+          cover_path?: string
+          created_at?: string
+          free?: boolean
+          hidden?: boolean
+          id?: string
+          tagline?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "puzzle_collections_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "puzzle_categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      puzzle_images: {
+        Row: {
+          caption: string
+          collection_id: string
+          created_at: string
+          id: string
+          image_path: string
+          meaning: string
+          sort_order: number
+          title: string
+        }
+        Insert: {
+          caption?: string
+          collection_id: string
+          created_at?: string
+          id?: string
+          image_path?: string
+          meaning?: string
+          sort_order?: number
+          title?: string
+        }
+        Update: {
+          caption?: string
+          collection_id?: string
+          created_at?: string
+          id?: string
+          image_path?: string
+          meaning?: string
+          sort_order?: number
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "puzzle_images_collection_id_fkey"
+            columns: ["collection_id"]
+            isOneToOne: false
+            referencedRelation: "puzzle_collections"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
