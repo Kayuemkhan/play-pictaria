@@ -8,12 +8,13 @@ import {
   signReplayDownload,
 } from "@/lib/replay-share.functions";
 
-import type { ReplayClip } from "@/lib/replay-video";
+import type { ReplayClip, ReplaySpeed } from "@/lib/replay-video";
 
 /**
  * Two-step replay result:
  * 1. A "See my video" prompt appears right after the replay finishes.
- * 2. Tapping it plays the clip and offers two clear iPhone-friendly saves:
+ * 2. Tapping it plays the clip, offers a simple speed choice (the player's real
+ *    tempo, or twice as fast), and two clear iPhone-friendly saves:
  *    "Save to Photos" goes through the share sheet, and "Save to Files" uses a
  *    real https link (blob downloads never land anywhere on iOS Safari).
  * The video's own play triangle handles replays, so no extra replay buttons.
@@ -24,11 +25,14 @@ export function ReplaySaveModal({
   clip,
   error,
   title,
+  onRenderSpeed,
   onClose,
 }: {
   clip: ReplayClip | null;
   error?: string | null;
   title: string;
+  /** Re-renders the same solve at another speed, quietly and offscreen. */
+  onRenderSpeed?: (speed: ReplaySpeed) => Promise<ReplayClip | null>;
   onClose: () => void;
 }) {
   const [showVideo, setShowVideo] = useState(false);
@@ -38,16 +42,31 @@ export function ReplaySaveModal({
   const [linkUrl, setLinkUrl] = useState<string | null>(null);
   const [linkFailed, setLinkFailed] = useState(false);
   const [canShareFiles, setCanShareFiles] = useState(false);
+  const [speed, setSpeed] = useState<ReplaySpeed>(1);
+  const [fastClip, setFastClip] = useState<ReplayClip | null>(null);
+  const [rendering, setRendering] = useState(false);
   const startUpload = useServerFn(createReplayUpload);
   const signDownload = useServerFn(signReplayDownload);
 
+  const activeClip = speed === 2 ? fastClip : clip;
+
+  /** Choosing a different speed means a different file: start its save fresh. */
   useEffect(() => {
-    if (!clip) {
+    setLinkUrl(null);
+    setLinkFailed(false);
+    setSaved(false);
+    setNote(null);
+  }, [activeClip?.url]);
+
+  useEffect(() => {
+    if (!activeClip) {
       setCanShareFiles(false);
       return;
     }
     try {
-      const file = new File([clip.blob], clip.name, { type: clip.type });
+      const file = new File([activeClip.blob], activeClip.name, {
+        type: activeClip.type,
+      });
       setCanShareFiles(
         typeof navigator.share === "function" &&
           Boolean(navigator.canShare?.({ files: [file] })),
@@ -55,7 +74,7 @@ export function ReplaySaveModal({
     } catch {
       setCanShareFiles(false);
     }
-  }, [clip]);
+  }, [activeClip]);
 
   /**
    * The hosted link is prepared as soon as the video is revealed, so tapping
@@ -64,21 +83,21 @@ export function ReplaySaveModal({
    * to storage through a signed upload URL, which keeps the wait short.
    */
   useEffect(() => {
-    if (!showVideo || !clip || linkUrl) return;
+    if (!showVideo || !activeClip || linkUrl) return;
     let active = true;
     void (async () => {
       try {
         const { path, token } = await startUpload({
-          data: { name: clip.name },
+          data: { name: activeClip.name },
         });
         const { error: uploadError } = await supabase.storage
           .from("replays")
-          .uploadToSignedUrl(path, token, clip.blob, {
-            contentType: clip.type,
+          .uploadToSignedUrl(path, token, activeClip.blob, {
+            contentType: activeClip.type,
           });
         if (uploadError) throw uploadError;
         const { downloadUrl } = await signDownload({
-          data: { path, name: clip.name },
+          data: { path, name: activeClip.name },
         });
         if (active) setLinkUrl(downloadUrl);
       } catch {
@@ -88,15 +107,43 @@ export function ReplaySaveModal({
     return () => {
       active = false;
     };
-  }, [showVideo, clip, linkUrl, startUpload, signDownload]);
+  }, [showVideo, activeClip, linkUrl, startUpload, signDownload]);
 
-
+  const pickSpeed = useCallback(
+    async (next: ReplaySpeed) => {
+      if (next === speed || rendering) return;
+      if (next === 1 || fastClip) {
+        setSpeed(next);
+        return;
+      }
+      if (!onRenderSpeed) return;
+      setRendering(true);
+      setNote("Making the faster version…");
+      try {
+        const made = await onRenderSpeed(2);
+        if (made) {
+          setFastClip(made);
+          setSpeed(2);
+          setNote(null);
+        } else {
+          setNote("The faster version didn't come out — real time still works.");
+        }
+      } catch {
+        setNote("The faster version didn't come out — real time still works.");
+      } finally {
+        setRendering(false);
+      }
+    },
+    [speed, rendering, fastClip, onRenderSpeed],
+  );
 
   const shareToPhotos = useCallback(async () => {
-    if (!clip || sharing) return;
+    if (!activeClip || sharing) return;
     setSharing(true);
     try {
-      const file = new File([clip.blob], clip.name, { type: clip.type });
+      const file = new File([activeClip.blob], activeClip.name, {
+        type: activeClip.type,
+      });
       setNote("Choose “Save Video” to keep it in your Photos.");
       await navigator.share({ files: [file], title: "Pictaria replay" });
       setSaved(true);
@@ -110,9 +157,9 @@ export function ReplaySaveModal({
     } finally {
       setSharing(false);
     }
-  }, [clip, sharing]);
+  }, [activeClip, sharing]);
 
-  const hint = clip
+  const hint = activeClip
     ? canShareFiles
       ? "Save to Photos opens the share sheet — choose “Save Video”."
       : "Save to Files downloads the video to your phone."
@@ -151,9 +198,10 @@ export function ReplaySaveModal({
           </>
         ) : (
           <>
-            {clip ? (
+            {activeClip ? (
               <video
-                src={clip.url}
+                key={activeClip.url}
+                src={activeClip.url}
                 controls
                 autoPlay
                 muted
@@ -166,11 +214,36 @@ export function ReplaySaveModal({
               </div>
             )}
 
+            {clip && onRenderSpeed && (
+              <div className="mt-3">
+                <p className="text-[0.6rem] tracking-[0.16em] text-muted-foreground uppercase">
+                  Video speed
+                </p>
+                <div className="mt-2 flex gap-2">
+                  {([1, 2] as ReplaySpeed[]).map((option) => (
+                    <button
+                      key={option}
+                      type="button"
+                      onClick={() => void pickSpeed(option)}
+                      disabled={rendering}
+                      className={`flex-1 rounded-full px-3 py-2 text-[0.65rem] font-medium tracking-[0.1em] uppercase ${
+                        speed === option
+                          ? "bg-primary text-primary-foreground"
+                          : "border border-primary/40 text-primary"
+                      } ${rendering ? "opacity-60" : ""}`}
+                    >
+                      {option === 1 ? "Real time" : "2× faster"}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
             <p className="mt-3 text-center text-[0.7rem] leading-relaxed text-muted-foreground">
-              {note ?? hint}
+              {rendering ? "Making the faster version…" : (note ?? hint)}
             </p>
 
-            {clip && (
+            {activeClip && !rendering && (
               <div className="mt-4 flex flex-col items-center gap-2">
                 {canShareFiles && (
                   <Button
@@ -191,7 +264,7 @@ export function ReplaySaveModal({
                 {linkUrl ? (
                   <a
                     href={linkUrl}
-                    download={clip.name}
+                    download={activeClip.name}
                     target="_blank"
                     rel="noreferrer"
                     onClick={() => setNote("Saving to your Files…")}

@@ -24,7 +24,14 @@ import {
   useMindfulPlayer,
 } from "@/components/MindfulMusic";
 import { ReplaySaveModal } from "@/components/ReplaySaveModal";
-import { recordReplay, type ReplayClip, type ReplayFrame } from "@/lib/replay-video";
+import {
+  recordReplay,
+  replayDurationMs,
+  type ReplayClip,
+  type ReplayFrame,
+  type ReplaySpeed,
+} from "@/lib/replay-video";
+
 
 type SoundscapeId = (typeof TRACK_OPTIONS)[number]["id"];
 
@@ -170,6 +177,9 @@ export function PuzzleBoard({
   /** every board state the player produced, timed for an exact replay */
   const timeline = useRef<ReplayFrame[]>([]);
   const timelineStart = useRef(0);
+  /** the exact frames used for the last replay, ready to re-render at 2× */
+  const replayFrames = useRef<ReplayFrame[]>([]);
+
   const { playing: musicPlaying, selected: musicSelected } = useMindfulPlayer();
   const musicOn = musicPlaying !== null;
   const musicTitle = trackName(musicPlaying ?? musicSelected);
@@ -329,19 +339,22 @@ export function PuzzleBoard({
     setClip(null);
     setShowReplayResult(false);
 
-    // Record while the message is up so the handoff feels immediate: the note
-    // stays for 9 seconds, then any remaining final hold completes before video.
+    // Record at the player's real tempo while the message is up: the note stays
+    // for as long as the replay actually runs, then the clip is handed over.
+    replayFrames.current = framesForReplay;
     const resultPromise = recordReplay({
       src,
       grid,
       title,
       frames: framesForReplay,
+      speed: 1,
       onBeat: () => {},
     });
 
-    // Keep the banner up for at least 9 seconds, and until the clip (which now
-    // includes a short branded end card) is fully recorded.
-    await new Promise((resolve) => window.setTimeout(resolve, 9000));
+
+    await new Promise((resolve) =>
+      window.setTimeout(resolve, replayDurationMs(framesForReplay, 1)),
+    );
     const result = await resultPromise;
     setReplayBanner(false);
 
@@ -353,6 +366,28 @@ export function PuzzleBoard({
     else setReplayNote(result.error ?? "That replay didn't finish. Please try again.");
     setShowReplayResult(true);
   }, [pos, groupOf, src, grid, title, mergePass]);
+
+  /**
+   * Re-renders the same solve at double speed when the player picks "2× faster"
+   * before saving. It happens quietly offscreen — the board stays untouched.
+   */
+  const renderAtSpeed = useCallback(
+    async (speed: ReplaySpeed) => {
+      const frames = replayFrames.current;
+      if (!frames.length) return null;
+      const result = await recordReplay({
+        src,
+        grid,
+        title,
+        frames,
+        speed,
+        onBeat: () => {},
+      });
+      return result.clip ?? null;
+    },
+    [src, grid, title],
+  );
+
 
   /* timer */
   useEffect(() => {
@@ -1848,6 +1883,7 @@ export function PuzzleBoard({
           clip={clip}
           error={clip ? null : replayNote}
           title={title}
+          onRenderSpeed={renderAtSpeed}
           onClose={() => {
             setShowReplayResult(false);
             setClip(null);
@@ -1855,6 +1891,7 @@ export function PuzzleBoard({
           }}
         />
       )}
+
 
       {unbranded && (
         <Link
