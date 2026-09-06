@@ -128,6 +128,23 @@ function NewBusiness() {
         </Link>
 
         <Link
+          to="/portal/retention"
+          className="mb-3 flex items-center justify-between rounded-lg border border-accent/40 bg-shell/90 px-5 py-4 shadow-soft transition-transform hover:scale-[1.01]"
+        >
+          <span>
+            <span className="block font-display text-[1.05rem] text-foreground">
+              Free Months
+            </span>
+            <span className="text-[10px] tracking-[0.16em] text-muted-foreground uppercase">
+              who stayed and who asked to cancel
+            </span>
+          </span>
+          <span aria-hidden className="text-primary">
+            ›
+          </span>
+        </Link>
+
+        <Link
           to="/portal/community"
           className="mb-3 flex items-center justify-between rounded-lg border border-accent/40 bg-shell/90 px-5 py-4 shadow-soft transition-transform hover:scale-[1.01]"
         >
