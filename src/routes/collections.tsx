@@ -104,7 +104,6 @@ function CollectionsPage() {
       if (!dragging.current || !dragIdRef.current) return;
       e.preventDefault();
       const overId = idUnderPoint(e.clientX, e.clientY);
-      console.log("MOVE", e.clientX|0, overId, dragIdRef.current);
       if (overId) moveTo(dragIdRef.current, overId);
     };
     const onUp = () => {
@@ -152,16 +151,16 @@ function CollectionsPage() {
                 key={collection.id}
                 to="/collection/$collectionId"
                 params={{ collectionId: collection.id }}
-                data-collection-id={collection.id}
+data-collection-id={collection.id}
+                draggable={false}
+                onDragStart={(e) => e.preventDefault()}
                 onPointerDown={(e) => {
                   cancelPress();
                   dragging.current = false;
                   startPoint.current = { x: e.clientX, y: e.clientY };
-                  console.log("PD", collection.id);
                   pressTimer.current = setTimeout(() => {
                     dragging.current = true;
                     dragIdRef.current = collection.id;
-                    console.log("HOLD", collection.id);
                     setDragId(collection.id);
                     if (navigator.vibrate) navigator.vibrate(12);
                   }, LONG_PRESS_MS);
