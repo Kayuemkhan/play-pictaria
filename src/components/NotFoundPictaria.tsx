@@ -24,12 +24,12 @@ export function NotFoundPictaria() {
       <img
         src={shores}
         alt="A calm Hawaiian shoreline at golden hour"
-        className="absolute inset-0 h-full w-full object-cover opacity-45"
+        className="absolute inset-0 h-full w-full object-cover opacity-80"
         loading="eager"
       />
       <div
         aria-hidden
-        className="absolute inset-0 bg-[radial-gradient(circle_at_50%_25%,transparent_10%,oklch(0.22_0.05_235/0.82)_100%)]"
+        className="absolute inset-0 bg-[linear-gradient(180deg,oklch(0.22_0.05_235/0.35)_0%,oklch(0.22_0.05_235/0.74)_45%,oklch(0.22_0.05_235/0.88)_100%)]"
       />
 
       <div className="relative z-10 mx-auto flex min-h-screen max-w-md flex-col items-center justify-center px-6 py-20 text-center">
