@@ -66,7 +66,7 @@ function Dashboard() {
       </header>
 
       {error && (
-        <p className="mx-auto mt-6 max-w-2xl text-center text-[11px] text-destructive">{error}</p>
+        <p className="mx-auto mt-6 max-w-2xl text-center text-[11px] text-shell/90">{error}</p>
       )}
 
       {summary && (

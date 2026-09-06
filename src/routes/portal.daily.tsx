@@ -275,7 +275,7 @@ function DailyWaitingArea() {
 
 
         {error && (
-          <p className="text-center text-[11px] text-destructive">{error}</p>
+          <p className="text-center text-[11px] text-shell/90">{error}</p>
         )}
 
         {/* Preview & edit before sending */}

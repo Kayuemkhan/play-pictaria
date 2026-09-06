@@ -160,7 +160,7 @@ function CreatePage() {
                 </label>
 
                 {gateStatus === "error" && (
-                  <p className="mt-2 text-[11px] text-destructive">{gateError}</p>
+                  <p className="mt-2 text-[11px] text-deep-foreground/90">{gateError}</p>
                 )}
                 <div className="mt-6 flex justify-center">
                   <button

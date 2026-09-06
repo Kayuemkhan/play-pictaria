@@ -211,8 +211,7 @@ function PricingPage() {
           <p className="mt-1 text-[0.6rem] tracking-[0.16em] text-deep-foreground/70 uppercase">
             Pinch in to shrink · double tap to reset
           </p>
-          <PinchZoom className="mt-4 rounded-[4px]">
-            <div className="overflow-x-auto">
+          <PinchZoom scrollX className="mt-4 rounded-[4px]">
             <table className="w-full min-w-[34rem] border-collapse text-left">
               <thead>
                 <tr>
@@ -269,7 +268,6 @@ function PricingPage() {
                 ))}
               </tbody>
             </table>
-            </div>
           </PinchZoom>
         </section>
 

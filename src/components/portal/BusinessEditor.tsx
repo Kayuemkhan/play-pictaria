@@ -364,7 +364,7 @@ export function BusinessEditor({ record }: Props) {
       </section>
 
       {error && (
-        <p className="text-[12px] text-destructive" role="alert">
+        <p className="text-[12px] text-muted-foreground" role="alert">
           {error}
         </p>
       )}
@@ -502,7 +502,7 @@ export function BusinessEditor({ record }: Props) {
             type="button"
             variant="ghost"
             onClick={destroy}
-            className="rounded-full border border-destructive/30 px-5 text-[0.55rem] tracking-[0.2em] text-destructive uppercase"
+            className="rounded-full border border-destructive/30 px-5 text-[0.55rem] tracking-[0.2em] text-muted-foreground uppercase"
           >
             <Trash2 className="mr-2 h-4 w-4" />
             Delete this picture

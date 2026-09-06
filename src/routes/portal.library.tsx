@@ -180,7 +180,7 @@ function Library() {
       </header>
 
       {error && (
-        <p className="mx-auto mt-6 max-w-2xl text-center text-[11px] text-destructive">{error}</p>
+        <p className="mx-auto mt-6 max-w-2xl text-center text-[11px] text-shell/90">{error}</p>
       )}
 
       <div className="mx-auto mt-6 max-w-2xl space-y-6">
@@ -200,7 +200,7 @@ function Library() {
                   type="button"
                   onClick={() => void destroyCategory(category.id)}
                   aria-label={`Delete ${category.name}`}
-                  className="text-muted-foreground hover:text-destructive"
+                  className="text-muted-foreground hover:text-foreground"
                 >
                   <Trash2 className="h-3 w-3" />
                 </button>
@@ -348,7 +348,7 @@ function Library() {
                   type="button"
                   onClick={() => void destroyCollection(collection.id)}
                   disabled={busyId === collection.id}
-                  className="flex w-full items-center justify-center gap-1.5 border-t border-accent/30 py-1.5 text-[10px] tracking-[0.14em] text-destructive uppercase disabled:opacity-50"
+                  className="flex w-full items-center justify-center gap-1.5 border-t border-accent/30 py-1.5 text-[10px] tracking-[0.14em] text-muted-foreground uppercase disabled:opacity-50"
                 >
                   <Trash2 className="h-3 w-3" />
                   {busyId === collection.id ? "Deleting…" : "Delete"}

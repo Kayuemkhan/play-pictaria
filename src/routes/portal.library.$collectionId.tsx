@@ -266,7 +266,7 @@ function ManageCollection() {
       </header>
 
       {error && (
-        <p className="mx-auto mt-6 max-w-2xl text-center text-[11px] text-destructive">{error}</p>
+        <p className="mx-auto mt-6 max-w-2xl text-center text-[11px] text-shell/90">{error}</p>
       )}
 
       <div className="mx-auto mt-6 max-w-2xl space-y-6">
@@ -346,7 +346,7 @@ function ManageCollection() {
                 type="button"
                 variant="outline"
                 onClick={() => void destroy()}
-                className="text-destructive"
+                className="text-muted-foreground"
               >
                 <Trash2 className="h-4 w-4" />
               </Button>
@@ -443,7 +443,7 @@ function ManageCollection() {
                       type="button"
                       onClick={() => void destroyImage(image.id)}
                       aria-label="Delete photo"
-                      className="text-destructive"
+                      className="text-muted-foreground"
                     >
                       <Trash2 className="h-4 w-4" />
                     </button>
