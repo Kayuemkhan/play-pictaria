@@ -1,12 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { visibleCollections } from "@/data/collections";
 import type { Collection } from "@/data/collections";
 import { getLibraryCollections } from "@/lib/collection-catalog.functions";
 
 const ORDER_KEY = "pictaria.collection-order.v1";
-const LONG_PRESS_MS = 320;
+const LONG_PRESS_MS = 260;
+const FLIP_MS = 220;
 
 export const Route = createFileRoute("/collections")({
   head: () => ({
@@ -35,13 +36,16 @@ function CollectionsPage() {
   const [dragId, setDragId] = useState<string | null>(null);
 
   const gridRef = useRef<HTMLDivElement>(null);
+  const cardEls = useRef(new Map<string, HTMLElement>());
+  const prevRects = useRef(new Map<string, DOMRect>());
+
   const pressTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const dragging = useRef(false);
   const dragIdRef = useRef<string | null>(null);
+  const pointer = useRef<{ x: number; y: number } | null>(null);
   const startPoint = useRef<{ x: number; y: number } | null>(null);
   const justDragged = useRef(false);
   const orderRef = useRef<string[]>([]);
-
+  const frame = useRef<number | null>(null);
 
   useEffect(() => {
     void loadLibrary({}).then((result) => setLibraryCollections(result.collections));
@@ -66,7 +70,14 @@ function CollectionsPage() {
     );
   }, [libraryCollections, order]);
 
+  orderRef.current = allCollections.map((c) => c.id);
+
   const saveOrder = (ids: string[]) => {
+    // remember where every card sits so the shuffle can be animated
+    prevRects.current.clear();
+    cardEls.current.forEach((el, id) => {
+      prevRects.current.set(id, el.getBoundingClientRect());
+    });
     setOrder(ids);
     try {
       localStorage.setItem(ORDER_KEY, JSON.stringify(ids));
@@ -75,9 +86,53 @@ function CollectionsPage() {
     }
   };
 
+  // FLIP: slide the untouched cards from their old slots into their new ones.
+  useLayoutEffect(() => {
+    if (prevRects.current.size === 0) return;
+    const rects = prevRects.current;
+    prevRects.current = new Map();
+
+    cardEls.current.forEach((el, id) => {
+      if (id === dragIdRef.current) return;
+      const before = rects.get(id);
+      if (!before) return;
+      const after = el.getBoundingClientRect();
+      const dx = before.left - after.left;
+      const dy = before.top - after.top;
+      if (Math.abs(dx) < 1 && Math.abs(dy) < 1) return;
+      el.style.transition = "none";
+      el.style.transform = `translate3d(${dx}px, ${dy}px, 0)`;
+      requestAnimationFrame(() => {
+        el.style.transition = `transform ${FLIP_MS}ms cubic-bezier(0.22,0.61,0.36,1)`;
+        el.style.transform = "translate3d(0, 0, 0)";
+      });
+    });
+  }, [allCollections]);
+
   const cancelPress = () => {
     if (pressTimer.current) clearTimeout(pressTimer.current);
     pressTimer.current = null;
+  };
+
+  // Keep the held card glued to the finger. Recomputed from the card's own
+  // resting slot each frame, so it stays accurate after every reorder.
+  const paint = () => {
+    frame.current = null;
+    const id = dragIdRef.current;
+    const p = pointer.current;
+    if (!id || !p) return;
+    const el = cardEls.current.get(id);
+    if (!el) return;
+    el.style.transition = "none";
+    el.style.transform = "translate3d(0,0,0) scale(1)";
+    const rect = el.getBoundingClientRect();
+    const dx = p.x - (rect.left + rect.width / 2);
+    const dy = p.y - (rect.top + rect.height / 2);
+    el.style.transform = `translate3d(${dx}px, ${dy}px, 0) scale(1.07)`;
+  };
+
+  const requestPaint = () => {
+    if (frame.current === null) frame.current = requestAnimationFrame(paint);
   };
 
   const moveTo = (fromId: string, toId: string) => {
@@ -90,51 +145,71 @@ function CollectionsPage() {
     saveOrder(ids);
   };
 
+  // Which card is the finger over? Compare against resting slots rather than
+  // elementFromPoint, so the lifted card never blocks the hit test.
   const idUnderPoint = (x: number, y: number) => {
-    const el = document.elementFromPoint(x, y) as HTMLElement | null;
-    return el?.closest<HTMLElement>("[data-collection-id]")?.dataset["collectionId"] ?? null;
+    let best: string | null = null;
+    cardEls.current.forEach((el, id) => {
+      if (id === dragIdRef.current) return;
+      const r = el.getBoundingClientRect();
+      if (x >= r.left && x <= r.right && y >= r.top && y <= r.bottom) best = id;
+    });
+    return best;
   };
 
-  orderRef.current = allCollections.map((c) => c.id);
+  const startDrag = (id: string) => {
+    dragIdRef.current = id;
+    setDragId(id);
+    if (navigator.vibrate) navigator.vibrate(12);
+    requestPaint();
+  };
 
-  // While a card is held, follow the finger at window level so the reorder keeps
-  // tracking even as the cards move around underneath.
+  const endDrag = () => {
+    cancelPress();
+    const id = dragIdRef.current;
+    if (id) {
+      justDragged.current = true;
+      setTimeout(() => {
+        justDragged.current = false;
+      }, 250);
+      const el = cardEls.current.get(id);
+      if (el) {
+        el.style.transition = `transform ${FLIP_MS}ms cubic-bezier(0.22,0.61,0.36,1)`;
+        el.style.transform = "translate3d(0, 0, 0)";
+      }
+    }
+    dragIdRef.current = null;
+    pointer.current = null;
+    if (frame.current !== null) cancelAnimationFrame(frame.current);
+    frame.current = null;
+    setDragId(null);
+  };
+
   useEffect(() => {
     const onMove = (e: PointerEvent) => {
-      if (!dragging.current || !dragIdRef.current) return;
+      if (!dragIdRef.current) return;
+      if (e.cancelable) e.preventDefault();
+      pointer.current = { x: e.clientX, y: e.clientY };
+      requestPaint();
       const overId = idUnderPoint(e.clientX, e.clientY);
       if (overId) moveTo(dragIdRef.current, overId);
     };
-    // Touch devices need the page held still while dragging; touch-action alone
-    // is decided when the gesture begins, so block the scroll here.
+    // touch-action is decided when the gesture begins, so hold the page still here
     const onTouchMove = (e: TouchEvent) => {
-      if (dragging.current && e.cancelable) e.preventDefault();
+      if (dragIdRef.current && e.cancelable) e.preventDefault();
     };
-    const onUp = () => {
-      cancelPress();
-      if (dragging.current) {
-        justDragged.current = true;
-        setTimeout(() => {
-          justDragged.current = false;
-        }, 250);
-      }
-      dragging.current = false;
-      dragIdRef.current = null;
-      setDragId(null);
-    };
-    window.addEventListener("pointermove", onMove);
+    window.addEventListener("pointermove", onMove, { passive: false });
     window.addEventListener("touchmove", onTouchMove, { passive: false });
-    window.addEventListener("pointerup", onUp);
-    window.addEventListener("pointercancel", onUp);
+    window.addEventListener("pointerup", endDrag);
+    window.addEventListener("pointercancel", endDrag);
     return () => {
       window.removeEventListener("pointermove", onMove);
       window.removeEventListener("touchmove", onTouchMove);
-      window.removeEventListener("pointerup", onUp);
-      window.removeEventListener("pointercancel", onUp);
+      window.removeEventListener("pointerup", endDrag);
+      window.removeEventListener("pointercancel", endDrag);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
 
   return (
     <main className="min-h-screen bg-mist-gradient px-4 pb-20 sm:px-6">
@@ -149,7 +224,7 @@ function CollectionsPage() {
           </p>
         </div>
 
-        <div ref={gridRef} className="mt-5 grid grid-cols-3 gap-2 sm:gap-3">
+        <div ref={gridRef} className="relative mt-5 grid grid-cols-3 gap-2 sm:gap-3">
           {allCollections.map((collection) => {
             const isDragging = dragId === collection.id;
             return (
@@ -157,44 +232,44 @@ function CollectionsPage() {
                 key={collection.id}
                 to="/collection/$collectionId"
                 params={{ collectionId: collection.id }}
-data-collection-id={collection.id}
+                data-collection-id={collection.id}
+                ref={(el) => {
+                  if (el) cardEls.current.set(collection.id, el as unknown as HTMLElement);
+                  else cardEls.current.delete(collection.id);
+                }}
                 draggable={false}
                 onDragStart={(e) => e.preventDefault()}
                 onPointerDown={(e) => {
                   cancelPress();
-                  dragging.current = false;
                   startPoint.current = { x: e.clientX, y: e.clientY };
-                  pressTimer.current = setTimeout(() => {
-                    dragging.current = true;
-                    dragIdRef.current = collection.id;
-                    setDragId(collection.id);
-                    if (navigator.vibrate) navigator.vibrate(12);
-                  }, LONG_PRESS_MS);
+                  pointer.current = { x: e.clientX, y: e.clientY };
+                  pressTimer.current = setTimeout(
+                    () => startDrag(collection.id),
+                    LONG_PRESS_MS,
+                  );
                 }}
                 onPointerMove={(e) => {
-                  if (dragging.current) return;
+                  if (dragIdRef.current) return;
                   const s = startPoint.current;
-                  if (s && Math.hypot(e.clientX - s.x, e.clientY - s.y) > 10) cancelPress();
+                  if (s && Math.hypot(e.clientX - s.x, e.clientY - s.y) > 12) cancelPress();
                 }}
                 onPointerUp={cancelPress}
                 onPointerCancel={cancelPress}
                 onContextMenu={(e) => {
-                  if (dragging.current) e.preventDefault();
+                  if (dragIdRef.current) e.preventDefault();
                 }}
                 onClick={(e) => {
-                  if (dragging.current || justDragged.current) e.preventDefault();
+                  if (dragIdRef.current || justDragged.current) e.preventDefault();
                 }}
                 style={{
                   touchAction: dragId ? "none" : "manipulation",
-                  // the held card must not sit under the finger, or the card
-                  // beneath it can never be detected as the drop target
-                  pointerEvents: isDragging ? "none" : undefined,
+                  zIndex: isDragging ? 20 : undefined,
+                  willChange: isDragging ? "transform" : undefined,
                 }}
-
-                className={`tile-sheen group relative block overflow-hidden rounded-[4px] border shadow-soft transition-[box-shadow,transform,border-color] duration-300 hover:shadow-lift ${
+                className={`tile-sheen group relative block overflow-hidden rounded-[4px] border shadow-soft ${
                   isDragging
-                    ? "z-10 scale-[1.06] border-accent shadow-lift"
-                    : "border-accent/60"
+                    ? "border-accent opacity-95 shadow-lift"
+                    : "border-accent/60 hover:shadow-lift"
                 }`}
               >
                 <img
