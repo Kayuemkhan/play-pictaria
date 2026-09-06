@@ -184,7 +184,12 @@ data-collection-id={collection.id}
                 onClick={(e) => {
                   if (dragging.current || justDragged.current) e.preventDefault();
                 }}
-                style={{ touchAction: dragId ? "none" : "manipulation" }}
+                style={{
+                  touchAction: dragId ? "none" : "manipulation",
+                  // the held card must not sit under the finger, or the card
+                  // beneath it can never be detected as the drop target
+                  pointerEvents: isDragging ? "none" : undefined,
+                }}
 
                 className={`tile-sheen group relative block overflow-hidden rounded-[4px] border shadow-soft transition-[box-shadow,transform,border-color] duration-300 hover:shadow-lift ${
                   isDragging
