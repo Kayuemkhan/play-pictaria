@@ -18,40 +18,60 @@ const CANVAS_W = 750;
 const CANVAS_H = 1000;
 const BORDER = 4;
 
-/** The finished clip lands at roughly this length, whatever the solve took. */
-const TARGET_MS = 9000;
+/** Long thinking pauses are trimmed to this, so the clip never stalls. */
+const MAX_PAUSE = 2500;
+/** Two board states closer than this still get a readable beat. */
+const MIN_STEP = 120;
+/** Safety net for marathon solves: nothing longer than a minute is recorded. */
+const MAX_SPAN_MS = 60_000;
 /** Keep the solved picture visible long enough for phones to capture it. */
 const FINAL_HOLD_MS = 1400;
 const RECORDER_WARMUP_MS = 150;
 const RECORDER_FLUSH_MS = 300;
 
+/** 1 = the player's real tempo, 2 = twice as fast. */
+export type ReplaySpeed = 1 | 2;
+
 /**
- * The player's own rhythm, kept in proportion but stretched or squeezed so the
- * whole replay lasts about nine seconds.
+ * The player's own rhythm, kept as it happened (only very long pauses are
+ * trimmed). `speed` divides every moment, so 2 gives a clip half as long with
+ * the same order of moves.
  */
-export function toBeats(frames: ReplayFrame[]): ReplayBeat[] {
-  const MAX_PAUSE = 2500;
+export function toBeats(frames: ReplayFrame[], speed: ReplaySpeed = 1): ReplayBeat[] {
   let clock = 0;
   const raw = frames.map((f, i) => {
     if (i > 0) {
       const gap = f.t - frames[i - 1]!.t;
-      clock += Math.min(Math.max(gap, 120), MAX_PAUSE);
+      clock += Math.min(Math.max(gap, MIN_STEP), MAX_PAUSE);
     }
     return { pos: f.pos, at: clock };
   });
 
-  const steps = Math.max(1, raw.length - 1);
-  const glide = Math.min(700, Math.max(220, (TARGET_MS / steps) * 0.7));
   const span = clock;
-  const replayWindow = Math.max(1200, TARGET_MS - glide);
-  const scale = span > 0 ? replayWindow / span : 1;
+  const trim = span > MAX_SPAN_MS ? MAX_SPAN_MS / span : 1;
+  const scale = trim / speed;
 
-  return raw.map((b, i) => ({
-    pos: b.pos,
-    at: Math.round(b.at * scale),
-    glide: i === 0 ? 0 : glide,
-  }));
+  return raw.map((b, i) => {
+    const gap = i > 0 ? (b.at - raw[i - 1]!.at) * scale : 0;
+    return {
+      pos: b.pos,
+      at: Math.round(b.at * scale),
+      glide: i === 0 ? 0 : Math.min(600, Math.max(120, Math.round(gap * 0.65))),
+    };
+  });
 }
+
+/** How long the finished clip will run, used to time the on-screen replay. */
+export function replayDurationMs(
+  frames: ReplayFrame[],
+  speed: ReplaySpeed = 1,
+): number {
+  const beats = toBeats(frames, speed);
+  const last = beats[beats.length - 1];
+  if (!last) return 0;
+  return last.at + last.glide + FINAL_HOLD_MS;
+}
+
 
 const wait = (ms: number) =>
   new Promise<void>((resolve) => window.setTimeout(resolve, ms));
