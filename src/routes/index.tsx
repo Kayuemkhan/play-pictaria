@@ -123,7 +123,7 @@ function Home() {
 
 
         {/* wordmark */}
-        <div className="absolute inset-x-0 top-5 flex flex-col items-center px-6 text-center sm:top-7">
+        <div className="absolute inset-x-0 top-2 flex flex-col items-center px-6 text-center sm:top-3">
           <button
             type="button"
             onClick={handleLogoTap}
@@ -140,7 +140,7 @@ function Home() {
             />
           </button>
           <span
-            className="mt-5 cursor-pointer bg-clip-text font-display text-3xl leading-none font-normal tracking-[0.16em] text-transparent uppercase transition-transform duration-500 ease-[var(--ease-calm)] hover:scale-[1.04] sm:mt-6 sm:text-4xl"
+            className="mt-3.5 cursor-pointer bg-clip-text font-display text-[1.6rem] leading-none font-normal tracking-[0.16em] text-transparent uppercase transition-transform duration-500 ease-[var(--ease-calm)] hover:scale-[1.04] sm:mt-4 sm:text-[2rem]"
             style={{
               backgroundImage:
                 "linear-gradient(168deg, oklch(0.36 0.022 235) 0%, oklch(0.28 0.026 238) 45%, oklch(0.33 0.022 232) 100%)",
@@ -151,7 +151,7 @@ function Home() {
             Pictaria
           </span>
           <span
-            className="-mt-1 cursor-pointer bg-clip-text font-display text-[0.81rem] tracking-[0.26em] text-transparent uppercase transition-transform duration-500 ease-[var(--ease-calm)] hover:scale-[1.04] sm:text-[0.94rem]"
+            className="-mt-1 cursor-pointer bg-clip-text font-display text-[0.72rem] tracking-[0.22em] text-transparent uppercase transition-transform duration-500 ease-[var(--ease-calm)] hover:scale-[1.04] sm:text-[0.85rem]"
             style={{
               backgroundImage:
                 "linear-gradient(168deg, oklch(0.36 0.022 235) 0%, oklch(0.28 0.026 238) 45%, oklch(0.33 0.022 232) 100%)",

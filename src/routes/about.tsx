@@ -117,7 +117,7 @@ function AboutPage() {
             </p>
           </div>
           <div className="rounded-[6px] border border-accent/40 bg-deep/50 p-5 backdrop-blur-sm sm:p-8">
-            <h2 className="font-display text-lg text-gold-shimmer">Find Your Frequency</h2>
+            <h2 className="font-display text-lg text-gold-shimmer">Change Your Vibration</h2>
             <p className="mx-auto mt-4 max-w-xl text-[0.9rem] leading-relaxed text-gold-shimmer">
               Sound is more than something we hear. It is a physical vibration, and scientists are discovering fascinating ways our brains and even our cells respond to it. Recent research has found that acoustic stimulation can influence gene activity and cellular behavior, while studies of entrainment explore how rhythmic sound may interact with the brain’s own electrical rhythms.
             </p>

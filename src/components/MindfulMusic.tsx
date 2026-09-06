@@ -603,17 +603,20 @@ const STARTERS: Record<TrackId, (ctx: AudioContext, out: GainNode) => Engine> = 
   ocean: startOcean,
   bowls: startBowls,
   binaural: startBinaural,
-  // Each frequency gets its own carrier, timbre and pulse so they sound distinct
+  // Each frequency gets its own carrier, timbre and pulse so they sound distinct.
+  // 4 Hz sat so low, and so quietly, that phone speakers made it sound silent —
+  // a brighter carrier, a deeper audible throb and more level fix that.
   "binaural-4": (ctx, out) =>
     startBinauralBeat(ctx, out, {
-      carrier: 198,
+      carrier: 216,
       beat: 4,
       wave: "sine",
-      padWave: "sine",
+      padWave: "triangle",
       padOctaves: 1,
-      padCutoff: 420,
-      pulse: 0.55,
-      level: 0.16,
+      padCutoff: 520,
+      pulse: 0.92,
+      shimmer: 0.014,
+      level: 0.22,
     }),
   "binaural-6": (ctx, out) =>
     startBinauralBeat(ctx, out, {
@@ -807,7 +810,7 @@ export function MindfulMusic() {
   return (
     <div className="mt-8">
       <h2 className="font-display text-lg tracking-[0.18em] text-accent uppercase">
-        Choose your sound
+        Change your vibration
       </h2>
       <p className="mt-2 font-body text-xs leading-relaxed font-light text-shell/70">
         Switch a sound on here and it keeps playing while you solve. Inside a
