@@ -56,7 +56,8 @@ export function BackChevron({ position }: { position: "top" | "bottom" }) {
       onClick={goBack}
       aria-label="Back"
       className={`pointer-events-auto fixed left-4 z-50 grid h-11 w-11 place-items-center text-accent/80 transition-transform hover:scale-105 active:scale-95 ${
-        position === "top" ? "top-4" : "bottom-4"
+        // sits below the fixed three-line menu so both stay tappable
+        position === "top" ? "top-[4.25rem]" : "bottom-4"
       }`}
     >
       <ChevronLeft className="h-5 w-5" strokeWidth={1.5} />
