@@ -150,15 +150,17 @@ function Home() {
             Pictaria
           </span>
           <span
-            className="-mt-1 cursor-pointer font-display text-[0.81rem] tracking-[0.3em] uppercase transition-transform duration-500 ease-[var(--ease-calm)] hover:scale-[1.04] sm:text-[0.94rem]"
+            className="-mt-1 cursor-pointer bg-clip-text font-display text-[0.81rem] tracking-[0.3em] text-transparent uppercase transition-transform duration-500 ease-[var(--ease-calm)] hover:scale-[1.04] sm:text-[0.94rem]"
             style={{
-              color: "oklch(0.98 0.025 85)",
-              textShadow:
-                "0 1px 3px oklch(0.18 0.05 235 / 0.6), 0 2px 14px oklch(0.18 0.05 235 / 0.45)",
+              backgroundImage:
+                "linear-gradient(168deg, oklch(0.36 0.022 235) 0%, oklch(0.28 0.026 238) 45%, oklch(0.33 0.022 232) 100%)",
+              filter:
+                "drop-shadow(0 1px 1px oklch(0.99 0.01 220 / 0.5)) drop-shadow(0 2px 10px oklch(0.98 0.01 220 / 0.35))",
             }}
           >
             Turn pictures into play
           </span>
+
 
 
         </div>
