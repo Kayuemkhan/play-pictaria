@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SplatRouteImport } from './routes/$'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as AccountRouteImport } from './routes/account'
 import { Route as BetaRouteImport } from './routes/beta'
 import { Route as CollectionsRouteImport } from './routes/collections'
 import { Route as CreateRouteImport } from './routes/create'
@@ -41,6 +42,7 @@ import { Route as PortalDashboardRouteImport } from './routes/portal.dashboard'
 import { Route as PortalLibraryRouteImport } from './routes/portal.library'
 import { Route as PortalNewRouteImport } from './routes/portal.new'
 import { Route as PortalPushRouteImport } from './routes/portal.push'
+import { Route as PortalRetentionRouteImport } from './routes/portal.retention'
 import { Route as PortalSubscribersRouteImport } from './routes/portal.subscribers'
 import { Route as PuzzlePuzzleIdRouteImport } from './routes/puzzle.$puzzleId'
 import { Route as StorybookCollectionIdRouteImport } from './routes/storybook.$collectionId'
@@ -64,6 +66,11 @@ const SplatRoute = SplatRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AccountRoute = AccountRouteImport.update({
+  id: '/account',
+  path: '/account',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BetaRoute = BetaRouteImport.update({
@@ -213,6 +220,11 @@ const PortalPushRoute = PortalPushRouteImport.update({
   path: '/portal/push',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PortalRetentionRoute = PortalRetentionRouteImport.update({
+  id: '/portal/retention',
+  path: '/portal/retention',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PortalSubscribersRoute = PortalSubscribersRouteImport.update({
   id: '/portal/subscribers',
   path: '/portal/subscribers',
@@ -265,6 +277,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
   '/about': typeof AboutRoute
+  '/account': typeof AccountRoute
   '/beta': typeof BetaRoute
   '/collections': typeof CollectionsRoute
   '/create': typeof CreateRoute
@@ -292,6 +305,7 @@ export interface FileRoutesByFullPath {
   '/portal/library': typeof PortalLibraryRouteWithChildren
   '/portal/new': typeof PortalNewRoute
   '/portal/push': typeof PortalPushRoute
+  '/portal/retention': typeof PortalRetentionRoute
   '/portal/subscribers': typeof PortalSubscribersRoute
   '/puzzle/$puzzleId': typeof PuzzlePuzzleIdRoute
   '/storybook/$collectionId': typeof StorybookCollectionIdRoute
@@ -308,6 +322,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
   '/about': typeof AboutRoute
+  '/account': typeof AccountRoute
   '/beta': typeof BetaRoute
   '/collections': typeof CollectionsRoute
   '/create': typeof CreateRoute
@@ -334,6 +349,7 @@ export interface FileRoutesByTo {
   '/portal/library': typeof PortalLibraryRouteWithChildren
   '/portal/new': typeof PortalNewRoute
   '/portal/push': typeof PortalPushRoute
+  '/portal/retention': typeof PortalRetentionRoute
   '/portal/subscribers': typeof PortalSubscribersRoute
   '/puzzle/$puzzleId': typeof PuzzlePuzzleIdRoute
   '/storybook/$collectionId': typeof StorybookCollectionIdRoute
@@ -351,6 +367,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
   '/about': typeof AboutRoute
+  '/account': typeof AccountRoute
   '/beta': typeof BetaRoute
   '/collections': typeof CollectionsRoute
   '/create': typeof CreateRoute
@@ -378,6 +395,7 @@ export interface FileRoutesById {
   '/portal/library': typeof PortalLibraryRouteWithChildren
   '/portal/new': typeof PortalNewRoute
   '/portal/push': typeof PortalPushRoute
+  '/portal/retention': typeof PortalRetentionRoute
   '/portal/subscribers': typeof PortalSubscribersRoute
   '/puzzle/$puzzleId': typeof PuzzlePuzzleIdRoute
   '/storybook/$collectionId': typeof StorybookCollectionIdRoute
@@ -396,6 +414,7 @@ export interface FileRouteTypes {
     | '/'
     | '/$'
     | '/about'
+    | '/account'
     | '/beta'
     | '/collections'
     | '/create'
@@ -423,6 +442,7 @@ export interface FileRouteTypes {
     | '/portal/library'
     | '/portal/new'
     | '/portal/push'
+    | '/portal/retention'
     | '/portal/subscribers'
     | '/puzzle/$puzzleId'
     | '/storybook/$collectionId'
@@ -439,6 +459,7 @@ export interface FileRouteTypes {
     | '/'
     | '/$'
     | '/about'
+    | '/account'
     | '/beta'
     | '/collections'
     | '/create'
@@ -465,6 +486,7 @@ export interface FileRouteTypes {
     | '/portal/library'
     | '/portal/new'
     | '/portal/push'
+    | '/portal/retention'
     | '/portal/subscribers'
     | '/puzzle/$puzzleId'
     | '/storybook/$collectionId'
@@ -481,6 +503,7 @@ export interface FileRouteTypes {
     | '/'
     | '/$'
     | '/about'
+    | '/account'
     | '/beta'
     | '/collections'
     | '/create'
@@ -508,6 +531,7 @@ export interface FileRouteTypes {
     | '/portal/library'
     | '/portal/new'
     | '/portal/push'
+    | '/portal/retention'
     | '/portal/subscribers'
     | '/puzzle/$puzzleId'
     | '/storybook/$collectionId'
@@ -525,6 +549,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   SplatRoute: typeof SplatRoute
   AboutRoute: typeof AboutRoute
+  AccountRoute: typeof AccountRoute
   BetaRoute: typeof BetaRoute
   CollectionsRoute: typeof CollectionsRoute
   CreateRoute: typeof CreateRoute
@@ -551,6 +576,7 @@ export interface RootRouteChildren {
   PortalLibraryRoute: typeof PortalLibraryRouteWithChildren
   PortalNewRoute: typeof PortalNewRoute
   PortalPushRoute: typeof PortalPushRoute
+  PortalRetentionRoute: typeof PortalRetentionRoute
   PortalSubscribersRoute: typeof PortalSubscribersRoute
   PuzzlePuzzleIdRoute: typeof PuzzlePuzzleIdRoute
   StorybookCollectionIdRoute: typeof StorybookCollectionIdRoute
@@ -583,6 +609,13 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/account': {
+      id: '/account'
+      path: '/account'
+      fullPath: '/account'
+      preLoaderRoute: typeof AccountRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/beta': {
@@ -788,6 +821,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PortalPushRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/portal/retention': {
+      id: '/portal/retention'
+      path: '/portal/retention'
+      fullPath: '/portal/retention'
+      preLoaderRoute: typeof PortalRetentionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/portal/subscribers': {
       id: '/portal/subscribers'
       path: '/portal/subscribers'
@@ -884,6 +924,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   SplatRoute: SplatRoute,
   AboutRoute: AboutRoute,
+  AccountRoute: AccountRoute,
   BetaRoute: BetaRoute,
   CollectionsRoute: CollectionsRoute,
   CreateRoute: CreateRoute,
@@ -911,6 +952,7 @@ const rootRouteChildren: RootRouteChildren = {
   PortalLibraryRoute: PortalLibraryRouteWithChildren,
   PortalNewRoute: PortalNewRoute,
   PortalPushRoute: PortalPushRoute,
+  PortalRetentionRoute: PortalRetentionRoute,
   PortalSubscribersRoute: PortalSubscribersRoute,
   PuzzlePuzzleIdRoute: PuzzlePuzzleIdRoute,
   StorybookCollectionIdRoute: StorybookCollectionIdRoute,
