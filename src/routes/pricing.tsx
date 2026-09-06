@@ -20,6 +20,7 @@ import {
 import artistBottom from "@/assets/pricing-artist-bottom.webp";
 import eKomoMai from "@/assets/cat-08.webp";
 import { HeroPuzzle } from "@/components/HeroPuzzle";
+import { PinchZoom } from "@/components/PinchZoom";
 
 const planColumns = [
   { name: "Free", price: "FREE", period: "" },
@@ -207,7 +208,11 @@ function PricingPage() {
           <h2 className="font-display text-sm font-semibold tracking-[0.18em] uppercase">
             Compare the plans
           </h2>
-          <div className="mt-4 overflow-x-auto">
+          <p className="mt-1 text-[0.6rem] tracking-[0.16em] text-deep-foreground/70 uppercase">
+            Pinch to zoom · double tap to reset
+          </p>
+          <PinchZoom className="mt-4 rounded-[4px]">
+            <div className="overflow-x-auto">
             <table className="w-full min-w-[34rem] border-collapse text-left">
               <thead>
                 <tr>
@@ -264,7 +269,8 @@ function PricingPage() {
                 ))}
               </tbody>
             </table>
-          </div>
+            </div>
+          </PinchZoom>
         </section>
 
 

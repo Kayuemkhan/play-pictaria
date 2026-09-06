@@ -150,7 +150,7 @@ function Home() {
             Pictaria
           </span>
           <span
-            className="-mt-1 cursor-pointer bg-clip-text font-display text-[0.81rem] tracking-[0.3em] text-transparent uppercase transition-transform duration-500 ease-[var(--ease-calm)] hover:scale-[1.04] sm:text-[0.94rem]"
+            className="-mt-1 cursor-pointer bg-clip-text font-display text-[0.81rem] tracking-[0.26em] text-transparent uppercase transition-transform duration-500 ease-[var(--ease-calm)] hover:scale-[1.04] sm:text-[0.94rem]"
             style={{
               backgroundImage:
                 "linear-gradient(168deg, oklch(0.36 0.022 235) 0%, oklch(0.28 0.026 238) 45%, oklch(0.33 0.022 232) 100%)",
