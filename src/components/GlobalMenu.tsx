@@ -44,11 +44,11 @@ export function GlobalMenu() {
         }}
         onClick={(e) => e.preventDefault()}
         style={{ touchAction: "manipulation", WebkitTapHighlightColor: "transparent" }}
-        className="grid h-14 w-14 cursor-pointer place-items-center text-deep transition-[color,opacity,transform] duration-500 ease-[var(--ease-calm)] hover:text-deep/80 active:scale-95"
+        className="grid h-14 w-14 cursor-pointer place-items-center text-deep/55 transition-[color,opacity,transform] duration-500 ease-[var(--ease-calm)] hover:text-deep/75 active:scale-95"
       >
         <Menu
           className="h-6 w-6 drop-shadow-[0_1px_6px_oklch(1_0_0/0.45)]"
-          strokeWidth={2.5}
+          strokeWidth={1.75}
         />
       </button>
 
