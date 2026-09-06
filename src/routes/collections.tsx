@@ -145,7 +145,7 @@ function CollectionsPage() {
           </p>
           <h1 className="mt-1 font-display text-3xl sm:text-4xl">All Collections</h1>
           <p className="mt-2 text-[10px] tracking-[0.16em] text-muted-foreground uppercase">
-            Press and hold an album to drag it into a new place
+            Press and hold an album to drag.
           </p>
         </div>
 
