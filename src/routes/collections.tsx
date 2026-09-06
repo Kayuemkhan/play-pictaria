@@ -46,6 +46,7 @@ function CollectionsPage() {
   const justDragged = useRef(false);
   const orderRef = useRef<string[]>([]);
   const frame = useRef<number | null>(null);
+  const lastSwap = useRef(0);
 
   useEffect(() => {
     void loadLibrary({}).then((result) => setLibraryCollections(result.collections));
@@ -141,6 +142,10 @@ function CollectionsPage() {
     const from = ids.indexOf(fromId);
     const to = ids.indexOf(toId);
     if (from < 0 || to < 0) return;
+    // let the shuffle animation settle before accepting the next swap
+    const now = Date.now();
+    if (now - lastSwap.current < FLIP_MS) return;
+    lastSwap.current = now;
     ids.splice(to, 0, ids.splice(from, 1)[0]!);
     saveOrder(ids);
   };
