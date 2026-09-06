@@ -241,15 +241,18 @@ export async function recordReplay({
   grid,
   frames,
   title,
+  speed = 1,
   onBeat,
 }: {
   src: string;
   grid: number;
   frames: ReplayFrame[];
   title: string;
+  speed?: ReplaySpeed;
   onBeat: (pos: number[]) => void;
 }): Promise<{ clip: ReplayClip | null; error?: string }> {
-  const beats = toBeats(frames);
+  const beats = toBeats(frames, speed);
+
   if (!beats.length) return { clip: null, error: "No moves were recorded yet." };
 
   const img = await loadImage(src);
