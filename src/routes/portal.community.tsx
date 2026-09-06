@@ -2,7 +2,10 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useState } from "react";
 
-import { PortalGuard } from "@/components/portal/PortalGuard";
+import { AdminPageHeader } from "@/components/portal/AdminPageHeader";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import {
   listCommunitySubmissions,
   setCommunitySubmissionStatus,
@@ -20,7 +23,7 @@ export const Route = createFileRoute("/portal/community")({
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
-  component: GuardedCommunityQueue,
+  component: CommunityQueue,
 });
 
 type Filter = "pending" | "approved" | "declined";
@@ -56,138 +59,111 @@ function CommunityQueue() {
   const setStatus = async (id: string, status: Filter) => {
     setBusy(id);
     await decide({ data: { id, status } });
-    setRecords((prev) =>
-      prev.map((r) => (r.id === id ? { ...r, status } : r)),
-    );
+    setRecords((prev) => prev.map((r) => (r.id === id ? { ...r, status } : r)));
     setBusy(null);
   };
 
   const shown = records.filter((r) => r.status === filter);
 
   return (
-    <main className="min-h-screen bg-deep px-4 pt-16 pb-24">
-      <header className="mx-auto max-w-md text-center">
-        <h1 className="font-display text-[1.5rem] text-shell">To Be Authorized</h1>
-        <p className="mt-1 text-[10px] tracking-[0.2em] text-shell/60 uppercase">
-          nothing reaches the community without your yes
-        </p>
-      </header>
+    <div className="mx-auto max-w-2xl">
+      <AdminPageHeader
+        title="To Be Authorized"
+        description="Nothing reaches the community without your yes."
+        actions={
+          <div className="flex gap-1.5">
+            {FILTERS.map(({ key, label }) => (
+              <Button
+                key={key}
+                type="button"
+                size="sm"
+                variant={filter === key ? "default" : "outline"}
+                onClick={() => setFilter(key)}
+              >
+                {label}
+                {key === "pending" && records.some((r) => r.status === "pending")
+                  ? ` · ${records.filter((r) => r.status === "pending").length}`
+                  : ""}
+              </Button>
+            ))}
+          </div>
+        }
+      />
 
-      <div className="mx-auto mt-6 flex max-w-md justify-center gap-2">
-        {FILTERS.map(({ key, label }) => (
-          <button
-            key={key}
-            type="button"
-            aria-pressed={filter === key}
-            onClick={() => setFilter(key)}
-            className={`rounded-full px-4 py-1.5 text-[10px] tracking-[0.16em] uppercase transition-colors ${
-              filter === key
-                ? "bg-primary text-primary-foreground"
-                : "border border-accent/40 text-shell/70 hover:text-shell"
-            }`}
-          >
-            {label}
-            {key === "pending" && records.some((r) => r.status === "pending")
-              ? ` · ${records.filter((r) => r.status === "pending").length}`
-              : ""}
-          </button>
-        ))}
-      </div>
-
-      <div className="mx-auto mt-6 max-w-md space-y-4">
-        {loading && (
-          <p className="text-center text-[11px] tracking-[0.16em] text-shell/50 uppercase">
-            loading…
-          </p>
-        )}
+      <div className="space-y-4">
+        {loading && <p className="text-sm text-muted-foreground">Loading…</p>}
 
         {!loading && !shown.length && (
-          <p className="text-center text-[11px] tracking-[0.16em] text-shell/50 uppercase">
-            nothing here yet
-          </p>
+          <p className="text-sm text-muted-foreground">Nothing here yet.</p>
         )}
 
         {shown.map((record) => (
-          <article
-            key={record.id}
-            className="overflow-hidden rounded-lg border border-accent/40 bg-shell/90 shadow-soft"
-          >
+          <Card key={record.id} className="overflow-hidden">
             {record.photo_url && (
               <img
                 src={record.photo_url}
                 alt={record.title || "A picture offered to the community"}
                 loading="lazy"
-                className="aspect-[3/4] w-full object-cover"
+                className="aspect-[3/4] w-full max-w-xs object-cover"
               />
             )}
-            <div className="px-4 py-3">
-              <p className="font-display text-[1.05rem] text-foreground">
-                {record.title || "Untitled"}
-              </p>
-              {record.tagline && (
-                <p className="text-[0.72rem] text-muted-foreground">{record.tagline}</p>
-              )}
+            <CardContent className="p-4">
+              <p className="font-display text-lg text-foreground">{record.title || "Untitled"}</p>
+              {record.tagline && <p className="text-sm text-muted-foreground">{record.tagline}</p>}
               {record.story && (
-                <p className="mt-2 text-[0.72rem] leading-relaxed text-foreground/80">
-                  {record.story}
-                </p>
+                <p className="mt-2 text-sm leading-relaxed text-foreground/80">{record.story}</p>
               )}
-              <p className="mt-2 text-[9px] tracking-[0.16em] text-muted-foreground uppercase">
-                {record.tier} · {new Date(record.created_at).toLocaleDateString()}
-              </p>
+              <div className="mt-2 flex items-center gap-2 text-xs text-muted-foreground">
+                <Badge variant="outline">{record.tier}</Badge>
+                {new Date(record.created_at).toLocaleDateString()}
+              </div>
 
               <div className="mt-3 flex flex-wrap items-center gap-2">
                 <a
                   href={`/p/${record.share_code}`}
                   target="_blank"
                   rel="noreferrer"
-                  className="rounded-full border border-accent/50 px-4 py-1.5 text-[10px] tracking-[0.16em] text-foreground uppercase"
+                  className="inline-flex h-8 items-center rounded-full border border-input px-3 text-xs text-foreground"
                 >
                   View
                 </a>
                 {record.status !== "approved" && (
-                  <button
+                  <Button
                     type="button"
+                    size="sm"
                     disabled={busy === record.id}
                     onClick={() => void setStatus(record.id, "approved")}
-                    className="rounded-full bg-primary px-4 py-1.5 text-[10px] tracking-[0.16em] text-primary-foreground uppercase disabled:opacity-60"
                   >
                     Authorize
-                  </button>
+                  </Button>
                 )}
                 {record.status !== "declined" && (
-                  <button
+                  <Button
                     type="button"
+                    size="sm"
+                    variant="outline"
                     disabled={busy === record.id}
                     onClick={() => void setStatus(record.id, "declined")}
-                    className="rounded-full border border-accent/50 px-4 py-1.5 text-[10px] tracking-[0.16em] text-muted-foreground uppercase disabled:opacity-60"
                   >
                     Decline
-                  </button>
+                  </Button>
                 )}
                 {record.status !== "pending" && (
-                  <button
+                  <Button
                     type="button"
+                    size="sm"
+                    variant="ghost"
                     disabled={busy === record.id}
                     onClick={() => void setStatus(record.id, "pending")}
-                    className="text-[10px] tracking-[0.16em] text-muted-foreground uppercase underline disabled:opacity-60"
                   >
                     Back to waiting
-                  </button>
+                  </Button>
                 )}
               </div>
-            </div>
-          </article>
+            </CardContent>
+          </Card>
         ))}
       </div>
-    </main>
-  );
-}
-
-function GuardedCommunityQueue() {
-  return (
-    <PortalGuard>
-      <CommunityQueue />
-    </PortalGuard>
+    </div>
   );
 }

@@ -1,7 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
+import { Loader2 } from "lucide-react";
 
+import { AdminPageHeader } from "@/components/portal/AdminPageHeader";
 import { BusinessEditor } from "@/components/portal/BusinessEditor";
 
 import { getPortalBusiness } from "@/lib/portal.functions";
@@ -47,42 +49,29 @@ function BusinessRecord() {
 
   if (locked === null)
     return (
-      <main className="flex min-h-screen items-center justify-center bg-deep">
-        <p className="text-[10px] tracking-[0.2em] text-shell/60 uppercase">Loading…</p>
-      </main>
+      <div className="flex justify-center py-24">
+        <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+      </div>
     );
-  
-
 
   if (!record) {
     return (
-      <main className="flex min-h-screen flex-col items-center justify-center bg-deep px-6">
-        <p className="text-[13px] text-shell/70">
-          That business record no longer exists.
-        </p>
-        <Link
-          to="/"
-          className="mt-4 text-[10px] tracking-[0.18em] text-primary uppercase"
-        >
-          Back home
+      <div className="flex flex-col items-center gap-4 py-24 text-center">
+        <p className="text-sm text-muted-foreground">That business record no longer exists.</p>
+        <Link to="/portal/new" className="text-sm text-primary underline">
+          Back to New Business
         </Link>
-      </main>
+      </div>
     );
   }
 
   return (
-    <main className="min-h-screen bg-deep px-4 pt-16 pb-24">
-      <header className="mx-auto max-w-md text-center">
-        <h1 className="font-display text-[1.5rem] text-shell">
-          {record.company_name || "Untitled business"}
-        </h1>
-        <p className="mt-1 text-[10px] tracking-[0.2em] text-shell/60 uppercase">
-          {record.status} · updated {new Date(record.updated_at).toLocaleDateString()}
-        </p>
-      </header>
-      <div className="mx-auto mt-6 max-w-md">
-        <BusinessEditor record={record} />
-      </div>
-    </main>
+    <div className="mx-auto max-w-md">
+      <AdminPageHeader
+        title={record.company_name || "Untitled business"}
+        description={`${record.status} · updated ${new Date(record.updated_at).toLocaleDateString()}`}
+      />
+      <BusinessEditor record={record} />
+    </div>
   );
 }

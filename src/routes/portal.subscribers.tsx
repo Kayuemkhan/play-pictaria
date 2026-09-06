@@ -1,11 +1,21 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
+import { Check, Copy, Download } from "lucide-react";
 
+import { AdminPageHeader } from "@/components/portal/AdminPageHeader";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { listSubscribers } from "@/lib/subscribers.functions";
 import type { SubscriberRow } from "@/lib/subscribers.functions";
-
-import { PortalGuard } from "@/components/portal/PortalGuard";
 
 export const Route = createFileRoute("/portal/subscribers")({
   head: () => ({
@@ -18,7 +28,7 @@ export const Route = createFileRoute("/portal/subscribers")({
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
-  component: GuardedSubscribers,
+  component: Subscribers,
 });
 
 function Subscribers() {
@@ -56,73 +66,56 @@ function Subscribers() {
   };
 
   return (
-    <main className="min-h-screen bg-deep px-4 pt-12 pb-24">
-      <header className="mx-auto max-w-md text-center">
-        <h1 className="font-display text-[1.5rem] text-shell">Subscribers</h1>
-        <p className="mt-1 text-[10px] tracking-[0.2em] text-shell/60 uppercase">
-          {loading ? "opening the list…" : `${rows.length} on the list`}
-        </p>
-      </header>
-
-      <div className="mx-auto mt-6 max-w-md">
-        <div className="flex gap-2">
-          <button
-            type="button"
-            onClick={() => void copy()}
-            disabled={rows.length === 0}
-            className="flex-1 rounded-full bg-primary px-4 py-2.5 text-[11px] tracking-[0.16em] text-primary-foreground uppercase disabled:opacity-50"
-          >
-            {copied ? "Copied" : "Copy all emails"}
-          </button>
-          <button
-            type="button"
-            onClick={download}
-            disabled={rows.length === 0}
-            className="flex-1 rounded-full border border-shell/30 px-4 py-2.5 text-[11px] tracking-[0.16em] text-shell uppercase disabled:opacity-50"
-          >
-            Download CSV
-          </button>
-        </div>
-
-        <ul className="mt-5 space-y-1.5">
-          {rows.map((row) => (
-            <li
-              key={`${row.email}-${row.created_at}`}
-              className="flex items-center justify-between rounded-lg bg-shell/90 px-4 py-2.5"
+    <div className="mx-auto max-w-2xl">
+      <AdminPageHeader
+        title="Subscribers"
+        description={loading ? "Opening the list…" : `${rows.length} on the list`}
+        actions={
+          <>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => void copy()}
+              disabled={rows.length === 0}
             >
-              <span className="truncate text-[12px] text-foreground">
-                {row.email}
-              </span>
-              <span className="ml-3 shrink-0 text-[9px] tracking-[0.12em] text-muted-foreground uppercase">
-                {new Date(row.created_at).toLocaleDateString()}
-              </span>
-            </li>
-          ))}
-        </ul>
+              {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+              {copied ? "Copied" : "Copy emails"}
+            </Button>
+            <Button variant="outline" size="sm" onClick={download} disabled={rows.length === 0}>
+              <Download className="h-4 w-4" />
+              CSV
+            </Button>
+          </>
+        }
+      />
 
-        {!loading && rows.length === 0 && (
-          <p className="mt-6 text-center text-[11px] text-shell/60">
-            No one has joined the list yet.
-          </p>
-        )}
-
-        <div className="mt-8 text-center">
-          <Link
-            to="/portal/new"
-            className="text-[10px] tracking-[0.18em] text-shell/60 uppercase underline"
-          >
-            Back to Pictaria Project
-          </Link>
-        </div>
-      </div>
-    </main>
-  );
-}
-
-function GuardedSubscribers() {
-  return (
-    <PortalGuard>
-      <Subscribers />
-    </PortalGuard>
+      <Card>
+        <CardContent className="p-0">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Email</TableHead>
+                <TableHead>Source</TableHead>
+                <TableHead className="text-right">Joined</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {rows.map((row) => (
+                <TableRow key={`${row.email}-${row.created_at}`}>
+                  <TableCell className="font-medium">{row.email}</TableCell>
+                  <TableCell className="text-muted-foreground">{row.source ?? "—"}</TableCell>
+                  <TableCell className="text-right text-muted-foreground">
+                    {new Date(row.created_at).toLocaleDateString()}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+          {!loading && rows.length === 0 && (
+            <p className="p-5 text-sm text-muted-foreground">No one has joined the list yet.</p>
+          )}
+        </CardContent>
+      </Card>
+    </div>
   );
 }

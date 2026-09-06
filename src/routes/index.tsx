@@ -92,7 +92,7 @@ function Home() {
     state.last = now;
     if (state.count >= 3) {
       state.count = 0;
-      navigate({ to: "/portal/new" });
+      navigate({ to: "/portal/dashboard" });
     }
   };
 

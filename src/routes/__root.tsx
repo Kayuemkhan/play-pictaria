@@ -276,7 +276,10 @@ function GlobalChrome() {
 
   const isHome = path === "" || path === "/";
   const hasOwnChrome =
-    path.startsWith("/puzzle") || path.startsWith("/daily") || path.startsWith("/p/");
+    path.startsWith("/puzzle") ||
+    path.startsWith("/daily") ||
+    path.startsWith("/p/") ||
+    path.startsWith("/portal");
 
   if (isHome || hasOwnChrome) return null;
 
@@ -312,7 +315,7 @@ function GlobalBottomChrome() {
     return () => window.clearTimeout(timer);
   }, [path]);
 
-  if (path === "" || path === "/") return null;
+  if (path === "" || path === "/" || path.startsWith("/portal")) return null;
   return <BottomHomeButton />;
 }
 

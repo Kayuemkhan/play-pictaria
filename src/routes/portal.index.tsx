@@ -12,5 +12,5 @@ export const Route = createFileRoute("/portal/")({
 });
 
 function PortalIndexRedirect() {
-  return <Navigate to="/portal/new" />;
+  return <Navigate to="/portal/dashboard" />;
 }

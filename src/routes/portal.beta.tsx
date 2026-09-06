@@ -1,8 +1,12 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
+import { Check, Copy } from "lucide-react";
 
-import { PortalGuard } from "@/components/portal/PortalGuard";
+import { AdminPageHeader } from "@/components/portal/AdminPageHeader";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import { listBetaCodes } from "@/lib/beta.functions";
 import type { BetaCodeRow, BetaRedemptionRow } from "@/lib/beta.functions";
 
@@ -17,7 +21,7 @@ export const Route = createFileRoute("/portal/beta")({
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
-  component: GuardedBeta,
+  component: Beta,
 });
 
 const CODE_LABELS: Record<string, string> = {
@@ -54,92 +58,67 @@ function Beta() {
   };
 
   return (
-    <main className="min-h-screen bg-deep px-4 pt-12 pb-24">
-      <header className="mx-auto max-w-md text-center">
-        <h1 className="font-display text-[1.5rem] text-shell">Beta Codes</h1>
-        <p className="mt-1 text-[10px] tracking-[0.2em] text-shell/60 uppercase">
-          {loading ? "opening the list…" : "two codes, no fuss"}
-        </p>
-      </header>
+    <div className="mx-auto max-w-2xl">
+      <AdminPageHeader
+        title="Beta Codes"
+        description={loading ? "Opening the list…" : "Two codes, no fuss."}
+      />
 
-      <div className="mx-auto mt-6 max-w-md space-y-3">
+      <div className="space-y-3">
         {codes.map((row) => (
-          <section
-            key={row.id}
-            className="rounded-lg bg-shell/95 p-5 shadow-soft"
-          >
-            <div className="flex items-center justify-between">
-              <span className="font-display text-[1.25rem] tracking-[0.08em] text-foreground">
-                {row.code}
-              </span>
-              <span className="text-[9px] tracking-[0.12em] text-muted-foreground uppercase">
-                {row.uses}/{row.max_uses} claimed
-              </span>
-            </div>
-            <p className="mt-1 text-[11px] text-muted-foreground">
-              {CODE_LABELS[row.code] ?? row.note}
-            </p>
-            {row.expires_at && (
-              <p className="mt-0.5 text-[10px] text-muted-foreground/70">
-                Code expires {new Date(row.expires_at).toLocaleDateString()}
+          <Card key={row.id}>
+            <CardContent className="p-5">
+              <div className="flex items-center justify-between">
+                <span className="font-display text-xl tracking-wide text-foreground">
+                  {row.code}
+                </span>
+                <Badge variant="secondary">
+                  {row.uses}/{row.max_uses} claimed
+                </Badge>
+              </div>
+              <p className="mt-1 text-sm text-muted-foreground">
+                {CODE_LABELS[row.code] ?? row.note}
               </p>
-            )}
-            <button
-              type="button"
-              onClick={() => void copyLink(row.code)}
-              className="mt-4 w-full rounded-full bg-primary px-4 py-2.5 text-[11px] tracking-[0.16em] text-primary-foreground uppercase"
-            >
-              {copied === row.code ? "Copied" : "Copy signup link"}
-            </button>
-          </section>
+              {row.expires_at && (
+                <p className="mt-0.5 text-xs text-muted-foreground/70">
+                  Code expires {new Date(row.expires_at).toLocaleDateString()}
+                </p>
+              )}
+              <Button onClick={() => void copyLink(row.code)} className="mt-4 w-full">
+                {copied === row.code ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                {copied === row.code ? "Copied" : "Copy signup link"}
+              </Button>
+            </CardContent>
+          </Card>
         ))}
 
         {!loading && codes.length === 0 && (
-          <p className="text-center text-[11px] text-shell/60">
-            No active beta codes.
-          </p>
+          <p className="text-sm text-muted-foreground">No active beta codes.</p>
         )}
 
         {redemptions.length > 0 && (
-          <section className="mt-8">
-            <h2 className="text-center text-[10px] tracking-[0.2em] text-shell/60 uppercase">
-              claimed by
-            </h2>
-            <ul className="mt-3 space-y-1.5">
-              {redemptions.map((row) => (
-                <li
-                  key={`${row.email}-${row.code}`}
-                  className="flex items-center justify-between rounded-lg bg-shell/90 px-4 py-2.5"
-                >
-                  <span className="truncate text-[12px] text-foreground">
-                    {row.email}
-                  </span>
-                  <span className="ml-3 shrink-0 text-[9px] tracking-[0.12em] text-muted-foreground uppercase">
-                    {row.code}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </section>
+          <Card>
+            <CardContent className="p-5">
+              <p className="text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
+                Claimed by
+              </p>
+              <div className="mt-3 space-y-1.5">
+                {redemptions.map((row) => (
+                  <div
+                    key={`${row.email}-${row.code}`}
+                    className="flex items-center justify-between rounded-md bg-muted/50 px-3 py-2"
+                  >
+                    <span className="truncate text-sm text-foreground">{row.email}</span>
+                    <span className="ml-3 shrink-0 text-xs tracking-[0.1em] text-muted-foreground uppercase">
+                      {row.code}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
         )}
-
-        <div className="mt-8 text-center">
-          <Link
-            to="/portal/new"
-            className="text-[10px] tracking-[0.18em] text-shell/60 uppercase underline"
-          >
-            Back to Pictaria Project
-          </Link>
-        </div>
       </div>
-    </main>
-  );
-}
-
-function GuardedBeta() {
-  return (
-    <PortalGuard>
-      <Beta />
-    </PortalGuard>
+    </div>
   );
 }

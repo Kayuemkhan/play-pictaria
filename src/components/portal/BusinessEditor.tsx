@@ -208,14 +208,14 @@ export function BusinessEditor({ record }: Props) {
   return (
     <form onSubmit={submit} className="space-y-6">
       {/* Photograph */}
-      <section className="rounded-lg border border-accent/50 bg-shell p-4 shadow-soft">
+      <section className="rounded-lg border border-border bg-card p-4 shadow-soft">
         <PhotoPick
           label={photoUrl ? "Choose a different photo" : "Choose a photo"}
           onFiles={pickPhoto}
           fallbackToCamera
           className="block w-full"
         >
-          <span className="relative block aspect-[3/4] w-full overflow-hidden rounded-md border border-accent/40 bg-muted/40">
+          <span className="relative block aspect-[3/4] w-full overflow-hidden rounded-md border border-border bg-muted/40">
             {photoUrl ? (
               <img src={photoUrl} alt="Selected business" className="h-full w-full object-cover" />
             ) : (
@@ -263,11 +263,11 @@ export function BusinessEditor({ record }: Props) {
 
       {/* Share link */}
       {record && (
-        <section className="rounded-lg border border-accent/50 bg-shell p-4 shadow-soft">
+        <section className="rounded-lg border border-border bg-card p-4 shadow-soft">
           <p className={labelClass}>Share link for this community Pictaria</p>
           {shareCode ? (
             <>
-              <p className="mt-2 rounded-md border border-accent/40 bg-muted/40 px-3 py-2 text-[12px] break-all text-foreground">
+              <p className="mt-2 rounded-md border border-border bg-muted/40 px-3 py-2 text-[12px] break-all text-foreground">
                 {shareUrl}
               </p>
               <div className="mt-3 flex items-center gap-2">
@@ -287,7 +287,7 @@ export function BusinessEditor({ record }: Props) {
                   href={shareUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="rounded-full border border-accent/50 px-4 py-2 text-[0.55rem] tracking-[0.2em] text-foreground uppercase"
+                  className="rounded-full border border-input px-4 py-2 text-[0.55rem] tracking-[0.2em] text-foreground uppercase"
                 >
                   Open
                 </a>
@@ -322,7 +322,7 @@ export function BusinessEditor({ record }: Props) {
       )}
 
       {/* Voice note */}
-      <section className="rounded-lg border border-accent/50 bg-shell p-4 text-center shadow-soft">
+      <section className="rounded-lg border border-border bg-card p-4 text-center shadow-soft">
         <p className={labelClass}>Voice note</p>
         <p className="mt-1.5 text-[12px] leading-snug text-muted-foreground">
           Speak naturally for 30–60 seconds. Everything you say is sorted into the
@@ -370,7 +370,7 @@ export function BusinessEditor({ record }: Props) {
       )}
 
       {/* Fields */}
-      <section className="space-y-4 rounded-lg border border-accent/50 bg-shell p-4 shadow-soft">
+      <section className="space-y-4 rounded-lg border border-border bg-card p-4 shadow-soft">
         {SHORT_FIELDS.map(({ key, label, type }) => (
           <div key={key}>
             <Label htmlFor={key} className={labelClass}>
@@ -430,7 +430,7 @@ export function BusinessEditor({ record }: Props) {
             onChange={(event) => set("email", event.target.value)}
             className="mt-1.5"
           />
-          <div className="mt-2 rounded-md border border-accent/40 bg-muted/40 px-3 py-2.5">
+          <div className="mt-2 rounded-md border border-border bg-muted/40 px-3 py-2.5">
             <p className="text-[11px] leading-relaxed text-foreground">
               Their Pictaria may take a little while to create. When it is
               ready to go out, we’ll email the finished Pictaria to this
@@ -442,13 +442,13 @@ export function BusinessEditor({ record }: Props) {
 
       {/* AI preview */}
       {preview && (
-        <section className="space-y-3 rounded-lg border border-accent/50 bg-shell p-4 shadow-soft">
+        <section className="space-y-3 rounded-lg border border-border bg-card p-4 shadow-soft">
           <p className={labelClass}>Preview — how the note was organised</p>
           {photoUrl && (
             <img
               src={photoUrl}
               alt=""
-              className="w-24 rounded-md border border-accent/40 object-cover"
+              className="w-24 rounded-md border border-border object-cover"
               style={{ aspectRatio: "3 / 4" }}
             />
           )}

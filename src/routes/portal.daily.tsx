@@ -1,15 +1,14 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 
+import { AdminPageHeader } from "@/components/portal/AdminPageHeader";
+import { Card, CardContent } from "@/components/ui/card";
 import { collections, findPuzzle } from "@/data/collections";
 import { getDailyPicks, setDailyPick } from "@/lib/daily-pick.functions";
 import type { DailyPick } from "@/lib/daily-pick.functions";
 import { createPortalShareLink, listPortalBusinesses } from "@/lib/portal.functions";
 import { isPortalPick, portalPickCode, portalPickId } from "@/lib/daily-display";
-import palmLogo from "@/assets/logo-palms-only.webp";
-
-import { PortalGuard } from "@/components/portal/PortalGuard";
 
 export const Route = createFileRoute("/portal/daily")({
   head: () => ({
@@ -19,7 +18,7 @@ export const Route = createFileRoute("/portal/daily")({
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
-  component: GuardedDailyWaitingArea,
+  component: DailyWaitingArea,
 });
 
 interface AlbumItem {
@@ -84,7 +83,6 @@ function DailyWaitingArea() {
   const [saving, setSaving] = useState<string | null>(null);
   const [error, setError] = useState("");
 
-
   const refresh = async () => {
     try {
       const [result, shed] = await Promise.all([load({}), loadWarehouse({})]);
@@ -127,9 +125,7 @@ function DailyWaitingArea() {
 
   const shedWaiting = useMemo(
     () =>
-      warehouse.filter(
-        (item) => !item.share_code || !usedIds.has(portalPickId(item.share_code)),
-      ),
+      warehouse.filter((item) => !item.share_code || !usedIds.has(portalPickId(item.share_code))),
     [warehouse, usedIds],
   );
 
@@ -171,11 +167,7 @@ function DailyWaitingArea() {
     }
   };
 
-
-  const waiting = useMemo(
-    () => allPuzzles().filter((item) => !usedIds.has(item.id)),
-    [usedIds],
-  );
+  const waiting = useMemo(() => allPuzzles().filter((item) => !usedIds.has(item.id)), [usedIds]);
 
   const pick = async (puzzleId: string) => {
     setSaving(puzzleId);
@@ -194,223 +186,196 @@ function DailyWaitingArea() {
     current && !isPortalPick(current.puzzle_id) ? findPuzzle(current.puzzle_id) : null;
   const currentBusiness =
     current && isPortalPick(current.puzzle_id)
-      ? (warehouse.find(
-          (item) => item.share_code === portalPickCode(current.puzzle_id),
-        ) ?? null)
+      ? (warehouse.find((item) => item.share_code === portalPickCode(current.puzzle_id)) ?? null)
       : null;
 
   return (
-    <main className="min-h-screen bg-deep px-4 pt-12 pb-24">
-      <header className="mx-auto max-w-md text-center">
-        <Link to="/" aria-label="Home" className="mx-auto block w-fit">
-          <img
-            src={palmLogo}
-            alt="Pictaria"
-            width={1024}
-            height={1024}
-            className="mx-auto h-12 w-auto transition-transform hover:scale-[1.04]"
-          />
-        </Link>
-        <h1 className="mt-3 font-display text-[1.5rem] text-shell">
-          Today&apos;s Pictaria
-        </h1>
-        <p className="mt-1 text-[10px] tracking-[0.2em] text-shell/60 uppercase">
-          the waiting area
-        </p>
-      </header>
+    <div className="mx-auto max-w-2xl">
+      <AdminPageHeader title="Today's Pictaria" description="The waiting area." />
 
-      <div className="mx-auto mt-8 max-w-md space-y-6">
+      <div className="space-y-6">
         {/* Currently featured */}
-        <section className="rounded-lg border border-accent/60 bg-shell p-5 text-center shadow-soft">
-          <p className="text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
-            Featured right now
-          </p>
-          {loading ? (
-            <p className="mt-3 text-[12px] text-muted-foreground">Loading…</p>
-          ) : currentBusiness ? (
-            <>
-              <div className="mx-auto mt-3 w-32 overflow-hidden rounded-[6px] border border-accent/50">
-                <img
-                  src={currentBusiness.photo_url ?? ""}
-                  alt={currentBusiness.title}
-                  className="aspect-[3/4] w-full object-cover"
-                />
-              </div>
-              <p className="mt-3 font-display text-[1.15rem] text-foreground">
-                {currentBusiness.title}
-              </p>
-              <p className="text-[10px] tracking-[0.16em] text-muted-foreground uppercase">
-                Pictaria Project
-              </p>
-              <p className="mt-1 text-[11px] text-muted-foreground">
-                Chosen {new Date(current!.picked_at).toLocaleDateString()}
-              </p>
-            </>
-          ) : currentPuzzle ? (
-            <>
-              <div className="mx-auto mt-3 w-32 overflow-hidden rounded-[6px] border border-accent/50">
-                <img
-                  src={currentPuzzle.puzzle.image}
-                  alt={currentPuzzle.puzzle.title}
-                  className="aspect-[3/4] w-full object-cover"
-                />
-              </div>
-              <p className="mt-3 font-display text-[1.15rem] text-foreground">
-                {currentPuzzle.puzzle.title}
-              </p>
-              <p className="text-[10px] tracking-[0.16em] text-muted-foreground uppercase">
-                {currentPuzzle.collection.title}
-              </p>
-              <p className="mt-1 text-[11px] text-muted-foreground">
-                Chosen {new Date(current!.picked_at).toLocaleDateString()}
-              </p>
-            </>
-          ) : (
-            <p className="mt-3 text-[12px] text-muted-foreground">
-              Nothing chosen yet — pick a photograph below and it becomes
-              today&apos;s Pictaria straight away.
+        <Card>
+          <CardContent className="p-5 text-center">
+            <p className="text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
+              Featured right now
             </p>
-          )}
-        </section>
+            {loading ? (
+              <p className="mt-3 text-sm text-muted-foreground">Loading…</p>
+            ) : currentBusiness ? (
+              <>
+                <div className="mx-auto mt-3 w-32 overflow-hidden rounded-md border border-border">
+                  <img
+                    src={currentBusiness.photo_url ?? ""}
+                    alt={currentBusiness.title}
+                    className="aspect-[3/4] w-full object-cover"
+                  />
+                </div>
+                <p className="mt-3 font-display text-lg text-foreground">{currentBusiness.title}</p>
+                <p className="text-xs tracking-[0.14em] text-muted-foreground uppercase">
+                  Pictaria Project
+                </p>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Chosen {new Date(current!.picked_at).toLocaleDateString()}
+                </p>
+              </>
+            ) : currentPuzzle ? (
+              <>
+                <div className="mx-auto mt-3 w-32 overflow-hidden rounded-md border border-border">
+                  <img
+                    src={currentPuzzle.puzzle.image}
+                    alt={currentPuzzle.puzzle.title}
+                    className="aspect-[3/4] w-full object-cover"
+                  />
+                </div>
+                <p className="mt-3 font-display text-lg text-foreground">
+                  {currentPuzzle.puzzle.title}
+                </p>
+                <p className="text-xs tracking-[0.14em] text-muted-foreground uppercase">
+                  {currentPuzzle.collection.title}
+                </p>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Chosen {new Date(current!.picked_at).toLocaleDateString()}
+                </p>
+              </>
+            ) : (
+              <p className="mt-3 text-sm text-muted-foreground">
+                Nothing chosen yet — pick a photograph below and it becomes today&apos;s Pictaria
+                straight away.
+              </p>
+            )}
+          </CardContent>
+        </Card>
 
-
-        {error && (
-          <p className="text-center text-[11px] text-destructive">{error}</p>
-        )}
+        {error && <p className="text-sm text-destructive">{error}</p>}
 
         {/* Preview & edit before sending */}
         {preview && (
-          <section className="rounded-lg border border-accent/60 bg-shell p-5 shadow-soft">
-            <p className="text-center text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
-              Preview · edit before you send
-            </p>
-
-            <div className="mx-auto mt-4 w-40">
-              <div className="relative overflow-hidden rounded-[8px] border border-accent/50">
-                <img
-                  src={preview.item.photo_url ?? ""}
-                  alt={preview.title || preview.item.title}
-                  className="aspect-[3/4] w-full object-cover"
-                />
-                <div
-                  className="pointer-events-none absolute inset-0 grid"
-                  style={{
-                    gridTemplateColumns: `repeat(${preview.grid}, minmax(0, 1fr))`,
-                    gridTemplateRows: `repeat(${preview.grid}, minmax(0, 1fr))`,
-                  }}
-                >
-                  {Array.from({ length: preview.grid * preview.grid }).map((_, i) => (
-                    <span key={i} className="border border-white/50" />
-                  ))}
-                </div>
-              </div>
-              <p className="mt-2 text-center font-display text-[1.05rem] leading-tight text-foreground">
-                {preview.title || "A Pictaria for you"}
+          <Card>
+            <CardContent className="p-5">
+              <p className="text-center text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
+                Preview · edit before you send
               </p>
-              {preview.tagline && (
-                <p className="text-center text-[10px] text-muted-foreground">
-                  {preview.tagline}
+
+              <div className="mx-auto mt-4 w-40">
+                <div className="relative overflow-hidden rounded-md border border-border">
+                  <img
+                    src={preview.item.photo_url ?? ""}
+                    alt={preview.title || preview.item.title}
+                    className="aspect-[3/4] w-full object-cover"
+                  />
+                  <div
+                    className="pointer-events-none absolute inset-0 grid"
+                    style={{
+                      gridTemplateColumns: `repeat(${preview.grid}, minmax(0, 1fr))`,
+                      gridTemplateRows: `repeat(${preview.grid}, minmax(0, 1fr))`,
+                    }}
+                  >
+                    {Array.from({ length: preview.grid * preview.grid }).map((_, i) => (
+                      <span key={i} className="border border-white/50" />
+                    ))}
+                  </div>
+                </div>
+                <p className="mt-2 text-center font-display text-base leading-tight text-foreground">
+                  {preview.title || "A Pictaria for you"}
                 </p>
-              )}
-            </div>
+                {preview.tagline && (
+                  <p className="text-center text-xs text-muted-foreground">{preview.tagline}</p>
+                )}
+              </div>
 
-            <div className="mt-5 space-y-3">
-              <label className="block">
-                <span className="text-[10px] tracking-[0.16em] text-muted-foreground uppercase">
-                  Title
-                </span>
-                <input
-                  value={preview.title}
-                  onChange={(e) =>
-                    setPreview({ ...preview, title: e.target.value })
-                  }
-                  placeholder="A Pictaria for you"
-                  className="mt-1 w-full rounded-full border border-accent/50 bg-background px-4 py-2 text-[13px] text-foreground outline-none focus:border-accent"
-                />
-              </label>
+              <div className="mt-5 space-y-3">
+                <label className="block">
+                  <span className="text-[10px] tracking-[0.16em] text-muted-foreground uppercase">
+                    Title
+                  </span>
+                  <input
+                    value={preview.title}
+                    onChange={(e) => setPreview({ ...preview, title: e.target.value })}
+                    placeholder="A Pictaria for you"
+                    className="mt-1 w-full rounded-full border border-input bg-background px-4 py-2 text-sm text-foreground outline-none focus:border-ring"
+                  />
+                </label>
 
-              <label className="block">
-                <span className="text-[10px] tracking-[0.16em] text-muted-foreground uppercase">
-                  Tagline
-                </span>
-                <input
-                  value={preview.tagline}
-                  onChange={(e) =>
-                    setPreview({ ...preview, tagline: e.target.value })
-                  }
-                  placeholder="What they are known for"
-                  className="mt-1 w-full rounded-full border border-accent/50 bg-background px-4 py-2 text-[13px] text-foreground outline-none focus:border-accent"
-                />
-              </label>
+                <label className="block">
+                  <span className="text-[10px] tracking-[0.16em] text-muted-foreground uppercase">
+                    Tagline
+                  </span>
+                  <input
+                    value={preview.tagline}
+                    onChange={(e) => setPreview({ ...preview, tagline: e.target.value })}
+                    placeholder="What they are known for"
+                    className="mt-1 w-full rounded-full border border-input bg-background px-4 py-2 text-sm text-foreground outline-none focus:border-ring"
+                  />
+                </label>
 
-              <label className="block">
-                <span className="text-[10px] tracking-[0.16em] text-muted-foreground uppercase">
-                  Story
-                </span>
-                <textarea
-                  value={preview.story}
-                  onChange={(e) => setPreview({ ...preview, story: e.target.value })}
-                  rows={4}
-                  placeholder="The little story that travels with this Pictaria"
-                  className="mt-1 w-full rounded-[14px] border border-accent/50 bg-background px-4 py-2 text-[13px] leading-relaxed text-foreground outline-none focus:border-accent"
-                />
-              </label>
+                <label className="block">
+                  <span className="text-[10px] tracking-[0.16em] text-muted-foreground uppercase">
+                    Story
+                  </span>
+                  <textarea
+                    value={preview.story}
+                    onChange={(e) => setPreview({ ...preview, story: e.target.value })}
+                    rows={4}
+                    placeholder="The little story that travels with this Pictaria"
+                    className="mt-1 w-full rounded-2xl border border-input bg-background px-4 py-2 text-sm leading-relaxed text-foreground outline-none focus:border-ring"
+                  />
+                </label>
 
-              <div>
-                <span className="text-[10px] tracking-[0.16em] text-muted-foreground uppercase">
-                  Difficulty
-                </span>
-                <div className="mt-2 flex flex-nowrap gap-1.5">
-                  {[3, 4, 5, 6].map((grid) => (
-                    <button
-                      key={grid}
-                      type="button"
-                      onClick={() => setPreview({ ...preview, grid })}
-                      className={`flex-1 rounded-full border px-1 py-1.5 text-[9px] tracking-[0.08em] uppercase ${
-                        preview.grid === grid
-                          ? "border-accent bg-accent/20 text-foreground"
-                          : "border-accent/40 text-muted-foreground"
-                      }`}
-                    >
-                      {grid}×{grid}
-                      <span className="block text-[8px] normal-case">
-                        {GRID_LABELS[grid]}
-                      </span>
-                    </button>
-                  ))}
+                <div>
+                  <span className="text-[10px] tracking-[0.16em] text-muted-foreground uppercase">
+                    Difficulty
+                  </span>
+                  <div className="mt-2 flex flex-nowrap gap-1.5">
+                    {[3, 4, 5, 6].map((grid) => (
+                      <button
+                        key={grid}
+                        type="button"
+                        onClick={() => setPreview({ ...preview, grid })}
+                        className={`flex-1 rounded-full border px-1 py-1.5 text-[9px] tracking-[0.08em] uppercase ${
+                          preview.grid === grid
+                            ? "border-primary bg-primary/10 text-foreground"
+                            : "border-input text-muted-foreground"
+                        }`}
+                      >
+                        {grid}×{grid}
+                        <span className="block text-[8px] normal-case">{GRID_LABELS[grid]}</span>
+                      </button>
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div className="mt-5 flex gap-2">
-              <button
-                type="button"
-                onClick={() => setPreview(null)}
-                disabled={saving !== null}
-                className="flex-1 rounded-full border border-accent/50 px-4 py-2.5 text-[11px] tracking-[0.14em] text-muted-foreground uppercase disabled:opacity-50"
-              >
-                Cancel
-              </button>
-              <button
-                type="button"
-                onClick={() => void publishPreview()}
-                disabled={saving !== null}
-                className="flex-1 rounded-full bg-primary px-4 py-2.5 text-[11px] tracking-[0.14em] text-primary-foreground uppercase disabled:opacity-50"
-              >
-                {saving ? "Sending…" : "Make it today's"}
-              </button>
-            </div>
-          </section>
+              <div className="mt-5 flex gap-2">
+                <button
+                  type="button"
+                  onClick={() => setPreview(null)}
+                  disabled={saving !== null}
+                  className="flex-1 rounded-full border border-input px-4 py-2.5 text-xs tracking-[0.1em] text-muted-foreground uppercase disabled:opacity-50"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  onClick={() => void publishPreview()}
+                  disabled={saving !== null}
+                  className="flex-1 rounded-full bg-primary px-4 py-2.5 text-xs tracking-[0.1em] text-primary-foreground uppercase disabled:opacity-50"
+                >
+                  {saving ? "Sending…" : "Make it today's"}
+                </button>
+              </div>
+            </CardContent>
+          </Card>
         )}
 
         {/* Pictaria Project warehouse */}
         <section>
-          <p className="text-center text-[10px] tracking-[0.2em] text-shell/60 uppercase">
+          <p className="text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
             Pictaria Project warehouse · {shedWaiting.length}
           </p>
-          <p className="mt-1 text-center text-[10px] text-shell/40">
-            Every business photograph you have collected. Tap one to preview and
-            edit it before it becomes today&apos;s Pictaria.
+          <p className="mt-1 text-sm text-muted-foreground">
+            Every business photograph you have collected. Tap one to preview and edit it before it
+            becomes today&apos;s Pictaria.
           </p>
           <div className="mt-4 grid grid-cols-3 gap-2.5">
             {shedWaiting.map((item) => (
@@ -419,19 +384,18 @@ function DailyWaitingArea() {
                 type="button"
                 onClick={() => openPreview(item)}
                 disabled={saving !== null}
-                className={`overflow-hidden rounded-[8px] border text-left transition-transform hover:scale-[1.03] disabled:opacity-50 ${
+                className={`overflow-hidden rounded-md border bg-card text-left transition-transform hover:scale-[1.03] disabled:opacity-50 ${
                   preview?.item.id === item.id
                     ? "border-primary ring-1 ring-primary"
-                    : "border-accent/40"
+                    : "border-border"
                 }`}
               >
-
                 <img
                   src={item.photo_url ?? ""}
                   alt={item.title}
                   className="aspect-[3/4] w-full object-cover"
                 />
-                <span className="block bg-shell px-1.5 py-1">
+                <span className="block px-1.5 py-1">
                   <span className="block truncate text-[10px] text-foreground">
                     {saving === item.id ? "Setting…" : item.title}
                   </span>
@@ -443,15 +407,15 @@ function DailyWaitingArea() {
             ))}
           </div>
           {!loading && shedWaiting.length === 0 && (
-            <p className="mt-3 text-center text-[11px] text-shell/60">
-              No business photographs waiting — add one in Pictaria Project.
+            <p className="mt-3 text-sm text-muted-foreground">
+              No business photographs waiting — add one in New Business.
             </p>
           )}
         </section>
 
         {/* Waiting album */}
         <section>
-          <p className="text-center text-[10px] tracking-[0.2em] text-shell/60 uppercase">
+          <p className="text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
             Waiting to be chosen · {waiting.length}
           </p>
           <div className="mt-4 grid grid-cols-3 gap-2.5">
@@ -461,14 +425,14 @@ function DailyWaitingArea() {
                 type="button"
                 onClick={() => void pick(item.id)}
                 disabled={saving !== null}
-                className="group overflow-hidden rounded-[8px] border border-shell/20 text-left transition-transform hover:scale-[1.03] disabled:opacity-50"
+                className="overflow-hidden rounded-md border border-border bg-card text-left transition-transform hover:scale-[1.03] disabled:opacity-50"
               >
                 <img
                   src={item.image}
                   alt={item.title}
                   className="aspect-[3/4] w-full object-cover"
                 />
-                <span className="block bg-shell px-1.5 py-1">
+                <span className="block px-1.5 py-1">
                   <span className="block truncate text-[10px] text-foreground">
                     {saving === item.id ? "Setting…" : item.title}
                   </span>
@@ -480,30 +444,12 @@ function DailyWaitingArea() {
             ))}
           </div>
           {!loading && waiting.length === 0 && (
-            <p className="mt-4 text-center text-[11px] text-shell/60">
-              Every photograph has had its day. Add a new collection to keep
-              going.
+            <p className="mt-4 text-sm text-muted-foreground">
+              Every photograph has had its day. Add a new collection to keep going.
             </p>
           )}
         </section>
-
-        <div className="text-center">
-          <Link
-            to="/portal/new"
-            className="text-[10px] tracking-[0.18em] text-shell/60 uppercase underline"
-          >
-            Back to Pictaria Project
-          </Link>
-        </div>
       </div>
-    </main>
-  );
-}
-
-function GuardedDailyWaitingArea() {
-  return (
-    <PortalGuard>
-      <DailyWaitingArea />
-    </PortalGuard>
+    </div>
   );
 }

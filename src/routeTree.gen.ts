@@ -21,6 +21,7 @@ import { Route as LaunchRouteImport } from './routes/launch'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as MindfulnessRouteImport } from './routes/mindfulness'
 import { Route as MyPictariaRouteImport } from './routes/my-pictaria'
+import { Route as PortalRouteImport } from './routes/portal'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as ShareRouteImport } from './routes/share'
 import { Route as VisionBoardRouteImport } from './routes/vision-board'
@@ -111,6 +112,11 @@ const MyPictariaRoute = MyPictariaRouteImport.update({
   path: '/my-pictaria',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PortalRoute = PortalRouteImport.update({
+  id: '/portal',
+  path: '/portal',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PricingRoute = PricingRouteImport.update({
   id: '/pricing',
   path: '/pricing',
@@ -164,59 +170,59 @@ const PCodeRoute = PCodeRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const PortalIndexRoute = PortalIndexRouteImport.update({
-  id: '/portal/',
-  path: '/portal/',
-  getParentRoute: () => rootRouteImport,
+  id: '/',
+  path: '/',
+  getParentRoute: () => PortalRoute,
 } as any)
 const PortalIdRoute = PortalIdRouteImport.update({
-  id: '/portal/$id',
-  path: '/portal/$id',
-  getParentRoute: () => rootRouteImport,
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => PortalRoute,
 } as any)
 const PortalBetaRoute = PortalBetaRouteImport.update({
-  id: '/portal/beta',
-  path: '/portal/beta',
-  getParentRoute: () => rootRouteImport,
+  id: '/beta',
+  path: '/beta',
+  getParentRoute: () => PortalRoute,
 } as any)
 const PortalCommunityRoute = PortalCommunityRouteImport.update({
-  id: '/portal/community',
-  path: '/portal/community',
-  getParentRoute: () => rootRouteImport,
+  id: '/community',
+  path: '/community',
+  getParentRoute: () => PortalRoute,
 } as any)
 const PortalDailyRoute = PortalDailyRouteImport.update({
-  id: '/portal/daily',
-  path: '/portal/daily',
-  getParentRoute: () => rootRouteImport,
+  id: '/daily',
+  path: '/daily',
+  getParentRoute: () => PortalRoute,
 } as any)
 const PortalDailyPastRoute = PortalDailyPastRouteImport.update({
-  id: '/portal/daily-past',
-  path: '/portal/daily-past',
-  getParentRoute: () => rootRouteImport,
+  id: '/daily-past',
+  path: '/daily-past',
+  getParentRoute: () => PortalRoute,
 } as any)
 const PortalDashboardRoute = PortalDashboardRouteImport.update({
-  id: '/portal/dashboard',
-  path: '/portal/dashboard',
-  getParentRoute: () => rootRouteImport,
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => PortalRoute,
 } as any)
 const PortalLibraryRoute = PortalLibraryRouteImport.update({
-  id: '/portal/library',
-  path: '/portal/library',
-  getParentRoute: () => rootRouteImport,
+  id: '/library',
+  path: '/library',
+  getParentRoute: () => PortalRoute,
 } as any)
 const PortalNewRoute = PortalNewRouteImport.update({
-  id: '/portal/new',
-  path: '/portal/new',
-  getParentRoute: () => rootRouteImport,
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => PortalRoute,
 } as any)
 const PortalPushRoute = PortalPushRouteImport.update({
-  id: '/portal/push',
-  path: '/portal/push',
-  getParentRoute: () => rootRouteImport,
+  id: '/push',
+  path: '/push',
+  getParentRoute: () => PortalRoute,
 } as any)
 const PortalSubscribersRoute = PortalSubscribersRouteImport.update({
-  id: '/portal/subscribers',
-  path: '/portal/subscribers',
-  getParentRoute: () => rootRouteImport,
+  id: '/subscribers',
+  path: '/subscribers',
+  getParentRoute: () => PortalRoute,
 } as any)
 const PuzzlePuzzleIdRoute = PuzzlePuzzleIdRouteImport.update({
   id: '/puzzle/$puzzleId',
@@ -274,6 +280,7 @@ export interface FileRoutesByFullPath {
   '/mcp': typeof McpRoute
   '/mindfulness': typeof MindfulnessRoute
   '/my-pictaria': typeof MyPictariaRouteWithChildren
+  '/portal': typeof PortalRouteWithChildren
   '/pricing': typeof PricingRoute
   '/share': typeof ShareRoute
   '/vision-board': typeof VisionBoardRoute
@@ -360,6 +367,7 @@ export interface FileRoutesById {
   '/mcp': typeof McpRoute
   '/mindfulness': typeof MindfulnessRoute
   '/my-pictaria': typeof MyPictariaRouteWithChildren
+  '/portal': typeof PortalRouteWithChildren
   '/pricing': typeof PricingRoute
   '/share': typeof ShareRoute
   '/vision-board': typeof VisionBoardRoute
@@ -405,6 +413,7 @@ export interface FileRouteTypes {
     | '/mcp'
     | '/mindfulness'
     | '/my-pictaria'
+    | '/portal'
     | '/pricing'
     | '/share'
     | '/vision-board'
@@ -490,6 +499,7 @@ export interface FileRouteTypes {
     | '/mcp'
     | '/mindfulness'
     | '/my-pictaria'
+    | '/portal'
     | '/pricing'
     | '/share'
     | '/vision-board'
@@ -534,6 +544,7 @@ export interface RootRouteChildren {
   McpRoute: typeof McpRoute
   MindfulnessRoute: typeof MindfulnessRoute
   MyPictariaRoute: typeof MyPictariaRouteWithChildren
+  PortalRoute: typeof PortalRouteWithChildren
   PricingRoute: typeof PricingRoute
   ShareRoute: typeof ShareRoute
   VisionBoardRoute: typeof VisionBoardRoute
@@ -542,22 +553,11 @@ export interface RootRouteChildren {
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   CollectionCollectionIdRoute: typeof CollectionCollectionIdRoute
   PCodeRoute: typeof PCodeRoute
-  PortalIdRoute: typeof PortalIdRoute
-  PortalBetaRoute: typeof PortalBetaRoute
-  PortalCommunityRoute: typeof PortalCommunityRoute
-  PortalDailyRoute: typeof PortalDailyRoute
-  PortalDailyPastRoute: typeof PortalDailyPastRoute
-  PortalDashboardRoute: typeof PortalDashboardRoute
-  PortalLibraryRoute: typeof PortalLibraryRouteWithChildren
-  PortalNewRoute: typeof PortalNewRoute
-  PortalPushRoute: typeof PortalPushRoute
-  PortalSubscribersRoute: typeof PortalSubscribersRoute
   PuzzlePuzzleIdRoute: typeof PuzzlePuzzleIdRoute
   StorybookCollectionIdRoute: typeof StorybookCollectionIdRoute
   StudioArtistRoute: typeof StudioArtistRoute
   StudioBrandRoute: typeof StudioBrandRoute
   StudioPersonalRoute: typeof StudioPersonalRoute
-  PortalIndexRoute: typeof PortalIndexRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
   ApiPublicPushMedleyRoute: typeof ApiPublicPushMedleyRoute
 }
@@ -648,6 +648,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MyPictariaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/portal': {
+      id: '/portal'
+      path: '/portal'
+      fullPath: '/portal'
+      preLoaderRoute: typeof PortalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/pricing': {
       id: '/pricing'
       path: '/pricing'
@@ -720,80 +727,80 @@ declare module '@tanstack/react-router' {
     }
     '/portal/': {
       id: '/portal/'
-      path: '/portal'
+      path: '/'
       fullPath: '/portal/'
       preLoaderRoute: typeof PortalIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof PortalRoute
     }
     '/portal/$id': {
       id: '/portal/$id'
-      path: '/portal/$id'
+      path: '/$id'
       fullPath: '/portal/$id'
       preLoaderRoute: typeof PortalIdRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof PortalRoute
     }
     '/portal/beta': {
       id: '/portal/beta'
-      path: '/portal/beta'
+      path: '/beta'
       fullPath: '/portal/beta'
       preLoaderRoute: typeof PortalBetaRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof PortalRoute
     }
     '/portal/community': {
       id: '/portal/community'
-      path: '/portal/community'
+      path: '/community'
       fullPath: '/portal/community'
       preLoaderRoute: typeof PortalCommunityRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof PortalRoute
     }
     '/portal/daily': {
       id: '/portal/daily'
-      path: '/portal/daily'
+      path: '/daily'
       fullPath: '/portal/daily'
       preLoaderRoute: typeof PortalDailyRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof PortalRoute
     }
     '/portal/daily-past': {
       id: '/portal/daily-past'
-      path: '/portal/daily-past'
+      path: '/daily-past'
       fullPath: '/portal/daily-past'
       preLoaderRoute: typeof PortalDailyPastRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof PortalRoute
     }
     '/portal/dashboard': {
       id: '/portal/dashboard'
-      path: '/portal/dashboard'
+      path: '/dashboard'
       fullPath: '/portal/dashboard'
       preLoaderRoute: typeof PortalDashboardRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof PortalRoute
     }
     '/portal/library': {
       id: '/portal/library'
-      path: '/portal/library'
+      path: '/library'
       fullPath: '/portal/library'
       preLoaderRoute: typeof PortalLibraryRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof PortalRoute
     }
     '/portal/new': {
       id: '/portal/new'
-      path: '/portal/new'
+      path: '/new'
       fullPath: '/portal/new'
       preLoaderRoute: typeof PortalNewRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof PortalRoute
     }
     '/portal/push': {
       id: '/portal/push'
-      path: '/portal/push'
+      path: '/push'
       fullPath: '/portal/push'
       preLoaderRoute: typeof PortalPushRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof PortalRoute
     }
     '/portal/subscribers': {
       id: '/portal/subscribers'
-      path: '/portal/subscribers'
+      path: '/subscribers'
       fullPath: '/portal/subscribers'
       preLoaderRoute: typeof PortalSubscribersRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof PortalRoute
     }
     '/puzzle/$puzzleId': {
       id: '/puzzle/$puzzleId'
@@ -880,6 +887,37 @@ const PortalLibraryRouteWithChildren = PortalLibraryRoute._addFileChildren(
   PortalLibraryRouteChildren,
 )
 
+interface PortalRouteChildren {
+  PortalIdRoute: typeof PortalIdRoute
+  PortalBetaRoute: typeof PortalBetaRoute
+  PortalCommunityRoute: typeof PortalCommunityRoute
+  PortalDailyRoute: typeof PortalDailyRoute
+  PortalDailyPastRoute: typeof PortalDailyPastRoute
+  PortalDashboardRoute: typeof PortalDashboardRoute
+  PortalLibraryRoute: typeof PortalLibraryRouteWithChildren
+  PortalNewRoute: typeof PortalNewRoute
+  PortalPushRoute: typeof PortalPushRoute
+  PortalSubscribersRoute: typeof PortalSubscribersRoute
+  PortalIndexRoute: typeof PortalIndexRoute
+}
+
+const PortalRouteChildren: PortalRouteChildren = {
+  PortalIdRoute: PortalIdRoute,
+  PortalBetaRoute: PortalBetaRoute,
+  PortalCommunityRoute: PortalCommunityRoute,
+  PortalDailyRoute: PortalDailyRoute,
+  PortalDailyPastRoute: PortalDailyPastRoute,
+  PortalDashboardRoute: PortalDashboardRoute,
+  PortalLibraryRoute: PortalLibraryRouteWithChildren,
+  PortalNewRoute: PortalNewRoute,
+  PortalPushRoute: PortalPushRoute,
+  PortalSubscribersRoute: PortalSubscribersRoute,
+  PortalIndexRoute: PortalIndexRoute,
+}
+
+const PortalRouteWithChildren =
+  PortalRoute._addFileChildren(PortalRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   SplatRoute: SplatRoute,
@@ -893,6 +931,7 @@ const rootRouteChildren: RootRouteChildren = {
   McpRoute: McpRoute,
   MindfulnessRoute: MindfulnessRoute,
   MyPictariaRoute: MyPictariaRouteWithChildren,
+  PortalRoute: PortalRouteWithChildren,
   PricingRoute: PricingRoute,
   ShareRoute: ShareRoute,
   VisionBoardRoute: VisionBoardRoute,
@@ -902,22 +941,11 @@ const rootRouteChildren: RootRouteChildren = {
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
   CollectionCollectionIdRoute: CollectionCollectionIdRoute,
   PCodeRoute: PCodeRoute,
-  PortalIdRoute: PortalIdRoute,
-  PortalBetaRoute: PortalBetaRoute,
-  PortalCommunityRoute: PortalCommunityRoute,
-  PortalDailyRoute: PortalDailyRoute,
-  PortalDailyPastRoute: PortalDailyPastRoute,
-  PortalDashboardRoute: PortalDashboardRoute,
-  PortalLibraryRoute: PortalLibraryRouteWithChildren,
-  PortalNewRoute: PortalNewRoute,
-  PortalPushRoute: PortalPushRoute,
-  PortalSubscribersRoute: PortalSubscribersRoute,
   PuzzlePuzzleIdRoute: PuzzlePuzzleIdRoute,
   StorybookCollectionIdRoute: StorybookCollectionIdRoute,
   StudioArtistRoute: StudioArtistRoute,
   StudioBrandRoute: StudioBrandRoute,
   StudioPersonalRoute: StudioPersonalRoute,
-  PortalIndexRoute: PortalIndexRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
   ApiPublicPushMedleyRoute: ApiPublicPushMedleyRoute,
 }
