@@ -14,6 +14,7 @@ export const menuLinks = [
   { to: "/share", label: "Share Pictaria" },
   { to: "/vision-board", label: "Vision Board" },
   { to: "/pricing", label: "Pricing" },
+  { to: "/account", label: "My Membership" },
 ] as const;
 
 
