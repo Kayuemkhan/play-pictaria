@@ -123,7 +123,7 @@ function Home() {
 
 
         {/* wordmark */}
-        <div className="absolute inset-x-0 top-6 flex flex-col items-center px-6 text-center sm:top-6">
+        <div className="absolute inset-x-0 top-10 flex flex-col items-center px-6 text-center sm:top-12">
           <button
             type="button"
             onClick={handleLogoTap}
@@ -135,7 +135,7 @@ function Home() {
               alt="Pictaria"
               width={1024}
               height={1024}
-              style={{ filter: "saturate(1.45) brightness(0.8) contrast(1.08)" }}
+              style={{ filter: "saturate(1.7) brightness(0.66) contrast(1.22)" }}
               className="h-[3.25rem] w-auto cursor-pointer drop-shadow-[0_4px_18px_oklch(0.15_0.04_230/0.55)] transition-transform duration-500 ease-[var(--ease-calm)] hover:scale-[1.06] sm:h-[4.25rem]"
             />
           </button>
@@ -266,29 +266,8 @@ function Home() {
             Explore
           </h2>
 
-          {/* launch CTA */}
-          <div className="relative mt-2 overflow-hidden rounded-[4px] border border-accent/60 bg-deep-gradient p-4">
-            <div className="relative flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
-              <div>
-                <p className="font-display text-[0.85rem] leading-snug text-deep-foreground">
-                  Watch the launch film and join the list — be first to send your special moments as a game.
-                </p>
-                <p className="mt-1 text-[0.6rem] tracking-[0.14em] text-accent uppercase">
-                  Launching soon
-                </p>
-              </div>
-              <Link
-                to="/launch"
-                className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-primary px-3 py-1.5 text-[0.55rem] tracking-[0.2em] text-primary-foreground uppercase shadow-lift transition-transform hover:scale-[1.03]"
-              >
-                Join the launch list
-                <span aria-hidden>›</span>
-              </Link>
-            </div>
-          </div>
-
           {/* poem CTA — daily */}
-          <div className="relative mt-3 overflow-hidden rounded-[4px] border border-accent/60 bg-card/70 p-4">
+          <div className="relative mt-2 overflow-hidden rounded-[4px] border border-accent/60 bg-card/70 p-4">
             <div className="relative grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4">
               <p className="min-w-0 font-display text-[0.85rem] leading-snug [color:color-mix(in_oklch,var(--foreground)_92%,black)]">
                 I need a little paradise and I need just a little play — please send me a free Pictaria every single day
