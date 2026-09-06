@@ -346,10 +346,11 @@ export function PuzzleBoard({
       src,
       grid,
       title,
+      frames: framesForReplay,
       speed: 1,
       onBeat: () => {},
-    frames: framesForReplay,
     });
+
 
     await new Promise((resolve) =>
       window.setTimeout(resolve, replayDurationMs(framesForReplay, 1)),
