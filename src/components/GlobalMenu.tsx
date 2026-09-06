@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Menu } from "lucide-react";
 
 export const menuLinks = [
-  { to: "/launch", label: "Launch" },
+  
   { to: "/collections", label: "Galleries" },
   { to: "/about", label: "Travel to Pictaria" },
   { to: "/create", label: "Send a free Pictaria" },
