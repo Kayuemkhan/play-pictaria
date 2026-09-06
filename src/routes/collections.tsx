@@ -102,9 +102,13 @@ function CollectionsPage() {
   useEffect(() => {
     const onMove = (e: PointerEvent) => {
       if (!dragging.current || !dragIdRef.current) return;
-      e.preventDefault();
       const overId = idUnderPoint(e.clientX, e.clientY);
       if (overId) moveTo(dragIdRef.current, overId);
+    };
+    // Touch devices need the page held still while dragging; touch-action alone
+    // is decided when the gesture begins, so block the scroll here.
+    const onTouchMove = (e: TouchEvent) => {
+      if (dragging.current && e.cancelable) e.preventDefault();
     };
     const onUp = () => {
       cancelPress();
@@ -118,11 +122,13 @@ function CollectionsPage() {
       dragIdRef.current = null;
       setDragId(null);
     };
-    window.addEventListener("pointermove", onMove, { passive: false });
+    window.addEventListener("pointermove", onMove);
+    window.addEventListener("touchmove", onTouchMove, { passive: false });
     window.addEventListener("pointerup", onUp);
     window.addEventListener("pointercancel", onUp);
     return () => {
       window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("touchmove", onTouchMove);
       window.removeEventListener("pointerup", onUp);
       window.removeEventListener("pointercancel", onUp);
     };
