@@ -1,7 +1,7 @@
 import { Link, useRouter } from "@tanstack/react-router";
 import { useEffect } from "react";
 
-import shores from "@/assets/cover-shores.webp";
+import shores from "@/assets/sunset-08.webp";
 import palms from "@/assets/logo-palms-only.webp";
 
 /**
@@ -23,7 +23,7 @@ export function NotFoundPictaria() {
     <main className="relative min-h-screen overflow-hidden bg-deep">
       <img
         src={shores}
-        alt="A calm Hawaiian shoreline at golden hour"
+        alt="A Hawaiian ocean sunset"
         className="absolute inset-0 h-full w-full object-cover opacity-80"
         loading="eager"
       />
