@@ -405,7 +405,14 @@ export async function recordReplay({
   const type = ext === "mp4" ? "video/mp4" : "video/webm";
   const slug =
     title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "replay";
+  const tag = speed === 2 ? "-2x" : "";
   return {
-    clip: { url: URL.createObjectURL(blob), name: `pictaria-${slug}.${ext}`, blob, type },
+    clip: {
+      url: URL.createObjectURL(blob),
+      name: `pictaria-${slug}${tag}.${ext}`,
+      blob,
+      type,
+    },
   };
+
 }
