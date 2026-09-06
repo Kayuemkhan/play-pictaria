@@ -407,21 +407,18 @@ export type Database = {
           id: string
           name: string
           slug: string
-          sort_order: number
         }
         Insert: {
           created_at?: string
           id?: string
           name: string
           slug: string
-          sort_order?: number
         }
         Update: {
           created_at?: string
           id?: string
           name?: string
           slug?: string
-          sort_order?: number
         }
         Relationships: []
       }
@@ -433,7 +430,6 @@ export type Database = {
           free: boolean
           hidden: boolean
           id: string
-          sort_order: number
           tagline: string
           title: string
           updated_at: string
@@ -445,9 +441,8 @@ export type Database = {
           free?: boolean
           hidden?: boolean
           id?: string
-          sort_order?: number
           tagline?: string
-          title: string
+          title?: string
           updated_at?: string
         }
         Update: {
@@ -457,7 +452,6 @@ export type Database = {
           free?: boolean
           hidden?: boolean
           id?: string
-          sort_order?: number
           tagline?: string
           title?: string
           updated_at?: string
@@ -488,7 +482,7 @@ export type Database = {
           collection_id: string
           created_at?: string
           id?: string
-          image_path: string
+          image_path?: string
           meaning?: string
           sort_order?: number
           title?: string
