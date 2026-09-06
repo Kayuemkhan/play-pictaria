@@ -106,7 +106,7 @@ function LaunchPage() {
                 />
               </div>
               {status === "error" && (
-                <p className="text-[0.7rem] text-destructive">{errorMsg}</p>
+                <p className="text-[0.7rem] text-muted-foreground">{errorMsg}</p>
               )}
               <Button
                 type="submit"

@@ -236,7 +236,7 @@ function DailyPage() {
                   className="mt-1.5"
                 />
                 {status === "error" && (
-                  <p className="mt-2 text-[11px] text-destructive">{errorMsg}</p>
+                  <p className="mt-2 text-[11px] text-deep-foreground/90">{errorMsg}</p>
                 )}
                 <Button
                   type="submit"

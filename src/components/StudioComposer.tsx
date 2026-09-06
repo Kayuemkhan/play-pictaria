@@ -798,7 +798,7 @@ export function StudioComposer({
             </div>
 
             {publishState === "error" && (
-              <p className="mt-2 text-[11px] text-destructive">{publishError}</p>
+              <p className="mt-2 text-[11px] text-deep-foreground/90">{publishError}</p>
             )}
             {shareUrl && (
               <div className="mt-3 flex items-center gap-2 rounded-xl border border-accent/40 bg-background px-3 py-2">
@@ -847,7 +847,7 @@ export function StudioComposer({
                 className="rounded-xl border border-accent/40 bg-deep/60 px-3 py-2 text-sm text-shell outline-none placeholder:text-shell/35 focus:border-accent"
               />
               <span
-                className={`text-[10px] tracking-[0.12em] uppercase ${overLimit ? "text-destructive" : "text-shell/70"}`}
+                className={`text-[10px] tracking-[0.12em] uppercase ${overLimit ? "text-white" : "text-shell/70"}`}
               >
                 {recipientList.length} of {maxRecipients.toLocaleString()}
                 {overLimit

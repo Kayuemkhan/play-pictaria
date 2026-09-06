@@ -190,7 +190,7 @@ export function PushNotifyToggle() {
         </div>
       )}
 
-      {error && <p className="mt-3 text-[11px] text-destructive">{error}</p>}
+      {error && <p className="mt-3 text-[11px] text-deep-foreground/90">{error}</p>}
     </div>
   );
 }
