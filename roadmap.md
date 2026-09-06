@@ -5,3 +5,5 @@
 - [x] Reframe all four images to Pictaria's 3:4 standard (1152x1536) without distortion, keeping subjects and text visible.
 - [x] Fix replay preview/save flow on iPhone Safari (Save to Photos / Save to Files).
 - [x] New app icon: two palm trees framing an ocean sunset; apply as home-screen/app icon.
+- [x] Gentle Hawaiʻi 404 page with Home and All Collections.
+- [x] Cancellation retention flow at /account ("Hey, don't go…") with free-month offer, recorded for the founder at /portal/retention.
