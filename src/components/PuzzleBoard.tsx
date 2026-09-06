@@ -177,6 +177,9 @@ export function PuzzleBoard({
   /** every board state the player produced, timed for an exact replay */
   const timeline = useRef<ReplayFrame[]>([]);
   const timelineStart = useRef(0);
+  /** the exact frames used for the last replay, ready to re-render at 2× */
+  const replayFrames = useRef<ReplayFrame[]>([]);
+
   const { playing: musicPlaying, selected: musicSelected } = useMindfulPlayer();
   const musicOn = musicPlaying !== null;
   const musicTitle = trackName(musicPlaying ?? musicSelected);
