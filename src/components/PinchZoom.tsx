@@ -131,14 +131,28 @@ export function PinchZoom({
         setZoom(MAX);
         setOffset({ x: 0, y: 0 });
       }}
-      className={`relative overflow-hidden overscroll-contain ${className}`}
-      style={{ touchAction: "pan-y" }}
+      className={`relative overscroll-contain ${
+        scrollX ? "overflow-x-auto overflow-y-hidden" : "overflow-hidden"
+      } ${className}`}
+      style={{
+        touchAction: "pan-y",
+        ...(baseHeight
+          ? {
+              height: baseHeight * zoom,
+              transition: "height 120ms var(--ease-calm, ease-out)",
+            }
+          : null),
+      }}
     >
       <div
+        ref={contentRef}
         style={{
-          transform: `translate(${offset.x}px, ${offset.y}px) scale(${zoom})`,
+          transform: scrollX
+            ? `scale(${zoom})`
+            : `translate(${offset.x}px, ${offset.y}px) scale(${zoom})`,
           transformOrigin: "0 0",
           transition: gesture.current ? "none" : "transform 120ms var(--ease-calm, ease-out)",
+          width: scrollX ? "max-content" : undefined,
         }}
       >
         {children}
