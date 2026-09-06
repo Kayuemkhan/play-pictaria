@@ -33,7 +33,7 @@ function EasterEggPage() {
       <Link
         to="/"
         aria-label="Home"
-        className="pointer-events-auto fixed top-4 left-1/2 z-30 flex -translate-x-1/2 flex-col items-center gap-0 transition-[transform,opacity] hover:scale-105 active:scale-95"
+        className="pointer-events-auto sticky top-0 z-30 mx-auto flex w-fit flex-col items-center gap-0 pt-4 transition-[transform,opacity] hover:scale-105 active:scale-95"
       >
         <img
           src={palmLogo}
