@@ -1883,6 +1883,7 @@ export function PuzzleBoard({
           clip={clip}
           error={clip ? null : replayNote}
           title={title}
+          onRenderSpeed={renderAtSpeed}
           onClose={() => {
             setShowReplayResult(false);
             setClip(null);
@@ -1890,6 +1891,7 @@ export function PuzzleBoard({
           }}
         />
       )}
+
 
       {unbranded && (
         <Link
