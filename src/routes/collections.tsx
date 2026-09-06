@@ -102,9 +102,13 @@ function CollectionsPage() {
   useEffect(() => {
     const onMove = (e: PointerEvent) => {
       if (!dragging.current || !dragIdRef.current) return;
-      e.preventDefault();
       const overId = idUnderPoint(e.clientX, e.clientY);
       if (overId) moveTo(dragIdRef.current, overId);
+    };
+    // Touch devices need the page held still while dragging; touch-action alone
+    // is decided when the gesture begins, so block the scroll here.
+    const onTouchMove = (e: TouchEvent) => {
+      if (dragging.current && e.cancelable) e.preventDefault();
     };
     const onUp = () => {
       cancelPress();
@@ -118,11 +122,13 @@ function CollectionsPage() {
       dragIdRef.current = null;
       setDragId(null);
     };
-    window.addEventListener("pointermove", onMove, { passive: false });
+    window.addEventListener("pointermove", onMove);
+    window.addEventListener("touchmove", onTouchMove, { passive: false });
     window.addEventListener("pointerup", onUp);
     window.addEventListener("pointercancel", onUp);
     return () => {
       window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("touchmove", onTouchMove);
       window.removeEventListener("pointerup", onUp);
       window.removeEventListener("pointercancel", onUp);
     };
@@ -139,7 +145,7 @@ function CollectionsPage() {
           </p>
           <h1 className="mt-1 font-display text-3xl sm:text-4xl">All Collections</h1>
           <p className="mt-2 text-[10px] tracking-[0.16em] text-muted-foreground uppercase">
-            Press and hold an album to drag it into a new place
+            Press and hold an album to drag.
           </p>
         </div>
 
@@ -178,7 +184,12 @@ data-collection-id={collection.id}
                 onClick={(e) => {
                   if (dragging.current || justDragged.current) e.preventDefault();
                 }}
-                style={{ touchAction: dragId ? "none" : "manipulation" }}
+                style={{
+                  touchAction: dragId ? "none" : "manipulation",
+                  // the held card must not sit under the finger, or the card
+                  // beneath it can never be detected as the drop target
+                  pointerEvents: isDragging ? "none" : undefined,
+                }}
 
                 className={`tile-sheen group relative block overflow-hidden rounded-[4px] border shadow-soft transition-[box-shadow,transform,border-color] duration-300 hover:shadow-lift ${
                   isDragging

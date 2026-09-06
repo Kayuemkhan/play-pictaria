@@ -209,7 +209,7 @@ function PricingPage() {
             Compare the plans
           </h2>
           <p className="mt-1 text-[0.6rem] tracking-[0.16em] text-deep-foreground/70 uppercase">
-            Pinch to zoom · double tap to reset
+            Pinch in to shrink · double tap to reset
           </p>
           <PinchZoom className="mt-4 rounded-[4px]">
             <div className="overflow-x-auto">
