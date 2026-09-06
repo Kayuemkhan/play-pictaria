@@ -135,6 +135,7 @@ function Home() {
               alt="Pictaria"
               width={1024}
               height={1024}
+              style={{ filter: "saturate(1.45) brightness(0.8) contrast(1.08)" }}
               className="h-[3.25rem] w-auto cursor-pointer drop-shadow-[0_4px_18px_oklch(0.15_0.04_230/0.55)] transition-transform duration-500 ease-[var(--ease-calm)] hover:scale-[1.06] sm:h-[4.25rem]"
             />
           </button>
