@@ -62,7 +62,7 @@ export async function requirePortal() {
 
 // ---------------------------------------------------------------- storage
 
-function decodeDataUrl(dataUrl: string) {
+export function decodeDataUrl(dataUrl: string) {
   const match = /^data:(image\/(?:jpeg|jpg|png|webp));base64,(.+)$/i.exec(dataUrl);
   if (!match) throw new Error("Only JPEG, PNG or WebP photographs are supported.");
   const contentType = match[1]!;

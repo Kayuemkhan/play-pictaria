@@ -37,6 +37,8 @@ import { Route as PortalBetaRouteImport } from './routes/portal.beta'
 import { Route as PortalCommunityRouteImport } from './routes/portal.community'
 import { Route as PortalDailyRouteImport } from './routes/portal.daily'
 import { Route as PortalDailyPastRouteImport } from './routes/portal.daily-past'
+import { Route as PortalDashboardRouteImport } from './routes/portal.dashboard'
+import { Route as PortalLibraryRouteImport } from './routes/portal.library'
 import { Route as PortalNewRouteImport } from './routes/portal.new'
 import { Route as PortalPushRouteImport } from './routes/portal.push'
 import { Route as PortalSubscribersRouteImport } from './routes/portal.subscribers'
@@ -47,6 +49,7 @@ import { Route as StudioBrandRouteImport } from './routes/studio.brand'
 import { Route as StudioPersonalRouteImport } from './routes/studio.personal'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
 import { Route as ApiPublicPushMedleyRouteImport } from './routes/api/public/push-medley'
+import { Route as PortalLibraryCollectionIdRouteImport } from './routes/portal.library.$collectionId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -190,6 +193,16 @@ const PortalDailyPastRoute = PortalDailyPastRouteImport.update({
   path: '/portal/daily-past',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PortalDashboardRoute = PortalDashboardRouteImport.update({
+  id: '/portal/dashboard',
+  path: '/portal/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PortalLibraryRoute = PortalLibraryRouteImport.update({
+  id: '/portal/library',
+  path: '/portal/library',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PortalNewRoute = PortalNewRouteImport.update({
   id: '/portal/new',
   path: '/portal/new',
@@ -241,6 +254,12 @@ const ApiPublicPushMedleyRoute = ApiPublicPushMedleyRouteImport.update({
   path: '/api/public/push-medley',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PortalLibraryCollectionIdRoute =
+  PortalLibraryCollectionIdRouteImport.update({
+    id: '/$collectionId',
+    path: '/$collectionId',
+    getParentRoute: () => PortalLibraryRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -269,6 +288,8 @@ export interface FileRoutesByFullPath {
   '/portal/community': typeof PortalCommunityRoute
   '/portal/daily': typeof PortalDailyRoute
   '/portal/daily-past': typeof PortalDailyPastRoute
+  '/portal/dashboard': typeof PortalDashboardRoute
+  '/portal/library': typeof PortalLibraryRouteWithChildren
   '/portal/new': typeof PortalNewRoute
   '/portal/push': typeof PortalPushRoute
   '/portal/subscribers': typeof PortalSubscribersRoute
@@ -281,6 +302,7 @@ export interface FileRoutesByFullPath {
   '/portal/': typeof PortalIndexRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/api/public/push-medley': typeof ApiPublicPushMedleyRoute
+  '/portal/library/$collectionId': typeof PortalLibraryCollectionIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -308,6 +330,8 @@ export interface FileRoutesByTo {
   '/portal/community': typeof PortalCommunityRoute
   '/portal/daily': typeof PortalDailyRoute
   '/portal/daily-past': typeof PortalDailyPastRoute
+  '/portal/dashboard': typeof PortalDashboardRoute
+  '/portal/library': typeof PortalLibraryRouteWithChildren
   '/portal/new': typeof PortalNewRoute
   '/portal/push': typeof PortalPushRoute
   '/portal/subscribers': typeof PortalSubscribersRoute
@@ -320,6 +344,7 @@ export interface FileRoutesByTo {
   '/portal': typeof PortalIndexRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/api/public/push-medley': typeof ApiPublicPushMedleyRoute
+  '/portal/library/$collectionId': typeof PortalLibraryCollectionIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -349,6 +374,8 @@ export interface FileRoutesById {
   '/portal/community': typeof PortalCommunityRoute
   '/portal/daily': typeof PortalDailyRoute
   '/portal/daily-past': typeof PortalDailyPastRoute
+  '/portal/dashboard': typeof PortalDashboardRoute
+  '/portal/library': typeof PortalLibraryRouteWithChildren
   '/portal/new': typeof PortalNewRoute
   '/portal/push': typeof PortalPushRoute
   '/portal/subscribers': typeof PortalSubscribersRoute
@@ -361,6 +388,7 @@ export interface FileRoutesById {
   '/portal/': typeof PortalIndexRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/api/public/push-medley': typeof ApiPublicPushMedleyRoute
+  '/portal/library/$collectionId': typeof PortalLibraryCollectionIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -391,6 +419,8 @@ export interface FileRouteTypes {
     | '/portal/community'
     | '/portal/daily'
     | '/portal/daily-past'
+    | '/portal/dashboard'
+    | '/portal/library'
     | '/portal/new'
     | '/portal/push'
     | '/portal/subscribers'
@@ -403,6 +433,7 @@ export interface FileRouteTypes {
     | '/portal/'
     | '/.mcp/invoke-tool/$tool'
     | '/api/public/push-medley'
+    | '/portal/library/$collectionId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -430,6 +461,8 @@ export interface FileRouteTypes {
     | '/portal/community'
     | '/portal/daily'
     | '/portal/daily-past'
+    | '/portal/dashboard'
+    | '/portal/library'
     | '/portal/new'
     | '/portal/push'
     | '/portal/subscribers'
@@ -442,6 +475,7 @@ export interface FileRouteTypes {
     | '/portal'
     | '/.mcp/invoke-tool/$tool'
     | '/api/public/push-medley'
+    | '/portal/library/$collectionId'
   id:
     | '__root__'
     | '/'
@@ -470,6 +504,8 @@ export interface FileRouteTypes {
     | '/portal/community'
     | '/portal/daily'
     | '/portal/daily-past'
+    | '/portal/dashboard'
+    | '/portal/library'
     | '/portal/new'
     | '/portal/push'
     | '/portal/subscribers'
@@ -482,6 +518,7 @@ export interface FileRouteTypes {
     | '/portal/'
     | '/.mcp/invoke-tool/$tool'
     | '/api/public/push-medley'
+    | '/portal/library/$collectionId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -510,6 +547,8 @@ export interface RootRouteChildren {
   PortalCommunityRoute: typeof PortalCommunityRoute
   PortalDailyRoute: typeof PortalDailyRoute
   PortalDailyPastRoute: typeof PortalDailyPastRoute
+  PortalDashboardRoute: typeof PortalDashboardRoute
+  PortalLibraryRoute: typeof PortalLibraryRouteWithChildren
   PortalNewRoute: typeof PortalNewRoute
   PortalPushRoute: typeof PortalPushRoute
   PortalSubscribersRoute: typeof PortalSubscribersRoute
@@ -721,6 +760,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PortalDailyPastRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/portal/dashboard': {
+      id: '/portal/dashboard'
+      path: '/portal/dashboard'
+      fullPath: '/portal/dashboard'
+      preLoaderRoute: typeof PortalDashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/portal/library': {
+      id: '/portal/library'
+      path: '/portal/library'
+      fullPath: '/portal/library'
+      preLoaderRoute: typeof PortalLibraryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/portal/new': {
       id: '/portal/new'
       path: '/portal/new'
@@ -791,6 +844,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicPushMedleyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/portal/library/$collectionId': {
+      id: '/portal/library/$collectionId'
+      path: '/$collectionId'
+      fullPath: '/portal/library/$collectionId'
+      preLoaderRoute: typeof PortalLibraryCollectionIdRouteImport
+      parentRoute: typeof PortalLibraryRoute
+    }
   }
 }
 
@@ -806,6 +866,18 @@ const MyPictariaRouteChildren: MyPictariaRouteChildren = {
 
 const MyPictariaRouteWithChildren = MyPictariaRoute._addFileChildren(
   MyPictariaRouteChildren,
+)
+
+interface PortalLibraryRouteChildren {
+  PortalLibraryCollectionIdRoute: typeof PortalLibraryCollectionIdRoute
+}
+
+const PortalLibraryRouteChildren: PortalLibraryRouteChildren = {
+  PortalLibraryCollectionIdRoute: PortalLibraryCollectionIdRoute,
+}
+
+const PortalLibraryRouteWithChildren = PortalLibraryRoute._addFileChildren(
+  PortalLibraryRouteChildren,
 )
 
 const rootRouteChildren: RootRouteChildren = {
@@ -835,6 +907,8 @@ const rootRouteChildren: RootRouteChildren = {
   PortalCommunityRoute: PortalCommunityRoute,
   PortalDailyRoute: PortalDailyRoute,
   PortalDailyPastRoute: PortalDailyPastRoute,
+  PortalDashboardRoute: PortalDashboardRoute,
+  PortalLibraryRoute: PortalLibraryRouteWithChildren,
   PortalNewRoute: PortalNewRoute,
   PortalPushRoute: PortalPushRoute,
   PortalSubscribersRoute: PortalSubscribersRoute,

@@ -8,7 +8,8 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
+import { useServerFn } from "@tanstack/react-start";
 
 import appCss from "../styles.css?url";
 import { Toaster } from "@/components/ui/sonner";
@@ -16,6 +17,7 @@ import { TopBackButton } from "@/components/TopBackButton";
 import { TopHomeButton } from "@/components/TopHomeButton";
 import { BottomHomeButton } from "@/components/BottomBackButton";
 import { GlobalMenu } from "@/components/GlobalMenu";
+import { recordPageView } from "@/lib/analytics.functions";
 
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
@@ -146,6 +148,56 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
+const VISITOR_ID_KEY = "pictaria-visitor-id";
+
+function visitorId() {
+  if (typeof window === "undefined") return "";
+  try {
+    let id = window.localStorage.getItem(VISITOR_ID_KEY);
+    if (!id) {
+      id = crypto.randomUUID();
+      window.localStorage.setItem(VISITOR_ID_KEY, id);
+    }
+    return id;
+  } catch {
+    return "";
+  }
+}
+
+/**
+ * Anonymous first-party page-view beacon for the founder's traffic dashboard
+ * (/portal/dashboard). No cookies, no PII — just an id the browser keeps to
+ * itself so repeat visits count as one visitor. Admin traffic under /portal
+ * is skipped so it doesn't skew visitor counts.
+ */
+function PageViewTracker() {
+  const router = useRouter();
+  const record = useServerFn(recordPageView);
+  const lastPath = useRef<string | null>(null);
+
+  useEffect(() => {
+    const send = () => {
+      const path = router.state.location.pathname;
+      if (path === lastPath.current) return;
+      lastPath.current = path;
+      if (path.startsWith("/portal")) return;
+      const id = visitorId();
+      if (!id) return;
+      void record({
+        data: { path, referrer: document.referrer || undefined, visitorId: id },
+      }).catch(() => {
+        // Analytics is best-effort — never surface a failure to the visitor.
+      });
+    };
+
+    send();
+    const unsub = router.subscribe("onResolved", send);
+    return unsub;
+  }, [router, record]);
+
+  return null;
+}
+
 /**
  * Keeps the hardware/browser back button inside the app: when the user is on
  * the home screen we keep a sentinel history entry behind them so "back"
@@ -271,6 +323,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <PageViewTracker />
       <BackGuard />
       <GlobalMenu />
       <GlobalChrome />

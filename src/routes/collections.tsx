@@ -1,5 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
 import { visibleCollections } from "@/data/collections";
+import type { Collection } from "@/data/collections";
+import { getLibraryCollections } from "@/lib/collection-catalog.functions";
 
 
 export const Route = createFileRoute("/collections")({
@@ -23,6 +27,16 @@ export const Route = createFileRoute("/collections")({
 });
 
 function CollectionsPage() {
+  const loadLibrary = useServerFn(getLibraryCollections);
+  const [libraryCollections, setLibraryCollections] = useState<Collection[]>([]);
+
+  useEffect(() => {
+    void loadLibrary({}).then((result) => setLibraryCollections(result.collections));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const allCollections = [...libraryCollections, ...visibleCollections];
+
   return (
     <main className="min-h-screen bg-mist-gradient px-4 pb-20 sm:px-6">
       <div className="mx-auto w-full max-w-5xl">
@@ -35,7 +49,7 @@ function CollectionsPage() {
 
         <div className="mt-5 grid grid-cols-3 gap-2 sm:gap-3">
 
-          {visibleCollections.map((collection) => (
+          {allCollections.map((collection) => (
             <Link
               key={collection.id}
               to="/collection/$collectionId"

@@ -1,11 +1,14 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
 import { PuzzleBoard } from "@/components/PuzzleBoard";
 
 import { noteParagraphs, usePuzzleNote } from "@/lib/puzzle-notes";
 
 
 import { collections, findPuzzle } from "@/data/collections";
+import type { Collection, Puzzle } from "@/data/collections";
+import { getLibraryPuzzle } from "@/lib/collection-catalog.functions";
 
 
 export const Route = createFileRoute("/puzzle/$puzzleId")({
@@ -37,10 +40,29 @@ function PuzzlePage() {
   const navigate = useNavigate();
   const [grid, setGrid] = useState<number>(initialGrid ?? 4);
   const note = usePuzzleNote(puzzleId);
-  const found = findPuzzle(puzzleId);
+  const staticFound = findPuzzle(puzzleId);
 
+  // Not one of the static puzzles — check the admin-added library before giving up.
+  const loadLibraryPuzzle = useServerFn(getLibraryPuzzle);
+  const [libraryFound, setLibraryFound] = useState<{
+    puzzle: Puzzle;
+    collection: Collection;
+  } | null>(null);
+  const [libraryChecked, setLibraryChecked] = useState(false);
+
+  useEffect(() => {
+    if (staticFound) return;
+    void loadLibraryPuzzle({ data: { puzzleId } }).then((result) => {
+      setLibraryFound(result.found);
+      setLibraryChecked(true);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [puzzleId, staticFound]);
+
+  const found = staticFound ?? libraryFound;
 
   if (!found) {
+    if (!libraryChecked) return null;
     return (
       <main className="flex min-h-screen flex-col items-center justify-center bg-mist-gradient px-6 text-center">
         <h1 className="font-display text-4xl">Puzzle not found</h1>

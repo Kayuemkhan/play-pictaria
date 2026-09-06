@@ -2,6 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { collections, findPuzzle } from "@/data/collections";
+import type { Collection } from "@/data/collections";
+import { getLibraryCollections } from "@/lib/collection-catalog.functions";
 import { usePuzzleNotes } from "@/lib/puzzle-notes";
 
 import palmLogo from "@/assets/logo-palms-only.webp";
@@ -38,7 +40,7 @@ const legacyCollectionIds: Record<string, string> = {
 function CollectionPage() {
   const { collectionId } = Route.useParams();
   const resolvedId = legacyCollectionIds[collectionId] ?? collectionId;
-  const collection = collections.find((c) => c.id === resolvedId);
+  const staticCollection = collections.find((c) => c.id === resolvedId);
   const notes = usePuzzleNotes();
 
   const isArchive = collectionId === "yesterdailys";
@@ -52,7 +54,24 @@ function CollectionPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isArchive]);
 
+  // Not one of the static collections — check the admin-added library before giving up.
+  const loadLibrary = useServerFn(getLibraryCollections);
+  const [libraryCollection, setLibraryCollection] = useState<Collection | null>(null);
+  const [libraryChecked, setLibraryChecked] = useState(false);
+
+  useEffect(() => {
+    if (staticCollection) return;
+    void loadLibrary({}).then((result) => {
+      setLibraryCollection(result.collections.find((c) => c.id === resolvedId) ?? null);
+      setLibraryChecked(true);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [resolvedId, staticCollection]);
+
+  const collection = staticCollection ?? libraryCollection;
+
   if (!collection) {
+    if (!libraryChecked) return null;
     return (
       <main className="flex min-h-screen flex-col items-center justify-center bg-mist-gradient px-6 text-center">
         <h1 className="font-display text-4xl">Collection not found</h1>

@@ -48,6 +48,9 @@ function Home() {
   const [signedUp, setSignedUp] = useState(false);
   const [todaysPuzzleId, setTodaysPuzzleId] = useState("turtle-09");
   const loadPicks = useServerFn(getDailyPicks);
+  const loadLibrary = useServerFn(getLibraryCollections);
+  const [libraryCollections, setLibraryCollections] = useState<Collection[]>([]);
+  const featured = [...libraryCollections, ...visibleCollections];
 
   useEffect(() => {
     const check = async () => {
@@ -73,6 +76,11 @@ function Home() {
       }
     };
     void loadToday();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    void loadLibrary({}).then((result) => setLibraryCollections(result.collections));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

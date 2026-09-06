@@ -26,6 +26,40 @@ function NewBusiness() {
       </header>
       <div className="mx-auto mt-6 max-w-md">
         <Link
+          to="/portal/dashboard"
+          className="mb-3 flex items-center justify-between rounded-lg border border-accent/40 bg-shell/90 px-5 py-4 shadow-soft transition-transform hover:scale-[1.01]"
+        >
+          <span>
+            <span className="block font-display text-[1.05rem] text-foreground">
+              Dashboard
+            </span>
+            <span className="text-[10px] tracking-[0.16em] text-muted-foreground uppercase">
+              traffic, waitlist and subscribers
+            </span>
+          </span>
+          <span aria-hidden className="text-primary">
+            ›
+          </span>
+        </Link>
+
+        <Link
+          to="/portal/library"
+          className="mb-3 flex items-center justify-between rounded-lg border border-accent/40 bg-shell/90 px-5 py-4 shadow-soft transition-transform hover:scale-[1.01]"
+        >
+          <span>
+            <span className="block font-display text-[1.05rem] text-foreground">
+              Photo Library
+            </span>
+            <span className="text-[10px] tracking-[0.16em] text-muted-foreground uppercase">
+              add images, categories and collections
+            </span>
+          </span>
+          <span aria-hidden className="text-primary">
+            ›
+          </span>
+        </Link>
+
+        <Link
           to="/portal/daily"
           className="mb-3 flex items-center justify-between rounded-lg border border-accent/40 bg-shell/90 px-5 py-4 shadow-soft transition-transform hover:scale-[1.01]"
         >
