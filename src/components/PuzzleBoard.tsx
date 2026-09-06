@@ -24,7 +24,14 @@ import {
   useMindfulPlayer,
 } from "@/components/MindfulMusic";
 import { ReplaySaveModal } from "@/components/ReplaySaveModal";
-import { recordReplay, type ReplayClip, type ReplayFrame } from "@/lib/replay-video";
+import {
+  recordReplay,
+  replayDurationMs,
+  type ReplayClip,
+  type ReplayFrame,
+  type ReplaySpeed,
+} from "@/lib/replay-video";
+
 
 type SoundscapeId = (typeof TRACK_OPTIONS)[number]["id"];
 
