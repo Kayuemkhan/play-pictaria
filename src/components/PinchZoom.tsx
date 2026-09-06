@@ -34,7 +34,7 @@ export function PinchZoom({
     const x = px - (px - cur.offset.x) * k;
     const y = py - (py - cur.offset.y) * k;
     setZoom(clamped);
-    setOffset(clamped === MIN ? { x: 0, y: 0 } : { x, y });
+    setOffset(clamped === MAX ? { x: 0, y: 0 } : { x, y });
   };
 
   // native, non-passive wheel listener so trackpad pinch does not zoom the page
