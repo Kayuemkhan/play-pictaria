@@ -112,11 +112,11 @@ export function PinchZoom({
       onPointerUp={endPointer}
       onPointerCancel={endPointer}
       onDoubleClick={() => {
-        setZoom(1);
+        setZoom(MAX);
         setOffset({ x: 0, y: 0 });
       }}
-      className={`relative touch-pan-y overflow-hidden overscroll-contain ${className}`}
-      style={{ touchAction: zoom > 1 ? "none" : "pan-y pinch-zoom" }}
+      className={`relative overflow-hidden overscroll-contain ${className}`}
+      style={{ touchAction: "pan-y" }}
     >
       <div
         style={{
