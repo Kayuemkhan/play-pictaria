@@ -178,6 +178,18 @@ import pineapple18 from "@/assets/pineapple-18.webp";
 import pineapple19 from "@/assets/pineapple-19.webp";
 import pineapple20 from "@/assets/pineapple-20.webp";
 import pineapple21 from "@/assets/pineapple-21.webp";
+import pineapple22 from "@/assets/pineapple-22.webp";
+import pineapple23 from "@/assets/pineapple-23.webp";
+import pineapple24 from "@/assets/pineapple-24.webp";
+import pineapple25 from "@/assets/pineapple-25.webp";
+import pineapple26 from "@/assets/pineapple-26.webp";
+import pineapple27 from "@/assets/pineapple-27.webp";
+import pineapple28 from "@/assets/pineapple-28.webp";
+import pineapple29 from "@/assets/pineapple-29.webp";
+import pineapple30 from "@/assets/pineapple-30.webp";
+import pineapple31 from "@/assets/pineapple-31.webp";
+import pineapple32 from "@/assets/pineapple-32.webp";
+import pineappleHero from "@/assets/hero-tropical-magic.webp";
 import drink01 from "@/assets/drink-01.webp";
 import drink02 from "@/assets/drink-02.webp";
 import drink03 from "@/assets/drink-03.webp";
@@ -2139,7 +2151,7 @@ export const collections: Collection[] = [
   {
     id: "pineapples-of-hawaii",
     title: "Pineapples of Hawaii",
-    tagline: "Twenty-one golden island moments, from plantation house to palm-framed sunset",
+    tagline: "Thirty-three golden island moments, from plantation house to palm-framed sunset",
     cover: pineapple05,
     free: true,
     puzzles: [
@@ -2158,7 +2170,7 @@ export const collections: Collection[] = [
       {
         id: "pineapple-03",
         title: "Beach Cool",
-        caption: "Sunglasses and white sand",
+        caption: "Black Wayfarers and white sand",
         image: pineapple03,
       },
       {
@@ -2314,6 +2326,171 @@ export const collections: Collection[] = [
         title: "Cabin Kitchen",
         caption: "Halved fruit, ginger blooms, a hanging ʻukulele",
         image: pineapple21,
+      },
+      {
+        id: "pineapple-22",
+        title: "Doorway to the Bay",
+        caption: "Pineapple spears on koa, ocean through the open doors",
+        image: pineapple22,
+        recipe: {
+          yield: "Serves 4",
+          ingredients: [
+            "1 ripe pineapple",
+            "2 limes",
+            "Pinch of flaky salt",
+            "Fresh mint leaves",
+          ],
+          steps: [
+            "Cut the crown and base off the pineapple, then slice away the skin.",
+            "Quarter it lengthwise and trim out the firm core.",
+            "Cut each quarter into long spears and pile them in a shallow dish.",
+            "Squeeze lime over the top, add a pinch of salt, and tuck in mint.",
+            "Chill 20 minutes before serving.",
+          ],
+          note: "Salt sounds odd and tastes wonderful — it makes the fruit read sweeter.",
+        },
+      },
+      {
+        id: "pineapple-23",
+        title: "Louvered Shutters",
+        caption: "Plumeria in a jar, surf beyond the sill",
+        image: pineapple23,
+      },
+      {
+        id: "pineapple-24",
+        title: "Grilled Gold",
+        caption: "Charred rings with chili and lime at golden hour",
+        image: pineapple24,
+        recipe: {
+          yield: "Serves 4",
+          ingredients: [
+            "1 pineapple, peeled and cut into ½-inch rings",
+            "1 tbsp melted butter or coconut oil",
+            "1 tbsp brown sugar",
+            "½ tsp chili powder",
+            "1 lime",
+          ],
+          steps: [
+            "Heat a grill or grill pan to medium-high.",
+            "Brush the rings with butter and dust with the brown sugar and chili.",
+            "Grill 2–3 minutes per side until dark marks form.",
+            "Finish with a squeeze of lime and serve warm.",
+          ],
+        },
+      },
+      {
+        id: "pineapple-25",
+        title: "Bubbling Brook",
+        caption: "A little waterfall, hibiscus, and sparkling water over moss",
+        image: pineapple25,
+      },
+      {
+        id: "pineapple-26",
+        title: "Curtains and Coastline",
+        caption: "A carved bowl of fruit on the window ledge",
+        image: pineapple26,
+        recipe: {
+          yield: "Serves 2",
+          ingredients: [
+            "1 cup pineapple, cubed",
+            "1 cup papaya, cubed",
+            "1 lime",
+            "1 tbsp shredded coconut",
+          ],
+          steps: [
+            "Toss the pineapple and papaya together in a bowl.",
+            "Squeeze the lime over and stir gently.",
+            "Scatter the coconut on top just before serving.",
+          ],
+        },
+      },
+      {
+        id: "pineapple-27",
+        title: "Lanai Smoothies",
+        caption: "Two creamy glasses on a lauhala mat",
+        image: pineapple27,
+        recipe: {
+          yield: "Serves 2",
+          ingredients: [
+            "2 cups frozen pineapple chunks",
+            "1 banana",
+            "¾ cup coconut milk",
+            "½ cup pineapple juice",
+            "1 tsp honey, optional",
+          ],
+          steps: [
+            "Put everything in a blender.",
+            "Blend on high until thick and smooth, 45–60 seconds.",
+            "Pour into tall glasses and garnish with a pineapple wedge.",
+          ],
+        },
+      },
+      {
+        id: "pineapple-28",
+        title: "Screen Door Light",
+        caption: "Sun across old floorboards, red ginger outside",
+        image: pineapple28,
+      },
+      {
+        id: "pineapple-29",
+        title: "Kitchen Window",
+        caption: "Fruit salad in blue-and-white, palms past the sink",
+        image: pineapple29,
+        recipe: {
+          yield: "Serves 6",
+          ingredients: [
+            "2 cups pineapple, cubed",
+            "1 cup papaya, cubed",
+            "2 bananas, sliced",
+            "½ cup fresh coconut, in shavings",
+            "Juice of 1 lime",
+            "1 tbsp honey",
+          ],
+          steps: [
+            "Whisk the lime juice and honey together in a large bowl.",
+            "Add the pineapple, papaya, and coconut and fold to coat.",
+            "Slice the bananas in last so they stay firm.",
+            "Serve cold, within an hour of making.",
+          ],
+        },
+      },
+      {
+        id: "pineapple-30",
+        title: "Garden Gate",
+        caption: "Lava stones, bougainvillea, and a sliver of blue",
+        image: pineapple30,
+      },
+      {
+        id: "pineapple-31",
+        title: "Great Room",
+        caption: "A platter of wedges, the bay wide open beyond",
+        image: pineapple31,
+        recipe: {
+          yield: "Serves 8",
+          ingredients: [
+            "1 large pineapple",
+            "Ti or banana leaves, to line the platter",
+            "Edible flowers, to garnish",
+          ],
+          steps: [
+            "Halve the pineapple lengthwise, then quarter each half.",
+            "Run a knife between the flesh and the skin, leaving the flesh in place.",
+            "Slice the flesh crosswise into bite-sized pieces so it lifts out easily.",
+            "Line a platter with leaves, arrange the wedges, and tuck flowers between them.",
+          ],
+        },
+      },
+      {
+        id: "pineapple-32",
+        title: "Trade Wind Sunset",
+        caption: "Curtains lifting, a lei on the bench, sun in the sea",
+        image: pineapple32,
+      },
+      {
+        id: "pineapple-33",
+        title: "Tropical Magic",
+        caption: "The enchanted cove that greets you at the door",
+        image: pineappleHero,
       },
     ],
   },
